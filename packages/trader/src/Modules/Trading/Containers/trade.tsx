@@ -1,17 +1,21 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Div100vhContainer, SwipeableWrapper } from '@deriv/components';
+
 import { TickSpotData } from '@deriv/api-types';
-import { TRADE_TYPES, isTabletOs } from '@deriv/shared';
+import { Div100vhContainer, SwipeableWrapper } from '@deriv/components';
+import { isTabletOs, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import ChartLoader from 'App/Components/Elements/chart-loader';
-import PositionsDrawer from 'App/Components/Elements/PositionsDrawer';
-import MarketIsClosedOverlay from 'App/Components/Elements/market-is-closed-overlay';
-import { ChartTopWidgets, DigitsWidget } from './chart-widgets';
-import FormLayout from '../Components/Form/form-layout';
-import TradeChart from './trade-chart';
 import { Loader, useDevice } from '@deriv-com/ui';
+
+import ChartLoader from 'App/Components/Elements/chart-loader';
+import MarketIsClosedOverlay from 'App/Components/Elements/market-is-closed-overlay';
+import PositionsDrawer from 'App/Components/Elements/PositionsDrawer';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import FormLayout from '../Components/Form/form-layout';
+
+import { ChartTopWidgets, DigitsWidget } from './chart-widgets';
+import TradeChart from './trade-chart';
 
 export type TBottomWidgetsParams = {
     digits: number[];

@@ -1,8 +1,9 @@
 import { ContractType as ContractTypeHelper } from 'Stores/Modules/Trading/Helpers/contract-type';
+import { TTradeStore } from 'Types';
+
 import * as ContractType from '../Actions/contract-type';
 import * as Duration from '../Actions/duration';
 import * as StartDate from '../Actions/start-date';
-import { TTradeStore } from 'Types';
 
 // remove local TGetSnapshot type and assertion after TS migration for trader package is complete
 type TGetSnapshot = (properties?: string[]) => TTradeStore;

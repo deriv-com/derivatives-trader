@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import TouchTradeDescription from '../touch-trade-description';
 
 describe('<TouchTradeDescription />', () => {

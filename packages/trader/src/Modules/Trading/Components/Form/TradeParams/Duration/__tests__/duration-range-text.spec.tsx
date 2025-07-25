@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import DurationRangeText from '../duration-range-text';
 
 describe('<DurationRangeText />', () => {

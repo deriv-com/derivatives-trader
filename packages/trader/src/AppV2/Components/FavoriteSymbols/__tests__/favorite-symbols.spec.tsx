@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import FavoriteSymbols from '../favorite-symbols';
-import { useGetFavoriteSymbols } from 'AppV2/Hooks/useGetFavoriteSymbols';
-import { TCoreStores } from '@deriv/stores/types';
+
 import { mockStore } from '@deriv/stores';
+import { TCoreStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+
+import { useGetFavoriteSymbols } from 'AppV2/Hooks/useGetFavoriteSymbols';
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
+import FavoriteSymbols from '../favorite-symbols';
 
 jest.mock('AppV2/Hooks/useGetFavoriteSymbols');
 

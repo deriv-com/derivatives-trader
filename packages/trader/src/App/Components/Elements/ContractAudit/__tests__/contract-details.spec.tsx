@@ -1,7 +1,10 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+
+import { CONTRACT_TYPES, mockContractInfo } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+
 import { isCancellationExpired } from 'Stores/Modules/Trading/Helpers/logic';
-import { mockContractInfo, CONTRACT_TYPES } from '@deriv/shared';
+
 import ContractDetails from '../contract-details';
 
 jest.mock('@deriv/shared', () => ({

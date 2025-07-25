@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import { getTerm } from 'AppV2/Utils/contract-description-utils';
+
 import VanillasTradeDescription from '../vanillas-trade-description';
 
 jest.mock('@lottiefiles/dotlottie-react', () => ({
@@ -15,56 +18,56 @@ describe('VanillasTradeDescription', () => {
         expect(screen.getByText(/Vanilla options allow you to predict an upward/i)).toBeInTheDocument();
     });
 
-    it('should call onTermClick if user clicks on term "payout"', () => {
+    it('should call onTermClick if user clicks on term "payout"', async () => {
         const onTermClick = jest.fn();
         render(<VanillasTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().PAYOUT.toLowerCase() }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().PAYOUT.toLowerCase() }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "final price"', () => {
+    it('should call onTermClick if user clicks on term "final price"', async () => {
         const onTermClick = jest.fn();
         render(<VanillasTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().FINAL_PRICE.toLowerCase() }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().FINAL_PRICE.toLowerCase() }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "strike price"', () => {
+    it('should call onTermClick if user clicks on term "strike price"', async () => {
         const onTermClick = jest.fn();
         render(<VanillasTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().STRIKE_PRICE.toLowerCase() }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().STRIKE_PRICE.toLowerCase() }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "expiry"', () => {
+    it('should call onTermClick if user clicks on term "expiry"', async () => {
         const onTermClick = jest.fn();
         render(<VanillasTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().EXPIRY.toLowerCase() }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().EXPIRY.toLowerCase() }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "payout per point"', () => {
+    it('should call onTermClick if user clicks on term "payout per point"', async () => {
         const onTermClick = jest.fn();
         render(<VanillasTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().PAYOUT_PER_POINT.toLowerCase() }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().PAYOUT_PER_POINT.toLowerCase() }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "contract value"', () => {
+    it('should call onTermClick if user clicks on term "contract value"', async () => {
         const onTermClick = jest.fn();
         render(<VanillasTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().CONTRACT_VALUE.toLowerCase() }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().CONTRACT_VALUE.toLowerCase() }));
 
         expect(onTermClick).toHaveBeenCalled();
     });

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Text } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
-import { makeLazyLoader, moduleLoader } from '@deriv/shared';
+
 import { Loading } from '@deriv/components';
+import { makeLazyLoader, moduleLoader } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
+
 import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
 
 type TContractDescription = {

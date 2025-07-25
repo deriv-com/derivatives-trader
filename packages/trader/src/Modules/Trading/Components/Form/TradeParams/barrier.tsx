@@ -1,12 +1,15 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { DesktopWrapper, Icon, InputField, MobileWrapper, Modal, Text } from '@deriv/components';
-import Fieldset from 'App/Components/Form/fieldset';
-import ValueMovement from '../Purchase/value-movement';
 import { observer, useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
 import { localize } from '@deriv/translations';
+
+import Fieldset from 'App/Components/Form/fieldset';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import LabeledQuantityInputMobile from '../LabeledQuantityInputMobile';
+import ValueMovement from '../Purchase/value-movement';
 
 type TBarrier = {
     is_minimized?: boolean;

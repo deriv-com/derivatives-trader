@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { observer, useStore } from '@deriv/stores';
+
 import Digits from 'Modules/Contract/Components/Digits';
 import InfoBox from 'Modules/Contract/Components/InfoBox';
+
 import BottomWidgets from '../../SmartChart/Components/bottom-widgets';
 import TopWidgets from '../../SmartChart/Components/top-widgets';
-import { observer, useStore } from '@deriv/stores';
 
 export const DigitsWidget = observer(() => {
     const { contract_replay, ui } = useStore();

@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+
 import { getTerm } from 'AppV2/Utils/contract-description-utils';
+import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+
 import GuideDefinitionModal from '../guide-definition-modal';
 
 const mockProps = {

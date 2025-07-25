@@ -1,34 +1,36 @@
+import { Redirect, RouteComponentProps } from 'react-router-dom';
+
+import { TSocketEndpointNames, TSocketResponse } from '@deriv/api/types';
 import {
     ActiveSymbolsResponse,
-    BuyContractResponse,
     BuyContractRequest,
+    BuyContractResponse,
     ContractsForSymbolResponse,
     ForgetAllResponse,
     ForgetResponse,
-    PriceProposalOpenContractsResponse,
     PriceProposalOpenContractsRequest,
-    PriceProposalResponse,
+    PriceProposalOpenContractsResponse,
     PriceProposalRequest,
+    PriceProposalResponse,
     ServerTimeResponse,
     TicksHistoryResponse,
-    TicksStreamResponse,
     TicksStreamRequest,
+    TicksStreamResponse,
     TradingTimesResponse,
     UpdateContractHistoryResponse,
-    UpdateContractResponse,
     UpdateContractRequest,
+    UpdateContractResponse,
 } from '@deriv/api-types';
-import { TCoreStores } from '@deriv/stores/types';
-import ModulesStore from 'Stores/Modules';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
-import { TSocketEndpointNames, TSocketResponse } from '../../../api/types';
 import {
     buildBarriersConfig,
     buildDurationConfig,
     buildForwardStartingConfig,
     getContractTypesConfig,
 } from '@deriv/shared';
+import { TCoreStores } from '@deriv/stores/types';
+
+import ModulesStore from 'Stores/Modules';
+import { useTraderStore } from 'Stores/useTraderStores';
 
 export type TRootStore = {
     client: TCoreStores['client'];

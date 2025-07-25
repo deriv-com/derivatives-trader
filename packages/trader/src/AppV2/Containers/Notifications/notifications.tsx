@@ -1,9 +1,10 @@
 import React from 'react';
-import { observer, useStore } from '@deriv/stores';
-import { useNotifications, NotificationBanners } from '@deriv-com/quill-ui';
+import { useLocation } from 'react-router-dom';
+
 import { StandaloneFlagCheckeredFillIcon } from '@deriv/quill-icons';
 import { routes } from '@deriv/shared';
-import { useLocation } from 'react-router-dom';
+import { observer, useStore } from '@deriv/stores';
+import { NotificationBanners, useNotifications } from '@deriv-com/quill-ui';
 
 const Notifications = observer(() => {
     const { addBanner, banners, removeBanner } = useNotifications();

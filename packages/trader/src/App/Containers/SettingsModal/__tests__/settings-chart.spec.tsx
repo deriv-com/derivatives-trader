@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { StoreProvider, mockStore } from '@deriv/stores';
+
 import ChartSettings from '../settings-chart';
 
 jest.mock('Assets/SvgComponents/settings/interval-disabled.svg', () =>
@@ -42,10 +44,10 @@ describe('<ChartSettings/>', () => {
         expect(screen.getByRole('checkbox')).toBeInTheDocument();
         expect(screen.getByText('Display remaining time for each interval')).toBeInTheDocument();
     });
-    it('should call setChartCountdown function if user checked checkbox', () => {
+    it('should call setChartCountdown function if user checked checkbox', async () => {
         render(mockChartSettings());
 
-        userEvent.click(screen.getByRole('checkbox'));
+        await userEvent.click(screen.getByRole('checkbox'));
 
         expect(default_mock_store.ui.setChartCountdown).toBeCalled();
     });

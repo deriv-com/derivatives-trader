@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { isDesktop } from '@deriv/shared';
-import { localize } from '@deriv/translations';
-import NumberSelector from 'App/Components/Form/number-selector';
-import Fieldset from 'App/Components/Form/fieldset';
 import { observer } from '@deriv/stores';
+import { localize } from '@deriv/translations';
+
+import Fieldset from 'App/Components/Form/fieldset';
+import NumberSelector from 'App/Components/Form/number-selector';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 type TLastDigit = {

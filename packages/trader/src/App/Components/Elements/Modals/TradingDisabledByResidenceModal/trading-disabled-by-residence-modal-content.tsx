@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Icon, Text } from '@deriv/components';
-import { Localize } from '@deriv/translations';
 import { formatDate } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
 
 export const TradingDisabledByResidenceModalContent = observer(() => {
     const { client } = useStore();

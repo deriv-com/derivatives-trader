@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Dialog from './contract-type-dialog';
 import Display from './contract-type-display';
 import List from './contract-type-list';

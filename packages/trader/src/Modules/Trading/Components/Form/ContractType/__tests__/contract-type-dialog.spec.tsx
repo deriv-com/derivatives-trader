@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import ContractTypeDialog from '../contract-type-dialog';
+
 import { useDevice } from '@deriv-com/ui';
+import { render, screen } from '@testing-library/react';
+
+import ContractTypeDialog from '../contract-type-dialog';
 
 jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(() => ({ isMobile: false })),

@@ -1,12 +1,15 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import PayoutPerPointMobile from '../payout-per-point-mobile';
+
+import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../trader-providers';
+import PayoutPerPointMobile from '../payout-per-point-mobile';
+
+import '@testing-library/jest-dom';
 
 const mocked_root_store = {
     modules: {
@@ -43,13 +46,13 @@ describe('<PayoutPerPointMobile/>', () => {
         render(mockPayoutPerPointMobile(mockStore(mocked_root_store)));
         expect(screen.getByText(/EUR/i)).toBeInTheDocument();
     });
-    it('should render tooltip text for Turbos correctly', () => {
+    it('should render tooltip text for Turbos correctly', async () => {
         render(mockPayoutPerPointMobile(mockStore(mocked_root_store)));
-        userEvent.hover(screen.getByTestId('dt_popover_wrapper'));
+        await userEvent.hover(screen.getByTestId('dt_popover_wrapper'));
         expect(screen.queryByText(/test/i)).not.toBeInTheDocument();
         expect(screen.getByText(/This is the amount you’ll receive at expiry/i)).toBeInTheDocument();
     });
-    it('should render tooltip text for Vanillas correctly', () => {
+    it('should render tooltip text for Vanillas correctly', async () => {
         render(
             mockPayoutPerPointMobile(
                 mockStore({
@@ -69,7 +72,7 @@ describe('<PayoutPerPointMobile/>', () => {
                 })
             )
         );
-        userEvent.hover(screen.getByTestId('dt_popover_wrapper'));
+        await userEvent.hover(screen.getByTestId('dt_popover_wrapper'));
         expect(screen.queryByText(/test/i)).not.toBeInTheDocument();
         expect(screen.getByText(/0.123456789/i)).toBeInTheDocument();
         expect(screen.getByText(/The payout at expiry is equal to the payout/i)).toBeInTheDocument();

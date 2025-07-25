@@ -1,36 +1,39 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Money, Icon, ThemedScrollbars, Text } from '@deriv/components';
-import { localize, Localize } from '@deriv/translations';
+
+import { Icon, Money, Text, ThemedScrollbars } from '@deriv/components';
 import {
     addComma,
+    CONTRACT_TYPES,
     epochToMoment,
+    formatResetDuration,
     getCancellationPrice,
     getCurrencyDisplayCode,
     getLocalizedBasis,
-    formatResetDuration,
     hasTwoBarriers,
     isAccumulatorContract,
     isAsiansContract,
     isEndedBeforeCancellationExpired,
-    isMultiplierContract,
-    isSmartTraderContract,
     isLookBacksContract,
-    isTicksContract,
+    isMultiplierContract,
     isResetContract,
+    isSmartTraderContract,
+    isTicksContract,
     isTurbosContract,
     isUserCancelled,
     isUserSold,
     isVanillaFxContract,
     TContractInfo,
-    CONTRACT_TYPES,
     toGMTFormat,
 } from '@deriv/shared';
+import { Localize, localize } from '@deriv/translations';
 import { Analytics } from '@deriv-com/analytics';
-import { getBarrierLabel, getBarrierValue, isDigitType } from 'App/Components/Elements/PositionsDrawer/helpers';
-import ContractAuditItem from './contract-audit-item';
-import { isCancellationExpired } from 'Stores/Modules/Trading/Helpers/logic';
 import { useDevice } from '@deriv-com/ui';
+
+import { getBarrierLabel, getBarrierValue, isDigitType } from 'App/Components/Elements/PositionsDrawer/helpers';
+import { isCancellationExpired } from 'Stores/Modules/Trading/Helpers/logic';
+
+import ContractAuditItem from './contract-audit-item';
 
 type TContractDetails = {
     contract_end_time?: number;

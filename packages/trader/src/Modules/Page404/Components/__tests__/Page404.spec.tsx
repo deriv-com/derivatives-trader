@@ -1,7 +1,9 @@
 import React from 'react';
 import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
+
 import { render, screen } from '@testing-library/react';
+
 import Page404 from '../Page404';
 
 describe('Page404', () => {

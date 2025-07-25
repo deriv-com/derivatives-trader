@@ -1,10 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { mockStore } from '@deriv/stores';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import DurationWrapper from '../duration-wrapper';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import DurationWrapper from '../duration-wrapper';
 
 const duration = 'Duration';
 const duration_options = {
@@ -120,13 +122,13 @@ describe('<DurationWrapper />', () => {
         expect(screen.getByDisplayValue(/15/i)).toBeInTheDocument();
         expect(screen.getByText(/Range: 15 - 86,400 seconds/i)).toBeInTheDocument();
     });
-    it('should execute onChange & onChangeUiStore when a user is typing a new value', () => {
+    it('should execute onChange & onChangeUiStore when a user is typing a new value', async () => {
         default_mock_store.modules.trade.duration = 2;
         default_mock_store.ui.getDurationFromUnit = jest.fn(() => 2);
         render(mockDurationWrapper());
 
         const duration_input = screen.getByDisplayValue(/2/i);
-        userEvent.type(duration_input, '5');
+        await userEvent.type(duration_input, '5');
 
         expect(default_mock_store.modules.trade.onChange).toHaveBeenCalledWith({
             target: { name: 'duration', value: 25 },

@@ -1,15 +1,18 @@
 import React from 'react';
-import { useIsMounted, WS, isMarketClosed, toMoment } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
-import { observer, useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { TradingTimesRequest } from '@deriv/api-types';
-import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
-import MarketOpeningTimeBanner from '../MarketOpeningTimeBanner';
-import MarketCountdownTimer from '../MarketCountdownTimer';
-import { CaptionText } from '@deriv-com/quill-ui';
 import clsx from 'clsx';
+
+import { TradingTimesRequest } from '@deriv/api-types';
+import { isMarketClosed, toMoment, useIsMounted, WS } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+import { CaptionText } from '@deriv-com/quill-ui';
+
+import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import { calculateTimeLeft, getSymbol } from 'AppV2/Utils/closed-market-message-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import MarketCountdownTimer from '../MarketCountdownTimer';
+import MarketOpeningTimeBanner from '../MarketOpeningTimeBanner';
 
 type TWhenMarketOpens = {
     days_offset: number;

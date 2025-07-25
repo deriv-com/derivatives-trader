@@ -1,4 +1,5 @@
-import './market-selector.scss';
 import MarketSelector from './market-selector';
+
+import './market-selector.scss';
 
 export default MarketSelector;

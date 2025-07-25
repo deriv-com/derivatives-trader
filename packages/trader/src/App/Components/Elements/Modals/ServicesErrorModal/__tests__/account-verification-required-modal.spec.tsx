@@ -1,10 +1,12 @@
 import React from 'react';
-import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { screen, render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { createBrowserHistory } from 'history';
+
 import { routes } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import AccountVerificationRequiredModal from '../account-verification-required-modal';
 
 type TModal = React.FC<{

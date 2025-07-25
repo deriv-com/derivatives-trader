@@ -1,7 +1,9 @@
-import { localize } from '@deriv/translations';
 import { isHourValid, isMinuteValid, isTimeValid, toMoment, TRuleOptions } from '@deriv/shared';
-import { isSessionAvailable } from '../Helpers/start-date';
+import { localize } from '@deriv/translations';
+
 import { TTradeStore } from 'Types';
+
+import { isSessionAvailable } from '../Helpers/start-date';
 
 type TValidationRules = {
     [key: string]: {

@@ -1,23 +1,26 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import ContractDetails from '../contract-details';
-import useContractDetails from 'AppV2/Hooks/useContractDetails';
-import useOrderDetails from 'AppV2/Hooks/useOrderDetails';
-import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../../trader-providers';
 import moment from 'moment';
+
 import {
-    isValidToSell,
+    hasContractEntered,
+    isAccumulatorContract,
+    isForwardStarting,
     isMultiplierContract,
-    isValidToCancel,
     isOpen,
+    isValidToCancel,
+    isValidToSell,
     useWS,
     WS,
-    hasContractEntered,
-    isForwardStarting,
-    isAccumulatorContract,
 } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { render, screen, waitFor } from '@testing-library/react';
+
+import useContractDetails from 'AppV2/Hooks/useContractDetails';
+import useOrderDetails from 'AppV2/Hooks/useOrderDetails';
 import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
+
+import TraderProviders from '../../../../trader-providers';
+import ContractDetails from '../contract-details';
 
 jest.mock('AppV2/Hooks/useContractDetails', () => jest.fn());
 jest.mock('AppV2/Hooks/useOrderDetails', () => jest.fn());

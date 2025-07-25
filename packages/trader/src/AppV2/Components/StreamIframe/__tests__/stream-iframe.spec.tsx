@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import { UNIFIED_MODE_VIDEO_ID } from 'Modules/Trading/Helpers/video-config';
+
 import StreamIframe from '../stream-iframe';
 
 const video_stream_testid = 'dt_video_stream';

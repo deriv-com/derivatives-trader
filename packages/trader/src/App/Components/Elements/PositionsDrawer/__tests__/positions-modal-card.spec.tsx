@@ -1,12 +1,14 @@
 import React from 'react';
 import moment from 'moment';
-import { render, screen } from '@testing-library/react';
+
+import { ActiveSymbols } from '@deriv/api-types';
+import { getCardLabels, mockContractInfo, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { getCardLabels, mockContractInfo, TRADE_TYPES } from '@deriv/shared';
-import { ActiveSymbols } from '@deriv/api-types';
-import PositionsModalCard from '../positions-modal-card';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../trader-providers';
+import PositionsModalCard from '../positions-modal-card';
 
 const closed_label = 'Closed';
 const currency_badge = 'CurrencyBadge';

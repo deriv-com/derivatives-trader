@@ -1,9 +1,11 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import { AccumulatorOptionsWidget, MultiplierOptionsWidget, MultiplierAmountWidget } from '../widgets';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import { AccumulatorOptionsWidget, MultiplierAmountWidget, MultiplierOptionsWidget } from '../widgets';
 
 const radio_group_options_modal = 'RadioGroupOptionsModal';
 const multiplier_amount_modal = 'Multiplier Amount Modal';
@@ -60,20 +62,20 @@ describe('AccumulatorOptionsWidget', () => {
         expect(screen.getByText(/1%/i)).toBeInTheDocument();
         expect(screen.getByTestId(/dt_popover_wrapper/i)).toBeInTheDocument();
     });
-    it('should render tooltip with text if user click on info icon, but should not open RadioGroupOptionsModal', () => {
+    it('should render tooltip with text if user click on info icon, but should not open RadioGroupOptionsModal', async () => {
         render(mockAccumulatorOptionsWidget());
 
         const info_icon = screen.getByTestId(/dt_popover_wrapper/i);
-        userEvent.click(info_icon);
+        await userEvent.click(info_icon);
 
         expect(screen.getByText(/Your stake will grow/i)).toBeInTheDocument();
         expect(screen.getByText(radio_group_options_modal)).toHaveAttribute('data-open', 'false');
     });
-    it('if Accumulator contract is not open, user is able to open RadioGroupOptionsModal', () => {
+    it('if Accumulator contract is not open, user is able to open RadioGroupOptionsModal', async () => {
         default_mocked_store.modules.trade.has_open_accu_contract = false;
         render(mockAccumulatorOptionsWidget());
 
-        userEvent.click(screen.getByText('Open Modal'));
+        await userEvent.click(screen.getByText('Open Modal'));
 
         expect(screen.getByText(radio_group_options_modal)).toHaveAttribute('data-open', 'true');
     });
@@ -107,11 +109,11 @@ describe('MultiplierOptionsWidget', () => {
 
         expect(screen.getByText(/x10/i)).toBeInTheDocument();
     });
-    it('should open RadioGroupOptionsModal if user clicked on Multiplier mobile widget', () => {
+    it('should open RadioGroupOptionsModal if user clicked on Multiplier mobile widget', async () => {
         render(mockMultiplierOptionsWidget());
 
         expect(screen.getByText(radio_group_options_modal)).toHaveAttribute('data-open', 'false');
-        userEvent.click(screen.getByText(/x10/i));
+        await userEvent.click(screen.getByText(/x10/i));
 
         expect(screen.getByText(radio_group_options_modal)).toHaveAttribute('data-open', 'true');
     });
@@ -152,11 +154,11 @@ describe('<MultiplierAmountWidget />', () => {
         expect(screen.queryByText(multiplier_amount_modal)).not.toBeInTheDocument();
         expect(screen.queryByText(multipliers_expiration_modal)).not.toBeInTheDocument();
     });
-    it('should render Multiplier Amount Modal if user clicked on amount button', () => {
+    it('should render Multiplier Amount Modal if user clicked on amount button', async () => {
         render(mockMultiplierAmountWidget());
 
         expect(screen.queryByText(multiplier_amount_modal)).not.toBeInTheDocument();
-        userEvent.click(screen.getByText(/10.00 USD/i));
+        await userEvent.click(screen.getByText(/10.00 USD/i));
 
         expect(screen.getByText(multiplier_amount_modal)).toBeInTheDocument();
     });
@@ -168,12 +170,12 @@ describe('<MultiplierAmountWidget />', () => {
         expect(screen.getByText(multipliers_info)).toBeInTheDocument();
         expect(screen.getByText(multipliers_expiration)).toBeInTheDocument();
     });
-    it('should render Multipliers Expiration Modal if it is crypto and user clicked on Expiration button', () => {
+    it('should render Multipliers Expiration Modal if it is crypto and user clicked on Expiration button', async () => {
         default_mocked_store.modules.trade.is_crypto_multiplier = true;
         render(mockMultiplierAmountWidget());
 
         expect(screen.queryByText(multipliers_expiration_modal)).not.toBeInTheDocument();
-        userEvent.click(screen.getByText('Expires on'));
+        await userEvent.click(screen.getByText('Expires on'));
 
         expect(screen.getByText(multipliers_expiration_modal)).toBeInTheDocument();
     });

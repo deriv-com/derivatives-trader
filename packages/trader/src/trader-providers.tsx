@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { StoreProvider } from '@deriv/stores';
-import { TraderStoreProvider } from 'Stores/useTraderStores';
 import type { TCoreStores } from '@deriv/stores/types';
+
+import { TraderStoreProvider } from 'Stores/useTraderStores';
 
 export const TraderProviders = ({ children, store }: React.PropsWithChildren<{ store: TCoreStores }>) => {
     return (

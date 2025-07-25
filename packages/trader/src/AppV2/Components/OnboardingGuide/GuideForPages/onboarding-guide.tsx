@@ -1,7 +1,9 @@
 import React from 'react';
-import { Modal } from '@deriv-com/quill-ui';
+
 import { useLocalStorageData } from '@deriv/hooks';
 import { Localize } from '@deriv/translations';
+import { Modal } from '@deriv-com/quill-ui';
+
 import GuideContainer from './guide-container';
 import OnboardingVideo from './onboarding-video';
 

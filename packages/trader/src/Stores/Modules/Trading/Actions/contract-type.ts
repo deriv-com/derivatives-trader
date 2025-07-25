@@ -1,4 +1,5 @@
 import { isDtraderV2DesktopEnabled, isDtraderV2MobileEnabled } from '@deriv/shared';
+
 import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
 import { TTradeStore } from 'Types';
 

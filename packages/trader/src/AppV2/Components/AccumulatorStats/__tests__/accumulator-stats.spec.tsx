@@ -1,10 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import AccumulatorStats from '../accumulator-stats';
-import TraderProviders from '../../../../trader-providers';
+
 import { mockStore } from '@deriv/stores';
 import { TStores } from '@deriv/stores/types';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import TraderProviders from '../../../../trader-providers';
+import AccumulatorStats from '../accumulator-stats';
 
 describe('AccumulatorStats', () => {
     let default_mock_store: ReturnType<typeof mockStore>;
@@ -47,10 +49,10 @@ describe('AccumulatorStats', () => {
         expect(stats.length).toBeGreaterThan(0);
     });
 
-    test('should open description when heading is clicked', () => {
+    test('should open description when heading is clicked', async () => {
         renderAccumulatorState(default_mock_store);
         const heading = screen.getByText('Stats');
-        userEvent.click(heading);
+        await userEvent.click(heading);
 
         expect(
             screen.getByText(
@@ -59,22 +61,22 @@ describe('AccumulatorStats', () => {
         ).toBeInTheDocument();
     });
 
-    test('should open ActionSheet with stats when expand icon is clicked', () => {
+    test('should open ActionSheet with stats when expand icon is clicked', async () => {
         renderAccumulatorState(default_mock_store);
         const expandIcon = screen.getByTestId('expand-stats-icon');
-        userEvent.click(expandIcon);
+        await userEvent.click(expandIcon);
 
         const historyText = screen.getByText('History of tick counts');
         expect(historyText).toBeInTheDocument();
     });
 
-    test('should close ActionSheet when primary button is clicked', () => {
+    test('should close ActionSheet when primary button is clicked', async () => {
         renderAccumulatorState(default_mock_store);
         const heading = screen.getByText('Stats');
-        userEvent.click(heading);
+        await userEvent.click(heading);
 
         const gotItButton = screen.getByText('Got it');
-        userEvent.click(gotItButton);
+        await userEvent.click(gotItButton);
 
         expect(
             screen.queryByText(

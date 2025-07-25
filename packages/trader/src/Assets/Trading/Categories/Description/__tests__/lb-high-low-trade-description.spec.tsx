@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import LbHighLowTradeDescription from '../lb-high-low-trade-description';
 
 describe('<LbHighLowTradeDescription />', () => {

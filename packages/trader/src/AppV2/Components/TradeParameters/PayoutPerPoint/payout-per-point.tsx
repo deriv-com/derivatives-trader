@@ -1,17 +1,21 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { ActionSheet, TextField } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { getCurrencyDisplayCode } from '@deriv/shared';
+
 import { Skeleton } from '@deriv/components';
-import { isSmallScreen } from 'AppV2/Utils/trade-params-utils';
+import { getCurrencyDisplayCode } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+import { ActionSheet, TextField } from '@deriv-com/quill-ui';
+
 import Carousel from 'AppV2/Components/Carousel';
 import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
 import TradeParamDefinition from 'AppV2/Components/TradeParamDefinition';
-import PayoutPerPointWheel from './payout-per-point-wheel';
+import { isSmallScreen } from 'AppV2/Utils/trade-params-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import { TTradeParametersProps } from '../trade-parameters';
+
+import PayoutPerPointWheel from './payout-per-point-wheel';
 
 const PayoutPerPoint = observer(({ is_minimized }: TTradeParametersProps) => {
     const [is_open, setIsOpen] = React.useState(false);

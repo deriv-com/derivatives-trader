@@ -1,7 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
+
 import { Localize } from '@deriv/translations';
 import { Text } from '@deriv-com/quill-ui';
+
 import Guide from '../Guide';
 
 type TTradeParametersContainer = {

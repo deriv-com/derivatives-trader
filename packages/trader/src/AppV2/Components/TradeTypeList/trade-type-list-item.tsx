@@ -1,6 +1,7 @@
 import React from 'react';
-import { StandaloneCirclePlusFillIcon } from '@deriv/quill-icons';
 import clsx from 'clsx';
+
+import { StandaloneCirclePlusFillIcon } from '@deriv/quill-icons';
 
 type TTradeTypeListItemProps = {
     title: string;

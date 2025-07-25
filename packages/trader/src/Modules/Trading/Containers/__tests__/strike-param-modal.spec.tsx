@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { screen, render } from '@testing-library/react';
+
 import { TRADE_TYPES } from '@deriv/shared';
-import StrikeParamModal from '../strike-param-modal';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import StrikeParamModal from '../strike-param-modal';
 
 type TModal = React.FC<{
     children: React.ReactNode;
@@ -86,10 +88,10 @@ describe('<StrikeParamModal />', () => {
         expect(screen.queryByText('0')).not.toBeInTheDocument();
         expect(screen.queryByText('1')).not.toBeInTheDocument();
     });
-    it('should call onChange with new strike value when user clicks upon another strike option', () => {
+    it('should call onChange with new strike value when user clicks upon another strike option', async () => {
         renderStrikeParamModal(props);
         const new_option = screen.getByText('1');
-        userEvent.click(new_option);
+        await userEvent.click(new_option);
         expect(props.onChange).toHaveBeenCalledWith(
             expect.objectContaining({
                 target: expect.objectContaining({
@@ -99,21 +101,21 @@ describe('<StrikeParamModal />', () => {
             })
         );
     });
-    it('should show tooltip when user clicks "info" icon and hide tooltip upon second click', () => {
+    it('should show tooltip when user clicks "info" icon and hide tooltip upon second click', async () => {
         window.innerWidth = 720;
         renderStrikeParamModal(props);
         const info_icon = screen.getByTestId('dt_popover_wrapper');
 
-        userEvent.click(info_icon);
+        await userEvent.click(info_icon);
         expect(screen.getByText(/If you buy/i)).toBeInTheDocument();
 
-        userEvent.click(info_icon);
+        await userEvent.click(info_icon);
         expect(screen.queryByText(/If you buy/i)).not.toBeInTheDocument();
     });
-    it('should toggle modal when user closes StrikeParamModal', () => {
+    it('should toggle modal when user closes StrikeParamModal', async () => {
         renderStrikeParamModal(props);
         const close_icon = screen.getByText('IcCross');
-        userEvent.click(close_icon);
+        await userEvent.click(close_icon);
         expect(props.toggleModal).toHaveBeenCalled();
     });
 });

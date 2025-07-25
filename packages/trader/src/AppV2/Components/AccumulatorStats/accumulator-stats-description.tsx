@@ -1,7 +1,10 @@
 import React from 'react';
-import { ActionSheet, Text } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
+import { ActionSheet, Text } from '@deriv-com/quill-ui';
+
 import { UNIFIED_MODE_VIDEO_ID } from 'Modules/Trading/Helpers/video-config';
+
 import StreamIframe from '../StreamIframe';
 
 const AccumulatorStatsDescription = ({ onActionSheetClose }: { onActionSheetClose: () => void }) => {

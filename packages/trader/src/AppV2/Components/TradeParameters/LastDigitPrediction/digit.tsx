@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
-import { CaptionText, Text, Skeleton } from '@deriv-com/quill-ui';
+
+import { CaptionText, Skeleton, Text } from '@deriv-com/quill-ui';
 
 type TDigitsProps = {
     is_active?: boolean;

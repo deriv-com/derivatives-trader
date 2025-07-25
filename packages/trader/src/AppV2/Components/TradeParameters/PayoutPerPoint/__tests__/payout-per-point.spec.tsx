@@ -1,8 +1,11 @@
 import React from 'react';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../../trader-providers';
 import PayoutPerPoint from '../payout-per-point';
 

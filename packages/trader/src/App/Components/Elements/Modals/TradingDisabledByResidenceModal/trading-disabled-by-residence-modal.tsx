@@ -1,8 +1,11 @@
 import React from 'react';
-import { useDevice } from '@deriv-com/ui';
+
 import { MobileDialog, Modal } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
+import { useDevice } from '@deriv-com/ui';
+
 import { TradingDisabledByResidenceModalContent } from './trading-disabled-by-residence-modal-content';
+
 import './trading-disabled-by-residence-modal.scss';
 
 const TradingDisabledByResidenceModal = observer(() => {

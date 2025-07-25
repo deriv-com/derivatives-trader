@@ -1,11 +1,14 @@
 import React, { ComponentProps } from 'react';
-import { act, render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import Trader from '../trade';
-import TraderProviders from '../../../../trader-providers';
-import ChartLoader from 'App/Components/Elements/chart-loader';
 import { TCoreStores } from '@deriv/stores/types';
 import { useDevice } from '@deriv-com/ui';
+import { act, render, screen } from '@testing-library/react';
+
+import ChartLoader from 'App/Components/Elements/chart-loader';
+
+import TraderProviders from '../../../../trader-providers';
+import Trader from '../trade';
 
 jest.mock('App/Components/Elements/PositionsDrawer', () => jest.fn(() => <div>PositionsDrawer</div>));
 jest.mock('../trade-chart', () => jest.fn(() => <div>TradeChart</div>));

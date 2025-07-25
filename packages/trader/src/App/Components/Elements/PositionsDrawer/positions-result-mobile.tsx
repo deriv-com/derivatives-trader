@@ -1,6 +1,7 @@
-import classNames from 'classnames';
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import classNames from 'classnames';
+
 import { Icon } from '@deriv/components';
 import { getCardLabels } from '@deriv/shared';
 

@@ -1,10 +1,13 @@
 import React, { ComponentProps } from 'react';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
-import { mockStore } from '@deriv/stores';
+
 import { routes as routesList } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
 import { render, screen, waitFor } from '@testing-library/react';
+
 import BinaryRoutes from 'App/Components/Routes';
+
 import TraderProviders from '../../../trader-providers';
 import getRoutesConfig from '../routes-config';
 

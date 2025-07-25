@@ -1,6 +1,7 @@
-import classNames from 'classnames';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
+
 import { MobileWrapper, Toast } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
 

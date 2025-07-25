@@ -1,9 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from '../app';
-import { mockStore } from '@deriv/stores';
-import moment from 'moment';
 import { BrowserRouter } from 'react-router-dom';
+import moment from 'moment';
+
+import { mockStore } from '@deriv/stores';
+import { render } from '@testing-library/react';
+
+import App from '../app';
 
 const rootStore = mockStore({
     common: {

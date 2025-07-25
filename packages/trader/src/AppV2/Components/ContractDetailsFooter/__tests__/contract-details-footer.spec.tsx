@@ -1,9 +1,11 @@
 import React from 'react';
+
+import { isMultiplierContract, isValidToCancel, isValidToSell, mockContractInfo } from '@deriv/shared';
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
-import { StoreProvider, mockStore } from '@deriv/stores';
-import { isValidToSell, isValidToCancel, isMultiplierContract, mockContractInfo } from '@deriv/shared';
-import ContractDetailsFooter from '../contract-details-footer';
 import userEvent from '@testing-library/user-event';
+
+import ContractDetailsFooter from '../contract-details-footer';
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),

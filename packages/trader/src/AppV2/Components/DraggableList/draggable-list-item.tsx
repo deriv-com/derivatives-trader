@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StandaloneGripDotsVerticalBoldIcon, StandaloneCircleMinusFillIcon } from '@deriv/quill-icons';
 import clsx from 'clsx';
+
+import { StandaloneCircleMinusFillIcon, StandaloneGripDotsVerticalBoldIcon } from '@deriv/quill-icons';
 import { isTouchDevice } from '@deriv/shared';
 
 type TDraggableListItemProps = {

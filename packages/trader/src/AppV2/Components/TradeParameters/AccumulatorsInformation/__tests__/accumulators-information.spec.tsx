@@ -1,9 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import AccumulatorsInformation from '../accumulators-information';
+import { render, screen } from '@testing-library/react';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../../trader-providers';
+import AccumulatorsInformation from '../accumulators-information';
 
 const payout_text = 'Max. payout';
 const payout_value = '4,000.00 USD';

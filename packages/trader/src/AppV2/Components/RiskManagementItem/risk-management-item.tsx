@@ -1,20 +1,23 @@
 import React from 'react';
-import { ActionSheet, Text, TextField, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
-import { localize, Localize } from '@deriv/translations';
-import RiskManagementInfoModal from '../RiskManagementInfoModal';
-import DealCancellationRemainingTime from '../DealCancellationRemainingTime/deal-cancellation-remaining-time';
-import { observer } from '@deriv/stores';
-import useContractDetails from 'AppV2/Hooks/useContractDetails';
+
 import {
     CONTRACT_TYPES,
     formatMoney,
+    getCurrencyDisplayCode,
+    getDecimalPlaces,
     isAccumulatorContract,
     isValidToCancel,
-    getDecimalPlaces,
-    getCurrencyDisplayCode,
 } from '@deriv/shared';
-import TotalProfitLoss from '../TotalProfitLoss';
+import { observer } from '@deriv/stores';
+import { Localize, localize } from '@deriv/translations';
+import { ActionSheet, Text, TextField, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
+
+import useContractDetails from 'AppV2/Hooks/useContractDetails';
 import { getProfit } from 'AppV2/Utils/positions-utils';
+
+import DealCancellationRemainingTime from '../DealCancellationRemainingTime/deal-cancellation-remaining-time';
+import RiskManagementInfoModal from '../RiskManagementInfoModal';
+import TotalProfitLoss from '../TotalProfitLoss';
 
 type RiskManagementItemProps = {
     label: React.ReactNode;

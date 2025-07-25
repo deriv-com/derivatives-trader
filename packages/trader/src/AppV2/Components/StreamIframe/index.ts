@@ -1,4 +1,5 @@
-import './stream-iframe.scss';
 import StreamIframe from './stream-iframe';
+
+import './stream-iframe.scss';
 
 export default StreamIframe;

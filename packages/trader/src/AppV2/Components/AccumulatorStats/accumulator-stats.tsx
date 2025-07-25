@@ -1,12 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ActionSheet, Text } from '@deriv-com/quill-ui';
+
 import { LabelPairedChevronUpSmBoldIcon } from '@deriv/quill-icons';
-import { Localize } from '@deriv/translations';
 import { observer } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+import { ActionSheet, Text } from '@deriv-com/quill-ui';
+
 import { useTraderStore } from 'Stores/useTraderStores';
-import StatsRow from './accumulator-stats-row';
+
 import AccumulatorStatsDescription from './accumulator-stats-description';
 import AccumulatorStatsModal from './accumulator-stats-modal';
+import StatsRow from './accumulator-stats-row';
 
 const AccumulatorStats = observer(() => {
     const { ticks_history_stats = {} } = useTraderStore();

@@ -1,6 +1,8 @@
 import React from 'react';
-import { ActionSheet, Heading, Text } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
+import { ActionSheet, Heading, Text } from '@deriv-com/quill-ui';
+
 import { getTermDefinition } from 'AppV2/Utils/contract-description-utils';
 
 type TGuideDefinitionModal = {

@@ -1,5 +1,6 @@
 import moment from 'moment';
-import { getSelectedTime, getBoundaries } from '../end-time';
+
+import { getBoundaries, getSelectedTime } from '../end-time';
 
 describe('getSelectedTime', () => {
     const server_time = moment('2023-11-21T14:30:00');

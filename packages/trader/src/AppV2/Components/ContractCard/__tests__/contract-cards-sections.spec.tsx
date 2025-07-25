@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ContractCardsSections from '../contract-cards-sections';
 
 const ContractCard = 'Contract Card';

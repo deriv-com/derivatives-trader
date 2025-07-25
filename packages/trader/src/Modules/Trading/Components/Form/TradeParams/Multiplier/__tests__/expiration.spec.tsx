@@ -1,9 +1,11 @@
 import React from 'react';
 import moment from 'moment';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import Expiration from '../expiration';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import Expiration from '../expiration';
 
 const expiry_date = '28 Nov 2023 at 11:04';
 

@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { Button, Modal } from '@deriv/components';
-import { localize, Localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv/translations';
 
 type TAccountVerificationPendingModalProps = {
     is_visible: boolean;

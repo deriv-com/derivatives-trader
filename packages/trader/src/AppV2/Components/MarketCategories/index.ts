@@ -1,4 +1,5 @@
-import './market-categories.scss';
 import MarketCategories from './market-categories';
+
+import './market-categories.scss';
 
 export default MarketCategories;

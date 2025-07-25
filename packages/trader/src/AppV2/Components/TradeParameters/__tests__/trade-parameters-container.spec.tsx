@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import TradeParametersContainer from '../trade-parameters-container';
 
 const children = 'children';

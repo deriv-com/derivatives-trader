@@ -1,13 +1,16 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+
+import { ReportsStoreProvider } from '@deriv/reports/src/Stores/useReportsStores';
 import { mockStore } from '@deriv/stores';
-import * as utils from 'AppV2/Utils/positions-utils';
-import { ReportsStoreProvider } from '../../../../../../reports/src/Stores/useReportsStores';
-import TraderProviders from '../../../../trader-providers';
-import ModulesProvider from 'Stores/Providers/modules-providers';
-import Positions from '../positions';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import * as utils from 'AppV2/Utils/positions-utils';
+import ModulesProvider from 'Stores/Providers/modules-providers';
+
+import TraderProviders from '../../../../trader-providers';
+import Positions from '../positions';
 
 const localStorage_key = 'guide_dtrader_v2';
 const defaultMockStore = mockStore({
@@ -59,14 +62,14 @@ describe('Positions', () => {
         expect(screen.getByText('OnboardingGuide')).toBeInTheDocument();
     });
 
-    it('should call setPositionURLParams with appropriate argument if user clicks on Closed tab', () => {
+    it('should call setPositionURLParams with appropriate argument if user clicks on Closed tab', async () => {
         const mockSetPositionURLParams = jest.spyOn(utils, 'setPositionURLParams') as jest.Mock;
         mockPositions();
 
-        userEvent.click(screen.getByText(utils.TAB_NAME.CLOSED));
+        await userEvent.click(screen.getByText(utils.TAB_NAME.CLOSED));
         expect(mockSetPositionURLParams).toBeCalledWith(utils.TAB_NAME.CLOSED.toLowerCase());
 
-        userEvent.click(screen.getByText(utils.TAB_NAME.OPEN));
+        await userEvent.click(screen.getByText(utils.TAB_NAME.OPEN));
         expect(mockSetPositionURLParams).toBeCalledWith(utils.TAB_NAME.OPEN.toLowerCase());
     });
 

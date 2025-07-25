@@ -1,14 +1,17 @@
 import React from 'react';
+import Loadable from 'react-loadable';
+
+import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Loadable from 'react-loadable';
-import { StoreProvider, mockStore } from '@deriv/stores';
-import { TRADE_TYPES } from '@deriv/shared';
-import { CONTRACT_LIST, AVAILABLE_CONTRACTS } from 'AppV2/Utils/trade-types-utils';
+
 import { getTerm } from 'AppV2/Utils/contract-description-utils';
+import { AVAILABLE_CONTRACTS, CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+
+import { sendOpenGuideToAnalytics } from '../../../../Analytics';
 import TraderProviders from '../../../../trader-providers';
 import Guide from '../guide';
-import { sendOpenGuideToAnalytics } from '../../../../Analytics';
 
 jest.mock('../../../../Analytics', () => ({
     sendOpenGuideToAnalytics: jest.fn(),

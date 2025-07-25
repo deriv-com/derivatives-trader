@@ -1,9 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { Button, useSnackbar } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
+import { Button, useSnackbar } from '@deriv-com/quill-ui';
+
 import { getSnackBarText } from 'AppV2/Utils/trade-params-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import TakeProfitAndStopLossInput from './take-profit-and-stop-loss-input';
 
 type TTakeProfitAndStopLossContainerProps = {

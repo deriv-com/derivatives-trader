@@ -1,9 +1,13 @@
 import debounce from 'lodash.debounce';
-import { isEmptyObject, WS } from '@deriv/shared';
-import { createProposalRequests } from './proposal';
+
 import { PriceProposalRequest, PriceProposalResponse } from '@deriv/api-types';
+import { isEmptyObject, WS } from '@deriv/shared';
+
 import { TTradeStore } from 'Types';
+
 import { ProposalResponse } from '../trade-store';
+
+import { createProposalRequests } from './proposal';
 
 type TResponse<Req, Res extends { [key: string]: unknown }, K extends string> = Res & {
     echo_req: Req;

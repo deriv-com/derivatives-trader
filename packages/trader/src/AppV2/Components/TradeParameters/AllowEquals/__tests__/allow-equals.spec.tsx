@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
-import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import { hasCallPutEqual, hasDurationForCallPutEqual } from 'Stores/Modules/Trading/Helpers/allow-equals';
+import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../../trader-providers';
 import AllowEquals from '../allow-equals';
 
@@ -59,18 +62,18 @@ describe('AllowEquals', () => {
         expect(screen.getByRole('button')).toHaveAttribute('aria-pressed', 'true');
     });
 
-    it('calls onChange function if user clicks on ToggleSwitch', () => {
+    it('calls onChange function if user clicks on ToggleSwitch', async () => {
         render(mockAllowEquals());
 
-        userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button'));
 
         expect(default_mock_store.modules.trade.onChange).toBeCalled();
     });
 
-    it('renders ActionSheet with definition if user clicks on "Allow equal" term', () => {
+    it('renders ActionSheet with definition if user clicks on "Allow equal" term', async () => {
         render(mockAllowEquals());
 
-        userEvent.click(screen.getByText(title));
+        await userEvent.click(screen.getByText(title));
 
         expect(screen.getByText('Win payout if exit spot is also equal to entry spot.')).toBeInTheDocument();
         expect(screen.getByText('Got it')).toBeInTheDocument();

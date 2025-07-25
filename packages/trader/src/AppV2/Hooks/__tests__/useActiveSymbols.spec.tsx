@@ -1,10 +1,12 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
-import useActiveSymbols from '../useActiveSymbols';
-import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../trader-providers';
-import { waitFor } from '@testing-library/react';
+
 import { CONTRACT_TYPES, TRADE_TYPES, WS } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
+
+import TraderProviders from '../../../trader-providers';
+import useActiveSymbols from '../useActiveSymbols';
 import { invalidateDTraderCache } from '../useDtraderQuery';
 
 const not_logged_in_active_symbols = [

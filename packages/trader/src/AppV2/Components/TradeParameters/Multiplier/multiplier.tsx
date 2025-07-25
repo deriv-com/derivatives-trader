@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { ActionSheet, Skeleton, TextField } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
-import { useTraderStore } from 'Stores/useTraderStores';
+import { ActionSheet, Skeleton, TextField } from '@deriv-com/quill-ui';
+
 import Carousel from 'AppV2/Components/Carousel';
 import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
 import TradeParamDefinition from 'AppV2/Components/TradeParamDefinition';
 import { isSmallScreen } from 'AppV2/Utils/trade-params-utils';
-import MultiplierWheelPicker from './multiplier-wheel-picker';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import { TTradeParametersProps } from '../trade-parameters';
+
+import MultiplierWheelPicker from './multiplier-wheel-picker';
 
 const Multiplier = observer(({ is_minimized }: TTradeParametersProps) => {
     const { multiplier, multiplier_range_list, commission, is_market_closed, onChange, currency } = useTraderStore();

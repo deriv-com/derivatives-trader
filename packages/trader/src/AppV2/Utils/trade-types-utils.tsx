@@ -1,13 +1,16 @@
 import React from 'react';
-import { Localize } from '@deriv/translations';
-import { getAvailableContractTypes, getCategoriesSortedByKey } from 'Modules/Trading/Helpers/contract-type';
+
 import {
     getContractTypePosition,
     getSupportedContracts,
     TRADE_TYPES,
     unsupported_contract_types_list,
 } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+
+import { getAvailableContractTypes, getCategoriesSortedByKey } from 'Modules/Trading/Helpers/contract-type';
 import { useTraderStore } from 'Stores/useTraderStores';
+
 import { getTradeTypeTabsList } from './trade-params-utils';
 
 type TContractType = {

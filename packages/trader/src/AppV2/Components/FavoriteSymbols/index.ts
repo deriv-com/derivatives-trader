@@ -1,4 +1,5 @@
-import './favorite-symbols.scss';
 import FavoriteSymbols from './favorite-symbols';
+
+import './favorite-symbols.scss';
 
 export default FavoriteSymbols;

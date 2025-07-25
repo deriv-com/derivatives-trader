@@ -1,11 +1,15 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import clsx from 'clsx';
-import { ActionSheet, CaptionText, TextField } from '@deriv-com/quill-ui';
+import { observer } from 'mobx-react-lite';
+
 import { Localize } from '@deriv/translations';
+import { ActionSheet, CaptionText, TextField } from '@deriv-com/quill-ui';
+
 import { useTraderStore } from 'Stores/useTraderStores';
-import LastDigitSelector from './last-digit-selector';
+
 import { TTradeParametersProps } from '../trade-parameters';
+
+import LastDigitSelector from './last-digit-selector';
 
 const displayed_digits = [...Array(10).keys()]; // digits array [0 - 9]
 

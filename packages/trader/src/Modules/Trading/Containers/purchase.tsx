@@ -1,18 +1,21 @@
 import React from 'react';
+
 import {
+    getContractTypePosition,
+    getIndicativePrice,
+    getSupportedContracts,
+    hasContractEntered,
     isAccumulatorContract,
     isEmptyObject,
     isOpen,
-    hasContractEntered,
-    getContractTypePosition,
-    getSupportedContracts,
-    getIndicativePrice,
 } from '@deriv/shared';
-import AccumulatorsSellButton from '../Components/Form/TradeParams/Accumulator/accumulators-sell-button';
+import { observer, useStore } from '@deriv/stores';
+
 import PurchaseFieldset from 'Modules/Trading/Components/Elements/purchase-fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';
-import { observer, useStore } from '@deriv/stores';
 import { TTradeStore } from 'Types';
+
+import AccumulatorsSellButton from '../Components/Form/TradeParams/Accumulator/accumulators-sell-button';
 
 type TGetSupportedContractsKey = keyof ReturnType<typeof getSupportedContracts>;
 

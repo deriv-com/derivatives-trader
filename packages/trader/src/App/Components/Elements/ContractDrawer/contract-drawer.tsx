@@ -1,24 +1,27 @@
-import classNames from 'classnames';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { CSSTransition } from 'react-transition-group';
+import classNames from 'classnames';
+
 import { Div100vhContainer } from '@deriv/components';
 import {
-    isEmptyObject,
     getDurationPeriod,
     getDurationTime,
     getDurationUnitText,
     getEndTime,
+    isEmptyObject,
     mobileOSDetect,
-    TContractStore,
     TContractInfo,
+    TContractStore,
 } from '@deriv/shared';
-import ContractAudit from 'App/Components/Elements/ContractAudit';
-import { PositionsCardLoader } from 'App/Components/Elements/ContentLoader';
-import ContractDrawerCard from './contract-drawer-card';
-import { SwipeableContractAudit } from './swipeable-components';
 import { observer, useStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
+
+import { PositionsCardLoader } from 'App/Components/Elements/ContentLoader';
+import ContractAudit from 'App/Components/Elements/ContractAudit';
+
+import ContractDrawerCard from './contract-drawer-card';
+import { SwipeableContractAudit } from './swipeable-components';
 
 type TContractDrawerCardProps = React.ComponentProps<typeof ContractDrawerCard>;
 type TContractDrawerProps = RouteComponentProps & {

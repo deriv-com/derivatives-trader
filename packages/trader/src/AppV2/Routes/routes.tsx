@@ -1,9 +1,11 @@
 import { lazy } from 'react';
+
 import { routes } from '@deriv/shared';
-import Trade from 'AppV2/Containers/Trade';
-import Positions from 'AppV2/Containers/Positions';
-import { TRouteConfig } from 'Types';
+
 import ContractDetails from 'AppV2/Containers/ContractDetails';
+import Positions from 'AppV2/Containers/Positions';
+import Trade from 'AppV2/Containers/Trade';
+import { TRouteConfig } from 'Types';
 
 type TRouteConfigExtended = Omit<TRouteConfig, 'routes'> & {
     path: string;

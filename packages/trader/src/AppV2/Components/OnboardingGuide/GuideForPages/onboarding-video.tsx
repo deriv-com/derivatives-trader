@@ -1,8 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Skeleton } from '@deriv-com/quill-ui';
+
 import { getUrlBase } from '@deriv/shared';
 import { Localize } from '@deriv/translations';
+import { Skeleton } from '@deriv-com/quill-ui';
+
 import { ASPECT_RATIO } from 'AppV2/Utils/layout-utils';
 
 type TOnboardingVideoProps = {

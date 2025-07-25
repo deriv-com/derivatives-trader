@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Icon, InlineMessage, Text } from '@deriv/components';
-import { CONTRACT_STORAGE_VALUES, TRADE_TYPES, getSymbolDisplayName } from '@deriv/shared';
-
+import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize, localize } from '@deriv/translations';
 import { Analytics } from '@deriv-com/analytics';

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import NumberSelector from '../number-selector';
 
 const tests_arr_arr_numbers = [
@@ -30,16 +32,16 @@ describe('NumberSelector', () => {
             .flat()
             .forEach(number => expect(screen.getByText(`${number * 100}%`)).toBeInTheDocument());
     });
-    it('should call onChange function if user clicks not on the selected value', () => {
+    it('should call onChange function if user clicks not on the selected value', async () => {
         render(<NumberSelector {...mock_props} selected_number={2} />);
-        userEvent.click(screen.getByText('3'));
+        await userEvent.click(screen.getByText('3'));
 
         expect(mock_props.onChange).toHaveBeenCalled();
         expect(mock_props.onChange).toHaveBeenCalledWith({ target: { name: 'test name', value: 3 } });
     });
-    it('should not call onChange function if user clicks on the selected value', () => {
+    it('should not call onChange function if user clicks on the selected value', async () => {
         render(<NumberSelector {...mock_props} selected_number={2} />);
-        userEvent.click(screen.getByText('2'));
+        await userEvent.click(screen.getByText('2'));
 
         expect(mock_props.onChange).not.toHaveBeenCalled();
     });

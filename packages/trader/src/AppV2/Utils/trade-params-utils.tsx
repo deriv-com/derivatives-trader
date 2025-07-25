@@ -1,3 +1,6 @@
+import React from 'react';
+import { Moment } from 'moment';
+
 import {
     CONTRACT_TYPES,
     isTimeValid,
@@ -8,8 +11,7 @@ import {
     TRADE_TYPES,
 } from '@deriv/shared';
 import { Localize, localize } from '@deriv/translations';
-import { Moment } from 'moment';
-import React from 'react';
+
 import { createProposalRequestForContract, getProposalInfo } from 'Stores/Modules/Trading/Helpers/proposal';
 import { TTradeStore } from 'Types';
 

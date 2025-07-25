@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
-import { RadioGroup, Popover } from '@deriv/components';
+
+import { Popover, RadioGroup } from '@deriv/components';
 
 type TItemsList = {
     text: string;

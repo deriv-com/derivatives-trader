@@ -1,8 +1,10 @@
 import React from 'react';
 import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import ErrorComponent from '../error-component';
 
 describe('ErrorComponent', () => {
@@ -69,28 +71,28 @@ describe('ErrorComponent', () => {
 
         expect(screen.queryByText('Please refresh this page to continue.')).not.toBeInTheDocument();
     });
-    it('should call a function which was passed in props when user click on redirect button', () => {
+    it('should call a function which was passed in props when user click on redirect button', async () => {
         const redirectOnClick = jest.fn();
 
         render(<ErrorComponent is_dialog redirectOnClick={redirectOnClick} />);
-        userEvent.click(screen.getByText(default_button));
+        await userEvent.click(screen.getByText(default_button));
 
         expect(redirectOnClick).toHaveBeenCalled();
     });
-    it('should call a reload function when user click on redirect button for Dialog component', () => {
+    it('should call a reload function when user click on redirect button for Dialog component', async () => {
         render(<ErrorComponent is_dialog />);
-        userEvent.click(screen.getByText(default_button));
+        await userEvent.click(screen.getByText(default_button));
         reloadFn();
 
         expect(window.location.reload).toHaveBeenCalled();
     });
-    it('should call a reload function when user click on redirect button for PageError component', () => {
+    it('should call a reload function when user click on redirect button for PageError component', async () => {
         render(
             <Router history={browser_history}>
                 <ErrorComponent header={test_title} should_show_refresh={false} />
             </Router>
         );
-        userEvent.click(screen.getByText(refresh_button));
+        await userEvent.click(screen.getByText(refresh_button));
         reloadFn();
 
         expect(window.location.reload).toHaveBeenCalled();

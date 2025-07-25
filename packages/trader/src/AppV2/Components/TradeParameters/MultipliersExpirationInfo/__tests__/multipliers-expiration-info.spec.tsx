@@ -1,10 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import MultipliersExpirationInfo from '../multipliers-expiration-info';
-import TraderProviders from '../../../../../trader-providers';
-import { TCoreStores } from '@deriv/stores/types';
-import { mockStore } from '@deriv/stores';
+
 import { formatDuration, getDateFromNow, getDiffDuration } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { TCoreStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../../trader-providers';
+import MultipliersExpirationInfo from '../multipliers-expiration-info';
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),

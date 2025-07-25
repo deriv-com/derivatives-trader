@@ -1,7 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { useDevice } from '@deriv-com/ui';
+import { render, screen } from '@testing-library/react';
+
 import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+
 import VideoFragment from '../video-fragment';
 
 const loader = 'dt_skeleton';

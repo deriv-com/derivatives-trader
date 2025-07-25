@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import { SwipeableContractAudit, SwipeableContractDrawer } from '../swipeable-components';
 
 const mocked_children = 'Mocked children';

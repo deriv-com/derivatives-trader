@@ -1,10 +1,13 @@
 import React from 'react';
+import classNames from 'classnames';
+
+import { ProposalOpenContract } from '@deriv/api-types';
 import { Text } from '@deriv/components';
 import { addComma, formatMoney, getCurrencyDisplayCode, isMobile } from '@deriv/shared';
+
 import { FastMarker } from 'Modules/SmartChart';
-import classNames from 'classnames';
+
 import { TRef } from './accumulators-profit-loss-tooltip';
-import { ProposalOpenContract } from '@deriv/api-types';
 
 type TAccumulatorsProfitLossText = Pick<ProposalOpenContract, 'current_spot' | 'current_spot_time' | 'currency'> & {
     className?: string;
@@ -46,7 +49,7 @@ const AccumulatorsProfitLossText = ({
     const sign = profit_value > 0 ? '+' : '';
 
     const runThroughTenthDigit = (
-        action: typeof ACTIONS[keyof typeof ACTIONS],
+        action: (typeof ACTIONS)[keyof typeof ACTIONS],
         interval_ms: number,
         start: number,
         end: number

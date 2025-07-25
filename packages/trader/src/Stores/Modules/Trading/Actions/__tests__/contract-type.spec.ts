@@ -1,7 +1,8 @@
-import { mockStore } from '@deriv/stores';
-import { onChangeContractType, onChangeContractTypeList } from '../contract-type';
-import { ContractType } from '../../Helpers/contract-type';
 import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+
+import { ContractType } from '../../Helpers/contract-type';
+import { onChangeContractType, onChangeContractTypeList } from '../contract-type';
 
 jest.mock('@deriv/shared', () => {
     const barrier_intraday = '+0.000';

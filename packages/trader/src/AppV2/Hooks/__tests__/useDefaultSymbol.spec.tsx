@@ -1,10 +1,11 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
-import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../trader-providers';
-import { waitFor } from '@testing-library/react';
-import { TRADE_TYPES } from '@deriv/shared';
 
+import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
+
+import TraderProviders from '../../../trader-providers';
 import useDefaultSymbol from '../useDefaultSymbol';
 
 const not_logged_in_active_symbols = [

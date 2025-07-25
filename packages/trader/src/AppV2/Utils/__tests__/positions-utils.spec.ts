@@ -1,5 +1,6 @@
-import { TPortfolioPosition } from '@deriv/stores/types';
 import { CONTRACT_TYPES, routes } from '@deriv/shared';
+import { TPortfolioPosition } from '@deriv/stores/types';
+
 import {
     filterPositions,
     getFilteredContractTypes,

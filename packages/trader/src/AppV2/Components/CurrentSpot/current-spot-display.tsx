@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Heading, Text } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
+
 import { usePrevious } from '@deriv/components';
+import { Localize } from '@deriv/translations';
+import { Heading, Text } from '@deriv-com/quill-ui';
 
 type TCurrentSpotDisplayProps = {
     has_tick_count?: boolean;
@@ -33,7 +34,7 @@ const CurrentSpotDisplay = ({ has_tick_count, spot, tick }: TCurrentSpotDisplayP
     const spinning_wrapper_ref = React.useRef<HTMLDivElement>(null);
 
     const spinLastDigit = (
-        action: typeof ACTIONS[keyof typeof ACTIONS],
+        action: (typeof ACTIONS)[keyof typeof ACTIONS],
         interval_ms: number,
         start: number,
         end: number
@@ -78,7 +79,7 @@ const CurrentSpotDisplay = ({ has_tick_count, spot, tick }: TCurrentSpotDisplayP
         }, TOTAL_ANIMATION_TIME);
 
         const getAction = () => {
-            let action: typeof ACTIONS[keyof typeof ACTIONS] = ACTIONS.ADD10;
+            let action: (typeof ACTIONS)[keyof typeof ACTIONS] = ACTIONS.ADD10;
             if (Number(prev_last_digit) < last_digit) {
                 action = ACTIONS.INC;
             } else if (Number(prev_last_digit) > last_digit) {

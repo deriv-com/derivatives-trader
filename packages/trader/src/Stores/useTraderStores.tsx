@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { useStore } from '@deriv/stores';
+
 import TradeStore from './Modules/Trading/trade-store';
 
 const TraderStoreContext = React.createContext<TradeStore | null>(null);

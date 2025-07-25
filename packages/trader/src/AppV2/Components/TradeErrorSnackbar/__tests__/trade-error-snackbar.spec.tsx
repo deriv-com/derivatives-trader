@@ -1,10 +1,12 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+
+import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { useSnackbar } from '@deriv-com/quill-ui';
+import { render } from '@testing-library/react';
+
 import TraderProviders from '../../../../trader-providers';
 import TradeErrorSnackbar from '../trade-error-snackbar';
-import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
 
 jest.mock('@deriv-com/quill-ui', () => ({
     ...jest.requireActual('@deriv-com/quill-ui'),

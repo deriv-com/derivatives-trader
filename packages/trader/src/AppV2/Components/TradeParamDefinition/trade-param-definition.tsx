@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+
 import { ActionSheet, Text } from '@deriv-com/quill-ui';
 
 type TTradeParamDefinitionProps = {

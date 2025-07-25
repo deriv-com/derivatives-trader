@@ -1,13 +1,15 @@
-import classNames from 'classnames';
 import React from 'react';
-import { MobileDialog, Button, Div100vhContainer } from '@deriv/components';
+import classNames from 'classnames';
+
+import { Button, Div100vhContainer, MobileDialog } from '@deriv/components';
 import { isDeepEqual, pick } from '@deriv/shared';
-import { localize } from '@deriv/translations';
 import { observer } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
+import { localize } from '@deriv/translations';
+
+import CancelDeal from 'Modules/Trading/Components/Elements/Multiplier/cancel-deal-mobile';
 import StopLoss from 'Modules/Trading/Components/Form/TradeParams/Multiplier/stop-loss';
 import TakeProfit from 'Modules/Trading/Components/Form/TradeParams/Multiplier/take-profit';
-import CancelDeal from 'Modules/Trading/Components/Elements/Multiplier/cancel-deal-mobile';
+import { useTraderStore } from 'Stores/useTraderStores';
 
 type TRiskManagementDialog = {
     is_open: boolean;

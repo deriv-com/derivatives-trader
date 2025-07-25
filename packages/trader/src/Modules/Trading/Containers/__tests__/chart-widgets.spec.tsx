@@ -1,9 +1,10 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import { ChartBottomWidgets, ChartTopWidgets, DigitsWidget } from '../chart-widgets';
-import TraderProviders from '../../../../trader-providers';
 
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../trader-providers';
+import { ChartBottomWidgets, ChartTopWidgets, DigitsWidget } from '../chart-widgets';
 
 jest.mock('../../../Contract/Components/Digits/digits.tsx', () => jest.fn(() => <div>mockedDigits</div>));
 jest.mock('../../../SmartChart/Components/top-widgets.tsx', () => jest.fn(() => <div>mockedTopWidgets</div>));

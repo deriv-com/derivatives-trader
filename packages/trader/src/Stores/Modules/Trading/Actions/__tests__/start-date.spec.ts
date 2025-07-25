@@ -1,6 +1,7 @@
-import { mockStore } from '@deriv/stores';
-import { ContractType } from '../../Helpers/contract-type';
 import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+
+import { ContractType } from '../../Helpers/contract-type';
 import { onChangeExpiry, onChangeStartDate } from '../start-date';
 
 jest.mock('@deriv/shared', () => {

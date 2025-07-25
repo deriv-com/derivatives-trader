@@ -1,14 +1,14 @@
-import { localize } from '@deriv/translations';
 import {
     addComma,
-    isHighLow,
+    CONTRACT_TYPES,
     getContractTypesConfig,
     isCallPut,
+    isHighLow,
     isVanillaContract,
     TContractInfo,
-    CONTRACT_TYPES,
     TRADE_TYPES,
 } from '@deriv/shared';
+import { localize } from '@deriv/translations';
 
 export const addCommaToNumber = (
     num: number | null | undefined,

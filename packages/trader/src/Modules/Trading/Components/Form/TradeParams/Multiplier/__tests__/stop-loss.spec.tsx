@@ -1,9 +1,11 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import StopLoss from '../stop-loss';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import StopLoss from '../stop-loss';
 
 describe('<StopLoss />', () => {
     let default_mocked_store: ReturnType<typeof mockStore>, default_mocked_props: React.ComponentProps<typeof StopLoss>;
@@ -48,21 +50,21 @@ describe('<StopLoss />', () => {
         expect(screen.getByRole('checkbox')).toBeInTheDocument();
         expect(screen.getByRole('textbox')).toBeInTheDocument();
     });
-    it('should call onChangeMultiple if user clicked on checkbox', () => {
+    it('should call onChangeMultiple if user clicked on checkbox', async () => {
         render(mockStopLoss());
 
-        userEvent.click(screen.getByRole('checkbox'));
+        await userEvent.click(screen.getByRole('checkbox'));
 
         expect(default_mocked_props.onChangeMultiple).toBeCalled();
     });
-    it('should call onChange if user changed value in input', () => {
+    it('should call onChange if user changed value in input', async () => {
         render(mockStopLoss());
 
-        userEvent.type(screen.getByRole('textbox'), '20');
+        await userEvent.type(screen.getByRole('textbox'), '20');
 
         expect(default_mocked_props.onChange).toBeCalled();
     });
-    it('should render functioning Stop Loss input with checkbox if props were not passed (backup should work)', () => {
+    it('should render functioning Stop Loss input with checkbox if props were not passed (backup should work)', async () => {
         default_mocked_props = {};
         render(mockStopLoss());
 
@@ -73,10 +75,10 @@ describe('<StopLoss />', () => {
         expect(check_box).toBeInTheDocument();
         expect(input).toBeInTheDocument();
 
-        userEvent.click(check_box);
+        await userEvent.click(check_box);
         expect(default_mocked_store.modules.trade.onChangeMultiple).toBeCalled();
 
-        userEvent.type(input, '20');
+        await userEvent.type(input, '20');
         expect(default_mocked_store.modules.trade.onChange).toBeCalled();
     });
 });

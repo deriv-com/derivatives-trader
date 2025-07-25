@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { act, render, screen } from '@testing-library/react';
+
 import MarketIsClosedOverlay from '../market-is-closed-overlay';
 
 const mock_default_props = {

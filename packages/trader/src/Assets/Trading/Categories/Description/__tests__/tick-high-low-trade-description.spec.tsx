@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import TickHighLowTradeDescription from '../tick-high-low-trade-description';
 
 describe('<TickHighLowTradeDescription />', () => {

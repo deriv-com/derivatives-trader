@@ -1,11 +1,13 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
+
 import { Skeleton } from '@deriv/components';
 import { Localize } from '@deriv/translations';
-import { getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
+import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
+
 import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
+import { getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
 import { TTradeStore } from 'Types';
 
 type TPayoutPerPointWheelProps = {

@@ -9,6 +9,7 @@ import {
     toMoment,
     TRADE_TYPES,
 } from '@deriv/shared';
+
 import { TError, TTradeStore } from 'Types';
 
 type TObjContractBasis = {
@@ -85,7 +86,7 @@ export const getProposalInfo = (
     const proposal: ExpandedProposal = response.proposal || ({} as ExpandedProposal);
     const profit = (proposal.payout || 0) - (proposal.ask_price || 0);
     const returns = (profit * 100) / (proposal.ask_price || 1);
-    const stake = proposal.display_value;
+    const stake = proposal.display_value || (proposal.ask_price ? proposal.ask_price.toString() : '');
     const basis_list = store.basis_list;
 
     const contract_basis: TObjContractBasis | undefined =
@@ -197,7 +198,9 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
         basis: store.basis,
         contract_type: type_of_contract,
         currency: store.currency,
-        symbol: store.symbol,
+        underlying_symbol: store.symbol,
+        // Backward compatibility: include symbol field as fallback
+        ...(store.symbol && { symbol: store.symbol }),
         ...(store.start_date && store.start_time && { date_start: convertToUnix(store.start_date, store.start_time) }),
         ...(store.expiry_type === 'duration'
             ? {

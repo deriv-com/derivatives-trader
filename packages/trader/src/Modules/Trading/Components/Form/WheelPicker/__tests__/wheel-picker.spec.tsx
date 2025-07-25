@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import WheelPicker from '../wheel-picker';
 import userEvent from '@testing-library/user-event';
+
+import WheelPicker from '../wheel-picker';
 
 const options = ['10', '20', '30', '40'];
 const mockOnClick = jest.fn();

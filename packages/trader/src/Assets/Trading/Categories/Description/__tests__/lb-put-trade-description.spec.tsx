@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import LbPutTradeDescription from '../lb-put-trade-description';
 
 describe('<LbPutTradeDescription />', () => {

@@ -1,10 +1,14 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Icon } from '@deriv/components';
-import IconTradeCategory from 'Assets/Trading/Categories/icon-trade-categories';
-import { findContractCategory } from '../../../Helpers/contract-type';
-import { TContractCategory, TContractType, TList } from './types';
 import { useDevice } from '@deriv-com/ui';
+
+import IconTradeCategory from 'Assets/Trading/Categories/icon-trade-categories';
+
+import { findContractCategory } from '../../../Helpers/contract-type';
+
+import { TContractCategory, TContractType, TList } from './types';
 
 type TDisplay = {
     is_open: boolean;

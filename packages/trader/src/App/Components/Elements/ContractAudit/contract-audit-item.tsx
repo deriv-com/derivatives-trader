@@ -1,6 +1,7 @@
 import React from 'react';
-import { formatDate, formatTime } from '@deriv/shared';
+
 import { Text } from '@deriv/components';
+import { formatDate, formatTime } from '@deriv/shared';
 
 type TContractAuditItem = {
     additional_info?: React.ReactNode | string;

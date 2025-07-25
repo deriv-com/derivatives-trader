@@ -1,6 +1,7 @@
-import { Text } from '@deriv-com/quill-ui';
 import React from 'react';
 import clsx from 'clsx';
+
+import { Text } from '@deriv-com/quill-ui';
 
 const CardWrapper = ({
     title,

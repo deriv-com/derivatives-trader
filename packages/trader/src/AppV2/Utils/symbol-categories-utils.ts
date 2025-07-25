@@ -1,5 +1,6 @@
 import { ActiveSymbols } from '@deriv/api-types';
 import { localize } from '@deriv/translations';
+
 import sortSymbols from './sort-symbols-utils';
 
 // Helper function to get market display name

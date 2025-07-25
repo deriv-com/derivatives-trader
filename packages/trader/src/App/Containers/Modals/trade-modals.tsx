@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { getUrlSmartTrader } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+
+import AccountVerificationPendingModal from 'App/Components/Elements/Modals/AccountVerificationPendingModal';
 import MarketUnavailableModal from 'App/Components/Elements/Modals/MarketUnavailableModal';
 import ServicesErrorModal from 'App/Components/Elements/Modals/ServicesErrorModal';
-import AccountVerificationPendingModal from 'App/Components/Elements/Modals/AccountVerificationPendingModal';
 import TradingDisabledByResidenceModal from 'App/Components/Elements/Modals/TradingDisabledByResidenceModal';
-import { observer, useStore } from '@deriv/stores';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 const TradeModals = observer(() => {

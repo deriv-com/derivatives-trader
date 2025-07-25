@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import Fieldset from '../fieldset';
 
 const test_children_text = 'Test';

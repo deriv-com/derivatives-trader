@@ -1,8 +1,11 @@
 import React from 'react';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../../trader-providers';
 import Multiplier from '../multiplier';
 
@@ -84,12 +87,12 @@ describe('<Multiplier />', () => {
 
         expect(screen.getByRole('textbox')).toBeDisabled();
     });
-    it('opens ActionSheet with WheelPicker component, details, "Save" button and trade param definition if user clicks on multiplier trade param', () => {
+    it('opens ActionSheet with WheelPicker component, details, "Save" button and trade param definition if user clicks on multiplier trade param', async () => {
         mockMultiplier();
 
         expect(screen.queryByTestId('dt-actionsheet-overlay')).not.toBeInTheDocument();
 
-        userEvent.click(screen.getByText(multiplier_param_label));
+        await userEvent.click(screen.getByText(multiplier_param_label));
 
         expect(screen.getByTestId('dt-actionsheet-overlay')).toBeInTheDocument();
         expect(screen.getByText('WheelPicker')).toBeInTheDocument();
@@ -98,30 +101,30 @@ describe('<Multiplier />', () => {
         expect(screen.getByText('Commission')).toBeInTheDocument();
         expect(screen.getByText('0.01')).toBeInTheDocument();
     });
-    it('renders skeleton instead of WheelPicker if multiplier_range_list is empty', () => {
+    it('renders skeleton instead of WheelPicker if multiplier_range_list is empty', async () => {
         default_mock_store.modules.trade.multiplier_range_list = [];
         mockMultiplier();
 
-        userEvent.click(screen.getByText(multiplier_param_label));
+        await userEvent.click(screen.getByText(multiplier_param_label));
 
         expect(screen.getByTestId('dt-actionsheet-overlay')).toBeInTheDocument();
         expect(screen.queryByText('WheelPicker')).not.toBeInTheDocument();
         expect(screen.getByTestId(skeleton_testid)).toBeInTheDocument();
     });
-    it('renders skeleton instead of detail if commission not available', () => {
+    it('renders skeleton instead of detail if commission not available', async () => {
         default_mock_store.modules.trade.commission = null;
         mockMultiplier();
 
-        userEvent.click(screen.getByText(multiplier_param_label));
+        await userEvent.click(screen.getByText(multiplier_param_label));
 
         expect(screen.getByTestId(skeleton_testid)).toBeInTheDocument();
     });
-    it('applies specific className if innerHeight is <= 640px', () => {
+    it('applies specific className if innerHeight is <= 640px', async () => {
         const original_height = window.innerHeight;
         window.innerHeight = 640;
         mockMultiplier();
 
-        userEvent.click(screen.getByText(multiplier_param_label));
+        await userEvent.click(screen.getByText(multiplier_param_label));
 
         expect(screen.getByTestId(multiplier_carousel_testid)).toHaveClass('multiplier__carousel--small');
         window.innerHeight = original_height;
@@ -130,9 +133,9 @@ describe('<Multiplier />', () => {
         jest.useFakeTimers();
         mockMultiplier();
 
-        userEvent.click(screen.getByText(multiplier_param_label));
-        userEvent.click(screen.getByText('x2'));
-        userEvent.click(screen.getByText('Save'));
+        await userEvent.click(screen.getByText(multiplier_param_label));
+        await userEvent.click(screen.getByText('x2'));
+        await userEvent.click(screen.getByText('Save'));
 
         await waitFor(() => {
             jest.advanceTimersByTime(200);

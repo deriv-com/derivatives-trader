@@ -1,9 +1,11 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import MobileWidget from '../mobile-widget';
-import { TStores } from '@deriv/stores/types';
-import TraderProviders from '../../../../../trader-providers';
+
 import { mockStore } from '@deriv/stores';
+import { TStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../../trader-providers';
+import MobileWidget from '../mobile-widget';
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),

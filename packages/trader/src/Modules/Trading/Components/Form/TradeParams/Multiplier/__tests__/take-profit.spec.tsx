@@ -1,9 +1,11 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import TakeProfit from '../take-profit';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import TakeProfit from '../take-profit';
 
 describe('<TakeProfit />', () => {
     let default_mocked_store: ReturnType<typeof mockStore>,
@@ -54,21 +56,21 @@ describe('<TakeProfit />', () => {
         expect(screen.getByRole('checkbox')).toBeInTheDocument();
         expect(screen.getByRole('textbox')).toBeInTheDocument();
     });
-    it('should call onChangeMultiple if user clicked on checkbox', () => {
+    it('should call onChangeMultiple if user clicked on checkbox', async () => {
         render(mockTakeProfit());
 
-        userEvent.click(screen.getByRole('checkbox'));
+        await userEvent.click(screen.getByRole('checkbox'));
 
         expect(default_mocked_props.onChangeMultiple).toBeCalled();
     });
-    it('should call onChange if user changed value in input', () => {
+    it('should call onChange if user changed value in input', async () => {
         render(mockTakeProfit());
 
-        userEvent.type(screen.getByRole('textbox'), '20');
+        await userEvent.type(screen.getByRole('textbox'), '20');
 
         expect(default_mocked_props.onChange).toBeCalled();
     });
-    it('should render functioning Take profits input with checkbox if props were not passed (backup should work)', () => {
+    it('should render functioning Take profits input with checkbox if props were not passed (backup should work)', async () => {
         default_mocked_props = {};
         render(mockTakeProfit());
 
@@ -79,27 +81,27 @@ describe('<TakeProfit />', () => {
         expect(check_box).toBeInTheDocument();
         expect(input).toBeInTheDocument();
 
-        userEvent.click(check_box);
+        await userEvent.click(check_box);
         expect(default_mocked_store.modules.trade.onChangeMultiple).toBeCalled();
 
-        userEvent.type(input, '20');
+        await userEvent.type(input, '20');
         expect(default_mocked_store.modules.trade.onChange).toBeCalled();
     });
-    it('should render correct text of the tooltip for Multipliers', () => {
+    it('should render correct text of the tooltip for Multipliers', async () => {
         render(mockTakeProfit());
 
         expect(screen.queryByText(takeProfitTooltipText)).not.toBeInTheDocument();
-        userEvent.hover(screen.getByTestId(popoverTestid));
+        await userEvent.hover(screen.getByTestId(popoverTestid));
 
         expect(screen.getByText(takeProfitTooltipText)).toBeInTheDocument();
     });
-    it('should render correct text of the tooltip for Accumulators', () => {
+    it('should render correct text of the tooltip for Accumulators', async () => {
         default_mocked_store.modules.trade.is_accumulator = true;
         default_mocked_store.modules.trade.is_multiplier = false;
         render(mockTakeProfit());
 
         expect(screen.queryByText(takeProfitTooltipTextForAcc)).not.toBeInTheDocument();
-        userEvent.hover(screen.getByTestId(popoverTestid));
+        await userEvent.hover(screen.getByTestId(popoverTestid));
 
         expect(screen.getByText(takeProfitTooltipTextForAcc)).toBeInTheDocument();
     });

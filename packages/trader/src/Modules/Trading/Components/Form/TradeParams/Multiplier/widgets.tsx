@@ -1,15 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Money, Text, Popover } from '@deriv/components';
-import { useTraderStore } from 'Stores/useTraderStores';
+
+import { Money, Popover, Text } from '@deriv/components';
+import { clickAndKeyEventHandler, getGrowthRatePercentage } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import MultiplierAmountModal from 'Modules/Trading/Containers/Multiplier/multiplier-amount-modal';
-import RadioGroupOptionsModal from 'Modules/Trading/Containers/radio-group-options-modal';
+import { Localize, localize } from '@deriv/translations';
+
 import MultipliersExpiration from 'Modules/Trading/Components/Form/TradeParams/Multiplier/expiration';
 import MultipliersExpirationModal from 'Modules/Trading/Components/Form/TradeParams/Multiplier/expiration-modal';
 import MultipliersInfo from 'Modules/Trading/Components/Form/TradeParams/Multiplier/info';
-import { localize, Localize } from '@deriv/translations';
-import { clickAndKeyEventHandler, getGrowthRatePercentage } from '@deriv/shared';
+import MultiplierAmountModal from 'Modules/Trading/Containers/Multiplier/multiplier-amount-modal';
+import RadioGroupOptionsModal from 'Modules/Trading/Containers/radio-group-options-modal';
+import { useTraderStore } from 'Stores/useTraderStores';
 
 type TAmountWidgetProps = {
     amount: number;

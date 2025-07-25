@@ -1,18 +1,21 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
 import {
     getCardLabels,
-    getStartTime,
     getContractPath,
+    getStartTime,
     hasForwardContractStarted,
     isForwardStarting,
     toMoment,
 } from '@deriv/shared';
 import { TPortfolioPosition } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { TClosedPosition } from 'AppV2/Containers/Positions/positions-content';
+
 import ContractCard from '../contract-card';
 
 jest.mock('@deriv/shared', () => ({

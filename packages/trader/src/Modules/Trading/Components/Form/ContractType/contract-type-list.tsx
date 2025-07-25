@@ -1,10 +1,12 @@
 import React from 'react';
-import Item from './contract-type-item';
-import { localize } from '@deriv/translations';
-import { TRADE_TYPES } from '@deriv/shared';
-import { Text } from '@deriv/components';
 import classNames from 'classnames';
-import { TContractType, TContractCategory, TFilteredContractType } from './types';
+
+import { Text } from '@deriv/components';
+import { TRADE_TYPES } from '@deriv/shared';
+import { localize } from '@deriv/translations';
+
+import Item from './contract-type-item';
+import { TContractCategory, TContractType, TFilteredContractType } from './types';
 
 type TListProps = {
     handleSelect?: (

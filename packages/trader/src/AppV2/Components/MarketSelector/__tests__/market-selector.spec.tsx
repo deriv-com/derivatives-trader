@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import MarketSelector from '../market-selector';
-import TraderProviders from '../../../../trader-providers';
-import { TCoreStores } from '@deriv/stores/types';
+
 import { mockStore } from '@deriv/stores';
+import { TCoreStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../trader-providers';
+import MarketSelector from '../market-selector';
 
 // Mock the WS object from @deriv/shared
 jest.mock('@deriv/shared', () => ({

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ExpandedTicksHistory from '../expanded-ticks-history';
 
 describe('ExpandedTicksHistory', () => {

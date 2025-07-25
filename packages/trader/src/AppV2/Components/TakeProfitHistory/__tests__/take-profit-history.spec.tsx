@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import TakeProfitHistory from '../take-profit-history';
+
 import { formatDate, formatMoney, formatTime, TContractStore } from '@deriv/shared';
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import TakeProfitHistory from '../take-profit-history';
 
 jest.mock('@deriv/shared', () => ({
     formatDate: jest.fn(),

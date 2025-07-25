@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import ContractError from '../contract-error';
 
 const mocked_props = {
@@ -22,10 +24,10 @@ describe('ContractError', () => {
 
         expect(screen.getByText(test_text)).toBeInTheDocument();
     });
-    it('should call the function if the icon was clicked', () => {
+    it('should call the function if the icon was clicked', async () => {
         render(<ContractError {...mocked_props} message={test_text} />);
         const icon = screen.getByText('MockedIcon');
-        userEvent.click(icon);
+        await userEvent.click(icon);
 
         expect(mocked_props.onClickClose).toBeCalled();
     });

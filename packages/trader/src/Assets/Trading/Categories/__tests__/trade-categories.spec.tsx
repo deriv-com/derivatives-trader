@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+
 import TradeCategories from '../trade-categories';
 
 jest.mock('../Description/accumulator-trade-description', () => jest.fn(() => 'mockedAccumulatorTradeDescription'));

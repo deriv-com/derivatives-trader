@@ -1,6 +1,8 @@
 import React from 'react';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
-import { StoreProvider, mockStore } from '@deriv/stores';
+
 import { TradingDisabledByResidenceModalContent } from '../trading-disabled-by-residence-modal-content';
 
 describe('<TradingDisabledByResidenceModalContent />', () => {

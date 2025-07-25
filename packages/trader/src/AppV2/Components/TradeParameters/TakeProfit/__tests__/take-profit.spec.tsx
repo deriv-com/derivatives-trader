@@ -1,8 +1,11 @@
 import React from 'react';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../../trader-providers';
 import TakeProfit from '../take-profit';
 
@@ -41,10 +44,10 @@ describe('TakeProfit', () => {
         expect(screen.getByText('Take profit')).toBeInTheDocument();
     });
 
-    it('renders TakeProfitAndStopLossInput and TradeParamDefinition when user clicks on TP input', () => {
+    it('renders TakeProfitAndStopLossInput and TradeParamDefinition when user clicks on TP input', async () => {
         mockTakeProfit();
 
-        userEvent.click(screen.getByText('Take profit'));
+        await userEvent.click(screen.getByText('Take profit'));
 
         expect(screen.getByText('TakeProfitAndStopLossInput')).toBeInTheDocument();
         expect(screen.getByText('TradeParamDefinition')).toBeInTheDocument();

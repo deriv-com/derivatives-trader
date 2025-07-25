@@ -1,9 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { ActionSheet, ToggleSwitch, Text, Heading } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
+
 import { clickAndKeyEventHandler } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+import { ActionSheet, Heading, Text, ToggleSwitch } from '@deriv-com/quill-ui';
+
 import { hasCallPutEqual, hasDurationForCallPutEqual } from 'Stores/Modules/Trading/Helpers/allow-equals';
 import { useTraderStore } from 'Stores/useTraderStores';
 

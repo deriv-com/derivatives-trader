@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { Text } from '@deriv/components';
-import { Localize } from '@deriv/translations';
-import { observer } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { useDevice } from '@deriv-com/ui';
-import PayoutPerPointInput from 'Modules/Trading/Components/Elements/PayoutPerPoint/payout-per-point-input';
 import { LabelPairedChevronsDownCaptionRegularIcon, LabelPairedChevronsUpCaptionRegularIcon } from '@deriv/quill-icons';
+import { observer } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+import { useDevice } from '@deriv-com/ui';
+
+import PayoutPerPointInput from 'Modules/Trading/Components/Elements/PayoutPerPoint/payout-per-point-input';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import './payout-selector.scss';
 
 const PayoutSelector = observer(() => {

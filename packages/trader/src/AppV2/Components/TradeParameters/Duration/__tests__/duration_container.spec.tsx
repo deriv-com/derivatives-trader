@@ -1,12 +1,15 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import DurationActionSheetContainer from '../container';
+import moment from 'moment';
+
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import TraderProviders from '../../../../../trader-providers';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
-import moment from 'moment';
+
+import TraderProviders from '../../../../../trader-providers';
+import DurationActionSheetContainer from '../container';
 
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
     observe: jest.fn(),

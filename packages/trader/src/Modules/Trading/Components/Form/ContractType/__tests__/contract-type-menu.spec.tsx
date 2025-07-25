@@ -1,11 +1,13 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import ContractTypeMenu from '../ContractTypeMenu';
-import ContractTypeWidget from '../contract-type-widget';
-import { mockStore } from '@deriv/stores';
-import { TRADE_TYPES } from '@deriv/shared';
-import TraderProviders from '../../../../../../trader-providers';
+
 import { ActiveSymbols } from '@deriv/api-types';
+import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../../../trader-providers';
+import ContractTypeWidget from '../contract-type-widget';
+import ContractTypeMenu from '../ContractTypeMenu';
 
 const mock_connect_props = {
     modules: {

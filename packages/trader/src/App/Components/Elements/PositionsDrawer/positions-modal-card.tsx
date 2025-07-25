@@ -1,26 +1,29 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { ArrowIndicator, ContractCard, CurrencyBadge, Money, ProgressSliderMobile, Text } from '@deriv/components';
 import {
     addComma,
+    getCardLabels,
     getContractPath,
     getContractTypeDisplay,
-    getCardLabels,
+    getEndTime,
     getMarketInformation,
     getSymbolDisplayName,
-    getEndTime,
     isAccumulatorContract,
     isCryptoContract,
+    isCryptocurrency,
     isMultiplierContract,
     isTurbosContract,
-    isCryptocurrency,
     isVanillaContract,
 } from '@deriv/shared';
-import { BinaryLink } from 'App/Components/Routes';
-import { PositionsCardLoader } from 'App/Components/Elements/ContentLoader';
-import PositionsResultMobile from './positions-result-mobile';
 import { observer, useStore } from '@deriv/stores';
+
+import { PositionsCardLoader } from 'App/Components/Elements/ContentLoader';
+import { BinaryLink } from 'App/Components/Routes';
 import { useTraderStore } from 'Stores/useTraderStores';
+
+import PositionsResultMobile from './positions-result-mobile';
 
 type TPortfolioStore = ReturnType<typeof useStore>['portfolio'];
 type TPortfolioPosition = Pick<

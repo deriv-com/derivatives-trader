@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { isDesktop, isMobile } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
+
 import TopWidgets from '../top-widgets';
-import { isMobile, isDesktop } from '@deriv/shared';
 
 jest.mock('../recent-trade-info.tsx', () => jest.fn(() => <div>MockedRecentTradeInfo</div>));
 jest.mock('Modules/SmartChart', () => ({

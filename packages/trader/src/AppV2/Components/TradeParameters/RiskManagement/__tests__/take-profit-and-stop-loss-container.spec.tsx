@@ -1,8 +1,11 @@
 import React from 'react';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../../trader-providers';
 import TakeProfitAndStopLossContainer from '../take-profit-and-stop-loss-container';
 
@@ -45,20 +48,20 @@ describe('TakeProfitAndStopLossContainer', () => {
             </TraderProviders>
         );
 
-    it('should render both inputs for TP&SL', () => {
+    it('should render both inputs for TP&SL', async () => {
         mockTakeProfitAndStopLossContainer();
 
-        userEvent.click(screen.getByText('Save'));
+        await userEvent.click(screen.getByText('Save'));
         expect(screen.getByText('Take profit')).toBeInTheDocument();
         expect(screen.getByText('Stop loss')).toBeInTheDocument();
         expect(screen.getByText('Save')).toBeInTheDocument();
     });
 
-    it('should call onChangeMultiple if user clicked on Save button', () => {
+    it('should call onChangeMultiple if user clicked on Save button', async () => {
         mockTakeProfitAndStopLossContainer();
 
         expect(default_mock_store.modules.trade.onChangeMultiple).not.toBeCalled();
-        userEvent.click(screen.getByText('Save'));
+        await userEvent.click(screen.getByText('Save'));
         expect(default_mock_store.modules.trade.onChangeMultiple).toBeCalled();
     });
 });

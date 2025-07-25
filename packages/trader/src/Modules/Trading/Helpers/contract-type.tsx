@@ -1,8 +1,10 @@
 import React from 'react';
-import { localize } from '@deriv/translations';
+
 import { ActiveSymbols } from '@deriv/api-types';
-import { TContractType, TContractCategory, TList } from '../Components/Form/ContractType/types';
 import { unsupported_contract_types_list } from '@deriv/shared';
+import { localize } from '@deriv/translations';
+
+import { TContractCategory, TContractType, TList } from '../Components/Form/ContractType/types';
 
 type TContractTypesList = {
     [key: string]: {

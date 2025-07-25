@@ -1,8 +1,9 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Money, Text } from '@deriv/components';
-import { Localize } from '@deriv/translations';
 import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
 
 type TMinMaxStakeInfo = {
     className?: string;

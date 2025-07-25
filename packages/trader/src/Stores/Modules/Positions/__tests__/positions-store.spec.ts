@@ -1,7 +1,10 @@
-import { mockStore } from '@deriv/stores';
-import PositionsStore from '../positions-store';
 import { configure } from 'mobx';
+
+import { mockStore } from '@deriv/stores';
+
 import { TRootStore } from 'Types';
+
+import PositionsStore from '../positions-store';
 
 configure({ safeDescriptors: false });
 

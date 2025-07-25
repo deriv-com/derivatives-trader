@@ -1,9 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import { CaptionText } from '@deriv-com/quill-ui';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { getLocalizedBasis } from '@deriv/shared';
+
 import { Money } from '@deriv/components';
+import { getLocalizedBasis } from '@deriv/shared';
+import { CaptionText } from '@deriv-com/quill-ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
 
 type TPurchaseButtonContent = {
     has_no_button_content?: boolean;

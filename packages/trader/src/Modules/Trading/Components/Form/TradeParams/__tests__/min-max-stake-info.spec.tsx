@@ -1,8 +1,11 @@
 import React from 'react';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+
 import MinMaxStakeInfo from '../min-max-stake-info';
-import { StoreProvider, mockStore } from '@deriv/stores';
+
+import '@testing-library/jest-dom';
 
 describe('<MinMaxStakeInfo/>', () => {
     const store = mockStore({});

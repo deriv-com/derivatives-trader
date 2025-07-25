@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSwipeable } from 'react-swipeable';
 import clsx from 'clsx';
+
 import { getLanguage } from '@deriv/translations';
+
 import CarouselHeader, { TQuillIcon } from './carousel-header';
 
 type TCarousel = {

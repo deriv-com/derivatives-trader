@@ -1,5 +1,6 @@
-import { onChangeSymbolAsync } from '../symbol';
 import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
+
+import { onChangeSymbolAsync } from '../symbol';
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),

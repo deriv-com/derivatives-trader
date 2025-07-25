@@ -1,8 +1,10 @@
-import classNames from 'classnames';
 import React from 'react';
-import { Popover, Money, Text } from '@deriv/components';
-import { Localize } from '@deriv/translations';
+import classNames from 'classnames';
+
+import { Money, Popover, Text } from '@deriv/components';
 import { observer } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+
 import { useTraderStore } from 'Stores/useTraderStores';
 
 const commission_tooltip_margin = 30;

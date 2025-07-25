@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import BarrierInfo from '../barrier-info';
-import TraderProviders from '../../../../../trader-providers';
-import { mockStore } from '@deriv/stores';
+
 import { CONTRACT_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../../trader-providers';
+import BarrierInfo from '../barrier-info';
 
 const barrier_label = 'Barrier';
 

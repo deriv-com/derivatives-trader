@@ -1,9 +1,12 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import clsx from 'clsx';
+import { observer } from 'mobx-react-lite';
+
 import { SegmentedControlSingleChoice } from '@deriv-com/quill-ui';
-import { useTraderStore } from 'Stores/useTraderStores';
+
 import { getTradeTypeTabsList } from 'AppV2/Utils/trade-params-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import { TTradeParametersProps } from '../trade-parameters';
 
 const TradeTypeTabs = observer(({ is_minimized }: TTradeParametersProps) => {

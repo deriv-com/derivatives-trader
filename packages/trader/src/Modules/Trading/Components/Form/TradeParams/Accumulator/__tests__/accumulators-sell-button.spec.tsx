@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import AccumulatorsSellButton from '../accumulators-sell-button';
-import { mockStore } from '@deriv/stores';
+
 import { mockContractInfo } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import AccumulatorsSellButton from '../accumulators-sell-button';
 
 const mock_default_props = {
     is_disabled: false,

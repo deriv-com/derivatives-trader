@@ -1,9 +1,11 @@
-import classNames from 'classnames';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { observer } from '@deriv/stores';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Checkbox, Text } from '@deriv/components';
+import { observer } from '@deriv/stores';
 import { Localize, localize } from '@deriv/translations';
+
+import { useTraderStore } from 'Stores/useTraderStores';
 
 type TAllowEquals = {
     onChange: (e: { target: { name: string; value: number } }) => Promise<void>;

@@ -1,13 +1,16 @@
 import React from 'react';
+
 import { MobileWrapper, usePrevious } from '@deriv/components';
 import { getMarketNamesMap, unsupported_contract_types_list } from '@deriv/shared';
-import { isDigitTradeType } from 'Modules/Trading/Helpers/digits';
+import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv/translations';
+
 import { ToastPopup } from 'Modules/Trading/Containers/toast-popup';
+import { isDigitTradeType } from 'Modules/Trading/Helpers/digits';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import ContractTypeWidget from '../Components/Form/ContractType';
 import { getAvailableContractTypes } from '../Helpers/contract-type';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { observer, useStore } from '@deriv/stores';
 
 const Contract = observer(() => {
     const {

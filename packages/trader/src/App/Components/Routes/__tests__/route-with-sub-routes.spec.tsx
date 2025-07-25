@@ -1,6 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+
 import { render, screen } from '@testing-library/react';
+
 import RouteWithSubRoutes from '../route-with-sub-routes';
 
 type TMockFunction = {

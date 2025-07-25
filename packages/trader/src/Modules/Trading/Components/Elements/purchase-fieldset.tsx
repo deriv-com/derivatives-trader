@@ -1,13 +1,16 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Popover } from '@deriv/components';
-import Fieldset from 'App/Components/Form/fieldset';
-import ContractInfo from 'Modules/Trading/Components/Form/Purchase/contract-info';
-import PurchaseButton from 'Modules/Trading/Components/Elements/purchase-button';
-import CancelDealInfo from '../Form/Purchase/cancel-deal-info';
-import { TProposalTypeInfo, TTradeStore } from 'Types';
-import { useDevice } from '@deriv-com/ui';
 import { isTabletOs } from '@deriv/shared';
+import { useDevice } from '@deriv-com/ui';
+
+import Fieldset from 'App/Components/Form/fieldset';
+import PurchaseButton from 'Modules/Trading/Components/Elements/purchase-button';
+import ContractInfo from 'Modules/Trading/Components/Form/Purchase/contract-info';
+import { TProposalTypeInfo, TTradeStore } from 'Types';
+
+import CancelDealInfo from '../Form/Purchase/cancel-deal-info';
 
 type TPurchaseFieldset = {
     basis: string;

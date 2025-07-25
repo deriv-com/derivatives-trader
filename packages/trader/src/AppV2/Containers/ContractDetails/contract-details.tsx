@@ -1,33 +1,36 @@
 import React from 'react';
-import EntryExitDetails from 'AppV2/Components/EntryExitDetails';
-import TakeProfitHistory from 'AppV2/Components/TakeProfitHistory';
-import PayoutInfo from 'AppV2/Components/PayoutInfo';
-import ContractDetailsChart from '../Chart/contract-details-chart';
-import CardWrapper from 'AppV2/Components/CardWrapper';
-import { observer, useStore } from '@deriv/stores';
-import useContractDetails from 'AppV2/Hooks/useContractDetails';
-import OrderDetails from 'AppV2/Components/OrderDetails';
-import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
-import TakeProfit from 'AppV2/Components/TakeProfit/take-profit';
-import StopLoss from 'AppV2/Components/StopLoss/stop-loss';
-import DealCancellation from 'AppV2/Components/DealCancellation/deal-cancellation';
+import classNames from 'classnames';
+
+import { Loading } from '@deriv/components';
 import {
+    hasContractEntered,
+    isAccumulatorContract,
     isForwardStarting,
     isMultiplierContract,
     isOpen,
     isValidToCancel,
-    WS,
-    TContractStore,
     isValidToSell,
-    hasContractEntered,
-    isAccumulatorContract,
+    TContractStore,
+    WS,
 } from '@deriv/shared';
-import { Loading } from '@deriv/components';
-import classNames from 'classnames';
-import ContractDetailsFooter from 'AppV2/Components/ContractDetailsFooter';
+import { observer, useStore } from '@deriv/stores';
+
+import CardWrapper from 'AppV2/Components/CardWrapper';
 import { ContractCard } from 'AppV2/Components/ContractCard';
-import ForwardStartingBanner from 'AppV2/Components/ForwardStartingBanner';
+import ContractDetailsFooter from 'AppV2/Components/ContractDetailsFooter';
 import ContractDetailsHeader from 'AppV2/Components/ContractDetailsHeader';
+import DealCancellation from 'AppV2/Components/DealCancellation/deal-cancellation';
+import EntryExitDetails from 'AppV2/Components/EntryExitDetails';
+import ForwardStartingBanner from 'AppV2/Components/ForwardStartingBanner';
+import OrderDetails from 'AppV2/Components/OrderDetails';
+import PayoutInfo from 'AppV2/Components/PayoutInfo';
+import StopLoss from 'AppV2/Components/StopLoss/stop-loss';
+import TakeProfit from 'AppV2/Components/TakeProfit/take-profit';
+import TakeProfitHistory from 'AppV2/Components/TakeProfitHistory';
+import useContractDetails from 'AppV2/Hooks/useContractDetails';
+import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
+
+import ContractDetailsChart from '../Chart/contract-details-chart';
 
 const ContractDetails = observer(() => {
     const { contract_info, is_loading } = useContractDetails();

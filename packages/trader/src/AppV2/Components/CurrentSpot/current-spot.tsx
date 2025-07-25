@@ -1,14 +1,17 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import clsx from 'clsx';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { Skeleton, usePrevious } from '@deriv/components';
-import { useStore } from '@deriv/stores';
-import { isContractElapsed } from '@deriv/shared';
 import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
+
 import { TickSpotData } from '@deriv/api-types';
-import CurrentSpotDisplay from './current-spot-display';
+import { Skeleton, usePrevious } from '@deriv/components';
+import { isContractElapsed } from '@deriv/shared';
+import { useStore } from '@deriv/stores';
+
 import { isDigitContractWinning } from 'AppV2/Utils/trade-params-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import CurrentSpotDisplay from './current-spot-display';
 
 const STATUS = {
     LOST: 'lost',

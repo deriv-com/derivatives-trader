@@ -1,9 +1,11 @@
 import React from 'react';
-import { Tag } from '@deriv-com/quill-ui';
+
 import { RemainingTime } from '@deriv/components';
 import { LabelPairedStopwatchCaptionRegularIcon } from '@deriv/quill-icons';
 import { getCardLabelsV2 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
+import { Tag } from '@deriv-com/quill-ui';
+
 import useContractDetails from 'AppV2/Hooks/useContractDetails';
 
 type DealCancellationRemainingTimeProps = {

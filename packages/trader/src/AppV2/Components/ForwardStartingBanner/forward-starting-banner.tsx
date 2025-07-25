@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { CaptionText, Text } from '@deriv-com/quill-ui';
+
+import { RemainingTime } from '@deriv/components';
+import { LabelPairedStopwatchMdBoldIcon } from '@deriv/quill-icons';
 import {
-    TContractInfo,
     formatDate,
     formatTime,
     getCardLabels,
@@ -10,13 +11,14 @@ import {
     hasForwardContractStarted,
     isEnded,
     isForwardStarting,
+    TContractInfo,
     toMoment,
 } from '@deriv/shared';
-import { TClosedPosition } from 'AppV2/Containers/Positions/positions-content';
 import { Localize } from '@deriv/translations';
-import { RemainingTime } from '@deriv/components';
+import { CaptionText, Text } from '@deriv-com/quill-ui';
+
+import { TClosedPosition } from 'AppV2/Containers/Positions/positions-content';
 import { TRootStore } from 'Types';
-import { LabelPairedStopwatchMdBoldIcon } from '@deriv/quill-icons';
 
 type TForwardStartingBannerProps = {
     class_name?: string;

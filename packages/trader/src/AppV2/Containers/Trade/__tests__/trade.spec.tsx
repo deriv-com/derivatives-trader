@@ -1,14 +1,17 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { mockStore } from '@deriv/stores';
-import { ReportsStoreProvider } from '@deriv/reports/src/Stores/useReportsStores';
-import TraderProviders from '../../../../trader-providers';
-import ModulesProvider from 'Stores/Providers/modules-providers';
-import Trade from '../trade';
-import { TRADE_TYPES, redirectToLogin, redirectToSignUp } from '@deriv/shared';
 import { Router } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
+
+import { ReportsStoreProvider } from '@deriv/reports/src/Stores/useReportsStores';
+import { redirectToLogin, redirectToSignUp, TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import ModulesProvider from 'Stores/Providers/modules-providers';
+
+import TraderProviders from '../../../../trader-providers';
+import Trade from '../trade';
 
 const mock_contract_data = {
     contracts_for: {

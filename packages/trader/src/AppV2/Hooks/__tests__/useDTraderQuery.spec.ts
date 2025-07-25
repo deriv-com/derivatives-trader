@@ -1,6 +1,7 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import { useDtraderQuery, invalidateDTraderCache } from '../useDtraderQuery';
 import { WS } from '@deriv/shared';
+import { act, renderHook } from '@testing-library/react-hooks';
+
+import { invalidateDTraderCache, useDtraderQuery } from '../useDtraderQuery';
 
 jest.mock('@deriv/shared', () => ({
     WS: {

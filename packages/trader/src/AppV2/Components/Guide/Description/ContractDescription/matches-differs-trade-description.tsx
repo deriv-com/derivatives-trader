@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { Localize } from '@deriv/translations';
-import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+
 import { getContractDescription } from 'AppV2/Utils/contract-description-utils';
+import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
 
 const MatchesDiffersTradeDescription = () => {
     const [matches, differs] = CONTRACT_LIST.MATCHES_DIFFERS.split('/');

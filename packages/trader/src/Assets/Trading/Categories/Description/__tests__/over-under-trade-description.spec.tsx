@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import OverUnderTradeDescription from '../over-under-trade-description';
 
 describe('<OverUnderTradeDescription />', () => {

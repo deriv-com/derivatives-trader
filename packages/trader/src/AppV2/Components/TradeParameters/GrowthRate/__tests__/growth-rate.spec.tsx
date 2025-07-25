@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { CONTRACT_TYPES, getGrowthRatePercentage } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
-import { CONTRACT_TYPES, getGrowthRatePercentage } from '@deriv/shared';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../../trader-providers';
 import GrowthRate from '../growth-rate';
 
@@ -93,13 +96,13 @@ describe('GrowthRate', () => {
 
         expect(screen.getByRole('textbox')).toBeDisabled();
     });
-    it('opens ActionSheet with WheelPicker component, details, "Save" button and trade param definition if user clicks on "Growth rate" trade param', () => {
+    it('opens ActionSheet with WheelPicker component, details, "Save" button and trade param definition if user clicks on "Growth rate" trade param', async () => {
         default_mock_store.modules.trade.maximum_ticks = 55;
         mockGrowthRate();
 
         expect(screen.queryByTestId('dt-actionsheet-overlay')).not.toBeInTheDocument();
 
-        userEvent.click(screen.getByText(growth_rate_param_label));
+        await userEvent.click(screen.getByText(growth_rate_param_label));
 
         expect(screen.getByTestId('dt-actionsheet-overlay')).toBeInTheDocument();
         expect(screen.getByText('WheelPicker')).toBeInTheDocument();
@@ -112,22 +115,22 @@ describe('GrowthRate', () => {
         expect(screen.getByText('Save')).toBeInTheDocument();
         expect(screen.getByText(mocked_definition)).toBeInTheDocument();
     });
-    it('renders skeleton instead of WheelPicker if accumulator_range_list is empty', () => {
+    it('renders skeleton instead of WheelPicker if accumulator_range_list is empty', async () => {
         default_mock_store.modules.trade.accumulator_range_list = [];
         mockGrowthRate();
 
-        userEvent.click(screen.getByText(growth_rate_param_label));
+        await userEvent.click(screen.getByText(growth_rate_param_label));
 
         expect(screen.getByTestId('dt-actionsheet-overlay')).toBeInTheDocument();
         expect(screen.queryByText('WheelPicker')).not.toBeInTheDocument();
         expect(screen.getByTestId(skeleton_testid)).toBeInTheDocument();
     });
-    it('renders skeletons instead of details if proposal data is not available', () => {
+    it('renders skeletons instead of details if proposal data is not available', async () => {
         default_mock_store.modules.trade.proposal_info = {};
         default_mock_store.modules.trade.is_purchase_enabled = false;
         mockGrowthRate();
 
-        userEvent.click(screen.getByText(growth_rate_param_label));
+        await userEvent.click(screen.getByText(growth_rate_param_label));
 
         expect(
             screen.queryByText(`±${default_mock_store.modules.trade.tick_size_barrier_percentage}`)
@@ -135,12 +138,12 @@ describe('GrowthRate', () => {
         expect(screen.queryByText(`${default_mock_store.modules.trade.maximum_ticks} ticks`)).not.toBeInTheDocument();
         expect(screen.getAllByTestId(skeleton_testid)).toHaveLength(2);
     });
-    it('applies specific className if innerHeight is <= 640px', () => {
+    it('applies specific className if innerHeight is <= 640px', async () => {
         const original_height = window.innerHeight;
         window.innerHeight = 640;
         mockGrowthRate();
 
-        userEvent.click(screen.getByText(growth_rate_param_label));
+        await userEvent.click(screen.getByText(growth_rate_param_label));
 
         expect(screen.getByTestId(growth_rate_carousel_testid)).toHaveClass('growth-rate__carousel--small');
         window.innerHeight = original_height;
@@ -150,9 +153,9 @@ describe('GrowthRate', () => {
         mockGrowthRate();
 
         const new_selected_value = default_mock_store.modules.trade.accumulator_range_list[1];
-        userEvent.click(screen.getByText(growth_rate_param_label));
-        userEvent.click(screen.getByText(`${getGrowthRatePercentage(new_selected_value)}%`));
-        userEvent.click(screen.getByText('Save'));
+        await userEvent.click(screen.getByText(growth_rate_param_label));
+        await userEvent.click(screen.getByText(`${getGrowthRatePercentage(new_selected_value)}%`));
+        await userEvent.click(screen.getByText('Save'));
 
         await waitFor(() => {
             jest.advanceTimersByTime(200);

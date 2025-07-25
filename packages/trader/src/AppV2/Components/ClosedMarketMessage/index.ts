@@ -1,4 +1,5 @@
-import './closed-market-message.scss';
 import ClosedMarketMessage from './closed-market-message';
+
+import './closed-market-message.scss';
 
 export default ClosedMarketMessage;

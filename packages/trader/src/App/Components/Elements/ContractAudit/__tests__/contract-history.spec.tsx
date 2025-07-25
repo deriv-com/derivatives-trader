@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ContractHistory from '../contract-history';
 
 const mocked_default_props = {

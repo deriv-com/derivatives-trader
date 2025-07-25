@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Text } from '@deriv/components';
+
 import TicksHistoryCounter from './ticks-history-counter';
 
 type TExpandedTicksHistoryProps = {

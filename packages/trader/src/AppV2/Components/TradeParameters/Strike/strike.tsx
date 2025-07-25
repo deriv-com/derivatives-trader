@@ -1,17 +1,21 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { ActionSheet, TextField } from '@deriv-com/quill-ui';
+
+import { Skeleton } from '@deriv/components';
 import { getCurrencyDisplayCode, isEmptyObject } from '@deriv/shared';
 import { Localize } from '@deriv/translations';
-import { Skeleton } from '@deriv/components';
-import TradeParamDefinition from 'AppV2/Components/TradeParamDefinition';
+import { ActionSheet, TextField } from '@deriv-com/quill-ui';
+
 import Carousel from 'AppV2/Components/Carousel';
 import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
+import TradeParamDefinition from 'AppV2/Components/TradeParamDefinition';
 import { isSmallScreen } from 'AppV2/Utils/trade-params-utils';
-import StrikeWheel from './strike-wheel';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import { TTradeParametersProps } from '../trade-parameters';
+
+import StrikeWheel from './strike-wheel';
 
 const Strike = observer(({ is_minimized }: TTradeParametersProps) => {
     const [is_open, setIsOpen] = React.useState(false);

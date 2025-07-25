@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { mockContractInfo } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockContractInfo } from '@deriv/shared';
+
 import ContractAudit from '../contract-audit';
 
 const ContractDetails = 'ContractDetails';
@@ -46,10 +48,10 @@ describe('<ContractAudit />', () => {
         expect(screen.getByText(ContractHistory)).toBeInTheDocument();
     });
 
-    it('should call toggleHistoryTab function if onTabItemClick function was called with 0 index', () => {
+    it('should call toggleHistoryTab function if onTabItemClick function was called with 0 index', async () => {
         render(<ContractAudit {...mocked_default_props} />);
 
-        userEvent.click(screen.getByText(ContractDetails));
+        await userEvent.click(screen.getByText(ContractDetails));
 
         expect(mocked_default_props.toggleHistoryTab).toBeCalled();
     });

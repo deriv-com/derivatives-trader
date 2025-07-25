@@ -1,11 +1,14 @@
-import moment from 'moment';
-import { mockStore } from '@deriv/stores';
-import TradeStore from '../trade-store';
 import { configure } from 'mobx';
-import { ContractType } from '../Helpers/contract-type';
-import { TRootStore } from 'Types';
+import moment from 'moment';
+
 import { ActiveSymbols } from '@deriv/api-types';
 import { CONTRACT_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+
+import { TRootStore } from 'Types';
+
+import { ContractType } from '../Helpers/contract-type';
+import TradeStore from '../trade-store';
 
 configure({ safeDescriptors: false });
 

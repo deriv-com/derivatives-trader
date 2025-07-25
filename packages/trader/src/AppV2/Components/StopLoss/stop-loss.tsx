@@ -1,8 +1,11 @@
-import { Localize } from '@deriv/translations';
 import React from 'react';
-import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
+
 import { observer } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+
 import useContractDetails from 'AppV2/Hooks/useContractDetails';
+import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
+
 import RiskManagementItem from '../RiskManagementItem';
 
 const StopLoss = observer(() => {

@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { useDevice } from '@deriv-com/ui';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import PurchaseFieldset from '../purchase-fieldset';
 
 const default_mocked_props: React.ComponentProps<typeof PurchaseFieldset> = {
@@ -78,15 +80,15 @@ describe('<PurchaseFieldset />', () => {
         expect(screen.getByText(/PurchaseButton/i)).toBeInTheDocument();
     });
 
-    it('should call function onHoverPurchase if user hovers and/or unhovers on purchase field and is_disabled === false', () => {
+    it('should call function onHoverPurchase if user hovers and/or unhovers on purchase field and is_disabled === false', async () => {
         render(<PurchaseFieldset {...default_mocked_props} is_multiplier />);
 
         const popover = screen.getByTestId(/dt_popover_wrapper/i);
-        userEvent.hover(popover);
+        await userEvent.hover(popover);
 
         expect(default_mocked_props.onHoverPurchase).toBeCalled();
 
-        userEvent.unhover(popover);
+        await userEvent.unhover(popover);
 
         expect(default_mocked_props.onHoverPurchase).toBeCalledTimes(2);
     });

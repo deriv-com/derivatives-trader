@@ -1,8 +1,10 @@
 import React from 'react';
+import moment from 'moment';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import Dialog from '../dialog';
-import moment from 'moment';
 
 describe('<Dialog />', () => {
     const default_props = {
@@ -26,12 +28,12 @@ describe('<Dialog />', () => {
         expect(minute_element).toHaveClass('testPreClass__selector-list-item--selected');
         expect(hour_element).toHaveClass('testPreClass__selector-list-item--selected');
     });
-    it('Selecting disabled hour and minute does not call onChange function', () => {
+    it('Selecting disabled hour and minute does not call onChange function', async () => {
         render(<Dialog {...default_props} />);
         const disabled_hour_element = screen.getByText('12');
         const disabled_minute_element = screen.getByText('45');
-        userEvent.click(disabled_hour_element);
-        userEvent.click(disabled_minute_element);
+        await userEvent.click(disabled_hour_element);
+        await userEvent.click(disabled_minute_element);
 
         expect(default_props.onChange).not.toHaveBeenCalled();
     });

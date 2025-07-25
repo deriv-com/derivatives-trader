@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text } from '@deriv-com/quill-ui';
+
 import { StandaloneBriefcaseFillIcon, StandaloneSearchFillIcon } from '@deriv/quill-icons';
 import { Localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
+
 import { TAB_NAME } from 'AppV2/Utils/positions-utils';
 
 export type TEmptyPositionsProps = {

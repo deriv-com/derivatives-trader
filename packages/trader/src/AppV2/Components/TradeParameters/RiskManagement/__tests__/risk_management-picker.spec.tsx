@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import RiskManagementPicker from '../risk-management-picker';
 
 jest.mock('../deal-cancellation', () => jest.fn(() => <div>Page content 2</div>));
@@ -17,10 +19,10 @@ describe('RiskManagementPicker', () => {
         expect(screen.getByText('Page content 1')).toBeInTheDocument();
     });
 
-    it('should render Page content 2 component on first page', () => {
+    it('should render Page content 2 component on first page', async () => {
         render(<RiskManagementPicker {...mock_props} />);
 
-        userEvent.click(screen.getByText('Deal cancellation'));
+        await userEvent.click(screen.getByText('Deal cancellation'));
 
         expect(screen.getByText('Page content 2')).toBeInTheDocument();
     });

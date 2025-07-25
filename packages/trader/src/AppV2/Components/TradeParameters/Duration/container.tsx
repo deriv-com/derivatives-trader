@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { ActionSheet } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
-import { useTraderStore } from 'Stores/useTraderStores';
+
 import { observer } from '@deriv/stores';
-import DurationChips from './chips';
-import DurationWheelPicker from './duration-wheel-picker';
-import DayInput from './day';
+import { Localize } from '@deriv/translations';
+import { ActionSheet } from '@deriv-com/quill-ui';
+
 import { DURATION_UNIT } from 'AppV2/Utils/trade-params-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import DurationChips from './chips';
+import DayInput from './day';
+import DurationWheelPicker from './duration-wheel-picker';
 
 const DurationActionSheetContainer = observer(
     ({

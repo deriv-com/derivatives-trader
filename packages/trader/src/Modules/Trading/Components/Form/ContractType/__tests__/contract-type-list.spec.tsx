@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ContractTypeList from '../contract-type-list';
 
 const list = [

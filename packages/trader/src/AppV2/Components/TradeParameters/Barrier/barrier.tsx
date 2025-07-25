@@ -1,14 +1,18 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { ActionSheet, TextField, useSnackbar } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
-import { useTraderStore } from 'Stores/useTraderStores';
+import { ActionSheet, TextField, useSnackbar } from '@deriv-com/quill-ui';
+
 import Carousel from 'AppV2/Components/Carousel';
+import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import { TTradeParametersProps } from '../trade-parameters';
+
 import BarrierDescription from './barrier-description';
 import BarrierInput from './barrier-input';
-import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
-import { TTradeParametersProps } from '../trade-parameters';
 
 const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
     const {

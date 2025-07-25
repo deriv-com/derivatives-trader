@@ -1,11 +1,14 @@
-import { Localize } from '@deriv/translations';
 import React from 'react';
-import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
+
+import { isOpen, isValidToCancel } from '@deriv/shared';
 import { observer } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+
 import useContractDetails from 'AppV2/Hooks/useContractDetails';
-import RiskManagementItem from '../RiskManagementItem';
-import { isValidToCancel, isOpen } from '@deriv/shared';
+import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
+
 import CardWrapper from '../CardWrapper';
+import RiskManagementItem from '../RiskManagementItem';
 
 const DealCancellation = observer(() => {
     const { contract_info } = useContractDetails();

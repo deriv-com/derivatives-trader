@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Accumulator from '../accumulator';
+
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import Accumulator from '../accumulator';
 
 const mock_connect_props = {
     modules: {

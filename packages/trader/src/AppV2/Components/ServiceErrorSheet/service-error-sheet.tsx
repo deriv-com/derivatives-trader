@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
+import { useIsHubRedirectionEnabled } from '@deriv/hooks';
 import { getDomainUrl, isEmptyObject, redirectToLogin, redirectToSignUp, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { getLanguage, Localize } from '@deriv/translations';
@@ -8,7 +9,6 @@ import { ActionSheet } from '@deriv-com/quill-ui';
 
 import { checkIsServiceModalError, SERVICE_ERROR } from 'AppV2/Utils/layout-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
-import { useIsHubRedirectionEnabled } from '@deriv/hooks';
 
 import ServiceErrorDescription from './service-error-description';
 

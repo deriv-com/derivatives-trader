@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { observer, useStore } from '@deriv/stores';
 import { SnackbarController, useSnackbar } from '@deriv-com/quill-ui';
+
 import useTradeError, { TErrorFields } from '../../Hooks/useTradeError';
 
 const TradeErrorSnackbar = observer(

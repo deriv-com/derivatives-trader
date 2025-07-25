@@ -1,6 +1,8 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Icon } from '@deriv/components';
+
 import 'Sass/app/_common/components/positions-toggle.scss';
 
 type TTogglePositions = {

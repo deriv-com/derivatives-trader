@@ -1,10 +1,12 @@
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+
+import { ActiveSymbols, TradingTimesResponse } from '@deriv/api-types';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { ActiveSymbols, TradingTimesResponse } from '@deriv/api-types';
-import MarketCountdownTimer from '../market-countdown-timer';
+import { act, render, screen, waitFor } from '@testing-library/react';
+
 import TraderProviders from '../../../../trader-providers';
+import MarketCountdownTimer from '../market-countdown-timer';
 
 const mock_default_props = {
     is_main_page: false,

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Stream } from '@cloudflare/stream-react';
-import { CaptionText } from '@deriv-com/quill-ui';
 import { LabelPairedPlayMdFillIcon } from '@deriv/quill-icons';
 import { Localize } from '@deriv/translations';
+import { CaptionText } from '@deriv-com/quill-ui';
 
 type TVideoPreview = {
     contract_type: string;

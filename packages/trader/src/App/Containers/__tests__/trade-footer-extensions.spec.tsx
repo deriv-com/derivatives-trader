@@ -1,11 +1,13 @@
 import React from 'react';
+import { RouteComponentProps, Router } from 'react-router-dom';
+import { createMemoryHistory, MemoryHistory } from 'history';
+
+import { routes } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
 import { render } from '@testing-library/react';
+
 import TraderProviders from '../../../trader-providers';
 import TradeFooterExtensions from '../trade-footer-extensions';
-import { mockStore } from '@deriv/stores';
-import { RouteComponentProps, Router } from 'react-router-dom';
-import { MemoryHistory, createMemoryHistory } from 'history';
-import { routes } from '@deriv/shared';
 
 jest.mock('@deriv-com/ui', () => ({
     ...jest.requireActual('@deriv-com/ui'),

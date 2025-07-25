@@ -1,11 +1,13 @@
 import React from 'react';
+
 import { Div100vhContainer, Modal, usePreventIOSZoom } from '@deriv/components';
-import { useIsMounted, WS, CONTRACT_TYPES } from '@deriv/shared';
+import { CONTRACT_TYPES, useIsMounted, WS } from '@deriv/shared';
+import { observer } from '@deriv/stores';
 import { localize } from '@deriv/translations';
-import { requestPreviewProposal } from 'Stores/Modules/Trading/Helpers/preview-proposal';
+
 import AmountMobile from 'Modules/Trading/Components/Form/TradeParams/amount-mobile';
 import MultipliersInfo from 'Modules/Trading/Components/Form/TradeParams/Multiplier/info';
-import { observer } from '@deriv/stores';
+import { requestPreviewProposal } from 'Stores/Modules/Trading/Helpers/preview-proposal';
 import { useTraderStore } from 'Stores/useTraderStores';
 import { TTradeStore } from 'Types';
 

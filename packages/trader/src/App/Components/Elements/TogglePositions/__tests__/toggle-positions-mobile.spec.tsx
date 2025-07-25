@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@testing-library/react';
+
+import { CONTRACT_TYPES, mockContractInfo } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { mockContractInfo, CONTRACT_TYPES } from '@deriv/shared';
-import TogglePositionsMobile from '../toggle-positions-mobile';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../trader-providers';
+import TogglePositionsMobile from '../toggle-positions-mobile';
 
 const default_mocked_props: React.ComponentProps<typeof TogglePositionsMobile> = {
     active_positions_count: 0,

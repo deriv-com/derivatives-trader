@@ -1,9 +1,12 @@
 import React from 'react';
-import TradeTypeListItem from './trade-type-list-item';
-import { Button, Text } from '@deriv-com/quill-ui';
-import './trade-type-list.scss';
-import { Localize } from '@deriv/translations';
 import clsx from 'clsx';
+
+import { Localize } from '@deriv/translations';
+import { Button, Text } from '@deriv-com/quill-ui';
+
+import TradeTypeListItem from './trade-type-list-item';
+
+import './trade-type-list.scss';
 
 type TTradeTypeItem = {
     id: string;

@@ -1,8 +1,11 @@
 import React from 'react';
+
+import { mockContractInfo, TContractInfo } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
-import OrderDetails from '../order-details';
-import { TContractInfo, mockContractInfo } from '@deriv/shared';
+
 import useOrderDetails from 'AppV2/Hooks/useOrderDetails';
+
+import OrderDetails from '../order-details';
 
 jest.mock('AppV2/Hooks/useOrderDetails');
 

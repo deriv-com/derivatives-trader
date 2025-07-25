@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 import { isSessionAvailable } from '../start-date';
 
 jest.mock('_common/base/server_time', () => ({

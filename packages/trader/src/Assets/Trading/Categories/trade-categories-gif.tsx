@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { TRADE_TYPES } from '@deriv/shared';
+
 import ImageAsianUpDown from 'Assets/SvgComponents/trade_explanations/img-asian.svg';
 import ImageCloseToLow from 'Assets/SvgComponents/trade_explanations/img-close-to-low.svg';
 import ImageEndsInOut from 'Assets/SvgComponents/trade_explanations/img-ends-in-out.svg';
@@ -9,8 +12,8 @@ import ImageRunHighLow from 'Assets/SvgComponents/trade_explanations/img-run-hig
 import ImageSpread from 'Assets/SvgComponents/trade_explanations/img-spread.svg';
 import ImageTickHighLow from 'Assets/SvgComponents/trade_explanations/img-tick-high-low.svg';
 import ImageTurbos from 'Assets/SvgComponents/trade_explanations/img-turbos.svg';
+
 import ContractTypeDescriptionVideo from './contract-type-description-video';
-import { TRADE_TYPES } from '@deriv/shared';
 
 const TradeCategoriesGIF = ({
     category,

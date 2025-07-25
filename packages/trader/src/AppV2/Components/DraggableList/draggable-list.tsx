@@ -1,5 +1,6 @@
 import React from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult, DragStart } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DragStart, Droppable, DropResult } from 'react-beautiful-dnd';
+
 import DraggableListItem from './draggable-list-item';
 
 export type TDraggableListItem = {

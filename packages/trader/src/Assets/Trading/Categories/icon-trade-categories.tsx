@@ -1,5 +1,6 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Icon } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
 

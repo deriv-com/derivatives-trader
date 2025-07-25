@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { pickDefaultSymbol, setTradeURLParams } from '@deriv/shared';
+
 import { ActiveSymbols } from '@deriv/api-types';
-import useActiveSymbols from './useActiveSymbols';
+import { pickDefaultSymbol, setTradeURLParams } from '@deriv/shared';
+
 import { useTraderStore } from 'Stores/useTraderStores';
+
+import useActiveSymbols from './useActiveSymbols';
 
 // The hook handles the cases when the selected `contract_type` is changed during account switch or if the symbol is not available in the URL param.
 const useDefaultSymbol = () => {

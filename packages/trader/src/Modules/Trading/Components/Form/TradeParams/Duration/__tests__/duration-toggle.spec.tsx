@@ -1,7 +1,9 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import DurationToggle from '../duration-toggle';
+
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import DurationToggle from '../duration-toggle';
 
 jest.mock('@deriv/components', () => {
     return {
@@ -26,9 +28,9 @@ describe('<DurationToggle />', () => {
         expect(toggle_button).toHaveClass('advanced-simple-toggle');
         expect(screen.getByText('MockedIcon')).toBeInTheDocument();
     });
-    it('Should call onChange when button is clicked', () => {
+    it('Should call onChange when button is clicked', async () => {
         render(<DurationToggle {...mocked_props} />);
-        userEvent.click(screen.getByLabelText('Toggle between advanced and simple duration settings'));
+        await userEvent.click(screen.getByLabelText('Toggle between advanced and simple duration settings'));
         expect(mocked_props.onChange).toHaveBeenCalledWith({ target: { name: 'test_input', value: true } });
     });
 });

@@ -1,8 +1,10 @@
-import TradeStore from './Trading/trade-store';
-import PositionsStore from './Positions/positions-store';
-import MarketsStore from './Markets/markets-store';
 import { TCoreStores } from '@deriv/stores/types';
+
 import { TRootStore } from 'Types';
+
+import MarketsStore from './Markets/markets-store';
+import PositionsStore from './Positions/positions-store';
+import TradeStore from './Trading/trade-store';
 
 export default class ModulesStore {
     positions: PositionsStore;

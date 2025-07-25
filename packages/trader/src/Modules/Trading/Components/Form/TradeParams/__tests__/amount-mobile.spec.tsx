@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
+import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { useTraderStore } from 'Stores/useTraderStores';
+
 import TraderProviders from '../../../../../../trader-providers';
 import Amount from '../amount-mobile';
 
@@ -115,31 +118,31 @@ describe('<Amount/>', () => {
         expect(screen.getByText(mocked_numpad_component)).toBeInTheDocument();
         expect(screen.getByText(default_props.stake_value)).toBeInTheDocument();
     });
-    it('should pass the validation if user insert correct stake value', () => {
+    it('should pass the validation if user insert correct stake value', async () => {
         render(mockAmount(mockStore(default_mock_store), default_props));
 
-        userEvent.click(screen.getByText('5'));
+        await userEvent.click(screen.getByText('5'));
 
         expect(default_props.setAmountError).toBeCalledWith(false);
     });
-    it('should not pass the validation if user insert zero stake value', () => {
+    it('should not pass the validation if user insert zero stake value', async () => {
         render(mockAmount(mockStore(default_mock_store), default_props));
 
-        userEvent.click(screen.getByText('0'));
+        await userEvent.click(screen.getByText('0'));
 
         expect(default_props.setAmountError).toBeCalledWith(true);
     });
-    it('should not pass the validation if user insert stake value which is less then allowed min stake', () => {
+    it('should not pass the validation if user insert stake value which is less then allowed min stake', async () => {
         render(mockAmount(mockStore(default_mock_store), default_props));
 
-        userEvent.click(screen.getByText('0.1'));
+        await userEvent.click(screen.getByText('0.1'));
 
         expect(default_props.setAmountError).toBeCalledWith(true);
     });
-    it('should not pass the validation if user clicked on other buttons except those with numbers', () => {
+    it('should not pass the validation if user clicked on other buttons except those with numbers', async () => {
         render(mockAmount(mockStore(default_mock_store), default_props));
 
-        userEvent.click(screen.getByText('OK'));
+        await userEvent.click(screen.getByText('OK'));
 
         expect(default_props.setAmountError).toBeCalledWith(true);
     });

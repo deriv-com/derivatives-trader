@@ -1,7 +1,10 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
+
 import { mockStore } from '@deriv/stores';
+import { renderHook } from '@testing-library/react-hooks';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import useTimeFilter from '../useTimeFilter';
 
 describe('useTimeFilter', () => {

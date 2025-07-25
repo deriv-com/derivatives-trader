@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ChartLoader from '../chart-loader';
 
 const default_props = {

@@ -1,6 +1,7 @@
-import { Chip, Text } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
 import React from 'react';
+
+import { Localize } from '@deriv/translations';
+import { Chip, Text } from '@deriv-com/quill-ui';
 
 const DurationChips = ({
     duration_units_list,

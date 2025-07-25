@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
-import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../../trader-providers';
 import Strike from '../strike';
 
@@ -78,12 +81,12 @@ describe('Strike', () => {
         expect(screen.getByRole('textbox')).toHaveValue('+1.80');
     });
 
-    it('opens ActionSheet with WheelPicker component, Payout per point information, "Save" button and text content with definition if user clicks on trade param', () => {
+    it('opens ActionSheet with WheelPicker component, Payout per point information, "Save" button and text content with definition if user clicks on trade param', async () => {
         mockStrike();
 
         expect(screen.queryByTestId('dt-actionsheet-overlay')).not.toBeInTheDocument();
 
-        userEvent.click(screen.getByText(strike_trade_param_label));
+        await userEvent.click(screen.getByText(strike_trade_param_label));
 
         expect(screen.getByTestId('dt-actionsheet-overlay')).toBeInTheDocument();
         expect(screen.getByText('WheelPicker')).toBeInTheDocument();
@@ -92,22 +95,22 @@ describe('Strike', () => {
         expect(screen.getByText('Save')).toBeInTheDocument();
     });
 
-    it('does not render Payout per point information if proposal_info is empty object', () => {
+    it('does not render Payout per point information if proposal_info is empty object', async () => {
         default_mock_store.modules.trade.proposal_info = {};
         mockStrike();
 
-        userEvent.click(screen.getByText(strike_trade_param_label));
+        await userEvent.click(screen.getByText(strike_trade_param_label));
 
         expect(screen.getByText('Payout per point:')).toBeInTheDocument();
         expect(screen.queryByText(/14.245555/)).not.toBeInTheDocument();
     });
 
-    it('applies specific className if innerHeight is <= 640px', () => {
+    it('applies specific className if innerHeight is <= 640px', async () => {
         const original_height = window.innerHeight;
         window.innerHeight = 640;
         mockStrike();
 
-        userEvent.click(screen.getByText(strike_trade_param_label));
+        await userEvent.click(screen.getByText(strike_trade_param_label));
 
         expect(screen.getByTestId('dt_carousel')).toHaveClass('strike__carousel--small');
         window.innerHeight = original_height;
@@ -118,9 +121,9 @@ describe('Strike', () => {
         mockStrike();
 
         const new_selected_value = default_mock_store.modules.trade.barrier_choices[1];
-        userEvent.click(screen.getByText(strike_trade_param_label));
-        userEvent.click(screen.getByText(new_selected_value));
-        userEvent.click(screen.getByText('Save'));
+        await userEvent.click(screen.getByText(strike_trade_param_label));
+        await userEvent.click(screen.getByText(new_selected_value));
+        await userEvent.click(screen.getByText('Save'));
 
         await waitFor(() => {
             jest.advanceTimersByTime(200);

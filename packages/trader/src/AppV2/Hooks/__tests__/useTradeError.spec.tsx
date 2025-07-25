@@ -1,9 +1,11 @@
 import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
-import useTradeError from '../useTradeError';
-import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../trader-providers';
+
 import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { renderHook } from '@testing-library/react-hooks';
+
+import TraderProviders from '../../../trader-providers';
+import useTradeError from '../useTradeError';
 
 describe('useTradeError', () => {
     let mocked_store: ReturnType<typeof mockStore>;

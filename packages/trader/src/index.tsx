@@ -1,9 +1,11 @@
 import React from 'react';
-import { getPositionsV2TabIndexFromURL, makeLazyLoader, moduleLoader, routes } from '@deriv/shared';
+
 import { Loading } from '@deriv/components';
-import { TCoreStores } from '@deriv/stores/types';
-import { TWebSocket } from 'Types';
 import { useDtraderV2Flag } from '@deriv/hooks';
+import { getPositionsV2TabIndexFromURL, makeLazyLoader, moduleLoader, routes } from '@deriv/shared';
+import { TCoreStores } from '@deriv/stores/types';
+
+import { TWebSocket } from 'Types';
 
 type Apptypes = {
     passthrough: {

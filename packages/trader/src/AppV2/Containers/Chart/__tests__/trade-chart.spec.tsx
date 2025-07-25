@@ -1,8 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import useDefaultSymbol from 'AppV2/Hooks/useDefaultSymbol';
+
 import TraderProviders from '../../../../trader-providers';
 import TradeChart from '../trade-chart';
 

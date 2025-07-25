@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Localize } from '@deriv/translations';
 import { Text } from '@deriv-com/quill-ui';
+
 import { SERVICE_ERROR } from 'AppV2/Utils/layout-utils';
 
 type ServiceErrorProps = {

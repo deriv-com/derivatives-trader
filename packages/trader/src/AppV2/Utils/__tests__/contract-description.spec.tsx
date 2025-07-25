@@ -1,14 +1,16 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+
+import { Localize } from '@deriv/translations';
+import { render, screen } from '@testing-library/react';
+
 import {
-    getTermDefinition,
-    getContractDescription,
-    getTerm,
-    getDescriptionVideoIds,
     DESCRIPTION_VIDEO_IDS,
+    getContractDescription,
+    getDescriptionVideoIds,
+    getTerm,
+    getTermDefinition,
 } from '../contract-description-utils';
 import { CONTRACT_LIST } from '../trade-types-utils';
-import { Localize } from '@deriv/translations';
 
 jest.mock('@lottiefiles/dotlottie-react', () => ({
     DotLottieReact: jest.fn(() => <div>DotLottieReact</div>),

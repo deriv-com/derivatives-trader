@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../trader-providers';
-import { ToastPopup, NetworkStatusToastErrorPopup } from '../toast-popup';
+import { NetworkStatusToastErrorPopup, ToastPopup } from '../toast-popup';
 
 const mocked_props_toast_popup = {
     portal_id: 'popup_root_1',

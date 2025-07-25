@@ -1,4 +1,5 @@
 import { CONTRACT_TYPES } from '@deriv/shared';
+
 import { getContractDetailsConfig } from '../contract-details-config';
 
 describe('getContractDetailsConfig', () => {

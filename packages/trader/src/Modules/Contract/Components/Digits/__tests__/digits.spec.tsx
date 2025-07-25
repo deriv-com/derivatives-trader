@@ -1,9 +1,11 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
 import { isDesktop, mockContractInfo, TRADE_TYPES } from '@deriv/shared';
-import Digits from '../digits';
 import { useDevice } from '@deriv-com/ui';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import Digits from '../digits';
 
 const tick_information_text = /Tick/i;
 const mocked_digit_spot = 'DigitSpot';
@@ -85,7 +87,7 @@ describe('<Digits />', () => {
         };
     });
 
-    it('should render <LastDigitPrediction /> with tooltip with text for desktop if is_trade_page === true', () => {
+    it('should render <LastDigitPrediction /> with tooltip with text for desktop if is_trade_page === true', async () => {
         render(<Digits {...mocked_props} />);
 
         expect(screen.getByText(mocked_last_digit_prediction)).toBeInTheDocument();
@@ -93,7 +95,7 @@ describe('<Digits />', () => {
         const popover = screen.getByTestId('dt_popover_wrapper');
         expect(popover).toBeInTheDocument();
 
-        userEvent.hover(popover);
+        await userEvent.hover(popover);
         expect(
             screen.getByText('Last digit stats for latest 1000 ticks for Volatility 100 (1s) Index')
         ).toBeInTheDocument();
@@ -120,7 +122,7 @@ describe('<Digits />', () => {
         expect(screen.getByText(mocked_digit_spot)).toBeInTheDocument();
         expect(screen.getByText(mocked_last_digit_prediction)).toBeInTheDocument();
     });
-    it('onLastDigitSpot function call should set new properties in <DigitSpot />', () => {
+    it('onLastDigitSpot function call should set new properties in <DigitSpot />', async () => {
         (useDevice as jest.Mock).mockReturnValue({ isMobile: true });
         render(<Digits {...mocked_props} />);
 
@@ -128,7 +130,7 @@ describe('<Digits />', () => {
         expect(screen.queryByText('Selected winning')).not.toBeInTheDocument();
         expect(screen.queryByText('Won')).not.toBeInTheDocument();
 
-        userEvent.click(screen.getByText('Set spot'));
+        await userEvent.click(screen.getByText('Set spot'));
 
         expect(screen.getByText('Spot:2361.35')).toBeInTheDocument();
         expect(screen.getByText('Selected winning')).toBeInTheDocument();

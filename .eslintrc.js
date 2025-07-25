@@ -63,6 +63,7 @@ module.exports = {
                     },
                 ],
                 '@typescript-eslint/no-unsafe-declaration-merging': 'warn',
+                '@typescript-eslint/no-explicit-any': 'warn',
             },
             parserOptions: {
                 ecmaversion: 2018,

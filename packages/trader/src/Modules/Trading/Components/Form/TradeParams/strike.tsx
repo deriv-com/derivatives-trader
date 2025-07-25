@@ -1,14 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
-import BarriersList from './barriers-list';
-import { InputField, Dropdown, Text } from '@deriv/components';
-import { localize, Localize } from '@deriv/translations';
+
+import { Dropdown, InputField, Text } from '@deriv/components';
 import { clickAndKeyEventHandler, toMoment, TRADE_TYPES } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { Localize, localize } from '@deriv/translations';
+import { useDevice } from '@deriv-com/ui';
+
 import Fieldset from 'App/Components/Form/fieldset';
 import StrikeParamModal from 'Modules/Trading/Containers/strike-param-modal';
-import { observer, useStore } from '@deriv/stores';
 import { useTraderStore } from 'Stores/useTraderStores';
-import { useDevice } from '@deriv-com/ui';
+
+import BarriersList from './barriers-list';
 
 const Strike = observer(() => {
     const { ui, common } = useStore();

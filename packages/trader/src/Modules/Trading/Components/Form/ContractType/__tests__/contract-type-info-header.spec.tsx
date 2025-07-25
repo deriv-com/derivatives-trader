@@ -1,5 +1,7 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+
+import { render, screen } from '@testing-library/react';
+
 import Header from '../ContractTypeInfo/contract-type-info-header';
 
 jest.mock('@deriv/components', () => {

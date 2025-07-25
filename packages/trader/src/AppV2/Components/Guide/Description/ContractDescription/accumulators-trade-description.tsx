@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { Localize } from '@deriv/translations';
+
+import { getContractDescription, getTerm } from 'AppV2/Utils/contract-description-utils';
 import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
-import { getTerm, getContractDescription } from 'AppV2/Utils/contract-description-utils';
 
 const AccumulatorsTradeDescription = ({ onTermClick }: { onTermClick: (term: string) => void }) => {
     const { GROWTH_RATE, RANGE, PREVIOUS_SPOT_PRICE, PAYOUT, TAKE_PROFIT, SLIPPAGE_RISK } = getTerm();

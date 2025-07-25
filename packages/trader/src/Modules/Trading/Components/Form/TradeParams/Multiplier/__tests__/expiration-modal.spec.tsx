@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import MultipliersExpirationModal from '../expiration-modal';
 
 const mocked_props = {
@@ -33,10 +35,10 @@ describe('<MultipliersExpirationModal />', () => {
         expect(screen.getByText(/your contract will be closed automatically at the/i)).toBeInTheDocument();
         expect(screen.getByText('OK')).toBeInTheDocument();
     });
-    it('should call toggleModal if user clicked on OK button', () => {
+    it('should call toggleModal if user clicked on OK button', async () => {
         render(<MultipliersExpirationModal {...mocked_props} />);
 
-        userEvent.click(screen.getByText('OK'));
+        await userEvent.click(screen.getByText('OK'));
 
         expect(mocked_props.toggleModal).toBeCalled();
     });

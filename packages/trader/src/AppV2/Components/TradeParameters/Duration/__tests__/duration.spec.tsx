@@ -1,13 +1,15 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Duration from '../index';
-import TraderProviders from '../../../../../trader-providers';
+import moment from 'moment';
+
+import { toMoment } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import userEvent from '@testing-library/user-event';
 import { useSnackbar } from '@deriv-com/quill-ui';
-import moment from 'moment';
-import { toMoment } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import TraderProviders from '../../../../../trader-providers';
+import Duration from '../index';
 
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
     observe: jest.fn(),

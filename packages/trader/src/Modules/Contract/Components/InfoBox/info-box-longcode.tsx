@@ -1,9 +1,10 @@
-import classNames from 'classnames';
 import React from 'react';
-import { Icon, Text, Modal, Button } from '@deriv/components';
-import { Localize } from '@deriv/translations';
-import { TContractInfo, isTabletOs } from '@deriv/shared';
+import classNames from 'classnames';
+
+import { Button, Icon, Modal, Text } from '@deriv/components';
+import { isTabletOs, TContractInfo } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
 
 type TInfoBoxLongcode = { contract_info: TContractInfo };
 

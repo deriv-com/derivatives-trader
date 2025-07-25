@@ -1,10 +1,12 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import TraderProviders from '../../../../../../../trader-providers';
+
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import TraderProviders from '../../../../../../../trader-providers';
 import DurationNumbersWidgetMobile from '../duration-numbers-widget-mobile';
 import * as durationUtils from '../duration-utils';
-import userEvent from '@testing-library/user-event';
 
 jest.mock('../duration-range-text.tsx', () => jest.fn(() => <div>MockedDurationRangeText</div>));
 jest.mock('../expiry-text.tsx', () => jest.fn(() => <div>MockedExpiryText</div>));
@@ -101,10 +103,10 @@ describe('<DurationTicksWidgetMobile />', () => {
         expect(mock_store.ui.addToast).not.toHaveBeenCalled();
         expect(default_props.setDurationError).toHaveBeenCalledWith(false);
     });
-    it('should call updateAmountChanges, onChangeMultiple, and toggleModal if there is has_amount_error is false, duration is changed and user clicks ok', () => {
+    it('should call updateAmountChanges, onChangeMultiple, and toggleModal if there is has_amount_error is false, duration is changed and user clicks ok', async () => {
         default_props.selected_duration = 21;
         renderDurationNumbersWidgetMobile(mock_store, default_props);
-        userEvent.click(screen.getByText(/ok/i));
+        await userEvent.click(screen.getByText(/ok/i));
         expect(durationUtils.updateAmountChanges).toHaveBeenCalled();
         expect(default_props.toggleModal).toHaveBeenCalled();
         expect(mock_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({

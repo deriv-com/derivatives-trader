@@ -1,13 +1,16 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import MarketCategoryItem from '..';
-import TraderProviders from '../../../../trader-providers';
-import { TCoreStores } from '@deriv/stores/types';
-import { mockStore } from '@deriv/stores';
+
 import { ActiveSymbols } from '@deriv/api-types';
-import userEvent from '@testing-library/user-event';
+import { mockStore } from '@deriv/stores';
+import { TCoreStores } from '@deriv/stores/types';
 import { useSnackbar } from '@deriv-com/quill-ui';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
+import TraderProviders from '../../../../trader-providers';
+import MarketCategoryItem from '..';
 
 jest.mock('@deriv/quill-icons', () => ({
     ...jest.requireActual('@deriv/quill-icons'),
@@ -83,14 +86,14 @@ describe('<MarketCategoryItem />', () => {
         render(MockMarketCategoryItem(mockStore(mocked_store), changed_props));
         expect(screen.getByText('CLOSED')).toBeInTheDocument();
     });
-    it('should handle item selection', () => {
+    it('should handle item selection', async () => {
         render(MockMarketCategoryItem(mockStore(mocked_store), mocked_props));
-        userEvent.click(screen.getByText(display_name));
+        await userEvent.click(screen.getByText(display_name));
         expect(mocked_props.setSelectedSymbol).toHaveBeenCalledWith('cryBTCUSD');
     });
-    it('should toggle favorites correctly', () => {
+    it('should toggle favorites correctly', async () => {
         render(MockMarketCategoryItem(mockStore(mocked_store), mocked_props));
-        userEvent.click(screen.getByText('MockedStandaloneStarRegularIcon'));
+        await userEvent.click(screen.getByText('MockedStandaloneStarRegularIcon'));
 
         expect(mocked_store.modules.markets.setFavoriteSymbols).toHaveBeenCalled();
         expect(mockAddSnackbar).toHaveBeenCalled();

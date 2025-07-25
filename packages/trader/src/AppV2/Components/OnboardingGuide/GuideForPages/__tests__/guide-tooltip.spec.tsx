@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import GuideTooltip, { GuideTooltipProps } from '../guide-tooltip';
 
 jest.mock('react-joyride', () => jest.fn(() => <div>Joyride</div>));

@@ -1,6 +1,6 @@
 import BinaryLink from './binary-link';
-import RouteWithSubRoutes from './route-with-sub-routes';
 import BinaryRoutes from './binary-routes';
+import RouteWithSubRoutes from './route-with-sub-routes';
 
 export * from './helpers';
 export { BinaryLink, RouteWithSubRoutes };

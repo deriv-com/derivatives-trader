@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+
 import ContractTypeItem from '../contract-type-item';
 
 const contract_types = [

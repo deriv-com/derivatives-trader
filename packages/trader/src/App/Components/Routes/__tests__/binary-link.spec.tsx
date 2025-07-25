@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { BinaryLink } from '../index';
-import userEvent from '@testing-library/user-event';
+
 import { routes } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { BinaryLink } from '../index';
 
 type TMockBinaryLink = {
     to?: string;
@@ -23,9 +25,9 @@ describe('BinaryLink component', () => {
         expect(screen.getByTestId('dt_child')).toBeInTheDocument();
     });
 
-    it('should have "active_class" when passed in', () => {
+    it('should have "active_class" when passed in', async () => {
         render(<MockBinaryLink to={routes.trade} />);
-        userEvent.click(screen.getByTestId('dt_binary_link'));
+        await userEvent.click(screen.getByTestId('dt_binary_link'));
         const link = screen.getByTestId('dt_binary_link');
         expect(link).toHaveClass('active_class');
     });

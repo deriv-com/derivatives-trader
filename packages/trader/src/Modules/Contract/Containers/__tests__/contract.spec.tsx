@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
-import Contract from '../contract';
-import TraderProviders from '../../../../trader-providers';
 import { createMemoryHistory } from 'history';
+
+import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../trader-providers';
+import Contract from '../contract';
 
 jest.mock('react-router', () => ({
     ...jest.requireActual('react-router'),

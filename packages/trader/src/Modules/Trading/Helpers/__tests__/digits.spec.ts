@@ -1,5 +1,6 @@
 import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
-import { isDigitTradeType, isDigitContractType } from '../digits';
+
+import { isDigitContractType, isDigitTradeType } from '../digits';
 
 describe('isDigitTradeType', () => {
     it('should return true if trade type is digit (for e.g. TRADE_TYPES.EVEN_ODD)', () => {

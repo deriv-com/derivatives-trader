@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { CONTRACT_TYPES } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RiskManagementItem from '../risk-management-item';
+
 import useContractDetails from 'AppV2/Hooks/useContractDetails';
-import { CONTRACT_TYPES } from '@deriv/shared';
+
+import RiskManagementItem from '../risk-management-item';
 
 jest.mock('@deriv/translations', () => ({
     Localize: ({ i18n_default_text }: { i18n_default_text: string }) => <span>{i18n_default_text}</span>,
@@ -124,29 +127,29 @@ describe('RiskManagementItem component', () => {
         expect(screen.getByText('Test Label')).toBeInTheDocument();
     });
 
-    it('renders the modal content', () => {
+    it('renders the modal content', async () => {
         renderComponent();
-        userEvent.click(screen.getByText('Test Label'));
+        await userEvent.click(screen.getByText('Test Label'));
         expect(screen.getByText('Modal content')).toBeInTheDocument();
     });
 
-    it('opens action sheet when toggle is enabled', () => {
+    it('opens action sheet when toggle is enabled', async () => {
         renderComponent({ value: 10 });
-        userEvent.click(screen.getByRole('checkbox'));
+        await userEvent.click(screen.getByRole('checkbox'));
         expect(screen.getByText('Save')).toBeInTheDocument();
     });
 
-    it('displays correct value in text field', () => {
+    it('displays correct value in text field', async () => {
         renderComponent({ value: 10 });
         const textField = screen.getByRole('textbox');
-        userEvent.click(textField);
+        await userEvent.click(textField);
         expect(textField).toHaveValue('10.00 USD');
     });
 
-    it('handles save action correctly', () => {
+    it('handles save action correctly', async () => {
         renderComponent({ value: 10 });
-        userEvent.click(screen.getByRole('checkbox'));
-        userEvent.click(screen.getByText('Save'));
+        await userEvent.click(screen.getByRole('checkbox'));
+        await userEvent.click(screen.getByText('Save'));
         expect(mockUseContractDetails().contract.updateLimitOrder).toHaveBeenCalled();
     });
 });

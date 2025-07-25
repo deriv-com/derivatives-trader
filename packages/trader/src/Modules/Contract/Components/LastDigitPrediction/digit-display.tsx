@@ -1,13 +1,16 @@
+import React from 'react';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+
+import { ProposalOpenContract } from '@deriv/api-types';
 import { DesktopWrapper } from '@deriv/components';
 import { isMobile } from '@deriv/shared';
+
 import { Bounce } from 'App/Components/Animations';
+
 import Digit from './digit';
 import DigitSpot from './digit-spot';
 import LastDigitStat from './last-digit-stat';
-import { ProposalOpenContract } from '@deriv/api-types';
 
 type TDigitDisplay = Pick<React.ComponentProps<typeof DigitSpot>, 'is_lost' | 'is_won'> &
     Pick<React.ComponentProps<typeof Digit>, 'is_lost' | 'is_won'> &

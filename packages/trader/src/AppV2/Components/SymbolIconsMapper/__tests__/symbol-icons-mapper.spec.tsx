@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import SymbolIconsMapper from '../symbol-icons-mapper';
 
 jest.mock('@deriv/quill-icons', () => ({

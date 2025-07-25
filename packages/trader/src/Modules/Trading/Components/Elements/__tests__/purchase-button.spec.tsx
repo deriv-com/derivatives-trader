@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { CONTRACT_TYPES } from '@deriv/shared';
+import { mockStore, StoreProvider } from '@deriv/stores';
+import { useDevice } from '@deriv-com/ui';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { StoreProvider, mockStore } from '@deriv/stores';
+
 import PurchaseButton from '../purchase-button';
-import { useDevice } from '@deriv-com/ui';
 
 const default_mocked_props: React.ComponentProps<typeof PurchaseButton> = {
     basis: '',
@@ -91,11 +93,11 @@ describe('<PurchaseButton />', () => {
         expect(screen.getByRole('button')).not.toHaveClass('btn-purchase--has-bottom-gradient-2');
     });
 
-    it('should call function setPurchaseState and onClickPurchase if purchase button was clicked', () => {
+    it('should call function setPurchaseState and onClickPurchase if purchase button was clicked', async () => {
         renderComponent(<PurchaseButton {...default_mocked_props} is_vanilla />);
 
         const purchase_button = screen.getByRole('button');
-        userEvent.click(purchase_button);
+        await userEvent.click(purchase_button);
 
         expect(default_mocked_props.setPurchaseState).toBeCalled();
         expect(default_mocked_props.onClickPurchase).toBeCalled();

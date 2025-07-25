@@ -1,16 +1,21 @@
 import React from 'react';
 import Loadable from 'react-loadable';
+
+import type { TCoreStores } from '@deriv/stores/types';
+
 import Routes from 'App/Containers/Routes/routes';
-import TradeHeaderExtensions from 'App/Containers/trade-header-extensions';
 import TradeFooterExtensions from 'App/Containers/trade-footer-extensions';
+import TradeHeaderExtensions from 'App/Containers/trade-header-extensions';
 import TradeSettingsExtensions from 'App/Containers/trade-settings-extensions';
 import { NetworkStatusToastErrorPopup } from 'Modules/Trading/Containers/toast-popup';
-import type { TWebSocket } from 'Types';
-import initStore from './init-store';
-import 'Sass/app.scss';
-import type { TCoreStores } from '@deriv/stores/types';
-import TraderProviders from '../trader-providers';
 import ModulesProvider from 'Stores/Providers/modules-providers';
+import type { TWebSocket } from 'Types';
+
+import TraderProviders from '../trader-providers';
+
+import initStore from './init-store';
+
+import 'Sass/app.scss';
 
 type Apptypes = {
     passthrough: {

@@ -1,10 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Text } from '@deriv-com/quill-ui';
-import { toMoment } from '@deriv/shared';
-import { TClosedPosition } from 'AppV2/Containers/Positions/positions-content';
-import ContractCardList from './contract-card-list';
+
 import { StandaloneLoaderBoldIcon } from '@deriv/quill-icons';
+import { toMoment } from '@deriv/shared';
+import { Text } from '@deriv-com/quill-ui';
+
+import { TClosedPosition } from 'AppV2/Containers/Positions/positions-content';
+
+import ContractCardList from './contract-card-list';
 
 type TContractCardsSections = {
     isLoadingMore?: boolean;

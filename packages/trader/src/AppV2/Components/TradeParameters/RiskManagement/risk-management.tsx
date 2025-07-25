@@ -1,18 +1,22 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { ActionSheet, TextField } from '@deriv-com/quill-ui';
-import { localize, Localize } from '@deriv/translations';
+
 import { getCurrencyDisplayCode } from '@deriv/shared';
+import { Localize, localize } from '@deriv/translations';
+import { ActionSheet, TextField } from '@deriv-com/quill-ui';
+
 import Carousel from 'AppV2/Components/Carousel';
 import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
 import TradeParamDefinition from 'AppV2/Components/TradeParamDefinition';
-import { addUnit, isSmallScreen } from 'AppV2/Utils/trade-params-utils';
-import RiskManagementPicker from './risk-management-picker';
-import RiskManagementContent from './risk-management-content';
-import { TTradeParametersProps } from '../trade-parameters';
 import useTradeError from 'AppV2/Hooks/useTradeError';
+import { addUnit, isSmallScreen } from 'AppV2/Utils/trade-params-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import { TTradeParametersProps } from '../trade-parameters';
+
+import RiskManagementContent from './risk-management-content';
+import RiskManagementPicker from './risk-management-picker';
 
 const RiskManagement = observer(({ is_minimized }: TTradeParametersProps) => {
     const [is_open, setIsOpen] = React.useState(false);

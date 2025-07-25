@@ -1,11 +1,13 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
+import { TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import TraderProviders from '../../../../../../trader-providers';
 import Info from '../ContractTypeInfo/contract-type-info';
 import { TContractCategory } from '../types';
-import { TRADE_TYPES } from '@deriv/shared';
-import TraderProviders from '../../../../../../trader-providers';
 
 jest.mock('Assets/Trading/Categories/trade-categories-gif', () => jest.fn(() => 'TradeCategoriesGif'));
 jest.mock('Assets/Trading/Categories/trade-categories', () => jest.fn(() => 'TradeDescription'));

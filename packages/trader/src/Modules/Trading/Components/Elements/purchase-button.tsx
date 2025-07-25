@@ -1,11 +1,13 @@
-import classNames from 'classnames';
 import React from 'react';
-import { Money, IconTradeTypes, Text } from '@deriv/components';
+import classNames from 'classnames';
+
+import { IconTradeTypes, Money, Text } from '@deriv/components';
 import { useMFAccountStatus } from '@deriv/hooks';
-import { useDevice } from '@deriv-com/ui';
+import { getContractTypeDisplay, MT5_ACCOUNT_STATUS } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
+import { useDevice } from '@deriv-com/ui';
+
 import ContractInfo from 'Modules/Trading/Components/Form/Purchase/contract-info';
-import { MT5_ACCOUNT_STATUS, getContractTypeDisplay } from '@deriv/shared';
 import { TProposalTypeInfo, TTradeStore } from 'Types';
 
 type TPurchaseButton = {

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Tag } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
+import { Tag } from '@deriv-com/quill-ui';
 
 type TForwardStartingTagProps = {
     formatted_date?: string;

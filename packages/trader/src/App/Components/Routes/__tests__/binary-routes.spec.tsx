@@ -1,12 +1,14 @@
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
-import { routes } from '@deriv/shared';
-import { mockStore } from '@deriv/stores';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+
+import { routes } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import BinaryRoutes from '../binary-routes';
+import { render, screen, waitFor } from '@testing-library/react';
+
 import TraderProviders from '../../../../trader-providers';
+import BinaryRoutes from '../binary-routes';
 
 jest.mock('Modules/Contract', () => {
     return {

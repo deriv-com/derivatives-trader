@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import Multiplier from '../multiplier';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import Multiplier from '../multiplier';
 
 const mocked_props = {
     modules: {

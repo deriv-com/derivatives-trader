@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import OnboardingGuide from '../onboarding-guide';
 
 const trading_modal_text = 'Welcome to the new Deriv Trader';

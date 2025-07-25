@@ -1,9 +1,11 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { StoreProvider, mockStore } from '@deriv/stores';
+
 import BottomNav from '../bottom-nav';
-import { BrowserRouter } from 'react-router-dom';
 
 jest.mock('@deriv-com/quill-ui', () => ({
     ...jest.requireActual('@deriv-com/quill-ui'),
@@ -40,10 +42,10 @@ describe('BottomNav', () => {
         render(renderedBottomNav);
         expect(screen.getByText('MockedTrade')).toBeInTheDocument();
     });
-    it('should render MockedPositions if 2nd MockedBottomNavItem is selected', () => {
+    it('should render MockedPositions if 2nd MockedBottomNavItem is selected', async () => {
         default_mock_store.client.is_logged_in = true;
         render(renderedBottomNav);
-        userEvent.click(screen.getByText('Positions'));
+        await userEvent.click(screen.getByText('Positions'));
         expect(screen.getByText('MockedPositions')).toBeInTheDocument();
     });
 });

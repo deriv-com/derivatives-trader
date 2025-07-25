@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import { MediaHeading } from 'App/Components/Elements/Media';
 
 const test_children = 'Test Children';

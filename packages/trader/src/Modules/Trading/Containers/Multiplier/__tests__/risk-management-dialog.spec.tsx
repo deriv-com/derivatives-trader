@@ -1,12 +1,15 @@
 import React, { useState as useStateMock } from 'react';
 import ReactDOM from 'react-dom';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import { mockStore } from '@deriv/stores';
+
 import { MobileDialog } from '@deriv/components';
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { useTraderStore } from 'Stores/useTraderStores';
-import RiskManagementDialog from '../risk-management-dialog';
+
 import TraderProviders from '../../../../../trader-providers';
+import RiskManagementDialog from '../risk-management-dialog';
 
 const default_mocked_props = {
     is_open: true,
@@ -110,31 +113,31 @@ describe('<RiskManagementDialog />', () => {
 
         expect(screen.getByText(/CancelDeal/i)).toBeInTheDocument();
     });
-    it('should call onClose function if MobileDialog was closed', () => {
+    it('should call onClose function if MobileDialog was closed', async () => {
         render(mockRiskManagementDialog());
 
-        userEvent.click(screen.getByText(/dialog/i));
+        await userEvent.click(screen.getByText(/dialog/i));
 
         expect(default_mocked_props.onClose).toBeCalled();
     });
-    it('should call toggleDialog function if Apply button was clicked', () => {
+    it('should call toggleDialog function if Apply button was clicked', async () => {
         render(mockRiskManagementDialog());
 
-        userEvent.click(screen.getByText(/Apply/i));
+        await userEvent.click(screen.getByText(/Apply/i));
 
         expect(default_mocked_props.toggleDialog).toBeCalled();
     });
-    it('should change state object with setState function if onChangeMultiple was called', () => {
+    it('should change state object with setState function if onChangeMultiple was called', async () => {
         render(mockRiskManagementDialog());
 
-        userEvent.click(screen.getByText('ChangeMultiple'));
+        await userEvent.click(screen.getByText('ChangeMultiple'));
 
         expect(setState).toBeCalled();
     });
-    it('should change state object with setState function if onChange was called', () => {
+    it('should change state object with setState function if onChange was called', async () => {
         render(mockRiskManagementDialog());
 
-        userEvent.click(screen.getByText('Change'));
+        await userEvent.click(screen.getByText('Change'));
 
         expect(setState).toBeCalled();
     });

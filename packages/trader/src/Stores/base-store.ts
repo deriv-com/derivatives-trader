@@ -1,7 +1,10 @@
-import { action, intercept, observable, reaction, toJS, when, makeObservable } from 'mobx';
-import { isProduction, isEmptyObject, Validator } from '@deriv/shared';
-import { getValidationRules } from './Modules/Trading/Constants/validation-rules';
+import { action, intercept, makeObservable, observable, reaction, toJS, when } from 'mobx';
+
+import { isEmptyObject, isProduction, Validator } from '@deriv/shared';
+
 import { TRootStore } from 'Types';
+
+import { getValidationRules } from './Modules/Trading/Constants/validation-rules';
 
 type TValidationRules = ReturnType<typeof getValidationRules> | Record<string, never>;
 

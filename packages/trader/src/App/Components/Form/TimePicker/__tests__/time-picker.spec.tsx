@@ -1,10 +1,12 @@
 import React from 'react';
+import moment from 'moment';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import TimePicker from '../time-picker';
-import moment from 'moment';
-import { mockStore } from '@deriv/stores';
+
 import TraderProviders from '../../../../../trader-providers';
+import TimePicker from '../time-picker';
 
 jest.mock('../dialog', () => jest.fn(() => 'TimePickerDialog'));
 jest.mock('@deriv/components', () => ({
@@ -52,9 +54,9 @@ describe('<TimePicker />', () => {
         expect(screen.getByText(/mocked icon/i)).toBeInTheDocument();
         expect(screen.getByText(/csstransitionelement/i)).toBeInTheDocument();
     });
-    it('should render TimePickerDialog if input is clicked', () => {
+    it('should render TimePickerDialog if input is clicked', async () => {
         render(mockTimePicker());
-        userEvent.click(screen.getByRole('textbox'));
+        await userEvent.click(screen.getByRole('textbox'));
         expect(screen.getByText(/timepickerdialog/i)).toBeInTheDocument();
     });
     it('should render native html input if is_native_picker is true', () => {

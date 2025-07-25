@@ -1,12 +1,15 @@
 import React from 'react';
-import Digits from 'Modules/Contract/Components/Digits';
+
+import { observer, useStore } from '@deriv/stores';
+import { useDevice } from '@deriv-com/ui';
+
 import AccumulatorsStats from 'Modules/Contract/Components/AccumulatorsStats';
+import Digits from 'Modules/Contract/Components/Digits';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import BottomWidgets from '../../SmartChart/Components/bottom-widgets';
 import TopWidgets from '../../SmartChart/Components/top-widgets';
 import { symbolChange } from '../../SmartChart/Helpers/symbol';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { observer, useStore } from '@deriv/stores';
-import { useDevice } from '@deriv-com/ui';
 
 type TDigits = React.ComponentProps<typeof Digits>;
 

@@ -1,11 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
-import TradeTypeTabs from '../trade-type-tabs';
-import { mockStore } from '@deriv/stores';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../../trader-providers';
+import TradeTypeTabs from '../trade-type-tabs';
+
+import '@testing-library/jest-dom';
 
 describe('Trade Type Tabs', () => {
     const mock_root_store = {
@@ -60,14 +63,14 @@ describe('Trade Type Tabs', () => {
         });
     });
 
-    it('should call onChange when a tab is clicked', () => {
+    it('should call onChange when a tab is clicked', async () => {
         if (mock_root_store.modules) {
             mock_root_store.modules.trade.contract_type = TRADE_TYPES.TURBOS.LONG;
         }
         render(mockTradeTypeTabs(mock_root_store));
 
         const down_tab = screen.getByText('Down');
-        userEvent.click(down_tab);
+        await userEvent.click(down_tab);
 
         expect(mock_root_store.modules?.trade.contract_type).toBe(TRADE_TYPES.TURBOS.SHORT);
     });

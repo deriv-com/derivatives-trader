@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import AsianTradeDescription from '../asian-trade-description';
 
 describe('<AsianTradeDescription />', () => {

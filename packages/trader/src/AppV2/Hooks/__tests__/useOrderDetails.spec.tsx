@@ -1,13 +1,14 @@
-import { renderHook } from '@testing-library/react-hooks';
 import {
     CONTRACT_TYPES,
-    TContractInfo,
     getCardLabelsV2,
-    mockContractInfo,
     getStartTime,
     hasForwardContractStarted,
     isForwardStarting,
+    mockContractInfo,
+    TContractInfo,
 } from '@deriv/shared';
+import { renderHook } from '@testing-library/react-hooks';
+
 import useOrderDetails from '../useOrderDetails';
 
 jest.mock('@deriv/translations', () => ({

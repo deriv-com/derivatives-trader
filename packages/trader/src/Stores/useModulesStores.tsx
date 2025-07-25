@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { useStore } from '@deriv/stores';
+
 import ModulesStore from './Modules';
 
 const ModulesStoreContext = React.createContext<ModulesStore | null>(null);

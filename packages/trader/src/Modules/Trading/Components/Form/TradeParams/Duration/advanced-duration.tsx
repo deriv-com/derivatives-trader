@@ -1,15 +1,19 @@
-import classNames from 'classnames';
 import React from 'react';
-import { Dropdown, ButtonToggle, InputField } from '@deriv/components';
-import { getDurationMinMaxValues, getUnitMap, hasIntradayDurationUnit, toMoment, getTomorrowDate } from '@deriv/shared';
+import classNames from 'classnames';
+
+import { ButtonToggle, Dropdown, InputField } from '@deriv/components';
+import { getDurationMinMaxValues, getTomorrowDate, getUnitMap, hasIntradayDurationUnit, toMoment } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+
 import RangeSlider from 'App/Components/Form/RangeSlider';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import TradingDatePicker from '../../DatePicker';
 import TradingTimePicker from '../../TimePicker';
-import ExpiryText from './expiry-text';
-import DurationRangeText from './duration-range-text';
+
 import type { TDuration } from './duration';
-import { observer, useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
+import DurationRangeText from './duration-range-text';
+import ExpiryText from './expiry-text';
 
 type TAdvancedDuration = Pick<
     TDuration,

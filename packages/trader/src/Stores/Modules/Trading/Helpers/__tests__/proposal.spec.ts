@@ -1,5 +1,6 @@
 import { mockStore } from '@deriv/stores';
-import { getProposalInfo, createProposalRequests } from '../proposal';
+
+import { createProposalRequests, getProposalInfo } from '../proposal';
 
 describe('Proposal', () => {
     describe('getProposalInfo function', () => {
@@ -28,7 +29,7 @@ describe('Proposal', () => {
             expect(getProposalInfo(fake_store, fake_response, fake_obj_prev_contract_basis)).toEqual({
                 profit: '0.00',
                 returns: '0.00%',
-                stake: undefined,
+                stake: '',
                 payout: undefined,
                 cancellation: undefined,
                 commission: undefined,
@@ -45,6 +46,8 @@ describe('Proposal', () => {
                     value: '',
                 },
                 spot: undefined,
+                spot_time: undefined,
+                validation_params: undefined,
             });
         });
 
@@ -88,6 +91,48 @@ describe('Proposal', () => {
                 },
             });
         });
+
+        it('should use ask_price as fallback when display_value is missing from proposal response', () => {
+            const fake_response = {
+                echo_req: { test: 'test' },
+                msg_type: 'proposal' as const,
+                proposal: {
+                    proposal: 1,
+                    ask_price: 50,
+                    // display_value is missing - using type assertion to simulate new API
+                    payout: 300,
+                    id: 'id1',
+                    longcode: 'This is a longcode',
+                    date_start: 12312313,
+                    spot: 200,
+                    spot_time: 123123,
+                },
+            } as any; // Type assertion to simulate new API without display_value
+
+            expect(getProposalInfo(fake_store, fake_response, fake_obj_prev_contract_basis)).toEqual({
+                cancellation: undefined,
+                commission: undefined,
+                error_code: undefined,
+                error_field: undefined,
+                growth_rate: undefined,
+                limit_order: undefined,
+                profit: '250.00',
+                returns: '500.00%',
+                stake: '50', // Using ask_price as fallback
+                spot: 200,
+                spot_time: 123123,
+                payout: 300,
+                id: 'id1',
+                message: 'This is a longcode',
+                has_error: false,
+                has_error_details: false,
+                obj_contract_basis: {
+                    text: 'Stake',
+                    value: '50', // Using ask_price as fallback
+                },
+                validation_params: undefined,
+            });
+        });
     });
 
     describe('createProposalRequests function', () => {
@@ -117,6 +162,7 @@ describe('Proposal', () => {
                         proposal: 1,
                         req_id: 7,
                         subscribe: 1,
+                        underlying_symbol: 'frxAUDJPY',
                         symbol: 'frxAUDJPY',
                     },
                 },
@@ -132,6 +178,7 @@ describe('Proposal', () => {
                     duration_unit: 't',
                     proposal: 1,
                     subscribe: 1,
+                    underlying_symbol: 'frxAUDJPY',
                     symbol: 'frxAUDJPY',
                 },
                 PUT: {
@@ -141,6 +188,7 @@ describe('Proposal', () => {
                     basis: 'payout',
                     contract_type: 'PUT',
                     currency: 'USD',
+                    underlying_symbol: 'frxAUDJPY',
                     symbol: 'frxAUDJPY',
                     duration: 5,
                     duration_unit: 't',
@@ -172,6 +220,7 @@ describe('Proposal', () => {
                         proposal: 1,
                         req_id: 7,
                         subscribe: 1,
+                        underlying_symbol: 'frxAUDJPY',
                         symbol: 'frxAUDJPY',
                     },
                 },
@@ -187,6 +236,7 @@ describe('Proposal', () => {
                     duration_unit: 't',
                     proposal: 1,
                     subscribe: 1,
+                    underlying_symbol: 'frxAUDJPY',
                     symbol: 'frxAUDJPY',
                 },
             });

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import MatchDiffTradeDescription from '../match-diff-trade-description';
 
 describe('<MatchDiffTradeDescription />', () => {

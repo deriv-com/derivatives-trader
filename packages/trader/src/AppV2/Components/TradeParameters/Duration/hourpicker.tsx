@@ -1,6 +1,7 @@
-import { WheelPickerContainer } from '@deriv-com/quill-ui';
+import React, { useEffect, useState } from 'react';
+
 import { localize } from '@deriv/translations';
-import React, { useState, useEffect } from 'react';
+import { WheelPickerContainer } from '@deriv-com/quill-ui';
 
 type TimeOption = {
     label: string;

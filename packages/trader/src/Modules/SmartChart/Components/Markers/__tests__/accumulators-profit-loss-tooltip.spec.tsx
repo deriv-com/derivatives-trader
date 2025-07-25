@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import AccumulatorsProfitLossTooltip from '../accumulators-profit-loss-tooltip';
 
 jest.mock('Modules/SmartChart', () => ({

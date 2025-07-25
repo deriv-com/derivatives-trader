@@ -1,11 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import { AMOUNT_MAX_LENGTH, getDecimalPlaces } from '@deriv/shared';
+
 import { MobileWrapper } from '@deriv/components';
-import { localize } from '@deriv/translations';
-import LabeledQuantityInputMobile from '../../LabeledQuantityInputMobile';
+import { AMOUNT_MAX_LENGTH, getDecimalPlaces } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
+import { localize } from '@deriv/translations';
+
 import { useTraderStore } from 'Stores/useTraderStores';
+
+import LabeledQuantityInputMobile from '../../LabeledQuantityInputMobile';
 
 const AccumulatorsAmountMobile = observer(() => {
     const { ui, client } = useStore();

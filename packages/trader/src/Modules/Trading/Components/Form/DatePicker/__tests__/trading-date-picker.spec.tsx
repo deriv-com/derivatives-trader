@@ -1,9 +1,11 @@
 import React from 'react';
 import moment from 'moment';
-import TradingDatePicker from '../trading-date-picker';
+
 import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../../../../trader-providers';
 import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../../../trader-providers';
+import TradingDatePicker from '../trading-date-picker';
 
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),

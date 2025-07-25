@@ -1,7 +1,9 @@
 import React from 'react';
+import { CallBackProps } from 'react-joyride';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CallBackProps } from 'react-joyride';
+
 import GuideContainer from '../guide-container';
 
 jest.mock('react-joyride', () => ({
@@ -27,9 +29,9 @@ describe('GuideContainer', () => {
         expect(screen.getByText('Joyride')).toBeInTheDocument();
     });
 
-    it('should call onFinishGuide inside of callbackHandle if passed status is equal to "skipped" or "finished"', () => {
+    it('should call onFinishGuide inside of callbackHandle if passed status is equal to "skipped" or "finished"', async () => {
         render(<GuideContainer {...mock_props} />);
-        userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button'));
 
         expect(mock_props.onFinishGuide).toBeCalled();
     });

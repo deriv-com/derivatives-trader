@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { StoreProvider, mockStore } from '@deriv/stores';
+
 import BarriersList from '../barriers-list';
+
+import '@testing-library/jest-dom';
 
 const barrier_choices = ['16', '33', '40'];
 const classname = 'trade-container__barriers-table';
@@ -46,16 +49,16 @@ describe('<BarriersList/>', () => {
             `${classname}__item ${classname}__item--selected`
         );
     });
-    it('click handler should be called after clicking on the 2nd barrier option (33)', () => {
-        userEvent.click(screen.getByTestId(barrier_choices[1]));
+    it('click handler should be called after clicking on the 2nd barrier option (33)', async () => {
+        await userEvent.click(screen.getByTestId(barrier_choices[1]));
         expect(mockClickCallback).toHaveBeenCalled();
     });
-    it('hover handler should be called when the 3rd barrier option (40) is hovered', () => {
-        userEvent.hover(screen.getByTestId(barrier_choices[2]));
+    it('hover handler should be called when the 3rd barrier option (40) is hovered', async () => {
+        await userEvent.hover(screen.getByTestId(barrier_choices[2]));
         expect(mockHoverCallback).toHaveBeenCalled();
     });
-    it('hover handler should be called with null when mouseLeave event fires on the 3rd barrier option (40)', () => {
-        userEvent.unhover(screen.getByTestId(barrier_choices[2]));
+    it('hover handler should be called with null when mouseLeave event fires on the 3rd barrier option (40)', async () => {
+        await userEvent.unhover(screen.getByTestId(barrier_choices[2]));
         expect(mockHoverCallback).toHaveBeenCalledWith('');
     });
 });

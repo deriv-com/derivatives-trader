@@ -1,8 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import PayoutSelector from '../payout-selector';
-import { useTraderStore } from 'Stores/useTraderStores';
+
 import { useDevice } from '@deriv-com/ui';
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import PayoutSelector from '../payout-selector';
 
 jest.mock('Stores/useTraderStores');
 

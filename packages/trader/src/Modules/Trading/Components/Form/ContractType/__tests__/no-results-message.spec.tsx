@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import NoResultsMessage from '../ContractTypeMenu/no-results-message';
 
 describe('<NoResultsMessage />', () => {

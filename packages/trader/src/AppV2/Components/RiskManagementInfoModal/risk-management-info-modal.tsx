@@ -1,7 +1,8 @@
 import React from 'react';
-import { Modal, SectionMessage, Text } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
+
 import { LabelPairedCircleInfoSmRegularIcon } from '@deriv/quill-icons';
+import { Localize } from '@deriv/translations';
+import { Modal, SectionMessage, Text } from '@deriv-com/quill-ui';
 
 type RiskManagementInfoModalProps = {
     header_content: React.ReactNode;

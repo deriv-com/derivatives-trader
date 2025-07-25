@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import { ActionSheet, Text, WheelPicker, Skeleton } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
-import { useTraderStore } from 'Stores/useTraderStores';
 import debounce from 'lodash.debounce';
+
 import { formatMoney } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+import { ActionSheet, Skeleton, Text, WheelPicker } from '@deriv-com/quill-ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
 
 type TMultiplierWheelPickerProps = {
     multiplier: ReturnType<typeof useTraderStore>['multiplier'];

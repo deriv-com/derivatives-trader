@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import CustomDateFilterButton from '../custom-time-filter-button';
 
 const customTimeRangeFilter = '25 May 2024';
@@ -21,10 +23,10 @@ describe('CustomDateFilterButton', () => {
         expect(screen.getByText(customTimeRangeFilter)).toBeInTheDocument();
     });
 
-    it('should call setShowDatePicker if user clicks on the component', () => {
+    it('should call setShowDatePicker if user clicks on the component', async () => {
         render(<CustomDateFilterButton {...mockProps} />);
 
-        userEvent.click(screen.getByText('Custom'));
+        await userEvent.click(screen.getByText('Custom'));
         expect(mockProps.setShowDatePicker).toBeCalled();
     });
 });

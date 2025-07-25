@@ -1,9 +1,11 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
-import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
-import { localize, Localize } from '@deriv/translations';
-import { getGrowthRatePercentage } from '@deriv/shared';
+
 import { Skeleton } from '@deriv/components';
+import { getGrowthRatePercentage } from '@deriv/shared';
+import { Localize, localize } from '@deriv/translations';
+import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
+
 import type { TV2ParamsInitialValues } from 'Stores/Modules/Trading/trade-store';
 
 type TGrowthRatePickerProps = {

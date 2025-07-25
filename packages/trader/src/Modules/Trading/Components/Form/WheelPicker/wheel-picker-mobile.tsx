@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { Text } from '@deriv/components';
 import { motion } from 'framer-motion';
+
+import { Text } from '@deriv/components';
 
 type WheelPickerMobileProps = {
     defaultValue?: string;

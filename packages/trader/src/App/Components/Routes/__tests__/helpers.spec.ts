@@ -1,7 +1,9 @@
-import * as Helpers from '../helpers';
 import { routes } from '@deriv/shared';
-import getRoutesConfig from '../../../Constants/routes-config';
+
 import Trade from 'Modules/Trading';
+
+import getRoutesConfig from '../../../Constants/routes-config';
+import * as Helpers from '../helpers';
 
 describe('Helpers', () => {
     describe('normalizePath', () => {

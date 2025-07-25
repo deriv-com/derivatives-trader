@@ -1,6 +1,8 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { useLocation } from 'react-router';
+
 import { useStore } from '@deriv/stores';
+import { renderHook } from '@testing-library/react-hooks';
+
 import useContractDetails from '../useContractDetails';
 
 jest.mock('react-router', () => ({

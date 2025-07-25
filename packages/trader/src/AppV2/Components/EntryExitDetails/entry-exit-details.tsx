@@ -1,9 +1,12 @@
 import React, { useMemo } from 'react';
-import { TContractInfo, addComma, formatDate, formatTime, getEndTime } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
-import EntryExitDetailRow from './entry-exit-details-row';
-import CardWrapper from '../CardWrapper';
 import moment from 'moment';
+
+import { addComma, formatDate, formatTime, getEndTime, TContractInfo } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+
+import CardWrapper from '../CardWrapper';
+
+import EntryExitDetailRow from './entry-exit-details-row';
 
 const getDateTimeFromEpoch = (epoch: number) => {
     if (epoch) {

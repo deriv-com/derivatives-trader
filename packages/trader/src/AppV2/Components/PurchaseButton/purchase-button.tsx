@@ -1,10 +1,11 @@
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { Button, useNotifications, useSnackbar } from '@deriv-com/quill-ui';
-import { useDevice } from '@deriv-com/ui';
+
+import { usePrevious } from '@deriv/components';
+import { useMFAccountStatus } from '@deriv/hooks';
+import { StandaloneStopwatchRegularIcon } from '@deriv/quill-icons';
 import {
     getCardLabelsV2,
     getContractTypeDisplay,
@@ -15,15 +16,18 @@ import {
     isValidToSell,
     MT5_ACCOUNT_STATUS,
 } from '@deriv/shared';
-import { useMFAccountStatus } from '@deriv/hooks';
-import PurchaseButtonContent from './purchase-button-content';
-import { getTradeTypeTabsList } from 'AppV2/Utils/trade-params-utils';
-import { StandaloneStopwatchRegularIcon } from '@deriv/quill-icons';
-import { CSSTransition } from 'react-transition-group';
-import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
-import { usePrevious } from '@deriv/components';
+import { useStore } from '@deriv/stores';
+import { Button, useNotifications, useSnackbar } from '@deriv-com/quill-ui';
+import { useDevice } from '@deriv-com/ui';
+
 import { checkIsServiceModalError } from 'AppV2/Utils/layout-utils';
+import { getTradeTypeTabsList } from 'AppV2/Utils/trade-params-utils';
+import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import { sendDtraderV2PurchaseToAnalytics } from '../../../Analytics';
+
+import PurchaseButtonContent from './purchase-button-content';
 
 const BASIS_STAKE = 'stake';
 const BASIS_PAYOUT = 'payout';

@@ -1,9 +1,11 @@
 import React from 'react';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
-import TradeParamsModal, { LastDigitMobile, BarrierMobile } from '../trade-params-mobile';
+
 import TraderProviders from '../../../../trader-providers';
+import TradeParamsModal, { BarrierMobile, LastDigitMobile } from '../trade-params-mobile';
 
 const mock_default_props = {
     is_open: true,
@@ -90,41 +92,41 @@ describe('<TradeParamsModal />', () => {
         expect(screen.getByText(amount_mobile)).toBeInTheDocument();
     });
 
-    it('function setAmountTabIdx call should change amount_tab_idx', () => {
+    it('function setAmountTabIdx call should change amount_tab_idx', async () => {
         const { rerender } = render(mockTradeParamsModal());
         expect(screen.queryByText('1')).not.toBeInTheDocument();
 
-        userEvent.click(screen.getByText('setAmountTabIdx'));
+        await userEvent.click(screen.getByText('setAmountTabIdx'));
         rerender(mockTradeParamsModal());
 
         expect(screen.getByText('1')).toBeInTheDocument();
     });
 
-    it('function setSelectedAmount call should change stake_value', () => {
+    it('function setSelectedAmount call should change stake_value', async () => {
         const { rerender } = render(mockTradeParamsModal());
         expect(screen.getByText('10')).toBeInTheDocument();
 
-        userEvent.click(screen.getByText('setSelectedAmount'));
+        await userEvent.click(screen.getByText('setSelectedAmount'));
         rerender(mockTradeParamsModal());
 
         expect(screen.getByText('20')).toBeInTheDocument();
     });
 
-    it('function setAmountError call should change amount_error', () => {
+    it('function setAmountError call should change amount_error', async () => {
         const { rerender } = render(mockTradeParamsModal());
         expect(screen.queryByText(amount_error)).not.toBeInTheDocument();
 
-        userEvent.click(screen.getByText('setAmountError'));
+        await userEvent.click(screen.getByText('setAmountError'));
         rerender(mockTradeParamsModal());
 
         expect(screen.getByText(amount_error)).toBeInTheDocument();
     });
 
-    it('function setDurationError call should change amount_error', () => {
+    it('function setDurationError call should change amount_error', async () => {
         const { rerender } = render(mockTradeParamsModal());
         expect(screen.queryByText(duration_error)).not.toBeInTheDocument();
 
-        userEvent.click(screen.getByText('setDurationError'));
+        await userEvent.click(screen.getByText('setDurationError'));
         rerender(mockTradeParamsModal());
 
         expect(screen.getByText(duration_error)).toBeInTheDocument();

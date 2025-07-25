@@ -1,10 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
-import { observer, useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { Text } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
+
 import { formatDuration, getDateFromNow, getDiffDuration } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
 
 const MultipliersExpirationInfo = observer(() => {
     const { expiration, is_market_closed } = useTraderStore();

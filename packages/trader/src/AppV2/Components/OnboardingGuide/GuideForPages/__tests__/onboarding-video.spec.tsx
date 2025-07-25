@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import OnboardingVideo from '../onboarding-video';
 
 const dt_video = 'dt_onboarding_guide_video';

@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { useDevice } from '@deriv-com/ui';
-import { mockStore } from '@deriv/stores';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { useDevice } from '@deriv-com/ui';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../../trader-providers';
 import Strike from '../strike';
-import userEvent from '@testing-library/user-event';
 
 const mocked_store = {
     modules: {
@@ -90,13 +92,13 @@ describe('<Strike />', () => {
     it('should open and close BarriersList on input click', async () => {
         render(mockStrike(mocked_store));
 
-        userEvent.click(screen.getByRole('textbox'));
+        await userEvent.click(screen.getByRole('textbox'));
 
         await waitFor(() => {
             expect(screen.getByText(strike_prices)).toBeInTheDocument();
         });
 
-        userEvent.click(screen.getByTestId('dt_trade-container__barriers-table__icon_close'));
+        await userEvent.click(screen.getByTestId('dt_trade-container__barriers-table__icon_close'));
 
         await waitFor(() => {
             expect(screen.queryByText(strike_prices)).not.toBeInTheDocument();

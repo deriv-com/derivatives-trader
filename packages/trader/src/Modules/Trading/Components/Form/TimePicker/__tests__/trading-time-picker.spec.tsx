@@ -1,9 +1,11 @@
 import React from 'react';
 import moment from 'moment';
-import TradingTimePicker from '../trading-time-picker';
+
 import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../../../../trader-providers';
 import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../../../trader-providers';
+import TradingTimePicker from '../trading-time-picker';
 
 jest.mock('App/Components/Form/TimePicker', () => jest.fn(() => <div>MockedTimePicker</div>));
 

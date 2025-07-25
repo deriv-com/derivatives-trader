@@ -1,11 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { Localize } from '@deriv/translations';
+
 import { Money, Skeleton } from '@deriv/components';
-import { Text } from '@deriv-com/quill-ui';
-import { useTraderStore } from 'Stores/useTraderStores';
 import { CONTRACT_TYPES } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
 
 const AccumulatorsInformation = observer(() => {
     const { currency, is_market_closed, maximum_payout, proposal_info } = useTraderStore();

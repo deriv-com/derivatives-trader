@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { LabelPairedPresentationScreenSmRegularIcon } from '@deriv/quill-icons';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import CarouselHeader from '../carousel-header';
 
 jest.mock('@deriv/quill-icons', () => ({

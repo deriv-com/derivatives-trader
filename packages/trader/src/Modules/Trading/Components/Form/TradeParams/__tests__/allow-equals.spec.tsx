@@ -1,8 +1,11 @@
 import React from 'react';
+
+import { TRADE_TYPES } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { TRADE_TYPES } from '@deriv/shared';
+
 import { hasCallPutEqual } from 'Stores/Modules/Trading/Helpers/allow-equals';
+
 import AllowEquals from '../allow-equals';
 
 const default_props = {
@@ -34,11 +37,11 @@ describe('<AllowEquals />', () => {
         expect(screen.getByText('Allow equals')).toBeInTheDocument();
         expect(screen.getByTestId('dt_popover_wrapper')).toBeInTheDocument();
     });
-    it('should call onChange function if user clicked on checkbox', () => {
+    it('should call onChange function if user clicked on checkbox', async () => {
         render(<AllowEquals {...default_props} />);
 
         expect(default_props.onChange).not.toBeCalled();
-        userEvent.click(screen.getByRole('checkbox'));
+        await userEvent.click(screen.getByRole('checkbox'));
 
         expect(default_props.onChange).toBeCalled();
     });

@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { renderHook } from '@testing-library/react-hooks';
-import { useGetSymbolSearchResults } from '../useGetSymbolSearchResults';
+
 import * as sortSymbolsUtils from 'AppV2/Utils/sort-symbols-utils';
+
+import { useGetSymbolSearchResults } from '../useGetSymbolSearchResults';
 
 jest.mock('AppV2/Utils/sort-symbols-utils', () => ({
     __esModule: true,

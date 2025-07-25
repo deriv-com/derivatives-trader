@@ -1,16 +1,19 @@
 import React from 'react';
+
+import { Loading } from '@deriv/components';
+import { TReportsStore, useReportsStore } from '@deriv/reports/src/Stores/useReportsStores';
 import { TContractInfo } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Loading } from '@deriv/components';
-import { EmptyPositions, TEmptyPositionsProps } from 'AppV2/Components/EmptyPositions';
 import { TPortfolioPosition } from '@deriv/stores/types';
+
 import { ContractCardList, ContractCardsSections } from 'AppV2/Components/ContractCard';
+import { EmptyPositions, TEmptyPositionsProps } from 'AppV2/Components/EmptyPositions';
 import { ContractTypeFilter, TimeFilter } from 'AppV2/Components/Filter';
 import TotalProfitLoss from 'AppV2/Components/TotalProfitLoss';
-import { filterPositions, getTotalPositionsProfit, TAB_NAME } from '../../Utils/positions-utils';
-import { TReportsStore, useReportsStore } from '../../../../../reports/src/Stores/useReportsStores';
-import useTradeTypeFilter from 'AppV2/Hooks/useTradeTypeFilter';
 import useTimeFilter from 'AppV2/Hooks/useTimeFilter';
+import useTradeTypeFilter from 'AppV2/Hooks/useTradeTypeFilter';
+
+import { filterPositions, getTotalPositionsProfit, TAB_NAME } from '../../Utils/positions-utils';
 
 type TPositionsContentProps = Omit<TEmptyPositionsProps, 'noMatchesFound'> & {
     hasButtonsDemo?: boolean;

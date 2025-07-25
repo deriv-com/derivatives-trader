@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import ToolbarWidgets from '../toolbar-widgets';
-import { useDevice } from '@deriv-com/ui';
+
 import { isDesktopOs } from '@deriv/shared';
+import { useDevice } from '@deriv-com/ui';
+import { render, screen } from '@testing-library/react';
+
+import ToolbarWidgets from '../toolbar-widgets';
 
 jest.mock('Modules/SmartChart', () => ({
     ...jest.requireActual('Modules/SmartChart'),

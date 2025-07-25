@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import ContractTypeWidget from '../contract-type-widget';
-import { mockStore } from '@deriv/stores';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../../trader-providers';
+import ContractTypeWidget from '../contract-type-widget';
 
 const mock_connect_props = {
     modules: {

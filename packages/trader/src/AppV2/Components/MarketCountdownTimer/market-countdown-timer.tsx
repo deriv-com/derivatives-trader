@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text } from '@deriv-com/quill-ui';
+
 import { LabelPairedStopwatchMdBoldIcon } from '@deriv/quill-icons';
+import { Text } from '@deriv-com/quill-ui';
 
 type TMarketCountDownTimer = {
     time_left: {

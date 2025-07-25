@@ -1,11 +1,14 @@
-import { ActionSheet, Tab } from '@deriv-com/quill-ui';
+import React, { useEffect, useRef, useState } from 'react';
+
 import { observer } from '@deriv/stores';
-import React, { useState, useEffect, useRef } from 'react';
-import SymbolsSearchField from '../SymbolsSearchField';
+import { ActionSheet, Tab } from '@deriv-com/quill-ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import { sendMarketTypeToAnalytics } from '../../../Analytics';
 import MarketCategories from '../MarketCategories';
 import SymbolSearchResults from '../SymbolSearchResults';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { sendMarketTypeToAnalytics } from '../../../Analytics';
+import SymbolsSearchField from '../SymbolsSearchField';
 
 type TActiveSymbolsList = {
     isOpen: boolean;

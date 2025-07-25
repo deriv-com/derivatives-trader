@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { useDevice } from '@deriv-com/ui';
-import ContractReplay from '../contract-replay';
 import { Router } from 'react-router-dom';
-import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../../trader-providers';
 import { createMemoryHistory } from 'history';
+
+import { mockStore } from '@deriv/stores';
+import { useDevice } from '@deriv-com/ui';
+import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../trader-providers';
+import ContractReplay from '../contract-replay';
 
 jest.mock('@deriv-com/ui', () => ({
     ...jest.requireActual('@deriv-com/ui'),

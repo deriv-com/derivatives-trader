@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
+import { isDesktop, isMobile } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { isDesktop, isMobile } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../../trader-providers';
 import Barrier from '../barrier';
 
@@ -106,13 +108,13 @@ describe('<Barrier />', () => {
         expect(screen.getAllByText(mocked_input_field)).toHaveLength(2);
     });
 
-    it('should render Modal for mobile devices after user clicked on LabeledQuantityInputMobile', () => {
+    it('should render Modal for mobile devices after user clicked on LabeledQuantityInputMobile', async () => {
         (isMobile as jest.Mock).mockReturnValue(true);
         (isDesktop as jest.Mock).mockReturnValue(false);
         render(mockBarrier(mockStore(mock_default_store), default_props));
 
         expect(screen.queryByText(/Current Price/i)).not.toBeInTheDocument();
-        userEvent.click(screen.getAllByText(mocked_labeled_quantity_input_mobile)[0]);
+        await userEvent.click(screen.getAllByText(mocked_labeled_quantity_input_mobile)[0]);
 
         expect(screen.getByText(/Current Price/i)).toBeInTheDocument();
         expect(screen.getByText(mocked_value_movement)).toBeInTheDocument();

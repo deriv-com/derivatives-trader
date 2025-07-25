@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ChartMarker, { TMarkerContentConfig } from '../marker';
 
 jest.mock('Modules/SmartChart', () => ({

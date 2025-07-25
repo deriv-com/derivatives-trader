@@ -1,5 +1,6 @@
-import { toJS } from 'mobx';
 import React, { useMemo } from 'react';
+import { toJS } from 'mobx';
+
 import { FastMarker } from 'Modules/SmartChart';
 
 type TContentConfig = {

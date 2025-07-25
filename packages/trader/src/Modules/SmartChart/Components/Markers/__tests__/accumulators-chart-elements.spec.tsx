@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { CONTRACT_TYPES } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+
 import AccumulatorsChartElements from '../accumulators-chart-elements';
 
 jest.mock('App/Components/Elements/PositionsDrawer/helpers/positions-helper', () => ({

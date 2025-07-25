@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { CONTRACT_LIST, AVAILABLE_CONTRACTS } from 'AppV2/Utils/trade-types-utils';
-import GuideContent from '../guide-content';
 import userEvent from '@testing-library/user-event';
+
+import { AVAILABLE_CONTRACTS, CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+
+import GuideContent from '../guide-content';
 
 const mock_props = {
     contract_list: AVAILABLE_CONTRACTS,

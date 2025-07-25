@@ -1,9 +1,11 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../../../trader-providers';
 import DurationTicksWidgetMobile from '../duration-ticks-widget-mobile';
-import { mockStore } from '@deriv/stores';
-import userEvent from '@testing-library/user-event';
 
 describe('<DurationTicksWidgetMobile />', () => {
     let mock_store: ReturnType<typeof mockStore>, default_props: React.ComponentProps<typeof DurationTicksWidgetMobile>;
@@ -60,10 +62,10 @@ describe('<DurationTicksWidgetMobile />', () => {
         renderDurationTicksWidgetMobile(mock_store, default_props);
         expect(default_props.setDurationError).toHaveBeenCalled();
     });
-    it('Should call onChangeMultiple and toggleModal when setTicksDuration is invoked', () => {
+    it('Should call onChangeMultiple and toggleModal when setTicksDuration is invoked', async () => {
         renderDurationTicksWidgetMobile(mock_store, default_props);
         const ok_button = screen.getByText('OK');
-        userEvent.click(ok_button);
+        await userEvent.click(ok_button);
 
         expect(mock_store.modules.trade.onChangeMultiple).toHaveBeenCalled();
         expect(default_props.toggleModal).toHaveBeenCalled();

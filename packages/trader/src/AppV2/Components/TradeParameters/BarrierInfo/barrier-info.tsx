@@ -1,10 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
-import { observer } from '@deriv/stores';
+
 import { Skeleton } from '@deriv/components';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { Text } from '@deriv-com/quill-ui';
+import { observer } from '@deriv/stores';
 import { Localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
 
 const BarrierInfo = observer(() => {
     const { barrier_1, contract_type, is_market_closed, proposal_info } = useTraderStore();

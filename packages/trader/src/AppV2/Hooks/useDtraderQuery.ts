@@ -1,5 +1,7 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { WS } from '@deriv/shared';
-import { useState, useEffect, useCallback, useRef } from 'react';
+
 import { TServerError } from 'Types';
 
 type QueryResult<T> = {

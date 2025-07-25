@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
-import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
+
 import { ActiveSymbols } from '@deriv/api-types';
+
+import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import sortSymbols from 'AppV2/Utils/sort-symbols-utils';
 import { useModulesStore } from 'Stores/useModulesStores';
 

@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
+import { ReportsStoreProvider } from '@deriv/reports/src/Stores/useReportsStores';
 import { TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
 import TraderProviders from '../../../../trader-providers';
-import { ReportsStoreProvider } from '../../../../../../reports/src/Stores/useReportsStores';
 import TradeParameters from '../trade-parameters';
 
 const TRADE_PARAMS = {

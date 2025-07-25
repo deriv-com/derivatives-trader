@@ -1,6 +1,8 @@
-import { useStore } from '@deriv/stores';
-import { TTradeStore } from 'Types';
 import moment from 'moment';
+
+import { useStore } from '@deriv/stores';
+
+import { TTradeStore } from 'Types';
 
 type TTime = {
     server_time: NonNullable<ReturnType<typeof useStore>['common']['server_time']>;

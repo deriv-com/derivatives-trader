@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import PayoutPerPointMobileInput from '../payout-per-point-mobile-input';
 import userEvent from '@testing-library/user-event';
+
+import PayoutPerPointMobileInput from '../payout-per-point-mobile-input';
 
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),

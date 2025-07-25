@@ -1,13 +1,15 @@
 import React from 'react';
-import { localize } from '@deriv/translations';
 import { useLocation } from 'react-router-dom';
-import { observer, useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { useSnackbar, SnackbarController } from '@deriv-com/quill-ui';
+
 import { getStaticUrl, isEmptyObject, isValidToCancel, routes } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { localize } from '@deriv/translations';
+import { SnackbarController, useSnackbar } from '@deriv-com/quill-ui';
+
 import useContractDetails from 'AppV2/Hooks/useContractDetails';
 import { checkIsServiceModalError, SERVICE_ERROR } from 'AppV2/Utils/layout-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
+import { useTraderStore } from 'Stores/useTraderStores';
 
 const ServicesErrorSnackbar = observer(() => {
     const {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { usePrevious } from '@deriv/components';
 import {
     getDurationPeriod,
@@ -10,12 +11,14 @@ import {
     isDtraderV2MobileEnabled,
 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { ChartBottomWidgets, ChartTopWidgets } from './contract-replay-widget';
-import ResetContractChartElements from 'Modules/SmartChart/Components/Markers/reset-contract-chart-elements';
+import { useDevice } from '@deriv-com/ui';
+
 import { SmartChart } from 'Modules/SmartChart';
 import ChartMarker from 'Modules/SmartChart/Components/Markers/marker';
-import { useDevice } from '@deriv-com/ui';
+import ResetContractChartElements from 'Modules/SmartChart/Components/Markers/reset-contract-chart-elements';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import { ChartBottomWidgets, ChartTopWidgets } from './contract-replay-widget';
 
 const ReplayChart = observer(
     ({

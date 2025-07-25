@@ -1,10 +1,13 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { useTraderStore } from 'Stores/useTraderStores';
-import RiskManagementInfo from '../risk-management-info';
+
 import TraderProviders from '../../../../../../trader-providers';
+import RiskManagementInfo from '../risk-management-info';
 
 const default_mock_store = {
     modules: {
@@ -80,31 +83,31 @@ describe('<RiskManagementInfo />', () => {
         expect(screen.getByText(/mocked text/i)).toBeInTheDocument();
         expect(screen.queryByText(risk_management)).not.toBeInTheDocument();
     });
-    it('should render <RiskManagementDialog /> if user clicked on one of the risk management blocks', () => {
+    it('should render <RiskManagementDialog /> if user clicked on one of the risk management blocks', async () => {
         render(mockRiskManagementInfo());
 
         const risk_management_block = screen.getByText(take_profit);
-        userEvent.click(risk_management_block);
+        await userEvent.click(risk_management_block);
 
         expect(screen.getByText(risk_management_dialog)).toBeInTheDocument();
     });
-    it('should close <RiskManagementDialog /> if user clicked on close button', () => {
+    it('should close <RiskManagementDialog /> if user clicked on close button', async () => {
         render(mockRiskManagementInfo());
 
         const risk_management_block = screen.getByText(take_profit);
-        userEvent.click(risk_management_block);
+        await userEvent.click(risk_management_block);
         const close_button = screen.getByText(/close/i);
-        userEvent.click(close_button);
+        await userEvent.click(close_button);
 
         expect(screen.queryByText(risk_management_dialog)).not.toBeInTheDocument();
     });
-    it('should close <RiskManagementDialog /> if user clicked on toggle button', () => {
+    it('should close <RiskManagementDialog /> if user clicked on toggle button', async () => {
         render(mockRiskManagementInfo());
 
         const risk_management_block = screen.getByText(take_profit);
-        userEvent.click(risk_management_block);
+        await userEvent.click(risk_management_block);
         const close_button = screen.getByText(/toggle/i);
-        userEvent.click(close_button);
+        await userEvent.click(close_button);
 
         expect(screen.queryByText(risk_management_dialog)).not.toBeInTheDocument();
     });

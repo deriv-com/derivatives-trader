@@ -1,14 +1,18 @@
 import React from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { Icon, Div100vhContainer, Modal, Text } from '@deriv/components';
-import { isDisabledLandscapeBlockerRoute, isMobileOs, isTabletOs, routes } from '@deriv/shared';
-import { localize } from '@deriv/translations';
 import { NavLink, useLocation } from 'react-router-dom';
-import EmptyPortfolioMessage from '../EmptyPortfolioMessage';
-import PositionsModalCard from 'App/Components/Elements/PositionsDrawer/positions-modal-card';
-import TogglePositions from './toggle-positions';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import { Div100vhContainer, Icon, Modal, Text } from '@deriv/components';
+import { isDisabledLandscapeBlockerRoute, isMobileOs, isTabletOs, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
+import { localize } from '@deriv/translations';
 import { useDevice } from '@deriv-com/ui';
+
+import PositionsModalCard from 'App/Components/Elements/PositionsDrawer/positions-modal-card';
+
+import EmptyPortfolioMessage from '../EmptyPortfolioMessage';
+
+import TogglePositions from './toggle-positions';
 
 type TTogglePositionsMobile = Pick<
     ReturnType<typeof useStore>['portfolio'],

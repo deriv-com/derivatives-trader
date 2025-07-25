@@ -1,8 +1,10 @@
 import React from 'react';
+import { useSwipeable } from 'react-swipeable';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import Carousel from '../carousel';
-import { useSwipeable } from 'react-swipeable';
 
 jest.mock('react-swipeable', () => ({
     useSwipeable: jest.fn(() => ({

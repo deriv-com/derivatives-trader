@@ -1,32 +1,35 @@
+import { ContractsFor, ContractsForSymbolResponse, TradingTimes, TradingTimesResponse } from '@deriv/api-types';
 import {
-    WS,
+    buildBarriersConfig,
+    buildDurationConfig,
+    buildForwardStartingConfig,
+    cloneObject,
+    getCleanedUpCategories,
+    getContractCategoriesConfig,
+    getContractSubtype,
+    getContractTypesConfig,
+    getLocalizedBasis,
     getPropertyValue,
     getSortedTradeTypes,
-    cloneObject,
+    getUnitMap,
+    hasIntradayDurationUnit,
+    isDtraderV2DesktopEnabled,
+    isDtraderV2MobileEnabled,
     isTimeValid,
     minDate,
     toMoment,
-    getUnitMap,
-    buildBarriersConfig,
-    buildDurationConfig,
-    hasIntradayDurationUnit,
-    buildForwardStartingConfig,
-    unsupported_contract_types_list,
-    getCleanedUpCategories,
-    getContractCategoriesConfig,
-    getContractTypesConfig,
-    getContractSubtype,
-    getLocalizedBasis,
-    TTradeTypesCategories,
     TRADE_TYPES,
-    isDtraderV2MobileEnabled,
-    isDtraderV2DesktopEnabled,
+    TTradeTypesCategories,
+    unsupported_contract_types_list,
+    WS,
 } from '@deriv/shared';
-import ServerTime from '_common/base/server_time';
 import { localize } from '@deriv/translations';
-import { isSessionAvailable } from './start-date';
-import { ContractsFor, ContractsForSymbolResponse, TradingTimes, TradingTimesResponse } from '@deriv/api-types';
+
 import { TConfig, TTradeStore } from 'Types';
+
+import { isSessionAvailable } from './start-date';
+
+import ServerTime from '_common/base/server_time';
 
 type TBarriers = Record<
     keyof TTradeStore['duration_min_max'],

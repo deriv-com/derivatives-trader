@@ -1,13 +1,16 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import { routes } from '@deriv/shared';
-import { mockStore } from '@deriv/stores';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+
+import { routes } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
+import { render, screen, waitFor } from '@testing-library/react';
+
 import BinaryRoutes from 'App/Components/Routes';
-import Routes, { checkRoutingMatch, tradePageMountingMiddleware } from '../routes';
+
 import TraderProviders from '../../../../trader-providers';
+import Routes, { checkRoutingMatch, tradePageMountingMiddleware } from '../routes';
 
 const mockedBinaryRoutes = 'BinaryRoutes';
 const mockedErrorComponent = 'ErrorComponent';

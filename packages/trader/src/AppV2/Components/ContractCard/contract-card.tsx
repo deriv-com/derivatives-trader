@@ -1,10 +1,10 @@
 import React from 'react';
-import clsx from 'clsx';
-import { CaptionText, Tag, Text } from '@deriv-com/quill-ui';
+import { NavLink } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
+import clsx from 'clsx';
+
 import { IconTradeTypes, Money, RemainingTime } from '@deriv/components';
 import {
-    TContractInfo,
     formatDate,
     formatTime,
     getCardLabels,
@@ -20,13 +20,16 @@ import {
     isMultiplierContract,
     isValidToCancel,
     isValidToSell,
+    TContractInfo,
     toMoment,
 } from '@deriv/shared';
-import { ContractCardStatusTimer, TContractCardStatusTimerProps } from './contract-card-status-timer';
-import { NavLink } from 'react-router-dom';
+import { CaptionText, Tag, Text } from '@deriv-com/quill-ui';
+
 import { TClosedPosition } from 'AppV2/Containers/Positions/positions-content';
-import { TRootStore } from 'Types';
 import { getProfit } from 'AppV2/Utils/positions-utils';
+import { TRootStore } from 'Types';
+
+import { ContractCardStatusTimer, TContractCardStatusTimerProps } from './contract-card-status-timer';
 import ForwardStartingTag from './forward-starting-tag';
 
 type TContractCardProps = TContractCardStatusTimerProps & {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from '@deriv-com/quill-ui';
 import clsx from 'clsx';
+
+import { Text } from '@deriv-com/quill-ui';
 
 const StatsRow = ({
     rows,

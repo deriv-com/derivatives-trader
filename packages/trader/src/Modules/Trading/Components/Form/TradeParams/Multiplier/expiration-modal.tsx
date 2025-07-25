@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Button, Div100vhContainer, Modal, Text } from '@deriv/components';
-import { localize, Localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv/translations';
+
 import Expiration from './expiration';
 
 type TMultipliersExpirationModalProps = {

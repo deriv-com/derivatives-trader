@@ -1,9 +1,12 @@
 import React, { Suspense } from 'react';
 import { Switch } from 'react-router-dom';
-import { UILoader, RouteWithSubroutes } from '@deriv/components';
-import traderRoutes from './routes';
+
+import { RouteWithSubroutes, UILoader } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
+
 import Page404 from 'Modules/Page404';
+
+import traderRoutes from './routes';
 
 const Router: React.FC = () => {
     const { client, common, portfolio } = useStore();

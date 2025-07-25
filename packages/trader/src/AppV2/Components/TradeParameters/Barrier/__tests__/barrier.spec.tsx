@@ -1,9 +1,11 @@
 import React from 'react';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Barrier from '../barrier';
+
 import TraderProviders from '../../../../../trader-providers';
-import { mockStore } from '@deriv/stores';
+import Barrier from '../barrier';
 
 jest.mock('AppV2/Components/TradeParameters/Barrier/barrier-input', () => jest.fn(() => <div>Barrier Input</div>));
 
@@ -39,9 +41,9 @@ describe('Barrier Component', () => {
         expect(screen.getByRole('textbox')).toBeInTheDocument();
     });
 
-    it('opens ActionSheet when clicking the TextField', () => {
+    it('opens ActionSheet when clicking the TextField', async () => {
         mockBarriers();
-        userEvent.click(screen.getByRole('textbox'));
+        await userEvent.click(screen.getByRole('textbox'));
         expect(screen.getByText('Barrier Input')).toBeInTheDocument();
     });
 
@@ -53,9 +55,9 @@ describe('Barrier Component', () => {
 
     it('detects clicking outside the ActionSheet and closes it', async () => {
         mockBarriers();
-        userEvent.click(screen.getByRole('textbox'));
+        await userEvent.click(screen.getByRole('textbox'));
         expect(screen.getByText('Barrier Input')).toBeInTheDocument();
-        userEvent.click(screen.getByTestId('dt-actionsheet-overlay'));
+        await userEvent.click(screen.getByTestId('dt-actionsheet-overlay'));
         await waitFor(() => expect(screen.queryByText('Barrier Input')).not.toBeInTheDocument());
     });
 });

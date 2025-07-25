@@ -1,26 +1,28 @@
 import React from 'react';
+
 import { Text } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
 import { Localize } from '@deriv/translations';
+
 import AccumulatorTradeDescription from './Description/accumulator-trade-description';
 import AsianTradeDescription from './Description/asian-trade-description';
 import CallPutSpreadTradeDescription from './Description/call-put-spread-trade-description';
 import EndTradeDescription from './Description/end-trade-description';
 import EvenOddTradeDescription from './Description/even-odd-trade-description';
 import HighLowTradeDescription from './Description/high-low-trade-description';
+import LbCallTradeDescription from './Description/lb-call-trade-description';
 import LbHighLowTradeDescription from './Description/lb-high-low-trade-description';
 import LbPutTradeDescription from './Description/lb-put-trade-description';
-import LbCallTradeDescription from './Description/lb-call-trade-description';
 import MatchDiffTradeDescription from './Description/match-diff-trade-description';
 import MultiplierTradeDescription from './Description/multiplier-trade-description';
 import OverUnderTradeDescription from './Description/over-under-trade-description';
+import ResetTradeDescription from './Description/reset-trade-description';
 import RiseFallTradeDescription from './Description/rise-fall-trade-description';
 import RunHighLowTradeDescription from './Description/run-high-low-trade-description';
-import ResetTradeDescription from './Description/reset-trade-description';
 import StayTradeDescription from './Description/stay-trade-description';
-import TurbosTradeDescription from './Description/turbos-trade-description';
-import TouchTradeDescription from './Description/touch-trade-description';
 import TickHighLowTradeDescription from './Description/tick-high-low-trade-description';
+import TouchTradeDescription from './Description/touch-trade-description';
+import TurbosTradeDescription from './Description/turbos-trade-description';
 import VanillaTradeDescription from './Description/vanilla-trade-description';
 
 const TradeCategories = ({

@@ -1,10 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { mockStore } from '@deriv/stores';
+
 import { ActiveSymbols } from '@deriv/api-types';
-import { getEndTime, isMobile, isDesktop, isCryptoContract, mockContractInfo, toMoment } from '@deriv/shared';
-import ContractDrawerCard from '../contract-drawer-card';
+import { getEndTime, isCryptoContract, isDesktop, isMobile, mockContractInfo, toMoment } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../trader-providers';
+import ContractDrawerCard from '../contract-drawer-card';
 
 const mocked_props: React.ComponentProps<typeof ContractDrawerCard> = {
     contract_update: undefined,

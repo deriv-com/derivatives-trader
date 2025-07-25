@@ -1,21 +1,24 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Collapsible, ContractCard, useHover } from '@deriv/components';
 import {
-    getEndTime,
-    getSymbolDisplayName,
     getCardLabels,
     getContractTypeDisplay,
+    getEndTime,
     getMarketInformation,
+    getSymbolDisplayName,
     isCryptoContract,
     isDesktop,
     toMoment,
 } from '@deriv/shared';
-import { SwipeableContractDrawer } from './swipeable-components';
-import MarketClosedContractOverlay from './market-closed-contract-overlay';
-import { useTraderStore } from 'Stores/useTraderStores';
 import { observer, useStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import MarketClosedContractOverlay from './market-closed-contract-overlay';
+import { SwipeableContractDrawer } from './swipeable-components';
 
 type TContractCardBodyProps = React.ComponentProps<typeof ContractCard.Body>;
 type TContractCardFooterProps = React.ComponentProps<typeof ContractCard.Footer>;

@@ -1,4 +1,5 @@
 import { TCoreStores } from '@deriv/stores/types';
+
 import ModulesStore from './Modules';
 
 export default class RootStore {

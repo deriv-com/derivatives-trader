@@ -1,16 +1,19 @@
 import React from 'react';
-import { Localize } from '@deriv/translations';
-import { getPositionsV2TabIndexFromURL } from '@deriv/shared';
-import { useLocalStorageData } from '@deriv/hooks';
-import { Tab } from '@deriv-com/quill-ui';
-import { observer } from 'mobx-react-lite';
-import { useStore } from '@deriv/stores';
-import { useModulesStore } from 'Stores/useModulesStores';
-import { setPositionURLParams, TAB_NAME } from 'AppV2/Utils/positions-utils';
-import BottomNav from 'AppV2/Components/BottomNav';
-import PositionsContent from './positions-content';
 import { useHistory } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+
+import { useLocalStorageData } from '@deriv/hooks';
+import { getPositionsV2TabIndexFromURL } from '@deriv/shared';
+import { useStore } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+import { Tab } from '@deriv-com/quill-ui';
+
+import BottomNav from 'AppV2/Components/BottomNav';
 import OnboardingGuide from 'AppV2/Components/OnboardingGuide/GuideForPages';
+import { setPositionURLParams, TAB_NAME } from 'AppV2/Utils/positions-utils';
+import { useModulesStore } from 'Stores/useModulesStores';
+
+import PositionsContent from './positions-content';
 
 const Positions = observer(() => {
     const [hasButtonsDemo, setHasButtonsDemo] = React.useState(false);

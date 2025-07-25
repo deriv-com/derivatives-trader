@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from 'react';
-import { Button, SearchField } from '@deriv-com/quill-ui';
+import React, { useEffect, useRef } from 'react';
 import clsx from 'clsx';
+
+import { getContractTypesConfig } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize, localize } from '@deriv/translations';
+import { Button, SearchField } from '@deriv-com/quill-ui';
+
 import { useTraderStore } from 'Stores/useTraderStores';
-import { getContractTypesConfig } from '@deriv/shared';
 
 export type TSymbolsSearchField = {
     isSearching: boolean;

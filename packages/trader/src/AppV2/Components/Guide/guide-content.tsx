@@ -1,6 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
+
 import { Chip, Text } from '@deriv-com/quill-ui';
+
 import TradeDescription from './Description/trade-description';
 import VideoPreview from './Description/video-preview';
 

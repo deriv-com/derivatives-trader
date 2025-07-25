@@ -1,5 +1,6 @@
-import sortSymbols from '../sort-symbols-utils';
 import { ActiveSymbols } from '@deriv/api-types';
+
+import sortSymbols from '../sort-symbols-utils';
 
 describe('sortSymbols', () => {
     it('should sort symbols correctly according to market order', () => {

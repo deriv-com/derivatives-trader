@@ -1,6 +1,7 @@
-import classNames from 'classnames';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
+
 import { SwipeableWrapper } from '@deriv/components';
 
 type TSwipeableContractAuditProps = React.PropsWithChildren<{

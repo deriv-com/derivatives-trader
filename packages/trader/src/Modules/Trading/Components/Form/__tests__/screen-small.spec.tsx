@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { TCoreStores } from '@deriv/stores/types';
+
 import { TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
+import { TCoreStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../trader-providers';
 import ScreenSmall from '../screen-small';
 
@@ -108,10 +110,10 @@ describe('<ScreenSmall />', () => {
         expect(screen.queryByText(/PayoutSelector/i)).not.toBeInTheDocument();
         expect(screen.queryByText(/Strike/i)).not.toBeInTheDocument();
     });
-    it('should call function setIsTradeParamsExpanded if MobileWidget was toggled', () => {
+    it('should call function setIsTradeParamsExpanded if MobileWidget was toggled', async () => {
         render(mockScreenSmall(mockStore(default_mock_store), default_mock_props));
 
-        userEvent.click(screen.getByText(/MobileWidget/i));
+        await userEvent.click(screen.getByText(/MobileWidget/i));
 
         expect(default_mock_store.modules.trade.setIsTradeParamsExpanded).toBeCalled();
     });

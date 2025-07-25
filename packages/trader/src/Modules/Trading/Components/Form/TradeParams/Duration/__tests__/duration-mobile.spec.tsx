@@ -1,8 +1,10 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../../../trader-providers';
 import DurationMobile from '../duration-mobile';
-import { mockStore } from '@deriv/stores';
 
 jest.mock('@deriv/components', () => {
     return {

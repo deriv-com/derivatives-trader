@@ -1,14 +1,17 @@
 import React from 'react';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { TDurationMobile } from './duration-mobile';
-import { Localize, localize } from '@deriv/translations';
-import { Numpad } from '@deriv/components';
-import DurationRangeText from './duration-range-text';
-import ExpiryText from './expiry-text';
-import { addComma, getDurationMinMaxValues, getUnitMap, isEmptyObject } from '@deriv/shared';
 import moment from 'moment';
-import { updateAmountChanges } from './duration-utils';
+
+import { Numpad } from '@deriv/components';
+import { addComma, getDurationMinMaxValues, getUnitMap, isEmptyObject } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
+import { Localize, localize } from '@deriv/translations';
+
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import { TDurationMobile } from './duration-mobile';
+import DurationRangeText from './duration-range-text';
+import { updateAmountChanges } from './duration-utils';
+import ExpiryText from './expiry-text';
 
 type TNumber = Pick<
     TDurationMobile,

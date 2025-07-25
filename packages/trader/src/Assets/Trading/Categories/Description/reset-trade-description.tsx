@@ -1,6 +1,7 @@
 import React from 'react';
-import { Localize } from '@deriv/translations';
+
 import { Text } from '@deriv/components';
+import { Localize } from '@deriv/translations';
 
 const ResetTradeDescription = () => {
     const content = [

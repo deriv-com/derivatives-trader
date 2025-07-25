@@ -1,10 +1,11 @@
 import { TRADE_TYPES } from '@deriv/shared';
+
 import {
-    getContractTypeCategoryIcons,
     getAvailableContractTypes,
-    getContractCategoryKey,
-    getContractTypes,
     getCategoriesSortedByKey,
+    getContractCategoryKey,
+    getContractTypeCategoryIcons,
+    getContractTypes,
     ordered_trade_categories,
 } from '../contract-type';
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Text } from '@deriv-com/quill-ui';
-import { getCardLabels } from '@deriv/shared';
+
 import { Money } from '@deriv/components';
+import { getCardLabels } from '@deriv/shared';
 import { Localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
 
 type TTotalProfitLossProps = {
     currency?: string;

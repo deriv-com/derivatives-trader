@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import AccumulatorTradeDescription from '../accumulator-trade-description';
 import userEvent from '@testing-library/user-event';
+
+import AccumulatorTradeDescription from '../accumulator-trade-description';
 
 describe('<AccumulatorTradeDescription />', () => {
     it('Ensure content of component is rendered properly', () => {

@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
-import ContractDetailsHeader from '../contract-details-header';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { StoreProvider, mockStore } from '@deriv/stores';
+
+import ContractDetailsHeader from '../contract-details-header';
 
 jest.mock('@deriv-com/quill-ui', () => ({
     Text: () => <div>Contract Details</div>,
@@ -44,7 +46,7 @@ describe('ContractDetailsHeader', () => {
         expect(icon).toBeInTheDocument();
     });
 
-    test('clicking the back arrow calls routeBackInApp from DTrader page', () => {
+    test('clicking the back arrow calls routeBackInApp from DTrader page', async () => {
         render(
             <StoreProvider store={mock_store}>
                 <BrowserRouter>
@@ -53,12 +55,12 @@ describe('ContractDetailsHeader', () => {
             </StoreProvider>
         );
 
-        userEvent.click(screen.getByTestId('arrow'));
+        await userEvent.click(screen.getByTestId('arrow'));
 
         expect(mock_store.common.routeBackInApp).toHaveBeenCalled();
     });
 
-    test('clicking the back arrow calls history go back from Reports page', () => {
+    test('clicking the back arrow calls history go back from Reports page', async () => {
         const historyMock = {
             goBack: jest.fn(),
         };
@@ -75,7 +77,7 @@ describe('ContractDetailsHeader', () => {
             </StoreProvider>
         );
 
-        userEvent.click(screen.getByTestId('arrow'));
+        await userEvent.click(screen.getByTestId('arrow'));
 
         expect(historyMock.goBack).toHaveBeenCalled();
     });

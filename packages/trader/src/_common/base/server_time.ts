@@ -1,6 +1,7 @@
+import moment from 'moment';
+
 import { TCoreStores } from '@deriv/stores/types';
 import { PromiseUtils } from '@deriv-com/utils';
-import moment from 'moment';
 
 const ServerTime = (() => {
     let clock_started = false;

@@ -1,13 +1,16 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Money, Popover, Text } from '@deriv/components';
+import { getCurrencyDisplayCode, getGrowthRatePercentage, getLocalizedBasis } from '@deriv/shared';
 import { Localize } from '@deriv/translations';
-import { getCurrencyDisplayCode, getLocalizedBasis, getGrowthRatePercentage } from '@deriv/shared';
+import { useDevice } from '@deriv-com/ui';
+
 import { useTraderStore } from 'Stores/useTraderStores';
+import { TProposalTypeInfo } from 'Types';
+
 import CancelDealInfo from './cancel-deal-info';
 import ValueMovement from './value-movement';
-import { TProposalTypeInfo } from 'Types';
-import { useDevice } from '@deriv-com/ui';
 
 type TContractInfo = Pick<
     ReturnType<typeof useTraderStore>,

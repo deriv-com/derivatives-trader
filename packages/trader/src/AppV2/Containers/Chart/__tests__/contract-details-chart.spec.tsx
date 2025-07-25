@@ -1,10 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import ContractDetailsChart from '../contract-details-chart';
-import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../../trader-providers';
 import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
+
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../trader-providers';
+import ContractDetailsChart from '../contract-details-chart';
 
 jest.mock('Modules/SmartChart', () => ({
     SmartChart: () => <div>Mocked Chart</div>,

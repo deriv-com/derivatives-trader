@@ -1,6 +1,8 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
+
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TogglePositions from '../toggle-positions';
 
 const default_props = {
@@ -20,11 +22,11 @@ describe('TogglePositions component', () => {
         expect(screen.getByTestId('dt_positions_toggle')).toHaveClass('positions-toggle--has-count');
     });
 
-    it('should call "togglePositions" when the user clicked on the link', () => {
+    it('should call "togglePositions" when the user clicked on the link', async () => {
         const mockTogglePositions = jest.fn();
         render(<TogglePositions {...default_props} togglePositions={mockTogglePositions} />);
         const link = screen.getByTestId('dt_positions_toggle');
-        userEvent.click(link);
+        await userEvent.click(link);
         expect(mockTogglePositions).toHaveBeenCalledTimes(1);
     });
 

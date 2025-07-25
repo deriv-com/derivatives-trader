@@ -1,10 +1,12 @@
 import React from 'react';
+
+import { CONTRACT_TYPES, mockContractInfo, TContractInfo, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
 import { render, screen } from '@testing-library/react';
-import { mockContractInfo, TContractInfo, CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
-import Purchase from '../purchase';
+
 import TraderProviders from '../../../../trader-providers';
+import Purchase from '../purchase';
 
 const default_mock_store = {
     modules: {

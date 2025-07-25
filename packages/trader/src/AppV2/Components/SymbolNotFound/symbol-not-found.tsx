@@ -1,6 +1,7 @@
-import { Text } from '@deriv-com/quill-ui';
-import { Localize, localize } from '@deriv/translations';
 import React from 'react';
+
+import { Localize, localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
 
 const SymbolNotFound = ({ searchTerm }: { searchTerm?: string }) => {
     return (

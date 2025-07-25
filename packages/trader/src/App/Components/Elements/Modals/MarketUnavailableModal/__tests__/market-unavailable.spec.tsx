@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render, screen } from '@testing-library/react';
-import MarketUnavailableModal from '../market-unavailable';
+
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../../trader-providers';
+import MarketUnavailableModal from '../market-unavailable';
 
 const mock_props = {
     onCancel: jest.fn(),

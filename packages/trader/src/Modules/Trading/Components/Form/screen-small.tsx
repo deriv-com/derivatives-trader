@@ -1,36 +1,40 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import { Collapsible, FadeWrapper, PageOverlay, Text } from '@deriv/components';
+import { TRADE_TYPES } from '@deriv/shared';
+import { observer } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+
 import { TradeParamsLoader } from 'App/Components/Elements/ContentLoader';
+import AccumulatorsStats from 'Modules/Contract/Components/AccumulatorsStats';
+import MobileWidget from 'Modules/Trading/Components/Elements/mobile-widget';
+import RiskManagementInfo from 'Modules/Trading/Components/Elements/Multiplier/risk-management-info';
+import PayoutPerPointMobile from 'Modules/Trading/Components/Elements/payout-per-point-mobile';
+import AccumulatorsAmountMobile from 'Modules/Trading/Components/Form/TradeParams/Accumulator/accumulators-amount-mobile';
+import AccumulatorsInfoDisplay from 'Modules/Trading/Components/Form/TradeParams/Accumulator/accumulators-info-display';
+import TakeProfit from 'Modules/Trading/Components/Form/TradeParams/Multiplier/take-profit';
+import {
+    AccumulatorOptionsWidget,
+    MultiplierOptionsWidget,
+} from 'Modules/Trading/Components/Form/TradeParams/Multiplier/widgets';
+import Strike from 'Modules/Trading/Components/Form/TradeParams/strike';
+import TradeTypeTabs from 'Modules/Trading/Components/Form/TradeParams/trade-type-tabs';
+import PayoutSelector from 'Modules/Trading/Components/Form/TradeParams/Turbos/payout-selector';
 import AllowEqualsMobile from 'Modules/Trading/Containers/allow-equals';
+import ContractType from 'Modules/Trading/Containers/contract-type';
+import Purchase from 'Modules/Trading/Containers/purchase';
+import { BarrierMobile, LastDigitMobile } from 'Modules/Trading/Containers/trade-params-mobile';
 import {
     hasCallPutEqual,
     hasDurationForCallPutEqual,
     isRiseFallEqual,
 } from 'Stores/Modules/Trading/Helpers/allow-equals';
-import {
-    AccumulatorOptionsWidget,
-    MultiplierOptionsWidget,
-} from 'Modules/Trading/Components/Form/TradeParams/Multiplier/widgets';
-import AccumulatorsAmountMobile from 'Modules/Trading/Components/Form/TradeParams/Accumulator/accumulators-amount-mobile';
-import AccumulatorsInfoDisplay from 'Modules/Trading/Components/Form/TradeParams/Accumulator/accumulators-info-display';
-import { BarrierMobile, LastDigitMobile } from 'Modules/Trading/Containers/trade-params-mobile';
-import ContractType from 'Modules/Trading/Containers/contract-type';
-import MobileWidget from 'Modules/Trading/Components/Elements/mobile-widget';
-import Purchase from 'Modules/Trading/Containers/purchase';
-import RiskManagementInfo from 'Modules/Trading/Components/Elements/Multiplier/risk-management-info';
-import TakeProfit from 'Modules/Trading/Components/Form/TradeParams/Multiplier/take-profit';
-import 'Sass/app/_common/mobile-widget.scss';
-import classNames from 'classnames';
-import AccumulatorsStats from 'Modules/Contract/Components/AccumulatorsStats';
-import Strike from 'Modules/Trading/Components/Form/TradeParams/strike';
-import PayoutSelector from 'Modules/Trading/Components/Form/TradeParams/Turbos/payout-selector';
-import PayoutPerPointMobile from 'Modules/Trading/Components/Elements/payout-per-point-mobile';
-import TradeTypeTabs from 'Modules/Trading/Components/Form/TradeParams/trade-type-tabs';
-import { observer } from '@deriv/stores';
 import { useTraderStore } from 'Stores/useTraderStores';
-import { Localize } from '@deriv/translations';
-import { TRADE_TYPES } from '@deriv/shared';
+
 import PayoutPerPointMobileInput from '../Elements/PayoutPerPoint/payout-per-point-mobile-input';
+
+import 'Sass/app/_common/mobile-widget.scss';
 
 type TCollapsibleTradeParams = Pick<
     ReturnType<typeof useTraderStore>,

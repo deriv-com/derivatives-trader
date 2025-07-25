@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import ContractTypeFilter from '../contract-type-filter';
 
 const defaultFilterName = 'Trade types';
@@ -10,13 +12,13 @@ const mockProps = {
 };
 
 describe('ContractTypeFilter', () => {
-    it('should change data-state of the dropdown if user clicks on the filter', () => {
+    it('should change data-state of the dropdown if user clicks on the filter', async () => {
         render(<ContractTypeFilter {...mockProps} />);
 
         const dropdownChevron = screen.getAllByRole('img')[0];
         expect(dropdownChevron).toHaveAttribute('data-state', 'close');
 
-        userEvent.click(screen.getByText(defaultFilterName));
+        await userEvent.click(screen.getByText(defaultFilterName));
         expect(dropdownChevron).toHaveAttribute('data-state', 'open');
     });
 
@@ -37,7 +39,7 @@ describe('ContractTypeFilter', () => {
         expect(screen.getByText('(2)')).toBeInTheDocument();
     });
 
-    it('should call onApplyContractTypeFilter and setter (spied on) with array with chosen option after user clicks on contract type and clicks on "Apply" button', () => {
+    it('should call onApplyContractTypeFilter and setter (spied on) with array with chosen option after user clicks on contract type and clicks on "Apply" button', async () => {
         const mockSetChangedOptions = jest.fn();
         jest.spyOn(React, 'useState')
             .mockImplementationOnce(() => [true, jest.fn()])
@@ -45,14 +47,14 @@ describe('ContractTypeFilter', () => {
 
         render(<ContractTypeFilter {...mockProps} />);
 
-        userEvent.click(screen.getByText('Accumulators'));
-        userEvent.click(screen.getByText('Apply'));
+        await userEvent.click(screen.getByText('Accumulators'));
+        await userEvent.click(screen.getByText('Apply'));
 
         expect(mockSetChangedOptions).toHaveBeenCalledWith(['Accumulators']);
         expect(mockProps.onApplyContractTypeFilter).toBeCalled();
     });
 
-    it('should call setter (spied on) with array without chosen option if user clicks on it, but it was already in contractTypeFilter', () => {
+    it('should call setter (spied on) with array without chosen option if user clicks on it, but it was already in contractTypeFilter', async () => {
         const mockContractTypeFilter = ['Rise/Fall', 'Higher/Lower'];
         const mockSetChangedOptions = jest.fn();
         jest.spyOn(React, 'useState')
@@ -61,12 +63,12 @@ describe('ContractTypeFilter', () => {
 
         render(<ContractTypeFilter {...mockProps} contractTypeFilter={mockContractTypeFilter} />);
 
-        userEvent.click(screen.getByText('Rise/Fall'));
+        await userEvent.click(screen.getByText('Rise/Fall'));
 
         expect(mockSetChangedOptions).toHaveBeenCalledWith(['Higher/Lower']);
     });
 
-    it('should call setter (spied on) with empty array if user clicks on "Clear All" button', () => {
+    it('should call setter (spied on) with empty array if user clicks on "Clear All" button', async () => {
         const mockContractTypeFilter = ['Touch/No Touch'];
         const mockSetChangedOptions = jest.fn();
         jest.spyOn(React, 'useState')
@@ -75,7 +77,7 @@ describe('ContractTypeFilter', () => {
 
         render(<ContractTypeFilter {...mockProps} contractTypeFilter={mockContractTypeFilter} />);
 
-        userEvent.click(screen.getByText('Clear All'));
+        await userEvent.click(screen.getByText('Clear All'));
 
         expect(mockSetChangedOptions).toHaveBeenCalledWith([]);
     });

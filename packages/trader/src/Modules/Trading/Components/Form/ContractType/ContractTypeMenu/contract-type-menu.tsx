@@ -1,13 +1,16 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+
 import { Loading, ThemedScrollbars, VerticalTab } from '@deriv/components';
 import { localize } from '@deriv/translations';
-import SearchInput from './search-input';
-import NoResultsMessage from './no-results-message';
-import { Header } from '../ContractTypeInfo/index';
+
 import { getContractCategoryKey } from '../../../../Helpers/contract-type';
-import { TList } from '../types';
 import ContractType from '../contract-type';
+import { Header } from '../ContractTypeInfo/index';
+import { TList } from '../types';
+
+import NoResultsMessage from './no-results-message';
+import SearchInput from './search-input';
 
 type TDialog = {
     categories: TList[];

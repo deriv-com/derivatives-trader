@@ -1,9 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
+
 import { getContractPath } from '@deriv/shared';
 import { TPortfolioPosition } from '@deriv/stores/types';
+
 import { TClosedPosition } from 'AppV2/Containers/Positions/positions-content';
 import { TRootStore } from 'Types';
+
 import ContractCard from './contract-card';
 
 export type TContractCardListProps = {

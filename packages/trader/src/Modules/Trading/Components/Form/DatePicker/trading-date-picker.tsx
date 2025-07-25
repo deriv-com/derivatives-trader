@@ -1,11 +1,13 @@
+import React from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
-import React from 'react';
+
 import { DatePicker, Tooltip } from '@deriv/components';
-import { isTimeValid, setTime, toMoment, useIsMounted, hasIntradayDurationUnit, getTomorrowDate } from '@deriv/shared';
-import { localize } from '@deriv/translations';
-import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
+import { getTomorrowDate, hasIntradayDurationUnit, isTimeValid, setTime, toMoment, useIsMounted } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
+import { localize } from '@deriv/translations';
+
+import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 type TDatePickerOnChange = React.ComponentProps<typeof DatePicker>['onChange'];

@@ -1,9 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { CONTRACT_TYPES, mockContractInfo, TContractStore } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../../trader-providers';
+import { render, screen } from '@testing-library/react';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
+import TraderProviders from '../../../../trader-providers';
 import CurrentSpot from '../current-spot';
 
 const mocked_now = Math.floor(Date.now() / 1000);

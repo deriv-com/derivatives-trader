@@ -1,6 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
+
 import { Skeleton } from '@deriv-com/quill-ui';
+
 import { ASPECT_RATIO } from 'AppV2/Utils/layout-utils';
 
 type TStreamIframeProps = Pick<React.ComponentProps<'iframe'>, 'height' | 'width' | 'onLoad'> & {

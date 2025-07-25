@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import AccountVerificationPendingModal from '../account-verification-pending-modal';
 
 describe('<AccountVerificationPendingModal />', () => {
@@ -36,11 +38,11 @@ describe('<AccountVerificationPendingModal />', () => {
         expect(confirm_ok_btn).toBeEnabled();
     });
 
-    it('should call onConfirm when clicking on OK button', () => {
+    it('should call onConfirm when clicking on OK button', async () => {
         render(<AccountVerificationPendingModal {...mock_props} />);
 
         const confirm_ok_btn = screen.getByRole('button', { name: /OK/i });
-        userEvent.click(confirm_ok_btn);
+        await userEvent.click(confirm_ok_btn);
         expect(mock_props.onConfirm).toBeCalledTimes(1);
     });
 

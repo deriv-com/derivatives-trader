@@ -1,6 +1,7 @@
-import { CaptionText, Text, TimeWheelPickerContainer } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
 import React from 'react';
+
+import { Localize } from '@deriv/translations';
+import { CaptionText, Text, TimeWheelPickerContainer } from '@deriv-com/quill-ui';
 
 const EndTimePicker = ({
     end_time,

@@ -1,9 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
 import { TTradeStore } from 'Types';
-import MultiplierOptions from '../multiplier-options';
+
 import TraderProviders from '../../../../../trader-providers';
+import MultiplierOptions from '../multiplier-options';
 
 type TResponse = {
     proposal: { commission: string; limit_order: { stop_out: { order_amount: string } } };

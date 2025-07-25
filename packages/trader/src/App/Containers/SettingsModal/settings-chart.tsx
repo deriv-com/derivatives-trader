@@ -1,15 +1,15 @@
 import React from 'react';
-import { Checkbox, InlineMessage } from '@deriv/components';
-import { Localize } from '@deriv/translations';
-import MediaItem, { MediaHeading, MediaIcon, MediaDescription } from 'App/Components/Elements/Media';
-import { observer, useStore } from '@deriv/stores';
 
+import { Checkbox, InlineMessage } from '@deriv/components';
+import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+
+import MediaItem, { MediaDescription, MediaHeading, MediaIcon } from 'App/Components/Elements/Media';
 // TODO: enable asset information
 // import OHLCDisabledLightIcon             from 'Assets/SvgComponents/settings/OHLC-disabled.svg';
 // import OHLCEnabledLightIcon              from 'Assets/SvgComponents/settings/OHLC-enabled.svg';
 // import OHLCDisabledDarkIcon              from 'Assets/SvgComponents/settings/dark/OHLC-disabled.svg';
 // import OHLCEnabledDarkIcon               from 'Assets/SvgComponents/settings/dark/OHLC-enabled.svg';
-
 import IntervalDurationDisabledDarkIcon from 'Assets/SvgComponents/settings/dark/interval-disabled.svg';
 import IntervalDurationEnabledDarkIcon from 'Assets/SvgComponents/settings/dark/interval-enabled.svg';
 import IntervalDurationDisabledLightIcon from 'Assets/SvgComponents/settings/interval-disabled.svg';

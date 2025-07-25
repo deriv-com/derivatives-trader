@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import TraderProviders from '../../../../trader-providers';
-import { TCoreStores } from '@deriv/stores/types';
+
 import { mockStore } from '@deriv/stores';
+import { TCoreStores } from '@deriv/stores/types';
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import TraderProviders from '../../../../trader-providers';
 import SymbolsSearchField, { TSymbolsSearchField } from '../symbols-search-field';
 
 jest.mock('@deriv/shared', () => ({

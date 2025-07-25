@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
+import { CONTRACT_TYPES, isEmptyObject, mockContractInfo, TRADE_TYPES } from '@deriv/shared';
 import { mockStore, useStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { mockContractInfo, CONTRACT_TYPES, TRADE_TYPES, isEmptyObject } from '@deriv/shared';
-import PositionsDrawer from '../positions-drawer';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../trader-providers';
+import PositionsDrawer from '../positions-drawer';
 
 type TAllPositions = ReturnType<typeof useStore>['portfolio']['all_positions'];
 const mocked_store = {

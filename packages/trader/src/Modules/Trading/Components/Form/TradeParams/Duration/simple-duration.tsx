@@ -1,11 +1,15 @@
 import React from 'react';
+
 import { ButtonToggle, InputField } from '@deriv/components';
 import { getDurationMinMaxValues, getUnitMap } from '@deriv/shared';
-import RangeSlider from 'App/Components/Form/RangeSlider';
-import TradingDatePicker from '../../DatePicker';
-import DurationRangeText from './duration-range-text';
 import { observer, useStore } from '@deriv/stores';
+
+import RangeSlider from 'App/Components/Form/RangeSlider';
 import { useTraderStore } from 'Stores/useTraderStores';
+
+import TradingDatePicker from '../../DatePicker';
+
+import DurationRangeText from './duration-range-text';
 
 type TSimpleDuration = {
     changeDurationUnit: React.ComponentProps<typeof ButtonToggle>['onChange'];

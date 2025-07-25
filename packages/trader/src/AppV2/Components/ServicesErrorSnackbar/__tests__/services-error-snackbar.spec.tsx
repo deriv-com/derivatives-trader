@@ -1,12 +1,15 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { useLocation } from 'react-router';
+
+import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { useSnackbar } from '@deriv-com/quill-ui';
-import { useLocation } from 'react-router';
+import { render } from '@testing-library/react';
+
+import { SERVICE_ERROR } from 'AppV2/Utils/layout-utils';
+
 import TraderProviders from '../../../../trader-providers';
 import ServicesErrorSnackbar from '../services-error-snackbar';
-import { SERVICE_ERROR } from 'AppV2/Utils/layout-utils';
-import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
 
 jest.mock('@deriv-com/quill-ui', () => ({
     ...jest.requireActual('@deriv-com/quill-ui'),

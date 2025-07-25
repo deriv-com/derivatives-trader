@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import PayoutInfo from '../payout-info';
+import { render, screen } from '@testing-library/react';
+
 import TraderProviders from '../../../../../trader-providers';
+import PayoutInfo from '../payout-info';
 
 const label = 'Payout';
 

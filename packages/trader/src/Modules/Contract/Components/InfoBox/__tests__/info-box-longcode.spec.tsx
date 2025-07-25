@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
+import { mockContractInfo } from '@deriv/shared';
 import { mockStore, StoreProvider } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { mockContractInfo } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import InfoBoxLongcode from '../info-box-longcode';
 
 const test_longcode_short = 'test longcode';
@@ -56,9 +58,9 @@ describe('InfoBoxLongcode', () => {
 
         expect(screen.getByText(view_more_text)).toBeInTheDocument();
     });
-    it('should render specific text "View less" if longcode is more then 150 symbols and user click on expand button', () => {
+    it('should render specific text "View less" if longcode is more then 150 symbols and user click on expand button', async () => {
         render(mockInfoBoxLongcode(default_mocked_store, mocked_props));
-        userEvent.click(screen.getByText(view_more_text));
+        await userEvent.click(screen.getByText(view_more_text));
 
         expect(screen.queryByText(view_more_text)).not.toBeInTheDocument();
         expect(screen.getByText(view_less_text)).toBeInTheDocument();
@@ -70,14 +72,14 @@ describe('InfoBoxLongcode', () => {
 
         expect(screen.getByText(view_more_text)).toBeInTheDocument();
     });
-    it('should render modal if longcode is more then 47 symbols for mobile and user clicks on "View more" button', () => {
+    it('should render modal if longcode is more then 47 symbols for mobile and user clicks on "View more" button', async () => {
         default_mocked_store.ui.is_mobile = true;
         const modal_root_el = document.createElement('div');
         modal_root_el.setAttribute('id', 'modal_root');
         document.body.appendChild(modal_root_el);
         mocked_props.contract_info.longcode = test_longcode_mobile;
         render(mockInfoBoxLongcode(default_mocked_store, mocked_props));
-        userEvent.click(screen.getByText(view_more_text));
+        await userEvent.click(screen.getByText(view_more_text));
 
         expect(screen.getByText(view_more_text)).toBeInTheDocument();
         expect(screen.getByText(/Trade info/i)).toBeInTheDocument();

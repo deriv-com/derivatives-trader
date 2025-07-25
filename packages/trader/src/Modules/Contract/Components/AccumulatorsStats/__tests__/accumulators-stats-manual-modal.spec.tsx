@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen, within } from '@testing-library/react';
-import { AccumulatorsStatsManualModal } from '../accumulators-stats-manual-modal';
 import userEvent from '@testing-library/user-event';
+
+import { AccumulatorsStatsManualModal } from '../accumulators-stats-manual-modal';
 
 type TModal = React.ComponentType<{
     children: React.ReactNode;
@@ -55,10 +57,10 @@ describe('AccumulatorsStatsManualModal', () => {
         };
     });
 
-    it('should open when info icon (IcInfoOutline) is clicked', () => {
+    it('should open when info icon (IcInfoOutline) is clicked', async () => {
         const { rerender } = render(<AccumulatorsStatsManualModal {...props} />);
         const info_icon = screen.getByText('IcInfoOutline');
-        userEvent.click(info_icon);
+        await userEvent.click(info_icon);
         expect(props.toggleManual).toBeCalled();
         expect(props.is_manual_open).toBeTruthy();
 
@@ -67,11 +69,11 @@ describe('AccumulatorsStatsManualModal', () => {
         expect(screen.getByTestId('dt_accumulators_stats_manual_video')).toBeInTheDocument();
         expect(screen.getByText(/stats show the history of consecutive tick counts/i)).toBeInTheDocument();
     });
-    it('should close after close button (IcCross) is clicked in the modal', () => {
+    it('should close after close button (IcCross) is clicked in the modal', async () => {
         props.is_manual_open = true;
         const { rerender } = render(<AccumulatorsStatsManualModal {...props} />);
         const close_icon = within(screen.getByTestId('modal')).getByText('IcCross');
-        userEvent.click(close_icon);
+        await userEvent.click(close_icon);
         expect(props.toggleManual).toBeCalled();
         expect(props.is_manual_open).toBeFalsy();
 

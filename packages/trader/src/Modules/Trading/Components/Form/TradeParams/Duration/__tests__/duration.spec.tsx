@@ -1,8 +1,10 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import Duration from '../duration';
 import moment from 'moment';
+
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import Duration from '../duration';
 
 jest.mock('@deriv/components', () => {
     return {
@@ -96,10 +98,10 @@ describe('<DurationMobile />', () => {
         render(<Duration {...default_props} />);
         expect(screen.getByText(/mockedsimpleduration/i)).toBeInTheDocument();
     });
-    it('Should call onChangeUiStore and onChangeMultiple when duration toggle is clicked', () => {
+    it('Should call onChangeUiStore and onChangeMultiple when duration toggle is clicked', async () => {
         default_props.is_advanced_duration = true;
         render(<Duration {...default_props} />);
-        userEvent.click(screen.getByLabelText(duration_toggle_label_text));
+        await userEvent.click(screen.getByLabelText(duration_toggle_label_text));
         expect(default_props.onChangeUiStore).toHaveBeenCalled();
         expect(default_props.onChangeMultiple).toHaveBeenCalled();
     });

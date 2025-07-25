@@ -1,5 +1,6 @@
 import { setWebsocket } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
+
 import initStore from 'App/init-store';
 
 const mockWs = {

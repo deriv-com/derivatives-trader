@@ -1,11 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
+import { ReportsStoreProvider } from '@deriv/reports/src/Stores/useReportsStores';
 import { CONTRACT_TYPES, mockContractInfo, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
-import { ReportsStoreProvider } from '../../../../../../reports/src/Stores/useReportsStores';
-import TraderProviders from '../../../../trader-providers';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
+import TraderProviders from '../../../../trader-providers';
 import PurchaseButton from '../purchase-button';
 
 describe('PositionsContent', () => {
@@ -174,7 +177,7 @@ describe('PositionsContent', () => {
         expect(screen.getByText('Fall')).toBeInTheDocument();
     });
 
-    it('should disable the button if one of the prop is false (is_trade_enabled, is_proposal_empty, !info.id, is_purchase_enabled): button should have a specific attribute and if user clicks on it onPurchase will not be called', () => {
+    it('should disable the button if one of the prop is false (is_trade_enabled, is_proposal_empty, !info.id, is_purchase_enabled): button should have a specific attribute and if user clicks on it onPurchase will not be called', async () => {
         default_mock_store.modules.trade.is_trade_enabled_v2 = false;
         mockPurchaseButton();
 
@@ -182,17 +185,17 @@ describe('PositionsContent', () => {
         expect(purchase_button).toBeDisabled();
         expect(default_mock_store.modules.trade.onPurchase).not.toBeCalled();
 
-        userEvent.click(purchase_button);
+        await userEvent.click(purchase_button);
 
         expect(default_mock_store.modules.trade.onPurchase).not.toBeCalled();
     });
 
-    it('should call onPurchaseV2 function if user clicks on purchase button and it is not disabled', () => {
+    it('should call onPurchaseV2 function if user clicks on purchase button and it is not disabled', async () => {
         mockPurchaseButton();
         const purchase_button = screen.getAllByRole('button')[0];
 
         expect(default_mock_store.modules.trade.onPurchaseV2).not.toBeCalled();
-        userEvent.click(purchase_button);
+        await userEvent.click(purchase_button);
 
         expect(default_mock_store.modules.trade.onPurchaseV2).toBeCalled();
     });
@@ -223,7 +226,7 @@ describe('PositionsContent', () => {
         expect(purchase_button).toHaveClass('purchase-button--single');
     });
 
-    it('should render sell button for Accumulators contract if there is an open Accumulators contract; if user clicks on it - onClickSell should be called', () => {
+    it('should render sell button for Accumulators contract if there is an open Accumulators contract; if user clicks on it - onClickSell should be called', async () => {
         default_mock_store.modules.trade.has_open_accu_contract = true;
         default_mock_store.modules.trade.is_accumulator = true;
         mockPurchaseButton();
@@ -232,7 +235,7 @@ describe('PositionsContent', () => {
         expect(sell_button).toBeInTheDocument();
         expect(default_mock_store.portfolio.onClickSell).not.toBeCalled();
 
-        userEvent.click(sell_button);
+        await userEvent.click(sell_button);
         expect(default_mock_store.portfolio.onClickSell).toBeCalled();
     });
 });

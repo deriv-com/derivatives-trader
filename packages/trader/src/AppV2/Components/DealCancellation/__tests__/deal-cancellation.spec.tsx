@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { isOpen, isValidToCancel } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
-import DealCancellation from '../deal-cancellation';
-import { isValidToCancel, isOpen } from '@deriv/shared';
-import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
+
 import useContractDetails from 'AppV2/Hooks/useContractDetails';
+import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';
+
+import DealCancellation from '../deal-cancellation';
 
 jest.mock('@deriv/shared', () => ({
     isValidToCancel: jest.fn(),

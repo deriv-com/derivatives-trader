@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import VanillaTradeDescription from '../vanilla-trade-description';
 
 const mocked_props = {
@@ -21,11 +23,11 @@ describe('<VanillaTradeDescription />', () => {
         expect(screen.getByText(/You may sell the contract up to 24 hours before expiry/i)).toBeInTheDocument();
     });
 
-    it('should call a function if word from vocabulary was clicked', () => {
+    it('should call a function if word from vocabulary was clicked', async () => {
         render(<VanillaTradeDescription {...mocked_props} />);
 
         const glossary_word = screen.getByText(/payout per point/i);
-        userEvent.click(glossary_word);
+        await userEvent.click(glossary_word);
 
         expect(mocked_props.onClick).toBeCalled();
     });

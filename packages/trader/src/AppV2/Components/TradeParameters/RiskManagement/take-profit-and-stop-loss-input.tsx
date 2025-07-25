@@ -1,17 +1,19 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { useTraderStore } from 'Stores/useTraderStores';
+
 import { getCurrencyDisplayCode, getDecimalPlaces } from '@deriv/shared';
-import { focusAndOpenKeyboard, getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
-import { ActionSheet, CaptionText, Text, ToggleSwitch, TextFieldWithSteppers } from '@deriv-com/quill-ui';
 import { Localize, localize } from '@deriv/translations';
-import { TTradeStore } from 'Types';
-import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
+import { ActionSheet, CaptionText, Text, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
+
 import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
 import useIsVirtualKeyboardOpen from 'AppV2/Hooks/useIsVirtualKeyboardOpen';
 import useTradeError from 'AppV2/Hooks/useTradeError';
+import { focusAndOpenKeyboard, getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
+import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { ExpandedProposal } from 'Stores/Modules/Trading/Helpers/proposal';
+import { useTraderStore } from 'Stores/useTraderStores';
+import { TTradeStore } from 'Types';
 
 type TTakeProfitAndStopLossInputProps = {
     classname?: string;

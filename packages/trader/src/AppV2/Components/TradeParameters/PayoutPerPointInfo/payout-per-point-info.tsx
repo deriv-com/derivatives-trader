@@ -1,10 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
-import { observer } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { Text } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
+
 import { Skeleton } from '@deriv/components';
+import { observer } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
 
 const PayoutPerPointInfo = observer(() => {
     const { contract_type, currency, is_market_closed, proposal_info } = useTraderStore();

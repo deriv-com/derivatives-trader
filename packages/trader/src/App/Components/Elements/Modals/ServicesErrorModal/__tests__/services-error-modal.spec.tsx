@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ServicesErrorModal from '../services-error-modal';
 
 jest.mock('../authorization-required-modal', () => jest.fn(() => 'AuthorizationRequiredModal'));

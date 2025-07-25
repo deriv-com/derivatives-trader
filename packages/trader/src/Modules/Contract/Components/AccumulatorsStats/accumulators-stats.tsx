@@ -1,14 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Icon, MobileDialog, Text } from '@deriv/components';
-import { useDevice } from '@deriv-com/ui';
+import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
+import { useDevice } from '@deriv-com/ui';
+
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import { AccumulatorsStatsManualModal } from './accumulators-stats-manual-modal';
 import ExpandedTicksHistory from './expanded-ticks-history';
 import TicksHistoryCounter from './ticks-history-counter';
-import { AccumulatorsStatsManualModal } from './accumulators-stats-manual-modal';
+
 import 'Sass/app/modules/contract/accumulators-stats.scss';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { observer, useStore } from '@deriv/stores';
 
 type TAccumulatorStats = {
     is_expandable?: boolean;

@@ -1,6 +1,7 @@
-import { makeObservable, observable, action } from 'mobx';
-import { TRootStore } from 'Types';
+import { action, makeObservable, observable } from 'mobx';
+
 import BaseStore from 'Stores/base-store';
+import { TRootStore } from 'Types';
 
 export default class MarketsStore extends BaseStore {
     // favorites

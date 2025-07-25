@@ -1,15 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+import { ActiveSymbols, ActiveSymbolsResponse } from '@deriv/api-types';
 import {
     CONTRACT_TYPES,
-    TRADE_TYPES,
     getContractTypesConfig,
     isTurbosContract,
     isVanillaContract,
+    TRADE_TYPES,
 } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
-import { ActiveSymbols, ActiveSymbolsResponse } from '@deriv/api-types';
+
 import { useTraderStore } from 'Stores/useTraderStores';
+
 import useContractsForCompany from './useContractsForCompany';
 import { useDtraderQuery } from './useDtraderQuery';
 

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
 import { Button, Icon, PageOverlay, Popover, Text } from '@deriv/components';
-import { Localize } from '@deriv/translations';
-import WheelPickerMobile from '../../Form/WheelPicker/wheel-picker-mobile';
-import './payout-per-point.scss';
-import Fieldset from 'App/Components/Form/fieldset';
 import { LabelPairedChevronsDownCaptionRegularIcon, LabelPairedChevronsUpCaptionRegularIcon } from '@deriv/quill-icons';
+import { Localize } from '@deriv/translations';
+
+import Fieldset from 'App/Components/Form/fieldset';
+
+import WheelPickerMobile from '../../Form/WheelPicker/wheel-picker-mobile';
+
+import './payout-per-point.scss';
 
 const PayoutPerPointMobileInput = ({
     togglePayoutWheelPicker,

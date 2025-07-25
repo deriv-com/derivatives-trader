@@ -1,4 +1,4 @@
-import { Buy, BuyContractResponse, BuyContractRequest } from '@deriv/api-types';
+import { Buy, BuyContractRequest, BuyContractResponse } from '@deriv/api-types';
 import { WS } from '@deriv/shared';
 
 type TResponse = BuyContractResponse & {

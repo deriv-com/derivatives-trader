@@ -1,6 +1,8 @@
-import { DatePicker } from '@deriv-com/quill-ui';
-import { toMoment, useIsMounted } from '@deriv/shared';
 import React, { useEffect } from 'react';
+
+import { toMoment, useIsMounted } from '@deriv/shared';
+import { DatePicker } from '@deriv-com/quill-ui';
+
 import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
 import { useTraderStore } from 'Stores/useTraderStores';
 

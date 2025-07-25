@@ -1,4 +1,4 @@
-import { isRiseFallEqual, hasCallPutEqual, hasDurationForCallPutEqual } from '../allow-equals';
+import { hasCallPutEqual, hasDurationForCallPutEqual, isRiseFallEqual } from '../allow-equals';
 
 jest.mock('Stores/Modules/Trading/Helpers/contract-type', () => ({
     ...jest.requireActual('Stores/Modules/Trading/Helpers/contract-type'),

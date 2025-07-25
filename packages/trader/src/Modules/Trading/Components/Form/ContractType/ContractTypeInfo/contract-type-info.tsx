@@ -1,16 +1,20 @@
 import React from 'react';
-import { Button, ThemedScrollbars, ButtonToggle, Dropdown } from '@deriv/components';
-import { observer, useStore } from '@deriv/stores';
+import classNames from 'classnames';
+
+import { Button, ButtonToggle, Dropdown, ThemedScrollbars } from '@deriv/components';
 import { clickAndKeyEventHandler, TRADE_TYPES } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
 import { Analytics } from '@deriv-com/analytics';
+
 import TradeCategories from 'Assets/Trading/Categories/trade-categories';
 import TradeCategoriesGIF from 'Assets/Trading/Categories/trade-categories-gif';
-import { getContractTypes } from '../../../../Helpers/contract-type';
-import ContractTypeGlossary from './contract-type-glossary';
-import classNames from 'classnames';
 import { useTraderStore } from 'Stores/useTraderStores';
+
+import { getContractTypes } from '../../../../Helpers/contract-type';
 import { TContractType, TList } from '../types';
+
+import ContractTypeGlossary from './contract-type-glossary';
 
 type TInfo = {
     handleSelect: (

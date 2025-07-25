@@ -1,9 +1,12 @@
-import { WheelPickerContainer } from '@deriv-com/quill-ui';
-import { observer } from '@deriv/stores';
-import { DURATION_UNIT, getOptionPerUnit } from 'AppV2/Utils/trade-params-utils';
-import clsx from 'clsx';
 import React from 'react';
+import clsx from 'clsx';
+
+import { observer } from '@deriv/stores';
+import { WheelPickerContainer } from '@deriv-com/quill-ui';
+
+import { DURATION_UNIT, getOptionPerUnit } from 'AppV2/Utils/trade-params-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
+
 import HourPicker from './hourpicker';
 
 const DurationWheelPicker = observer(

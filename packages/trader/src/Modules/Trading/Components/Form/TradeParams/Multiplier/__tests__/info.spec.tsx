@@ -1,9 +1,11 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
-import MultipliersInfo from '../info';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import MultipliersInfo from '../info';
 
 const commission = 'Commission';
 const stop_out = 'Stop out';
@@ -49,7 +51,7 @@ describe('<MultipliersInfo />', () => {
         );
     };
 
-    it('should render commission text with popover and stop out text with popover', () => {
+    it('should render commission text with popover and stop out text with popover', async () => {
         render(mockMultipliersInfo());
 
         expect(screen.getAllByTestId('dt_popover_wrapper')).toHaveLength(2);
@@ -59,7 +61,7 @@ describe('<MultipliersInfo />', () => {
         expect(screen.getByText(/0.44 USD/i)).toBeInTheDocument();
 
         expect(screen.queryByText(commission_tooltip_text)).not.toBeInTheDocument();
-        userEvent.hover(commission_block);
+        await userEvent.hover(commission_block);
         expect(screen.getByText(commission_tooltip_text)).toBeInTheDocument();
 
         const stop_out_block = screen.getByText(stop_out);
@@ -67,7 +69,7 @@ describe('<MultipliersInfo />', () => {
         expect(screen.getByText(/5.00 USD/i)).toBeInTheDocument();
 
         expect(screen.queryByText(stop_out_tooltip_text)).not.toBeInTheDocument();
-        userEvent.hover(stop_out_block);
+        await userEvent.hover(stop_out_block);
         expect(screen.getByText(stop_out_tooltip_text)).toBeInTheDocument();
     });
     it('should not render stop out text with popover if has_stop_loss === true', () => {

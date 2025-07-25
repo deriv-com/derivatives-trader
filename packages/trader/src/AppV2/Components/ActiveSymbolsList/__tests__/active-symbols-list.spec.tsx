@@ -1,11 +1,13 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import ActiveSymbolsList from '../active-symbols-list';
-import TraderProviders from '../../../../trader-providers';
-import { TCoreStores } from '@deriv/stores/types';
-import { mockStore } from '@deriv/stores';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { TCoreStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import TraderProviders from '../../../../trader-providers';
+import ActiveSymbolsList from '../active-symbols-list';
 
 const input_placeholder_text = 'Search markets on Rise/Fall';
 const symbol_search_results = 'MockedSymbolSearchResults';

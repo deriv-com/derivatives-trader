@@ -1,10 +1,13 @@
 import React from 'react';
 import moment from 'moment';
+
 import { toMoment } from '@deriv/shared';
-import { ActionSheet, Chip, RadioGroup, Text } from '@deriv-com/quill-ui';
 import { Localize } from '@deriv/translations';
-import CustomDateFilterButton from './custom-time-filter-button';
+import { ActionSheet, Chip, RadioGroup, Text } from '@deriv-com/quill-ui';
+
 import DateRangePicker from 'AppV2/Components/DatePicker';
+
+import CustomDateFilterButton from './custom-time-filter-button';
 
 type TTimeFilter = {
     customTimeRangeFilter?: string;

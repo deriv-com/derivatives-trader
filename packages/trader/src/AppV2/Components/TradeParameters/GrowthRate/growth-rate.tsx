@@ -1,17 +1,21 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { ActionSheet, TextField } from '@deriv-com/quill-ui';
+
 import { Skeleton } from '@deriv/components';
-import { Localize } from '@deriv/translations';
-import { useTraderStore } from 'Stores/useTraderStores';
 import { CONTRACT_TYPES, getGrowthRatePercentage, isEmptyObject } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+import { ActionSheet, TextField } from '@deriv-com/quill-ui';
+
 import Carousel from 'AppV2/Components/Carousel';
 import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
 import TradeParamDefinition from 'AppV2/Components/TradeParamDefinition';
 import { isSmallScreen } from 'AppV2/Utils/trade-params-utils';
-import GrowthRatePicker from './growth-rate-picker';
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import { TTradeParametersProps } from '../trade-parameters';
+
+import GrowthRatePicker from './growth-rate-picker';
 
 const GrowthRate = observer(({ is_minimized }: TTradeParametersProps) => {
     const {

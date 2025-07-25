@@ -1,9 +1,11 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Money } from '@deriv/components';
-import { isDesktop, isMobile, getDecimalPlaces } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { getDecimalPlaces, isDesktop, isMobile } from '@deriv/shared';
 import { observer } from '@deriv/stores';
+import { localize } from '@deriv/translations';
+
 import { useTraderStore } from 'Stores/useTraderStores';
 import { TProposalTypeInfo } from 'Types';
 

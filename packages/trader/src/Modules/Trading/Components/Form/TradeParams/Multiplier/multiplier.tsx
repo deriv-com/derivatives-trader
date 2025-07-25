@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { Dropdown } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
-import { useTraderStore } from 'Stores/useTraderStores';
 import { observer } from '@deriv/stores';
+
+import { useTraderStore } from 'Stores/useTraderStores';
 
 const Multiplier = observer(() => {
     const { multiplier, multiplier_range_list, onChange } = useTraderStore();

@@ -1,5 +1,6 @@
-import { categorizeSymbols } from '../symbol-categories-utils';
 import { ActiveSymbols } from '@deriv/api-types';
+
+import { categorizeSymbols } from '../symbol-categories-utils';
 
 describe('categorizeSymbols', () => {
     const symbols = [

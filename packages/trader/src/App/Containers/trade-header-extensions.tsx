@@ -1,11 +1,14 @@
 import React from 'react';
 import { when } from 'mobx';
+
 import { WS } from '@deriv/shared';
-import PopulateHeader from './populate-header';
 import { observer, useStore } from '@deriv/stores';
-import TraderProviders from '../../trader-providers';
 import { TCoreStores } from '@deriv/stores/types';
 import { useDevice } from '@deriv-com/ui';
+
+import TraderProviders from '../../trader-providers';
+
+import PopulateHeader from './populate-header';
 
 type TradeHeaderExtensionsProps = {
     store: TCoreStores;

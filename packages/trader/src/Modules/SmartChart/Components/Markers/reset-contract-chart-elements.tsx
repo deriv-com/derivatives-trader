@@ -1,5 +1,7 @@
 import React from 'react';
+
 import type { TContractInfo } from '@deriv/shared';
+
 import ChartMarker from './marker';
 
 type ResetContractChartElements = {

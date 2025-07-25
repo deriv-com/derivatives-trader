@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Skeleton } from '@deriv/components';
-import { useDevice } from '@deriv-com/ui';
 import { getUrlBase } from '@deriv/shared';
-import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+import { useDevice } from '@deriv-com/ui';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+
+import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
 
 type TVideoFragment = {
     contract_type: string;

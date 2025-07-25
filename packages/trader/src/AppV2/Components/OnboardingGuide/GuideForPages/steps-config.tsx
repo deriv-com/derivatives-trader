@@ -1,5 +1,6 @@
 import React from 'react';
 import { Step } from 'react-joyride';
+
 import { Localize } from '@deriv/translations';
 
 const STEPS = [

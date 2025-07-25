@@ -1,16 +1,19 @@
 import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { ActionSheet, TextField } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv/translations';
-import { useTraderStore } from 'Stores/useTraderStores';
+
 import { getCurrencyDisplayCode } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+import { ActionSheet, TextField } from '@deriv-com/quill-ui';
+
 import Carousel from 'AppV2/Components/Carousel';
 import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
-import TakeProfitAndStopLossInput from '../RiskManagement/take-profit-and-stop-loss-input';
 import TradeParamDefinition from 'AppV2/Components/TradeParamDefinition';
-import { TTradeParametersProps } from '../trade-parameters';
 import useTradeError from 'AppV2/Hooks/useTradeError';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import TakeProfitAndStopLossInput from '../RiskManagement/take-profit-and-stop-loss-input';
+import { TTradeParametersProps } from '../trade-parameters';
 
 const TakeProfit = observer(({ is_minimized }: TTradeParametersProps) => {
     const { currency, has_open_accu_contract, has_take_profit, is_market_closed, take_profit } = useTraderStore();

@@ -1,14 +1,17 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 import { toJS } from 'mobx';
-import { Popover, Text } from '@deriv/components';
+
 import { TickSpotData } from '@deriv/api-types';
-import { getMarketNamesMap, useIsMounted, isContractElapsed, TContractStore } from '@deriv/shared';
+import { Popover, Text } from '@deriv/components';
+import { getMarketNamesMap, isContractElapsed, TContractStore, useIsMounted } from '@deriv/shared';
 import { Localize } from '@deriv/translations';
-import { Bounce, SlideIn } from 'App/Components/Animations';
-import { DigitSpot, LastDigitPrediction } from '../LastDigitPrediction';
-import { useTraderStore } from 'Stores/useTraderStores';
 import { useDevice } from '@deriv-com/ui';
+
+import { Bounce, SlideIn } from 'App/Components/Animations';
+import { useTraderStore } from 'Stores/useTraderStores';
+
+import { DigitSpot, LastDigitPrediction } from '../LastDigitPrediction';
 
 type TTraderStore = ReturnType<typeof useTraderStore>;
 type TOnChangeStatus = { status: string | null | undefined; current_tick: number | null };

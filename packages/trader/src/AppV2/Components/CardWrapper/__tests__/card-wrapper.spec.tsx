@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import CardWrapper from '../card-wrapper';
 
 jest.mock('@deriv-com/quill-ui', () => ({

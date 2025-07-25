@@ -1,6 +1,7 @@
 import React from 'react';
-import { ActionSheet, Text } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
+import { ActionSheet, Text } from '@deriv-com/quill-ui';
 
 const BarrierDescription = ({ isDays }: { isDays: boolean }) => {
     return (

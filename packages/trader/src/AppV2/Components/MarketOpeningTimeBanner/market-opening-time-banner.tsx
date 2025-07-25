@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { convertTimeFormat, toMoment } from '@deriv/shared';
 import { Localize } from '@deriv/translations';
 import { CaptionText } from '@deriv-com/quill-ui';

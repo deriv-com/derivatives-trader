@@ -1,6 +1,8 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import { isMobile, isDesktop, TRADE_TYPES } from '@deriv/shared';
+
+import { isDesktop, isMobile, TRADE_TYPES } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+
 import Display from '../contract-type-display';
 
 jest.mock('@deriv/components', () => ({

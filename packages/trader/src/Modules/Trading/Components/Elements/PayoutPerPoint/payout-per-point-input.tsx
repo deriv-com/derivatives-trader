@@ -1,10 +1,14 @@
 import React from 'react';
-import WheelPicker from '../../Form/WheelPicker';
+
 import { Popover, Text, useDevice } from '@deriv/components';
-import Fieldset from 'App/Components/Form/fieldset';
-import { Localize } from '@deriv/translations';
-import './payout-per-point.scss';
 import { LabelPairedChevronsDownCaptionRegularIcon, LabelPairedChevronsUpCaptionRegularIcon } from '@deriv/quill-icons';
+import { Localize } from '@deriv/translations';
+
+import Fieldset from 'App/Components/Form/fieldset';
+
+import WheelPicker from '../../Form/WheelPicker';
+
+import './payout-per-point.scss';
 
 const PayoutPerPointInput = ({
     payoutOptions,

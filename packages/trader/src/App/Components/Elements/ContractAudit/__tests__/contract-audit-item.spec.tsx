@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ContractAuditItem from '../contract-audit-item';
 
 const test_id = 'test_id';

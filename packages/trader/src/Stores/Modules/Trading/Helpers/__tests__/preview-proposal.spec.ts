@@ -1,7 +1,9 @@
 import debounce from 'lodash.debounce';
-import { requestPreviewProposal } from '../preview-proposal';
-import { mockStore } from '@deriv/stores';
+
 import { WS } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+
+import { requestPreviewProposal } from '../preview-proposal';
 
 jest.mock('../proposal', () => ({
     createProposalRequests: jest.fn(() => ({ type1: {}, type2: {} })),

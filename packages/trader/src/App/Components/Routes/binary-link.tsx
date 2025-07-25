@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { findRouteByPath, normalizePath } from './helpers';
+
 import getRoutesConfig from '../../Constants/routes-config';
+
+import { findRouteByPath, normalizePath } from './helpers';
 
 type TBinaryLinkProps = Omit<React.HTMLProps<HTMLAnchorElement>, 'title' | 'ref'> &
     React.PropsWithChildren<{

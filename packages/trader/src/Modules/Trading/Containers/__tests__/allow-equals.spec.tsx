@@ -1,8 +1,10 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import TraderProviders from '../../../../trader-providers';
 import AllowEquals from '../allow-equals';
 
@@ -30,12 +32,12 @@ describe('<AllowEquals />', () => {
 
         expect(screen.getByText(/Win payout/i)).toBeInTheDocument();
     });
-    it('should call onChange function if checkbox was clicked', () => {
+    it('should call onChange function if checkbox was clicked', async () => {
         const mock_root_store = mockStore(default_mock_store);
         render(mockAllowEquals(mock_root_store));
 
         const checkbox = screen.getByText(/Equals/i);
-        userEvent.click(checkbox);
+        await userEvent.click(checkbox);
 
         expect(default_mock_store.modules.trade.onChange).toBeCalled();
     });

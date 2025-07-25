@@ -1,10 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
-import { observer, useStore } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { Localize, localize } from '@deriv/translations';
+
 import { Money, Numpad, Tabs } from '@deriv/components';
 import { getDecimalPlaces, isEmptyObject } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { Localize, localize } from '@deriv/translations';
+
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import MinMaxStakeInfo from './min-max-stake-info';
 
 type TAmountMobile = Pick<

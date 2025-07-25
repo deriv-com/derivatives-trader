@@ -1,11 +1,13 @@
 import React from 'react';
-import { Checkbox, RadioGroup, Dialog, Popover, Text } from '@deriv/components';
-import { localize, Localize } from '@deriv/translations';
-import { onToggleCancellation, onChangeCancellationDuration } from 'Stores/Modules/Trading/Helpers/multiplier';
-import Fieldset from 'App/Components/Form/fieldset';
+
+import { Checkbox, Dialog, Popover, RadioGroup, Text } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { TTradeStore } from 'Types';
+import { Localize, localize } from '@deriv/translations';
+
+import Fieldset from 'App/Components/Form/fieldset';
+import { onChangeCancellationDuration, onToggleCancellation } from 'Stores/Modules/Trading/Helpers/multiplier';
 import { useTraderStore } from 'Stores/useTraderStores';
+import { TTradeStore } from 'Types';
 
 type TDealCancellationWarningDialog = {
     is_visible: boolean;

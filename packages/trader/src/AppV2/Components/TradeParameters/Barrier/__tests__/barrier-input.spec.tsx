@@ -1,11 +1,14 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import BarrierInput from '../barrier-input';
-import userEvent from '@testing-library/user-event';
-import TraderProviders from '../../../../../trader-providers';
+
 import { mockStore } from '@deriv/stores';
-import ModulesProvider from 'Stores/Providers/modules-providers';
 import { TCoreStores } from '@deriv/stores/types';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import ModulesProvider from 'Stores/Providers/modules-providers';
+
+import TraderProviders from '../../../../../trader-providers';
+import BarrierInput from '../barrier-input';
 
 describe('BarrierInput', () => {
     const setInitialBarrierValue = jest.fn();

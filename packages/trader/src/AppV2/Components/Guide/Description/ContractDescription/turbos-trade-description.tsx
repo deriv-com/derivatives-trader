@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Localize } from '@deriv/translations';
-import { getTerm, getContractDescription } from 'AppV2/Utils/contract-description-utils';
+
+import { getContractDescription, getTerm } from 'AppV2/Utils/contract-description-utils';
 
 const TurbosTradeDescription = ({ onTermClick }: { onTermClick: (term: string) => void }) => {
     const { PAYOUT, EXPIRY, BARRIER, PAYOUT_PER_POINT, FINAL_PRICE, CONTRACT_VALUE } = getTerm();

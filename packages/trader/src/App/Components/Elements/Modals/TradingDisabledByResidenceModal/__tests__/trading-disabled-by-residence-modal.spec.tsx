@@ -1,8 +1,10 @@
 import React from 'react';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
+import { useDevice } from '@deriv-com/ui';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useDevice } from '@deriv-com/ui';
-import { StoreProvider, mockStore } from '@deriv/stores';
+
 import TradingDisabledByResidenceModal from '../trading-disabled-by-residence-modal';
 
 jest.mock('@deriv-com/ui', () => ({
@@ -70,7 +72,7 @@ describe('<TradingDisabledByResidenceModal />', () => {
         expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
-    it('should call setIsTradingDisabledByResidenceModal with false when try to close modal', () => {
+    it('should call setIsTradingDisabledByResidenceModal with false when try to close modal', async () => {
         render(<TradingDisabledByResidenceModal />, {
             wrapper: wrapper(),
         });
@@ -78,7 +80,7 @@ describe('<TradingDisabledByResidenceModal />', () => {
         const close_button = screen.getByRole('button', {
             name: '',
         });
-        userEvent.click(close_button);
+        await userEvent.click(close_button);
 
         expect(setIsTradingDisabledByResidenceModal).toHaveBeenCalledWith(false);
     });

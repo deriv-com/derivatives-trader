@@ -1,10 +1,12 @@
 import React from 'react';
+
+import { mockContractInfo } from '@deriv/shared';
+import { TPortfolioPosition } from '@deriv/stores/types';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { TPortfolioPosition } from '@deriv/stores/types';
-import { mockContractInfo } from '@deriv/shared';
-import ContractCardList from '../contract-card-list';
+
 import ContractCard from '../contract-card';
+import ContractCardList from '../contract-card-list';
 
 const contractCard = 'Contract Card';
 const cancelButton = 'Cancel';
@@ -54,20 +56,20 @@ describe('ContractCardList', () => {
         jest.advanceTimersByTime(720);
         expect(mockedSetHasButtonsDemo).toHaveBeenCalledWith(false);
     });
-    it('should call onClickCancel with contract_id when a Cancel button is clicked on a contract card', () => {
+    it('should call onClickCancel with contract_id when a Cancel button is clicked on a contract card', async () => {
         const mockedOnClickCancel = jest.fn();
         render(<ContractCardList {...mockProps} onClickCancel={mockedOnClickCancel} />);
 
         const firstCardCancelButton = screen.getAllByText(cancelButton)[0];
-        userEvent.click(firstCardCancelButton);
+        await userEvent.click(firstCardCancelButton);
         expect(mockedOnClickCancel).toHaveBeenCalledWith(243585717228);
     });
-    it('should call onClickSell with contract_id when a Close button is clicked on a contract card', () => {
+    it('should call onClickSell with contract_id when a Close button is clicked on a contract card', async () => {
         const mockedOnClickSell = jest.fn();
         render(<ContractCardList {...mockProps} onClickSell={mockedOnClickSell} />);
 
         const secondCardCloseButton = screen.getAllByText(closeButton)[1];
-        userEvent.click(secondCardCloseButton);
+        await userEvent.click(secondCardCloseButton);
         expect(mockedOnClickSell).toHaveBeenCalledWith(243578583348);
     });
 });

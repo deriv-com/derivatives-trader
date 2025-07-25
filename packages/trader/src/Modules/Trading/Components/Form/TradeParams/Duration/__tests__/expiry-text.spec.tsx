@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import ExpiryText from '../expiry-text';
 
 const mocked_props = {

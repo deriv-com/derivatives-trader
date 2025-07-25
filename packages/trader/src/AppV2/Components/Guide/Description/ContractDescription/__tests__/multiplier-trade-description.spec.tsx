@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import { getTerm } from 'AppV2/Utils/contract-description-utils';
+
 import MultipliersTradeDescription from '../multipliers-trade-description';
 
 jest.mock('@lottiefiles/dotlottie-react', () => ({
@@ -17,47 +20,47 @@ describe('MultipliersTradeDescription', () => {
         ).toBeInTheDocument();
     });
 
-    it('should call onTermClick if user clicks on term "stop out level"', () => {
+    it('should call onTermClick if user clicks on term "stop out level"', async () => {
         const onTermClick = jest.fn();
         render(<MultipliersTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().STOP_OUT_LEVEL.toLowerCase() }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().STOP_OUT_LEVEL.toLowerCase() }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "Take profit"', () => {
+    it('should call onTermClick if user clicks on term "Take profit"', async () => {
         const onTermClick = jest.fn();
         render(<MultipliersTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().TAKE_PROFIT }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().TAKE_PROFIT }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "Stop loss"', () => {
+    it('should call onTermClick if user clicks on term "Stop loss"', async () => {
         const onTermClick = jest.fn();
         render(<MultipliersTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().STOP_LOSS }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().STOP_LOSS }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "Deal cancellation"', () => {
+    it('should call onTermClick if user clicks on term "Deal cancellation"', async () => {
         const onTermClick = jest.fn();
         render(<MultipliersTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().DEAL_CANCELLATION }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().DEAL_CANCELLATION }));
 
         expect(onTermClick).toHaveBeenCalled();
     });
 
-    it('should call onTermClick if user clicks on term "slippage risk"', () => {
+    it('should call onTermClick if user clicks on term "slippage risk"', async () => {
         const onTermClick = jest.fn();
         render(<MultipliersTradeDescription onTermClick={onTermClick} />);
 
-        userEvent.click(screen.getByRole('button', { name: getTerm().SLIPPAGE_RISK.toLowerCase() }));
+        await userEvent.click(screen.getByRole('button', { name: getTerm().SLIPPAGE_RISK.toLowerCase() }));
 
         expect(onTermClick).toHaveBeenCalled();
     });

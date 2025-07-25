@@ -1,9 +1,12 @@
 import React from 'react';
+
+import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockStore } from '@deriv/stores';
-import TraderProviders from '../../../../../trader-providers';
+
 import ModulesProvider from 'Stores/Providers/modules-providers';
+
+import TraderProviders from '../../../../../trader-providers';
 import LastDigitPrediction from '../last-digit-prediction';
 
 const title = 'Last digit prediction';
@@ -56,23 +59,23 @@ describe('LastDigitPrediction', () => {
 
         expect(screen.getByRole('textbox')).toBeDisabled();
     });
-    it('shows ActionSheet if user clicks on the minimized Last digit prediction param', () => {
+    it('shows ActionSheet if user clicks on the minimized Last digit prediction param', async () => {
         render(mockLastDigitPrediction({ is_minimized: true }));
 
-        userEvent.click(screen.getByRole('textbox'));
+        await userEvent.click(screen.getByRole('textbox'));
 
         expect(screen.getByRole('dialog')).toHaveAttribute('data-state', 'open');
     });
-    it('calls onChange function if user opens ActionSheet, selects another digit and clicks on "Save" button', () => {
+    it('calls onChange function if user opens ActionSheet, selects another digit and clicks on "Save" button', async () => {
         render(mockLastDigitPrediction({ is_minimized: true }));
 
-        userEvent.click(screen.getByRole('textbox'));
+        await userEvent.click(screen.getByRole('textbox'));
 
         const digit_button_seven = screen.getByRole('button', { name: '7' });
         const save_button = screen.getByRole('button', { name: 'Save' });
 
-        userEvent.click(digit_button_seven);
-        userEvent.click(save_button);
+        await userEvent.click(digit_button_seven);
+        await userEvent.click(save_button);
         expect(default_mock_store.modules.trade.onChange).toBeCalled();
     });
 });

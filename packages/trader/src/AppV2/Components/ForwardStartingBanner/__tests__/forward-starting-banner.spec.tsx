@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { getStartTime, hasForwardContractStarted, isForwardStarting, toMoment } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+
 import ForwardStartingBanner from '../forward-starting-banner';
 
 jest.mock('@deriv/shared', () => ({

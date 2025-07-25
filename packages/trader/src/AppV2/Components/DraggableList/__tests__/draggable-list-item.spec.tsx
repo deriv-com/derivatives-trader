@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import DraggableListItem from '../draggable-list-item';
 import userEvent from '@testing-library/user-event';
+
+import DraggableListItem from '../draggable-list-item';
 
 describe('DraggableListItem', () => {
     it('renders with default icons', () => {

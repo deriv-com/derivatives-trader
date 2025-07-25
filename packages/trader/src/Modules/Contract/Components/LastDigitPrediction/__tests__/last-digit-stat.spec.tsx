@@ -1,5 +1,7 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+
+import { render, screen } from '@testing-library/react';
+
 import LastDigitStat from '../last-digit-stat';
 
 const mocked_props: React.ComponentProps<typeof LastDigitStat> = {

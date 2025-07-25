@@ -1,11 +1,14 @@
 import React from 'react';
-import { observer } from '@deriv/stores';
-import { useTraderStore } from 'Stores/useTraderStores';
-import { updateAmountChanges } from './duration-utils';
-import { getDurationMinMaxValues, isEmptyObject } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+
 import { TickPicker } from '@deriv/components';
+import { getDurationMinMaxValues, isEmptyObject } from '@deriv/shared';
+import { observer } from '@deriv/stores';
+import { localize } from '@deriv/translations';
+
+import { useTraderStore } from 'Stores/useTraderStores';
+
 import { TDurationMobile } from './duration-mobile';
+import { updateAmountChanges } from './duration-utils';
 
 type TNumber = Pick<
     TDurationMobile,

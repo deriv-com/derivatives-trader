@@ -1,8 +1,11 @@
-import ServerTime from '_common/base/server_time';
-import { ContractType } from '../contract-type';
 import moment from 'moment';
-import { mockStore } from '@deriv/stores';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+
+import { ContractType } from '../contract-type';
+
+import ServerTime from '_common/base/server_time';
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),

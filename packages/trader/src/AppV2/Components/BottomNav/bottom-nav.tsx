@@ -1,18 +1,19 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router';
 import classNames from 'classnames';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { Localize } from '@deriv/translations';
-import { routes } from '@deriv/shared';
+
 import {
     StandaloneChartAreaFillIcon,
     StandaloneChartAreaRegularIcon,
     StandaloneClockThreeFillIcon,
     StandaloneClockThreeRegularIcon,
 } from '@deriv/quill-icons';
-import { Badge, Navigation } from '@deriv-com/quill-ui';
+import { routes } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { useHistory, useLocation } from 'react-router';
+import { Localize } from '@deriv/translations';
+import { Badge, Navigation } from '@deriv-com/quill-ui';
 
 type BottomNavProps = {
     children: React.ReactNode;

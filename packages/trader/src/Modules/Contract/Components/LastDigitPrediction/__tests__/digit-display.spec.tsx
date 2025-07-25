@@ -1,5 +1,7 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+
+import { render, screen } from '@testing-library/react';
+
 import DigitDisplay from '../digit-display';
 
 jest.mock('../last-digit-stat', () => jest.fn(() => 'mockedLastDigitStat'));

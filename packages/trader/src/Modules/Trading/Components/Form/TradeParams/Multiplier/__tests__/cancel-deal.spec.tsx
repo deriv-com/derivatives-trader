@@ -1,10 +1,13 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { onChangeCancellationDuration, onToggleCancellation } from 'Stores/Modules/Trading/Helpers/multiplier';
-import CancelDeal from '../cancel-deal';
+
 import TraderProviders from '../../../../../../../trader-providers';
+import CancelDeal from '../cancel-deal';
 
 const dropdown = 'Dropdown';
 const deal_cancellation = 'Deal cancellation';
@@ -82,37 +85,37 @@ describe('<CancelDeal />', () => {
 
         expect(screen.getAllByTestId(popover)).toHaveLength(2);
     });
-    it('should call onChangeCancellationDuration if user clicked on dropdown', () => {
+    it('should call onChangeCancellationDuration if user clicked on dropdown', async () => {
         render(mockTakeProfit());
 
-        userEvent.click(screen.getByText('DropdownList'));
+        await userEvent.click(screen.getByText('DropdownList'));
 
         expect(onChangeCancellationDuration).toBeCalled();
     });
-    it('should call onToggleCancellation if user clicked on checkbox', () => {
+    it('should call onToggleCancellation if user clicked on checkbox', async () => {
         render(mockTakeProfit());
 
-        userEvent.click(screen.getByRole('checkbox'));
+        await userEvent.click(screen.getByRole('checkbox'));
 
         expect(onToggleCancellation).toBeCalled();
     });
-    it('after user hover on extra popover, text with checkbox should be shown and user will be able to checked; on unhover toggleCancellationWarning should be called', () => {
+    it('after user hover on extra popover, text with checkbox should be shown and user will be able to checked; on unhover toggleCancellationWarning should be called', async () => {
         default_mocked_store.modules.trade.has_take_profit = false;
         default_mocked_store.ui.should_show_cancellation_warning = true;
         const { rerender } = render(mockTakeProfit());
 
         expect(screen.queryByText(/Don't show this again/i)).not.toBeInTheDocument();
         expect(screen.getByRole('checkbox')).toBeInTheDocument();
-        userEvent.hover(screen.getAllByTestId(popover)[0]);
+        await userEvent.hover(screen.getAllByTestId(popover)[0]);
         expect(screen.getByText(/Don't show this again/i)).toBeInTheDocument();
         expect(screen.getAllByRole('checkbox')).toHaveLength(2);
 
-        userEvent.click(screen.getAllByRole('checkbox')[0]);
+        await userEvent.click(screen.getAllByRole('checkbox')[0]);
         expect(screen.getAllByRole('checkbox')[0]).toBeChecked();
 
         rerender(mockTakeProfit());
 
-        userEvent.unhover(screen.getByText(/Take profit and\/or/i));
+        await userEvent.unhover(screen.getByText(/Take profit and\/or/i));
         expect(default_mocked_store.ui.toggleCancellationWarning).toBeCalled();
     });
 });

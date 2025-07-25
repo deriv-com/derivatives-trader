@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, SectionMessage } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
+import { SectionMessage, Text } from '@deriv-com/quill-ui';
 
 type TRiskManagementContentProps = {
     should_show_deal_cancellation?: boolean;

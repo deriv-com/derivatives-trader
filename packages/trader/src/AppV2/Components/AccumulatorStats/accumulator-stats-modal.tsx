@@ -1,7 +1,9 @@
 import React from 'react';
-import { ActionSheet, Text } from '@deriv-com/quill-ui';
-import StatsRow from './accumulator-stats-row';
+
 import { Localize } from '@deriv/translations';
+import { ActionSheet, Text } from '@deriv-com/quill-ui';
+
+import StatsRow from './accumulator-stats-row';
 
 const AccumulatorStatsModal = ({
     rows,

@@ -1,10 +1,13 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import SymbolSearchResults from '../symbol-search-results';
-import TraderProviders from '../../../../trader-providers';
-import { mockStore } from '@deriv/stores';
-import * as useGetSymbolSearchResults from 'AppV2/Hooks/useGetSymbolSearchResults';
+
 import { ActiveSymbols } from '@deriv/api-types';
+import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+
+import * as useGetSymbolSearchResults from 'AppV2/Hooks/useGetSymbolSearchResults';
+
+import TraderProviders from '../../../../trader-providers';
+import SymbolSearchResults from '../symbol-search-results';
 
 jest.mock('AppV2/Components/MarketCategoryItem/market-category-item', () =>
     jest.fn(() => <div>MockedMarketCategoryItem</div>)

@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { TRADE_TYPES } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
 
 describe('<TradeCategoriesGIF />', () => {
     afterEach(() => {

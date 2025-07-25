@@ -1,6 +1,7 @@
 import React from 'react';
-import { ActionSheet } from '@deriv-com/quill-ui';
+
 import { LabelPairedArrowLeftMdRegularIcon, LabelPairedCircleInfoMdRegularIcon } from '@deriv/quill-icons';
+import { ActionSheet } from '@deriv-com/quill-ui';
 
 export type TQuillIcon = typeof LabelPairedArrowLeftMdRegularIcon;
 type TCarouselHeaderProps = {

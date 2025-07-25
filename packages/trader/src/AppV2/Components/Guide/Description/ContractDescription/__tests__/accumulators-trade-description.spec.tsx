@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import { getTerm } from 'AppV2/Utils/contract-description-utils';
+
 import AccumulatorsTradeDescription from '../accumulators-trade-description';
 
 jest.mock('@lottiefiles/dotlottie-react', () => ({

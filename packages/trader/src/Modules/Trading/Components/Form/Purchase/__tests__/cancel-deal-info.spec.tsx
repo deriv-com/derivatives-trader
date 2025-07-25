@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+
 import { TProposalTypeInfo } from 'Types';
-import CancelDealInfo from '../cancel-deal-info';
+
 import TraderProviders from '../../../../../../trader-providers';
+import CancelDealInfo from '../cancel-deal-info';
 
 const deal_cancellation = 'Deal cancel. fee';
 const price = '1,023.00 USD';

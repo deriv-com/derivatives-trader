@@ -1,10 +1,13 @@
 import React from 'react';
+
+import { observer } from '@deriv/stores';
 import { Tab } from '@deriv-com/quill-ui';
+
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import { categorizeSymbols } from 'AppV2/Utils/symbol-categories-utils';
+
 import MarketCategory from '../MarketCategory';
 import MarketCategoryTab from '../MarketCategoryTab/market-category-tab';
-import { observer } from '@deriv/stores';
 
 type TMarketCategories = {
     selectedSymbol: string;

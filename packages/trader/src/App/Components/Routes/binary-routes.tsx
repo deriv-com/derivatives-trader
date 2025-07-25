@@ -1,7 +1,9 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
+
 import getRoutesConfig from 'App/Constants/routes-config';
 import { TBinaryRoutesProps, TRouteConfig } from 'Types';
+
 import RouteWithSubRoutes from './route-with-sub-routes';
 
 const BinaryRoutes = (props: TBinaryRoutesProps) => (

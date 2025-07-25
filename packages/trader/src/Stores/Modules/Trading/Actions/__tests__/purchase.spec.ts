@@ -1,4 +1,5 @@
 import { TBuyRequest } from 'Types';
+
 import { processPurchase } from '../purchase';
 
 jest.mock('@deriv/shared', () => ({

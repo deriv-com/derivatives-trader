@@ -1,7 +1,9 @@
-import { getMultiplierValidationRules, getValidationRules } from '../validation-rules';
-import { TTradeStore } from 'Types';
 import { TRuleOptions } from '@deriv/shared';
+
+import { TTradeStore } from 'Types';
+
 import { isSessionAvailable } from '../../Helpers/start-date';
+import { getMultiplierValidationRules, getValidationRules } from '../validation-rules';
 
 type TPartialRestParams = [Partial<TRuleOptions<TTradeStore>>, TTradeStore];
 type TRestParams = [Partial<TRuleOptions<TTradeStore>>, TTradeStore, TTradeStore | undefined];

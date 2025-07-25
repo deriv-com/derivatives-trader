@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text } from '@deriv-com/quill-ui';
+
 import { StandaloneStarFillIcon } from '@deriv/quill-icons';
 import { Localize } from '@deriv/translations';
+import { Text } from '@deriv-com/quill-ui';
 
 const NoFavoriteSymbols = () => (
     <div className='favorite-symbols--no-fav'>

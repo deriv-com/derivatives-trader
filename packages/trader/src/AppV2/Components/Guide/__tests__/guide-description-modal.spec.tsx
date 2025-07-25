@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { CONTRACT_LIST, AVAILABLE_CONTRACTS } from 'AppV2/Utils/trade-types-utils';
-import GuideDescriptionModal from '../guide-description-modal';
 import userEvent from '@testing-library/user-event';
+
+import { AVAILABLE_CONTRACTS, CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+
+import GuideDescriptionModal from '../guide-description-modal';
 
 const mockProps = {
     contract_list: AVAILABLE_CONTRACTS,
@@ -36,11 +39,11 @@ describe('DescriptionModal', () => {
         expect(screen.getByText('Got it')).toBeInTheDocument();
     });
 
-    it('should open video player if user clicked on video preview', () => {
+    it('should open video player if user clicked on video preview', async () => {
         render(<GuideDescriptionModal {...mockProps} />);
 
         expect(screen.queryByTestId('dt_video_player')).not.toBeInTheDocument();
-        userEvent.click(screen.getByTestId('dt_video_preview'));
+        await userEvent.click(screen.getByTestId('dt_video_preview'));
 
         expect(screen.getByTestId('dt_video_player')).toBeInTheDocument();
     });

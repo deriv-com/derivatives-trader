@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
     addComma,
     CONTRACT_TYPES,
@@ -17,10 +19,10 @@ import {
     isUserCancelled,
     TContractInfo,
 } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+
 import { getBarrierValue } from 'App/Components/Elements/PositionsDrawer/helpers';
 import { isCancellationExpired } from 'Stores/Modules/Trading/Helpers/logic';
-import { Localize } from '@deriv/translations';
-import React from 'react';
 
 type TCardLabels = ReturnType<typeof getCardLabelsV2>;
 

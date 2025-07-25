@@ -1,6 +1,8 @@
 import React from 'react';
-import { Tab } from '@deriv-com/quill-ui';
+
 import { Localize } from '@deriv/translations';
+import { Tab } from '@deriv-com/quill-ui';
+
 import { MarketGroup } from 'AppV2/Utils/symbol-categories-utils';
 
 type TMarketCategoryTab = {

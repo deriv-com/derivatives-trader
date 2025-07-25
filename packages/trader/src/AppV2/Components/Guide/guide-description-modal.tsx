@@ -1,11 +1,14 @@
 import React from 'react';
-import { ActionSheet, Heading } from '@deriv-com/quill-ui';
-import { VideoPlayer } from '@deriv/components';
-import { Localize } from '@deriv/translations';
-import { clickAndKeyEventHandler } from '@deriv/shared';
-import { getDescriptionVideoIds } from 'AppV2/Utils/contract-description-utils';
-import GuideContent from './guide-content';
 import ReactDOM from 'react-dom';
+
+import { VideoPlayer } from '@deriv/components';
+import { clickAndKeyEventHandler } from '@deriv/shared';
+import { Localize } from '@deriv/translations';
+import { ActionSheet, Heading } from '@deriv-com/quill-ui';
+
+import { getDescriptionVideoIds } from 'AppV2/Utils/contract-description-utils';
+
+import GuideContent from './guide-content';
 
 type TGuideDescriptionModal = {
     contract_list: { tradeType: React.ReactNode; id: string }[];

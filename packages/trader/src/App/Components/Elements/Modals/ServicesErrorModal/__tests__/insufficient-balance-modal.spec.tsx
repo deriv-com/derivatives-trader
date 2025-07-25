@@ -1,11 +1,13 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import InsufficientBalanceModal from '../insufficient-balance-modal';
-import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { StoreProvider, mockStore } from '@deriv/stores';
+import { createBrowserHistory } from 'history';
+
 import { routes } from '@deriv/shared';
+import { mockStore, StoreProvider } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import InsufficientBalanceModal from '../insufficient-balance-modal';
 
 type TModal = React.FC<{
     children: React.ReactNode;

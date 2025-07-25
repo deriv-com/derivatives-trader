@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Dialog } from '@deriv/components';
 import { getPlatformSettings } from '@deriv/shared';
-import { localize, Localize } from '@deriv/translations';
 import { observer, useStore } from '@deriv/stores';
+import { Localize, localize } from '@deriv/translations';
 
 type TMarketUnavailableModalProps = {
     is_loading?: boolean;

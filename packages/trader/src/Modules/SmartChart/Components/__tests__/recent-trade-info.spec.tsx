@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { StoreProvider, mockStore } from '@deriv/stores';
-import RecentTradeInfo from '../recent-trade-info';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { TStores } from '@deriv/stores/types';
+import { render, screen } from '@testing-library/react';
+
+import RecentTradeInfo from '../recent-trade-info';
 
 describe('<RecentTradeInfo />', () => {
     const store_config = mockStore({});

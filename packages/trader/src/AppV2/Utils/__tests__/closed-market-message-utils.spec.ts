@@ -1,4 +1,5 @@
 import { TradingTimesResponse } from '@deriv/api-types';
+
 import { calculateTimeLeft, getSymbol } from '../closed-market-message-utils';
 
 describe('calculateTimeLeft', () => {

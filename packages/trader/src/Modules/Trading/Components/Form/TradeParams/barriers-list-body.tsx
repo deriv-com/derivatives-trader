@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Text, ThemedScrollbars } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
 

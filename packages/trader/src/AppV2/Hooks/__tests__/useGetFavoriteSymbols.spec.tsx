@@ -1,7 +1,9 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { useGetFavoriteSymbols } from '../useGetFavoriteSymbols';
+
 import * as sortSymbolsUtils from 'AppV2/Utils/sort-symbols-utils';
 import { useModulesStore } from 'Stores/useModulesStores';
+
+import { useGetFavoriteSymbols } from '../useGetFavoriteSymbols';
 
 jest.mock('AppV2/Hooks/useActiveSymbols', () => ({
     __esModule: true,

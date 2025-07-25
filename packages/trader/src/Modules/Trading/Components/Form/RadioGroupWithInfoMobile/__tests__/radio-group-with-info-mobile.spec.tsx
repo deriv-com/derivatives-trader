@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import RadioGroupWithInfoMobile from '../radio-group-with-info-mobile';
 import userEvent from '@testing-library/user-event';
+
+import RadioGroupWithInfoMobile from '../radio-group-with-info-mobile';
 
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
@@ -33,28 +35,28 @@ describe('RadioGroupWithInfoMobile', () => {
         expect(screen.getByText(/test name 1/i)).toBeInTheDocument();
         expect(screen.getByText(/test name 2/i)).toBeInTheDocument();
         expect(screen.getByText(/test name 3/i)).toBeInTheDocument();
-        expect(radio_options_arr_1[1].checked).toBeTruthy();
-        expect(radio_options_arr_1[0].checked).toBeFalsy();
-        expect(radio_options_arr_1[2].checked).toBeFalsy();
+        expect(radio_options_arr_1[1]).toBeChecked();
+        expect(radio_options_arr_1[0]).not.toBeChecked();
+        expect(radio_options_arr_1[2]).not.toBeChecked();
     });
     it('second radio option should be selected', () => {
         render(<RadioGroupWithInfoMobile {...props} />);
 
         const radio_options_arr_1 = screen.getAllByRole<HTMLInputElement>('radio');
-        expect(radio_options_arr_1[1].checked).toBeTruthy();
-        expect(radio_options_arr_1[0].checked).toBeFalsy();
-        expect(radio_options_arr_1[2].checked).toBeFalsy();
+        expect(radio_options_arr_1[1]).toBeChecked();
+        expect(radio_options_arr_1[0]).not.toBeChecked();
+        expect(radio_options_arr_1[2]).not.toBeChecked();
     });
-    it('first radio option should be selected when user selects and modal should be toggled after clicking', () => {
+    it('first radio option should be selected when user selects and modal should be toggled after clicking', async () => {
         render(<RadioGroupWithInfoMobile {...props} />);
 
         const radio_options_arr_1 = screen.getAllByRole<HTMLInputElement>('radio');
-        userEvent.click(radio_options_arr_1[0]);
+        await userEvent.click(radio_options_arr_1[0]);
         expect(props.onChange).toHaveBeenCalled();
         expect(props.toggleModal).toHaveBeenCalled();
-        expect(radio_options_arr_1[0].checked).toBeTruthy();
-        expect(radio_options_arr_1[1].checked).toBeFalsy();
-        expect(radio_options_arr_1[2].checked).toBeFalsy();
+        expect(radio_options_arr_1[0]).toBeChecked();
+        expect(radio_options_arr_1[1]).not.toBeChecked();
+        expect(radio_options_arr_1[2]).not.toBeChecked();
     });
     it('should render popover components as children with proper classname', () => {
         render(<RadioGroupWithInfoMobile {...props} />);

@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { getLocalizedBasis } from '@deriv/shared';
+import { render, screen } from '@testing-library/react';
+
 import PurchaseButtonContent from '../purchase-button-content';
 
 type TInfo = React.ComponentProps<typeof PurchaseButtonContent>['info'];

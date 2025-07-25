@@ -1,5 +1,6 @@
 import React from 'react';
 import Joyride, { CallBackProps, STATUS } from 'react-joyride';
+
 import GuideTooltip from './guide-tooltip';
 import STEPS from './steps-config';
 

@@ -1,10 +1,12 @@
 import React from 'react';
-import MultipliersInfo from 'Modules/Trading/Components/Form/TradeParams/Multiplier/info';
-import RadioGroupWithInfoMobile from 'Modules/Trading/Components/Form/RadioGroupWithInfoMobile';
-import { requestPreviewProposal } from 'Stores/Modules/Trading/Helpers/preview-proposal';
+
+import { CONTRACT_TYPES, TRADE_TYPES, useIsMounted, WS } from '@deriv/shared';
 import { observer } from '@deriv/stores';
+
+import RadioGroupWithInfoMobile from 'Modules/Trading/Components/Form/RadioGroupWithInfoMobile';
+import MultipliersInfo from 'Modules/Trading/Components/Form/TradeParams/Multiplier/info';
+import { requestPreviewProposal } from 'Stores/Modules/Trading/Helpers/preview-proposal';
 import { useTraderStore } from 'Stores/useTraderStores';
-import { useIsMounted, WS, TRADE_TYPES, CONTRACT_TYPES } from '@deriv/shared';
 import { TTradeStore } from 'Types';
 
 type TMultiplierOptions = {

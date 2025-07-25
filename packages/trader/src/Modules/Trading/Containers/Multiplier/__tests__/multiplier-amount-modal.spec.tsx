@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+
 import { mockStore } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { TTradeStore } from 'Types';
-import MultiplierAmountModal from '../multiplier-amount-modal';
+
 import TraderProviders from '../../../../../trader-providers';
+import MultiplierAmountModal from '../multiplier-amount-modal';
 
 type TResponse = {
     proposal: { commission: string; limit_order: { stop_out: { order_amount: string } } };
@@ -84,24 +87,24 @@ describe('<MultiplierAmountModal />', () => {
         expect(screen.getByText(/MultipliersInfo component/i)).toBeInTheDocument();
     });
 
-    it('should change stake_value and commission if setSelectedAmount was called by pressing on the proper button', () => {
+    it('should change stake_value and commission if setSelectedAmount was called by pressing on the proper button', async () => {
         const { rerender } = render(mockMultiplierAmountModal());
 
         expect(screen.getByText(10)).toBeInTheDocument();
         expect(screen.queryByText(/1%/i)).not.toBeInTheDocument();
 
         const selected_amount_button = screen.getByText(/SelectedAmount button/i);
-        userEvent.click(selected_amount_button);
+        await userEvent.click(selected_amount_button);
         rerender(mockMultiplierAmountModal());
 
         expect(screen.getByText(20)).toBeInTheDocument();
         expect(screen.getByText(/1%/i)).toBeInTheDocument();
     });
-    it('should call toggleModal if the proper button was clicked', () => {
+    it('should call toggleModal if the proper button was clicked', async () => {
         render(mockMultiplierAmountModal());
 
         const toggle_modal_button = screen.getByText(/ToggleModal button/i);
-        userEvent.click(toggle_modal_button);
+        await userEvent.click(toggle_modal_button);
 
         expect(default_mocked_props.toggleModal).toBeCalled();
     });

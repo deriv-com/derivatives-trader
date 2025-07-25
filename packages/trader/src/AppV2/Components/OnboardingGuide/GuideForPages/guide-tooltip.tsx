@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, CaptionText, IconButton, Text } from '@deriv-com/quill-ui';
-import { LabelPairedChevronsUpXlBoldIcon, LabelPairedXmarkSmBoldIcon } from '@deriv/quill-icons';
-import { Localize } from '@deriv/translations';
 import { TooltipRenderProps } from 'react-joyride';
 import { useSwipeable } from 'react-swipeable';
+
+import { LabelPairedChevronsUpXlBoldIcon, LabelPairedXmarkSmBoldIcon } from '@deriv/quill-icons';
+import { Localize } from '@deriv/translations';
+import { Button, CaptionText, IconButton, Text } from '@deriv-com/quill-ui';
 
 export interface GuideTooltipProps extends TooltipRenderProps {
     setStepIndex: React.Dispatch<React.SetStateAction<number>>;

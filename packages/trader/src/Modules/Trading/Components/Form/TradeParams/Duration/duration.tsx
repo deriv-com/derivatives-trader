@@ -1,14 +1,17 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
+import { Dropdown } from '@deriv/components';
+import { isVanillaContract, toMoment } from '@deriv/shared';
+import { useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
+
 import Fieldset from 'App/Components/Form/fieldset';
 import RangeSlider from 'App/Components/Form/RangeSlider';
-import { Dropdown } from '@deriv/components';
-import { toMoment, isVanillaContract } from '@deriv/shared';
-import { useStore } from '@deriv/stores';
 import { useTraderStore } from 'Stores/useTraderStores';
-import DurationToggle from './duration-toggle';
+
 import AdvancedDuration from './advanced-duration';
+import DurationToggle from './duration-toggle';
 import SimpleDuration from './simple-duration';
 
 type TUIStore = ReturnType<typeof useStore>['ui'];

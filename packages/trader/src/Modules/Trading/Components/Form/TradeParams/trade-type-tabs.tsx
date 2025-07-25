@@ -1,9 +1,11 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { ButtonToggle } from '@deriv/components';
 import { isTurbosContract, isVanillaContract, TRADE_TYPES } from '@deriv/shared';
-import { localize } from '@deriv/translations';
 import { observer } from '@deriv/stores';
+import { localize } from '@deriv/translations';
+
 import { useTraderStore } from 'Stores/useTraderStores';
 
 type TTradeTypeTabs = {

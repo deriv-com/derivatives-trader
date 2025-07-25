@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, CaptionText } from '@deriv-com/quill-ui';
+
+import { CaptionText, Text } from '@deriv-com/quill-ui';
 
 const EntryExitDetailRow = ({
     label,

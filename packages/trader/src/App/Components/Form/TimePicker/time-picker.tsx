@@ -1,10 +1,12 @@
-import classNames from 'classnames';
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { Icon, InputField } from '@deriv/components';
-import Dialog from './dialog';
-import { observer, useStore } from '@deriv/stores';
+import classNames from 'classnames';
 import moment from 'moment';
+
+import { Icon, InputField } from '@deriv/components';
+import { observer, useStore } from '@deriv/stores';
+
+import Dialog from './dialog';
 
 type TTimePickerProps = {
     end_times: moment.Moment[];

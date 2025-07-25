@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Icon, Text } from '@deriv/components';
 import { clickAndKeyEventHandler } from '@deriv/shared';
 

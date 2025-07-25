@@ -1,7 +1,10 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import MarketCategories from '../market-categories';
+
+import { render, screen } from '@testing-library/react';
+
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
+
+import MarketCategories from '../market-categories';
 
 jest.mock('AppV2/Hooks/useActiveSymbols', () => ({
     ...jest.requireActual('AppV2/Hooks/useActiveSymbols'),

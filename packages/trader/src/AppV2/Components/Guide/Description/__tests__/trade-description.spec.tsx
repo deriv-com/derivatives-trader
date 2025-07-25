@@ -1,7 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import Loadable from 'react-loadable';
+
+import { render, screen } from '@testing-library/react';
+
 import { CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
+
 import TradeDescription from '../trade-description';
 
 jest.mock('../ContractDescription/accumulators-trade-description', () =>

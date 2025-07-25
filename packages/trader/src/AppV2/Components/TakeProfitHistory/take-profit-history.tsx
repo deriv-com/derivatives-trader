@@ -1,10 +1,13 @@
-import { Text, CaptionText, Pagination } from '@deriv-com/quill-ui';
-import { formatDate, formatMoney, formatTime, TContractStore } from '@deriv/shared';
-import CardWrapper from '../CardWrapper';
-import Carousel from 'AppV2/Components/Carousel';
 import React, { useState } from 'react';
 import clsx from 'classnames';
-import { localize, Localize } from '@deriv/translations';
+
+import { formatDate, formatMoney, formatTime, TContractStore } from '@deriv/shared';
+import { Localize, localize } from '@deriv/translations';
+import { CaptionText, Pagination, Text } from '@deriv-com/quill-ui';
+
+import Carousel from 'AppV2/Components/Carousel';
+
+import CardWrapper from '../CardWrapper';
 
 type THistory = TContractStore['contract_update_history'];
 

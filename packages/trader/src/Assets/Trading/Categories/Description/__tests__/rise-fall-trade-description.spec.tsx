@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+
 import RiseFallTradeDescription from '../rise-fall-trade-description';
 
 describe('<RiseFallTradeDescription />', () => {

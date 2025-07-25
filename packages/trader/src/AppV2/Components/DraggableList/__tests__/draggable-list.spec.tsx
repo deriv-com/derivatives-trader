@@ -1,7 +1,9 @@
 import React from 'react';
-import { screen, render, RenderResult } from '@testing-library/react';
+
+import { render, RenderResult, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import DraggableList, { TDraggableListProps, TDraggableListCategory } from '../draggable-list';
+
+import DraggableList, { TDraggableListCategory, TDraggableListProps } from '../draggable-list';
 
 jest.mock('react-beautiful-dnd', () => ({
     DragDropContext: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
