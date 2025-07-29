@@ -1,4 +1,4 @@
-name: AI Code Analysis
+name: AI Code Analysis Report
 
 on:
   # Allow calling from other repositories
@@ -45,12 +45,12 @@ jobs:
           const fs = require('fs');
           const path = require('path');
           
-          // Universal AI Block Detection - detects [AI] and [/AI] tags anywhere
+          // Universal AI Block Detection - detects [AI] regardless of comment syntax
           const AI_BLOCK_REGEXES = [
             {
               name: 'universal',
-              regex: /\[AI\]([\s\S]*?)\[\/AI\]/g,
-              description: 'Simple [AI] [/AI] detection ignoring comment syntax'
+              regex: /(\[AI\])([\s\S]*?)(\[\/AI\])/g,
+              description: 'Universal [AI] [/AI] detection regardless of comment style'
             }
           ];
           
@@ -74,8 +74,7 @@ jobs:
                 let match;
                 
                 while ((match = regex.exec(content)) !== null) {
-                  // New regex has only one capture group - the content between [AI] and [/AI]
-                  const codeContent = match[1] || '';
+                  const codeContent = match[2] || match[1] || '';
                   aiCharacters += codeContent.length;
                   
                   if (!regexDef.regex.global) break;
@@ -163,49 +162,28 @@ jobs:
             const results = JSON.parse(fs.readFileSync('ai_analysis_results.json', 'utf8'));
             
             // Helper functions for visual elements
-            function createProgressBar(percentage, width = 20) {
+            function createProgressBar(percentage, width = 15) {
               const filled = Math.round((percentage / 100) * width);
               const empty = width - filled;
-              const bar = '█'.repeat(filled) + '░'.repeat(empty);
               
-              let color = '📝'; // Manual Coding
-              if (percentage > 50) color = '⚡'; // Peak AI Efficiency
-              else if (percentage > 20) color = '🚀'; // Strong AI Productivity  
-              else if (percentage > 0) color = '🌱'; // AI-Assisted Development
+              // Use emoji blocks for consistent sizing
+              let filledEmoji = '🟥'; // Red for low usage
+              if (percentage >= 80) filledEmoji = '🟩';      // Green (80-100%)
+              else if (percentage >= 50) filledEmoji = '🟨'; // Yellow (50-79%)  
+              else if (percentage >= 21) filledEmoji = '🟧'; // Orange (21-49%)
               
-              return `${color} ${bar} ${percentage}%`;
+              // Create bar with consistent emoji blocks
+              const filledBar = filledEmoji.repeat(filled);
+              const emptyBar = '⬜'.repeat(empty);
+              const bar = filledBar + emptyBar;
+              
+              // Pad percentage to ensure consistent width
+              const paddedPercentage = percentage.toString().padStart(3, ' ');
+              
+              return `${bar} ${paddedPercentage}%`;
             }
             
-            function createMiniChart(files) {
-              if (files.length === 0) return '';
-              
-              const maxFiles = 10;
-              const displayFiles = files.slice(0, maxFiles);
-              
-              let chart = '```\n';
-              chart += 'AI Percentage by File:\n';
-              chart += '└─────────────────────────────────────────────────────────────┐\n';
-              
-              displayFiles.forEach((file, index) => {
-                const name = file.name.length > 25 ? '...' + file.name.slice(-22) : file.name;
-                const padding = ' '.repeat(Math.max(0, 25 - name.length));
-                const barLength = 30;
-                const filled = Math.round((file.percentage / 100) * barLength);
-                const bar = '█'.repeat(filled) + '░'.repeat(barLength - filled);
-                
-                chart += `  ${name}${padding} │${bar}│ ${file.percentage}%\n`;
-              });
-              
-              if (files.length > maxFiles) {
-                chart += `  ... and ${files.length - maxFiles} more files\n`;
-              }
-              
-              chart += '└─────────────────────────────────────────────────────────────┘\n';
-              chart += '```';
-              
-              return chart;
-            }
-            
+
             function getAILevelInfo(percentage) {
               if (percentage === 0) {
                 return {
@@ -218,21 +196,28 @@ jobs:
                 return {
                   emoji: '🌱',
                   level: 'AI-Assisted Development',
-                  description: `Great! ${percentage}% AI-generated code shows productive AI assistance.`,
+                  description: `${percentage}% AI-generated code shows some AI assistance in development.`,
                   color: '#28a745'
                 };
               } else if (percentage <= 50) {
                 return {
+                  emoji: '🔧',
+                  level: 'Moderate AI Usage', 
+                  description: `${percentage}% AI-generated code demonstrates moderate AI adoption.`,
+                  color: '#ffc107'
+                };
+              } else if (percentage <= 79) {
+                return {
                   emoji: '🚀',
-                  level: 'Strong AI Productivity', 
-                  description: `Excellent! ${percentage}% AI-generated code demonstrates high AI adoption.`,
+                  level: 'High AI Productivity',
+                  description: `Great! ${percentage}% AI-generated code shows high AI productivity.`,
                   color: '#17a2b8'
                 };
               } else {
                 return {
                   emoji: '⚡',
-                  level: 'Peak AI Efficiency',
-                  description: `Outstanding! ${percentage}% AI-generated code shows maximum productivity gains.`,
+                  level: 'Strong AI Application',
+                  description: `Outstanding! ${percentage}% AI-generated code demonstrates strong AI application.`,
                   color: '#007bff'
                 };
               }
@@ -253,7 +238,7 @@ jobs:
             </div>
             
             ---
-            <sub>🚀 Analysis powered by **ShiftAI** • [View Workflow](https://github.com/${{ github.repository }}/actions)</sub>`;
+            <sub>🚀 Analysis powered by **ShiftAI**</sub>`;
             } else {
               const aiInfo = getAILevelInfo(results.summary.percentage);
               
@@ -265,9 +250,9 @@ jobs:
             
             ${createProgressBar(results.summary.percentage, 25)}
             
-            </div>
-            
             **${results.summary.aiCharacters.toLocaleString()}** of **${results.summary.totalCharacters.toLocaleString()}** characters (${results.summary.percentage}%) are AI-generated
+            
+            </div>
             
             ---
             
@@ -292,16 +277,10 @@ jobs:
                 .sort((a, b) => b.percentage - a.percentage)
                 .forEach(file => {
                   const fileName = file.name.length > 40 ? '...' + file.name.slice(-37) : file.name;
-                  const progressBar = createProgressBar(file.percentage, 12);
+                  const progressBar = createProgressBar(file.percentage, 15);
                   
                   comment += `\n| \`${fileName}\` | ${file.totalCharacters} chars | ${file.aiCharacters} chars | ${progressBar} |`;
                 });
-            
-              // Add visual chart
-              if (results.files.length > 0) {
-                comment += `\n\n### 📊 Visual Breakdown\n\n`;
-                comment += createMiniChart(results.files);
-              }
               
               comment += `\n\n---\n\n`;
               comment += `<div align="center">\n\n`;
@@ -320,14 +299,39 @@ jobs:
               }, null, 2);
               comment += `\n\`\`\`\n\n</details>\n\n`;
               
-              comment += `---\n<sub>🚀 Analysis powered by **ShiftAI** • [View Workflow](https://github.com/${{ github.repository }}/actions) • Tracking AI code transparency</sub>`;
+              comment += `---\n<sub>🚀 Analysis powered by **ShiftAI**</sub>`;
             }
             
-            // Post the comment
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            // Check for existing AI analysis comment
+            const comments = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: comment
+              issue_number: context.issue.number
             });
+            
+            // Find existing AI analysis comment (look for the unique identifier)
+            const existingComment = comments.data.find(comment => 
+              comment.body.includes('🤖 AI Code Analysis') && 
+              comment.user.type === 'Bot'
+            );
+            
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: comment
+              });
+              console.log('✅ Updated existing AI analysis comment #' + existingComment.id);
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+              console.log('✅ Created new AI analysis comment');
+            }
             // [/AI]

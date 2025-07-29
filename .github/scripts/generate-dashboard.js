@@ -12,6 +12,26 @@ const fs = require('fs');
 function generateMarkdown(stats, analyses, repo) {
   const lastUpdate = new Date().toISOString().split('T')[0];
   
+  // Progress bar function for stats
+  function createStatsProgressBar(percentage) {
+    const width = 10;
+    const filled = Math.round((percentage / 100) * width);
+    const empty = width - filled;
+    
+    // Use emoji blocks for consistent sizing and colors
+    let filledEmoji = '🟥'; // Red for low usage
+    if (percentage >= 80) filledEmoji = '🟩';      // Green (80-100%)
+    else if (percentage >= 50) filledEmoji = '🟨'; // Yellow (50-79%)  
+    else if (percentage >= 21) filledEmoji = '🟧'; // Orange (21-49%)
+    
+    // Create bar with consistent emoji blocks
+    const filledBar = filledEmoji.repeat(filled);
+    const emptyBar = '⬜'.repeat(empty);
+    const bar = filledBar + emptyBar;
+    
+    return `${bar} ${percentage}%`;
+  }
+  
   return `# 🤖 AI Code Analysis Dashboard
 
 <div align="center">
@@ -27,8 +47,8 @@ function generateMarkdown(stats, analyses, repo) {
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | ${stats.totalMergedPRs} | **📈 Average AI Code** | ${stats.averageAiPercentage}% |
-| **🤖 PRs with AI Analysis** | ${stats.totalAnalyzedPRs} | **🎯 Overall AI Percentage** | ${Math.round((stats.totalAiCharacters / stats.totalCharacters) * 100) || 0}% |
+| **📁 Total Merged PRs** | ${stats.totalMergedPRs} | **📈 Average AI Code** | ${createStatsProgressBar(stats.averageAiPercentage)} |
+| **🤖 PRs with AI Analysis** | ${stats.totalAnalyzedPRs} | **🎯 Overall AI Percentage** | ${createStatsProgressBar(Math.round((stats.totalAiCharacters / stats.totalCharacters) * 100) || 0)} |
 | **📄 Files Analyzed** | ${stats.totalFiles.toLocaleString()} | **⚡ Total AI Characters** | ${stats.totalAiCharacters.toLocaleString()} |
 
 ---
@@ -41,60 +61,41 @@ ${analyses.length === 0 ? `
 
 ---
 ` : `
-## 📊 Recent Activity & Trends
+## 🚀 Recent Merged Pull Requests
 
-<details>
-<summary><strong>📈 Click to view trend analysis</strong></summary>
-
-### 🔥 Recent Activity (Last 30 Days)
-- **Recent PRs**: ${analyses.filter(a => {
-  const date = new Date(a.mergedAt || a.timestamp);
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-  return date > thirtyDaysAgo;
-}).length}
-- **Highest AI % (recent)**: ${Math.max(...analyses.slice(0, 10).map(a => a.summary ? a.summary.percentage : 0))}%
-- **Most active author**: ${(() => {
-  const authors = {};
-  analyses.forEach(a => authors[a.author] = (authors[a.author] || 0) + 1);
-  return Object.keys(authors).reduce((a, b) => authors[a] > authors[b] ? a : b, 'N/A');
-})()}
-
-### 🎯 AI Usage Distribution
-- **PRs with 0% AI**: ${analyses.filter(a => a.summary && a.summary.percentage === 0).length}
-- **PRs with >50% AI**: ${analyses.filter(a => a.summary && a.summary.percentage > 50).length}
-- **Total AI characters**: ${stats.totalAiCharacters.toLocaleString()}
-
-</details>
-
----
-
-## 🚀 Merged Pull Requests
-
-> 📊 AI code percentage for all merged PRs (newest first)
+> 📊 Showing the 10 most recent merged PRs (stats above include all ${analyses.length} PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
-|----|--------|------|-------|------------|------------|${analyses.slice(0, 50).map(analysis => {
+|----|--------|------|-------|------------|------------|${analyses.slice(0, 10).map(analysis => {
   const percentage = analysis.summary ? analysis.summary.percentage : 0;
   const date = new Date(analysis.mergedAt || analysis.timestamp).toLocaleDateString();
   const hasAnalysis = analysis.hasAnalysis !== false;
   
   // Create progress bar
   const createProgressBar = (pct) => {
-    const width = 20;
+    const width = 15;
     const filled = Math.round((pct / 100) * width);
     const empty = width - filled;
-    let emoji = '⚪';
-    if (pct > 50) emoji = '⚡';  // Peak AI Efficiency
-    else if (pct > 20) emoji = '🚀';  // Strong AI Productivity
-    else if (pct > 0) emoji = '🌱';   // AI-Assisted Development
-    else emoji = '📝';  // Manual Coding
     
-    return emoji + ' ' + '█'.repeat(filled) + '░'.repeat(empty) + ` ${pct}%`;
+    // Use emoji blocks for consistent sizing and colors
+    let filledEmoji = '🟥'; // Red for low usage
+    if (pct >= 80) filledEmoji = '🟩';      // Green (80-100%)
+    else if (pct >= 50) filledEmoji = '🟨'; // Yellow (50-79%)  
+    else if (pct >= 21) filledEmoji = '🟧'; // Orange (21-49%)
+    
+    // Create bar with consistent emoji blocks
+    const filledBar = filledEmoji.repeat(filled);
+    const emptyBar = '⬜'.repeat(empty);
+    const bar = filledBar + emptyBar;
+    
+    // Pad percentage to ensure consistent width
+    const paddedPercentage = pct.toString().padStart(3, ' ');
+    
+    return `${bar} ${paddedPercentage}%`;
   };
   
   return `
-| [#${analysis.pullRequest}](${analysis.prUrl}) **${analysis.prTitle}** ![MERGED](https://img.shields.io/badge/MERGED-28a745?style=flat-square) | [@${analysis.author}](https://github.com/${analysis.author}) | ${date} | ${hasAnalysis ? analysis.files.length : 'N/A'} | ${hasAnalysis ? (analysis.summary.aiCharacters || 0).toLocaleString() + ' / ' + (analysis.summary.totalCharacters || 0).toLocaleString() + ' chars' : 'No data'} | ${createProgressBar(percentage)} |`;
+| [#${analysis.pullRequest}](${analysis.prUrl}) **${analysis.prTitle}** | [@${analysis.author}](https://github.com/${analysis.author}) | ${date} | ${hasAnalysis ? analysis.files.length : 'N/A'} | ${hasAnalysis ? (analysis.summary.aiCharacters || 0).toLocaleString() + ' / ' + (analysis.summary.totalCharacters || 0).toLocaleString() + ' chars' : 'No data'} | ${createProgressBar(percentage)} |`;
 }).join('')}
 
 `}
@@ -136,9 +137,7 @@ AI vs Human Ratio:    ${Math.round((stats.totalAiCharacters / stats.totalCharact
 
 <div align="center">
 
-🚀 **Generated by ShiftAI** • [View Workflow](https://github.com/${repo}/actions) • [View Source](https://github.com/${repo})
-
-*Automatically tracks all PRs merged to main/master branch with AI code analysis data*
+🚀 **Generated by ShiftAI**
 
 </div>`;
 }

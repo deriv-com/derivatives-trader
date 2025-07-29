@@ -1,4 +1,4 @@
-name: Track Merged PRs with AI Analysis
+name: AI Analysis History Tracker
 
 on:
   # Allow calling from other repositories
@@ -14,9 +14,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  track-merged-pr:
+  update-ai-history:
     # Only run if PR was actually merged
-    # Note: pull_request_target ensures this runs on the target repo with write permissions
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     
@@ -260,30 +259,32 @@ jobs:
                 state: 'open'
               });
               
-              const prBody = `## 📊 AI Dashboard Update - Merged PRs Tracking
-
-🤖 This PR automatically tracks merged PRs and updates the AI Code Analysis Dashboard.
-
-### 🎯 Latest Merged PR:
-- **PR #${prNumber}**: ${prTitle}
-- **Author**: @${prAuthor}
-- **Merged**: ${new Date().toISOString()}
-
-### 📈 What's Updated:
-- \``.github/data/ai-analysis-history.json\`` - Historical tracking data
-- \`AI-DASHBOARD.md\` - Updated dashboard with latest statistics
-
-### 🔄 Auto-Update Details:
-- **Trigger**: PR merge event
-- **Branch**: Daily consolidation (${branchName})
-- **Multiple merges**: Updates accumulate in this single PR
-
-### 🎯 Next Steps:
-- Review the updated dashboard and historical data
-- Merge when ready to publish the latest AI analysis statistics
-
----
-*🤖 This PR consolidates multiple merged PR updates into a single daily update. New merges will update this same PR until it's merged.*`;
+              const prBody = [
+                '## 📊 AI Dashboard Update - Merged PRs Tracking',
+                '',
+                '🤖 This PR automatically tracks merged PRs and updates the AI Code Analysis Dashboard.',
+                '',
+                '### 🎯 Latest Merged PR:',
+                '- **PR #' + prNumber + '**: ' + prTitle,
+                '- **Author**: @' + prAuthor,
+                '- **Merged**: ' + new Date().toISOString(),
+                '',
+                '### 📈 What\'s Updated:',
+                '- `.github/data/ai-analysis-history.json` - Historical tracking data',
+                '- `AI-DASHBOARD.md` - Updated dashboard with latest statistics',
+                '',
+                '### 🔄 Auto-Update Details:',
+                '- **Trigger**: PR merge event',
+                '- **Branch**: Daily consolidation (' + branchName + ')',
+                '- **Multiple merges**: Updates accumulate in this single PR',
+                '',
+                '### 🎯 Next Steps:',
+                '- Review the updated dashboard and historical data',
+                '- Merge when ready to publish the latest AI analysis statistics',
+                '',
+                '---',
+                '*🤖 This PR consolidates multiple merged PR updates into a single daily update. New merges will update this same PR until it\'s merged.*'
+              ].join('\n');
 
               if (existingPRs.length > 0) {
                 // Update existing PR
@@ -295,23 +296,23 @@ jobs:
                   body: prBody
                 });
                 
-                console.log(\`✅ Updated existing dashboard PR #\${pr.number}: \${pr.html_url}\`);
-                console.log(\`📊 Added data for merged PR #\${prNumber}\`);
+                console.log('✅ Updated existing dashboard PR #' + pr.number + ': ' + pr.html_url);
+                console.log('📊 Added data for merged PR #' + prNumber);
                 
               } else {
                 // Create new PR
                 const { data: newPR } = await github.rest.pulls.create({
                   owner,
                   repo,
-                  title: \`📊 Dashboard Update - \${new Date().toISOString().split('T')[0]}\`,
+                  title: '📊 Dashboard Update - ' + new Date().toISOString().split('T')[0],
                   head: branchName,
                   base: 'master',
                   body: prBody,
                   draft: false
                 });
                 
-                console.log(\`✅ Created new dashboard PR #\${newPR.number}: \${newPR.html_url}\`);
-                console.log(\`📊 Tracking merged PR #\${prNumber}\`);
+                console.log('✅ Created new dashboard PR #' + newPR.number + ': ' + newPR.html_url);
+                console.log('📊 Tracking merged PR #' + prNumber);
               }
               
             } catch (error) {

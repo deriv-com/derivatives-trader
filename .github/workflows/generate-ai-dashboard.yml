@@ -1,4 +1,4 @@
-name: Generate AI Code Dashboard
+name: AI Metrics Dashboard
 
 on:
   # Allow calling from other repositories
@@ -11,9 +11,9 @@ on:
   # Allow manual trigger
   workflow_dispatch:
   
-  # Run when track-merged-prs workflow completes
+  # Run when AI history tracker workflow completes
   workflow_run:
-    workflows: ["Track Merged PRs with AI Analysis"]
+    workflows: ["AI Analysis History Tracker"]
     types:
       - completed
 
@@ -132,62 +132,24 @@ jobs:
                   owner,
                   repo,
                   pull_number: pr.number,
-                  body: `## 📊 AI Code Analysis Dashboard Update
-
-🤖 This is an automated update to the AI Code Analysis Dashboard with the latest merged PR data.
-
-### 📈 What's Updated:
-- Latest AI analysis statistics from merged PRs
-- Updated charts and visualizations
-- Historical data trends
-
-### 🔄 Auto-Update Details:
-- **Trigger**: ${context.eventName}
-- **Workflow**: ${context.workflow}
-- **Updated**: ${new Date().toISOString()}
-
-### 🎯 Next Steps:
-- Review the updated dashboard content
-- Merge when ready to publish the latest AI analysis data
-
----
-*🤖 This PR is automatically maintained by the AI Dashboard workflow. It will be updated when new PRs with AI analysis are merged.*`
+                  body: '## 📊 AI Code Analysis Dashboard Update\n\n🤖 This is an automated update to the AI Code Analysis Dashboard with the latest merged PR data.\n\n### 📈 What\'s Updated:\n- Latest AI analysis statistics from merged PRs\n- Updated charts and visualizations\n- Historical data trends\n\n### 🔄 Auto-Update Details:\n- **Trigger**: ' + context.eventName + '\n- **Workflow**: ' + context.workflow + '\n- **Updated**: ' + new Date().toISOString() + '\n\n### 🎯 Next Steps:\n- Review the updated dashboard content\n- Merge when ready to publish the latest AI analysis data\n\n---\n*🤖 This PR is automatically maintained by the AI Dashboard workflow. It will be updated when new PRs with AI analysis are merged.*'
                 });
                 
-                console.log(\`✅ Updated existing PR #\${pr.number}: \${pr.html_url}\`);
+                console.log('✅ Updated existing PR #' + pr.number + ': ' + pr.html_url);
                 
               } else {
                 // Create new PR
                 const { data: newPR } = await github.rest.pulls.create({
                   owner,
                   repo,
-                  title: \`📊 Update AI Code Analysis Dashboard - \${new Date().toISOString().split('T')[0]}\`,
+                  title: '📊 Update AI Code Analysis Dashboard - ' + new Date().toISOString().split('T')[0],
                   head: branchName,
                   base: 'master',
-                  body: \`## 📊 AI Code Analysis Dashboard Update
-
-🤖 This is an automated update to the AI Code Analysis Dashboard with the latest merged PR data.
-
-### 📈 What's Updated:
-- Latest AI analysis statistics from merged PRs  
-- Updated charts and visualizations
-- Historical data trends
-
-### 🔄 Auto-Update Details:
-- **Trigger**: \${context.eventName}
-- **Workflow**: \${context.workflow}
-- **Updated**: \${new Date().toISOString()}
-
-### 🎯 Next Steps:
-- Review the updated dashboard content
-- Merge when ready to publish the latest AI analysis data
-
----
-*🤖 This PR is automatically maintained by the AI Dashboard workflow. It will be updated when new PRs with AI analysis are merged.*\`,
+                  body: '## 📊 AI Code Analysis Dashboard Update\n\n🤖 This is an automated update to the AI Code Analysis Dashboard with the latest merged PR data.\n\n### 📈 What\'s Updated:\n- Latest AI analysis statistics from merged PRs\n- Updated charts and visualizations\n- Historical data trends\n\n### 🔄 Auto-Update Details:\n- **Trigger**: ' + context.eventName + '\n- **Workflow**: ' + context.workflow + '\n- **Updated**: ' + new Date().toISOString() + '\n\n### 🎯 Next Steps:\n- Review the updated dashboard content\n- Merge when ready to publish the latest AI analysis data\n\n---\n*🤖 This PR is automatically maintained by the AI Dashboard workflow. It will be updated when new PRs with AI analysis are merged.*',
                   draft: false
                 });
                 
-                console.log(\`✅ Created new PR #\${newPR.number}: \${newPR.html_url}\`);
+                console.log('✅ Created new PR #' + newPR.number + ': ' + newPR.html_url);
               }
               
             } catch (error) {
