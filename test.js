@@ -9,7 +9,7 @@ const malfunction  = () => {
 
 malfunction();
 
-// [AI]
+// [/AI]
 
 const human = () => {
     console.log("Human");
