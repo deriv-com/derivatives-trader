@@ -45,12 +45,12 @@ jobs:
           const fs = require('fs');
           const path = require('path');
           
-          // Universal AI Block Detection - detects [AI] regardless of comment syntax
+          // Universal AI Block Detection - detects [AI] and [/AI] tags anywhere
           const AI_BLOCK_REGEXES = [
             {
               name: 'universal',
-              regex: /(\b\[AI\])([\s\S]*?)(\[\/AI\]\b)/g,
-              description: 'Universal [AI] [/AI] detection regardless of comment style'
+              regex: /\[AI\]([\s\S]*?)\[\/AI\]/g,
+              description: 'Simple [AI] [/AI] detection ignoring comment syntax'
             }
           ];
           
@@ -74,7 +74,8 @@ jobs:
                 let match;
                 
                 while ((match = regex.exec(content)) !== null) {
-                  const codeContent = match[2] || match[1] || '';
+                  // New regex has only one capture group - the content between [AI] and [/AI]
+                  const codeContent = match[1] || '';
                   aiCharacters += codeContent.length;
                   
                   if (!regexDef.regex.global) break;
@@ -262,9 +263,9 @@ jobs:
             
             ### ${aiInfo.emoji} ${aiInfo.level}
             
-            </div>
-            
             ${createProgressBar(results.summary.percentage, 25)}
+            
+            </div>
             
             **${results.summary.aiCharacters.toLocaleString()}** of **${results.summary.totalCharacters.toLocaleString()}** characters (${results.summary.percentage}%) are AI-generated
             

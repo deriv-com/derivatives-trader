@@ -19,7 +19,7 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   generate-dashboard:
@@ -60,39 +60,152 @@ jobs:
         run: |
           node .github/scripts/generate-dashboard.js
 
-      - name: Commit dashboard
+      - name: Create/Update Dashboard PR
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
           # Check if dashboard file was created and has content
           if [ -f "AI-DASHBOARD.md" ] && [ -s "AI-DASHBOARD.md" ]; then
-            git add AI-DASHBOARD.md
             
-            # Only commit if there are changes
-            if ! git diff --staged --quiet; then
-              git commit -m "📊 Update AI Code Analysis Dashboard
-              
-              - Updated: $(date -u +"%Y-%m-%d %H:%M UTC")
-              - Workflow: ${{ github.workflow }}
-              - Trigger: ${{ github.event_name }}"
-              
-              git push
-              echo "✅ Dashboard updated and committed"
-            else
+            # Check if there are any changes
+            git add AI-DASHBOARD.md
+            if git diff --staged --quiet; then
               echo "ℹ️  No changes to dashboard"
+              exit 0
             fi
+            
+            # Define branch name
+            BRANCH_NAME="dashboard-update-$(date +%Y%m%d)"
+            
+            # Check if branch already exists locally
+            if git rev-parse --verify "$BRANCH_NAME" >/dev/null 2>&1; then
+              echo "📝 Switching to existing branch: $BRANCH_NAME"
+              git checkout "$BRANCH_NAME"
+              # Get latest changes from master
+              git merge origin/master --no-edit
+            else
+              echo "🌿 Creating new branch: $BRANCH_NAME"
+              git checkout -b "$BRANCH_NAME"
+            fi
+            
+            # Add and commit changes
+            git add AI-DASHBOARD.md
+            git commit -m "📊 Update AI Code Analysis Dashboard
+
+            - Updated: $(date -u +"%Y-%m-%d %H:%M UTC")
+            - Workflow: ${{ github.workflow }}
+            - Trigger: ${{ github.event_name }}
+            - Automated dashboard update with latest merged PR data"
+            
+            # Push to remote
+            git push origin "$BRANCH_NAME" --force
+            
+            echo "✅ Dashboard changes pushed to branch: $BRANCH_NAME"
+            echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+            
           else
             echo "❌ Dashboard file not generated or empty"
             exit 1
           fi
 
+      - name: Create or Update Pull Request
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const branchName = process.env.BRANCH_NAME;
+            const { owner, repo } = context.repo;
+            
+            // Check if PR already exists for this branch
+            try {
+              const { data: existingPRs } = await github.rest.pulls.list({
+                owner,
+                repo,
+                head: `${owner}:${branchName}`,
+                state: 'open'
+              });
+              
+              if (existingPRs.length > 0) {
+                // Update existing PR
+                const pr = existingPRs[0];
+                await github.rest.pulls.update({
+                  owner,
+                  repo,
+                  pull_number: pr.number,
+                  body: `## 📊 AI Code Analysis Dashboard Update
+
+🤖 This is an automated update to the AI Code Analysis Dashboard with the latest merged PR data.
+
+### 📈 What's Updated:
+- Latest AI analysis statistics from merged PRs
+- Updated charts and visualizations
+- Historical data trends
+
+### 🔄 Auto-Update Details:
+- **Trigger**: ${context.eventName}
+- **Workflow**: ${context.workflow}
+- **Updated**: ${new Date().toISOString()}
+
+### 🎯 Next Steps:
+- Review the updated dashboard content
+- Merge when ready to publish the latest AI analysis data
+
+---
+*🤖 This PR is automatically maintained by the AI Dashboard workflow. It will be updated when new PRs with AI analysis are merged.*`
+                });
+                
+                console.log(\`✅ Updated existing PR #\${pr.number}: \${pr.html_url}\`);
+                
+              } else {
+                // Create new PR
+                const { data: newPR } = await github.rest.pulls.create({
+                  owner,
+                  repo,
+                  title: \`📊 Update AI Code Analysis Dashboard - \${new Date().toISOString().split('T')[0]}\`,
+                  head: branchName,
+                  base: 'master',
+                  body: \`## 📊 AI Code Analysis Dashboard Update
+
+🤖 This is an automated update to the AI Code Analysis Dashboard with the latest merged PR data.
+
+### 📈 What's Updated:
+- Latest AI analysis statistics from merged PRs  
+- Updated charts and visualizations
+- Historical data trends
+
+### 🔄 Auto-Update Details:
+- **Trigger**: \${context.eventName}
+- **Workflow**: \${context.workflow}
+- **Updated**: \${new Date().toISOString()}
+
+### 🎯 Next Steps:
+- Review the updated dashboard content
+- Merge when ready to publish the latest AI analysis data
+
+---
+*🤖 This PR is automatically maintained by the AI Dashboard workflow. It will be updated when new PRs with AI analysis are merged.*\`,
+                  draft: false
+                });
+                
+                console.log(\`✅ Created new PR #\${newPR.number}: \${newPR.html_url}\`);
+              }
+              
+            } catch (error) {
+              console.error('Error managing PR:', error);
+              throw error;
+            }
+
       - name: Output dashboard info
         run: |
-          echo "📊 AI Code Analysis Dashboard generated!"
+          echo "📊 AI Code Analysis Dashboard updated!"
           echo ""
-          echo "🔗 View your dashboard:"
+          echo "🔄 Dashboard update process:"
+          echo "   • ✅ Generated updated dashboard"
+          echo "   • ✅ Created/updated PR with changes"  
+          echo "   • ⏳ Waiting for review and merge"
+          echo ""
+          echo "🔗 Once merged, view your dashboard:"
           echo "   • Direct link: https://github.com/${{ github.repository }}/blob/main/AI-DASHBOARD.md"
           echo "   • Mobile friendly: Open AI-DASHBOARD.md in GitHub mobile app"
           echo ""
-          echo "✨ The dashboard is now a beautiful Markdown file that GitHub renders natively!" 
+          echo "✨ The dashboard respects branch protection rules by using PRs!" 

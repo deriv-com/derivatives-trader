@@ -8,16 +8,13 @@ jobs:
   build_test_and_publish:
     name: Build, Test and Publish to Cloudflare Staging
     runs-on: ubuntu-latest
+    environment: Staging
     permissions:
       contents: read
       actions: write
-    environment: Staging
-    timeout-minutes: 30
-    outputs:
-      RELEASE_VERSION: ${{ steps.extract_version.outputs.RELEASE_VERSION }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
     - name: Setup Node
       uses: "./.github/actions/setup_node"
     - name: Install Dependencies
@@ -52,18 +49,8 @@ jobs:
       uses: "./.github/actions/versioning"
       with:
         release_type: staging
-    - name: Extract version
-      id: extract_version
-      run: echo "RELEASE_VERSION=${version}" >> $GITHUB_OUTPUT
     - name: Publish to Cloudflare Pages Staging
       uses: "./.github/actions/publish_to_pages_staging"
       with:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-    - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4
-      timeout-minutes: 3
-      with:
-        name: build
-        path: packages/core/dist
-        retention-days: 1
