@@ -1,0 +1,35 @@
+{
+  "lastUpdated": "2025-07-29T14:00:36.965Z",
+  "totalMergedPRs": 1,
+  "analyses": [
+    {
+      "timestamp": "2025-07-29T13:23:21.053Z",
+      "pullRequest": 37,
+      "branch": "fix-dashboard-pr-generator",
+      "author": "prince-deriv",
+      "files": [
+        {
+          "name": ".github/workflows/generate-ai-dashboard.yml",
+          "totalCharacters": 10899,
+          "aiCharacters": 0,
+          "percentage": 0
+        },
+        {
+          "name": ".github/workflows/track-merged-prs.yml",
+          "totalCharacters": 19543,
+          "aiCharacters": 0,
+          "percentage": 0
+        }
+      ],
+      "summary": {
+        "totalCharacters": 30442,
+        "aiCharacters": 0,
+        "percentage": 0
+      },
+      "prTitle": "Prince/ Fix Dashboard Workflow",
+      "prUrl": "https://github.com/deriv-com/derivatives-trader/pull/37",
+      "mergedAt": "2025-07-29T13:59:51Z",
+      "hasAnalysis": true
+    }
+  ]
+}

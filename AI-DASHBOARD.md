@@ -13,19 +13,21 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 0 | **📈 Average AI Code** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
-| **🤖 PRs with AI Analysis** | 0 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
-| **📄 Files Analyzed** | 0 | **⚡ Total AI Characters** | 0 |
+| **📁 Total Merged PRs** | 1 | **📈 Average AI Code** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
+| **🤖 PRs with AI Analysis** | 1 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
+| **📄 Files Analyzed** | 2 | **⚡ Total AI Characters** | 0 |
 
 ---
 
 
-## 📈 Ready to Track AI Code
+## 🚀 Recent Merged Pull Requests
 
-> 🚀 **Getting Started**: When you merge PRs with AI analysis, they'll appear here!  
-> 💡 Create a PR with `[AI]` wrapped code to get started.
+> 📊 Showing the 10 most recent merged PRs (stats above include all 1 PRs)
 
----
+| PR | Author | Date | Files | AI Content | Percentage |
+|----|--------|------|-------|------------|------------|
+| [#37](https://github.com/deriv-com/derivatives-trader/pull/37) **Prince/ Fix Dashboard Workflow** | [@prince-deriv](https://github.com/prince-deriv) | 7/29/2025 | 2 | 0 / 30,442 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+
 
 
 ---
@@ -37,15 +39,15 @@
 
 ```
 AI Percentage Distribution:
-No data available yet
+PR #37 Prince/ Fix Dashboard Workflow │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│ 0%
 ```
 
 ### 🎯 Summary Statistics
 
 ```
-Total Characters:     0
+Total Characters:     30,442
 AI Characters:        0
-Human Characters:     0
+Human Characters:     30,442
 
 AI vs Human Ratio:    0% : 100%
 ```
