@@ -60,6 +60,7 @@
     "scripts": {
         "serve": "f () { npm exec --workspace=@deriv/${1:-'*'} -- npm run serve $npm_config_open;}; f",
         "bootstrap": "npm ci --strict-peer-deps --verbose",
+        "bootstrap:ci": "npm ci --strict-peer-deps --verbose",
         "bootstrap:dev": "npm install --strict-peer-deps --verbose",
         "clean": "rm -rf node_modules && rm -rf packages/*/node_modules",
         "build:all": "npm run build --workspace=@deriv/components && npm run build --workspace=@deriv/trader && npm run --workspaces --if-present build",

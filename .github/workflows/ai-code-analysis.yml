@@ -4,8 +4,8 @@ on:
   # Allow calling from other repositories
   workflow_call:
   
-  # Also allow direct usage in this repo
-  pull_request:
+  # Use pull_request_target to allow comments on forked PRs
+  pull_request_target:
     types: [opened, synchronize, reopened]
 
 permissions:
@@ -21,6 +21,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
+          # For pull_request_target, checkout the PR head to analyze the actual changes
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
       - name: Setup Node.js

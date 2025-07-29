@@ -18,6 +18,7 @@ concurrency:
 jobs:
   release_issues:
     permissions: write-all
+    runs-on: ubuntu-latest
     # Reduced timeout from 10 hours to 2 hours, which should be sufficient
     timeout-minutes: 120
     steps:
