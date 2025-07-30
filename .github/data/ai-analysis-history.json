@@ -1,0 +1,21 @@
+{
+  "lastUpdated": "2025-07-30T12:19:40.594Z",
+  "totalMergedPRs": 1,
+  "analyses": [
+    {
+      "timestamp": "2025-07-30T12:19:40.548Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "49",
+      "branch": "simplify-workflow-automerge-pr",
+      "author": "prince-deriv",
+      "prTitle": "Prince/fix: auto merging of AI dashboard PR",
+      "hasAnalysis": false,
+      "summary": {
+        "percentage": 0,
+        "totalCharacters": 0,
+        "aiCharacters": 0
+      },
+      "files": []
+    }
+  ]
+}
