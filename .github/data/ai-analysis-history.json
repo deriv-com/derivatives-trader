@@ -1,0 +1,21 @@
+{
+  "lastUpdated": "2025-07-30T12:49:32.423Z",
+  "totalMergedPRs": 1,
+  "analyses": [
+    {
+      "timestamp": "2025-07-30T12:49:32.374Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "53",
+      "branch": "auto-merge-ai-dashboard",
+      "author": "prince-deriv",
+      "prTitle": "Prince/chore: add force merge for dashboard PR only",
+      "hasAnalysis": false,
+      "summary": {
+        "percentage": 0,
+        "totalCharacters": 0,
+        "aiCharacters": 0
+      },
+      "files": []
+    }
+  ]
+}
