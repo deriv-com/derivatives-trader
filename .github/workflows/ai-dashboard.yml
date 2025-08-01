@@ -19,6 +19,6 @@ permissions:
 
 jobs:
   call-dashboard-update:
-    uses: prince-deriv/shared-actions/.github/workflows/ai-dashboard.yml@master
+    uses: prince-deriv/shared-actions/.github/workflows/ai-dashboard.yml@add-shiftai-workflows
     secrets:
       SHIFTAI_TOKEN: ${{ secrets.SHIFTAI_TOKEN }} 
