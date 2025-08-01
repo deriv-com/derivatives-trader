@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-01 10:41:21 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-01 11:11:09 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,25 +13,18 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 6 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 5% |
-| **🤖 PRs with AI Analysis** | 4 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
+| **📁 Total Merged PRs** | 6 | **📈 Average AI Code** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
+| **🤖 PRs with AI Analysis** | 0 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
 | **📄 Files Analyzed** | 0 | **⚡ Total AI Characters** | 0 |
 
 ---
 
-## 🚀 Recent Merged Pull Requests
+## 📈 Ready to Track AI Code
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 6 PRs)
+> 🚀 **Getting Started**: When you merge PRs with AI analysis, they'll appear here!
+> 💡 Create a PR with `[AI]` wrapped code to get started.
 
-| PR | Author | Date | Files | AI Content | Percentage |
-|----|--------|------|-------|------------|------------|
-| [#76](#) **Prince/fix analyisis json different formats** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#74](#) **Prince/ testing ai dashboard** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | 🟥🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  19% |
-| [#72](#) **Prince/ retest dashboard workflow** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#70](#) **Prince/ clean up ai workflow files** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#59](#) **Prince/rename PR title and fix merging of data** | [@prince-deriv](https://github.com/prince-deriv) | 7/31/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#58](#) **Matin/Corrected CF Branch** | [@matin-deriv](https://github.com/matin-deriv) | 7/31/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-
+---
 ---
 
 <div align="center">
