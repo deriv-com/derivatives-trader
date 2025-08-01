@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-01T09:04:56.006Z",
-  "totalMergedPRs": 4,
+  "lastUpdated": "2025-08-01T09:12:05.574Z",
+  "totalMergedPRs": 5,
   "analyses": [
+    {
+      "percentage": 19,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": [],
+      "timestamp": "2025-08-01T09:12:05.527Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "74",
+      "branch": "test-ai-2",
+      "author": "prince-deriv",
+      "prTitle": "Prince/ testing ai dashboard",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 0,
