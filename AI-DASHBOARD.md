@@ -2,8 +2,8 @@
 
 <div align="center">
 
-**deriv-com/derivatives-trader**  
-📅 Last updated: 2025-07-31 • 🔄 Tracking merged PRs to main/master
+**deriv-com/derivatives-trader**
+📅 Last updated: 2025-08-01 10:41:21 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,48 +13,24 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 2 | **📈 Average AI Code** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
-| **🤖 PRs with AI Analysis** | 0 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
+| **📁 Total Merged PRs** | 6 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 5% |
+| **🤖 PRs with AI Analysis** | 4 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
 | **📄 Files Analyzed** | 0 | **⚡ Total AI Characters** | 0 |
 
 ---
 
-
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 2 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 6 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
-| [#59](undefined) **Prince/rename PR title and fix merging of data** | [@prince-deriv](https://github.com/prince-deriv) | 7/31/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#58](undefined) **Matin/Corrected CF Branch** | [@matin-deriv](https://github.com/matin-deriv) | 7/31/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-
-
-
----
-
-<details>
-<summary><strong>📊 View detailed visual breakdown</strong></summary>
-
-### 📈 AI Usage Chart
-
-```
-AI Percentage Distribution:
-PR #59 Prince/rename PR title and ... │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│ 0%
-PR #58 Matin/Corrected CF Branch      │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│ 0%
-```
-
-### 🎯 Summary Statistics
-
-```
-Total Characters:     0
-AI Characters:        0
-Human Characters:     0
-
-AI vs Human Ratio:    0% : 100%
-```
-
-</details>
+| [#76](#) **Prince/fix analyisis json different formats** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+| [#74](#) **Prince/ testing ai dashboard** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | 🟥🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  19% |
+| [#72](#) **Prince/ retest dashboard workflow** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+| [#70](#) **Prince/ clean up ai workflow files** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+| [#59](#) **Prince/rename PR title and fix merging of data** | [@prince-deriv](https://github.com/prince-deriv) | 7/31/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+| [#58](#) **Matin/Corrected CF Branch** | [@matin-deriv](https://github.com/matin-deriv) | 7/31/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
