@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-01 12:25:01 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-01 12:41:19 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 1 | **📈 Average AI Code** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
-| **🤖 PRs with AI Analysis** | 1 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
-| **📄 Files Analyzed** | 0 | **⚡ Total AI Characters** | 0 |
+| **📁 Total Merged PRs** | 2 | **📈 Average AI Code** | 🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜ 36% |
+| **🤖 PRs with AI Analysis** | 2 | **🎯 Overall AI Percentage** | 🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜ 72% |
+| **📄 Files Analyzed** | 2 | **⚡ Total AI Characters** | 69 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 1 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 2 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#85](#) **Prince/ added AI markers** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 2 | 69 / 96 chars | 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  72% |
 | [#83](#) **Prince/ empty commit to trigger workflows** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
