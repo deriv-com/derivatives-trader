@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-07-31T07:12:34.834Z",
-  "totalMergedPRs": 2,
+  "lastUpdated": "2025-08-01T08:54:28.527Z",
+  "totalMergedPRs": 3,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": [],
+      "timestamp": "2025-08-01T08:54:28.480Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "70",
+      "branch": "clean-up-ai-workflows",
+      "author": "prince-deriv",
+      "prTitle": "Prince/ clean up ai workflow files",
+      "hasAnalysis": true
+    },
     {
       "timestamp": "2025-07-31T07:12:34.783Z",
       "repository": "deriv-com/derivatives-trader",
