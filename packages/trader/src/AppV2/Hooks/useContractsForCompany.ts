@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 
 import { cloneObject, getContractCategoriesConfig, getContractTypesConfig, setTradeURLParams } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
+import { useQuery } from '@deriv/api';
 
 import { isLoginidDefined } from 'AppV2/Utils/client';
 import { checkContractTypePrefix } from 'AppV2/Utils/contract-type';
@@ -9,8 +10,6 @@ import { getTradeTypesList } from 'AppV2/Utils/trade-types-utils';
 import { TContractType } from 'Modules/Trading/Components/Form/ContractType/types';
 import { useTraderStore } from 'Stores/useTraderStores';
 import { TConfig, TContractTypesList } from 'Types';
-
-import { useDtraderQuery } from './useDtraderQuery';
 
 type TContractsForResponse = {
     contracts_for: {
@@ -75,16 +74,17 @@ const useContractsForCompany = () => {
     const {
         data: response,
         error,
-        is_fetching,
-    } = useDtraderQuery<TContractsForResponse>(
-        ['contracts_for', loginid ?? '', underlying_symbol],
-        {
+        isLoading: is_fetching,
+    } = useQuery('contracts_for', {
+        payload: {
             contracts_for: underlying_symbol, // Use underlying_symbol from active_symbols lookup
         },
-        {
+        options: {
             enabled: isQueryEnabled(),
-        }
-    );
+            staleTime: 10 * 60 * 1000, // 10 minutes - contracts don't change frequently
+            refetchOnWindowFocus: false,
+        },
+    });
 
     const contract_categories = getContractCategoriesConfig();
     const available_categories = cloneObject(contract_categories);
@@ -144,12 +144,13 @@ const useContractsForCompany = () => {
 
     useEffect(() => {
         try {
-            const { contracts_for } = response || {};
+            // The API package's response structure: response.contracts_for contains the data
+            const contracts_for = response?.contracts_for;
             const available_contract_types: ReturnType<typeof getContractTypesConfig> = {};
             is_fetching_ref.current = false;
 
-            if (!error && contracts_for?.available.length) {
-                contracts_for.available.forEach(contract => {
+            if (!error && contracts_for?.available?.length) {
+                contracts_for.available.forEach((contract: any) => {
                     const type = Object.keys(contract_types).find(
                         key =>
                             contract_types[key].trade_types.indexOf(contract.contract_type) !== -1 &&

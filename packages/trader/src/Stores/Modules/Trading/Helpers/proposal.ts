@@ -9,7 +9,7 @@ import {
     toMoment,
     TRADE_TYPES,
 } from '@deriv/shared';
-
+import { TContractType } from '@deriv/api';
 import { TError, TTradeStore } from 'Types';
 
 type TObjContractBasis = {
@@ -136,7 +136,7 @@ export const createProposalRequests = (store: TTradeStore) => {
     const requests = {} as Record<string, ReturnType<typeof createProposalRequestForContract>>;
 
     Object.keys(store.trade_types).forEach(type => {
-        const new_req = createProposalRequestForContract(store, type);
+        const new_req = createProposalRequestForContract(store, type as TContractType);
         requests[type] = new_req;
     });
 
@@ -168,7 +168,7 @@ const setProposalAccumulator = (store: TTradeStore, obj_accumulator: TObjAccum) 
     }
 };
 
-export const createProposalRequestForContract = (store: TTradeStore, type_of_contract: string) => {
+export const createProposalRequestForContract = (store: TTradeStore, type_of_contract: TContractType) => {
     const obj_accumulator: TObjAccum = {};
     const obj_expiry: TObjExpiry = {};
     const obj_multiplier: TObjMultiplier = {};
@@ -195,7 +195,7 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
         proposal: 1,
         subscribe: 1,
         amount: parseFloat(store.amount.toString()) || 0,
-        basis: store.basis,
+        basis: store.basis as 'stake' | 'payout',
         contract_type: type_of_contract,
         currency: store.currency,
         underlying_symbol: store.symbol,
@@ -209,9 +209,10 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
         ...((store.barrier_count > 0 || store.form_components.indexOf('last_digit') !== -1) &&
             !isAccumulatorContract(type_of_contract) &&
             !isTurbosContract(type_of_contract) && {
-                barrier: store.barrier || store.barrier_1 || store.last_digit,
+                barrier: String(store.barrier || store.barrier_1 || store.last_digit),
             }),
-        ...(store.barrier_count === 2 && !isAccumulatorContract(type_of_contract) && { barrier2: store.barrier_2 }),
+        ...(store.barrier_count === 2 &&
+            !isAccumulatorContract(type_of_contract) && { barrier2: String(store.barrier_2) }),
         ...(isTurbosContract(type_of_contract) && {
             payout_per_point: store.payout_per_point || store.last_digit,
         }),

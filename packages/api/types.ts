@@ -233,6 +233,48 @@ import type {
 import type { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 /**
+ * Valid contract types for API requests
+ */
+export type TContractType =
+    | 'ACCU'
+    | 'ASIANU'
+    | 'ASIAND'
+    | 'CALL'
+    | 'CALLE'
+    | 'CALLSPREAD'
+    | 'PUTSPREAD'
+    | 'EXPIRYRANGE'
+    | 'EXPIRYMISS'
+    | 'DIGITODD'
+    | 'DIGITEVEN'
+    | 'EXPIRYRANGEE'
+    | 'LBHIGHLOW'
+    | 'LBFLOATCALL'
+    | 'LBFLOATPUT'
+    | 'DIGITDIFF'
+    | 'DIGITMATCH'
+    | 'MULTUP'
+    | 'MULTDOWN'
+    | 'DIGITOVER'
+    | 'DIGITUNDER'
+    | 'PUT'
+    | 'PUTE'
+    | 'RESETCALL'
+    | 'RESETPUT'
+    | 'RUNHIGH'
+    | 'RUNLOW'
+    | 'RANGE'
+    | 'UPORDOWN'
+    | 'TICKHIGH'
+    | 'TICKLOW'
+    | 'ONETOUCH'
+    | 'NOTOUCH'
+    | 'TURBOSLONG'
+    | 'TURBOSSHORT'
+    | 'VANILLALONGCALL'
+    | 'VANILLALONGPUT';
+
+/**
  * Proof of Identity (POI) and Proof of Address (POA) authentication status details.
  */
 type KycAuthStatus = {
@@ -2923,7 +2965,10 @@ type TSocketEndpoints = {
         response: PriceProposalOpenContractsResponse;
     };
     proposal: {
-        request: PriceProposalRequest;
+        request: Omit<PriceProposalRequest, 'symbol'> & {
+            // TODO: Remove this after fixing the API types
+            underlying_symbol: string;
+        };
         response: PriceProposalResponse;
     };
     reality_check: {
@@ -3069,6 +3114,9 @@ export type TSocketError<T extends TSocketEndpointNames> = {
     error: {
         code: string;
         message: string;
+        details?: {
+            [k: string]: unknown;
+        };
     };
     /**
      * Action name of the request made.

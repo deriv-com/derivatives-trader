@@ -1,25 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { ActiveSymbols, ActiveSymbolsResponse } from '@deriv/api-types';
-import {
-    CONTRACT_TYPES,
-    getContractTypesConfig,
-    isTurbosContract,
-    isVanillaContract,
-    TRADE_TYPES,
-} from '@deriv/shared';
+import { ActiveSymbols } from '@deriv/api-types';
+import { CONTRACT_TYPES, getContractTypesConfig } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
-
+import { useQuery, TContractType } from '@deriv/api';
 import { useTraderStore } from 'Stores/useTraderStores';
-
-import useContractsForCompany from './useContractsForCompany';
-import { useDtraderQuery } from './useDtraderQuery';
 
 const useActiveSymbols = () => {
     const { client, common } = useStore();
-    const { loginid, is_switching } = client;
-    const { showError, current_language } = common;
+    const { is_switching } = client;
+    const { showError } = common;
     const {
         active_symbols: symbols_from_store,
         contract_type,
@@ -28,12 +19,6 @@ const useActiveSymbols = () => {
         setActiveSymbolsV2,
     } = useTraderStore();
     const [activeSymbols, setActiveSymbols] = useState<ActiveSymbols | []>(symbols_from_store);
-
-    const trade_types_with_barrier_category = [
-        TRADE_TYPES.RISE_FALL,
-        TRADE_TYPES.RISE_FALL_EQUAL,
-        TRADE_TYPES.HIGH_LOW,
-    ] as string[];
 
     const getContractTypesList = () => {
         if (is_turbos) return [CONTRACT_TYPES.TURBOS.LONG, CONTRACT_TYPES.TURBOS.SHORT];
@@ -50,30 +35,31 @@ const useActiveSymbols = () => {
         return true;
     }, [is_switching]);
 
-    const getContractType = () => {
-        if (isTurbosContract(contract_type)) {
-            return 'turbos';
-        } else if (isVanillaContract(contract_type)) {
-            return 'vanilla';
-        }
-        return contract_type;
-    };
-
-    const { data: response, error: queryError } = useDtraderQuery<ActiveSymbolsResponse>(
-        ['active_symbols', loginid ?? '', getContractType(), current_language],
-        {
-            active_symbols: 'brief',
-            contract_type: getContractTypesList(),
+    const {
+        data: response,
+        error: queryError,
+        isLoading,
+    } = useQuery('active_symbols', {
+        payload: {
+            active_symbols: 'brief' as const,
+            contract_type: getContractTypesList() as TContractType[], // Type assertion needed for contract type array
         },
-        {
+        options: {
             enabled: isQueryEnabled(),
-        }
-    );
+            staleTime: 5 * 60 * 1000, // 5 minutes - active symbols don't change frequently
+            refetchOnWindowFocus: false,
+        },
+    });
 
-    // Handle query errors
+    // Handle query errors (includes both network errors and API errors)
     useEffect(() => {
         if (queryError) {
-            showError({ message: localize('Failed to load market data. Please refresh the page.') });
+            // Check if it's an API error or network error
+            if (queryError.error) {
+                showError({ message: localize('Trading is unavailable at this time.') });
+            } else {
+                showError({ message: localize('Failed to load market data. Please refresh the page.') });
+            }
         }
     }, [queryError, showError]);
 
@@ -82,10 +68,10 @@ const useActiveSymbols = () => {
             const process = async () => {
                 if (!response) return;
 
-                const { active_symbols = [], error } = response;
-                if (error) {
-                    showError({ message: localize('Trading is unavailable at this time.') });
-                } else if (!active_symbols?.length) {
+                // The API package's response structure: response.active_symbols contains the data
+                const active_symbols = response.active_symbols || [];
+
+                if (!active_symbols?.length) {
                     setActiveSymbols([]);
                 } else {
                     setActiveSymbols(active_symbols);
@@ -98,7 +84,7 @@ const useActiveSymbols = () => {
         [response]
     );
 
-    return { activeSymbols };
+    return { activeSymbols, isLoading };
 };
 
 export default useActiveSymbols;

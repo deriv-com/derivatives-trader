@@ -18,3 +18,5 @@ export {
     /** @deprecated use `useMutation` instead */
     useMutation as useRequest,
 };
+
+export type { TContractType } from '../types';
