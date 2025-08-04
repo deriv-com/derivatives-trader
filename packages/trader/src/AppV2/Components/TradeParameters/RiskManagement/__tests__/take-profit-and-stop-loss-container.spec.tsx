@@ -9,6 +9,15 @@ import ModulesProvider from 'Stores/Providers/modules-providers';
 import TraderProviders from '../../../../../trader-providers';
 import TakeProfitAndStopLossContainer from '../take-profit-and-stop-loss-container';
 
+// Mock the API hooks
+jest.mock('@deriv/api', () => ({
+    useQuery: jest.fn(() => ({
+        data: undefined,
+        error: null,
+        isLoading: false,
+    })),
+}));
+
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
     WS: {

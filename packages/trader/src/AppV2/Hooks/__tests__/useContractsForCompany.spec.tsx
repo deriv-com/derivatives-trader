@@ -7,7 +7,6 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import TraderProviders from '../../../trader-providers';
 import useContractsForCompany from '../useContractsForCompany';
-import { invalidateDTraderCache } from '../useDtraderQuery';
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
@@ -62,7 +61,7 @@ describe('useContractsForCompany', () => {
     });
 
     afterEach(() => {
-        invalidateDTraderCache(['contracts_for', mocked_store.client.loginid ?? '', mocked_store.modules.trade.symbol]);
+        jest.clearAllMocks();
     });
 
     it('should fetch and set contract types for the company successfully', async () => {

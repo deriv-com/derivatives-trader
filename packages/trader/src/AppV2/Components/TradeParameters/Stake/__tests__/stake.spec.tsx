@@ -5,7 +5,7 @@ import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
+import useProposal from 'AppV2/Hooks/useProposal';
 import ModulesProvider from 'Stores/Providers/modules-providers';
 
 import TraderProviders from '../../../../../trader-providers';
@@ -42,13 +42,14 @@ jest.mock('@deriv/shared', () => ({
         },
     },
 }));
-jest.mock('AppV2/Hooks/useDtraderQuery', () => ({
-    ...jest.requireActual('AppV2/Hooks/useDtraderQuery'),
-    useDtraderQuery: jest.fn(() => ({
+jest.mock('AppV2/Hooks/useProposal', () => ({
+    __esModule: true,
+    default: jest.fn(() => ({
         data: {
             proposal: {},
-            error: {},
         },
+        error: null,
+        isLoading: false,
     })),
 }));
 
@@ -219,11 +220,15 @@ describe('Stake', () => {
             CALL: { has_error: true, message: error_text, error_field: 'amount' },
         };
 
-        (useDtraderQuery as jest.Mock).mockReturnValue({
-            data: {
-                error: { has_error: true, message: error_text, details: { error_field: 'amount' } },
-                proposal: {},
+        (useProposal as jest.Mock).mockReturnValue({
+            data: null,
+            error: {
+                error: {
+                    message: error_text,
+                    details: { field: 'amount' },
+                },
             },
+            isLoading: false,
         });
         render(<MockedStake />);
 
