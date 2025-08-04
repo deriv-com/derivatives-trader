@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-03 06:09:04 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-04 06:53:01 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,7 +13,7 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 2 | **📈 Average AI Code** | 🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜ 36% |
+| **📁 Total Merged PRs** | 3 | **📈 Average AI Code** | 🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜ 36% |
 | **🤖 PRs with AI Analysis** | 2 | **🎯 Overall AI Percentage** | 🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜ 72% |
 | **📄 Files Analyzed** | 2 | **⚡ Total AI Characters** | 69 |
 
@@ -21,10 +21,11 @@
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 2 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 3 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#4](#) **build(deps): bump @babel/runtime from 7.26.7 to 7.27.6** | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#85](#) **Prince/ added AI markers** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 2 | 69 / 96 chars | 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  72% |
 | [#83](#) **Prince/ empty commit to trigger workflows** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 

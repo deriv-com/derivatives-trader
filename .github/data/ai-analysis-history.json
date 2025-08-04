@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-01T12:41:18.961Z",
-  "totalMergedPRs": 2,
+  "lastUpdated": "2025-08-04T06:53:01.798Z",
+  "totalMergedPRs": 3,
   "analyses": [
+    {
+      "timestamp": "2025-08-04T06:53:01.752Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "4",
+      "branch": "dependabot/npm_and_yarn/babel/runtime-7.27.6",
+      "author": "dependabot[bot]",
+      "prTitle": "build(deps): bump @babel/runtime from 7.26.7 to 7.27.6",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "percentage": 72,
       "totalCharacters": 96,
