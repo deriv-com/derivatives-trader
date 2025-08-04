@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-04T06:54:33.054Z",
-  "totalMergedPRs": 4,
+  "lastUpdated": "2025-08-04T07:15:35.613Z",
+  "totalMergedPRs": 5,
   "analyses": [
+    {
+      "timestamp": "2025-08-04T07:15:35.564Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "1",
+      "branch": "dependabot/npm_and_yarn/webpack-dev-server-5.2.1",
+      "author": "dependabot[bot]",
+      "prTitle": "build(deps-dev): bump webpack-dev-server from 5.2.0 to 5.2.1",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "timestamp": "2025-08-04T06:54:33.001Z",
       "repository": "deriv-com/derivatives-trader",
