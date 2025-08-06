@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-04 07:15:35 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-06 02:18:36 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -11,25 +11,26 @@
 
 ## 📊 Quick Stats
 
-| Metric                      | Value | Metric                       | Value                    |
-| --------------------------- | ----- | ---------------------------- | ------------------------ |
-| **📁 Total Merged PRs**     | 5     | **📈 Average AI Code**       | 🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜ 36% |
-| **🤖 PRs with AI Analysis** | 2     | **🎯 Overall AI Percentage** | 🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜ 72% |
-| **📄 Files Analyzed**       | 2     | **⚡ Total AI Characters**   | 69                       |
+| Metric | Value | Metric | Value |
+|--------|-------|--------|-------|
+| **📁 Total Merged PRs** | 6 | **📈 Average AI Code** | 🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜ 24% |
+| **🤖 PRs with AI Analysis** | 3 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 1% |
+| **📄 Files Analyzed** | 26 | **⚡ Total AI Characters** | 69 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 5 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 6 PRs)
 
-| PR                                                                       | Author                                                 | Date     | Files | AI Content    | Percentage                         |
-| ------------------------------------------------------------------------ | ------------------------------------------------------ | -------- | ----- | ------------- | ---------------------------------- |
-| [#1](#) **build(deps-dev): bump webpack-dev-server from 5.2.0 to 5.2.1** | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A   | No data       | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0%  |
-| [#3](#) **build(deps): bump @babel/helpers from 7.26.7 to 7.27.6**       | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A   | No data       | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0%  |
-| [#4](#) **build(deps): bump @babel/runtime from 7.26.7 to 7.27.6**       | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A   | No data       | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0%  |
-| [#85](#) **Prince/ added AI markers**                                    | [@prince-deriv](https://github.com/prince-deriv)       | 8/1/2025 | 2     | 69 / 96 chars | 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜ 72% |
-| [#83](#) **Prince/ empty commit to trigger workflows**                   | [@prince-deriv](https://github.com/prince-deriv)       | 8/1/2025 | 0     | 0 / 0 chars   | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0%  |
+| PR | Author | Date | Files | AI Content | Percentage |
+|----|--------|------|-------|------------|------------|
+| [#94](#) **fix: migrate API field usage for proposal_open_contract changes** | [@jim-deriv](https://github.com/jim-deriv) | 8/6/2025 | 24 | 0 / 13,107 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+| [#1](#) **build(deps-dev): bump webpack-dev-server from 5.2.0 to 5.2.1** | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+| [#3](#) **build(deps): bump @babel/helpers from 7.26.7 to 7.27.6** | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+| [#4](#) **build(deps): bump @babel/runtime from 7.26.7 to 7.27.6** | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
+| [#85](#) **Prince/ added AI markers** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 2 | 69 / 96 chars | 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  72% |
+| [#83](#) **Prince/ empty commit to trigger workflows** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 

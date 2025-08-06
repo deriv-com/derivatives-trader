@@ -1,7 +1,189 @@
 {
-  "lastUpdated": "2025-08-04T07:15:35.613Z",
-  "totalMergedPRs": 5,
+  "lastUpdated": "2025-08-06T02:18:36.773Z",
+  "totalMergedPRs": 6,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 13107,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "AI-DASHBOARD.md",
+          "totalCharacters": 1864,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "| Metric                      | Value | Metric                       | Value                    |\n| --------------------------- | ----- | ---------------------------- | ------------------------ |\n| **..."
+        },
+        {
+          "name": "packages/components/src/components/positions-drawer-card/positions-drawer-card.tsx",
+          "totalCharacters": 408,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // @ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update\n    const is_crypto = isCryptoContract(contract_info?.underlying_symbol || '');\n    const effective_und..."
+        },
+        {
+          "name": "packages/core/src/Stores/Helpers/chart-marker-helpers.js",
+          "totalCharacters": 719,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // Backward compatibility: fallback to entry_tick_time if entry_spot_time is not available\n    const entry_spot_time = contract_info.entry_spot_time || contract_info.entry_tick_time;\n    if (!entr..."
+        },
+        {
+          "name": "packages/core/src/Stores/Helpers/chart-markers.js",
+          "totalCharacters": 1762,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const { tick_stream: ticks } = contract_info || {};\n        // Backward compatibility: fallback to old field name\n        const exit_spot_time = contract_info.exit_spot_time || contract_info.e..."
+        },
+        {
+          "name": "packages/core/src/Stores/contract-trade-store.js",
+          "totalCharacters": 866,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            .filter(c => {\n                // Backward compatibility: fallback to old field name\n                const contract_underlying = c.contract_info.underlying_symbol || c.contract_info.underl..."
+        },
+        {
+          "name": "packages/core/src/Stores/notification-store.js",
+          "totalCharacters": 229,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            // Backward compatibility: fallback to old field name\n            symbol: getMarketName(\n                (contract_info.underlying_symbol || underlying) ?? extractInfoFromShortcode(shortco..."
+        },
+        {
+          "name": "packages/core/src/Stores/portfolio-store.js",
+          "totalCharacters": 464,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        contract_info.exit_spot_time = contract_info.date_expiry;\n        this.positions[i].sell_time = getEndTime(contract_response) || contract_response.current_spot_time; // same as exit_spot, use ..."
+        },
+        {
+          "name": "packages/reports/src/Constants/data-table-constants.tsx",
+          "totalCharacters": 286,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            if (!row_obj.contract_info) return '-';\n\n            // Backward compatibility: fallback to old field name\n            const contract_underlying = row_obj.contract_info.underlying_symbol |..."
+        },
+        {
+          "name": "packages/reports/src/Containers/mobile-row-renderer.tsx",
+          "totalCharacters": 67,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    }, [row.contract_info?.underlying_symbol, measure, is_footer]);"
+        },
+        {
+          "name": "packages/shared/src/utils/contract/contract.tsx",
+          "totalCharacters": 556,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "export const getContractStatus = (contract_info: TContractInfo) => {\n    // Backward compatibility: handle both old and new field names\n    // @ts-expect-error - exit_spot_time exists in runtime but n..."
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/logic.ts",
+          "totalCharacters": 927,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // @ts-expect-error - exit_spot_time exists in runtime but not in type definition\n        exit_spot_time,\n        Number(date_expiry) > Number(exit_spot_time) && !normalizedIsPathDependent ? d..."
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/ContractAudit/contract-details.tsx",
+          "totalCharacters": 478,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed\n        entry_spot_time,\n        // @ts-expect-error contract_info is not typed cor..."
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/ContractDrawer/contract-drawer-card.tsx",
+          "totalCharacters": 316,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // Backward compatibility: fallback to old field name\n        // @ts-expect-error - underlying_symbol exists in runtime but not in type definition\n        const contract_underlying = contract_..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/CurrentSpot/current-spot.tsx",
+          "totalCharacters": 339,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    //\n    const { contract_id, entry_tick, date_start, contract_type, tick_stream } = contract_info;\n    // Backward compatibility: fallback to old field name\n    //@ts-expect-error TContractInfo has..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/EntryExitDetails/entry-exit-details.tsx",
+          "totalCharacters": 454,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        //@ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed\n        entry_spot_time,\n        // @ts-expect-error contract_info is not typed corr..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/PurchaseButton/purchase-button.tsx",
+          "totalCharacters": 896,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            !!active_positions.find(({ contract_info, type }) => {\n                // Backward compatibility: fallback to old field name\n                // @ts-expect-error - underlying_symbol exists ..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Hooks/useOrderDetails.ts",
+          "totalCharacters": 161,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            (isResetContract(data.contract_type)\n                ? addComma(data.entry_spot?.toString() || '')\n                : getBarrierValue(data)) || ' - ',"
+        },
+        {
+          "name": "packages/trader/src/Modules/Contract/Components/Digits/digits.tsx",
+          "totalCharacters": 333,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // Backward compatibility: fallback to old field name\n        // @ts-expect-error - underlying_symbol exists in runtime but not in type definition\n        const contract_underlying = contract_..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Contract/Containers/replay-chart.tsx",
+          "totalCharacters": 309,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // Backward compatibility: fallback to old field name\n        //@ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update\n        const symbol = contract_info.u..."
+        },
+        {
+          "name": "packages/trader/src/Modules/SmartChart/Components/Markers/accumulators-chart-elements.tsx",
+          "totalCharacters": 495,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const accumulators_positions = all_positions.filter(({ contract_info }) => {\n        if (!contract_info) return false;\n\n        // Backward compatibility: fallback to old field name\n        // @ts..."
+        },
+        {
+          "name": "packages/trader/src/Modules/SmartChart/Components/Markers/accumulators-profit-loss-tooltip.tsx",
+          "totalCharacters": 264,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed\n    exit_spot_time,\n            if (exit_spot_time && exit_tick) {\n                    ..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Containers/purchase.tsx",
+          "totalCharacters": 452,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        ? all_positions.find(({ contract_info, type }) => {\n              // Backward compatibility: fallback to old field name\n              // @ts-expect-error - underlying_symbol exists in runtime ..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/proposal.ts",
+          "totalCharacters": 211,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // display_value property has been removed from the API\n    // Using ask_price as fallback since display_value is no longer provided\n    const stake = proposal.ask_price ? proposal.ask_price.toStr..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/trade-store.ts",
+          "totalCharacters": 251,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                ({ contract_info, type }) =>\n                    //@ts-expect-error TContractInfo has an invalid type. This will be fixed in the future.\n                    isAccumulatorContract(type)..."
+        }
+      ],
+      "timestamp": "2025-08-06T02:18:36.726Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "94",
+      "branch": "jim/fix-markers-1",
+      "author": "jim-deriv",
+      "prTitle": "fix: migrate API field usage for proposal_open_contract changes",
+      "hasAnalysis": true
+    },
     {
       "timestamp": "2025-08-04T07:15:35.564Z",
       "repository": "deriv-com/derivatives-trader",
