@@ -1,7 +1,28 @@
 {
-  "lastUpdated": "2025-08-06T08:13:11.935Z",
-  "totalMergedPRs": 8,
+  "lastUpdated": "2025-08-06T08:23:55.371Z",
+  "totalMergedPRs": 9,
   "analyses": [
+    {
+      "percentage": 98,
+      "totalCharacters": 707,
+      "aiCharacters": 695,
+      "files": [
+        {
+          "name": "fibonacci.js",
+          "totalCharacters": 707,
+          "aiCharacters": 695,
+          "percentage": 98,
+          "addedContent": "// [AI]\nfunction fibonacci(n) {\n    if (n <= 0) return [];\n    if (n === 1) return [0];\n    if (n === 2) return [0, 1];\n    \n    const sequence = [0, 1];\n    for (let i = 2; i < n; i++) {\n        sequ..."
+        }
+      ],
+      "timestamp": "2025-08-06T08:23:55.325Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "101",
+      "branch": "test-official-workflows",
+      "author": "prince-deriv",
+      "prTitle": "Prince/ testing official workflows",
+      "hasAnalysis": true
+    },
     {
       "percentage": 87,
       "totalCharacters": 257,
