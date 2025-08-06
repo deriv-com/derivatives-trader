@@ -1,7 +1,196 @@
 {
-  "lastUpdated": "2025-08-06T02:18:36.773Z",
-  "totalMergedPRs": 6,
+  "lastUpdated": "2025-08-06T06:52:02.339Z",
+  "totalMergedPRs": 7,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 1529,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "__mocks__/utils.mock.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/components/src/components/contract-card/contract-card-items/contract-card-header.tsx",
+          "totalCharacters": 113,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    'dc-contract-card__grid-underlying-trade--trader--accumulator': !is_mobile && is_accumulator,"
+        },
+        {
+          "name": "packages/components/src/components/icon/icons.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/components/src/components/types/icons.types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/components/src/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/build/loaders-config.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/account-info-wrapper.tsx",
+          "totalCharacters": 118,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        <Popover alignment={is_dtrader_v2 && is_mobile ? 'bottom' : 'left'} message={disabled_message} zIndex='99999'>"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcher/account-switcher-account-list.jsx",
+          "totalCharacters": 148,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { formatMoney, getCurrencyName, getCurrencyDisplayCode } from '@deriv/shared';\n                        className={classNames('badge-server')}"
+        },
+        {
+          "name": "packages/core/src/App/app.jsx",
+          "totalCharacters": 497,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                <TranslationProvider defaultLang={language} i18nInstance={i18nInstance}>\n                                    {/* This is required as translation provider uses suspense ..."
+        },
+        {
+          "name": "packages/core/src/Constants/form-error-messages.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/Stores/common-store.js",
+          "totalCharacters": 97,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        return platforms[this.platform]?.platform_name === platforms.tradershub_os.platform_name;"
+        },
+        {
+          "name": "packages/core/src/Stores/traders-hub-store.js",
+          "totalCharacters": 107,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { CFD_PLATFORMS, ContentFlag } from '@deriv/shared';\n        // await this.getMT5AccountKYCStatus();"
+        },
+        {
+          "name": "packages/reports/build/loaders-config.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/reports/src/Components/Elements/Modals/MarketUnavailableModal/market-unavailable.tsx",
+          "totalCharacters": 186,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            cancel_button_text={localize('Go to SmartTrader')}\n                i18n_default_text='This market is not yet available on {{platform_name_trader}}, but it is on SmartTrader.'"
+        },
+        {
+          "name": "packages/shared/src/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/shared/src/loaders/deriv-trader-loader.js",
+          "totalCharacters": 36,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import the corresponding stylesheet."
+        },
+        {
+          "name": "packages/shared/src/utils/brand/brand.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/shared/src/utils/platform/platform.ts",
+          "totalCharacters": 41,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            return platform_name.DTrader;"
+        },
+        {
+          "name": "packages/shared/src/utils/validation/form-error-messages-types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/build/loaders-config.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/Modals/MarketUnavailableModal/market-unavailable.tsx",
+          "totalCharacters": 186,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            cancel_button_text={localize('Go to SmartTrader')}\n                i18n_default_text='This market is not yet available on {{platform_name_trader}}, but it is on SmartTrader.'"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/trade-store.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/utils/src/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        }
+      ],
+      "timestamp": "2025-08-06T06:52:02.292Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "97",
+      "branch": "matin/icons-cleanup",
+      "author": "matin-deriv",
+      "prTitle": "Matin/Clean-up Icons & Tradershub Store",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 13107,
