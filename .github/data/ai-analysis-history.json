@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-06T08:23:55.371Z",
-  "totalMergedPRs": 9,
+  "lastUpdated": "2025-08-06T08:29:27.951Z",
+  "totalMergedPRs": 10,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": [],
+      "timestamp": "2025-08-06T08:29:27.897Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "103",
+      "branch": "undo-testing-official-workflow",
+      "author": "prince-deriv",
+      "prTitle": "Prince/ remove testing file",
+      "hasAnalysis": true
+    },
     {
       "percentage": 98,
       "totalCharacters": 707,
