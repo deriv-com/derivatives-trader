@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-06 06:52:02 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-06 08:13:11 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 7 | **📈 Average AI Code** | 🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜ 18% |
-| **🤖 PRs with AI Analysis** | 4 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0% |
-| **📄 Files Analyzed** | 51 | **⚡ Total AI Characters** | 69 |
+| **📁 Total Merged PRs** | 8 | **📈 Average AI Code** | 🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜ 32% |
+| **🤖 PRs with AI Analysis** | 5 | **🎯 Overall AI Percentage** | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 2% |
+| **📄 Files Analyzed** | 53 | **⚡ Total AI Characters** | 293 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 7 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 8 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#99](#) **Prince/update workflow to use official deriv-com reusable workflow** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 2 | 224 / 257 chars | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜  87% |
 | [#97](#) **Matin/Clean-up Icons & Tradershub Store** | [@matin-deriv](https://github.com/matin-deriv) | 8/6/2025 | 25 | 0 / 1,529 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#94](#) **fix: migrate API field usage for proposal_open_contract changes** | [@jim-deriv](https://github.com/jim-deriv) | 8/6/2025 | 24 | 0 / 13,107 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#1](#) **build(deps-dev): bump webpack-dev-server from 5.2.0 to 5.2.1** | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |

@@ -1,7 +1,35 @@
 {
-  "lastUpdated": "2025-08-06T06:52:02.339Z",
-  "totalMergedPRs": 7,
+  "lastUpdated": "2025-08-06T08:13:11.935Z",
+  "totalMergedPRs": 8,
   "analyses": [
+    {
+      "percentage": 87,
+      "totalCharacters": 257,
+      "aiCharacters": 224,
+      "files": [
+        {
+          "name": ".github/workflows/ai-code-analysis.yml",
+          "totalCharacters": 130,
+          "aiCharacters": 114,
+          "percentage": 88,
+          "addedContent": "    # [AI]  This is generated code by AI\n    uses: deriv-com/shared-actions/.github/workflows/ai-code-analysis.yml@v4\n    # [/AI] "
+        },
+        {
+          "name": ".github/workflows/ai-dashboard.yml",
+          "totalCharacters": 127,
+          "aiCharacters": 110,
+          "percentage": 87,
+          "addedContent": "    # [AI]  This is generated code by AI\n    uses: deriv-com/shared-actions/.github/workflows/ai-dashboard.yml@v4\n    # [/AI] \n"
+        }
+      ],
+      "timestamp": "2025-08-06T08:13:11.888Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "99",
+      "branch": "update-ai-workflow-source",
+      "author": "prince-deriv",
+      "prTitle": "Prince/update workflow to use official deriv-com reusable workflow",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 1529,
