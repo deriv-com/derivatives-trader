@@ -1,7 +1,35 @@
 {
-  "lastUpdated": "2025-08-07T08:24:05.783Z",
-  "totalMergedPRs": 11,
+  "lastUpdated": "2025-08-07T08:27:47.248Z",
+  "totalMergedPRs": 12,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 971,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/shared/src/utils/helpers/active-symbols.ts",
+          "totalCharacters": 354,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    if (!active_symbols.length) {\n        return false;\n    }\n\n    // Handle empty or invalid symbols\n    if (!symbol || symbol.trim() === '') {\n        return false;\n    }\n\n    const found_symbol = a..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/trade-store.ts",
+          "totalCharacters": 617,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        if (this.previous_symbol && this.previous_symbol.trim() !== '') {\n            this.setMarketStatus(isMarketClosed(this.active_symbols, this.previous_symbol));\n        } else {\n            this..."
+        }
+      ],
+      "timestamp": "2025-08-07T08:27:47.201Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "108",
+      "branch": "b-market-closed",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / fix: improve market status handling for symbols in TradeStore",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 1252,
