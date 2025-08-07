@@ -1,7 +1,49 @@
 {
-  "lastUpdated": "2025-08-06T08:29:27.951Z",
-  "totalMergedPRs": 10,
+  "lastUpdated": "2025-08-07T08:24:05.783Z",
+  "totalMergedPRs": 11,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 1252,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/Stores/Helpers/chart-marker-helpers.js",
+          "totalCharacters": 359,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const entry_spot_time = contract_info.entry_spot_time ?? contract_info.entry_tick_time;\n    const entry_tick = contract_info.entry_spot ?? contract_info.entry_tick_display_value;\n    const exit_sp..."
+        },
+        {
+          "name": "packages/core/src/Stores/Helpers/chart-markers.js",
+          "totalCharacters": 385,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "\n    // Backward compatibility: use new property names with fallback to old ones\n    const entry_spot = contract_info.entry_spot ?? entry_tick;\n    const exit_spot = contract_info.exit_spot ?? exit_ti..."
+        },
+        {
+          "name": "packages/core/src/Stores/contract-trade-store.js",
+          "totalCharacters": 274,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                const entry_value = info.entry_spot ?? info.entry_tick;\n                if (trade_type_is_supported && is_call_put && ((info.barrier && entry_value) || info.shortcode)) {\n             ..."
+        },
+        {
+          "name": "packages/core/src/Stores/portfolio-store.js",
+          "totalCharacters": 234,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // workaround if no exit_spot/exit_tick in proposal_open_contract, use latest spot\n        this.positions[i].exit_spot =\n            contract_response.exit_spot ?? contract_response.exit_tick ..."
+        }
+      ],
+      "timestamp": "2025-08-07T08:24:05.736Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "107",
+      "branch": "jim/fix-markers-2",
+      "author": "jim-deriv",
+      "prTitle": "feat: replace entry_tick/exit_tick with entry_spot/exit_spot with bac…",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 0,

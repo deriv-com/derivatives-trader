@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-06 08:29:28 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-07 08:24:05 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 10 | **📈 Average AI Code** | 🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜ 37% |
-| **🤖 PRs with AI Analysis** | 7 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 6% |
-| **📄 Files Analyzed** | 54 | **⚡ Total AI Characters** | 988 |
+| **📁 Total Merged PRs** | 11 | **📈 Average AI Code** | 🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜ 32% |
+| **🤖 PRs with AI Analysis** | 8 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 6% |
+| **📄 Files Analyzed** | 58 | **⚡ Total AI Characters** | 988 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 10 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 11 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#107](#) **feat: replace entry_tick/exit_tick with entry_spot/exit_spot with bac…** | [@jim-deriv](https://github.com/jim-deriv) | 8/7/2025 | 4 | 0 / 1,252 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#103](#) **Prince/ remove testing file** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#101](#) **Prince/ testing official workflows** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 1 | 695 / 707 chars | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩  98% |
 | [#99](#) **Prince/update workflow to use official deriv-com reusable workflow** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 2 | 224 / 257 chars | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜  87% |
@@ -34,7 +35,6 @@
 | [#3](#) **build(deps): bump @babel/helpers from 7.26.7 to 7.27.6** | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#4](#) **build(deps): bump @babel/runtime from 7.26.7 to 7.27.6** | [@dependabot[bot]](https://github.com/dependabot[bot]) | 8/4/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#85](#) **Prince/ added AI markers** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 2 | 69 / 96 chars | 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  72% |
-| [#83](#) **Prince/ empty commit to trigger workflows** | [@prince-deriv](https://github.com/prince-deriv) | 8/1/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
