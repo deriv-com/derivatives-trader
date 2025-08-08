@@ -1,7 +1,126 @@
 {
-  "lastUpdated": "2025-08-07T08:27:47.248Z",
-  "totalMergedPRs": 12,
+  "lastUpdated": "2025-08-08T07:18:46.551Z",
+  "totalMergedPRs": 13,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 15160,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/account-actions.tsx",
+          "totalCharacters": 1392,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "\nimport { localize } from '@deriv/translations';\nimport { useDevice } from '@deriv-com/ui';\n\nimport { LoginButtonV2 } from './login-button-v2';\n\n    // onClickDeposit: () => void; // Commented out - d..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/account-info.jsx",
+          "totalCharacters": 66,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            {isDesktop && <div className='acc-info__separator' />}"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/login-button-v2.tsx",
+          "totalCharacters": 735,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import React from 'react';\nimport PropTypes from 'prop-types';\n\nimport { Button } from '@deriv/components';\nimport { brand_url } from '@deriv/shared';\nimport { localize } from '@deriv/translations';\n\n..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/toggle-menu-drawer.jsx",
+          "totalCharacters": 1130,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { useLocation } from 'react-router-dom';\nimport { useAccountSettingsRedirect, useIsHubRedirectionEnabled, /* useOauth2, */ useRemoteConfig } from '@deriv/api';\n    // TODO: Commented out legacy..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/header-account-actions.tsx",
+          "totalCharacters": 523,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // onClickDeposit: () => void; // TODO: Temporarily hidden deposit button, remove if no longer needed\nconst HeaderAccountActions = observer(({ is_traders_hub_routes }: THeaderAccountActions) => {\n..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/header-legacy.tsx",
+          "totalCharacters": 97,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import HubButton from './hub-button';\n                            {is_logged_in && <HubButton />}"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/hub-button.tsx",
+          "totalCharacters": 773,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import React from 'react';\n\nimport { Icon, Text } from '@deriv/components';\nimport { brand_url } from '@deriv/shared';\nimport { observer } from '@deriv/stores';\nimport { Localize } from '@deriv/transl..."
+        },
+        {
+          "name": "packages/core/src/Services/logout.js",
+          "totalCharacters": 138,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // Clear V2 authentication session tokens\n    localStorage.removeItem('session_token');\n    localStorage.removeItem('session_expiry');"
+        },
+        {
+          "name": "packages/core/src/Services/socket-general.js",
+          "totalCharacters": 1254,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    // Check if this is a V2 authentication response (session token based)\n                    const hasSessionToken = localStorage.getItem('session_token');\n                    const ..."
+        },
+        {
+          "name": "packages/core/src/Stores/client-store.js",
+          "totalCharacters": 8439,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    responseAuthorize(response) {\n        // Check if this is a V2 response (no account_list)\n        const isV2Response = !response.authorize.account_list;\n\n        if (isV2Response) {\n            //..."
+        },
+        {
+          "name": "packages/core/src/Stores/traders-hub-store.js",
+          "totalCharacters": 99,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const { account_list, switchAccount, prev_real_account_loginid, has_active_real_account } ="
+        },
+        {
+          "name": "packages/core/src/_common/base/socket_base.js",
+          "totalCharacters": 151,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const getSessionToken = oneTimeToken =>\n        deriv_api.send({\n            get_session_token: oneTimeToken,\n        });\n\n        getSessionToken,"
+        },
+        {
+          "name": "packages/core/src/index.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/account-switcher.scss",
+          "totalCharacters": 112,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        /* Removed hover effect for acc-info */\n        /* &:hover:not(.show):not(&--is-disabled) {\n        } */"
+        },
+        {
+          "name": "packages/shared/src/utils/routes/routes.ts",
+          "totalCharacters": 251,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "// External URLs for brand navigation\nexport const brand_url = {\n    base: 'https://staging-app.champion.trade/champion',\n    home: 'https://staging-app.champion.trade/champion/home',\n    login: 'http..."
+        }
+      ],
+      "timestamp": "2025-08-08T07:18:46.502Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "95",
+      "branch": "farabi/new-authentication-flow",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/new-authentication-flow",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 971,
