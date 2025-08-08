@@ -1,7 +1,98 @@
 {
-  "lastUpdated": "2025-08-08T07:58:27.662Z",
-  "totalMergedPRs": 15,
+  "lastUpdated": "2025-08-08T10:09:26.965Z",
+  "totalMergedPRs": 16,
   "analyses": [
+    {
+      "percentage": 41,
+      "totalCharacters": 5518,
+      "aiCharacters": 2235,
+      "files": [
+        {
+          "name": "packages/trader/src/AppV2/Components/CurrentSpot/current-spot.tsx",
+          "totalCharacters": 709,
+          "aiCharacters": 630,
+          "percentage": 89,
+          "addedContent": "        // [AI]\n    } = (last_contract.contract_info?.entry_spot ?? last_contract.contract_info?.entry_tick) || !prev_contract\n        ? last_contract\n        : prev_contract;\n    // [/AI]\n    // [AI]..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Contract/Components/Digits/digits.tsx",
+          "totalCharacters": 500,
+          "aiCharacters": 443,
+          "percentage": 89,
+          "addedContent": "            // [AI]\n            has_entry_spot={!!(contract_info.entry_spot ?? contract_info.entry_tick)}\n            // [/AI]\n                    // [AI]\n                    is_visible={\n            ..."
+        },
+        {
+          "name": "packages/components/src/components/contract-card/contract-card-items/turbos-card-body.tsx",
+          "totalCharacters": 240,
+          "aiCharacters": 136,
+          "percentage": 57,
+          "addedContent": "\n    // [AI]\n    // Backward compatibility: fallback to old field name\n    const actual_entry_spot = entry_spot ?? entry_spot_display_value;\n    // [/AI]\n                    {actual_entry_spot ? addCo..."
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/PositionsDrawer/positions-modal-card.tsx",
+          "totalCharacters": 268,
+          "aiCharacters": 148,
+          "percentage": 55,
+          "addedContent": "\n        // [AI]\n        // Backward compatibility: fallback to old field name\n        const actual_entry_spot = entry_spot ?? entry_spot_display_value;\n        // [/AI]\n                              ..."
+        },
+        {
+          "name": "packages/components/src/components/contract-card/contract-card-items/vanilla-options-card-body.tsx",
+          "totalCharacters": 340,
+          "aiCharacters": 136,
+          "percentage": 40,
+          "addedContent": "\n    // [AI]\n    // Backward compatibility: fallback to old field name\n    const actual_entry_spot = entry_spot ?? entry_spot_display_value;\n    // [/AI]\n\n                        {actual_entry_spot ? ..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/EntryExitDetails/entry-exit-details.tsx",
+          "totalCharacters": 695,
+          "aiCharacters": 271,
+          "percentage": 39,
+          "addedContent": "        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed\n        exit_spot,\n    // [AI]\n    // Backward compatibility: fallback to old field..."
+        },
+        {
+          "name": "packages/trader/src/Modules/SmartChart/Components/Markers/accumulators-profit-loss-tooltip.tsx",
+          "totalCharacters": 664,
+          "aiCharacters": 188,
+          "percentage": 28,
+          "addedContent": "    // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed\n    exit_spot,\n    exit_tick_time,\n    // [AI]\n    // Backward compatibility: fallback ..."
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/ContractAudit/contract-details.tsx",
+          "totalCharacters": 1145,
+          "aiCharacters": 283,
+          "percentage": 25,
+          "addedContent": "        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed\n        exit_spot: exit_spot_value,\n        // @ts-expect-error underlying_symbol e..."
+        },
+        {
+          "name": "packages/core/src/Stores/Helpers/chart-markers.js",
+          "totalCharacters": 446,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const exit_spot_time = contract_info.exit_spot_time ?? contract_info.exit_tick_time;\n        const entry_spot_time = contract_info.entry_spot_time ?? contract_info.entry_tick_time;\n        con..."
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/ContractDrawer/contract-drawer.tsx",
+          "totalCharacters": 310,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const {\n            currency,\n            // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed\n            exit_spot,\n            exit_t..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/EntryExitDetails/__tests__/entry-exit-details.spec.tsx",
+          "totalCharacters": 201,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    //@ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed\n    exit_spot_time: 1623441400,\n    exit_tick_time: 1623441400, // Backward compatibilit..."
+        }
+      ],
+      "timestamp": "2025-08-08T10:09:26.912Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "111",
+      "branch": "jim/fix-markers-3",
+      "author": "jim-deriv",
+      "prTitle": "Jim/fix markers 3",
+      "hasAnalysis": true
+    },
     {
       "percentage": 12,
       "totalCharacters": 201267,
