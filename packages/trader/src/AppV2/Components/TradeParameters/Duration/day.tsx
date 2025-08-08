@@ -6,12 +6,8 @@ import { useStore } from '@deriv/stores';
 import { Localize } from '@deriv/translations';
 import { ActionSheet, Text, TextField, useSnackbar } from '@deriv-com/quill-ui';
 
-import { invalidateDTraderCache, useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
-import {
-    getClosestTimeToCurrentGMT,
-    getDatePickerStartDate,
-    getProposalRequestObject,
-} from 'AppV2/Utils/trade-params-utils';
+import useProposal from 'AppV2/Hooks/useProposal';
+import { getClosestTimeToCurrentGMT, getDatePickerStartDate } from 'AppV2/Utils/trade-params-utils';
 import { getBoundaries } from 'Stores/Modules/Trading/Helpers/end-time';
 import { ProposalResponse } from 'Stores/Modules/Trading/trade-store';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -83,49 +79,48 @@ const DayInput = ({
         symbol,
         ...(payout_per_point && { payout_per_point }),
         ...(barrier_value && { barrier: barrier_value }),
+        ...(barrier_1 && !is_turbos && !barrier_value
+            ? { barrier: String(Math.round(tick_data?.quote as number)) }
+            : {}),
     };
 
-    const proposal_req = getProposalRequestObject({
+    const { data: response, error } = useProposal({
+        enabled: trigger_date,
         new_values,
-        trade_store,
         trade_type: Object.keys(trade_types)[0],
     });
 
-    const { data: response } = useDtraderQuery<ProposalResponse>(
-        ['proposal', JSON.stringify(day), JSON.stringify(payout_per_point), JSON.stringify(barrier_value)],
-        {
-            ...proposal_req,
-            symbol,
-            ...(barrier_1 && !is_turbos && !barrier_value ? { barrier: Math.round(tick_data?.quote as number) } : {}),
-        },
-        {
-            enabled: trigger_date,
-        }
-    );
-
     useEffect(() => {
-        if (response) {
-            if (response?.error?.code === 'ContractBuyValidationError') {
-                const details = response.error.details;
+        if (error) {
+            if (error?.error?.code === 'ContractBuyValidationError') {
+                const details = error.error.details;
 
-                if (details?.field === 'payout_per_point' && details?.payout_per_point_choices) {
-                    const suggested_payout = details?.payout_per_point_choices[0];
+                if (
+                    details?.field === 'payout_per_point' &&
+                    Array.isArray(details?.payout_per_point_choices) &&
+                    details.payout_per_point_choices.length > 0
+                ) {
+                    const suggested_payout = details.payout_per_point_choices[0] as number;
                     setPayoutPerPoint(suggested_payout);
                     setTriggerDate(true);
                     return;
                 }
 
-                if (details?.field === 'barrier' && details?.barrier_choices) {
-                    const suggested_barrier = details?.barrier_choices[0];
+                if (
+                    details?.field === 'barrier' &&
+                    Array.isArray(details?.barrier_choices) &&
+                    details.barrier_choices.length > 0
+                ) {
+                    const suggested_barrier = details.barrier_choices[0] as string;
                     setBarrierValue(suggested_barrier);
                     setTriggerDate(true);
                     return;
                 }
             }
 
-            if (response?.error?.message && response?.error?.details?.field === 'duration') {
+            if (error?.error?.message && error?.error?.details?.field === 'duration') {
                 addSnackbar({
-                    message: <Localize i18n_default_text={response?.error?.message} />,
+                    message: <Localize i18n_default_text={error.error.message} />,
                     status: 'fail',
                     hasCloseButton: true,
                     style: { marginBottom: '48px' },
@@ -134,6 +129,11 @@ const DayInput = ({
             } else {
                 setIsDisabled(false);
             }
+            setTriggerDate(false);
+        }
+
+        if (response) {
+            setIsDisabled(false);
 
             if (response?.proposal?.date_expiry) {
                 setExpiryTimeInput(
@@ -143,16 +143,9 @@ const DayInput = ({
                         .substring(0, 8)
                 );
             }
-
-            invalidateDTraderCache([
-                'proposal',
-                JSON.stringify(day),
-                JSON.stringify(payout_per_point),
-                JSON.stringify(barrier_value),
-            ]);
             setTriggerDate(false);
         }
-    }, [response, setExpiryTimeInput, setUnsavedExpiryDateV2]);
+    }, [response, error, setExpiryTimeInput, setUnsavedExpiryDateV2, addSnackbar]);
 
     const moment_expiry_date = toMoment(expiry_date);
     const market_open_datetimes = market_open_times.map(open_time => setTime(moment_expiry_date.clone(), open_time));

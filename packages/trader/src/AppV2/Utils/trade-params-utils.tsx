@@ -14,6 +14,7 @@ import { Localize, localize } from '@deriv/translations';
 
 import { createProposalRequestForContract, getProposalInfo } from 'Stores/Modules/Trading/Helpers/proposal';
 import { TTradeStore } from 'Types';
+import { TContractType } from '@deriv/api';
 
 export const DURATION_UNIT = {
     DAYS: 'd',
@@ -466,7 +467,7 @@ export const getProposalRequestObject = ({
 
     const request = createProposalRequestForContract(
         store as Parameters<typeof createProposalRequestForContract>[0],
-        trade_type
+        trade_type as TContractType
     ) as Omit<ReturnType<typeof createProposalRequestForContract>, 'subscribe'> & {
         subscribe?: number;
         limit_order:

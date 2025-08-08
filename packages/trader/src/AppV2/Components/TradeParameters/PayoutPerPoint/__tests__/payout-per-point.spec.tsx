@@ -36,14 +36,15 @@ jest.mock('@deriv/shared', () => ({
         },
     },
 }));
-jest.mock('AppV2/Hooks/useDtraderQuery', () => ({
-    ...jest.requireActual('AppV2/Hooks/useDtraderQuery'),
-    useDtraderQuery: jest.fn(() => ({
+jest.mock('AppV2/Hooks/useProposal', () => ({
+    __esModule: true,
+    default: jest.fn(() => ({
         data: {
-            proposal: { barrier_spot_distance: '+5.37' },
-            echo_req: { contract_type: 'TURBOSSHORT' },
-            error: {},
+            proposal: { barrier_spot_distance: '+1.80' },
         },
+        error: null,
+        isLoading: false,
+        proposal_req: { contract_type: 'TURBOSSHORT' },
     })),
 }));
 
