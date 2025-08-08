@@ -1,7 +1,28 @@
 {
-  "lastUpdated": "2025-08-08T07:18:46.551Z",
-  "totalMergedPRs": 13,
+  "lastUpdated": "2025-08-08T07:19:37.095Z",
+  "totalMergedPRs": 14,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 1183,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/shared/src/utils/helpers/active-symbols.ts",
+          "totalCharacters": 1183,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                const symbol_to_use =\n                    (client_first_open_symbol as any).underlying_symbol || client_first_open_symbol.symbol;\n                const is_symbol_offered = await isSymb..."
+        }
+      ],
+      "timestamp": "2025-08-08T07:19:37.048Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "112",
+      "branch": "b-default-symbol",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / fix: enhance fallback logic for default open symbol retrieval",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 15160,
