@@ -1,7 +1,1960 @@
 {
-  "lastUpdated": "2025-08-08T07:19:37.095Z",
-  "totalMergedPRs": 14,
+  "lastUpdated": "2025-08-08T07:58:27.662Z",
+  "totalMergedPRs": 15,
   "analyses": [
+    {
+      "percentage": 12,
+      "totalCharacters": 201267,
+      "aiCharacters": 23743,
+      "files": [
+        {
+          "name": "scripts/generate-colors.js",
+          "totalCharacters": 23776,
+          "aiCharacters": 23743,
+          "percentage": 100,
+          "addedContent": "#!/usr/bin/env node\n\n// [AI]\nconst fs = require('fs');\nconst path = require('path');\n\n/**\n * Color Generation Script\n *\n * This script reads the brand.config.json file and automatically generates:\n * ..."
+        },
+        {
+          "name": "AI-DASHBOARD.md",
+          "totalCharacters": 3007,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "| Metric                      | Value | Metric                       | Value                    |\n| --------------------------- | ----- | ---------------------------- | ------------------------ |\n| **..."
+        },
+        {
+          "name": "packages/components/src/components/accordion/accordion.scss",
+          "totalCharacters": 223,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border: 1px solid var(--color-surface-border);\n        color: var(--color-text-secondary);\n                border-bottom: 1px solid var(--color-surface-border);\n                    fill: var(-..."
+        },
+        {
+          "name": "packages/components/src/components/amount-input/amount-input.scss",
+          "totalCharacters": 198,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-secondary);\n            color: var(--color-text-danger);\n            -webkit-text-fill-color: var(--color-text-danger);\n            color: var(--color-text-disabled);"
+        },
+        {
+          "name": "packages/components/src/components/autocomplete/autocomplete.scss",
+          "totalCharacters": 276,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            --fill-color1: var(--color-text-secondary) !important;\n            fill: var(--color-text-secondary);\n                    fill: var(--color-text-danger);\n        box-shadow: 0 8px 16px 0 v..."
+        },
+        {
+          "name": "packages/components/src/components/badge/badge.scss",
+          "totalCharacters": 327,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--brand-white);\n        border: 1px solid var(--color-surface-border);\n        color: var(--color-text-primary);\n        background-color: var(--brand-info);\n        background-color: v..."
+        },
+        {
+          "name": "packages/components/src/components/button-toggle/button-toggle.scss",
+          "totalCharacters": 662,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);\n                background-color: var(--color-interactive-hover) !important;\n            color: var(--color-text-secondary);\n            backgro..."
+        },
+        {
+          "name": "packages/components/src/components/button/button.scss",
+          "totalCharacters": 1625,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-secondary);\n        border: 1px solid var(--color-interactive-hover) !important;\n        background: var(--color-button-primary-bg);\n        color: var(--color-surface-..."
+        },
+        {
+          "name": "packages/components/src/components/calendar/calendar.scss",
+          "totalCharacters": 1469,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-primary);\n    box-shadow: 0 2px 8px 0 var(--color-shadow-medium);\n        border-top: 0.1rem solid var(--color-surface-border);\n        border-bottom: 0.1rem solid ..."
+        },
+        {
+          "name": "packages/components/src/components/card/card.scss",
+          "totalCharacters": 47,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    border: 1px solid var(--color-card-border);"
+        },
+        {
+          "name": "packages/components/src/components/carousel/carousel.scss",
+          "totalCharacters": 53,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background: var(--color-surface-section);"
+        },
+        {
+          "name": "packages/components/src/components/carousel/carousel.tsx",
+          "totalCharacters": 104,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    active_bullet_color = 'var(--color-text-primary)',\n    bullet_color = 'var(--color-text-secondary)',"
+        },
+        {
+          "name": "packages/components/src/components/cfd-compare-accounts-carousel/cfd-compare-accounts-carousel.scss",
+          "totalCharacters": 228,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);\n        border: 1px solid var(--color-interactive-default);\n        box-shadow:\n            0px 0px 24px rgba(0, 0, 0, 0.08),\n            0px 24..."
+        },
+        {
+          "name": "packages/components/src/components/checkbox/checkbox.scss",
+          "totalCharacters": 210,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border: 2px solid var(--color-text-secondary);\n            background-color: var(--brand-primary);\n        background-color: var(--brand-primary);\n            color: var(--color-text-danger) !..."
+        },
+        {
+          "name": "packages/components/src/components/checklist/checklist.scss",
+          "totalCharacters": 122,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-bottom: solid 1px var(--color-interactive-default);\n                background-color: var(--brand-primary);"
+        },
+        {
+          "name": "packages/components/src/components/circular-progress/circular-progress.scss",
+          "totalCharacters": 96,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            stroke: var(--color-status-warning);\n            stroke: var(--color-status-danger);"
+        },
+        {
+          "name": "packages/components/src/components/clipboard/clipboard.tsx",
+          "totalCharacters": 62,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    custom_color='var(--color-text-secondary)'"
+        },
+        {
+          "name": "packages/components/src/components/collapsible/arrow-button.tsx",
+          "totalCharacters": 88,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        <Text size='xs' weight='bold' color='primary' className='dc-collapsible__title'>"
+        },
+        {
+          "name": "packages/components/src/components/collapsible/collapsible.scss",
+          "totalCharacters": 114,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n            background-color: var(--color-interactive-active);"
+        },
+        {
+          "name": "packages/components/src/components/composite-checkbox/composite-checkbox.scss",
+          "totalCharacters": 172,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    border: 1px solid var(--color-interactive-default);\n        border: 1px solid var(--color-interactive-hover);\n        border: 1px solid var(--color-interactive-active);"
+        },
+        {
+          "name": "packages/components/src/components/content-expander/content-expander.tsx",
+          "totalCharacters": 67,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                            color={title_style?.color || 'primary'}"
+        },
+        {
+          "name": "packages/components/src/components/contract-card/contract-card-items/sass/contract-card-dialog.scss",
+          "totalCharacters": 565,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-primary);\n    box-shadow: 0 4px 8px 2px var(--color-shadow-medium);\n    transition:\n        transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),\n        opacity 0.25s l..."
+        },
+        {
+          "name": "packages/components/src/components/contract-card/contract-card.scss",
+          "totalCharacters": 1126,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n    color: var(--color-text-primary);\n        color: var(--color-text-danger);\n        color: var(--color-text-success);\n            background: var..."
+        },
+        {
+          "name": "packages/components/src/components/contract-card/result-overlay/result-overlay.scss",
+          "totalCharacters": 138,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            color: var(--color-text-success);\n            color: var(--color-text-danger);\n            color: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/components/src/components/counter/counter.scss",
+          "totalCharacters": 85,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-status-danger);\n    color: var(--color-surface-contrast);"
+        },
+        {
+          "name": "packages/components/src/components/currency-badge/currency-badge.scss",
+          "totalCharacters": 45,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--brand-secondary);"
+        },
+        {
+          "name": "packages/components/src/components/currency-badge/currency-badge.tsx",
+          "totalCharacters": 102,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    <Text className='dc-currency-badge' color='inverse' line_height='unset' size='xxxs' weight='bold'>"
+        },
+        {
+          "name": "packages/components/src/components/data-list/data-list.scss",
+          "totalCharacters": 323,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-surface-primary);\n        border-top: 2px solid var(--color-interactive-disabled);\n            color: var(--color-text-secondary);\n            color: var(--color-text-p..."
+        },
+        {
+          "name": "packages/components/src/components/data-table/data-table.scss",
+          "totalCharacters": 356,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--color-text-secondary);\n            color: var(--color-text-secondary);\n        border-bottom: 2px solid var(--color-surface-border);\n        color: var(--color-text-primary);\n        ..."
+        },
+        {
+          "name": "packages/components/src/components/date-picker/date-picker.scss",
+          "totalCharacters": 983,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border: 1px solid var(--color-interactive-default);\n            border-color: var(--color-interactive-hover);\n            border-color: var(--brand-primary) !important;\n            border-colo..."
+        },
+        {
+          "name": "packages/components/src/components/dialog/dialog.scss",
+          "totalCharacters": 230,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-modal-backdrop);\n        box-shadow: 0 2px 8px 0 var(--color-shadow-medium);\n        background-color: var(--color-surface-primary);\n            background-color:..."
+        },
+        {
+          "name": "packages/components/src/components/dialog/dialog.tsx",
+          "totalCharacters": 113,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                <Text as='h1' color='primary' weight='bold' className='dc-dialog__header--title'>"
+        },
+        {
+          "name": "packages/components/src/components/drawer/drawer.scss",
+          "totalCharacters": 534,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-primary);\n        border-bottom: 1px solid var(--color-surface-border);\n        background-color: var(--color-surface-primary);\n        border-top: 1px solid var(--..."
+        },
+        {
+          "name": "packages/components/src/components/drawer/drawer.tsx",
+          "totalCharacters": 46,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            fill='var(--color-text-secondary)'"
+        },
+        {
+          "name": "packages/components/src/components/dropdown-list/dropdown-list.scss",
+          "totalCharacters": 451,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    transition:\n        transform 0.25s ease,\n        opacity 0.25s linear;\n    background-color: var(--color-surface-primary);\n            color: var(--brand-primary);\n        color: var(--color-text..."
+        },
+        {
+          "name": "packages/components/src/components/dropdown/display-text.tsx",
+          "totalCharacters": 35,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    color='primary'"
+        },
+        {
+          "name": "packages/components/src/components/dropdown/dropdown.scss",
+          "totalCharacters": 1047,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-primary);\n        background-color: var(--color-surface-primary);\n        background: var(--color-surface-primary);\n        border: 1px solid var(--color-interactive-de..."
+        },
+        {
+          "name": "packages/components/src/components/dropdown/list.scss",
+          "totalCharacters": 696,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    box-shadow: 0 8px 16px 0 var(--color-shadow-medium);\n    background: var(--color-surface-primary);\n                color: var(--color-text-primary);\n                border-bottom: 4px solid var(--..."
+        },
+        {
+          "name": "packages/components/src/components/field/field.scss",
+          "totalCharacters": 43,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/components/src/components/file-dropzone/file-dropzone.scss",
+          "totalCharacters": 371,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border: 1px dashed var(--color-interactive-default);\n        color: var(--color-text-primary);\n            transition:\n                transform 0.25s ease,\n                opacity 0.15s linea..."
+        },
+        {
+          "name": "packages/components/src/components/file-dropzone/file-dropzone.tsx",
+          "totalCharacters": 44,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                color={color || 'secondary'}"
+        },
+        {
+          "name": "packages/components/src/components/form-cancel-button/form-cancel-button.scss",
+          "totalCharacters": 128,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background-color: var(--color-surface-primary);\n            border-top: 2px solid var(--color-interactive-disabled);"
+        },
+        {
+          "name": "packages/components/src/components/form-progress/form-progress.scss",
+          "totalCharacters": 370,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background-color: var(--color-text-secondary);\n            border: 1px solid var(--color-text-secondary);\n                background-color: var(--brand-primary) !important;\n               ..."
+        },
+        {
+          "name": "packages/components/src/components/form-progress/form-progress.tsx",
+          "totalCharacters": 148,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        <Text as='h2' color='primary' weight='bold' line_height='unset'>\n                                            color='inverse'"
+        },
+        {
+          "name": "packages/components/src/components/form-submit-button/form-submit-button.scss",
+          "totalCharacters": 183,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);\n        border-top: 1px solid var(--color-surface-border);\n            border-top: 2px solid var(--color-interactive-disabled);"
+        },
+        {
+          "name": "packages/components/src/components/hint-box/hint-box.scss",
+          "totalCharacters": 99,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-status-warning-bg);\n        color: var(--color-text-primary);"
+        },
+        {
+          "name": "packages/components/src/components/horizontal-swipe/horizontal-swipe.scss",
+          "totalCharacters": 49,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-surface-primary);"
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-clipboard.svg",
+          "totalCharacters": 808,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg viewBox=\"0 0 14 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0 4.5A1.5 1.5 0 011.5 3h6A1.5 1.5 0 019 4.5v8A1.5 1.5 0 017.5 14h-6A1.5 1.5 0 ..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-close-dark.svg",
+          "totalCharacters": 317,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path d=\"M3.707 2.293L8 6.587l4.293-4.294a1 1 0 011.414 1.414L9.414 8.001l4.293 4.295a1 1 0 01-1.414 1.414L8 9.416 3.707 13.71a1 1 0 01-1..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-dbot-download.svg",
+          "totalCharacters": 653,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"none\"><path fill=\"var(--color-text-secondary)\" d=\"M3.667 10.667c.184 0 .333.149.333.333v1h8v-1c0-.184.15-.333.333-.333h2c.184 0 .33..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-dbot-user-guide.svg",
+          "totalCharacters": 276,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg width=\"24\" height=\"24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"m9 17.25-6 1.5V5.25l6-1.5M15 20.25l-6-3V3.75l6 3v13.5ZM15 6.75l6-1.5v13.5l-6 1.5\" stroke=\"var(--color-text-secondary..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-dbot-view-detail.svg",
+          "totalCharacters": 705,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"none\"><path fill=\"var(--color-text-secondary)\" d=\"M11.5 1a1.5 1.5 0 0 1 1.493 1.356L13 2.5v6.671a3.001 3.001 0 0 1 1.445 4.567l1.40..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-linux-logo.svg",
+          "totalCharacters": 2513,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg fill=\"none\" viewBox=\"0 0 32 32\"><path fill=\"var(--color-text-primary)\" d=\"M27.441 25.399c-.733-.595-.448-1.908-1.209-2.556.737-4.487-1.33-8.442-3.793-10.976C20.37 9.74 21.037 7.67 21.037 5.88c0-2..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-linux.svg",
+          "totalCharacters": 2569,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" fill=\"none\"><path d=\"M0 6C0 2.7 2.7 0 6 0H34C37.3 0 40 2.7 40 6V34C40 37.3 37.3 40 34 40H6C2.7 40 0 37.3 0 34V6Z\" fil..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-macos-logo.svg",
+          "totalCharacters": 1719,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg fill=\"none\" viewBox=\"0 0 32 32\"><path fill=\"var(--color-text-primary)\" d=\"M14.87 19.426c0 2.692-1.402 4.386-3.642 4.386s-3.642-1.704-3.642-4.386c0-2.701 1.402-4.395 3.642-4.395s3.643 1.694 3.643 ..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-macos.svg",
+          "totalCharacters": 790,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" fill=\"none\"><path d=\"M0 6C0 2.7 2.7 0 6 0H34C37.3 0 40 2.7 40 6V34C40 37.3 37.3 40 34 40H6C2.7 40 0 37.3 0 34V6Z\" fil..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-pdf.svg",
+          "totalCharacters": 757,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\"><path fill=\"var(--color-text-secondary)\" fill-rule=\"evenodd\" d=\"M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-trading-view-chart.svg",
+          "totalCharacters": 580,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" fill=\"none\"><path stroke=\"var(--color-text-secondary)\" stroke-linecap=\"round\" d=\"M1 1v15a1 1 0 0 0 1 1h15\"/><rect width=\"8\" height=\"8\" x=..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-web-terminal.svg",
+          "totalCharacters": 1161,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" fill=\"none\"><path d=\"M0 6C0 2.7 2.7 0 6 0H34C37.3 0 40 2.7 40 6V34C40 37.3 37.3 40 34 40H6C2.7 40 0 37.3 0 34V6Z\" fil..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-windows-logo.svg",
+          "totalCharacters": 244,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg fill=\"none\" viewBox=\"0 0 32 32\"><path fill=\"var(--color-text-primary)\" d=\"M32 15.284H14.19V2.562L32 0v15.284zM12.933 2.734v12.542H0V4.593l12.933-1.86zM12.933 16.528H0v10.819l12.933 1.88v-12.7zM14..."
+        },
+        {
+          "name": "packages/components/src/components/icon/common/ic-windows.svg",
+          "totalCharacters": 399,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" fill=\"none\"><path d=\"M0 6C0 2.7 2.7 0 6 0H34C37.3 0 40 2.7 40 6V34C40 37.3 37.3 40 34 40H6C2.7 40 0 37.3 0 34V6Z\" fil..."
+        },
+        {
+          "name": "packages/components/src/components/icon/contract/ic-contract-entry-spot.svg",
+          "totalCharacters": 330,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"><g fill=\"none\" fill-rule=\"evenodd\"><rect width=\"24\" height=\"24\" fill=\"var(--fill-color3)\" fill-rule=\"nonzero\" rx=\"4\"/><path fill=\"#FF444F..."
+        },
+        {
+          "name": "packages/components/src/components/icon/contract/ic-contract-exit-spot.svg",
+          "totalCharacters": 351,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"><g fill-rule=\"evenodd\"><rect width=\"24\" height=\"24\" fill=\"var(--fill-color3)\" fill-rule=\"nonzero\" rx=\"4\"/><path fill=\"var(--fill-color2)\"..."
+        },
+        {
+          "name": "packages/components/src/components/icon/contract/ic-contract-start-time.svg",
+          "totalCharacters": 307,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"><g fill=\"none\"><rect width=\"24\" height=\"24\" fill=\"var(--fill-color3)\" rx=\"4\"/><path fill=\"var(--fill-color2)\" d=\"M12 19c3-4 5-6.24 5-9a5 ..."
+        },
+        {
+          "name": "packages/components/src/components/icon/icon.scss",
+          "totalCharacters": 1066,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    --fill-color1: var(--color-text-secondary);\n    --fill-color2: var(--color-text-secondary);\n    --fill-color3: var(--color-surface-primary);\n    --fill-color4: var(--color-surface-section);\n    --..."
+        },
+        {
+          "name": "packages/components/src/components/icon/icons.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/components/src/components/icon/rebranding/ic-rebranding-deriv-bot.svg",
+          "totalCharacters": 5189,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 345 72\"><path fill=\"#FF444F\" d=\"M0 13.5C0 6.044 6.044 0 13.5 0h45C65.956 0 72 6.044 72 13.5v45C72 65.956 65.956 72 58.5 72h-45C6.044 72..."
+        },
+        {
+          "name": "packages/components/src/components/icon/rebranding/ic-rebranding-deriv-trader.svg",
+          "totalCharacters": 5886,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 345 72\"><path fill=\"#FF444F\" d=\"M0 13.5C0 6.044 6.044 0 13.5 0h45C65.956 0 72 6.044 72 13.5v45C72 65.956 65.956 72 58.5 72h-45C6.044 72..."
+        },
+        {
+          "name": "packages/components/src/components/icon/rebranding/ic-rebranding-dmt5.svg",
+          "totalCharacters": 5005,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 345 72\"><path fill=\"#0364B9\" d=\"M0 13.5C0 6.044 6.044 0 13.5 0h45C65.956 0 72 6.044 72 13.5v45C72 65.956 65.956 72 58.5 72h-45C6.044 72..."
+        },
+        {
+          "name": "packages/components/src/components/icon/rebranding/ic-rebranding-dxtrade.svg",
+          "totalCharacters": 3232,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 345 72\"><path fill=\"#FF444F\" d=\"M0 13.5C0 6.044 6.044 0 13.5 0h45C65.956 0 72 6.044 72 13.5v45C72 65.956 65.956 72 58.5 72h-45C6.044 72..."
+        },
+        {
+          "name": "packages/components/src/components/icon/rebranding/ic-rebranding-smarttrader.svg",
+          "totalCharacters": 8662,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 345 72\"><path fill=\"#384177\" d=\"M0 13.5C0 6.044 6.044 0 13.5 0h45C65.956 0 72 6.044 72 13.5v45C72 65.956 65.956 72 58.5 72h-45C6.044 72..."
+        },
+        {
+          "name": "packages/components/src/components/inline-message/inline-message.scss",
+          "totalCharacters": 200,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-status-warning-bg);\n        background: var(--color-status-info-bg);\n        background: var(--color-status-info-bg);\n        background: var(--color-status-danger-bg);"
+        },
+        {
+          "name": "packages/components/src/components/input-field/input-field.scss",
+          "totalCharacters": 1090,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-secondary);\n            background: var(--color-interactive-hover);\n        color: var(--color-text-disabled);\n    background-color: var(--color-surface-primary);\n    b..."
+        },
+        {
+          "name": "packages/components/src/components/input/input.scss",
+          "totalCharacters": 1502,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-color: var(--color-interactive-hover);\n        border-color: var(--color-interactive-default);\n            color: var(--color-text-secondary);\n            color: var(--brand-primary) !i..."
+        },
+        {
+          "name": "packages/components/src/components/label/label.scss",
+          "totalCharacters": 986,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            color: var(--color-status-neutral);\n                background-color: var(--color-status-neutral);\n            color: var(--color-status-neutral);\n                background-color: var(--c..."
+        },
+        {
+          "name": "packages/components/src/components/linear-progress/linear-progress.scss",
+          "totalCharacters": 84,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--brand-primary);\n        color: var(--brand-primary);"
+        },
+        {
+          "name": "packages/components/src/components/loading/loading.tsx",
+          "totalCharacters": 85,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    <Text as='h3' color='primary' size='xs' align='center' key={inx}>"
+        },
+        {
+          "name": "packages/components/src/components/message-list/message-list.scss",
+          "totalCharacters": 71,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    border: 1px solid var(--color-interactive-default);"
+        },
+        {
+          "name": "packages/components/src/components/mobile-dialog/mobile-dialog.scss",
+          "totalCharacters": 416,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-primary);\n        background: var(--color-surface-primary);\n        background: var(--color-surface-primary);\n        border-bottom: 1px solid var(--color-interacti..."
+        },
+        {
+          "name": "packages/components/src/components/mobile-dialog/mobile-dialog.tsx",
+          "totalCharacters": 47,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                color='primary'"
+        },
+        {
+          "name": "packages/components/src/components/mobile-drawer/mobile-drawer-submenu.tsx",
+          "totalCharacters": 64,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    <Text as='h3' weight='bold' color='primary'>"
+        },
+        {
+          "name": "packages/components/src/components/mobile-drawer/mobile-drawer.scss",
+          "totalCharacters": 724,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);\n            0 16px 16px 0 var(--color-shadow-medium),\n            0 0 16px 0 var(--color-shadow-medium);\n        border-bottom: 1px solid var(--..."
+        },
+        {
+          "name": "packages/components/src/components/mobile-drawer/mobile-drawer.tsx",
+          "totalCharacters": 55,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                        color='primary'"
+        },
+        {
+          "name": "packages/components/src/components/mobile-full-page-modal/mobile-full-page-modal.scss",
+          "totalCharacters": 293,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-primary);\n            border-bottom: 2px solid var(--color-surface-border);\n            border-top: 1px solid var(--color-surface-border);\n            background-co..."
+        },
+        {
+          "name": "packages/components/src/components/mobile-full-page-modal/mobile-full-page-modal.tsx",
+          "totalCharacters": 100,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                <Text as='p' color='primary' line_height='m' size='s' weight='bold'>"
+        },
+        {
+          "name": "packages/components/src/components/modal/modal.scss",
+          "totalCharacters": 436,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        transition:\n            transform 0.25s cubic-bezier(0.25, 0.1, 0.1, 0.25),\n            opacity 0.25s cubic-bezier(0.25, 0.1, 0.1, 0.25);\n        background-color: var(--color-modal-bg);\n     ..."
+        },
+        {
+          "name": "packages/components/src/components/modal/modal.tsx",
+          "totalCharacters": 87,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                            color='primary'\n                            color='primary'"
+        },
+        {
+          "name": "packages/components/src/components/multi-step/multi-step.scss",
+          "totalCharacters": 94,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-secondary);\n                fill: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/components/src/components/numpad/numpad.scss",
+          "totalCharacters": 360,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);\n        color: var(--color-text-primary);\n        color: var(--color-text-primary);\n            color: var(--color-status-danger);\n        backg..."
+        },
+        {
+          "name": "packages/components/src/components/numpad/numpad.tsx",
+          "totalCharacters": 198,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        <Text weight='bold' align='center' color={is_backspace_disabled ? 'disabled' : 'secondary'}>\n                            color={is_button_disabled ? 'disabled' : 'secondary'}"
+        },
+        {
+          "name": "packages/components/src/components/open-livechat-link/open-livechat-link.scss",
+          "totalCharacters": 36,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--brand-primary);"
+        },
+        {
+          "name": "packages/components/src/components/page-error/page-error.scss",
+          "totalCharacters": 94,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-surface-primary);\n        border: var(--color-surface-border);"
+        },
+        {
+          "name": "packages/components/src/components/page-error/page-error.tsx",
+          "totalCharacters": 160,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                <Text as='h3' size={is_mobile ? 's' : 'l'} align='center' weight='bold' line_height='s' color='primary'>\n                        color='primary'"
+        },
+        {
+          "name": "packages/components/src/components/page-overlay/page-overlay.scss",
+          "totalCharacters": 333,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);\n        background-color: var(--color-surface-primary);\n        border-bottom: 1px solid var(--color-surface-border);\n            color: var(--c..."
+        },
+        {
+          "name": "packages/components/src/components/password-input/password-input.scss",
+          "totalCharacters": 55,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);"
+        },
+        {
+          "name": "packages/components/src/components/popover/popover.scss",
+          "totalCharacters": 193,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            color: var(--brand-primary);\n        background: var(--color-interactive-active);\n        color: var(--color-text-primary);\n            background-color: var(--color-status-danger);"
+        },
+        {
+          "name": "packages/components/src/components/popover/popover.tsx",
+          "totalCharacters": 500,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                arrowColor={\n                                    has_error ? 'var(--color-status-danger)' : 'var(--color-interactive-active)'\n                                }\n        ..."
+        },
+        {
+          "name": "packages/components/src/components/popup/popup-header.tsx",
+          "totalCharacters": 228,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                    <Text size='xxxxs' line_height='m' color='primary'>\n                            <Text size='xxxs' line_height='s' weight='bold' color='primary'>\n                   ..."
+        },
+        {
+          "name": "packages/components/src/components/popup/popup-overlay.tsx",
+          "totalCharacters": 107,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                color='primary'\n                        <Text size='xxs' line_height='m' color='secondary'>"
+        },
+        {
+          "name": "packages/components/src/components/popup/popup.scss",
+          "totalCharacters": 477,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background-color: var(--color-status-warning);\n                background-color: var(--color-surface-primary);\n                background: var(--color-surface-primary);\n                bac..."
+        },
+        {
+          "name": "packages/components/src/components/progress-bar-tracker/progress-bar-tracker.scss",
+          "totalCharacters": 101,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--brand-danger);\n        background-color: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/components/src/components/progress-bar/progress-bar.scss",
+          "totalCharacters": 163,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-status-danger);\n        background-color: var(--color-status-warning);\n        background-color: var(--color-status-success);"
+        },
+        {
+          "name": "packages/components/src/components/progress-bar/progress-bar.tsx",
+          "totalCharacters": 115,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            <Text as='p' color='primary' align='center' size='xs' weight='bold' className='dc-progress-bar__label'>"
+        },
+        {
+          "name": "packages/components/src/components/progress-indicator/progress-indicator.scss",
+          "totalCharacters": 110,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-status-success);\n        background-color: var(--color-surface-primary);"
+        },
+        {
+          "name": "packages/components/src/components/progress-slider-mobile/progress-slider-mobile.scss",
+          "totalCharacters": 120,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-interactive-hover);\n            background-color: var(--color-interactive-active);"
+        },
+        {
+          "name": "packages/components/src/components/progress-slider/progress-slider.scss",
+          "totalCharacters": 587,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    border-bottom: 1px solid var(--color-surface-border);\n        border-bottom: 1px solid var(--color-surface-border);\n        background: var(--color-text-disabled);\n            background: var(--co..."
+        },
+        {
+          "name": "packages/components/src/components/radio-group/radio-group.scss",
+          "totalCharacters": 412,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-secondary);\n        border: 2px solid var(--color-text-secondary);\n        box-shadow: 0 0 1px 0 var(--color-shadow-medium);\n            border-color: var(--color-inter..."
+        },
+        {
+          "name": "packages/components/src/components/read-more/read-more.scss",
+          "totalCharacters": 42,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-status-danger);"
+        },
+        {
+          "name": "packages/components/src/components/select-native/select-native.scss",
+          "totalCharacters": 724,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border: 1px solid var(--color-interactive-default);\n            border-color: var(--color-interactive-hover);\n            border-color: var(--brand-primary) !important;\n            border-colo..."
+        },
+        {
+          "name": "packages/components/src/components/send-email-template/send-email-template.scss",
+          "totalCharacters": 86,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-primary);\n            color: var(--color-text-danger);"
+        },
+        {
+          "name": "packages/components/src/components/send-email-template/send-email-template.tsx",
+          "totalCharacters": 114,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                <Text as='h1' align='center' className='send-email-template__title' color='primary' weight='bold'>"
+        },
+        {
+          "name": "packages/components/src/components/side-note/side-note.scss",
+          "totalCharacters": 51,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);"
+        },
+        {
+          "name": "packages/components/src/components/status-badge/status-badge.scss",
+          "totalCharacters": 594,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            border: 1.5px solid var(--color-status-warning);\n            color: var(--color-status-warning);\n            color: var(--color-status-warning);\n            background-color: var(--color-s..."
+        },
+        {
+          "name": "packages/components/src/components/swipeable-notification/swipeable-notification.scss",
+          "totalCharacters": 237,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-interactive-default);\n        color: var(--brand-black)-1; // text color is unchanged for both themes\n        background-color: var(--brand-danger)-11;\n        backgr..."
+        },
+        {
+          "name": "packages/components/src/components/table/table.scss",
+          "totalCharacters": 223,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--color-text-secondary);\n        border-bottom: 1px solid var(--color-surface-border);\n            background-color: var(--color-surface-primary);\n        border-bottom: 2px solid var(-..."
+        },
+        {
+          "name": "packages/components/src/components/tabs/tabs.scss",
+          "totalCharacters": 367,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            border-bottom: 2px solid var(--color-surface-border);\n            border-top: 2px solid var(--color-surface-border);\n        color: var(--color-text-secondary);\n                border-bott..."
+        },
+        {
+          "name": "packages/components/src/components/text/text.tsx",
+          "totalCharacters": 78,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color = 'secondary',\n        '--text-color': `var(--color-text-${color})`,"
+        },
+        {
+          "name": "packages/components/src/components/themed-scrollbars/themed-scrollbars.scss",
+          "totalCharacters": 141,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    scrollbar-color: var(--color-interactive-active) var(--color-surface-primary);\n        background-color: var(--color-interactive-active);"
+        },
+        {
+          "name": "packages/components/src/components/tick-picker/tick-picker.scss",
+          "totalCharacters": 282,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            color: var(--color-trade-fall);\n            background-color: var(--color-surface-primary);\n            background-color: var(--color-surface-primary);\n                color: var(--color-t..."
+        },
+        {
+          "name": "packages/components/src/components/tick-picker/tick-picker.tsx",
+          "totalCharacters": 167,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    <Icon icon='IcMinus' custom_color='var(--color-text-primary)' />\n                    <Icon icon='IcAdd' custom_color='var(--color-text-primary)' />"
+        },
+        {
+          "name": "packages/components/src/components/tick-progress/tick-progress.scss",
+          "totalCharacters": 60,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-interactive-disabled);"
+        },
+        {
+          "name": "packages/components/src/components/timeline/timeline.scss",
+          "totalCharacters": 249,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-left: var(--brand-primary) solid 1px;\n            color: var(--color-text-secondary);\n        background-color: var(--brand-primary);\n            background-color: var(--color-text-seco..."
+        },
+        {
+          "name": "packages/components/src/components/timeline/timeline.tsx",
+          "totalCharacters": 137,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            <Text color='inverse' size='s' weight='bold' className='dc-timeline__number'>\n                                color='primary'"
+        },
+        {
+          "name": "packages/components/src/components/toast/toast.scss",
+          "totalCharacters": 286,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    transition:\n        transform 0.25s ease,\n        opacity 0.25s linear;\n        color: var(--color-surface-contrast);\n            background-color: var(--color-status-danger);\n            backgrou..."
+        },
+        {
+          "name": "packages/components/src/components/toggle-switch/toggle-switch.scss",
+          "totalCharacters": 152,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-interactive-disabled);\n        background: var(--color-surface-contrast);\n        background: var(--color-text-success);"
+        },
+        {
+          "name": "packages/components/src/components/tooltip/tooltip.scss",
+          "totalCharacters": 292,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--color-text-primary);\n    @include tooltipColor(var(--color-status-neutral));\n        @include convertTooltipColor(var(--color-status-neutral));\n        @include convertTooltipColor(va..."
+        },
+        {
+          "name": "packages/components/src/components/u-i-loader/ui-loader.scss",
+          "totalCharacters": 170,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                animation:\n                    dash 1.5s ease-in-out infinite,\n                    colorRed 6s ease-in-out infinite;\n        stroke: var(--brand-primary);"
+        },
+        {
+          "name": "packages/components/src/components/unhandled-error-modal/unhandled-error-modal.tsx",
+          "totalCharacters": 59,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            color='secondary'\n            color='secondary'"
+        },
+        {
+          "name": "packages/components/src/components/vertical-tab/vertical-tab-header-title.tsx",
+          "totalCharacters": 66,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        <Text as='p' color='primary' align='center' weight='bold'>"
+        },
+        {
+          "name": "packages/components/src/components/vertical-tab/vertical-tab.scss",
+          "totalCharacters": 769,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-top: 1px solid var(--color-surface-border);\n                background: var(--color-interactive-hover);\n        background-color: var(--color-surface-section);\n        color: var(--colo..."
+        },
+        {
+          "name": "packages/components/src/components/video-player/playback-rate-control.tsx",
+          "totalCharacters": 64,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    custom_color='var(--color-surface-contrast)'"
+        },
+        {
+          "name": "packages/components/src/components/video-player/video-controls.tsx",
+          "totalCharacters": 234,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                            <Text size='xxxs' line_height='s' color='inverse'>\n                                custom_color='var(--color-surface-contrast)'\n                            <Text size='xxxs..."
+        },
+        {
+          "name": "packages/components/src/components/video-player/video-player.scss",
+          "totalCharacters": 648,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            border: 3px solid var(--color-surface-border);\n            border-top-color: var(--brand-primary);\n            background-color: var(--color-surface-contrast);\n                background-c..."
+        },
+        {
+          "name": "packages/components/src/components/video-player/volume-control.tsx",
+          "totalCharacters": 68,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        custom_color='var(--color-surface-contrast)'"
+        },
+        {
+          "name": "packages/components/src/components/wallet-card/wallet-card.scss",
+          "totalCharacters": 189,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            border: 2px solid var(--color-interactive-active);\n        background-color: var(--brand-white);\n        background: var(--brand-white);\n            color: var(--brand-black)-1;"
+        },
+        {
+          "name": "packages/components/src/components/wallet-card/wallet-card.tsx",
+          "totalCharacters": 266,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                custom_color='var(--color-text-primary)'\n                                <Text color='primary' size={isMobile() ? 'xxxxs' : 'xxxs'}>\n                                <Te..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Elements/LandscapeBlocker/landscape-blocker.scss",
+          "totalCharacters": 83,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-primary);\n    color: var(--color-text-primary);"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/Components/Preloader/accounts-info.jsx",
+          "totalCharacters": 903,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "const AccountsInfoLoader = ({ is_desktop, is_logged_in, speed }) => (\n        backgroundColor={'var(--color-surface-section)'}\n        foregroundColor={'var(--color-interactive-hover)'}\n        {is_lo..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/Components/Preloader/accounts-item.jsx",
+          "totalCharacters": 115,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        backgroundColor={'var(--color-surface-section)'}\n        foregroundColor={'var(--color-interactive-hover)'}"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/Components/Preloader/header-items.jsx",
+          "totalCharacters": 115,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        backgroundColor={'var(--color-surface-section)'}\n        foregroundColor={'var(--color-interactive-hover)'}"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/account-actions.tsx",
+          "totalCharacters": 33,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            {renderAccountInfo()}"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/wallets/accounts-info-loader-wallets.tsx",
+          "totalCharacters": 115,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        backgroundColor={'var(--color-surface-section)'}\n        foregroundColor={'var(--color-interactive-hover)'}"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/wallets/wallet-badge.tsx",
+          "totalCharacters": 106,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        <Badge type='contained' background_color='blue' label={localize('Demo')} custom_color='inverse' />"
+        },
+        {
+          "name": "packages/core/src/App/Components/dev-tools/mock-dialog.scss",
+          "totalCharacters": 201,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n    box-shadow:\n        0 20px 13px rgba(0, 0, 0, 0.01),\n        0 4px 3px rgba(0, 0, 0, 0.02);\n    border: 1px solid var(--color-interactive-hover)..."
+        },
+        {
+          "name": "packages/core/src/App/Constants/platform-config.ts",
+          "totalCharacters": 179,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getPlatformName, getPlatformIcon, routes } from '@deriv/shared';\n        icon: getPlatformIcon(),\n        title: () => getPlatformName(),\n        name: getPlatformName(),"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcher/account-switcher-account-list.jsx",
+          "totalCharacters": 121,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                color='primary'\n                        color={is_dark_mode_on ? 'secondary' : 'inverse'}"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcher/account-switcher.jsx",
+          "totalCharacters": 177,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        <Text line_height='s' size='xs' weight='bold' color='primary'>\n                        <Text size='xs' color='primary' className='acc-switcher__balance'>"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcherWallet/account-switcher-wallet-item.scss",
+          "totalCharacters": 124,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background-color: var(--color-interactive-active);\n            background-color: var(--color-interactive-hover);"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcherWallet/account-switcher-wallet-list.scss",
+          "totalCharacters": 60,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    border-bottom: 1px solid var(--color-interactive-hover);"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcherWallet/account-switcher-wallet-mobile.scss",
+          "totalCharacters": 61,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-top: 1px solid var(--color-interactive-hover);"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcherWallet/account-switcher-wallet.scss",
+          "totalCharacters": 126,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-bottom: 1px solid var(--color-interactive-hover);\n        border-top: 1px solid var(--color-interactive-hover);"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/brand-short-logo.tsx",
+          "totalCharacters": 216,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import React from 'react';\nimport { StaticUrl, Icon } from '@deriv/components';\nimport { getBrandLogo } from '@deriv/shared';\n    const brandLogo = getBrandLogo();\n\n                <Icon icon={brandLo..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/header-account-actions.tsx",
+          "totalCharacters": 244,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "const HeaderAccountActions = observer(() => {\n    const { client, ui } = useStore();\n    const { balance, currency, is_logged_in, is_virtual, logout } = client;\n    const { account_switcher_disabled_m..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/header-legacy.tsx",
+          "totalCharacters": 466,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { routes } from '@deriv/shared';\n    const { is_from_tradershub_os } = common;\n                                    <ToggleMenuDrawerAccountsOS />\n                                    <ToggleMenu..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/traders-hub-home-button.tsx",
+          "totalCharacters": 84,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                'traders-hub-header__tradershub--active': pathname === routes.trade,"
+        },
+        {
+          "name": "packages/core/src/App/Containers/NotificationsDialog/notification-list-wrapper.tsx",
+          "totalCharacters": 39,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        color='primary'"
+        },
+        {
+          "name": "packages/core/src/App/Containers/NotificationsDialog/notifications-clear-all-footer.tsx",
+          "totalCharacters": 67,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    <Text size='xxs' color='primary' weight='bold'>"
+        },
+        {
+          "name": "packages/core/src/App/Containers/NotificationsDialog/notifications-list.tsx",
+          "totalCharacters": 116,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        <Text as='h2' className='notifications-item__title' weight='bold' size='xs' color='primary'>"
+        },
+        {
+          "name": "packages/core/src/Components/markers/marker-spot-label.jsx",
+          "totalCharacters": 77,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                    <Text as='p' color='primary' size='xxxs'>"
+        },
+        {
+          "name": "packages/core/src/Modules/Callback/AccessDeniedScreen.scss",
+          "totalCharacters": 335,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-surface-contrast);\n        background-color: var(--color-button-primary-bg);\n        background-color: var(--color-button-primary-hover);\n        border: 1px solid var(--col..."
+        },
+        {
+          "name": "packages/core/src/Modules/Endpoint/Endpoint.jsx",
+          "totalCharacters": 68,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        <Text as='h1' weight='bold' color='primary'>"
+        },
+        {
+          "name": "packages/core/src/Modules/Endpoint/FeatureFlagsSection.tsx",
+          "totalCharacters": 56,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            <Text as='h1' weight='bold' color='primary'>"
+        },
+        {
+          "name": "packages/core/src/Stores/notification-store.js",
+          "totalCharacters": 182,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    getPlatformName,\n        const platform_name_trader = getPlatformName();\n        // TODO: Add mobile application name in brand config\n        const platform_name_go = 'Deriv GO';"
+        },
+        {
+          "name": "packages/core/src/public/images/common/static_images/martingale_formula_1.svg",
+          "totalCharacters": 1623,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"Layer_1\" data-name=\"Layer 1\" viewBox=\"0 0 500 250\"><defs><style>.cls-5{font-family:Times-Italic,Times;font-style:italic}.cls-8{font-family:Times-Roman,Times..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/base/common.scss",
+          "totalCharacters": 527,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    border: 1px solid var(--color-interactive-default);\n    color: var(--color-text-secondary);\n    color: var(--color-text-secondary);\n    color: var(--color-text-secondary);\n    color: var(--color-t..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/account-common.scss",
+          "totalCharacters": 586,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                border: 1px solid var(--color-interactive-active);\n            border-top: 1px solid var(--color-surface-border);\n            background-color: var(--color-surface-primary);\n          ..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/account-switcher.scss",
+          "totalCharacters": 2059,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-surface-primary);\n        border-right: 1px solid var(--color-surface-border);\n        color: var(--color-text-secondary);\n            background: var(--color-interacti..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/app-notification-message.scss",
+          "totalCharacters": 323,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--color-text-primary);\n    background-color: var(--color-surface-primary);\n    box-shadow:\n        0 4px 6px 0 var(--color-shadow-medium),\n        0 4px 6px 0 var(--color-shadow-medium)..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/cookie-banner.scss",
+          "totalCharacters": 301,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n    box-shadow:\n        0 24px 24px 0 rgba(0, 0, 0, 0.08),\n        0 0 24px 0 rgba(0, 0, 0, 0.08);\n    color: var(--color-text-secondary);\n        b..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/error-boundary.scss",
+          "totalCharacters": 41,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--color-surface-contrast);"
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/media-item.scss",
+          "totalCharacters": 190,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-primary);\n            background-color: var(--color-interactive-disabled);\n        color: var(--color-text-primary);\n        color: var(--color-text-primary);"
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/notification-banner.scss",
+          "totalCharacters": 185,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n    color: var(--color-text-primary);\n        0 4px 6px 0 var(--color-shadow-medium),\n        0 4px 6px 0 var(--color-shadow-medium);"
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/notification-promo.scss",
+          "totalCharacters": 239,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n    box-shadow:\n        0 4px 6px 0 var(--color-shadow-medium),\n        0 4px 6px 0 var(--color-shadow-medium);\n    transition:\n        transform 0...."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/settings-language.scss",
+          "totalCharacters": 318,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            color: var(--color-text-primary);\n            background-color: var(--color-surface-primary);\n                border: 1px solid var(--color-interactive-active);\n                color: var(..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/side-menu.scss",
+          "totalCharacters": 236,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-left: 2px solid var(--color-surface-border);\n        color: var(--color-text-primary);\n            background-color: var(--color-surface-primary);\n                background-color: var(..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/theme-select.scss",
+          "totalCharacters": 328,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-primary);\n            color: var(--color-text-secondary);\n                color: var(--color-text-primary);\n            border: 1px solid var(--color-interactive-defaul..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/layout/app-layouts.scss",
+          "totalCharacters": 350,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n        background-color: var(--color-modal-backdrop);\n            background-color: var(--color-surface-primary);\n        background-color: var(--c..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/layout/footer.scss",
+          "totalCharacters": 682,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-primary);\n    color: var(--color-text-primary);\n    border-top: 1px solid var(--color-surface-border);\n                background: var(--color-interactive-hover);\n ..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/layout/header.scss",
+          "totalCharacters": 1306,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n    border-bottom: 1px solid var(--color-surface-border);\n            color: var(--color-text-secondary);\n        border-bottom: 1px solid var(--col..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/layout/modal-root.scss",
+          "totalCharacters": 50,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-modal-backdrop);"
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/account-closed.scss",
+          "totalCharacters": 37,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--color-text-primary);"
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/account-signup.scss",
+          "totalCharacters": 290,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-bottom: 1px solid var(--color-surface-border);\n            background-color: var(--color-surface-primary);\n        background-color: var(--color-button-primary-bg);\n        color: var(-..."
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/account-types.scss",
+          "totalCharacters": 363,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        box-shadow:\n            0 8px 8px 0 var(--color-shadow-medium),\n            0 0 8px 0 var(--color-shadow-medium);\n        border: 1px solid var(--color-interactive-default);\n                bo..."
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/complaints-policy.scss",
+          "totalCharacters": 41,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-primary);"
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/notifications-dialog.scss",
+          "totalCharacters": 817,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                fill: var(--color-text-secondary);\n                stroke: var(--color-text-secondary);\n        background: var(--color-surface-primary);\n        box-shadow: 0 4px 8px 2px var(--color-..."
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/reset-email.scss",
+          "totalCharacters": 314,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-status-danger);\n        background-color: var(--color-button-primary-bg);\n        color: var(--color-surface-contrast);\n            background-color: var(--color-button-prim..."
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/reset-password.scss",
+          "totalCharacters": 405,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border: 1px solid var(--color-text-secondary)-4;\n        background-color: var(--color-button-primary-bg);\n        color: var(--color-surface-contrast);\n            background-color: var(--col..."
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/set-citizenship.scss",
+          "totalCharacters": 168,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-button-primary-bg);\n        color: var(--color-surface-contrast);\n            background-color: var(--color-button-primary-hover);"
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/set-residence.scss",
+          "totalCharacters": 168,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-button-primary-bg);\n        color: var(--color-surface-contrast);\n            background-color: var(--color-button-primary-hover);"
+        },
+        {
+          "name": "packages/core/src/sass/app/modules/settings.scss",
+          "totalCharacters": 85,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background-color: var(--color-surface-section);\n            height: 100%;"
+        },
+        {
+          "name": "packages/core/src/sass/details-form.scss",
+          "totalCharacters": 575,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background: var(--brand-warning)-3;\n                background-color: var(--color-surface-primary);\n                    background-color: var(--color-surface-primary);\n                    ..."
+        },
+        {
+          "name": "packages/core/src/sass/modal-login-prompt.scss",
+          "totalCharacters": 39,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/core/src/templates/app/components/loading.jsx",
+          "totalCharacters": 117,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    <Text as='h3' size='xs' align='center' color='primary' styles={{ lineHeight: '44px' }} key={inx}>"
+        },
+        {
+          "name": "packages/reports/src/Components/Elements/ContentLoader/reports-table-row.tsx",
+          "totalCharacters": 118,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        backgroundColor={'var(--color-interactive-hover)'}\n        foregroundColor={'var(--color-interactive-active)'}"
+        },
+        {
+          "name": "packages/reports/src/Components/Elements/Modals/MarketUnavailableModal/market-unavailable.tsx",
+          "totalCharacters": 166,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getPlatformName } from '@deriv/shared';\n                platform_name_trader: getPlatformName(),\n                    platform_name_trader: getPlatformName(),"
+        },
+        {
+          "name": "packages/reports/src/Components/Form/CompositeCalendar/composite-calendar-mobile.tsx",
+          "totalCharacters": 31,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                color='primary'"
+        },
+        {
+          "name": "packages/reports/src/Components/currency-wrapper.tsx",
+          "totalCharacters": 56,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        <Text color='inverse' weight='bold' size='xxxs'>"
+        },
+        {
+          "name": "packages/reports/src/sass/app/_common/components/amount.scss",
+          "totalCharacters": 82,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-success);\n        color: var(--color-text-danger);"
+        },
+        {
+          "name": "packages/reports/src/sass/app/_common/components/composite-calendar.scss",
+          "totalCharacters": 1245,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n    box-shadow: 0 2px 16px 8px var(--color-shadow-medium);\n        background-color: var(--color-surface-primary);\n            @include colorIcon(va..."
+        },
+        {
+          "name": "packages/reports/src/sass/app/_common/components/market-symbol-icon.scss",
+          "totalCharacters": 121,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        fill: var(--brand-primary);\n        color: var(--color-text-primary);\n        color: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/reports/src/sass/app/modules/portfolio.scss",
+          "totalCharacters": 331,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-surface-primary);\n        background: var(--color-surface-primary);\n            background: var(--color-surface-primary);\n        color: var(--color-text-link);\n       ..."
+        },
+        {
+          "name": "packages/reports/src/sass/app/modules/reports.scss",
+          "totalCharacters": 2731,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        fill: var(--color-text-secondary);\n        background-color: var(--color-surface-primary);\n            color: var(--color-text-success);\n            color: var(--color-text-danger);\n        ba..."
+        },
+        {
+          "name": "packages/shared/src/styles/constants/colors.scss",
+          "totalCharacters": 1022,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "/*------------------------------------*\n *  # Color Constants (Auto-Generated)\n *------------------------------------*/\n\n/* \n * This file is auto-generated from brand.config.json\n * Do not edit manual..."
+        },
+        {
+          "name": "packages/shared/src/styles/constants/layout.scss",
+          "totalCharacters": 570,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "/*------------------------------------*\n *  # Base Constants\n *------------------------------------*/\n\n/* LAYOUT CONSTANTS */\n\n$BORDER_RADIUS: 4px;\n$BORDER_RADIUS_2: 8px;\n\n$MAX_CONTAINER_WIDTH: 1440px..."
+        },
+        {
+          "name": "packages/shared/src/styles/fonts.scss",
+          "totalCharacters": 284,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    'active' var(--color-surface-contrast),\n    'prominent' var(--color-text-primary),\n    'black' var(--color-text-secondary),\n    'grey' var(--color-text-secondary),\n    'disabled' var(--color-text-..."
+        },
+        {
+          "name": "packages/shared/src/styles/index.js",
+          "totalCharacters": 110,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "const resources = ['constants/layout.scss', 'mixins.scss', 'fonts.scss', 'inline-icons.scss', 'devices.scss'];"
+        },
+        {
+          "name": "packages/shared/src/styles/inline-icons.scss",
+          "totalCharacters": 348,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    @include colorIcon(var(--color-text-secondary), none);\n        @include colorIcon(var(--color-text-primary), none);\n        @include colorIcon(var(--color-text-disabled), none);\n        @include c..."
+        },
+        {
+          "name": "packages/shared/src/styles/mixins.scss",
+          "totalCharacters": 200,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "/*\n * RTL Language Mixin\n */\n@mixin rtl {\n    [dir='rtl'] & {\n        @content;\n    }\n}\n\n        box-shadow: 0 0 0 0.5em var(--color-interactive-hover);\n   @include tooltipColor(var(--brand-primary));"
+        },
+        {
+          "name": "packages/shared/src/styles/themes.scss",
+          "totalCharacters": 1452,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "/**\n * New Theme System - Main Entry Point\n * \n * This file imports the new token-based theme system.\n * It replaces the old themes.scss (now in legacy/themes.scss).\n */\n// Import color constants firs..."
+        },
+        {
+          "name": "packages/shared/src/styles/tokens/brand.scss",
+          "totalCharacters": 2057,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "/**\n * Brand Tokens - Core White-Label Variables (Auto-Generated)\n * \n * This file is auto-generated from brand.config.json\n * Do not edit manually - run 'npm run generate:colors' instead\n * \n * Partn..."
+        },
+        {
+          "name": "packages/shared/src/styles/tokens/components.scss",
+          "totalCharacters": 9576,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "/**\n * Component Color Tokens (Auto-Generated)\n * \n * This file is auto-generated from brand.config.json\n * Do not edit manually - run 'npm run generate:colors' instead\n * \n * These variables define c..."
+        },
+        {
+          "name": "packages/shared/src/styles/tokens/semantic.scss",
+          "totalCharacters": 5885,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "/**\n * Semantic Color Tokens (Auto-Generated)\n * \n * This file is auto-generated from brand.config.json\n * Do not edit manually - run 'npm run generate:colors' instead\n * \n * These variables provide s..."
+        },
+        {
+          "name": "packages/shared/src/styles/tokens/typography.scss",
+          "totalCharacters": 2771,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "/**\n * Typography Tokens\n * \n * These variables define text sizes, line heights, and font weights.\n * These are well-structured and don't need consolidation.\n */\n\n:root {\n    // Text Sizes (Keep exist..."
+        },
+        {
+          "name": "packages/shared/src/utils/brand/brand.ts",
+          "totalCharacters": 397,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import config_data from '../../../../../brand.config.json';\n    return config_data.brand_domain;\nexport const getBrandName = () => {\n    return config_data.brand_name;\n};\nexport const getBrandLogo = (..."
+        },
+        {
+          "name": "packages/shared/src/utils/platform/platform.ts",
+          "totalCharacters": 163,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getPlatformName, getPlatformIcon } from '../brand';\n    DTrader: getPlatformName(),\n    return { header: platform_name.DTrader, icon: getPlatformIcon() };"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/ContentLoader/positions-card.tsx",
+          "totalCharacters": 115,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        backgroundColor={'var(--color-surface-section)'}\n        foregroundColor={'var(--color-interactive-hover)'}"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/ContentLoader/trade-params.tsx",
+          "totalCharacters": 255,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                backgroundColor={'var(--color-surface-section)'}\n                foregroundColor={'var(--color-interactive-hover)'}\n            backgroundColor={'var(--color-surface-section)'}\n       ..."
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/ContractAudit/contract-audit-item.tsx",
+          "totalCharacters": 232,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                <Text weight='bold' size='xxs' line_height='m' color='primary' className='contract-audit__value'>\n                    <Text weight='bold' size='xxs' line_height='m' color='primary' cla..."
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/ContractAudit/contract-details.tsx",
+          "totalCharacters": 90,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    <Text color='inverse' size='xxxs' className='lookbacks-marker__asset'>"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/Modals/MarketUnavailableModal/market-unavailable.tsx",
+          "totalCharacters": 166,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getPlatformName } from '@deriv/shared';\n                platform_name_trader: getPlatformName(),\n                    platform_name_trader: getPlatformName(),"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/PositionsDrawer/positions-drawer.tsx",
+          "totalCharacters": 66,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    <Text color='primary' weight='bold' size='xs'>"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/market-countdown-timer.tsx",
+          "totalCharacters": 71,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    color='primary'\n                    color='primary'"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/market-is-closed-overlay.tsx",
+          "totalCharacters": 106,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            <Text as='p' className='market-is-closed-overlay__main-heading' color='primary' weight='bold'>"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Form/RangeSlider/range-slider.tsx",
+          "totalCharacters": 108,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    <Text align='center' weight='bold' size='xs' color='primary' id='dt_range_slider_label'>"
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-asian.svg",
+          "totalCharacters": 2949,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-close-to-low.svg",
+          "totalCharacters": 2502,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-ends-in-out.svg",
+          "totalCharacters": 2816,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-high-to-close.svg",
+          "totalCharacters": 2508,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-high-to-low.svg",
+          "totalCharacters": 2543,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-reset.svg",
+          "totalCharacters": 3100,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-run-high-low.svg",
+          "totalCharacters": 3037,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-spread.svg",
+          "totalCharacters": 3149,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-tick-high-low.svg",
+          "totalCharacters": 3055,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"272\" height=\"148\"><g fill=\"none\"><rect width=\"272\" height=\"148\" fill=\"#FFF\" rx=\"4\"/><rect width=\"272\" height=\"148\" fill=\"var(--color-surface-section)\" rx..."
+        },
+        {
+          "name": "packages/trader/src/Assets/SvgComponents/trade_explanations/img-turbos.svg",
+          "totalCharacters": 2999,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "<svg width=\"328\" height=\"164\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"328\" height=\"164\" rx=\"6\" fill=\"var(--color-surface-section)\"/><path d=\"M186.131 101.337h34.339c3.374 0 6.109 2..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Contract/Components/AccumulatorsStats/accumulators-stats-manual-modal.tsx",
+          "totalCharacters": 39,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        color='primary'"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Elements/Multiplier/cancel-deal-mobile.tsx",
+          "totalCharacters": 52,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                <Text size='xxxs' color='secondary'>"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Elements/PayoutPerPoint/payout-per-point-input.tsx",
+          "totalCharacters": 141,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                    stroke='var(--color-text-primary)'\n                                    stroke='var(--color-text-primary)'"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Elements/PayoutPerPoint/payout-per-point-mobile-input.tsx",
+          "totalCharacters": 361,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        <Text size='xs' weight='bold' color='primary' as='h1'>\n                        color='primary'\n                            <Text size='xxs' line_height='xs' color='primary' ali..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Elements/PayoutPerPoint/payout-per-point.scss",
+          "totalCharacters": 412,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                background-color: var(--color-surface-primary);\n                border-bottom: 1px dotted var(--color-text-secondary);\n    background: var(--color-surface-primary);\n                bac..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Elements/purchase-button.tsx",
+          "totalCharacters": 176,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            <Text size='xs' weight='bold' color='inverse'>\n            <Text size='xs' weight='bold' color='inverse'>\n            <Text size='xs' weight='bold' color='inverse'>"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/ContractType/ContractTypeInfo/contract-type-info-header.tsx",
+          "totalCharacters": 99,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        <Text size={text_size} weight='bold' color='primary' className='contract-type-info__title'>"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/Purchase/contract-info.tsx",
+          "totalCharacters": 82,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                    <Text size='xs' weight='bold' color='inverse'>"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/TradeParams/Multiplier/expiration-modal.tsx",
+          "totalCharacters": 93,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            <Text size='xs' color='secondary' as='div' className='dc-modal-body__expiration'>"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/TradeParams/Turbos/payout-selector.tsx",
+          "totalCharacters": 317,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                <Text size='xs' color='primary' align='center' className='payout-field'>\n                            stroke='var(--color-text-primary)'\n                            stroke='var(--color-..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/TradeParams/barriers-list-body.tsx",
+          "totalCharacters": 47,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                color='primary'"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/TradeParams/barriers-list.tsx",
+          "totalCharacters": 70,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        <Text color='primary' weight='bold' size='xs'>"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/WheelPicker/wheel-picker-mobile.tsx",
+          "totalCharacters": 39,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        color='primary'"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/WheelPicker/wheel-picker.scss",
+          "totalCharacters": 279,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-primary);\n            background: var(--color-surface-primary);\n                    stroke: var(--color-surface-border);\n                    background: var(--color..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/screen-small.tsx",
+          "totalCharacters": 39,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        color='primary'"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/trade-store.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/allow-equals.scss",
+          "totalCharacters": 91,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-secondary);\n            color: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-audit.scss",
+          "totalCharacters": 756,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);\n        color: var(--color-text-primary);\n            border-top: 1px solid var(--color-surface-border);\n                background-color: var(-..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-replay.scss",
+          "totalCharacters": 120,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            @include colorIcon(var(--color-text-secondary));\n                background: var(--color-interactive-hover);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-type-dialog.scss",
+          "totalCharacters": 334,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    transition:\n        transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),\n        opacity 0.3s;\n        background: var(--color-surface-primary);\n        box-shadow: 0 2px 8px 0 var(--color-shadow-medi..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-type-info.scss",
+          "totalCharacters": 577,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            color: var(--brand-primary);\n            color: var(--color-text-primary);\n            color: var(--color-text-secondary);\n            background-color: var(--color-surface-primary);\n     ..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-type-list.scss",
+          "totalCharacters": 337,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-primary);\n    color: var(--color-text-secondary);\n        background-color: var(--color-interactive-hover);\n        background: var(--color-interactive-active);\n       ..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-type-no-result.scss",
+          "totalCharacters": 43,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-type-widget.scss",
+          "totalCharacters": 733,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    transition:\n        transform 0.3s,\n        opacity 0.3s;\n    color: var(--color-text-primary);\n    background: var(--color-surface-primary);\n    border: 1px solid var(--color-surface-border);\n   ..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/market-is-closed-overlay.scss",
+          "totalCharacters": 54,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border: 2px solid var(--color-surface-border);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/number-selector.scss",
+          "totalCharacters": 500,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-primary);\n        color: var(--color-text-secondary);\n            background-color: var(--color-interactive-active);\n            color: var(--color-text-p..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/positions-toggle.scss",
+          "totalCharacters": 179,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-text-primary);\n        background-color: var(--brand-primary);\n        color: var(--brand-white);\n        color: var(--color-text-secondary);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/purchase-button.scss",
+          "totalCharacters": 1906,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-trade-buy-bg);\n            color: var(--color-surface-contrast);\n            background-color: var(--color-status-danger);\n            fill: var(--color-surface-contr..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/range-slider.scss",
+          "totalCharacters": 1606,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    background: var(--color-text-danger);\n                    background: var(--color-text-danger);\n                background: var(--color-text-danger) !important;\n                bac..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/strike.scss",
+          "totalCharacters": 51,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/drawer/contract-drawer.scss",
+          "totalCharacters": 653,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    transition:\n        opacity 0.3s ease,\n        transform 0.3s ease;\n    border: 1px solid var(--color-surface-border);\n    background: var(--color-surface-section);\n    color: var(--color-text-pri..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/drawer/positions-drawer.scss",
+          "totalCharacters": 234,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    border: 1px solid var(--color-surface-border);\n    background-color: var(--color-surface-section);\n    color: var(--color-text-primary);\n        background: var(--color-surface-primary);\n        c..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/drawer/positions-modal-card.scss",
+          "totalCharacters": 773,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color: var(--color-text-secondary);\n            color: var(--color-text-success);\n            color: var(--color-text-danger);\n        border-top: 1px solid var(--color-surface-border);\n        tr..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/form/time-picker.scss",
+          "totalCharacters": 797,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            stroke: var(--color-text-secondary);\n        box-shadow: 0 2px 4px 0 var(--color-shadow-medium);\n        transition:\n            transform 0.25s ease,\n            opacity 0.25s linear;\n   ..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/layout/trader-layouts.scss",
+          "totalCharacters": 258,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                            border-bottom: 1px solid var(--color-surface-border);\n        background-color: var(--color-surface-primary);\n                    background: var(--color-surface-primary);\n..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/mobile-widget.scss",
+          "totalCharacters": 572,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-primary);\n        background-color: var(--color-surface-primary);\n        color: var(--color-text-primary);\n        color: var(--color-text-primary);\n        ..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/contract.scss",
+          "totalCharacters": 521,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-surface-primary);\n                    color: var(--brand-primary);\n                    fill: var(--color-status-success);\n                color: var(--color-text-succes..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/contract/accumulators-stats.scss",
+          "totalCharacters": 490,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            radial-gradient(50% 50% at 50% 50%, var(--color-text-danger) 0%, rgba(55, 124, 252, 0) 100%);\n    background-color: var(--color-surface-primary);\n        border-left: 1px solid var(--color..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/contract/digits.scss",
+          "totalCharacters": 2285,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                box-shadow: 0px 1px 18px var(--color-text-success);\n                box-shadow: 0px 1px 18px var(--color-text-danger);\n                border: 3px solid var(--color-text-danger);\n     ..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/portfolio.scss",
+          "totalCharacters": 331,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-surface-primary);\n        background: var(--color-surface-primary);\n            background: var(--color-surface-primary);\n        color: var(--color-text-link);\n       ..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/smart-chart.scss",
+          "totalCharacters": 1392,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-primary);\n        background-color: var(--color-surface-primary);\n        border: 2px solid var(--color-text-secondary);\n            color: var(--brand-white);\n        ..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/trading-mobile.scss",
+          "totalCharacters": 1682,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background: var(--color-surface-primary);\n            background: var(--color-surface-primary);\n                color: var(--color-text-secondary);\n                    stroke: var(--color-..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/trading.scss",
+          "totalCharacters": 2678,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: rgba(var(--color-surface-primary), 0.16);\n        background-image: linear-gradient(\n            to left,\n            rgba(255, 255, 255, 0),\n            var(--brand-white) 10%,\n..."
+        }
+      ],
+      "timestamp": "2025-08-08T07:58:27.614Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "106",
+      "branch": "setup-brand-config",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Implement Dynamic Brand Configuration System",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 1183,
