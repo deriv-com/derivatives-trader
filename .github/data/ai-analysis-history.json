@@ -1,7 +1,49 @@
 {
-  "lastUpdated": "2025-08-08T10:09:26.965Z",
-  "totalMergedPRs": 16,
+  "lastUpdated": "2025-08-08T10:10:13.637Z",
+  "totalMergedPRs": 17,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 3565,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/shared/src/utils/helpers/__tests__/market-underlying.spec.ts",
+          "totalCharacters": 3197,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getSymbolDisplayName } from '../active-symbols';\n        it('should correctly extract Jump index symbols from shortcodes', () => {\n            // Test various Jump index shortcode formats\n   ..."
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/market-underlying.ts",
+          "totalCharacters": 119,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        '^([A-Z]+)_((1HZ[0-9-V]+)|((CRASH|BOOM|STPRNG)[0-9\\\\d]+[A-Z]?)|(OTC_[A-Z0-9]+)|R_[\\\\d]{2,3}|(JD[0-9]+)|[A-Z]+)'"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/MarketSelector/market-selector.tsx",
+          "totalCharacters": 68,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        {current_spot ? (\n                        )}"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/contract-type.ts",
+          "totalCharacters": 181,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                        (symbol as any).underlying_symbol || symbol.symbol\n                                        (symbol as any).underlying_symbol || symbol.symbol"
+        }
+      ],
+      "timestamp": "2025-08-08T10:10:13.588Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "116",
+      "branch": "b-fix-bugs",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / feat: multiple fixes and improvements",
+      "hasAnalysis": true
+    },
     {
       "percentage": 41,
       "totalCharacters": 5518,

@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-08 10:09:27 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-08 10:10:13 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 16 | **📈 Average AI Code** | 🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜ 24% |
-| **🤖 PRs with AI Analysis** | 13 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **📄 Files Analyzed** | 364 | **⚡ Total AI Characters** | 26,966 |
+| **📁 Total Merged PRs** | 17 | **📈 Average AI Code** | 🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜ 22% |
+| **🤖 PRs with AI Analysis** | 14 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **📄 Files Analyzed** | 368 | **⚡ Total AI Characters** | 26,966 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 16 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 17 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#116](#) **Akmal / feat: multiple fixes and improvements** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/8/2025 | 4 | 0 / 3,565 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#111](#) **Jim/fix markers 3** | [@jim-deriv](https://github.com/jim-deriv) | 8/8/2025 | 11 | 2,235 / 5,518 chars | 🟧🟧🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜  41% |
 | [#106](#) **Nijil / Implement Dynamic Brand Configuration System** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/8/2025 | 277 | 23,743 / 201,267 chars | 🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  12% |
 | [#112](#) **Akmal / fix: enhance fallback logic for default open symbol retrieval** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/8/2025 | 1 | 0 / 1,183 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#103](#) **Prince/ remove testing file** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#101](#) **Prince/ testing official workflows** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 1 | 695 / 707 chars | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩  98% |
 | [#99](#) **Prince/update workflow to use official deriv-com reusable workflow** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 2 | 224 / 257 chars | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜  87% |
-| [#97](#) **Matin/Clean-up Icons & Tradershub Store** | [@matin-deriv](https://github.com/matin-deriv) | 8/6/2025 | 25 | 0 / 1,529 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
