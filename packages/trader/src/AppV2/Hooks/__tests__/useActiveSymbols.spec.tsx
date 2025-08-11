@@ -7,7 +7,6 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import TraderProviders from '../../../trader-providers';
 import useActiveSymbols from '../useActiveSymbols';
-import { invalidateDTraderCache } from '../useDtraderQuery';
 
 const not_logged_in_active_symbols = [
     { symbol: 'EURUSD', display_name: 'EUR/USD', exchange_is_open: 1 },
@@ -82,12 +81,7 @@ describe('useActiveSymbols', () => {
     });
 
     afterEach(() => {
-        invalidateDTraderCache([
-            'active_symbols',
-            mocked_store.client.loginid ?? '',
-            mocked_store.modules.trade.contract_type,
-            mocked_store.common.current_language,
-        ]);
+        jest.clearAllMocks();
     });
 
     it('should fetch active symbols when not logged in', async () => {

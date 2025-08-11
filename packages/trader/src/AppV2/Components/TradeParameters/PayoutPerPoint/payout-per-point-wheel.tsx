@@ -5,8 +5,7 @@ import { Skeleton } from '@deriv/components';
 import { Localize } from '@deriv/translations';
 import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
 
-import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
-import { getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
+import useProposal from 'AppV2/Hooks/useProposal';
 import { useTraderStore } from 'Stores/useTraderStores';
 import { TTradeStore } from 'Types';
 
@@ -41,25 +40,13 @@ const PayoutPerPointWheel = observer(
         const is_api_response_received_ref = React.useRef(false);
 
         const new_values = { payout_per_point: String(value) };
-        const proposal_req = getProposalRequestObject({
+
+        // Sending proposal without subscription to get a new barrier value
+        const { data: response } = useProposal({
+            enabled: is_open,
             new_values,
-            trade_store,
             trade_type: Object.keys(trade_types)[0],
         });
-        // Sending proposal without subscription to get a new barrier value
-        const { data: response } = useDtraderQuery<Parameters<TOnProposalResponse>[0]>(
-            [
-                'proposal',
-                ...Object.entries(new_values).flat().join('-'),
-                `${barrier}`,
-                Object.keys(trade_types)[0],
-                JSON.stringify(proposal_req),
-            ],
-            proposal_req,
-            {
-                enabled: is_open,
-            }
-        );
 
         const onChange = (new_value: string | number) => {
             // If a new value is equal to previous one, then we won't send API request
@@ -78,16 +65,15 @@ const PayoutPerPointWheel = observer(
         };
 
         React.useEffect(() => {
-            const onProposalResponse: TOnProposalResponse = response => {
-                const { error, proposal } = response;
-                const { barrier_spot_distance } = proposal ?? {};
+            if (response) {
+                const { proposal } = response;
                 // Currently we are not handling errors
-                if (barrier_spot_distance && !error) setDisplayedBarrierValue(barrier_spot_distance);
+                if (proposal && 'barrier_spot_distance' in proposal) {
+                    setDisplayedBarrierValue(proposal.barrier_spot_distance as string | number);
+                }
 
                 is_api_response_received_ref.current = true;
-            };
-
-            if (response) onProposalResponse(response);
+            }
         }, [response]);
 
         return (

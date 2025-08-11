@@ -6,10 +6,10 @@ import { getCurrencyDisplayCode, getDecimalPlaces } from '@deriv/shared';
 import { Localize, localize } from '@deriv/translations';
 import { ActionSheet, CaptionText, Text, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
 
-import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
+import useProposal from 'AppV2/Hooks/useProposal';
 import useIsVirtualKeyboardOpen from 'AppV2/Hooks/useIsVirtualKeyboardOpen';
 import useTradeError from 'AppV2/Hooks/useTradeError';
-import { focusAndOpenKeyboard, getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
+import { focusAndOpenKeyboard } from 'AppV2/Utils/trade-params-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { ExpandedProposal } from 'Stores/Modules/Trading/Helpers/proposal';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -97,32 +97,27 @@ const TakeProfitAndStopLossInput = ({
             : { stop_loss: is_enabled ? new_input_value : '' }),
     };
 
-    const proposal_req = getProposalRequestObject({
+    const {
+        data: response,
+        error,
+        proposal_req,
+    } = useProposal({
+        enabled: is_enabled,
         new_values,
-        trade_store,
         trade_type: Object.keys(trade_types)[0],
     });
 
     // We need to exclude tp in case if type === sl and vise versa in limit order to validate them independently
-    if (is_take_profit_input && proposal_req.limit_order?.stop_loss) {
-        delete proposal_req.limit_order.stop_loss;
-    }
-    if (!is_take_profit_input && proposal_req.limit_order?.take_profit) {
-        delete proposal_req.limit_order.take_profit;
-    }
-
-    const { data: response } = useDtraderQuery<Parameters<TOnProposalResponse>[0]>(
-        [
-            'proposal',
-            ...Object.entries(new_values).flat().join('-'),
-            Object.keys(trade_types)[0],
-            JSON.stringify(proposal_req),
-        ],
-        proposal_req,
-        {
-            enabled: is_enabled,
+    React.useEffect(() => {
+        if (proposal_req?.limit_order) {
+            if (is_take_profit_input && proposal_req.limit_order?.stop_loss) {
+                delete proposal_req.limit_order.stop_loss;
+            }
+            if (!is_take_profit_input && proposal_req.limit_order?.take_profit) {
+                delete proposal_req.limit_order.take_profit;
+            }
         }
-    );
+    }, [proposal_req, is_take_profit_input]);
 
     const input_message =
         info.min_value && info.max_value ? (
@@ -160,15 +155,25 @@ const TakeProfitAndStopLossInput = ({
     };
 
     React.useEffect(() => {
-        const onProposalResponse: TOnProposalResponse = response => {
-            const { error, proposal } = response;
-
-            const new_error = error?.message ?? '';
-            const is_error_field_match = error?.details?.field === type || !error?.details?.field;
+        if (error) {
+            const new_error = error?.error?.message ?? '';
+            const is_error_field_match = error?.error?.details?.field === type || !error?.error?.details?.field;
             setErrorText(is_error_field_match ? new_error : '');
             updateParentRef({
                 field_name: is_take_profit_input ? 'tp_error_text' : 'sl_error_text',
                 new_value: is_error_field_match ? new_error : '',
+            });
+            is_api_response_received_ref.current = true;
+        }
+
+        if (response) {
+            const { proposal } = response;
+
+            // Clear any previous errors when we get a successful response
+            setErrorText('');
+            updateParentRef({
+                field_name: is_take_profit_input ? 'tp_error_text' : 'sl_error_text',
+                new_value: '',
             });
 
             // Recovery for min and max allowed values in case of error
@@ -181,10 +186,8 @@ const TakeProfitAndStopLossInput = ({
                 );
             }
             is_api_response_received_ref.current = true;
-        };
-
-        if (response) onProposalResponse(response);
-    }, [is_enabled, response]);
+        }
+    }, [is_enabled, response, error, info.min_value, info.max_value, type, is_take_profit_input, updateParentRef]);
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = String(e.target.value);
