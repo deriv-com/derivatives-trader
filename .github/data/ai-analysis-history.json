@@ -1,7 +1,28 @@
 {
-  "lastUpdated": "2025-08-08T10:10:13.637Z",
-  "totalMergedPRs": 17,
+  "lastUpdated": "2025-08-11T07:02:58.505Z",
+  "totalMergedPRs": 18,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 386,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/Stores/client-store.js",
+          "totalCharacters": 386,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "\n                // Remove the one-time token from URL after successful exchange\n                this.removeTokenFromUrl();\n    removeTokenFromUrl() {\n        const url = new URL(window.location.href)..."
+        }
+      ],
+      "timestamp": "2025-08-11T07:02:58.455Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "121",
+      "branch": "farabi/remove-one-time-token-from-url",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/remove-one-time-token-from-url",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 3565,
