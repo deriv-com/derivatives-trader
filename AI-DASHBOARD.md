@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-11 07:02:58 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-11 07:15:05 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 18 | **📈 Average AI Code** | 🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜ 21% |
-| **🤖 PRs with AI Analysis** | 15 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **📄 Files Analyzed** | 369 | **⚡ Total AI Characters** | 26,966 |
+| **📁 Total Merged PRs** | 19 | **📈 Average AI Code** | 🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜ 19% |
+| **🤖 PRs with AI Analysis** | 16 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **📄 Files Analyzed** | 376 | **⚡ Total AI Characters** | 26,966 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 18 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 19 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#120](#) **Nijil / Fix overlay on contract card closed status in positions drawer** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/11/2025 | 7 | 0 / 7,651 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#121](#) **Farabi/remove-one-time-token-from-url** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/11/2025 | 1 | 0 / 386 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#116](#) **Akmal / feat: multiple fixes and improvements** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/8/2025 | 4 | 0 / 3,565 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#111](#) **Jim/fix markers 3** | [@jim-deriv](https://github.com/jim-deriv) | 8/8/2025 | 11 | 2,235 / 5,518 chars | 🟧🟧🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜  41% |
@@ -34,7 +35,6 @@
 | [#108](#) **Akmal / fix: improve market status handling for symbols in TradeStore** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/7/2025 | 2 | 0 / 971 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#107](#) **feat: replace entry_tick/exit_tick with entry_spot/exit_spot with bac…** | [@jim-deriv](https://github.com/jim-deriv) | 8/7/2025 | 4 | 0 / 1,252 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#103](#) **Prince/ remove testing file** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#101](#) **Prince/ testing official workflows** | [@prince-deriv](https://github.com/prince-deriv) | 8/6/2025 | 1 | 695 / 707 chars | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩  98% |
 
 ---
 

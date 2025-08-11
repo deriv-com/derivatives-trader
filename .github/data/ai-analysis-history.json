@@ -1,7 +1,70 @@
 {
-  "lastUpdated": "2025-08-11T07:02:58.505Z",
-  "totalMergedPRs": 18,
+  "lastUpdated": "2025-08-11T07:15:05.899Z",
+  "totalMergedPRs": 19,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 7651,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/components/src/components/contract-card/contract-card.scss",
+          "totalCharacters": 176,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background-color: var(--color-surface-overlay);\n            background-image: var(--color-gradient-success);\n            background-image: var(--color-gradient-danger);"
+        },
+        {
+          "name": "packages/components/src/components/u-i-loader/ui-loader.scss",
+          "totalCharacters": 45,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background: var(--color-surface-overlay);"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Footer/endpoint-note.jsx",
+          "totalCharacters": 220,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { Text } from '@deriv/components';\n        <Text size='xs'>\n            <Text color='link' size='xs'>\n                <BinaryLink to={routes.endpoint}>endpoint</BinaryLink>{' '}\n            </T..."
+        },
+        {
+          "name": "packages/shared/src/styles/tokens/components.scss",
+          "totalCharacters": 206,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        --color-button-secondary-border: var(--color-interactive-active);\n        --color-button-secondary-border: var(--color-interactive-active);\n        --color-button-secondary-text: var(--brand-w..."
+        },
+        {
+          "name": "packages/shared/src/styles/tokens/semantic.scss",
+          "totalCharacters": 837,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        --color-surface-overlay: #{transparentize($color-white, 0.04)}; // Modal/dialog overlays\n        --color-interactive-active: #{lighten($color-neutral, 15%)}; // Active/selected states (derived..."
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/market-is-closed-overlay.scss",
+          "totalCharacters": 51,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-overlay);"
+        },
+        {
+          "name": "scripts/generate-colors.js",
+          "totalCharacters": 6116,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "\n  --brand-white: #{$color-white};               // Pure white for contrast\n  --brand-black: #{$color-black};               // Pure black for contrast\n    --color-surface-primary: var(--brand-white); ..."
+        }
+      ],
+      "timestamp": "2025-08-11T07:15:05.848Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "120",
+      "branch": "ui-improvements",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix overlay on contract card closed status in positions drawer",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 386,
