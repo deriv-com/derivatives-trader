@@ -1,7 +1,245 @@
 {
-  "lastUpdated": "2025-08-11T07:15:05.899Z",
-  "totalMergedPRs": 19,
+  "lastUpdated": "2025-08-11T07:58:02.664Z",
+  "totalMergedPRs": 20,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 3656,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/components/src/components/contract-card/contract-card-items/contract-card-sell.tsx",
+          "totalCharacters": 163,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { isOpen, isValidToSell, hasContractEntered } from '@deriv/shared';\n    const should_show_sell = hasContractEntered(contract_info) && isOpen(contract_info);"
+        },
+        {
+          "name": "packages/components/src/components/data-list/data-list.tsx",
+          "totalCharacters": 96,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { isDesktop, isMobile } from '@deriv/shared';\n            const row = data_source[index];"
+        },
+        {
+          "name": "packages/components/src/components/data-table/data-table.tsx",
+          "totalCharacters": 42,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const item = data_source?.[index];"
+        },
+        {
+          "name": "packages/core/src/Stores/contract-replay-store.js",
+          "totalCharacters": 91,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { routes, isEmptyObject, WS, contractCancelled, contractSold } from '@deriv/shared';"
+        },
+        {
+          "name": "packages/core/src/Stores/ui-store.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/reports/src/Components/Elements/Modals/MarketUnavailableModal/__tests__/market-unavailable.spec.tsx",
+          "totalCharacters": 54,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const mock_root_store = mockStore({ ui: {} });"
+        },
+        {
+          "name": "packages/reports/src/Components/Modals/__tests__/trade-modals.spec.tsx",
+          "totalCharacters": 1123,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    it('should handle marketUnavailableOnConfirm if button onConfirm in MarketUnavailableModal component was clicked', async () => {\n        await userEvent.click(screen.getByText('onConfirm market'))..."
+        },
+        {
+          "name": "packages/reports/src/Components/Modals/trade-modals.tsx",
+          "totalCharacters": 56,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // Modal confirmed - no additional action needed"
+        },
+        {
+          "name": "packages/reports/src/Containers/statement.tsx",
+          "totalCharacters": 217,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const columns_map = columns.reduce(\n        (map, item) => {\n            map[item.col_index as TColIndex] = item;\n            return map;\n        },\n        {} as Record<TColIndex, (typeof columns..."
+        },
+        {
+          "name": "packages/shared/src/utils/contract/contract.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/shared/src/utils/shortcode/shortcode.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/Modals/MarketUnavailableModal/__tests__/market-unavailable.spec.tsx",
+          "totalCharacters": 54,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const mock_root_store = mockStore({ ui: {} });"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/Modals/MarketUnavailableModal/market-unavailable.tsx",
+          "totalCharacters": 125,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const { disableApp, enableApp } = ui;\n    const is_visible = false; // Forward starting contracts are no longer supported"
+        },
+        {
+          "name": "packages/trader/src/App/Containers/Modals/__tests__/trade-modals.spec.tsx",
+          "totalCharacters": 47,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        expect(window.open).toHaveBeenCalled();"
+        },
+        {
+          "name": "packages/trader/src/App/Containers/Modals/trade-modals.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ContractCard/__tests__/contract-card.spec.tsx",
+          "totalCharacters": 87,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getCardLabels, getContractPath, getStartTime, toMoment } from '@deriv/shared';"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ContractCard/contract-card.scss",
+          "totalCharacters": 151,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                background:\n                    linear-gradient(\n            transition:\n                max-height 0.3s,\n                opacity 0.1s;"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ContractCard/contract-card.tsx",
+          "totalCharacters": 88,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const show_status_timer_tag = !has_no_auto_expiry || (has_no_auto_expiry && isSold);"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Containers/ContractDetails/__tests__/contract-details.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Containers/ContractDetails/contract-details.tsx",
+          "totalCharacters": 86,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const shouldShowSell = hasContractEntered(contract_info) && isOpen(contract_info);"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Hooks/__tests__/useOrderDetails.spec.tsx",
+          "totalCharacters": 111,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { CONTRACT_TYPES, getCardLabelsV2, getStartTime, mockContractInfo, TContractInfo } from '@deriv/shared';"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Hooks/useOrderDetails.ts",
+          "totalCharacters": 75,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const { barrier } = data;\n        [CARD_LABELS.BARRIER]: barrier ?? '',"
+        },
+        {
+          "name": "packages/trader/src/Modules/Contract/Containers/__tests__/contract-replay.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/Modules/Contract/Containers/replay-chart.tsx",
+          "totalCharacters": 229,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getDurationPeriod, getDurationUnitText, getEndTime, getPlatformRedirect } from '@deriv/shared';\n        // Forwarding contract logic removed - contracts now always use start_epoch\n           ..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Containers/trade.tsx",
+          "totalCharacters": 141,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const { is_dark_mode_on: is_dark_theme, notification_messages_ui: NotificationMessages } = ui;\n                    {is_market_closed && ("
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/__tests__/contract-type.spec.ts",
+          "totalCharacters": 169,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const result = ContractType.getStartTime(undefined, start_date, start_time);\n        const result = ContractType.getStartTime(undefined, start_date, start_time);"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/contract-type.ts",
+          "totalCharacters": 185,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            if (!has_contracts) return;\n        contract_start_type: 'spot',\n        const sessions = undefined;\n                proper_expiry_date = moment_expiry.format('YYYY-MM-DD');"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/trade-store.ts",
+          "totalCharacters": 169,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            ...(contract_categories as Pick<TradeStore, 'contract_types_list'>),\n                    ...(contract_categories as Pick<TradeStore, 'contract_types_list'>),"
+        },
+        {
+          "name": "packages/trader/src/Types/common-prop.type.ts",
+          "totalCharacters": 97,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { buildBarriersConfig, buildDurationConfig, getContractTypesConfig } from '@deriv/shared';"
+        }
+      ],
+      "timestamp": "2025-08-11T07:58:02.615Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "124",
+      "branch": "f-remove-contract-forwarding",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / refactor: remove support for forward starting contracts",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 7651,
