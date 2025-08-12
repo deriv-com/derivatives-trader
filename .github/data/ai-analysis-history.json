@@ -1,7 +1,77 @@
 {
-  "lastUpdated": "2025-08-12T06:46:05.230Z",
-  "totalMergedPRs": 22,
+  "lastUpdated": "2025-08-12T08:22:02.870Z",
+  "totalMergedPRs": 23,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 3135,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "AI-DASHBOARD.md",
+          "totalCharacters": 3000,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "| Metric                      | Value | Metric                       | Value                    |\n| --------------------------- | ----- | ---------------------------- | ------------------------ |\n| **..."
+        },
+        {
+          "name": "packages/api/src/hooks/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Modals/ready-to-deposit-modal/ready-to-deposit-modal.tsx",
+          "totalCharacters": 69,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const { ui, traders_hub } = useStore();\n        if (is_eu_user) {"
+        },
+        {
+          "name": "packages/core/src/Stores/client-store.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/Stores/gtm-store.js",
+          "totalCharacters": 66,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getAppId, toMoment, epochToMoment } from '@deriv/shared';"
+        },
+        {
+          "name": "packages/core/src/Stores/traders-hub-store.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        }
+      ],
+      "timestamp": "2025-08-12T08:22:02.819Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "130",
+      "branch": "matin/cleanup-th2",
+      "author": "matin-deriv",
+      "prTitle": "Matin/Cleanup TH Store & Account Switcher Removal",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 500,
