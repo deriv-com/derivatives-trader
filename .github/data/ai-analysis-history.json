@@ -1,7 +1,28 @@
 {
-  "lastUpdated": "2025-08-12T11:33:59.654Z",
-  "totalMergedPRs": 24,
+  "lastUpdated": "2025-08-12T14:54:36.603Z",
+  "totalMergedPRs": 25,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 868,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": ".github/workflows/claude.yml",
+          "totalCharacters": 868,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "      pull-requests: write\n      issues: write\n      actions: read\n      - name: Get PR information\n        id: pr-info\n        if: github.event_name == 'issue_comment' && github.event.issue.pull_requ..."
+        }
+      ],
+      "timestamp": "2025-08-12T14:54:36.554Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "136",
+      "branch": "fix-claude-code",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix Claude Code workflow failure",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 1593,

@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-12 11:33:59 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-12 14:54:36 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 24 | **📈 Average AI Code** | 🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜ 15% |
-| **🤖 PRs with AI Analysis** | 21 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
-| **📄 Files Analyzed** | 497 | **⚡ Total AI Characters** | 26,966 |
+| **📁 Total Merged PRs** | 25 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 14% |
+| **🤖 PRs with AI Analysis** | 22 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
+| **📄 Files Analyzed** | 498 | **⚡ Total AI Characters** | 26,966 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 24 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 25 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#136](#) **Nijil / Fix Claude Code workflow failure** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/12/2025 | 1 | 0 / 868 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#133](#) **adding Claude code** | [@ashkan-deriv](https://github.com/ashkan-deriv) | 8/12/2025 | 1 | 0 / 1,593 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#130](#) **Matin/Cleanup TH Store & Account Switcher Removal** | [@matin-deriv](https://github.com/matin-deriv) | 8/12/2025 | 8 | 0 / 3,135 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#128](#) **Matin/Clean-up Work on TH Store** | [@matin-deriv](https://github.com/matin-deriv) | 8/12/2025 | 6 | 0 / 500 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#121](#) **Farabi/remove-one-time-token-from-url** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/11/2025 | 1 | 0 / 386 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#116](#) **Akmal / feat: multiple fixes and improvements** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/8/2025 | 4 | 0 / 3,565 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#111](#) **Jim/fix markers 3** | [@jim-deriv](https://github.com/jim-deriv) | 8/8/2025 | 11 | 2,235 / 5,518 chars | 🟧🟧🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜  41% |
-| [#106](#) **Nijil / Implement Dynamic Brand Configuration System** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/8/2025 | 277 | 23,743 / 201,267 chars | 🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  12% |
 
 ---
 
