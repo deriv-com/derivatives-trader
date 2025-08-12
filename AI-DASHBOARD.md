@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-11 07:58:02 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-12 03:38:37 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 20 | **📈 Average AI Code** | 🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜ 18% |
-| **🤖 PRs with AI Analysis** | 17 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **📄 Files Analyzed** | 408 | **⚡ Total AI Characters** | 26,966 |
+| **📁 Total Merged PRs** | 21 | **📈 Average AI Code** | 🟥🟥⬜⬜⬜⬜⬜⬜⬜⬜ 17% |
+| **🤖 PRs with AI Analysis** | 18 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
+| **📄 Files Analyzed** | 482 | **⚡ Total AI Characters** | 26,966 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 20 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 21 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#126](#) **Nijil / Routing fixes + Notification logic clean-ups** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/12/2025 | 74 | 0 / 12,704 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#124](#) **Akmal / refactor: remove support for forward starting contracts** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/11/2025 | 32 | 0 / 3,656 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#120](#) **Nijil / Fix overlay on contract card closed status in positions drawer** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/11/2025 | 7 | 0 / 7,651 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#121](#) **Farabi/remove-one-time-token-from-url** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/11/2025 | 1 | 0 / 386 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#112](#) **Akmal / fix: enhance fallback logic for default open symbol retrieval** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/8/2025 | 1 | 0 / 1,183 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#95](#) **Farabi/new-authentication-flow** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/8/2025 | 15 | 0 / 15,160 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#108](#) **Akmal / fix: improve market status handling for symbols in TradeStore** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/7/2025 | 2 | 0 / 971 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#107](#) **feat: replace entry_tick/exit_tick with entry_spot/exit_spot with bac…** | [@jim-deriv](https://github.com/jim-deriv) | 8/7/2025 | 4 | 0 / 1,252 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 

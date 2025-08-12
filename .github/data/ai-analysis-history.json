@@ -1,7 +1,539 @@
 {
-  "lastUpdated": "2025-08-11T07:58:02.664Z",
-  "totalMergedPRs": 20,
+  "lastUpdated": "2025-08-12T03:38:37.549Z",
+  "totalMergedPRs": 21,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 12704,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/api/src/hooks/useGetMFAccountStatus.ts",
+          "totalCharacters": 104,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            if (is_logged_in && (!account_status || !window.location.pathname.startsWith(routes.index)))"
+        },
+        {
+          "name": "packages/components/src/components/mobile-drawer/mobile-drawer.scss",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/components/src/components/route-with-subroutes/route-with-subroutes.tsx",
+          "totalCharacters": 275,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { redirectToLogin, removeBranchName, routes as shared_routes, default_title } from '@deriv/shared';\n                result = <Redirect to={shared_routes.index} />;\n                            {..."
+        },
+        {
+          "name": "packages/core/src/App/AppContent.tsx",
+          "totalCharacters": 88,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const { current_language } = store.common;\n    const { is_dark_mode_on } = store.ui;"
+        },
+        {
+          "name": "packages/core/src/App/Components/Elements/Errors/error-component.jsx",
+          "totalCharacters": 31,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    redirect_to = routes.index,"
+        },
+        {
+          "name": "packages/core/src/App/Components/Elements/LandscapeBlocker/landscape-blocker.tsx",
+          "totalCharacters": 204,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const should_show_dtrader_tablet_view = pathname === routes.index && isTabletOs;\n        (pathname.startsWith(routes.index) || pathname.startsWith(routes.reports) || pathname.startsWith('/contract..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Elements/NotificationMessage/__tests__/notification.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/menu-link.tsx",
+          "totalCharacters": 263,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { observer } from '@deriv/stores';\n                        weight={window.location.pathname === routes.index && is_trade_text ? 'bold' : undefined}\n                    weight={window.location.p..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/toggle-menu-drawer-accounts-os.jsx",
+          "totalCharacters": 563,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { routes } from '@deriv/shared';\n// eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of Analytics functionality\n    const { disableApp, enableApp, is..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/toggle-menu-drawer.jsx",
+          "totalCharacters": 895,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { /* useOauth2, */ useRemoteConfig } from '@deriv/api';\nimport { getStaticUrl, routes } from '@deriv/shared';\n// eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/wallets/account-actions-wallets.tsx",
+          "totalCharacters": 846,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // TODO: Re-enable this when the Trader's Hub routes are restored\n        // if (isHubRedirectionEnabled) {\n        //     const PRODUCTION_REDIRECT_URL = `https://hub.${getDomainUrl()}/trader..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Routes/binary-routes.jsx",
+          "totalCharacters": 46,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        return <Redirect to={routes.index} />;"
+        },
+        {
+          "name": "packages/core/src/App/Constants/platform-config.ts",
+          "totalCharacters": 30,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        link_to: routes.index,"
+        },
+        {
+          "name": "packages/core/src/App/Constants/routes-config.js",
+          "totalCharacters": 31,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            path: routes.index,"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcher/account-switcher.jsx",
+          "totalCharacters": 43,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                history.push(routes.index);"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcherWallet/account-switcher-wallet-mobile.tsx",
+          "totalCharacters": 35,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        history.push(routes.index);"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcherWallet/account-switcher-wallet.tsx",
+          "totalCharacters": 35,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        history.push(routes.index);"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/app-contents.jsx",
+          "totalCharacters": 412,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { CookieStorage, platforms, redirectToLogin, TRACKING_STATUS_KEY, WS } from '@deriv/shared';\n            {!isMobile && (\n                <ThemedScrollbars\n                    height={isDesktop ..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/footer.jsx",
+          "totalCharacters": 55,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const is_dtrader_route = pathname === routes.index;"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/header-legacy.tsx",
+          "totalCharacters": 96,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        routes.index,\n                        !is_from_tradershub_os && <HeaderAccountActions />"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/traders-hub-home-button.tsx",
+          "totalCharacters": 124,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            history.push(routes.index);\n                'traders-hub-header__tradershub--active': pathname === routes.index,"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/trading-hub-footer.jsx",
+          "totalCharacters": 47,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                {location === routes.index && ("
+        },
+        {
+          "name": "packages/core/src/App/Containers/NotificationsDialog/notifications-dialog.tsx",
+          "totalCharacters": 41,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const { notifications } = useStore();"
+        },
+        {
+          "name": "packages/core/src/App/Containers/NotificationsDialog/notifications-list.tsx",
+          "totalCharacters": 59,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { isEmptyObject, toTitleCase } from '@deriv/shared';"
+        },
+        {
+          "name": "packages/core/src/App/Containers/OSRedirect/os-redirect.tsx",
+          "totalCharacters": 323,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            { pattern: /accumulator/i, route: routes.index, type: 'accumulator' },\n            { pattern: /turbos/i, route: routes.index, type: 'turboslong' },\n            { pattern: /vanilla/i, route..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Redirect/redirect.jsx",
+          "totalCharacters": 962,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        history.push(`${routes.index}?ext_platform_url=${url}`);\n                        pathname = routes.index;\n                        pathname = routes.index;\n                        pathname = ro..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/app-notification-messages.jsx",
+          "totalCharacters": 276,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { isMobile } from '@deriv/shared';\n        <div className={'notification-messages'} style={style}>\n                ? [...maintenance_notifications, 'deriv_go', 'contract_sold', 'install_pwa', '..."
+        },
+        {
+          "name": "packages/core/src/App/app.jsx",
+          "totalCharacters": 106,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { initFormErrorMessages, setUrlLanguage, setWebsocket, useOnLoadTranslation } from '@deriv/shared';"
+        },
+        {
+          "name": "packages/core/src/Modules/Callback/AccessDeniedScreen.tsx",
+          "totalCharacters": 39,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            history.push(routes.index);"
+        },
+        {
+          "name": "packages/core/src/Modules/Callback/CallbackPage.tsx",
+          "totalCharacters": 135,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        window.history.replaceState({}, '', routes.index);\n                        window.location.href = routes.index;"
+        },
+        {
+          "name": "packages/core/src/Modules/Page404/Components/Page404.jsx",
+          "totalCharacters": 38,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        redirect_urls={[routes.index]}"
+        },
+        {
+          "name": "packages/core/src/Services/socket-general.js",
+          "totalCharacters": 53,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    const redirect_to = routes.index;"
+        },
+        {
+          "name": "packages/core/src/Stores/Helpers/client-notifications.js",
+          "totalCharacters": 148,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "export const excluded_notifications = ['contract_sold'];\nexport const priority_toast_messages = ['trustpilot', 'svg', ...maintenance_notifications];"
+        },
+        {
+          "name": "packages/core/src/Stores/client-store.js",
+          "totalCharacters": 368,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        if (!window.location.pathname.endsWith(routes.index) && /chart_type|interval|symbol|trade_type/.test(search)) {\n            window.history.replaceState({}, document.title, routes.index + searc..."
+        },
+        {
+          "name": "packages/core/src/Stores/common-store.js",
+          "totalCharacters": 35,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        history.push(routes.index);"
+        },
+        {
+          "name": "packages/core/src/Stores/notification-store.js",
+          "totalCharacters": 1974,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { StaticUrl } from '@deriv/components';\nimport { excluded_notifications } from './Helpers/client-notifications';\n\n        this.notification_messages = this.notification_messages.filter(notifica..."
+        },
+        {
+          "name": "packages/core/src/Stores/portfolio-store.js",
+          "totalCharacters": 257,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                } else if (window.location.pathname !== routes.index || !this.root_store.ui.is_mobile) {\n            if (window.location.pathname !== routes.index || !this.root_store.ui.is_mobile) {\n ..."
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/components/app-notification-message.scss",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/layout/header.scss",
+          "totalCharacters": 84,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            display: flex;\n            align-items: center;\n            gap: 0.8rem;"
+        },
+        {
+          "name": "packages/reports/src/Components/Elements/Modals/ServicesErrorModal/__tests__/account-verification-required-modal.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/reports/src/Components/Elements/Modals/ServicesErrorModal/__tests__/insufficient-balance-modal.spec.tsx",
+          "totalCharacters": 129,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // TODO: Remove if this test is not needed\n    it('button text should be \"Deposit now\" if is_virtual is false', async () => {"
+        },
+        {
+          "name": "packages/reports/src/Components/Elements/Modals/ServicesErrorModal/account-verification-required-modal.tsx",
+          "totalCharacters": 171,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                            onClick={() => {\n                                // TODO: Either redirect to POI or remove this modal completely\n                            }}"
+        },
+        {
+          "name": "packages/reports/src/Components/Errors/error-component.tsx",
+          "totalCharacters": 42,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            redirect_urls={[routes.index]}"
+        },
+        {
+          "name": "packages/reports/src/Modules/Page404/Components/Page404.tsx",
+          "totalCharacters": 38,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        redirect_urls={[routes.index]}"
+        },
+        {
+          "name": "packages/reports/src/Modules/Page404/Components/__tests__/Page404.spec.tsx",
+          "totalCharacters": 61,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        expect(history.location.pathname).toBe(routes.index);"
+        },
+        {
+          "name": "packages/shared/src/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/shared/src/utils/contract/__tests__/trade-url-params-config.spec.ts",
+          "totalCharacters": 441,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                pathname: routes.index,\n            `${routes.index}?interval=${oneTickInterval}`\n            `${routes.index}?chart_type=${areaChartType.text}`\n        expect(spyHistoryReplaceState)...."
+        },
+        {
+          "name": "packages/shared/src/utils/contract/trade-url-params-config.ts",
+          "totalCharacters": 79,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    if (searchParams.toString() && window.location.pathname === routes.index) {"
+        },
+        {
+          "name": "packages/shared/src/utils/digital-options/digital-options.ts",
+          "totalCharacters": 34,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        redirect_to: routes.index,"
+        },
+        {
+          "name": "packages/shared/src/utils/login/login.ts",
+          "totalCharacters": 75,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const isDtraderRoute = window.location.pathname.includes(routes.index);"
+        },
+        {
+          "name": "packages/shared/src/utils/platform/platform.ts",
+          "totalCharacters": 270,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    return { name: platform_name.DTrader, route: routes.index };\n                const platform_parent_paths = [routes.index].map(route => getParentPath(route));\n    const dtrader_index = routing_hist..."
+        },
+        {
+          "name": "packages/shared/src/utils/routes/routes.ts",
+          "totalCharacters": 33,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    index: '/',\n    routes.index,"
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/Errors/error-component.tsx",
+          "totalCharacters": 42,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            redirect_urls={[routes.index]}"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/Modals/ServicesErrorModal/__tests__/insufficient-balance-modal.spec.tsx",
+          "totalCharacters": 129,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // TODO: Remove if this test is not needed\n    it('button text should be \"Deposit now\" if is_virtual is false', async () => {"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/TogglePositions/toggle-positions-mobile.tsx",
+          "totalCharacters": 138,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const should_show_dtrader_tablet_view = pathname === routes.index && isTabletOs;\n            (pathname.startsWith(routes.index) ||"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Routes/__tests__/binary-link.spec.tsx",
+          "totalCharacters": 161,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        render(<MockBinaryLink to={routes.index} />);\n        render(<MockBinaryLink to={routes.index} />);\n        render(<MockBinaryLink to={routes.index} />);"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Routes/__tests__/binary-routes.spec.tsx",
+          "totalCharacters": 35,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        history.push(routes.index);"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Routes/__tests__/helpers.spec.ts",
+          "totalCharacters": 137,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            const result = Helpers.findRouteByPath(routes.index, getRoutesConfig());\n            expect(result?.path).toBe(routes.index);"
+        },
+        {
+          "name": "packages/trader/src/App/Constants/__tests__/routes-config.spec.tsx",
+          "totalCharacters": 97,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        expect(routes?.[1]?.path).toBe(routesList.index);\n        history.push(routesList.index);"
+        },
+        {
+          "name": "packages/trader/src/App/Constants/routes-config.ts",
+          "totalCharacters": 98,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        { path: routes.index, component: Trade, getTitle: () => localize('Trader'), exact: true },"
+        },
+        {
+          "name": "packages/trader/src/App/Containers/Routes/__tests__/routes.spec.tsx",
+          "totalCharacters": 481,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        expect(checkRoutingMatch(routeList, routes.index)).toBeFalsy();\n    it('should return false if the path is not provided and routes.index is missing from the route list', () => {\n    it('should..."
+        },
+        {
+          "name": "packages/trader/src/App/Containers/Routes/routes.tsx",
+          "totalCharacters": 145,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        { from: [routes.contract], to: [routes.index] },\n                        { from: [routes.index], to: [routes.contract] },"
+        },
+        {
+          "name": "packages/trader/src/App/Containers/__tests__/trade-footer-extensions.spec.tsx",
+          "totalCharacters": 224,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    it('should call populateFooterExtensions with position left when is_logged_in is true and current pathname is same as routes.index', () => {\n                pathname: routes.index,\n               ..."
+        },
+        {
+          "name": "packages/trader/src/App/Containers/trade-footer-extensions.tsx",
+          "totalCharacters": 73,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const show_positions_toggle = location.pathname === routes.index;"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/BottomNav/bottom-nav.tsx",
+          "totalCharacters": 31,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            path: routes.index,"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServicesErrorSnackbar/services-error-snackbar.tsx",
+          "totalCharacters": 104,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        if (pathname === routes.index) return (has_services_error && !is_modal_error) || contract_error;"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Containers/Notifications/notifications.tsx",
+          "totalCharacters": 46,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        if (pathname === routes.index) return;"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Routes/routes.tsx",
+          "totalCharacters": 27,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        path: routes.index,"
+        },
+        {
+          "name": "packages/trader/src/AppV2/app.tsx",
+          "totalCharacters": 56,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        if (window.location.pathname === routes.index) {"
+        },
+        {
+          "name": "packages/trader/src/Modules/Contract/Containers/contract.tsx",
+          "totalCharacters": 70,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    redirectOnClick={() => history.push(routes.index)}"
+        },
+        {
+          "name": "packages/trader/src/Modules/Page404/Components/Page404.tsx",
+          "totalCharacters": 38,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        redirect_urls={[routes.index]}"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/trade-store.ts",
+          "totalCharacters": 78,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                if (window.location.pathname === routes.index)"
+        }
+      ],
+      "timestamp": "2025-08-12T03:38:37.497Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "126",
+      "branch": "routing-fixes",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Routing fixes + Notification logic clean-ups",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 3656,
