@@ -1,7 +1,63 @@
 {
-  "lastUpdated": "2025-08-12T03:38:37.549Z",
-  "totalMergedPRs": 21,
+  "lastUpdated": "2025-08-12T06:46:05.230Z",
+  "totalMergedPRs": 22,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 500,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/api/src/hooks/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/App/Containers/AccountSwitcher/account-switcher-account-list.jsx",
+          "totalCharacters": 57,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                        {display_type === 'currency' && ("
+        },
+        {
+          "name": "packages/core/src/App/Containers/Modals/app-modals.jsx",
+          "totalCharacters": 204,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { moduleLoader, SessionStore } from '@deriv/shared';\n    const { ui } = useStore();\n    return <>{ComponentToLoad ? <React.Suspense fallback={<div />}>{ComponentToLoad}</React.Suspense> : null}..."
+        },
+        {
+          "name": "packages/core/src/Stores/traders-hub-store.js",
+          "totalCharacters": 239,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { ContentFlag } from '@deriv/shared';\n        const local_storage_properties = ['available_platforms', 'selected_region'];\n        if (!this.is_demo) {\n            // For real accounts, we fetc..."
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        }
+      ],
+      "timestamp": "2025-08-12T06:46:05.179Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "128",
+      "branch": "matin/cleanup-th",
+      "author": "matin-deriv",
+      "prTitle": "Matin/Clean-up Work on TH Store",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 12704,
