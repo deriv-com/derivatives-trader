@@ -1,7 +1,28 @@
 {
-  "lastUpdated": "2025-08-12T08:22:02.870Z",
-  "totalMergedPRs": 23,
+  "lastUpdated": "2025-08-12T11:33:59.654Z",
+  "totalMergedPRs": 24,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 1593,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": ".github/workflows/claude.yml",
+          "totalCharacters": 1593,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "name: Claude PR Assistant\n\non:\n  issue_comment:\n    types: [created]\n  pull_request_review_comment:\n    types: [created]\n  issues:\n    types: [opened, assigned]\n  pull_request_review:\n    types: [subm..."
+        }
+      ],
+      "timestamp": "2025-08-12T11:33:59.604Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "133",
+      "branch": "master",
+      "author": "ashkan-deriv",
+      "prTitle": "adding Claude code",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 3135,
