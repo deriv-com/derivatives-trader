@@ -1,7 +1,28 @@
 {
-  "lastUpdated": "2025-08-12T14:54:36.603Z",
-  "totalMergedPRs": 25,
+  "lastUpdated": "2025-08-12T15:04:25.180Z",
+  "totalMergedPRs": 26,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 44,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": ".github/workflows/claude.yml",
+          "totalCharacters": 44,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "      pull-requests: read\n      issues: read"
+        }
+      ],
+      "timestamp": "2025-08-12T15:04:25.130Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "138",
+      "branch": "revert-136-fix-claude-code",
+      "author": "nijil-deriv",
+      "prTitle": "Revert \"Nijil / Fix Claude Code workflow failure\"",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 868,
