@@ -1,7 +1,63 @@
 {
-  "lastUpdated": "2025-08-13T07:30:44.672Z",
-  "totalMergedPRs": 28,
+  "lastUpdated": "2025-08-13T10:00:18.050Z",
+  "totalMergedPRs": 29,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 5472,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/trader/src/AppV2/Components/EntryExitDetails/entry-exit-details.tsx",
+          "totalCharacters": 1248,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "const getDateTimeFromEpoch = (epoch: number | string | undefined | null) => {\n    // Handle undefined, null, or empty values\n    if (epoch === undefined || epoch === null || epoch === '') {\n        re..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/TradeParameters/Duration/duration.tsx",
+          "totalCharacters": 1611,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getDatePickerStartDate, getSmallestDuration, isValidPersistedDuration } from 'AppV2/Utils/trade-params-utils';\n        // Check if current persisted duration values are valid for the new cont..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Utils/trade-params-utils.tsx",
+          "totalCharacters": 2447,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "\n/**\n * Validates if persisted duration values are compatible with current contract constraints\n * @param duration - The persisted duration value\n * @param duration_unit - The persisted duration unit\n..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/WheelPicker/wheel-picker-mobile.tsx",
+          "totalCharacters": 90,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                color={index === selectedIndex ? 'prominent' : 'disabled'}"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/WheelPicker/wheel-picker.tsx",
+          "totalCharacters": 76,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                color={index === 1 ? 'default' : 'disabled'}"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/range-slider.scss",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        }
+      ],
+      "timestamp": "2025-08-13T10:00:18.001Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "132",
+      "branch": "b-small-bugs",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / fix: bugs",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 4722,
