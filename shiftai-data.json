@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-08-13T12:28:27.695Z",
+  "repository": "deriv-com/derivatives-trader",
+  "pullRequest": null,
+  "branch": "pre-commit-ai",
+  "author": "Prince <prince@deriv.com>",
+  "comparison": "origin/master...HEAD",
+  "files": [
+    {
+      "name": ".husky/post-commit",
+      "totalCharacters": 190,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "#!/bin/sh\n. \"$(dirname \"$0\")/_/husky.sh\"\n\n# ShiftAI Post-commit Hook - Display AI analysis table\nnpx shiftai-cli hook post-commit\n\n# Preserve exit code (don't block if analysis fails)\nexit 0"
+    },
+    {
+      "name": ".husky/pre-commit",
+      "totalCharacters": 148,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "npx lint-staged --allow-empty\n\n# ShiftAI Pre-commit Hook - Detect and strip AI markers\nnpx shiftai-cli hook pre-commit\n\n# Preserve exit code\nexit $?"
+    },
+    {
+      "name": ".husky/pre-push",
+      "totalCharacters": 589,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "#!/bin/sh\n. \"$(dirname \"$0\")/_/husky.sh\"\n\n# ShiftAI Pre-push Hook - Intercept push for AI analysis and PR management\n# Git pre-push hook passes: $1=remote_name, $2=remote_url\nexport GIT_PUSH_REMOTE_NAME=\"$1\"\nexport GIT_PUSH_REMOTE_URL=\"$2\"\n\n# Capture original git push command arguments from parent process\n# Fallback to basic push command with actual remote name if ps fails\nexport GIT_PUSH_ORIGINAL_COMMAND=\"$(ps -o args= -p $PPID 2>/dev/null | grep 'git push' || echo \"git push $1\")\"\n\nnpx shiftai-..."
+    },
+    {
+      "name": "package-lock.json",
+      "totalCharacters": 38021,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "                \"shiftai-cli\": \"file:../../prince-deriv/shiftai-cli/shiftai-cli-1.0.0.tgz\",\n        \"node_modules/@kwsites/file-exists\": {\n            \"version\": \"1.1.1\",\n            \"resolved\": \"https://registry.npmjs.org/@kwsites/file-exists/-/file-exists-1.1.1.tgz\",\n            \"integrity\": \"sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==\",\n            \"dev\": true,\n            \"license\": \"MIT\",\n            \"dependencies\": {\n                \"debu..."
+    },
+    {
+      "name": "package.json",
+      "totalCharacters": 83,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "        \"shiftai-cli\": \"file:../../prince-deriv/shiftai-cli/shiftai-cli-1.0.0.tgz\","
+    },
+    {
+      "name": "palindrome.js",
+      "totalCharacters": 16883,
+      "aiCharacters": 13844,
+      "percentage": 82,
+      "addedContent": "/* eslint-disable */\n\n/**\n * Check if a string is a palindrome (case-insensitive)\n * Ignores spaces, punctuation, and case differences\n */\nfunction isPalindrome(str) {\n    if (!str || typeof str !== 'string') return false;\n\n    const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');\n    const reversed = cleaned.split('').reverse().join('');\n\n    return cleaned === reversed;\n}\n\n/**\n * Check if a number is a palindrome\n * Works with both positive and negative numbers\n */\nfunction isPalindrome..."
+    },
+    {
+      "name": "test/utils.js",
+      "totalCharacters": 16536,
+      "aiCharacters": 13725,
+      "percentage": 83,
+      "addedContent": "/* eslint-disable */\n\n/**\n * Deep clone an object or array using JSON methods\n * Works for objects without functions, dates, or undefined values\n */\nfunction deepClone(obj) {\n    if (obj === null || typeof obj !== 'object') return obj;\n    if (obj instanceof Date) return new Date(obj.getTime());\n    if (obj instanceof Array) return obj.map(item => deepClone(item));\n\n    return JSON.parse(JSON.stringify(obj));\n}\n\n/**\n * Debounce function to limit how often a function can be called\n * Useful for A..."
+    }
+  ],
+  "summary": {
+    "totalCharacters": 72450,
+    "aiCharacters": 27569,
+    "percentage": 38
+  }
+}
