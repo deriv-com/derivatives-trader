@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-08-13T10:33:42.649Z",
+  "repository": "deriv-com/derivatives-trader",
+  "pullRequest": null,
+  "branch": "pre-commit-ai",
+  "author": "Prince <prince@deriv.com>",
+  "comparison": "origin/master...HEAD",
+  "files": [
+    {
+      "name": ".gitignore",
+      "totalCharacters": 59,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "# ShiftAI local data (user-specific, not tracked)\n.shiftai/"
+    },
+    {
+      "name": ".husky/post-commit",
+      "totalCharacters": 190,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "#!/bin/sh\n. \"$(dirname \"$0\")/_/husky.sh\"\n\n# ShiftAI Post-commit Hook - Display AI analysis table\nnpx shiftai-cli hook post-commit\n\n# Preserve exit code (don't block if analysis fails)\nexit 0"
+    },
+    {
+      "name": ".husky/pre-commit",
+      "totalCharacters": 148,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "npx lint-staged --allow-empty\n\n# ShiftAI Pre-commit Hook - Detect and strip AI markers\nnpx shiftai-cli hook pre-commit\n\n# Preserve exit code\nexit $?"
+    },
+    {
+      "name": ".husky/pre-push",
+      "totalCharacters": 589,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "#!/bin/sh\n. \"$(dirname \"$0\")/_/husky.sh\"\n\n# ShiftAI Pre-push Hook - Intercept push for AI analysis and PR management\n# Git pre-push hook passes: $1=remote_name, $2=remote_url\nexport GIT_PUSH_REMOTE_NAME=\"$1\"\nexport GIT_PUSH_REMOTE_URL=\"$2\"\n\n# Capture original git push command arguments from parent process\n# Fallback to basic push command with actual remote name if ps fails\nexport GIT_PUSH_ORIGINAL_COMMAND=\"$(ps -o args= -p $PPID 2>/dev/null | grep 'git push' || echo \"git push $1\")\"\n\nnpx shiftai-..."
+    },
+    {
+      "name": "fibonacci.js",
+      "totalCharacters": 358,
+      "aiCharacters": 269,
+      "percentage": 75,
+      "addedContent": "/* eslint-disable */\n\n/**\n * Calculate fibonacci number using iterative approach\n * Time complexity: O(n), Space complexity: O(1)\n */\nfunction fibonacci(n) {\n    if (n <= 1) return n;\n\n    let prev = 0;\n    let curr = 1;\n\n    for (let i = 2; i <= n; i++) {\n        const next = prev + curr;\n        prev = curr;\n        curr = next;\n    }\n\n    return curr;\n}"
+    },
+    {
+      "name": "package-lock.json",
+      "totalCharacters": 38021,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "                \"shiftai-cli\": \"file:../../prince-deriv/shiftai-cli/shiftai-cli-1.0.0.tgz\",\n        \"node_modules/@kwsites/file-exists\": {\n            \"version\": \"1.1.1\",\n            \"resolved\": \"https://registry.npmjs.org/@kwsites/file-exists/-/file-exists-1.1.1.tgz\",\n            \"integrity\": \"sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==\",\n            \"dev\": true,\n            \"license\": \"MIT\",\n            \"dependencies\": {\n                \"debu..."
+    },
+    {
+      "name": "package.json",
+      "totalCharacters": 83,
+      "aiCharacters": 0,
+      "percentage": 0,
+      "addedContent": "        \"shiftai-cli\": \"file:../../prince-deriv/shiftai-cli/shiftai-cli-1.0.0.tgz\","
+    }
+  ],
+  "summary": {
+    "totalCharacters": 39448,
+    "aiCharacters": 269,
+    "percentage": 1
+  }
+}
