@@ -1,7 +1,35 @@
 {
-  "lastUpdated": "2025-08-13T02:29:01.828Z",
-  "totalMergedPRs": 27,
+  "lastUpdated": "2025-08-13T07:30:44.672Z",
+  "totalMergedPRs": 28,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 4722,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": ".github/workflows/claude.yml",
+          "totalCharacters": 1734,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "name: Claude Code Assistant\n  claude-assistant:\n    # Only run on PR-related events that contain @claude\n      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(gith..."
+        },
+        {
+          "name": "AI-DASHBOARD.md",
+          "totalCharacters": 2988,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "| Metric                      | Value | Metric                       | Value                    |\n| --------------------------- | ----- | ---------------------------- | ------------------------ |\n| **..."
+        }
+      ],
+      "timestamp": "2025-08-13T07:30:44.622Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "143",
+      "branch": "fix-claude-code",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix: claude code checkout issue",
+      "hasAnalysis": true
+    },
     {
       "percentage": 56,
       "totalCharacters": 18485,
