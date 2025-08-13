@@ -52,6 +52,7 @@
         "lint-staged": "^11.2.6",
         "postcss": "^8.4.24",
         "prettier": "^3.0.0",
+        "shiftai-cli": "file:../../prince-deriv/shiftai-cli/shiftai-cli-1.0.0.tgz",
         "stylelint": "^13.13.1",
         "stylelint-config-prettier": "^8.0.2",
         "stylelint-formatter-pretty": "^2.1.1",
