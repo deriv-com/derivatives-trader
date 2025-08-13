@@ -29,3 +29,5 @@ packages/*/stats.json
 packages/*/report.json
 packages/*/analyzed.html
 packages/*/treemap.html
+# ShiftAI local data (user-specific, not tracked)
+.shiftai/
