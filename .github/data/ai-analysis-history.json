@@ -1,7 +1,105 @@
 {
-  "lastUpdated": "2025-08-12T15:04:25.180Z",
-  "totalMergedPRs": 26,
+  "lastUpdated": "2025-08-13T02:29:01.828Z",
+  "totalMergedPRs": 27,
   "analyses": [
+    {
+      "percentage": 56,
+      "totalCharacters": 18485,
+      "aiCharacters": 10376,
+      "files": [
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/__tests__/header-legacy.spec.tsx",
+          "totalCharacters": 7604,
+          "aiCharacters": 7592,
+          "percentage": 100,
+          "addedContent": "// [AI]\nimport React from 'react';\njest.mock('App/Components/Layout/Header', () => ({\n    MenuLinks: jest.fn(() => <div data-testid='dt_menu_links'>Menu Links</div>),\n    AccountsInfoLoader: jest.fn((..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/toggle-menu-drawer.jsx",
+          "totalCharacters": 5541,
+          "aiCharacters": 2784,
+          "percentage": 50,
+          "addedContent": "import { getStaticUrl, routes, brand_url } from '@deriv/shared';\n    const { is_logged_in, is_virtual, logout: logoutClient, is_eu } = client;\n    const [, setIsSubmenuExpanded] = React.useState(false..."
+        },
+        {
+          "name": "AI-DASHBOARD.md",
+          "totalCharacters": 2961,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "| Metric                      | Value | Metric                       | Value                    |\n| --------------------------- | ----- | ---------------------------- | ------------------------ |\n| **..."
+        },
+        {
+          "name": "packages/components/src/components/contract-card/contract-card.scss",
+          "totalCharacters": 46,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        max-width: 218px;\n        width: 100%;"
+        },
+        {
+          "name": "packages/components/src/components/page-overlay/page-overlay.tsx",
+          "totalCharacters": 107,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            onClick={(onClickClose as unknown as MouseEventHandler<HTMLDivElement>) || window.history.back}"
+        },
+        {
+          "name": "packages/core/src/App/AppContent.tsx",
+          "totalCharacters": 120,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { useRemoteConfig, useGrowthbookGetFeatureValue, useGrowthbookIsOn, useIntercom, useLiveChat } from '@deriv/api';"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/app-contents.jsx",
+          "totalCharacters": 141,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        common: { platform },\n                    (isDuplicateLoginEnabled && has_access_denied_error) || (platforms[platform] && !isMobile),"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/header-legacy.tsx",
+          "totalCharacters": 617,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import NewVersionNotification from 'App/Containers/new-version-notification';\n    const { client, ui, notifications } = useStore();\n    const { currency, is_logged_in, is_logging_in, is_single_logging..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/new-version-notification.tsx",
+          "totalCharacters": 1348,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import React from 'react';\n\ninterface NewVersionNotificationProps {\n    onUpdate: () => void;\n}\n\n/**\n * Listens on emitted events to show notification on available updates.\n *  - IgnorePWAUpdate event..."
+        },
+        {
+          "name": "packages/core/src/Stores/common-store.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/stores/types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        }
+      ],
+      "timestamp": "2025-08-13T02:29:01.780Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "135",
+      "branch": "ui-fixes",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Show Trade and Reports in Side Nav Drawer",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 44,
