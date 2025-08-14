@@ -1,7 +1,147 @@
 {
-  "lastUpdated": "2025-08-14T08:56:48.144Z",
-  "totalMergedPRs": 32,
+  "lastUpdated": "2025-08-14T09:22:36.693Z",
+  "totalMergedPRs": 33,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 7958,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "AI-DASHBOARD.md",
+          "totalCharacters": 2735,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "| Metric                      | Value | Metric                       | Value                    |\n| --------------------------- | ----- | ---------------------------- | ------------------------ |\n| **..."
+        },
+        {
+          "name": "packages/api-v2/src/hooks/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/api/src/hooks/__tests__/useAccountSettingsRedirect.spec.ts",
+          "totalCharacters": 1237,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    ...jest.requireActual('@deriv/shared'),\n    getBrandHubUrl: jest.fn(() => 'https://staging-app.champion.trade/champion'),\n        // Set NODE_ENV to development for testing\n    it('should return h..."
+        },
+        {
+          "name": "packages/api/src/hooks/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/api/src/hooks/useAccountSettingsRedirect.ts",
+          "totalCharacters": 400,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getBrandHubUrl } from '@deriv/shared';\n    // Always use hub URL for account settings redirects\n    const hubUrl = getBrandHubUrl();\n    const redirect_url = `${hubUrl}/accounts/redirect?acti..."
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/index.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/login-button-v2.tsx",
+          "totalCharacters": 106,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getBrandHubLoginUrl } from '@deriv/shared';\n        window.location.href = getBrandHubLoginUrl();"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/toggle-menu-drawer.jsx",
+          "totalCharacters": 242,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { routes, getBrandHubHomeUrl } from '@deriv/shared';\n                                        link_to={getBrandHubHomeUrl()}\n                                            window.open(getBrandHubHo..."
+        },
+        {
+          "name": "packages/core/src/App/Constants/routes-config.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/hub-button.tsx",
+          "totalCharacters": 127,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getBrandHubHomeUrl } from '@deriv/shared';\n        window.open(getBrandHubHomeUrl(), '_blank', 'noopener,noreferrer');"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/traders-hub-home-button.tsx",
+          "totalCharacters": 555,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { useLocation } from 'react-router';\nimport { getBrandHubUrl, routes } from '@deriv/shared';\nimport { observer } from '@deriv/stores';\n        const hubUrl = getBrandHubUrl();\n        const url..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Redirect/redirect.jsx",
+          "totalCharacters": 169,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getBrandHubUrl, getDomainName, redirectToLogin, routes, SessionStore } from '@deriv/shared';\n            window.location.assign(`${getBrandHubUrl()}/transfer`);"
+        },
+        {
+          "name": "packages/core/src/Modules/Callback/AccessDeniedScreen.tsx",
+          "totalCharacters": 175,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { useOauth2 } from '@deriv/api';\nimport { getBrandHubUrl, routes } from '@deriv/shared';\n    const { logout } = client;\n        window.location.href = getBrandHubUrl();"
+        },
+        {
+          "name": "packages/reports/src/Components/Elements/Modals/ServicesErrorModal/insufficient-balance-modal.tsx",
+          "totalCharacters": 706,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getBrandHubUrl } from '@deriv/shared';\n    ({ is_virtual, is_visible, message, toggleModal }: TInsufficientBalanceModal) => {\n                                const hubUrl = getBrandHubUrl();\n..."
+        },
+        {
+          "name": "packages/shared/src/utils/brand/brand.ts",
+          "totalCharacters": 569,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "// eslint-disable-next-line import/no-relative-packages\n\nexport const getBrandHubUrl = () => {\n    // Determine environment - use production if NODE_ENV is production, otherwise staging\n    const isPr..."
+        },
+        {
+          "name": "packages/shared/src/utils/login/login.ts",
+          "totalCharacters": 249,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { routes } from '../routes/routes';\nimport { getBrandHubLoginUrl } from '../brand';\n            window.location.href = getBrandHubLoginUrl();\n// Simplified login URL - always use external login..."
+        },
+        {
+          "name": "packages/shared/src/utils/routes/routes.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServiceErrorSheet/service-error-sheet.tsx",
+          "totalCharacters": 688,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getBrandHubUrl, isEmptyObject, redirectToLogin, redirectToSignUp, routes } from '@deriv/shared';\n    const { is_virtual } = client;\n                            const hubUrl = getBrandHubUrl()..."
+        }
+      ],
+      "timestamp": "2025-08-14T09:22:36.640Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "159",
+      "branch": "remove-os-redirections",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Remove OS redirections",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 21775,
