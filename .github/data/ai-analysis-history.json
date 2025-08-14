@@ -1,7 +1,28 @@
 {
-  "lastUpdated": "2025-08-14T09:22:36.693Z",
-  "totalMergedPRs": 33,
+  "lastUpdated": "2025-08-14T11:03:35.992Z",
+  "totalMergedPRs": 34,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 109,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/Stores/client-store.js",
+          "totalCharacters": 109,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                // Remove the one-time token from URL immediately\n                this.removeTokenFromUrl();\n"
+        }
+      ],
+      "timestamp": "2025-08-14T11:03:35.939Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "169",
+      "branch": "farabi/remove-invalid-token-from-url",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/remove-invalid-token-from-url",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 7958,

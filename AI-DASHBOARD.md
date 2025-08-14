@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-14 09:22:36 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-14 11:03:36 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 33 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 12% |
-| **🤖 PRs with AI Analysis** | 30 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **📄 Files Analyzed** | 578 | **⚡ Total AI Characters** | 37,342 |
+| **📁 Total Merged PRs** | 34 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 12% |
+| **🤖 PRs with AI Analysis** | 31 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **📄 Files Analyzed** | 579 | **⚡ Total AI Characters** | 37,342 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 33 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 34 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#169](#) **Farabi/remove-invalid-token-from-url** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/14/2025 | 1 | 0 / 109 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#159](#) **Nijil / Remove OS redirections** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/14/2025 | 18 | 0 / 7,958 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#142](#) **Akmal / feat: API changes** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/14/2025 | 33 | 0 / 21,775 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#165](#) **Update derivatives-charts to 1.0.5** | [@DerivFE](https://github.com/DerivFE) | 8/14/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#135](#) **Nijil / Show Trade and Reports in Side Nav Drawer** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/13/2025 | 12 | 10,376 / 18,485 chars | 🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  56% |
 | [#138](#) **Revert "Nijil / Fix Claude Code workflow failure"** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/12/2025 | 1 | 0 / 44 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#136](#) **Nijil / Fix Claude Code workflow failure** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/12/2025 | 1 | 0 / 868 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#133](#) **adding Claude code** | [@ashkan-deriv](https://github.com/ashkan-deriv) | 8/12/2025 | 1 | 0 / 1,593 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
