@@ -1,7 +1,77 @@
 {
-  "lastUpdated": "2025-08-13T10:00:18.050Z",
-  "totalMergedPRs": 29,
+  "lastUpdated": "2025-08-14T03:28:40.705Z",
+  "totalMergedPRs": 30,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 3643,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/App/Components/Routes/route-with-sub-routes.jsx",
+          "totalCharacters": 122,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { removeBranchName, routes, isEmptyObject, default_title } from '@deriv/shared';\n    const { common } = useStore();"
+        },
+        {
+          "name": "packages/core/src/App/Constants/routes-config.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/app-contents.jsx",
+          "totalCharacters": 587,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        if (should_redirect_user_to_login && client.is_client_store_initialized) {\n            // For V2 authentication, don't redirect if we have a session token\n            const hasSessionToken = !..."
+        },
+        {
+          "name": "packages/core/src/App/Containers/Redirect/redirect.jsx",
+          "totalCharacters": 161,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { useIsHubRedirectionEnabled } from '@deriv/api';\n        const handleRedirect = () => {\n                if (account_currency) {\n        handleRedirect();"
+        },
+        {
+          "name": "packages/core/src/Services/socket-general.js",
+          "totalCharacters": 793,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "\n                    const hasSessionToken = !!localStorage.getItem('session_token');\n                    if (hasSessionToken) {\n                        return;\n                    }\n\n                ..."
+        },
+        {
+          "name": "packages/core/src/Stores/client-store.js",
+          "totalCharacters": 1066,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "\n                // For V2 authentication, only cleanup if we're definitely logged out\n                // Don't cleanup during authentication transitions or when we have a session token\n              ..."
+        },
+        {
+          "name": "packages/shared/src/utils/login/login.ts",
+          "totalCharacters": 350,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { isStorageSupported } from '../storage/storage';\nimport { getHubSignupUrl } from '../url';\nimport { routes, brand_url } from '../routes/routes';\n            // Use external login instead of OA..."
+        },
+        {
+          "name": "packages/trader/src/App/Components/Routes/route-with-sub-routes.tsx",
+          "totalCharacters": 564,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { observer, useStore } from '@deriv/stores';\nconst RouteWithSubRoutes = observer((route: TRouteWithSubRoutesProps) => {\n    const { client } = useStore();\n    const { is_client_store_initialize..."
+        }
+      ],
+      "timestamp": "2025-08-14T03:28:40.651Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "141",
+      "branch": "farabi/fix-auth-issue-on-contract-details",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/fix-auth-issues-on-contract-details",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 5472,
