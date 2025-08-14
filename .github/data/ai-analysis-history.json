@@ -1,7 +1,252 @@
 {
-  "lastUpdated": "2025-08-14T07:09:31.200Z",
-  "totalMergedPRs": 31,
+  "lastUpdated": "2025-08-14T08:56:48.144Z",
+  "totalMergedPRs": 32,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 21775,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/_common/base/socket_base.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/__tests__/barrier.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/__tests__/durations.ts",
+          "totalCharacters": 611,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            daily: {\n                min: 86400,\n                max: 31536000,\n        units_display: [\n            {\n                text: 'Days',\n                value: 'd',\n            },\n        ..."
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/duration.ts",
+          "totalCharacters": 504,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    min_max: Partial<Record<'tick' | 'intraday' | 'daily', TMaxMin>>;\n    units_display: TUnit[];\n    durations: TDurations = { min_max: {}, units_display: [] }\n    // Initialize units_display if not ..."
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/Guide/__tests__/guide.spec.tsx",
+          "totalCharacters": 49,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "jest.mock('AppV2/Hooks/useContractsFor', () => ({"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/Guide/guide.tsx",
+          "totalCharacters": 109,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import useContractsFor from 'AppV2/Hooks/useContractsFor';\n        const { trade_types } = useContractsFor();"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/MarketSelector/__tests__/market-selector.spec.tsx",
+          "totalCharacters": 82,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "// Mock the useContractsFor hook\njest.mock('AppV2/Hooks/useContractsFor', () => ({"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/MarketSelector/market-selector.tsx",
+          "totalCharacters": 105,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import useContractsFor from 'AppV2/Hooks/useContractsFor';\n    const { trade_types } = useContractsFor();"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/TradeParameters/AllowEquals/allow-equals.tsx",
+          "totalCharacters": 221,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const { contract_types_list, duration_unit, expiry_type, is_equal, is_market_closed, onChange } = useTraderStore();\n    const has_callputequal_duration = hasDurationForCallPutEqual(contract_types_..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/TradeParameters/Stake/__tests__/stake.spec.tsx",
+          "totalCharacters": 49,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "jest.mock('AppV2/Hooks/useContractsFor', () => ({"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Containers/Trade/__tests__/trade.spec.tsx",
+          "totalCharacters": 49,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "jest.mock('AppV2/Hooks/useContractsFor', () => ({"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Containers/Trade/trade.tsx",
+          "totalCharacters": 122,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import useContractsFor from 'AppV2/Hooks/useContractsFor';\n    const { trade_types, resetTradeTypes } = useContractsFor();"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Hooks/__tests__/useActiveSymbols.spec.tsx",
+          "totalCharacters": 107,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "jest.mock('AppV2/Hooks/useContractsFor', () => ({\n    ...jest.requireActual('AppV2/Hooks/useContractsFor'),"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Hooks/__tests__/useContractsFor.spec.tsx",
+          "totalCharacters": 7754,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import React from 'react';\n\nimport { cloneObject, getContractCategoriesConfig, getContractTypesConfig, WS } from '@deriv/shared';\nimport { mockStore } from '@deriv/stores';\nimport { waitFor } from '@t..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Hooks/useActiveSymbols.ts",
+          "totalCharacters": 48,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import useContractsFor from './useContractsFor';"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Hooks/useContractsFor.ts",
+          "totalCharacters": 8175,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import React, { useCallback, useEffect, useRef } from 'react';\n\nimport { cloneObject, getContractCategoriesConfig, getContractTypesConfig, setTradeURLParams } from '@deriv/shared';\nimport { useStore }..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/TradeParams/allow-equals.tsx",
+          "totalCharacters": 199,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    'contract_type' | 'contract_types_list' | 'duration_unit' | 'expiry_type' | 'has_equals_only'\n    const has_callputequal_duration = hasDurationForCallPutEqual(contract_types_list, duration_unit);"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/TradeParams/amount.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/screen-small.tsx",
+          "totalCharacters": 101,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const has_callputequal_duration = hasDurationForCallPutEqual(contract_types_list, duration_unit);"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Actions/__tests__/contract-type.spec.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Actions/__tests__/duration.spec.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Actions/__tests__/start-date.spec.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Actions/start-date.ts",
+          "totalCharacters": 443,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    // All contracts now default to spot behavior since start_type was removed from API\n    const contract_start_type = 'spot';\n    const obj_duration_units_list = ContractType.getDurationUnitsList(co..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Constants/__tests__/validation-rules.spec.ts",
+          "totalCharacters": 165,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        // All contracts now default to spot behavior, so validation always passes\n        // All contracts now default to spot behavior, so validation always passes"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Constants/validation-rules.ts",
+          "totalCharacters": 1112,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                    func: (value: TTradeStore['start_time'], options, store) => true, // Always valid since all contracts now default to spot behavior\n                    func: (value: TTradeStore['st..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/__tests__/allow-equals.spec.ts",
+          "totalCharacters": 184,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        expect(hasDurationForCallPutEqual(contract_types_list, duration_unit)).toBeTruthy();\n        expect(hasDurationForCallPutEqual(contract_types_list, duration_unit)).toBeFalsy();"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/__tests__/contract-type.spec.ts",
+          "totalCharacters": 415,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        const result = ContractType.getDurationMinMax(contract_type, contract_expiry_type);\n        const result = ContractType.getDurationUnit(duration_unit, contract_type);\n        const result = Co..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/allow-equals.ts",
+          "totalCharacters": 243,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    duration_unit: THasDurationForCallPutEqual['duration_unit']\n    if (!contract_type_list || !duration_unit) return false;\n        [list]: getPropertyValue(ContractType.getFullContractTypes(), [list..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/contract-type.ts",
+          "totalCharacters": 928,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                config.has_spot = true; // Default to spot behavior since start_type was removed from API\n    const getContractValues = (\n        store: TTradeStore\n    ): (TContractValues & { contrac..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/__tests__/trade-store.spec.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/trade-store.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/Types/common-prop.type.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        }
+      ],
+      "timestamp": "2025-08-14T08:56:48.088Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "142",
+      "branch": "f-api-changes",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / feat: API changes",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 0,

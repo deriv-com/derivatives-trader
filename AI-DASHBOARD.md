@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-14 07:09:31 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-14 08:56:48 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 31 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 13% |
-| **🤖 PRs with AI Analysis** | 28 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 12% |
-| **📄 Files Analyzed** | 527 | **⚡ Total AI Characters** | 37,342 |
+| **📁 Total Merged PRs** | 32 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 13% |
+| **🤖 PRs with AI Analysis** | 29 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **📄 Files Analyzed** | 560 | **⚡ Total AI Characters** | 37,342 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 31 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 32 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#142](#) **Akmal / feat: API changes** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/14/2025 | 33 | 0 / 21,775 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#165](#) **Update derivatives-charts to 1.0.5** | [@DerivFE](https://github.com/DerivFE) | 8/14/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#141](#) **Farabi/fix-auth-issues-on-contract-details** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/14/2025 | 8 | 0 / 3,643 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#132](#) **Akmal / fix: bugs** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/13/2025 | 6 | 0 / 5,472 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#136](#) **Nijil / Fix Claude Code workflow failure** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/12/2025 | 1 | 0 / 868 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#133](#) **adding Claude code** | [@ashkan-deriv](https://github.com/ashkan-deriv) | 8/12/2025 | 1 | 0 / 1,593 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#130](#) **Matin/Cleanup TH Store & Account Switcher Removal** | [@matin-deriv](https://github.com/matin-deriv) | 8/12/2025 | 8 | 0 / 3,135 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#128](#) **Matin/Clean-up Work on TH Store** | [@matin-deriv](https://github.com/matin-deriv) | 8/12/2025 | 6 | 0 / 500 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
