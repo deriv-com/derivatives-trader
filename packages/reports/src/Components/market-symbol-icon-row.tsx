@@ -1,7 +1,9 @@
 import React from 'react';
-import { TContractInfo, extractInfoFromShortcode, getMarketName, getTradeTypeName, isHighLow } from '@deriv/shared';
-import { Icon, Popover, IconTradeTypes } from '@deriv/components';
 import classNames from 'classnames';
+
+import { Icon, IconTradeTypes, Popover } from '@deriv/components';
+import { extractInfoFromShortcode, getMarketName, getTradeTypeName, isHighLow, TContractInfo } from '@deriv/shared';
+
 import { formatStatementTransaction } from 'Stores/Modules/Statement/Helpers/format-response';
 
 type TStatementData = ReturnType<typeof formatStatementTransaction>;
@@ -40,6 +42,7 @@ const MarketSymbolIconRow = ({
                     'market-symbol-icon__full-title': has_full_contract_title,
                 })}
             >
+                {/* // test changes no AI */}
                 <div className='market-symbol-icon-name'>
                     <Popover
                         classNameTarget='market-symbol-icon__popover'
