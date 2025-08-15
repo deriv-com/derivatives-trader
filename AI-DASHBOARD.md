@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-15 02:23:39 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-15 06:30:25 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 35 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **🤖 PRs with AI Analysis** | 32 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **📄 Files Analyzed** | 593 | **⚡ Total AI Characters** | 37,342 |
+| **📁 Total Merged PRs** | 36 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **🤖 PRs with AI Analysis** | 33 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **📄 Files Analyzed** | 602 | **⚡ Total AI Characters** | 37,342 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 35 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 36 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#174](#) **Akmal / fix: higher/lower/rise/fall contracts on desktop** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/15/2025 | 9 | 0 / 7,068 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#172](#) **Nijil / Fix background color issues in multiple places** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/15/2025 | 14 | 0 / 1,167 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#169](#) **Farabi/remove-invalid-token-from-url** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/14/2025 | 1 | 0 / 109 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#159](#) **Nijil / Remove OS redirections** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/14/2025 | 18 | 0 / 7,958 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#132](#) **Akmal / fix: bugs** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/13/2025 | 6 | 0 / 5,472 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#143](#) **Nijil / Fix: claude code checkout issue** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/13/2025 | 2 | 0 / 4,722 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#135](#) **Nijil / Show Trade and Reports in Side Nav Drawer** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/13/2025 | 12 | 10,376 / 18,485 chars | 🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  56% |
-| [#138](#) **Revert "Nijil / Fix Claude Code workflow failure"** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/12/2025 | 1 | 0 / 44 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 

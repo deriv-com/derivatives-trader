@@ -1,7 +1,84 @@
 {
-  "lastUpdated": "2025-08-15T02:23:39.879Z",
-  "totalMergedPRs": 35,
+  "lastUpdated": "2025-08-15T06:30:25.024Z",
+  "totalMergedPRs": 36,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 7068,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/components/src/components/icon-trade-types/icon-trade-types.tsx",
+          "totalCharacters": 328,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        case CONTRACT_TYPES.HIGHER:\n        case 'HIGHER_BARRIER':\n            return <Icon icon='IcTradetypeCall' className={className} color='brand' {...props} />;\n        case CONTRACT_TYPES.LOWER:..."
+        },
+        {
+          "name": "packages/shared/src/utils/constants/barriers.ts",
+          "totalCharacters": 52,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    HIGHER: 'NONE_SINGLE',\n    LOWER: 'NONE_SINGLE',"
+        },
+        {
+          "name": "packages/shared/src/utils/constants/contract.ts",
+          "totalCharacters": 294,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        trade_types: [CONTRACT_TYPES.HIGHER, CONTRACT_TYPES.LOWER],\n        [CONTRACT_TYPES.HIGHER]: {\n            name: localize('Higher'),\n            position: 'top',\n        },\n        [CONTRACT_T..."
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/__tests__/barrier.ts",
+          "totalCharacters": 1749,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    const higher_lower_contract = {\n        contract_category: 'higherLower',\n        contract_category_display: 'Higher/Lower',\n\n    const rise_fall_contract = {\n        contract_category: 'callput',..."
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/__tests__/market-underlying.spec.ts",
+          "totalCharacters": 1731,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import {\n    getContractDurationType,\n    getMarketInformation,\n    getMarketName,\n    getTradeTypeName,\n    isHigherLowerContract,\n} from '../market-underlying';\n    describe('isHigherLowerContract',..."
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/barrier.ts",
+          "totalCharacters": 214,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    contract_category?: string;\n    // Rise/Fall contracts should not have barriers, even if API incorrectly returns barriers > 0\n    if (contract.contract_category === 'callput') {\n        return und..."
+        },
+        {
+          "name": "packages/shared/src/utils/helpers/market-underlying.ts",
+          "totalCharacters": 741,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { isHighLow } from '../shortcode';\n/**\n * Determines if a contract should be treated as Higher/Lower based on contract_category\n * This is more reliable than checking barriers since Rise/Fall c..."
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ContractCard/contract-card.tsx",
+          "totalCharacters": 430,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { isHigherLowerContract } from '@deriv/shared/src/utils/helpers/market-underlying';\n    const is_higher_lower = isHigherLowerContract({\n        contract_category: (contractInfo as any).contract..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/Helpers/contract-type.ts",
+          "totalCharacters": 1529,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                const type = Object.keys(contract_types).find(key => {\n                    const isContractTypeMatch = contract_types[key].trade_types.indexOf(contract.contract_type) !== -1;\n\n        ..."
+        }
+      ],
+      "timestamp": "2025-08-15T06:30:24.973Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "174",
+      "branch": "f-api-changes",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / fix: higher/lower/rise/fall contracts on desktop",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 1167,
