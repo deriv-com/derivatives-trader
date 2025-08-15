@@ -1,6 +1,8 @@
 import React from 'react';
-import { makeLazyLoader } from '@deriv/shared';
+
 import { Loading } from '@deriv/components';
+import { makeLazyLoader } from '@deriv/shared';
+
 import 'promise-polyfill';
 
 const App = makeLazyLoader(
