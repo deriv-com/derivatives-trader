@@ -21,6 +21,7 @@ const useAPI = () => {
             const response = await derivAPI?.send({ [name]: 1, ...(payload || {}) });
 
             if (response.error) {
+                //test
                 throw response.error;
             }
 
