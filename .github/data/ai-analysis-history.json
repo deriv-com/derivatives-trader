@@ -1,7 +1,30 @@
 {
-  "lastUpdated": "2025-08-15T09:15:37.833Z",
-  "totalMergedPRs": 39,
+  "lastUpdated": "2025-08-15T11:49:51.187Z",
+  "totalMergedPRs": 40,
   "analyses": [
+    {
+      "percentage": 88,
+      "totalCharacters": 67,
+      "aiCharacters": 59,
+      "files": [
+        {
+          "name": "packages/core/src/App/Components/Layout/Header/toggle-menu-drawer.jsx",
+          "totalCharacters": 67,
+          "aiCharacters": 59,
+          "percentage": 88,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "        if (!routeConfig || !routeConfig.routes || !is_logged_in) {"
+        }
+      ],
+      "timestamp": "2025-08-15T11:49:51.136Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "182",
+      "branch": "nijil/drawer-missing-reports",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix missing Reports menu item in side nav drawer",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 44263,
