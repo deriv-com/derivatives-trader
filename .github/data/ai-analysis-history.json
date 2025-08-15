@@ -1,7 +1,63 @@
 {
-  "lastUpdated": "2025-08-15T06:30:25.024Z",
-  "totalMergedPRs": 36,
+  "lastUpdated": "2025-08-15T07:26:41.431Z",
+  "totalMergedPRs": 37,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 674,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": ".stylelintrc.js",
+          "totalCharacters": 212,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    plugins: ['stylelint-no-unsupported-browser-features', 'stylelint-selector-bem-pattern'],\n    customSyntax: 'postcss-scss',\n        'value-keyword-case': ['lower', { ignoreKeywords: ['optimizeLegi..."
+        },
+        {
+          "name": "packages/api/src/hooks/index.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/core/src/App/Components/Layout/Footer/regulatory-information.jsx",
+          "totalCharacters": 120,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { deriv_urls } from '@deriv/shared';\n                    legal_entity_name: 'Deriv Investments (Europe) Limited',"
+        },
+        {
+          "name": "packages/core/src/App/Containers/Layout/header/__tests__/header.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/PurchaseButton/purchase-button.tsx",
+          "totalCharacters": 176,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                                        setLoadingButtonIndex(index);\n                                        onPurchaseV2(trade_type, isMobile, addNotificationBannerCallback);"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Elements/purchase-button.tsx",
+          "totalCharacters": 166,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "import { getContractTypeDisplay } from '@deriv/shared';\n                setPurchaseState(index);\n                onClickPurchase(info.id, info.stake, type, isMobile);"
+        }
+      ],
+      "timestamp": "2025-08-15T07:26:41.380Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "176",
+      "branch": "matin/update_stylelint",
+      "author": "matin-deriv",
+      "prTitle": "Matin/Update Stylelint to V16.23.1",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 7068,
