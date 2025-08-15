@@ -1,7 +1,35 @@
 {
-  "lastUpdated": "2025-08-15T07:26:41.431Z",
-  "totalMergedPRs": 37,
+  "lastUpdated": "2025-08-15T08:50:26.320Z",
+  "totalMergedPRs": 38,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 4502,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/trader/src/AppV2/Utils/trade-types-utils.tsx",
+          "totalCharacters": 1545,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": ") => {\n    const trade_type_tabs = getTradeTypeTabsList(contract_type);\n    const available_types = Object.keys(trade_types);\n\n    // If there are no trade type tabs, return all available types\n    if..."
+        },
+        {
+          "name": "packages/trader/src/Stores/Modules/Trading/trade-store.ts",
+          "totalCharacters": 2957,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        try {\n            await when(() => {\n                const proposal_info_keys = Object.keys(this.proposal_info);\n                const proposal_request_keys = Object.keys(this.proposal_request..."
+        }
+      ],
+      "timestamp": "2025-08-15T08:50:26.270Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "178",
+      "branch": "f-api-changes",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / fix: Rise/Fall/Higher/Lower on mobile",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 674,
