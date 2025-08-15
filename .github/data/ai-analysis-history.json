@@ -1,7 +1,119 @@
 {
-  "lastUpdated": "2025-08-14T11:03:35.992Z",
-  "totalMergedPRs": 34,
+  "lastUpdated": "2025-08-15T02:23:39.879Z",
+  "totalMergedPRs": 35,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 1167,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/components/src/components/checkbox/checkbox.scss",
+          "totalCharacters": 59,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border: 2px solid var(--color-interactive-default);"
+        },
+        {
+          "name": "packages/components/src/components/text/text.tsx",
+          "totalCharacters": 22,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    color = 'primary',"
+        },
+        {
+          "name": "packages/components/src/components/vertical-tab/vertical-tab.scss",
+          "totalCharacters": 41,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        color: var(--color-text-primary);"
+        },
+        {
+          "name": "packages/core/src/sass/app/_common/layout/header.scss",
+          "totalCharacters": 137,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            color: var(--color-text-primary);\n            @include colorIcon(var(--color-text-primary), none, var(--color-text-primary));"
+        },
+        {
+          "name": "packages/shared/src/styles/tokens/semantic.scss",
+          "totalCharacters": 258,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        --color-interactive-active: #{lighten($color-neutral, 25%)}; // Active/selected states (derived from brand-neutral)\n        --color-interactive-active: #{lighten($color-black, 25%)}; // Active..."
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Elements/PayoutPerPoint/payout-per-point.scss",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "note": "No added content in this PR"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Components/Form/WheelPicker/wheel-picker.scss",
+          "totalCharacters": 53,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            background: var(--color-surface-section);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-type-dialog.scss",
+          "totalCharacters": 63,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "                background-color: var(--color-surface-section);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/components/contract-type-widget.scss",
+          "totalCharacters": 51,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    border: 1px solid var(--color-surface-primary);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/drawer/positions-drawer.scss",
+          "totalCharacters": 58,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        border-top: 1px solid var(--color-surface-border);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/contract.scss",
+          "totalCharacters": 49,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "        background: var(--color-surface-section);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/contract/accumulators-stats.scss",
+          "totalCharacters": 51,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    background-color: var(--color-surface-section);"
+        },
+        {
+          "name": "packages/trader/src/sass/app/modules/trading.scss",
+          "totalCharacters": 59,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "            border: 1px solid var(--color-surface-primary);"
+        },
+        {
+          "name": "scripts/generate-colors.js",
+          "totalCharacters": 266,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "addedContent": "    --color-interactive-active: #{lighten($color-neutral, 25%)};        // Active/selected states (derived from brand-neutral)\n    --color-interactive-active: #{lighten($color-black, 25%)};          /..."
+        }
+      ],
+      "timestamp": "2025-08-15T02:23:39.828Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "172",
+      "branch": "ui-fixes",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix background color issues in multiple places",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 109,
