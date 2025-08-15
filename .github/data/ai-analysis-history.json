@@ -1,7 +1,39 @@
 {
-  "lastUpdated": "2025-08-15T11:49:51.187Z",
-  "totalMergedPRs": 40,
+  "lastUpdated": "2025-08-15T11:54:06.458Z",
+  "totalMergedPRs": 41,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 276,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/trader/src/AppV2/Components/OnboardingGuide/GuideForPages/__tests__/onboarding-guide.spec.tsx",
+          "totalCharacters": 53,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "const trading_modal_text = 'Welcome to Deriv Trader';"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/OnboardingGuide/GuideForPages/onboarding-guide.tsx",
+          "totalCharacters": 223,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "                  title: <Localize i18n_default_text='Welcome to Deriv Trader' />,\n                      <Localize i18n_default_text='Enjoy a smooth, intuitive trading experience. Here’s a quick tour to get you started.' />"
+        }
+      ],
+      "timestamp": "2025-08-15T11:54:06.408Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "183",
+      "branch": "nijil/onboarding-content-update",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Update onboarding content in mobile version",
+      "hasAnalysis": true
+    },
     {
       "percentage": 88,
       "totalCharacters": 67,

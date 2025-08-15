@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-15 11:49:51 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-15 11:54:06 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 40 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 12% |
-| **🤖 PRs with AI Analysis** | 37 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 9% |
-| **📄 Files Analyzed** | 618 | **⚡ Total AI Characters** | 37,401 |
+| **📁 Total Merged PRs** | 41 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 12% |
+| **🤖 PRs with AI Analysis** | 38 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 9% |
+| **📄 Files Analyzed** | 620 | **⚡ Total AI Characters** | 37,401 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 40 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 41 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#183](#) **Nijil / Update onboarding content in mobile version** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/15/2025 | 2 | 0 / 276 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#182](#) **Nijil / Fix missing Reports menu item in side nav drawer** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/15/2025 | 1 | 59 / 67 chars | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜  88% |
 | [#171](#) **Prince/ implemented shiftai phase 2** | [@prince-deriv](https://github.com/prince-deriv) | 8/15/2025 | 7 | 0 / 44,263 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#178](#) **Akmal / fix: Rise/Fall/Higher/Lower on mobile** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/15/2025 | 2 | 0 / 4,502 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#169](#) **Farabi/remove-invalid-token-from-url** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/14/2025 | 1 | 0 / 109 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#159](#) **Nijil / Remove OS redirections** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/14/2025 | 18 | 0 / 7,958 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#142](#) **Akmal / feat: API changes** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/14/2025 | 33 | 0 / 21,775 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#165](#) **Update derivatives-charts to 1.0.5** | [@DerivFE](https://github.com/DerivFE) | 8/14/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
