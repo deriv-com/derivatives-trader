@@ -7,6 +7,7 @@ import type {
     TSocketResponseData,
     TSocketSubscribableEndpointNames,
 } from '../types';
+
 import { useAPIContext } from './APIProvider';
 
 const useAPI = () => {
