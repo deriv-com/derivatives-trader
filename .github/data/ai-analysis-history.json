@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-15T11:54:06.458Z",
-  "totalMergedPRs": 41,
+  "lastUpdated": "2025-08-18T06:52:54.878Z",
+  "totalMergedPRs": 42,
   "analyses": [
+    {
+      "timestamp": "2025-08-18T06:52:54.827Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "188",
+      "branch": "farabi/update-footer-and-header",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/update-footer-and-header",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "percentage": 0,
       "totalCharacters": 276,
