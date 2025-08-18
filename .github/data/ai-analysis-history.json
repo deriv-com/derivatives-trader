@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-18T09:26:47.296Z",
-  "totalMergedPRs": 43,
+  "lastUpdated": "2025-08-18T10:13:26.764Z",
+  "totalMergedPRs": 44,
   "analyses": [
+    {
+      "timestamp": "2025-08-18T10:13:26.712Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "192",
+      "branch": "farabi/update-brand-to-deriv",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/update-brand-to-deriv",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "timestamp": "2025-08-18T09:26:47.243Z",
       "repository": "deriv-com/derivatives-trader",
