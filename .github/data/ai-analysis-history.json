@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-19T11:01:47.676Z",
-  "totalMergedPRs": 47,
+  "lastUpdated": "2025-08-19T11:05:10.135Z",
+  "totalMergedPRs": 48,
   "analyses": [
+    {
+      "timestamp": "2025-08-19T11:05:10.078Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "198",
+      "branch": "jim/GRWT-6886/barrier-on-the-chart-glitch",
+      "author": "jim-deriv",
+      "prTitle": "Jim/grwt 6886/barrier on the chart glitch",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "timestamp": "2025-08-19T11:01:47.626Z",
       "repository": "deriv-com/derivatives-trader",
