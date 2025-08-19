@@ -1,7 +1,84 @@
 {
-  "lastUpdated": "2025-08-18T14:27:18.660Z",
-  "totalMergedPRs": 45,
+  "lastUpdated": "2025-08-19T02:25:04.307Z",
+  "totalMergedPRs": 46,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 938,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/components/src/components/contract-card/contract-card-items/contract-card-header.tsx",
+          "totalCharacters": 220,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "        // @ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update\n        underlying_symbol,\n    const effective_underlying = underlying_symbol || getUnderlyingFromShortcode(shortcode);"
+        },
+        {
+          "name": "packages/components/src/components/icon/icon.scss",
+          "totalCharacters": 48,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    --fill-color3: var(--color-surface-section);"
+        },
+        {
+          "name": "packages/reports/src/Components/filter-component.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/reports/src/sass/app/modules/reports.scss",
+          "totalCharacters": 119,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "                background-color: var(--color-surface-section);\n        background-color: var(--color-surface-section);"
+        },
+        {
+          "name": "packages/shared/src/styles/tokens/semantic.scss",
+          "totalCharacters": 239,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "        --color-gradient-overlay: linear-gradient(to top, #{$color-white 85%}, #{transparentize($color-danger, 0.84)});\n        --color-gradient-overlay: linear-gradient(to top, #{$color-black 85%}, #{transparentize($color-danger, 0.84)});"
+        },
+        {
+          "name": "packages/trader/src/sass/app/_common/drawer/contract-drawer.scss",
+          "totalCharacters": 81,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "        padding: 0.8rem;\n        background-image: var(--color-gradient-overlay);"
+        },
+        {
+          "name": "scripts/generate-colors.js",
+          "totalCharacters": 231,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    --color-gradient-overlay: linear-gradient(to top, #{$color-white 85%}, #{transparentize($color-danger, 0.84)});\n    --color-gradient-overlay: linear-gradient(to top, #{$color-black 85%}, #{transparentize($color-danger, 0.84)});"
+        }
+      ],
+      "timestamp": "2025-08-19T02:25:04.257Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "194",
+      "branch": "bug-fixes-1",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix - Market closed overlay color & removed Transfer from Statement page filter",
+      "hasAnalysis": true
+    },
     {
       "percentage": 0,
       "totalCharacters": 930,

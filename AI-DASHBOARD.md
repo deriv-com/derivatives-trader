@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-18 14:27:18 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-19 02:25:04 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 45 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 12% |
-| **🤖 PRs with AI Analysis** | 39 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 9% |
-| **📄 Files Analyzed** | 624 | **⚡ Total AI Characters** | 37,401 |
+| **📁 Total Merged PRs** | 46 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **🤖 PRs with AI Analysis** | 40 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 9% |
+| **📄 Files Analyzed** | 631 | **⚡ Total AI Characters** | 37,401 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 45 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 46 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#194](#) **Nijil / Fix - Market closed overlay color & removed Transfer from Statement page filter** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/19/2025 | 7 | 0 / 938 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#195](#) **chore: update shiftai-cli version** | [@prince-deriv](https://github.com/prince-deriv) | 8/18/2025 | 4 | 0 / 930 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#192](#) **Farabi/update-brand-to-deriv** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/18/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#190](#) **Akmal / Fix more bugs** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/18/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#171](#) **Prince/ implemented shiftai phase 2** | [@prince-deriv](https://github.com/prince-deriv) | 8/15/2025 | 7 | 0 / 44,263 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#178](#) **Akmal / fix: Rise/Fall/Higher/Lower on mobile** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/15/2025 | 2 | 0 / 4,502 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#176](#) **Matin/Update Stylelint to V16.23.1** | [@matin-deriv](https://github.com/matin-deriv) | 8/15/2025 | 6 | 0 / 674 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#174](#) **Akmal / fix: higher/lower/rise/fall contracts on desktop** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/15/2025 | 9 | 0 / 7,068 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
