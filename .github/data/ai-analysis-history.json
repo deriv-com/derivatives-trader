@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-19T11:05:10.135Z",
-  "totalMergedPRs": 48,
+  "lastUpdated": "2025-08-19T11:23:38.042Z",
+  "totalMergedPRs": 49,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": [],
+      "timestamp": "2025-08-19T11:23:37.992Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "202",
+      "branch": "remove-ai-tags",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Remove [AI] tags from codebase",
+      "hasAnalysis": true
+    },
     {
       "timestamp": "2025-08-19T11:05:10.078Z",
       "repository": "deriv-com/derivatives-trader",

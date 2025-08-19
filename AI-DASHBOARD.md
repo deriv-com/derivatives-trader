@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-19 11:05:10 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-19 11:23:38 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 48 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **🤖 PRs with AI Analysis** | 40 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 9% |
+| **📁 Total Merged PRs** | 49 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **🤖 PRs with AI Analysis** | 41 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 9% |
 | **📄 Files Analyzed** | 631 | **⚡ Total AI Characters** | 37,401 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 48 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 49 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#202](#) **Nijil / Remove [AI] tags from codebase** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/19/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#198](#) **Jim/grwt 6886/barrier on the chart glitch** | [@jim-deriv](https://github.com/jim-deriv) | 8/19/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#199](#) **Akmal / fix: bugs and improvements** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/19/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#194](#) **Nijil / Fix - Market closed overlay color & removed Transfer from Statement page filter** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/19/2025 | 7 | 0 / 938 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#188](#) **Farabi/update-footer-and-header** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/18/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#183](#) **Nijil / Update onboarding content in mobile version** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/15/2025 | 2 | 0 / 276 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#182](#) **Nijil / Fix missing Reports menu item in side nav drawer** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/15/2025 | 1 | 59 / 67 chars | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜  88% |
-| [#171](#) **Prince/ implemented shiftai phase 2** | [@prince-deriv](https://github.com/prince-deriv) | 8/15/2025 | 7 | 0 / 44,263 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
