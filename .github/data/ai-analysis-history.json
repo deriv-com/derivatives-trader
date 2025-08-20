@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-19T11:23:38.042Z",
-  "totalMergedPRs": 49,
+  "lastUpdated": "2025-08-20T12:14:21.483Z",
+  "totalMergedPRs": 50,
   "analyses": [
+    {
+      "timestamp": "2025-08-20T12:14:21.432Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "205",
+      "branch": "fix-more-bugs",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / Fix more bugs",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "percentage": 0,
       "totalCharacters": 0,
