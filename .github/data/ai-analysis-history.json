@@ -1,7 +1,138 @@
 {
-  "lastUpdated": "2025-08-20T12:14:21.483Z",
-  "totalMergedPRs": 50,
+  "lastUpdated": "2025-08-21T03:01:57.830Z",
+  "totalMergedPRs": 51,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 662,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/Stores/ui-store.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/reports/src/Components/Modals/trade-modals.tsx",
+          "totalCharacters": 71,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const { is_services_error_visible, toggleServicesErrorModal } = ui;"
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/stores/types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/App/Containers/Modals/trade-modals.tsx",
+          "totalCharacters": 155,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();\n    const { is_services_error_visible, toggleServicesErrorModal } = ui;"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/PurchaseButton/purchase-button.tsx",
+          "totalCharacters": 72,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const is_modal_error = checkIsServiceModalError({ services_error });"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServiceErrorSheet/__tests__/service-error-sheet.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServiceErrorSheet/service-error-description.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServiceErrorSheet/service-error-sheet.tsx",
+          "totalCharacters": 115,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const should_show_error_modal = !isEmptyObject(services_error) && checkIsServiceModalError({ services_error });"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServicesErrorSnackbar/__tests__/services-error-snackbar.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServicesErrorSnackbar/services-error-snackbar.tsx",
+          "totalCharacters": 72,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const is_modal_error = checkIsServiceModalError({ services_error });"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Utils/__tests__/layout-utils.spec.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/AppV2/Utils/layout-utils.tsx",
+          "totalCharacters": 177,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "export const checkIsServiceModalError = ({ services_error }: { services_error: TCommonStoreServicesError }) => {\n    return is_insufficient_balance || is_authorization_required;"
+        }
+      ],
+      "timestamp": "2025-08-21T03:01:57.779Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "207",
+      "branch": "nijil/remove-redundant-modals",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Remove account-verification-pending-modal and all it's usage",
+      "hasAnalysis": true
+    },
     {
       "timestamp": "2025-08-20T12:14:21.432Z",
       "repository": "deriv-com/derivatives-trader",
