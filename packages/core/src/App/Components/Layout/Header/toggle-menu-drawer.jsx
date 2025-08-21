@@ -184,17 +184,19 @@ const ToggleMenuDrawer = observer(() => {
                     <div className='header__menu-mobile-body-wrapper'>
                         <React.Fragment>
                             <MobileDrawer.Body>
-                                <MobileDrawer.Item>
-                                    <MenuLink
-                                        link_to={getBrandHubHomeUrl()}
-                                        icon='IcAppstoreTradersHubHome'
-                                        text={localize('Hub')}
-                                        onClickLink={() => {
-                                            window.open(getBrandHubHomeUrl(), '_blank', 'noopener,noreferrer');
-                                            toggleDrawer();
-                                        }}
-                                    />
-                                </MobileDrawer.Item>
+                                {is_logged_in && (
+                                    <MobileDrawer.Item>
+                                        <MenuLink
+                                            link_to={getBrandHubHomeUrl()}
+                                            icon='IcAppstoreTradersHubHome'
+                                            text={localize('Hub')}
+                                            onClickLink={() => {
+                                                window.open(getBrandHubHomeUrl(), '_blank', 'noopener,noreferrer');
+                                                toggleDrawer();
+                                            }}
+                                        />
+                                    </MobileDrawer.Item>
+                                )}
                                 <MobileDrawer.Item>
                                     <MenuLink
                                         link_to={routes.index}

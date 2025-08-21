@@ -50,3 +50,7 @@ export const getBrandHubHomeUrl = () => {
 export const getBrandHubLoginUrl = () => {
     return `${getBrandHubUrl()}/login`;
 };
+
+export const getBrandHubSignupUrl = () => {
+    return `${getBrandHubUrl()}/signup`;
+};
