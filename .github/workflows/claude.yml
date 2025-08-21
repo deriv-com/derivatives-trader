@@ -24,99 +24,38 @@ jobs:
       id-token: write
 
     steps:
-      - name: Get PR details
-        id: pr
+      - name: Security Check - Validate User Access
         run: |
-          # Get PR URL based on event type
-          if [ "${{ github.event_name }}" = "issue_comment" ]; then
-            PR_URL="${{ github.event.issue.pull_request.url }}"
-          elif [ "${{ github.event_name }}" = "pull_request_review_comment" ]; then
-            PR_URL="${{ github.event.pull_request.url }}"
-          elif [ "${{ github.event_name }}" = "pull_request_review" ]; then
-            PR_URL="${{ github.event.pull_request.url }}"
-          fi
+          ACTOR="${{ github.actor }}"
+          echo "Validating access for user: $ACTOR"
           
-          echo "Getting PR data from: $PR_URL"
-          PR_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$PR_URL")
-          
-          # Extract fork repository and branch
-          FORK_REPO=$(echo "$PR_DATA" | jq -r '.head.repo.full_name')
-          BRANCH_NAME=$(echo "$PR_DATA" | jq -r '.head.ref')
-          
-          echo "fork_repo=$FORK_REPO" >> $GITHUB_OUTPUT
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          
-          echo "PR is from: $FORK_REPO:$BRANCH_NAME"
-
-      - name: Validate fork repository and user
-        run: |
-          FORK_REPO="${{ steps.pr.outputs.fork_repo }}"
-          FORK_ORG=$(echo "$FORK_REPO" | cut -d'/' -f1)
-          FORK_USER=$(echo "$FORK_REPO" | cut -d'/' -f1)
-          
-          echo "Validating fork: $FORK_REPO (org: $FORK_ORG, user: $FORK_USER)"
-          
-          # Method 1: Allow deriv-com organization (main repo)
-          if [[ "$FORK_ORG" == "deriv-com" ]]; then
-            echo "::notice::✅ Validated: Fork from main organization (deriv-com)"
-            exit 0
-          fi
-          
-          # Method 2: Check if user is a member of deriv-com organization
-          echo "Checking if $FORK_USER is a member of deriv-com organization..."
+          # Check if user is organization member
           MEMBERSHIP_STATUS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/orgs/deriv-com/members/$FORK_USER" \
+            "https://api.github.com/orgs/deriv-com/members/$ACTOR" \
             -w "%{http_code}" -o /dev/null)
           
           if [[ "$MEMBERSHIP_STATUS" == "204" ]]; then
-            echo "::notice::✅ Validated: $FORK_USER is a verified member of deriv-com organization"
+            echo "✅ User $ACTOR is a verified organization member"
             exit 0
-          elif [[ "$MEMBERSHIP_STATUS" == "404" ]]; then
-            echo "::warning::User $FORK_USER is not a public member of deriv-com organization"
-          else
-            echo "::warning::Could not verify organization membership (HTTP: $MEMBERSHIP_STATUS)"
           fi
           
-          # Method 3: Check if user is a collaborator on the main repository
-          echo "Checking if $FORK_USER is a collaborator on deriv-com/derivatives-trader..."
+          # Check if user is repository collaborator
           COLLABORATOR_STATUS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/deriv-com/derivatives-trader/collaborators/$FORK_USER" \
+            "https://api.github.com/repos/${{ github.repository }}/collaborators/$ACTOR" \
             -w "%{http_code}" -o /dev/null)
           
           if [[ "$COLLABORATOR_STATUS" == "204" ]]; then
-            echo "::notice::✅ Validated: $FORK_USER is a verified collaborator on the main repository"
-            exit 0
-          elif [[ "$COLLABORATOR_STATUS" == "404" ]]; then
-            echo "::warning::User $FORK_USER is not a collaborator on the main repository"
-          else
-            echo "::warning::Could not verify collaborator status (HTTP: $COLLABORATOR_STATUS)"
-          fi
-          
-          # Method 4: Fallback - Check naming pattern for team member forks
-          if [[ "$FORK_ORG" =~ ^[a-zA-Z0-9_-]+-deriv$ ]]; then
-            echo "::notice::⚠️  Allowing based on naming pattern: $FORK_ORG matches *-deriv pattern"
-            echo "::notice::This is a fallback method - consider adding user to deriv-com organization"
+            echo "✅ User $ACTOR is a verified repository collaborator"
             exit 0
           fi
           
-          # All validation methods failed
-          echo "::error::❌ Fork validation failed for: $FORK_REPO"
-          echo "::error::User $FORK_USER is not:"
-          echo "::error::  - A member of deriv-com organization"
-          echo "::error::  - A collaborator on deriv-com/derivatives-trader"
-          echo "::error::  - Using a recognized team member fork pattern (*-deriv)"
-          echo "::error::"
-          echo "::error::To resolve this:"
-          echo "::error::  1. Join the deriv-com organization as a public member, OR"
-          echo "::error::  2. Get added as a collaborator to deriv-com/derivatives-trader, OR"
-          echo "::error::  3. Use a fork name ending with '-deriv'"
+          echo "❌ Access denied for user: $ACTOR"
+          echo "Only organization members and repository collaborators can trigger Claude actions."
           exit 1
 
-      - name: Checkout PR branch from fork
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ steps.pr.outputs.fork_repo }}
-          ref: ${{ steps.pr.outputs.branch_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
@@ -125,3 +64,6 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           timeout_minutes: "60"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          allowed_bots: ""
+          use_commit_signing: true

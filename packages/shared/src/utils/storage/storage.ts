@@ -109,12 +109,31 @@ InScriptStore.prototype = {
         });
 
         if (key.length > 1) {
+            // Additional protection against prototype pollution
+            if (typeof key[0] === 'string' && dangerousKeys.includes(key[0])) {
+                throw new Error('Invalid property name');
+            }
             if (!(key[0] in obj) || isEmptyObject(obj[key[0]])) {
-                obj[key[0]] = Object.create(null); // Safer object creation
+                // Use Object.defineProperty for safer assignment
+                Object.defineProperty(obj, key[0], {
+                    value: Object.create(null),
+                    writable: true,
+                    enumerable: true,
+                    configurable: true,
+                });
             }
             this.set(key.slice(1), value, obj[key[0]]);
         } else {
-            obj[key[0]] = value;
+            // Use Object.defineProperty for safer assignment
+            if (typeof key[0] === 'string' && dangerousKeys.includes(key[0])) {
+                throw new Error('Invalid property name');
+            }
+            Object.defineProperty(obj, key[0], {
+                value,
+                writable: true,
+                enumerable: true,
+                configurable: true,
+            });
         }
     },
     getObject(key: string) {
