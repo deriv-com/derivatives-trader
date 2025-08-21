@@ -830,7 +830,7 @@ export default class TradeStore extends BaseStore {
 
         if (!active_symbols?.length) {
             await WS.wait('get_settings');
-            showUnavailableLocationError(showError, is_logged_in);
+            showUnavailableLocationError(showError);
         }
         await this.processNewValuesAsync({ active_symbols });
     }
