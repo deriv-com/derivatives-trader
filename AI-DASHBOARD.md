@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-21 10:04:43 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-21 11:17:18 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 54 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **🤖 PRs with AI Analysis** | 43 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
-| **📄 Files Analyzed** | 649 | **⚡ Total AI Characters** | 38,484 |
+| **📁 Total Merged PRs** | 55 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 12% |
+| **🤖 PRs with AI Analysis** | 44 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
+| **📄 Files Analyzed** | 654 | **⚡ Total AI Characters** | 39,991 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 54 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 55 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#215](#) **fix: rest of the codeQL issues** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/21/2025 | 5 | 1,507 / 3,700 chars | 🟧🟧🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜  41% |
 | [#210](#) **Farabi/grwt-6913/fix-signup-redirection** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/21/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#211](#) **Nijil / Fix all codeQL issues** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/21/2025 | 5 | 1,083 / 4,939 chars | 🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  22% |
 | [#204](#) **Farabi/remove legacy auth and logic** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/21/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#198](#) **Jim/grwt 6886/barrier on the chart glitch** | [@jim-deriv](https://github.com/jim-deriv) | 8/19/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#199](#) **Akmal / fix: bugs and improvements** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/19/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#194](#) **Nijil / Fix - Market closed overlay color & removed Transfer from Statement page filter** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/19/2025 | 7 | 0 / 938 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#195](#) **chore: update shiftai-cli version** | [@prince-deriv](https://github.com/prince-deriv) | 8/18/2025 | 4 | 0 / 930 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
