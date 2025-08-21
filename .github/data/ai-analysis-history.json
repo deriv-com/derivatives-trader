@@ -1,7 +1,66 @@
 {
-  "lastUpdated": "2025-08-21T05:55:32.544Z",
-  "totalMergedPRs": 52,
+  "lastUpdated": "2025-08-21T09:47:37.582Z",
+  "totalMergedPRs": 53,
   "analyses": [
+    {
+      "percentage": 22,
+      "totalCharacters": 4939,
+      "aiCharacters": 1083,
+      "files": [
+        {
+          "name": ".github/workflows/claude.yml",
+          "totalCharacters": 3438,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "      - name: Validate fork repository and user\n        run: |\n          FORK_REPO=\"${{ steps.pr.outputs.fork_repo }}\"\n          FORK_ORG=$(echo \"$FORK_REPO\" | cut -d'/' -f1)\n          FORK_USER=$(echo \"$FORK_REPO\" | cut -d'/' -f1)\n          \n          echo \"Validating fork: $FORK_REPO (org: $FORK_ORG, user: $FORK_USER)\"\n          \n          # Method 1: Allow deriv-com organization (main repo)\n          if [[ \"$FORK_ORG\" == \"deriv-com\" ]]; then\n            echo \"::notice::✅ Validated: Fork from ..."
+        },
+        {
+          "name": "packages/shared/src/utils/date/dayJs-config.ts",
+          "totalCharacters": 72,
+          "aiCharacters": 64,
+          "percentage": 89,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "        console.error('Locale could not be loaded:', { locale, error });"
+        },
+        {
+          "name": "packages/shared/src/utils/files/file-uploader-utils.ts",
+          "totalCharacters": 452,
+          "aiCharacters": 312,
+          "percentage": 69,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nimport { compressImg, convertToBase64, getFormatFromMIME, isImageType, TImage } from './image/image_utility';\n    if (!file?.type) return null;\n\n    // Prevent ReDoS by limiting input length and using safer approach\n    const mimeType = file.type;\n    if (mimeType.length > 100) return null; // Prevent long inputs\n\n    const lastSlashIndex = mimeType.lastIndexOf('/');\n    return lastSlashIndex !== -1 ? mimeType.substring(lastSlashIndex + 1) : null;"
+        },
+        {
+          "name": "packages/shared/src/utils/storage/storage.ts",
+          "totalCharacters": 498,
+          "aiCharacters": 329,
+          "percentage": 66,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nimport { deriv_urls } from '../url/constants';\n\n        // Prevent prototype pollution\n        const dangerousKeys = ['__proto__', 'constructor', 'prototype'];\n        key.forEach(k => {\n            if (typeof k === 'string' && dangerousKeys.includes(k)) {\n                throw new Error('Invalid property name');\n            }\n        });\n\n            if (!(key[0] in obj) || isEmptyObject(obj[key[0]])) {\n                obj[key[0]] = Object.create(null); // Safer object creation\n            }"
+        },
+        {
+          "name": "packages/shared/src/utils/validation/declarative-validation-rules.ts",
+          "totalCharacters": 479,
+          "aiCharacters": 378,
+          "percentage": 79,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nexport const validLetterSymbol = (value: string) => {\n    if (!value || value.length > 100) return false; // Prevent long inputs\n    if (value.length < 2) return false; // Minimum length check\n\n    // Check first character is letter\n    if (!/^[A-Za-z]/.test(value)) return false;\n\n    // Check last character is valid\n    if (!/[a-zA-Z.' -]$/.test(value)) return false;\n\n    // Check all characters are valid (no nested quantifiers)\n    return /^[a-zA-Z.' -]+$/.test(value);\n};"
+        }
+      ],
+      "timestamp": "2025-08-21T09:47:37.530Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "211",
+      "branch": "nijil/security-fixes",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix all codeQL issues",
+      "hasAnalysis": true
+    },
     {
       "timestamp": "2025-08-21T05:55:32.492Z",
       "repository": "deriv-com/derivatives-trader",
