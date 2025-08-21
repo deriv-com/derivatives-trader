@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-21T03:01:57.830Z",
-  "totalMergedPRs": 51,
+  "lastUpdated": "2025-08-21T05:55:32.544Z",
+  "totalMergedPRs": 52,
   "analyses": [
+    {
+      "timestamp": "2025-08-21T05:55:32.492Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "204",
+      "branch": "farabi/remove-legacy-auth-and-logic",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/remove legacy auth and logic",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "percentage": 0,
       "totalCharacters": 662,
