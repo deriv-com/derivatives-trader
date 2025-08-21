@@ -2,7 +2,6 @@ import React from 'react';
 import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
 
 import { default_title, isEmptyObject, redirectToLogin, removeBranchName, routes } from '@deriv/shared';
-import { getLanguage } from '@deriv/translations';
 import { observer, useStore } from '@deriv/stores';
 
 import Page404 from 'Modules/Page404';
@@ -40,7 +39,7 @@ const RouteWithSubRoutes = observer((route: TRouteWithSubRoutesProps) => {
         } else if (is_valid_route && route.is_authenticated && !route.is_logging_in && !is_logged_in) {
             // Only redirect if client store is initialized - prevents race condition during page refresh
             if (is_client_store_initialized) {
-                redirectToLogin(is_logged_in, getLanguage());
+                redirectToLogin();
             }
         } else {
             const default_subroute = route.routes ? route.routes.find(r => r.default) : {};

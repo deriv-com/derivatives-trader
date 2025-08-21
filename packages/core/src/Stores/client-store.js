@@ -395,7 +395,7 @@ export default class ClientStore extends BaseStore {
                 should_show_refresh: false,
                 redirect_label: localize('Log in'),
                 redirectOnClick: () => {
-                    redirectToLogin(false, getLanguage());
+                    redirectToLogin();
                 },
             });
             this.setIsLoggingIn(false);

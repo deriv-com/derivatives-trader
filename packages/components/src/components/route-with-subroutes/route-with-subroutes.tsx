@@ -29,7 +29,6 @@ const RouteWithSubRoutes = ({
     path,
     routes,
     to,
-    language,
     Component404,
     should_redirect_login,
 }: TRoutesWithSubRoutesProps) => {
@@ -60,7 +59,7 @@ const RouteWithSubRoutes = ({
             result = <Redirect to={redirect_to} />;
         } else if (is_authenticated && !is_logged_in && !is_logging_in) {
             if (should_redirect_login) {
-                redirectToLogin(is_logged_in, language);
+                redirectToLogin();
             } else {
                 result = <Redirect to={shared_routes.index} />;
             }

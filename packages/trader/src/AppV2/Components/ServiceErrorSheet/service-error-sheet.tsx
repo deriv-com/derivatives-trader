@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 
-import { getBrandHubUrl, isEmptyObject, redirectToLogin, redirectToSignUp, routes } from '@deriv/shared';
+import { getBrandHubUrl, isEmptyObject, redirectToLogin, redirectToSignUp } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { getLanguage, Localize } from '@deriv/translations';
+import { Localize } from '@deriv/translations';
 import { ActionSheet } from '@deriv-com/quill-ui';
 
 import { checkIsServiceModalError, SERVICE_ERROR } from 'AppV2/Utils/layout-utils';
@@ -13,11 +12,10 @@ import ServiceErrorDescription from './service-error-description';
 
 const ServiceErrorSheet = observer(() => {
     const [is_open, setIsOpen] = useState(false);
-    const { common, client, ui } = useStore();
+    const { common, client } = useStore();
     const { is_virtual } = client;
     const { services_error, resetServicesError } = common;
     const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();
-    const history = useHistory();
 
     const { code, message, type } = services_error || {};
     const is_insufficient_balance = code === SERVICE_ERROR.INSUFFICIENT_BALANCE;
@@ -70,7 +68,7 @@ const ServiceErrorSheet = observer(() => {
                     content: <Localize i18n_default_text='Login' />,
                     onAction: () => {
                         resetServicesError();
-                        redirectToLogin(false, getLanguage());
+                        redirectToLogin();
                     },
                 },
             };

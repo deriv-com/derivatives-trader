@@ -1,9 +1,10 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+
 import { Dialog, Text } from '@deriv/components';
-import { Localize, getLanguage } from '@deriv/translations';
 import { redirectToLogin } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv/translations';
 
 const ModalHeader = ({ header }) => {
     switch (header) {
@@ -29,7 +30,7 @@ const RedirectToLoginModal = observer(() => {
     const showModal = () => {
         setVisible(true);
         if (window.localStorage.getItem('is_redirecting') !== 'true') {
-            redirectToLogin(false, getLanguage(), false, 3000);
+            redirectToLogin();
         }
     };
 

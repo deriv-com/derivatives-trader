@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { Button, Modal } from '@deriv/components';
-import { getLanguage, localize } from '@deriv/translations';
 import { redirectToLogin, redirectToSignUp } from '@deriv/shared';
+import { localize } from '@deriv/translations';
 
 type TAuthorizationRequiredModal = {
     is_visible: boolean;
@@ -10,12 +11,7 @@ type TAuthorizationRequiredModal = {
     is_logged_in: boolean;
 };
 
-const AuthorizationRequiredModal = ({
-    is_visible,
-    toggleModal,
-    is_appstore,
-    is_logged_in,
-}: TAuthorizationRequiredModal) => (
+const AuthorizationRequiredModal = ({ is_visible, toggleModal }: TAuthorizationRequiredModal) => (
     <Modal
         id='dt_authorization_required_modal'
         is_open={is_visible}
@@ -25,18 +21,8 @@ const AuthorizationRequiredModal = ({
     >
         <Modal.Body>{localize('Log in or create a free account to place a trade.')}</Modal.Body>
         <Modal.Footer>
-            <Button
-                has_effect
-                text={localize('Log in')}
-                onClick={() => redirectToLogin(is_logged_in, getLanguage())}
-                secondary
-            />
-            <Button
-                has_effect
-                text={localize('Create free account')}
-                onClick={() => redirectToSignUp({ is_appstore })}
-                primary
-            />
+            <Button has_effect text={localize('Log in')} onClick={() => redirectToLogin()} secondary />
+            <Button has_effect text={localize('Create free account')} onClick={() => redirectToSignUp()} primary />
         </Modal.Footer>
     </Modal>
 );

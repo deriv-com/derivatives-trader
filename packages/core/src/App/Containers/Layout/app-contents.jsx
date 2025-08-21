@@ -3,11 +3,10 @@ import { useLocation, withRouter } from 'react-router';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { ThemedScrollbars } from '@deriv/components';
 import { useGrowthbookGetFeatureValue } from '@deriv/api';
+import { ThemedScrollbars } from '@deriv/components';
 import { CookieStorage, platforms, redirectToLogin, TRACKING_STATUS_KEY, WS } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { getLanguage } from '@deriv/translations';
 import { Analytics } from '@deriv-com/analytics';
 import { useDevice } from '@deriv-com/ui';
 
@@ -59,7 +58,7 @@ const AppContents = observer(({ children }) => {
                 setShouldRedirectToLogin(false);
             } else {
                 setShouldRedirectToLogin(false);
-                redirectToLogin(is_logged_in, getLanguage());
+                redirectToLogin();
             }
         }
     }, [should_redirect_user_to_login, is_logged_in, setShouldRedirectToLogin, client.is_client_store_initialized]);
