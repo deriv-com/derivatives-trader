@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-21T09:47:37.582Z",
-  "totalMergedPRs": 53,
+  "lastUpdated": "2025-08-21T10:04:43.459Z",
+  "totalMergedPRs": 54,
   "analyses": [
+    {
+      "timestamp": "2025-08-21T10:04:43.408Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "210",
+      "branch": "farabi/grwt-6913/fix-signup-redirection",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/grwt-6913/fix-signup-redirection",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "percentage": 22,
       "totalCharacters": 4939,
