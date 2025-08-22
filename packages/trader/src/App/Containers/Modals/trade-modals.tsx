@@ -1,38 +1,15 @@
 import React from 'react';
-
-import { getUrlSmartTrader } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-
-import AccountVerificationPendingModal from 'App/Components/Elements/Modals/AccountVerificationPendingModal';
-import MarketUnavailableModal from 'App/Components/Elements/Modals/MarketUnavailableModal';
 import ServicesErrorModal from 'App/Components/Elements/Modals/ServicesErrorModal';
-import TradingDisabledByResidenceModal from 'App/Components/Elements/Modals/TradingDisabledByResidenceModal';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 const TradeModals = observer(() => {
     const { ui, client, common } = useStore();
-    const { resetPreviousSymbol, clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();
+    const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();
     const { is_virtual, is_logged_in } = client;
 
     const { services_error } = common;
-    const {
-        is_services_error_visible,
-        is_mf_verification_pending_modal_visible,
-        toggleServicesErrorModal,
-        setIsMFVericationPendingModal,
-    } = ui;
-    const resetToPreviousMarket = () => {
-        resetPreviousSymbol();
-    };
-
-    const marketUnavailableOnConfirm = () => {
-        resetToPreviousMarket();
-    };
-
-    const marketUnavailableOnCancel = () => {
-        window.open(getUrlSmartTrader());
-        resetToPreviousMarket();
-    };
+    const { is_services_error_visible, toggleServicesErrorModal } = ui;
 
     const servicesErrorModalOnConfirm = () => {
         toggleServicesErrorModal(false);
@@ -44,8 +21,6 @@ const TradeModals = observer(() => {
 
     return (
         <React.Fragment>
-            <MarketUnavailableModal onConfirm={marketUnavailableOnConfirm} onCancel={marketUnavailableOnCancel} />
-
             <ServicesErrorModal
                 onConfirm={servicesErrorModalOnConfirm}
                 services_error={services_error}
@@ -53,13 +28,6 @@ const TradeModals = observer(() => {
                 is_virtual={is_virtual}
                 is_logged_in={is_logged_in}
             />
-
-            <AccountVerificationPendingModal
-                is_visible={is_mf_verification_pending_modal_visible}
-                onConfirm={() => setIsMFVericationPendingModal(false)}
-            />
-
-            <TradingDisabledByResidenceModal />
         </React.Fragment>
     );
 });

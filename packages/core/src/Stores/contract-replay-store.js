@@ -1,4 +1,4 @@
-import { action, observable, makeObservable, override } from 'mobx';
+import { action, observable, makeObservable, override, when } from 'mobx';
 import { routes, isEmptyObject, WS, contractCancelled, contractSold } from '@deriv/shared';
 import { Money } from '@deriv/components';
 import { Analytics } from '@deriv-com/analytics';
@@ -55,9 +55,10 @@ export default class ContractReplayStore extends BaseStore {
     };
 
     subscribeProposalOpenContract = () => {
-        WS?.wait('authorize')?.then(() => {
-            this.handleSubscribeProposalOpenContract(this.contract_id, this.populateConfig);
-        });
+        when(
+            () => this.root_store.client.is_logged_in && this.root_store.client.current_account?.loginid,
+            () => this.handleSubscribeProposalOpenContract(this.contract_id, this.populateConfig)
+        );
     };
 
     constructor(root_store) {

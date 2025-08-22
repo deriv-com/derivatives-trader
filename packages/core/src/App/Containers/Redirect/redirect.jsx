@@ -3,9 +3,8 @@ import { useHistory, withRouter } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 
-import { getBrandHubUrl, getDomainName, redirectToLogin, routes, SessionStore } from '@deriv/shared';
+import { getBrandUrl, getDomainName, redirectToLogin, routes, SessionStore } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { getLanguage } from '@deriv/translations';
 import { Chat } from '@deriv/utils';
 import { Analytics } from '@deriv-com/analytics';
 
@@ -114,7 +113,7 @@ const Redirect = observer(() => {
                 if (verification_code[action_param]) {
                     sessionStorage.setItem('request_email_code', verification_code[action_param]);
                 }
-                redirectToLogin(is_logged_in, getLanguage(), true);
+                redirectToLogin();
                 redirected_to_route = true;
             } else {
                 if (!verification_code[action_param]) {
@@ -144,7 +143,7 @@ const Redirect = observer(() => {
                 if (verification_code[action_param]) {
                     sessionStorage.setItem(reset_code_key, verification_code[action_param]);
                 }
-                redirectToLogin(is_logged_in, getLanguage());
+                redirectToLogin();
                 redirected_to_route = true;
                 break;
             }
@@ -247,7 +246,7 @@ const Redirect = observer(() => {
         }
         // P2P functionality has been removed
         case 'ctrader_account_transfer': {
-            window.location.assign(`${getBrandHubUrl()}/transfer`);
+            window.location.assign(`${getBrandUrl()}/transfer`);
             redirected_to_route = true;
             break;
         }

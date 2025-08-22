@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router';
 import classNames from 'classnames';
 import { Icon, Text } from '@deriv/components';
-import { getBrandHubUrl, routes } from '@deriv/shared';
+import { getBrandUrl, routes } from '@deriv/shared';
 import { observer } from '@deriv/stores';
 import { Localize } from '@deriv/translations';
 
@@ -11,7 +11,7 @@ const TradersHubHomeButton = observer(() => {
     const { pathname } = location;
 
     const handleTradershubRedirect = () => {
-        const hubUrl = getBrandHubUrl();
+        const hubUrl = getBrandUrl();
         const url_query_string = window.location.search;
         const url_params = new URLSearchParams(url_query_string);
         const account_currency = url_params.get('account') || window.sessionStorage.getItem('account');

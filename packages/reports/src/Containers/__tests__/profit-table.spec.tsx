@@ -66,7 +66,6 @@ jest.mock('Stores/useReportsStores', () => ({
         profit_table: {
             action_type: 'all',
             data: [],
-            is_switching: false,
             date_from: null,
             date_to: 1717631999,
             has_selected_date: true,
@@ -242,13 +241,6 @@ describe('Profit Table', () => {
             },
         });
         renderProfitTable();
-        expect(screen.getByTestId(loader)).toBeInTheDocument();
-    });
-
-    test('renders loading indicator when is_switching is true', () => {
-        store.client.is_switching = true;
-        renderProfitTable();
-        expect(screen.queryByTestId(dataTable)).not.toBeInTheDocument();
         expect(screen.getByTestId(loader)).toBeInTheDocument();
     });
 

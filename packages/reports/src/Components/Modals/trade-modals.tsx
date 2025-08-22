@@ -1,8 +1,5 @@
 import React from 'react';
-import { getUrlSmartTrader } from '@deriv/shared';
-import MarketUnavailableModal from '../Elements/Modals/MarketUnavailableModal';
 import ServicesErrorModal from '../Elements/Modals/ServicesErrorModal';
-import AccountVerificationPendingModal from '../Elements/Modals/AccountVerificationPendingModal';
 import { observer, useStore } from '@deriv/stores';
 
 const TradeModals = observer(() => {
@@ -10,20 +7,7 @@ const TradeModals = observer(() => {
     const { is_virtual, is_logged_in } = client;
 
     const { services_error } = common;
-    const {
-        is_mf_verification_pending_modal_visible,
-        is_services_error_visible,
-        setIsMFVericationPendingModal,
-        toggleServicesErrorModal,
-    } = ui;
-
-    const marketUnavailableOnConfirm = () => {
-        // Modal confirmed - no additional action needed
-    };
-
-    const marketUnavailableOnCancel = () => {
-        window.open(getUrlSmartTrader());
-    };
+    const { is_services_error_visible, toggleServicesErrorModal } = ui;
 
     const servicesErrorModalOnConfirm = () => {
         toggleServicesErrorModal(false);
@@ -31,19 +15,12 @@ const TradeModals = observer(() => {
 
     return (
         <React.Fragment>
-            <MarketUnavailableModal onConfirm={marketUnavailableOnConfirm} onCancel={marketUnavailableOnCancel} />
-
             <ServicesErrorModal
                 onConfirm={servicesErrorModalOnConfirm}
                 services_error={services_error}
                 is_visible={is_services_error_visible}
                 is_virtual={is_virtual}
                 is_logged_in={is_logged_in}
-            />
-
-            <AccountVerificationPendingModal
-                is_visible={is_mf_verification_pending_modal_visible}
-                onConfirm={() => setIsMFVericationPendingModal(false)}
             />
         </React.Fragment>
     );

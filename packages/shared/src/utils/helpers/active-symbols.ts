@@ -3,7 +3,7 @@ import { LocalStore } from '../storage';
 import { redirectToLogin } from '../login';
 import { WS } from '../../services';
 
-import { getLanguage, localize } from '@deriv/translations';
+import { localize } from '@deriv/translations';
 import { ActiveSymbols } from '@deriv/api-types';
 import { getMarketNamesMap } from '../constants/contract';
 
@@ -22,7 +22,7 @@ type TIsSymbolOpen = {
     exchange_is_open: 0 | 1;
 };
 
-export const showUnavailableLocationError = flow(function* (showError, is_logged_in) {
+export const showUnavailableLocationError = flow(function* (showError) {
     const website_status = yield WS.wait('website_status');
     const residence_list: TResidenceList = yield WS.residenceList();
 
@@ -39,7 +39,7 @@ export const showUnavailableLocationError = flow(function* (showError, is_logged
         message: localize('If you have an account, log in to continue.'),
         header,
         redirect_label: localize('Log in'),
-        redirectOnClick: () => redirectToLogin(is_logged_in, getLanguage()),
+        redirectOnClick: () => redirectToLogin(),
         should_show_refresh: false,
     });
 });

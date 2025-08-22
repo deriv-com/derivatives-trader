@@ -14,7 +14,7 @@ type TFormLayout = {
 const FormLayout = observer(({ is_market_closed, is_trade_enabled }: TFormLayout) => {
     const { common, client } = useStore();
     const { current_language } = common;
-    const { is_single_logging_in } = client;
+    const { is_logging_in } = client;
     const { isMobile } = useDevice();
 
     const Screen = React.useMemo(() => {
@@ -36,7 +36,7 @@ const FormLayout = observer(({ is_market_closed, is_trade_enabled }: TFormLayout
             <Screen
                 is_trade_enabled={is_trade_enabled}
                 is_market_closed={isMobile ? undefined : is_market_closed}
-                is_single_logging_in={is_single_logging_in}
+                is_single_logging_in={is_logging_in}
             />
         </React.Fragment>
     );

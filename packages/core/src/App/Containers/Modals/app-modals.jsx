@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useIsTNCNeeded } from '@deriv/api';
 import { moduleLoader, SessionStore } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 
@@ -19,23 +18,11 @@ const RedirectToLoginModal = React.lazy(() =>
 
 const AppModals = observer(() => {
     const { ui } = useStore();
-    const {
-        is_deriv_account_needed_modal_visible,
-        is_ready_to_deposit_modal_visible,
-        isUrlUnavailableModalVisible,
-        toggleTncUpdateModal,
-    } = ui;
+    const { is_deriv_account_needed_modal_visible, is_ready_to_deposit_modal_visible, isUrlUnavailableModalVisible } =
+        ui;
     const temp_session_signup_params = SessionStore.get('signup_query_param');
     const url_params = new URLSearchParams(useLocation().search || temp_session_signup_params);
     const url_action_param = url_params.get('action');
-
-    const is_tnc_needed = useIsTNCNeeded();
-
-    React.useEffect(() => {
-        if (is_tnc_needed) {
-            toggleTncUpdateModal(true);
-        }
-    }, [is_tnc_needed, toggleTncUpdateModal]);
 
     let ComponentToLoad = null;
     switch (url_action_param) {

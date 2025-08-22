@@ -59,27 +59,13 @@ export const SERVICE_ERROR = {
     INSUFFICIENT_BALANCE: 'InsufficientBalance',
     INVALID_CONTRACT_PROPOSAL: 'InvalidContractProposal',
     AUTHORIZATION_REQUIRED: 'AuthorizationRequired',
-    PLEASE_AUTHENTICATE: 'PleaseAuthenticate',
-    PENDING_VERIFICATION: 'PendingVerification',
     COMPANY_WIDE_LIMIT_EXCEEDED: 'CompanyWideLimitExceeded',
 };
 
-export const checkIsServiceModalError = ({
-    services_error,
-    is_mf_verification_pending_modal_visible,
-}: {
-    services_error: TCommonStoreServicesError;
-    is_mf_verification_pending_modal_visible?: boolean;
-}) => {
+export const checkIsServiceModalError = ({ services_error }: { services_error: TCommonStoreServicesError }) => {
     const { code, type } = services_error || {};
     // Error modal is shown only for next four types. For the rest - snackbar.
     const is_insufficient_balance = code === SERVICE_ERROR.INSUFFICIENT_BALANCE;
     const is_authorization_required = code === SERVICE_ERROR.AUTHORIZATION_REQUIRED && type === 'buy';
-    const is_account_verification_required = code === SERVICE_ERROR.PLEASE_AUTHENTICATE;
-    return (
-        is_insufficient_balance ||
-        is_authorization_required ||
-        is_account_verification_required ||
-        !!is_mf_verification_pending_modal_visible
-    );
+    return is_insufficient_balance || is_authorization_required;
 };

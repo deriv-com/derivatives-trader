@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { /* useOauth2, */ useRemoteConfig } from '@deriv/api';
 import { Div100vhContainer, Icon, MobileDrawer, ToggleSwitch } from '@deriv/components';
 // eslint-disable-next-line no-unused-vars -- getDomainUrl kept for future handleTradershubRedirect restoration
-import { routes, getBrandHubHomeUrl } from '@deriv/shared';
+import { routes, getBrandHomeUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of Analytics functionality
@@ -184,17 +184,19 @@ const ToggleMenuDrawer = observer(() => {
                     <div className='header__menu-mobile-body-wrapper'>
                         <React.Fragment>
                             <MobileDrawer.Body>
-                                <MobileDrawer.Item>
-                                    <MenuLink
-                                        link_to={getBrandHubHomeUrl()}
-                                        icon='IcAppstoreTradersHubHome'
-                                        text={localize('Hub')}
-                                        onClickLink={() => {
-                                            window.open(getBrandHubHomeUrl(), '_blank', 'noopener,noreferrer');
-                                            toggleDrawer();
-                                        }}
-                                    />
-                                </MobileDrawer.Item>
+                                {is_logged_in && (
+                                    <MobileDrawer.Item>
+                                        <MenuLink
+                                            link_to={getBrandHomeUrl()}
+                                            icon='IcAppstoreTradersHubHome'
+                                            text={localize('Home')}
+                                            onClickLink={() => {
+                                                window.open(getBrandHomeUrl(), '_blank', 'noopener,noreferrer');
+                                                toggleDrawer();
+                                            }}
+                                        />
+                                    </MobileDrawer.Item>
+                                )}
                                 <MobileDrawer.Item>
                                     <MenuLink
                                         link_to={routes.index}

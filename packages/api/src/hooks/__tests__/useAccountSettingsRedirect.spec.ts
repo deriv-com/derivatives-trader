@@ -8,7 +8,7 @@ const originalNodeEnv = process.env.NODE_ENV;
 // Mock the dependencies
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
-    getBrandHubUrl: jest.fn(() => 'https://staging-app.champion.trade/champion'),
+    getBrandUrl: jest.fn(() => 'https://staging-app.champion.trade/champion'),
 }));
 
 describe('useAccountSettingsRedirect', () => {
@@ -75,7 +75,7 @@ describe('useAccountSettingsRedirect', () => {
 
         const { result } = renderHook(() => useAccountSettingsRedirect());
 
-        // Since getBrandHubUrl is mocked to return staging URL, the result will be the same
+        // Since getBrandUrl is mocked to return staging URL, the result will be the same
         const expectedUrl =
             'https://staging-app.champion.trade/champion/accounts/redirect?action=redirect_to&redirect_to=home&account=demo';
 

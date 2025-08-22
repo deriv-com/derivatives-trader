@@ -11,7 +11,6 @@ const rootStore = mockStore({
         server_time: moment(new Date()).utc(),
     },
     client: {
-        is_landing_company_loaded: true,
         is_logged_in: false,
     },
 });

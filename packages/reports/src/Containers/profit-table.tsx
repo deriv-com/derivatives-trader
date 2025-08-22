@@ -45,7 +45,7 @@ export const getRowAction = (row_obj: { [key: string]: unknown }) => {
 const ProfitTable = observer(({ component_icon }: TProfitTable) => {
     const { client } = useStore();
     const { profit_table } = useReportsStore();
-    const { currency, is_switching } = client;
+    const { currency } = client;
     const {
         data,
         date_from,
@@ -168,54 +168,50 @@ const ProfitTable = observer(({ component_icon }: TProfitTable) => {
     return (
         <React.Fragment>
             <ReportsMeta filter_component={filter_component} className='profit-table__filter' />
-            {is_switching ? (
-                <PlaceholderComponent is_loading />
-            ) : (
-                <React.Fragment>
-                    {data.length === 0 || is_empty ? (
-                        <PlaceholderComponent
-                            is_loading={is_loading}
-                            has_selected_date={has_selected_date}
-                            is_empty={is_empty}
-                            empty_message_component={EmptyTradeHistoryMessage}
-                            component_icon={component_icon}
-                            localized_message={localize('You have no trading activity yet.')}
-                            localized_period_message={localize(
-                                "You've made no transactions of this type during this period."
-                            )}
-                        />
-                    ) : (
-                        <div className='reports__content'>
-                            {isDesktop ? (
-                                <DataTable
-                                    className='profit-table'
-                                    data_source={data}
-                                    columns={columns}
-                                    onScroll={handleScroll}
-                                    footer={totals}
-                                    getRowAction={getRowAction}
-                                    getRowSize={() => 63}
-                                    content_loader={ReportsTableRowLoader}
-                                >
-                                    <PlaceholderComponent is_loading={is_loading} />
-                                </DataTable>
-                            ) : (
-                                <DataList
-                                    className='profit-table'
-                                    data_source={data}
-                                    rowRenderer={mobileRowRenderer}
-                                    getRowAction={getRowAction}
-                                    onScroll={handleScroll}
-                                    footer={totals}
-                                    row_gap={8}
-                                >
-                                    <PlaceholderComponent is_loading={is_loading} />
-                                </DataList>
-                            )}
-                        </div>
-                    )}
-                </React.Fragment>
-            )}
+            <React.Fragment>
+                {data.length === 0 || is_empty ? (
+                    <PlaceholderComponent
+                        is_loading={is_loading}
+                        has_selected_date={has_selected_date}
+                        is_empty={is_empty}
+                        empty_message_component={EmptyTradeHistoryMessage}
+                        component_icon={component_icon}
+                        localized_message={localize('You have no trading activity yet.')}
+                        localized_period_message={localize(
+                            "You've made no transactions of this type during this period."
+                        )}
+                    />
+                ) : (
+                    <div className='reports__content'>
+                        {isDesktop ? (
+                            <DataTable
+                                className='profit-table'
+                                data_source={data}
+                                columns={columns}
+                                onScroll={handleScroll}
+                                footer={totals}
+                                getRowAction={getRowAction}
+                                getRowSize={() => 63}
+                                content_loader={ReportsTableRowLoader}
+                            >
+                                <PlaceholderComponent is_loading={is_loading} />
+                            </DataTable>
+                        ) : (
+                            <DataList
+                                className='profit-table'
+                                data_source={data}
+                                rowRenderer={mobileRowRenderer}
+                                getRowAction={getRowAction}
+                                onScroll={handleScroll}
+                                footer={totals}
+                                row_gap={8}
+                            >
+                                <PlaceholderComponent is_loading={is_loading} />
+                            </DataList>
+                        )}
+                    </div>
+                )}
+            </React.Fragment>
         </React.Fragment>
     );
 });

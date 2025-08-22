@@ -1,4 +1,4 @@
-import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
 import { action, computed, makeObservable, observable, override, reaction, runInAction } from 'mobx';
 import { computedFn } from 'mobx-utils';
 
@@ -247,7 +247,7 @@ export default class PortfolioStore extends BaseStore {
 
     proposalOpenContractQueueHandler = response => {
         this.responseQueue.push(response);
-        this.debouncedUpdatePositions();
+        this.throttledUpdatePositions();
     };
 
     proposalOpenContractHandler(response) {
@@ -664,7 +664,7 @@ export default class PortfolioStore extends BaseStore {
         }
     };
 
-    debouncedUpdatePositions = debounce(this.updatePositions, 300);
+    throttledUpdatePositions = throttle(this.updatePositions, 500);
 
     get is_active_empty() {
         return !this.is_loading && this.active_positions.length === 0;

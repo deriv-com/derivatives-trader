@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 
-import { getBrandHubUrl, isEmptyObject, redirectToLogin, redirectToSignUp, routes } from '@deriv/shared';
+import { getBrandUrl, isEmptyObject, redirectToLogin, redirectToSignUp } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { getLanguage, Localize } from '@deriv/translations';
+import { Localize } from '@deriv/translations';
 import { ActionSheet } from '@deriv-com/quill-ui';
 
 import { checkIsServiceModalError, SERVICE_ERROR } from 'AppV2/Utils/layout-utils';
@@ -13,20 +12,15 @@ import ServiceErrorDescription from './service-error-description';
 
 const ServiceErrorSheet = observer(() => {
     const [is_open, setIsOpen] = useState(false);
-    const { common, client, ui } = useStore();
-    const { is_mf_verification_pending_modal_visible, setIsMFVericationPendingModal } = ui;
+    const { common, client } = useStore();
     const { is_virtual } = client;
     const { services_error, resetServicesError } = common;
     const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();
-    const history = useHistory();
 
     const { code, message, type } = services_error || {};
     const is_insufficient_balance = code === SERVICE_ERROR.INSUFFICIENT_BALANCE;
     const is_authorization_required = code === SERVICE_ERROR.AUTHORIZATION_REQUIRED && type === 'buy';
-    const is_account_verification_required = code === SERVICE_ERROR.PLEASE_AUTHENTICATE;
-    const should_show_error_modal =
-        (!isEmptyObject(services_error) || is_mf_verification_pending_modal_visible) &&
-        checkIsServiceModalError({ services_error, is_mf_verification_pending_modal_visible });
+    const should_show_error_modal = !isEmptyObject(services_error) && checkIsServiceModalError({ services_error });
 
     const onClose = () => {
         setIsOpen(false);
@@ -47,7 +41,7 @@ const ServiceErrorSheet = observer(() => {
                     onAction: () => {
                         resetServicesError();
                         if (!is_virtual) {
-                            const hubUrl = getBrandHubUrl();
+                            const hubUrl = getBrandUrl();
                             const url_query_string = window.location.search;
                             const url_params = new URLSearchParams(url_query_string);
                             const account_currency =
@@ -74,30 +68,7 @@ const ServiceErrorSheet = observer(() => {
                     content: <Localize i18n_default_text='Login' />,
                     onAction: () => {
                         resetServicesError();
-                        redirectToLogin(false, getLanguage());
-                    },
-                },
-            };
-        }
-        if (is_account_verification_required) {
-            return {
-                primaryAction: {
-                    content: <Localize i18n_default_text='Submit Proof' />,
-                    onAction: () => {
-                        resetServicesError();
-                        onClose();
-                    },
-                },
-            };
-        }
-        if (is_mf_verification_pending_modal_visible) {
-            return {
-                primaryAction: {
-                    content: <Localize i18n_default_text='Got it' />,
-                    onAction: () => {
-                        resetServicesError();
-                        setIsMFVericationPendingModal(false);
-                        onClose();
+                        redirectToLogin();
                     },
                 },
             };
@@ -107,8 +78,6 @@ const ServiceErrorSheet = observer(() => {
     const getErrorType = () => {
         if (is_insufficient_balance) return SERVICE_ERROR.INSUFFICIENT_BALANCE;
         if (is_authorization_required) return SERVICE_ERROR.AUTHORIZATION_REQUIRED;
-        if (is_account_verification_required) return SERVICE_ERROR.PLEASE_AUTHENTICATE;
-        if (is_mf_verification_pending_modal_visible) return SERVICE_ERROR.PENDING_VERIFICATION;
         return null;
     };
 
@@ -119,7 +88,6 @@ const ServiceErrorSheet = observer(() => {
 
     useEffect(() => {
         if (!is_open && code) resetServicesError();
-        if (!is_open) setIsMFVericationPendingModal(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [is_open]);
 

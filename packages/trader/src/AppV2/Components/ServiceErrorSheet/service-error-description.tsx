@@ -23,20 +23,6 @@ const ServiceErrorDescription: React.FC<ServiceErrorProps> = ({ error_type, serv
                     title: <Localize i18n_default_text='Start trading with us' />,
                     text: <Localize i18n_default_text='Log in or create a free account to place a trade.' />,
                 };
-            case SERVICE_ERROR.PLEASE_AUTHENTICATE:
-                return {
-                    title: <Localize i18n_default_text='Account verification required' />,
-                    text: (
-                        <Localize i18n_default_text='Please submit your proof of identity and proof of address to verify your account and continue trading.' />
-                    ),
-                };
-            case SERVICE_ERROR.PENDING_VERIFICATION:
-                return {
-                    title: <Localize i18n_default_text='Pending verification' />,
-                    text: (
-                        <Localize i18n_default_text='You cannot trade as your documents are still under review. We will notify you by email once your verification is approved.' />
-                    ),
-                };
             default:
                 return {};
         }

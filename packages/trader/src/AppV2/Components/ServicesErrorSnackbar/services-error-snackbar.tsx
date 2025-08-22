@@ -14,7 +14,6 @@ import { useTraderStore } from 'Stores/useTraderStores';
 const ServicesErrorSnackbar = observer(() => {
     const {
         common: { services_error, resetServicesError },
-        ui: { is_mf_verification_pending_modal_visible },
         client: { is_logged_in },
     } = useStore();
     const { is_multiplier, proposal_info, validation_errors, trade_types, contract_type, trade_type_tab } =
@@ -25,7 +24,7 @@ const ServicesErrorSnackbar = observer(() => {
 
     const { code, message } = services_error || {};
     const has_services_error = !isEmptyObject(services_error);
-    const is_modal_error = checkIsServiceModalError({ services_error, is_mf_verification_pending_modal_visible });
+    const is_modal_error = checkIsServiceModalError({ services_error });
     const contract_types = getDisplayedContractTypes(trade_types, contract_type, trade_type_tab);
 
     // Some BO errors comes inside of proposal and we store them inside of proposal_info.

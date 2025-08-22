@@ -10,6 +10,7 @@ type TRoutesWithSubRoutesProps = {
     getTitle?: () => string;
     is_authenticated?: boolean;
     is_logged_in?: boolean;
+    is_logging_in?: boolean;
     path: string;
     routes: TRoute[];
     to: RedirectProps['to'];
@@ -24,10 +25,10 @@ const RouteWithSubRoutes = ({
     getTitle,
     is_authenticated,
     is_logged_in = false,
+    is_logging_in = false,
     path,
     routes,
     to,
-    language,
     Component404,
     should_redirect_login,
 }: TRoutesWithSubRoutesProps) => {
@@ -56,9 +57,9 @@ const RouteWithSubRoutes = ({
             }
 
             result = <Redirect to={redirect_to} />;
-        } else if (is_authenticated && !is_logged_in) {
+        } else if (is_authenticated && !is_logged_in && !is_logging_in) {
             if (should_redirect_login) {
-                redirectToLogin(is_logged_in, language);
+                redirectToLogin();
             } else {
                 result = <Redirect to={shared_routes.index} />;
             }

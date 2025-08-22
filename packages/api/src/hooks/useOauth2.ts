@@ -19,7 +19,7 @@ import useTMB from './useTMB';
  */
 const useOauth2 = ({ handleLogout }: { handleLogout: () => Promise<void> }) => {
     const is_deriv_com = /deriv\.(com)/.test(window.location.hostname) || /localhost:8443/.test(window.location.host);
-    const { common, client } = useStore();
+    const { common } = useStore();
     const { isTmbEnabled } = useTMB();
 
     const loginHandler = async () => {
@@ -38,7 +38,7 @@ const useOauth2 = ({ handleLogout }: { handleLogout: () => Promise<void> }) => {
                 console.error(err);
             }
         } else {
-            redirectToLogin(false, getLanguage());
+            redirectToLogin();
         }
     };
 
@@ -53,8 +53,6 @@ const useOauth2 = ({ handleLogout }: { handleLogout: () => Promise<void> }) => {
         } catch (error) {
             // eslint-disable-next-line no-console
             console.error(error);
-
-            client.setIsSingleLoggingIn(false);
 
             if (common.setError) {
                 common.setError(true, {

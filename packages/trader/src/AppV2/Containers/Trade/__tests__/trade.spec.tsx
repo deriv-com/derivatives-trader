@@ -119,7 +119,7 @@ describe('Trade', () => {
                     ],
                 },
             },
-            client: { is_logged_in: true, is_switching: false },
+            client: { is_logged_in: true },
             common: { resetServicesError: jest.fn() },
         });
         localStorage.clear();
@@ -147,7 +147,6 @@ describe('Trade', () => {
     });
 
     it('should show loader if we are switching from demo to real account', () => {
-        default_mock_store.client.is_switching = true;
         render(mockTrade());
 
         expect(screen.getByTestId('dt_trade_loader')).toBeInTheDocument();

@@ -1,7 +1,340 @@
 {
-  "lastUpdated": "2025-08-20T12:14:21.483Z",
-  "totalMergedPRs": 50,
+  "lastUpdated": "2025-08-22T08:28:41.871Z",
+  "totalMergedPRs": 58,
   "analyses": [
+    {
+      "timestamp": "2025-08-22T08:28:41.819Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "222",
+      "branch": "farabi/rename-hub-to-home",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/rename-hub-to-home",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
+    {
+      "timestamp": "2025-08-22T05:31:28.602Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "219",
+      "branch": "chore/update-derivatives-charts-to-1.1.0",
+      "author": "DerivFE",
+      "prTitle": "Update derivatives-charts to 1.1.0",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
+    {
+      "percentage": 0,
+      "totalCharacters": 1892,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/Stores/portfolio-store.js",
+          "totalCharacters": 148,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "import throttle from 'lodash.throttle';\n        this.throttledUpdatePositions();\n    throttledUpdatePositions = throttle(this.updatePositions, 500);"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Containers/trade-chart.tsx",
+          "totalCharacters": 1744,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const settings = {\n        countdown: is_chart_countdown_visible,\n        isHighestLowestMarkerEnabled: false, // TODO: Pending UI,\n        language: current_language.toLowerCase(),\n        position: is_chart_layout_default ? 'bottom' : 'left',\n        theme: is_dark_mode_on ? 'dark' : 'light',\n        ...(is_accumulator ? { whitespace: 190, minimumLeftBars: isMobile ? 3 : undefined } : {}),\n        ...(has_barrier ? { whitespace: 110 } : {}),\n    };\n    const getMarketsOrder = (active_symbo..."
+        }
+      ],
+      "timestamp": "2025-08-22T05:13:15.018Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "213",
+      "branch": "jim/grwt-6908/chart-is-lagging",
+      "author": "jim-deriv",
+      "prTitle": "revert: restore original code with no memoization",
+      "hasAnalysis": true
+    },
+    {
+      "percentage": 41,
+      "totalCharacters": 3700,
+      "aiCharacters": 1507,
+      "files": [
+        {
+          "name": ".github/workflows/claude.yml",
+          "totalCharacters": 1353,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "      - name: Security Check - Validate User Access\n          ACTOR=\"${{ github.actor }}\"\n          echo \"Validating access for user: $ACTOR\"\n          \n          # Check if user is organization member\n          MEMBERSHIP_STATUS=$(curl -s -H \"Authorization: token ${{ secrets.GITHUB_TOKEN }}\" \\\n            \"https://api.github.com/orgs/deriv-com/members/$ACTOR\" \\\n            -w \"%{http_code}\" -o /dev/null)\n          if [[ \"$MEMBERSHIP_STATUS\" == \"204\" ]]; then\n            echo \"✅ User $ACTOR is a..."
+        },
+        {
+          "name": "packages/shared/src/utils/date/dayJs-config.ts",
+          "totalCharacters": 72,
+          "aiCharacters": 64,
+          "percentage": 89,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "        console.error('Locale could not be loaded:', { locale, error });"
+        },
+        {
+          "name": "packages/shared/src/utils/files/file-uploader-utils.ts",
+          "totalCharacters": 452,
+          "aiCharacters": 312,
+          "percentage": 69,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nimport { compressImg, convertToBase64, getFormatFromMIME, isImageType, TImage } from './image/image_utility';\n    if (!file?.type) return null;\n\n    // Prevent ReDoS by limiting input length and using safer approach\n    const mimeType = file.type;\n    if (mimeType.length > 100) return null; // Prevent long inputs\n\n    const lastSlashIndex = mimeType.lastIndexOf('/');\n    return lastSlashIndex !== -1 ? mimeType.substring(lastSlashIndex + 1) : null;"
+        },
+        {
+          "name": "packages/shared/src/utils/storage/storage.ts",
+          "totalCharacters": 1344,
+          "aiCharacters": 753,
+          "percentage": 56,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nimport { deriv_urls } from '../url/constants';\n\n        // Prevent prototype pollution\n        const dangerousKeys = ['__proto__', 'constructor', 'prototype'];\n        key.forEach(k => {\n            if (typeof k === 'string' && dangerousKeys.includes(k)) {\n                throw new Error('Invalid property name');\n            }\n        });\n\n            // Additional protection against prototype pollution\n            if (typeof key[0] === 'string' && dangerousKeys.includes(key[0])) {\n            ..."
+        },
+        {
+          "name": "packages/shared/src/utils/validation/declarative-validation-rules.ts",
+          "totalCharacters": 479,
+          "aiCharacters": 378,
+          "percentage": 79,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nexport const validLetterSymbol = (value: string) => {\n    if (!value || value.length > 100) return false; // Prevent long inputs\n    if (value.length < 2) return false; // Minimum length check\n\n    // Check first character is letter\n    if (!/^[A-Za-z]/.test(value)) return false;\n\n    // Check last character is valid\n    if (!/[a-zA-Z.' -]$/.test(value)) return false;\n\n    // Check all characters are valid (no nested quantifiers)\n    return /^[a-zA-Z.' -]+$/.test(value);\n};"
+        }
+      ],
+      "timestamp": "2025-08-21T11:17:18.621Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "215",
+      "branch": "nijil/security-fixes",
+      "author": "nijil-deriv",
+      "prTitle": "fix: rest of the codeQL issues",
+      "hasAnalysis": true
+    },
+    {
+      "timestamp": "2025-08-21T10:04:43.408Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "210",
+      "branch": "farabi/grwt-6913/fix-signup-redirection",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/grwt-6913/fix-signup-redirection",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
+    {
+      "percentage": 22,
+      "totalCharacters": 4939,
+      "aiCharacters": 1083,
+      "files": [
+        {
+          "name": ".github/workflows/claude.yml",
+          "totalCharacters": 3438,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "      - name: Validate fork repository and user\n        run: |\n          FORK_REPO=\"${{ steps.pr.outputs.fork_repo }}\"\n          FORK_ORG=$(echo \"$FORK_REPO\" | cut -d'/' -f1)\n          FORK_USER=$(echo \"$FORK_REPO\" | cut -d'/' -f1)\n          \n          echo \"Validating fork: $FORK_REPO (org: $FORK_ORG, user: $FORK_USER)\"\n          \n          # Method 1: Allow deriv-com organization (main repo)\n          if [[ \"$FORK_ORG\" == \"deriv-com\" ]]; then\n            echo \"::notice::✅ Validated: Fork from ..."
+        },
+        {
+          "name": "packages/shared/src/utils/date/dayJs-config.ts",
+          "totalCharacters": 72,
+          "aiCharacters": 64,
+          "percentage": 89,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "        console.error('Locale could not be loaded:', { locale, error });"
+        },
+        {
+          "name": "packages/shared/src/utils/files/file-uploader-utils.ts",
+          "totalCharacters": 452,
+          "aiCharacters": 312,
+          "percentage": 69,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nimport { compressImg, convertToBase64, getFormatFromMIME, isImageType, TImage } from './image/image_utility';\n    if (!file?.type) return null;\n\n    // Prevent ReDoS by limiting input length and using safer approach\n    const mimeType = file.type;\n    if (mimeType.length > 100) return null; // Prevent long inputs\n\n    const lastSlashIndex = mimeType.lastIndexOf('/');\n    return lastSlashIndex !== -1 ? mimeType.substring(lastSlashIndex + 1) : null;"
+        },
+        {
+          "name": "packages/shared/src/utils/storage/storage.ts",
+          "totalCharacters": 498,
+          "aiCharacters": 329,
+          "percentage": 66,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nimport { deriv_urls } from '../url/constants';\n\n        // Prevent prototype pollution\n        const dangerousKeys = ['__proto__', 'constructor', 'prototype'];\n        key.forEach(k => {\n            if (typeof k === 'string' && dangerousKeys.includes(k)) {\n                throw new Error('Invalid property name');\n            }\n        });\n\n            if (!(key[0] in obj) || isEmptyObject(obj[key[0]])) {\n                obj[key[0]] = Object.create(null); // Safer object creation\n            }"
+        },
+        {
+          "name": "packages/shared/src/utils/validation/declarative-validation-rules.ts",
+          "totalCharacters": 479,
+          "aiCharacters": 378,
+          "percentage": 79,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "\nexport const validLetterSymbol = (value: string) => {\n    if (!value || value.length > 100) return false; // Prevent long inputs\n    if (value.length < 2) return false; // Minimum length check\n\n    // Check first character is letter\n    if (!/^[A-Za-z]/.test(value)) return false;\n\n    // Check last character is valid\n    if (!/[a-zA-Z.' -]$/.test(value)) return false;\n\n    // Check all characters are valid (no nested quantifiers)\n    return /^[a-zA-Z.' -]+$/.test(value);\n};"
+        }
+      ],
+      "timestamp": "2025-08-21T09:47:37.530Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "211",
+      "branch": "nijil/security-fixes",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix all codeQL issues",
+      "hasAnalysis": true
+    },
+    {
+      "timestamp": "2025-08-21T05:55:32.492Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "204",
+      "branch": "farabi/remove-legacy-auth-and-logic",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/remove legacy auth and logic",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
+    {
+      "percentage": 0,
+      "totalCharacters": 662,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/Stores/ui-store.js",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/reports/src/Components/Modals/trade-modals.tsx",
+          "totalCharacters": 71,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const { is_services_error_visible, toggleServicesErrorModal } = ui;"
+        },
+        {
+          "name": "packages/stores/src/mockStore.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/stores/types.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/App/Containers/Modals/trade-modals.tsx",
+          "totalCharacters": 155,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();\n    const { is_services_error_visible, toggleServicesErrorModal } = ui;"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/PurchaseButton/purchase-button.tsx",
+          "totalCharacters": 72,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const is_modal_error = checkIsServiceModalError({ services_error });"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServiceErrorSheet/__tests__/service-error-sheet.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServiceErrorSheet/service-error-description.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServiceErrorSheet/service-error-sheet.tsx",
+          "totalCharacters": 115,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const should_show_error_modal = !isEmptyObject(services_error) && checkIsServiceModalError({ services_error });"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServicesErrorSnackbar/__tests__/services-error-snackbar.spec.tsx",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/AppV2/Components/ServicesErrorSnackbar/services-error-snackbar.tsx",
+          "totalCharacters": 72,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const is_modal_error = checkIsServiceModalError({ services_error });"
+        },
+        {
+          "name": "packages/trader/src/AppV2/Utils/__tests__/layout-utils.spec.ts",
+          "totalCharacters": 0,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "only-deletions",
+          "hasAddedContent": false,
+          "addedContent": ""
+        },
+        {
+          "name": "packages/trader/src/AppV2/Utils/layout-utils.tsx",
+          "totalCharacters": 177,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "export const checkIsServiceModalError = ({ services_error }: { services_error: TCommonStoreServicesError }) => {\n    return is_insufficient_balance || is_authorization_required;"
+        }
+      ],
+      "timestamp": "2025-08-21T03:01:57.779Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "207",
+      "branch": "nijil/remove-redundant-modals",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Remove account-verification-pending-modal and all it's usage",
+      "hasAnalysis": true
+    },
     {
       "timestamp": "2025-08-20T12:14:21.432Z",
       "repository": "deriv-com/derivatives-trader",

@@ -160,7 +160,6 @@ describe('Statement', () => {
         store = mockStore({
             client: {
                 currency: 'USD',
-                is_switching: false,
                 is_virtual: true,
             },
         });
@@ -247,12 +246,6 @@ describe('Statement', () => {
         expect(screen.queryByTestId(dataTableTestId)).not.toBeInTheDocument();
         expect(screen.getByTestId(loadingTestId)).toBeInTheDocument();
     });
-    it('should render Loading when is_switching === true', () => {
-        store.client.is_switching = true;
-        render(mockedStatement());
-        expect(screen.queryByTestId(dataTableTestId)).not.toBeInTheDocument();
-        expect(screen.getByTestId(loadingTestId)).toBeInTheDocument();
-    });
     it('should render DataTable together with Loading when data is available & is_loading === true', () => {
         (useReportsStore as jest.Mock).mockReturnValueOnce({
             statement: {
@@ -264,10 +257,10 @@ describe('Statement', () => {
         expect(screen.getByTestId(dataTableTestId)).toBeInTheDocument();
         expect(screen.getByTestId(loadingTestId)).toBeInTheDocument();
     });
-    it('should set Buy filter when it is selected from the dropdown', () => {
+    it('should set Buy filter when it is selected from the dropdown', async () => {
         render(mockedStatement());
-        userEvent.click(within(screen.getByTestId(filterDropdown)).getByText(allTransactions));
-        userEvent.click(screen.getByText(buyTransactions));
+        await userEvent.click(within(screen.getByTestId(filterDropdown)).getByText(allTransactions));
+        await userEvent.click(screen.getByText(buyTransactions));
         expect(screen.getByTestId(filterDropdown)).toHaveTextContent(buyTransactions);
     });
     it('should send analytics when previous filter value is defined', () => {

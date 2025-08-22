@@ -22,7 +22,7 @@ describe('<TradeHeaderExtensions />', () => {
             ...mockStore({
                 client: {
                     is_logged_in: true,
-                    is_populating_account_list: false,
+                    is_logging_in: false,
                 },
                 portfolio: {
                     onMount: jest.fn(),

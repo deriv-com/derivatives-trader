@@ -186,10 +186,9 @@ describe('useContractsFor', () => {
             });
         });
 
-        it('should prevent API calls when is_switching is true even with valid symbol', async () => {
-            // Set up store with valid symbol but is_switching = true
-            mocked_store.client.is_switching = true;
-            mocked_store.modules.trade.symbol = 'R_100';
+        it('should prevent API calls when no symbol is provided', async () => {
+            // Set up store with no symbol
+            mocked_store.modules.trade.symbol = '';
 
             const { result } = renderHook(() => useContractsFor(), { wrapper });
 

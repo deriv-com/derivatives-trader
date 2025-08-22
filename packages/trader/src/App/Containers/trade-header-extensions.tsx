@@ -18,7 +18,7 @@ const TradeHeaderExtensions = observer(({ store }: TradeHeaderExtensionsProps) =
     const { client, ui, portfolio } = useStore();
     const { populateHeaderExtensions } = ui;
     const { onMount: onMountPositions } = portfolio;
-    const { is_logged_in, is_populating_account_list } = client;
+    const { is_logged_in, is_logging_in } = client;
     const { isDesktop } = useDevice();
 
     const show_positions_toggle = location.pathname !== '/mt5'; // Using string literal instead of routes
@@ -37,7 +37,7 @@ const TradeHeaderExtensions = observer(({ store }: TradeHeaderExtensionsProps) =
     React.useEffect(() => {
         const waitForLogin = async () => {
             if (!isDesktop && show_positions_toggle) {
-                await when(() => !is_populating_account_list); // Waits for login to complete
+                await when(() => !is_logging_in); // Waits for login to complete
                 if (is_logged_in) {
                     await WS.wait('authorize');
                     onMountPositions();
@@ -62,7 +62,7 @@ const TradeHeaderExtensions = observer(({ store }: TradeHeaderExtensionsProps) =
         show_positions_toggle,
         isDesktop,
         is_logged_in,
-        is_populating_account_list,
+        is_logging_in,
     ]);
 
     React.useEffect(() => {

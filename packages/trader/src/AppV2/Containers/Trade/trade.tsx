@@ -32,7 +32,7 @@ const Trade = observer(() => {
     const [is_minimized_params_visible, setIsMinimizedParamsVisible] = React.useState(false);
     const chart_ref = React.useRef<HTMLDivElement>(null);
     const {
-        client: { is_logged_in, is_switching },
+        client: { is_logged_in },
         common: { current_language, network_status },
         ui: { is_dark_mode_on },
     } = useStore();
@@ -113,16 +113,9 @@ const Trade = observer(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [current_language, network_status.class]);
 
-    useEffect(() => {
-        if (is_switching) {
-            resetTradeTypes();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [is_switching]);
-
     return (
         <BottomNav onScroll={onScroll}>
-            {symbols.length && trade_types.length && !is_switching ? (
+            {symbols.length && trade_types.length ? (
                 <React.Fragment>
                     <div className='trade'>
                         <TradeTypes

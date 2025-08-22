@@ -60,26 +60,15 @@ const TradeChart = observer((props: TTradeChartProps) => {
         wsSubscribe,
     } = useTraderStore();
 
-    const settings = React.useMemo(
-        () => ({
-            countdown: is_chart_countdown_visible,
-            isHighestLowestMarkerEnabled: false, // TODO: Pending UI,
-            language: current_language.toLowerCase(),
-            position: is_chart_layout_default ? 'bottom' : 'left',
-            theme: is_dark_mode_on ? 'dark' : 'light',
-            ...(is_accumulator ? { whitespace: 190, minimumLeftBars: isMobile ? 3 : undefined } : {}),
-            ...(has_barrier ? { whitespace: 110 } : {}),
-        }),
-        [
-            is_chart_countdown_visible,
-            current_language,
-            is_chart_layout_default,
-            is_dark_mode_on,
-            is_accumulator,
-            isMobile,
-            has_barrier,
-        ]
-    );
+    const settings = {
+        countdown: is_chart_countdown_visible,
+        isHighestLowestMarkerEnabled: false, // TODO: Pending UI,
+        language: current_language.toLowerCase(),
+        position: is_chart_layout_default ? 'bottom' : 'left',
+        theme: is_dark_mode_on ? 'dark' : 'light',
+        ...(is_accumulator ? { whitespace: 190, minimumLeftBars: isMobile ? 3 : undefined } : {}),
+        ...(has_barrier ? { whitespace: 110 } : {}),
+    };
 
     const { current_spot, current_spot_time } = accumulator_barriers_data || {};
 
@@ -97,7 +86,7 @@ const TradeChart = observer((props: TTradeChartProps) => {
         }
     }, [is_accumulator, onChange, prev_contract_type, show_digits_stats]);
 
-    const getMarketsOrder = React.useCallback((active_symbols: ActiveSymbols): string[] => {
+    const getMarketsOrder = (active_symbols: ActiveSymbols): string[] => {
         const synthetic_index = 'synthetic_index';
         const has_synthetic_index = active_symbols.some(s => s.market === synthetic_index);
         return active_symbols
@@ -113,187 +102,41 @@ const TradeChart = observer((props: TTradeChartProps) => {
                 },
                 has_synthetic_index ? [synthetic_index] : []
             );
-    }, []);
+    };
 
-    // Create stable references that persist across renders for all dynamic props
-    const stableBarrierRef = React.useRef<any[]>([]);
-    const stableMarkersRef = React.useRef<any[]>([]);
-    const lastBarrierHashRef = React.useRef<string>('');
-    const lastMarkersHashRef = React.useRef<string>('');
-
-    // Deep memoization of barriers to prevent erratic jumping due to frequent portfolio updates
-    const smartChartBarriers = React.useMemo(() => {
-        const barriers: ChartBarrierStore[] = main_barrier ? [main_barrier, ...extra_barriers] : extra_barriers;
-
-        // Create a hash of all barrier properties that matter for rendering
-        const barrierHash = barriers
-            .map(barrier => {
-                if (!barrier) return 'null';
-
-                const {
-                    high,
-                    low,
-                    color,
-                    lineStyle,
-                    shade,
-                    shadeColor,
-                    relative,
-                    draggable,
-                    hidePriceLines,
-                    hideBarrierLine,
-                    hideOffscreenLine,
-                    title,
-                } = barrier;
-
-                return JSON.stringify({
-                    high,
-                    low,
-                    color,
-                    lineStyle,
-                    shade,
-                    shadeColor,
-                    relative,
-                    draggable,
-                    hidePriceLines,
-                    hideBarrierLine,
-                    hideOffscreenLine,
-                    title,
-                });
-            })
-            .join('|');
-
-        // Only update the stable reference if the barrier properties have actually changed
-        if (barrierHash !== lastBarrierHashRef.current) {
-            lastBarrierHashRef.current = barrierHash;
-            stableBarrierRef.current = barriers.map(barrier => {
-                if (!barrier) return barrier;
-
-                // Create a plain object with barrier properties for the chart
-                return {
-                    high: barrier.high,
-                    low: barrier.low,
-                    color: barrier.color,
-                    lineStyle: barrier.lineStyle,
-                    shade: barrier.shade,
-                    shadeColor: barrier.shadeColor,
-                    relative: barrier.relative,
-                    draggable: barrier.draggable,
-                    hidePriceLines: barrier.hidePriceLines,
-                    hideBarrierLine: barrier.hideBarrierLine,
-                    hideOffscreenLine: barrier.hideOffscreenLine,
-                    title: barrier.title,
-                };
-            });
-        }
-
-        return stableBarrierRef.current;
-    }, [main_barrier, extra_barriers]);
-
-    // Stabilize markers array to prevent unnecessary chart updates
-    const stableMarkersArray = React.useMemo(() => {
-        // Create a hash of marker properties to detect real changes
-        const markersHash = markers_array
-            .map(marker => {
-                if (!marker) return 'null';
-                return JSON.stringify({
-                    type: marker.type,
-                    key: marker.key,
-                    contract_info: marker.contract_info?.contract_id,
-                    price_array: marker.price_array?.length,
-                    epoch_array: marker.epoch_array?.length,
-                });
-            })
-            .join('|');
-
-        // Only update if markers have actually changed
-        if (markersHash !== lastMarkersHashRef.current) {
-            lastMarkersHashRef.current = markersHash;
-            stableMarkersRef.current = [...markers_array];
-        }
-
-        return stableMarkersRef.current;
-    }, [markers_array]);
+    const barriers: ChartBarrierStore[] = main_barrier ? [main_barrier, ...extra_barriers] : extra_barriers;
 
     // max ticks to display for mobile view for tick chart
     const max_ticks = granularity === 0 ? 8 : 24;
-
-    // Memoized object props to prevent unnecessary rerenders
-    const initialData = React.useMemo(
-        () => ({
-            activeSymbols: active_symbols,
-        }),
-        [active_symbols]
-    );
-
-    const chartData = React.useMemo(
-        () => ({
-            activeSymbols: active_symbols,
-        }),
-        [active_symbols]
-    );
-
-    // Simplified constant object - no need for useMemo since it never changes
-    const feedCall = { activeSymbols: false };
-
-    const yAxisMargin = React.useMemo(
-        () => ({
-            top: isMobile ? 76 : 106,
-        }),
-        [isMobile]
-    );
-
-    // Memoized computed values
-    const computedBottomWidgets = React.useMemo(
-        () => ((is_accumulator || show_digits_stats) && !isMobile ? bottomWidgets : props.bottomWidgets),
-        [is_accumulator, show_digits_stats, isMobile, bottomWidgets, props.bottomWidgets]
-    );
-
-    const computedGranularity = React.useMemo(
-        () => (show_digits_stats || is_accumulator ? 0 : granularity),
-        [show_digits_stats, is_accumulator, granularity]
-    );
-
-    const computedMaxTick = React.useMemo(() => (isMobile ? max_ticks : undefined), [isMobile, max_ticks]);
-
-    const computedLeftMargin = React.useMemo(
-        () => (!isMobile && is_positions_drawer_on ? 328 : 80),
-        [isMobile, is_positions_drawer_on]
-    );
-
-    const computedTopWidgets = React.useMemo(
-        () => (is_trade_enabled ? topWidgets : null),
-        [is_trade_enabled, topWidgets]
-    );
-
-    // Memoized callback functions
-    const chartStatusListener = React.useCallback((v: boolean) => setChartStatus(!v, true), [setChartStatus]);
-
-    const toolbarWidget = React.useCallback(() => {
-        return <ToolbarWidgets updateChartType={updateChartType} updateGranularity={updateGranularity} />;
-    }, [updateChartType, updateGranularity]);
 
     if (!symbol || !active_symbols.length) return null;
     return (
         <SmartChart
             ref={ref}
-            barriers={smartChartBarriers}
-            contracts_array={stableMarkersArray}
-            bottomWidgets={computedBottomWidgets}
+            barriers={barriers}
+            contracts_array={markers_array}
+            bottomWidgets={(is_accumulator || show_digits_stats) && !isMobile ? bottomWidgets : props.bottomWidgets}
             crosshair={isMobile ? 0 : undefined}
             crosshairTooltipLeftAllow={560}
             showLastDigitStats={show_digits_stats}
             chartControlsWidgets={null}
-            chartStatusListener={chartStatusListener}
+            chartStatusListener={(v: boolean) => setChartStatus(!v, true)}
             chartType={chart_type}
-            initialData={initialData}
-            chartData={chartData}
-            feedCall={feedCall}
+            initialData={{
+                activeSymbols: JSON.parse(JSON.stringify(active_symbols)),
+            }}
+            chartData={{
+                activeSymbols: JSON.parse(JSON.stringify(active_symbols)),
+            }}
+            feedCall={{
+                activeSymbols: false,
+            }}
             enabledNavigationWidget={!isMobile}
             enabledChartFooter={false}
             id='trade'
             isMobile={isMobile}
-            maxTick={computedMaxTick}
-            granularity={computedGranularity}
+            maxTick={isMobile ? max_ticks : undefined}
+            granularity={show_digits_stats || is_accumulator ? 0 : granularity}
             requestAPI={wsSendRequest}
             requestForget={wsForget}
             requestForgetStream={wsForgetStream}
@@ -302,19 +145,23 @@ const TradeChart = observer((props: TTradeChartProps) => {
             allowTickChartTypeOnly={show_digits_stats || is_accumulator}
             stateChangeListener={chartStateChange}
             symbol={symbol}
-            topWidgets={computedTopWidgets}
+            topWidgets={is_trade_enabled ? topWidgets : null}
             isConnectionOpened={is_socket_opened}
             clearChart={false}
-            toolbarWidget={toolbarWidget}
+            toolbarWidget={() => {
+                return <ToolbarWidgets updateChartType={updateChartType} updateGranularity={updateGranularity} />;
+            }}
             importedLayout={chart_layout}
             onExportLayout={exportLayout}
             shouldFetchTradingTimes={false}
             hasAlternativeSource={has_alternative_source}
             getMarketsOrder={getMarketsOrder}
             should_zoom_out_on_yaxis={is_accumulator}
-            yAxisMargin={yAxisMargin}
+            yAxisMargin={{
+                top: isMobile ? 76 : 106,
+            }}
             isLive
-            leftMargin={computedLeftMargin}
+            leftMargin={!isMobile && is_positions_drawer_on ? 328 : 80}
         >
             {is_accumulator && (
                 <AccumulatorsChartElements

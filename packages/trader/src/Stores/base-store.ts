@@ -37,15 +37,11 @@ export default class BaseStore {
     networkStatusChangeDisposer: null | (() => void) = null;
     network_status_change_listener: null | ((is_online: boolean) => void) = null;
     partial_fetch_time = 0;
-    preSwitchAccountDisposer: null | (() => void) = null;
-    pre_switch_account_listener: null | (() => Promise<void>) = null;
     realAccountSignupEndedDisposer: null | (() => void) = null;
     real_account_signup_ended_listener: null | (() => Promise<void>) = null;
     root_store: TRootStore;
     session_storage_properties: string[];
     store_name = '';
-    switchAccountDisposer: null | (() => void) = null;
-    switch_account_listener: null | (() => Promise<void>) = null;
     themeChangeDisposer: null | (() => void) = null;
     theme_change_listener: null | ((is_dark_mode_on: boolean) => void) = null;
     validation_errors: { [key: string]: string[] } = {};
@@ -71,15 +67,11 @@ export default class BaseStore {
             addRule: action,
             validateProperty: action,
             validateAllProperties: action,
-            onSwitchAccount: action.bound,
-            onPreSwitchAccount: action.bound,
             onLogout: action.bound,
             onClientInit: action.bound,
             onNetworkStatusChange: action.bound,
             onThemeChange: action.bound,
             onRealAccountSignupEnd: action.bound,
-            disposePreSwitchAccount: action.bound,
-            disposeSwitchAccount: action.bound,
             disposeLogout: action.bound,
             disposeClientInit: action.bound,
             disposeNetworkStatusChange: action.bound,
@@ -313,62 +305,7 @@ export default class BaseStore {
         });
     }
 
-    onSwitchAccount(listener: null | (() => Promise<void>)): void {
-        if (listener) {
-            this.switch_account_listener = listener;
-
-            this.switchAccountDisposer = when(
-                () => !!this.root_store.client.switch_broadcast,
-                () => {
-                    try {
-                        const result = this.switch_account_listener?.();
-                        if (result?.then && typeof result.then === 'function') {
-                            result.then(() => {
-                                this.root_store.client.switchEndSignal();
-                                this.onSwitchAccount(this.switch_account_listener);
-                            });
-                        } else {
-                            throw new Error('Switching account listeners are required to return a promise.');
-                        }
-                    } catch (error) {
-                        // there is no listener currently active. so we can just ignore the error raised from treating
-                        // a null object as a function. Although, in development mode, we throw a console error.
-                        if (!isProduction()) {
-                            console.error(error); // eslint-disable-line
-                        }
-                    }
-                }
-            );
-        }
-    }
-
-    onPreSwitchAccount(listener: null | (() => Promise<void>)): void {
-        if (listener) {
-            this.pre_switch_account_listener = listener;
-            this.preSwitchAccountDisposer = when(
-                () => !!this.root_store.client.pre_switch_broadcast,
-                () => {
-                    try {
-                        const result = this.pre_switch_account_listener?.();
-                        if (result?.then && typeof result.then === 'function') {
-                            result.then(() => {
-                                this.root_store.client.setPreSwitchAccount(false);
-                                this.onPreSwitchAccount(this.pre_switch_account_listener);
-                            });
-                        } else {
-                            throw new Error('Pre-switch account listeners are required to return a promise.');
-                        }
-                    } catch (error) {
-                        // there is no listener currently active. so we can just ignore the error raised from treating
-                        // a null object as a function. Although, in development mode, we throw a console error.
-                        if (!isProduction()) {
-                            console.error(error); // eslint-disable-line
-                        }
-                    }
-                }
-            );
-        }
-    }
+    // Removed account switching methods - not needed for trading-only app
 
     onLogout(listener: null | (() => Promise<void>)): void {
         this.logoutDisposer = when(
@@ -487,19 +424,7 @@ export default class BaseStore {
         this.real_account_signup_ended_listener = listener;
     }
 
-    disposePreSwitchAccount() {
-        if (typeof this.preSwitchAccountDisposer === 'function') {
-            this.preSwitchAccountDisposer();
-        }
-        this.pre_switch_account_listener = null;
-    }
-
-    disposeSwitchAccount() {
-        if (typeof this.switchAccountDisposer === 'function') {
-            this.switchAccountDisposer();
-        }
-        this.switch_account_listener = null;
-    }
+    // Removed account switching dispose methods - not needed for trading-only app
 
     disposeLogout() {
         if (typeof this.logoutDisposer === 'function') {
@@ -537,8 +462,6 @@ export default class BaseStore {
     }
 
     onUnmount() {
-        this.disposePreSwitchAccount();
-        this.disposeSwitchAccount();
         this.disposeLogout();
         this.disposeClientInit();
         this.disposeNetworkStatusChange();

@@ -37,10 +37,6 @@ describe('ServiceErrorSheet', () => {
                 },
                 resetServicesError: jest.fn(),
             },
-            ui: {
-                is_mf_verification_pending_modal_visible: false,
-                setIsMFVericationPendingModal: jest.fn(),
-            },
         });
     });
 
@@ -85,18 +81,6 @@ describe('ServiceErrorSheet', () => {
 
         await userEvent.click(screen.getByRole('button'));
         expect(default_mock_store.common.resetServicesError).toBeCalled();
-    });
-
-    it('renders the Action Sheet with appropriate message and action if is_mf_verification_pending_modal_visible === true', async () => {
-        default_mock_store.common.services_error.code = '';
-        default_mock_store.ui.is_mf_verification_pending_modal_visible = true;
-        render(mockTrade());
-
-        expect(screen.getByText('Pending verification')).toBeInTheDocument();
-
-        await userEvent.click(screen.getByRole('button'));
-        expect(default_mock_store.common.resetServicesError).toBeCalled();
-        expect(default_mock_store.ui.setIsMFVericationPendingModal).toBeCalled();
     });
 
     it('does not render the Action Sheet if there is no services_error', () => {

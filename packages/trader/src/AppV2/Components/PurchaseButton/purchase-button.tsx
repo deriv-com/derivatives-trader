@@ -44,7 +44,6 @@ const PurchaseButton = observer(() => {
         portfolio: { all_positions, onClickSell, open_accu_contract, active_positions },
         client: { is_logged_in },
         common: { services_error },
-        ui: { is_mf_verification_pending_modal_visible, setIsMFVericationPendingModal },
     } = useStore();
     const {
         basis,
@@ -117,7 +116,7 @@ const PurchaseButton = observer(() => {
     const current_stake =
         (is_valid_to_sell && active_accu_contract && getIndicativePrice(active_accu_contract.contract_info)) || null;
     const cardLabels = getCardLabelsV2();
-    const is_modal_error = checkIsServiceModalError({ services_error, is_mf_verification_pending_modal_visible });
+    const is_modal_error = checkIsServiceModalError({ services_error });
     const is_accu_sell_disabled = !is_valid_to_sell || active_accu_contract?.is_sell_requested;
 
     const getButtonType = (index: number, trade_type: string) => {

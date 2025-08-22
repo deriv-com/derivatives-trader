@@ -79,26 +79,14 @@ export default class NotificationStore extends BaseStore {
             }
         );
         reaction(
-            () => [
-                root_store.client.account_settings,
-                root_store.client.account_status,
-                root_store.client.landing_companies,
-                root_store.common?.selected_contract_type,
-                root_store.client.is_eu,
-            ],
+            () => [root_store.common?.selected_contract_type, root_store.client.is_eu, root_store.client.is_logged_in],
             () => {
-                if (
-                    !root_store.client.is_logged_in ||
-                    (Object.keys(root_store.client.account_status || {}).length > 0 &&
-                        Object.keys(root_store.client.landing_companies || {}).length > 0)
-                ) {
-                    this.removeNotifications();
-                    this.removeAllNotificationMessages();
-                    this.setClientNotifications();
-                    this.handleClientNotifications();
-                    this.filterNotificationMessages();
-                    this.checkNotificationMessages();
-                }
+                this.removeNotifications();
+                this.removeAllNotificationMessages();
+                this.setClientNotifications();
+                this.handleClientNotifications();
+                this.filterNotificationMessages();
+                this.checkNotificationMessages();
             }
         );
     }
@@ -305,12 +293,12 @@ export default class NotificationStore extends BaseStore {
     }
 
     resetVirtualBalanceNotification(loginid) {
-        const { accounts, is_logged_in } = this.root_store.client;
+        const { current_account, is_logged_in } = this.root_store.client;
         if (!is_logged_in) return;
-        if (!accounts[loginid]?.is_virtual) return;
+        if (!current_account?.is_virtual || current_account?.loginid !== loginid) return;
         const min_reset_limit = 1000;
         const max_reset_limit = 999000;
-        const balance = parseInt(accounts[loginid]?.balance);
+        const balance = parseInt(current_account?.balance);
 
         // Display notification message to user with virtual account to reset their balance
         // if the balance is less than equals to 1000 or more than equals to 999000

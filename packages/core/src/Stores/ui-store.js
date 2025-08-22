@@ -38,8 +38,6 @@ export default class UIStore extends BaseStore {
     is_reset_email_modal_visible = false;
     is_update_email_modal_visible = false;
     is_reset_trading_password_modal_visible = false;
-    is_mf_verification_pending_modal_visible = false;
-    is_trading_disabled_by_residence_modal_visible = false;
     // @observable is_purchase_lock_on       = false;
     // SmartCharts Controls
     // TODO: enable asset information
@@ -235,8 +233,6 @@ export default class UIStore extends BaseStore {
             is_history_tab_active: observable,
             is_landscape: observable,
             is_language_settings_modal_on: observable,
-            is_mf_verification_pending_modal_visible: observable,
-            is_trading_disabled_by_residence_modal_visible: observable,
             is_mobile_language_menu_open: observable,
             is_nativepicker_visible: observable,
 
@@ -340,8 +336,6 @@ export default class UIStore extends BaseStore {
             setShouldShowCancel: action.bound,
             setSubSectionIndex: action.bound,
             setTopUpInProgress: action.bound,
-            setIsMFVericationPendingModal: action.bound,
-            setIsTradingDisabledByResidenceModal: action.bound,
             setMobileLanguageMenuOpen: action.bound,
             toggleCancellationWarning: action.bound,
             toggleHistoryTab: action.bound,
@@ -811,14 +805,6 @@ export default class UIStore extends BaseStore {
 
     setShouldTriggerTourGuide(value) {
         this.should_trigger_tour_guide = value;
-    }
-
-    setIsMFVericationPendingModal(value) {
-        this.is_mf_verification_pending_modal_visible = value;
-    }
-
-    setIsTradingDisabledByResidenceModal(value) {
-        this.is_trading_disabled_by_residence_modal_visible = value;
     }
 
     toggleUrlUnavailableModal(value) {

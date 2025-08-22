@@ -1,4 +1,4 @@
-import { getBrandHubUrl } from '@deriv/shared';
+import { getBrandUrl } from '@deriv/shared';
 
 // Define allowed redirect destinations as a type-safe enum
 export type RedirectDestination = 'home' | 'account-limits';
@@ -8,7 +8,7 @@ export const useAccountSettingsRedirect = (redirect_to: RedirectDestination = 'h
     const account_type = search_params.get('account');
 
     // Always use hub URL for account settings redirects
-    const hubUrl = getBrandHubUrl();
+    const hubUrl = getBrandUrl();
     const redirect_url = `${hubUrl}/accounts/redirect?action=redirect_to&redirect_to=${redirect_to}&account=${account_type}`;
     const mobile_redirect_url = `${hubUrl}/accounts/redirect?action=redirect_to&redirect_to=${redirect_to}&account=${account_type}`;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Button, Modal } from '@deriv/components';
-import { getBrandHubUrl } from '@deriv/shared';
+import { getBrandUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
 
@@ -33,7 +33,7 @@ const InsufficientBalanceModal = observer(
                         text={is_virtual ? localize('OK') : localize('Deposit now')}
                         onClick={() => {
                             if (!is_virtual) {
-                                const hubUrl = getBrandHubUrl();
+                                const hubUrl = getBrandUrl();
                                 const url_query_string = window.location.search;
                                 const url_params = new URLSearchParams(url_query_string);
                                 const account_currency =

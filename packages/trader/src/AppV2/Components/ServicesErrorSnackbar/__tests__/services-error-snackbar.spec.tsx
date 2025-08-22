@@ -34,10 +34,6 @@ describe('ServicesErrorSnackbar', () => {
                 },
                 resetServicesError: jest.fn(),
             },
-            ui: {
-                is_mf_verification_pending_modal_visible: false,
-                setIsMFVericationPendingModal: jest.fn(),
-            },
         });
         mockAddSnackbar = jest.fn();
         (useSnackbar as jest.Mock).mockReturnValue({ addSnackbar: mockAddSnackbar });

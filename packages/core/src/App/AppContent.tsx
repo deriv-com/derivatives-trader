@@ -32,8 +32,7 @@ const AppContent: React.FC<{ passthrough: any }> = observer(({ passthrough }) =>
         residence,
         email,
         setIsPasskeySupported,
-        account_settings,
-        accounts,
+        current_account,
     } = store.client;
     const { current_language } = store.common;
     const { is_dark_mode_on } = store.ui;
@@ -65,13 +64,12 @@ const AppContent: React.FC<{ passthrough: any }> = observer(({ passthrough }) =>
         currency,
         residence,
         email,
-        first_name: account_settings?.first_name,
-        last_name: account_settings?.last_name,
+        first_name: current_account?.first_name,
+        last_name: current_account?.last_name,
     };
 
     useLiveChat(livechat_client_information);
-    const active_account = accounts?.[loginid ?? ''];
-    const token = active_account ? active_account.token : null;
+    const token = current_account?.session_token || null;
     useIntercom(token);
 
     React.useEffect(() => {

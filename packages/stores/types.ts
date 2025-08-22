@@ -391,295 +391,83 @@ const AUTH_STATUS_CODES = {
     SUSPECTED: 'suspected',
 } as const;
 
+export type TCurrentAccount = {
+    loginid: string;
+    balance: number;
+    currency: string;
+    is_virtual: boolean;
+    email?: string;
+    landing_company_shortcode?: string;
+    residence?: string;
+    session_token: string;
+    session_start: number;
+    first_name?: string;
+    last_name?: string;
+};
+
 export type TClientStore = {
     fetchStatesList: () => Promise<StatesList>;
     account_type: string;
-    accounts: { [k: string]: TActiveAccount };
-    active_accounts: TActiveAccount[];
-    active_account_landing_company: string;
-    trading_platform_available_accounts: TTradingPlatformAvailableAccount[];
-    ctrader_trading_platform_available_accounts: TTradingPlatformAvailableAccount[];
-    account_limits: Partial<AccountLimitsResponse['get_limits']> & {
-        is_loading?: boolean;
-        api_initial_load_error?: string;
-    };
+    current_account: TCurrentAccount | null;
     setIsLoggingIn: (value: boolean) => void;
-    account_list: TAccountsList;
-    self_exclusion: Partial<GetSelfExclusion>;
-    getSelfExclusion: () => Promise<Partial<GetSelfExclusion>>;
-    account_status: Omit<GetAccountStatus, 'status' | 'p2p_poa_required'> &
-        Partial<Pick<GetAccountStatus, 'status'>> & { p2p_poa_required: number };
     available_crypto_currencies: Array<WebsiteStatus['currencies_config'][string] & { value: string }>;
     available_onramp_currencies: Array<string>;
     balance?: string | number;
-    can_change_fiat_currency: boolean;
     clients_country: string;
-    cfd_score: number;
-    setCFDScore: (score: number) => void;
     currency: string;
-    ctrader_total_balance: number;
     currencies_list: { text: string; value: string; has_tool_tip?: boolean }[];
-    current_currency_type?: string;
-    current_fiat_currency?: string;
-    current_landing_company: {
-        support_professional_client?: string;
-    };
     email_address: string;
     has_any_real_account: boolean;
     should_redirect_user_to_login: boolean;
     setShouldRedirectToLogin: (value: boolean) => void;
-    getLimits: () => Promise<{ get_limits?: GetLimits }>;
-    getTwoFAStatus: () => Promise<
-        | boolean
-        | {
-              error: {
-                  message: string;
-              };
-          }
-    >;
     has_active_real_account: boolean;
     has_cookie_account: boolean;
     has_logged_out: boolean;
-    has_maltainvest_account: boolean;
-    has_restricted_mt5_account: boolean;
     initialized_broadcast: boolean;
-    is_trading_platform_available_account_loaded: boolean;
-    setIsTradingPlatformAvailableAccountLoaded: (value: boolean) => void;
-    is_account_setting_loaded: boolean;
-    is_deposit_lock: boolean;
-    is_duplicate_dob_phone: boolean;
-    is_dxtrade_allowed: boolean;
+    is_authorize: boolean;
     is_eu_country: boolean;
     is_eu: boolean;
-    is_unwelcome: boolean;
-    is_single_currency: boolean;
-    is_social_signup: boolean;
-    has_residence: boolean;
     has_wallet: boolean;
-    is_authorize: boolean;
-    is_dxtrade_password_not_set: boolean;
-    is_financial_account: boolean;
-    is_financial_assessment_needed: boolean;
-    is_financial_information_incomplete: boolean;
-    is_identity_verification_needed: boolean;
-    is_landing_company_loaded: boolean;
     is_logged_in: boolean;
     is_logging_in: boolean;
-    is_single_logging_in: boolean;
-    is_low_risk: boolean;
     is_client_store_initialized: boolean;
-    is_mt5_password_not_set: boolean;
-    is_mt5_account_list_updated: boolean;
-    is_proof_of_ownership_enabled: boolean;
-    is_poa_expired: boolean;
-    is_populating_dxtrade_account_list: boolean;
-    is_populating_ctrader_account_list: boolean;
-    is_logging_out: boolean;
-    setIsSingleLoggingIn: (value: boolean) => void;
-    setIsLoggingOut: (value: boolean) => void;
-    is_switching: boolean;
-    is_high_risk: boolean;
-    is_trading_experience_incomplete: boolean;
     is_virtual: boolean;
-    is_withdrawal_lock: boolean;
     landing_company_shortcode: string;
-    is_tradershub_tracking: boolean;
-    is_populating_account_list: boolean;
-    local_currency_config: {
-        currency: string;
-        decimal_places?: number;
-    };
     loginid?: string;
-    pre_switch_broadcast: boolean;
     residence: string;
-    responseMt5LoginList: ({
-        mt5_login_list,
-    }: {
-        mt5_login_list: TAdditionalDetailsOfEachMT5Loginid[];
-    }) => TAdditionalDetailsOfEachMT5Loginid[];
-    responseTradingPlatformAccountsList: ({
-        trading_platform_accounts,
-    }: {
-        trading_platform_accounts: DetailsOfEachMT5Loginid[];
-    }) => DetailsOfEachMT5Loginid[];
-    standpoint: TStandPoint;
-    is_p2p_available: boolean;
-    prevent_redirect_to_hub: boolean;
-    prevent_single_login: boolean;
-    setPreventRedirectToHub: (value: boolean) => void;
-    setPreventSingleLogin: (value: boolean) => void;
-    setAccountStatus: (status?: GetAccountStatus) => void;
-    setBalanceOtherAccounts: (balance: number) => void;
-    selectCurrency: (currency: string) => void;
+    website_status: WebsiteStatus;
+    email: string;
+    is_cr_account: boolean;
+    is_mf_account: boolean;
+    is_options_blocked: boolean;
+    is_multipliers_only: boolean;
+    is_single_currency: boolean;
+    default_currency: string;
+
+    // Essential actions
     setInitialized: (status?: boolean) => void;
     setIsClientStoreInitialized: () => void;
     setLogout: (status?: boolean) => void;
-    setP2pAdvertiserInfo: () => void;
-    setPreSwitchAccount: (status?: boolean) => void;
-    switchAccount: (value?: string) => Promise<void>;
-    setLoginInformation: (client_accounts: { [k: string]: TActiveAccount }, client_id: string) => void;
-    social_identity_provider: string;
-    switched: boolean;
-    switch_broadcast: boolean;
-    switchEndSignal: () => void;
-    upgradeable_currencies: Array<WebsiteStatus['currencies_config']>;
-    verification_code: {
-        payment_agent_withdraw: string;
-        payment_withdraw: string;
-        phone_number_verification: string;
-        request_email: string;
-        reset_password: string;
-        signup: string;
-        system_email_change: string;
-        trading_platform_dxtrade_password_reset: string;
-        trading_platform_mt5_password_reset: string;
-    };
-    website_status: WebsiteStatus;
-    email: string;
-    phone_settings: {
-        carriers: string[];
-        countries: {
-            calling_country_code: string;
-            carriers: string[];
-            country_code: string;
-            display_name: string;
-        }[];
-    };
-    setPhoneSettings: (phone_settings: {
-        carriers: string[];
-        countries: {
-            calling_country_code: string;
-            carriers: string[];
-            country_code: string;
-            display_name: string;
-        }[];
-    }) => void;
-    setVerificationCode: (code: string, action: string) => void;
-    updateAccountStatus: () => Promise<void>;
-    updateMT5AccountDetails: () => Promise<void>;
-    is_authentication_needed: boolean;
-    authentication_status: TAuthenticationStatus;
-    mt5_login_list: TAdditionalDetailsOfEachMT5Loginid[];
-    logout: () => Promise<LogOutResponse>;
-    should_allow_authentication: boolean;
-    should_allow_poinc_authentication: boolean;
-    isEligibleForMoreDemoMt5Svg: (market_type: 'synthetic' | 'financial' | 'gaming' | 'all') => boolean;
-    isEligibleForMoreRealMt5: (market_type: 'synthetic' | 'financial' | 'gaming' | 'all') => boolean;
-    fetchResidenceList?: () => Promise<void>;
-    account_settings: GetSettings & {
-        upload_file?: string;
-        poi_state?: string;
-        tin_skipped?: 0 | 1;
-        tnc_status?: Record<string, number>;
-        phone_number_verification?: {
-            verified?: 0 | 1;
-            next_attempt?: number;
-            next_email_attempt?: number;
-            next_verify_attempt?: number;
-            session_timestamp?: number;
-        };
-    };
-    residence_list: ResidenceList;
-    should_restrict_bvi_account_creation: boolean;
-    should_restrict_vanuatu_account_creation: boolean;
-    updateMT5Status: () => Promise<void>;
-    fetchAccountSettings: () => Promise<void>;
-    setAccountSettings: (get_settings_response: GetSettings) => void;
-    upgradeable_landing_companies: string[];
-    is_populating_mt5_account_list: boolean;
-    landing_companies: LandingCompany;
-    getChangeableFields: () => string[];
-    landing_company: LandingCompany;
-    is_mt5_allowed: boolean;
-    mt5_disabled_signup_types: {
-        real: boolean;
-        demo: boolean;
-    };
-    dxtrade_disabled_signup_types: {
-        real: boolean;
-        demo: boolean;
-    };
-    dxtrade_accounts_list_error: null;
-    has_fiat: boolean;
-    is_fully_authenticated: boolean;
-    updateMt5LoginList: () => Promise<void>;
-    states_list: StatesList;
-    /** @deprecated Use `useCurrencyConfig` or `useCurrentCurrencyConfig` from `@deriv/api` package instead. */
-    is_crypto: (currency?: string) => boolean;
-    ctrader_accounts_list: TCtraderAccountsList[];
-    dxtrade_accounts_list: (TAdditionalDetailsOfEachMT5Loginid & { account_id?: string })[];
-    default_currency: string;
-    resetVirtualBalance: () => Promise<void>;
-    has_enabled_two_fa: boolean;
-    setTwoFAStatus: (status: boolean) => void;
-    has_changed_two_fa: boolean;
-    setTwoFAChangedStatus: (status: boolean) => void;
-    is_svg: boolean;
-    real_account_creation_unlock_date: string;
-    setPrevAccountType: (account_type: string) => void;
-    init: (login_new_user?: LoginURLParams<1>) => void;
+    selectCurrency: (currency: string) => void;
     setLoginId: (loginid: string) => void;
-    resetLocalStorageValues: (loginid: string) => void;
-    setFinancialAndTradingAssessment: (
-        payload: Omit<SetFinancialAssessmentRequest, 'set_financial_assessment'>
-    ) => Promise<SetFinancialAssessmentResponse>;
-    setIsAlreadyAttempted: (value: boolean) => void;
-    is_already_attempted: boolean;
-    is_bot_allowed: boolean;
-    prev_account_type: string;
-    account_open_date: number | undefined;
-    setAccounts: (accounts: Record<string, TActiveAccount>) => void;
-    should_show_eu_error: boolean;
-    is_options_blocked: boolean;
-    setIsP2PEnabled: (is_p2p_enabled: boolean) => void;
-    real_account_signup_form_data: Array<Record<string, unknown>>;
-    real_account_signup_form_step: number;
-    setRealAccountSignupFormData: (data: Array<Record<string, unknown>>) => void;
-    setRealAccountSignupFormStep: (step: number) => void;
-    wallet_migration_state?: 'ineligible' | 'eligible' | 'in_progress' | 'migrated' | 'failed';
-    startWalletMigration: () => void;
-    resetWalletMigration: () => void;
-    is_wallet_migration_request_is_in_progress: boolean;
-    is_passkey_supported: boolean;
-    passkeys_list: Array<{
-        id: number;
-        name: string;
-        last_used: number;
-        created_at?: number;
-        stored_on?: string;
-        passkey_id: string;
-        icon?: string;
-    }>;
-    setIsPasskeySupported: (value: boolean) => void;
-    is_phone_number_verification_enabled: boolean;
-    setIsPhoneNumberVerificationEnabled: (value: boolean) => void;
-    is_country_code_dropdown_enabled: boolean;
-    setIsCountryCodeDropdownEnabled: (value: boolean) => void;
-    setPasskeysStatusToCookie: (status: 'available' | 'not_available') => void;
-    should_show_passkey_notification: boolean;
-    setShouldShowPasskeyNotification: (value: boolean) => void;
-    fetchShouldShowPasskeyNotification: () => void;
-    fetchPasskeysList: () => void;
-    exchange_rates: Record<string, Record<string, number>>;
-    getExchangeRate: (base_currency: string, target_currency: string) => number;
-    subscribeToExchangeRate: (base_currency: string, target_currency: string) => Promise<void>;
-    unsubscribeFromExchangeRate: (base_currency: string, target_currency: string) => Promise<void>;
-    unsubscribeFromAllExchangeRates: () => void;
-    virtual_account_loginid?: string;
-    is_cr_account: boolean;
-    is_mf_account: boolean;
-    setTradersHubTracking: (value: boolean) => void;
-    account_time_of_closure?: number;
-    is_account_to_be_closed_by_residence: boolean;
-    statement: Statement;
-    setClientKYCStatus: (status: { poa_status: string; poi_status: string; valid_tin: 0 | 1 }) => void;
-    client_kyc_status: {
-        poa_status: string;
-        poi_status: string;
-        valid_tin: 0 | 1;
-    };
+    setIsAuthorize: (value: boolean) => void;
+    setBalanceActiveAccount: (obj_balance: any) => void;
+    setEmail: (email: string) => void;
+    resetVirtualBalance: () => Promise<void>;
+    logout: () => Promise<LogOutResponse>;
     getToken: () => string;
-    should_show_trustpilot_notification: boolean;
+    authenticateV2: (oneTimeToken?: string) => Promise<any>;
+    storeSessionToken: (token: string) => void;
+    getSessionToken: () => string | null;
+    clearSessionToken: () => void;
+    removeTokenFromUrl: () => void;
+    is_crypto: (currency?: string) => boolean;
+    responseAuthorize: (response: any) => void;
+    responsePayoutCurrencies: (response: any) => void;
+    setWebsiteStatus: (response: any) => void;
+    responseWebsiteStatus: (response: any) => void;
+    setIsPasskeySupported: (value: boolean) => void;
+    init: () => Promise<boolean>;
 };
 
 type TCommonStoreError = {
@@ -843,7 +631,6 @@ type TUiStore = {
     toggleReports: (is_visible: boolean) => void;
     is_real_acc_signup_on: boolean;
     is_need_real_account_for_cashier_modal_visible: boolean;
-    is_mf_verification_pending_modal_visible: boolean;
     toggleNeedRealAccountForCashierModal: () => void;
     is_switch_to_deriv_account_modal_visible: boolean;
     openSwitchToRealAccountModal: () => void;
@@ -864,10 +651,7 @@ type TUiStore = {
     populateHeaderExtensions: (header_items: JSX.Element | null) => void;
     populateSettingsExtensions: (menu_items: Array<TPopulateSettingsExtensionsMenuItem> | null) => void;
     purchase_states: boolean[];
-    setIsMFVericationPendingModal: (value: boolean) => void;
     vanilla_trade_type: 'VANILLALONGCALL' | 'VANILLALONGPUT';
-    is_trading_disabled_by_residence_modal_visible: boolean;
-    setIsTradingDisabledByResidenceModal: (value: boolean) => void;
     field_ref_to_focus: string | null; // field_ref_to_focus accepts a field identifier which will be focused
     setFieldRefToFocus: (value: string | null) => void;
     setHashedValue: (value: string) => void;

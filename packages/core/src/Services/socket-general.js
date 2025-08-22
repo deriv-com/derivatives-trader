@@ -1,25 +1,19 @@
-import moment from 'moment';
 import { flow } from 'mobx';
-import {
-    State,
-    getSocketURL,
-    getActivePlatform,
-    getPropertyValue,
-    routes,
-    getActionFromUrl,
-    checkServerMaintenance,
-} from '@deriv/shared';
+
+import { checkServerMaintenance, getPropertyValue, getSocketURL, State } from '@deriv/shared';
 import { localize } from '@deriv/translations';
+
+import WS from './ws-methods';
+
 import ServerTime from '_common/base/server_time';
 import BinarySocket from '_common/base/socket_base';
-import WS from './ws-methods';
 
 let client_store, common_store, gtm_store;
 let reconnectionCounter = 1;
 
 // TODO: update commented statements to the corresponding functions from app
 const BinarySocketGeneral = (() => {
-    let session_duration_limit, session_start_time, session_timeout;
+    // Removed session management variables - not needed for trading app
 
     let responseTimeoutErrorTimer = null;
 
@@ -81,59 +75,11 @@ const BinarySocketGeneral = (() => {
 
                     client_store.logout();
                 } else if (!/authorize/.test(State.get('skip_response'))) {
-                    // Check if this is a V2 authentication response (session token based)
-                    const hasSessionToken = localStorage.getItem('session_token');
-                    const isV2Auth =
-                        hasSessionToken &&
-                        response.authorize &&
-                        typeof response.authorize.balance !== 'undefined' &&
-                        typeof response.authorize.currency !== 'undefined' &&
-                        typeof response.authorize.is_virtual !== 'undefined' &&
-                        typeof response.authorize.loginid !== 'undefined';
-
-                    if (isV2Auth) {
-                        // For V2 auth, always process the response and update loginid if needed
-                        if (response.authorize.loginid !== client_store.loginid) {
-                            client_store.setLoginId(response.authorize.loginid);
-                        }
-                        authorizeAccount(response);
-                    } else if (response.authorize.loginid === client_store.loginid) {
-                        // Legacy multi-account authorization logic - loginid matches
-                        authorizeAccount(response);
-                    } else if (client_store.is_populating_account_list) {
-                        // During initial login, allow loginid mismatch and update the store
+                    if (response.authorize.loginid !== client_store.loginid) {
                         client_store.setLoginId(response.authorize.loginid);
-                        authorizeAccount(response);
-                    } else if (client_store.is_client_store_initialized) {
-                        // Only logout if it's not during initial account population
-                        client_store.logout();
                     }
+                    authorizeAccount(response);
                 }
-                break;
-            case 'landing_company':
-                // Header.upgradeMessageVisibility();
-                break;
-            case 'get_self_exclusion':
-                setSessionDurationLimit(response);
-                break;
-            case 'get_settings':
-                if (response.get_settings) {
-                    setResidence(response.get_settings.country_code);
-                    client_store.setEmail(response.get_settings.email);
-                    client_store.setAccountSettings(response.get_settings);
-                    gtm_store.eventHandler(response.get_settings);
-                }
-                break;
-            case 'phone_settings':
-                if (response.phone_settings) {
-                    client_store.setPhoneSettings(response.phone_settings);
-                }
-                break;
-            case 'set_account_currency':
-                WS.forgetAll('balance').then(subscribeBalances);
-                break;
-            case 'get_account_status':
-                client_store.setAccountStatus(response.get_account_status);
                 break;
             case 'payout_currencies':
                 client_store.responsePayoutCurrencies(response?.payout_currencies);
@@ -152,86 +98,20 @@ const BinarySocketGeneral = (() => {
         }
     };
 
-    const setResidence = residence => {
-        if (residence) {
-            client_store.setResidence(residence);
-            WS.landingCompany(residence).then(client_store.responseLandingCompany);
-        }
-    };
-
-    const setSessionDurationLimit = user_limits => {
-        const duration = user_limits?.get_self_exclusion?.session_duration_limit;
-
-        session_start_time = new Date(sessionStorage.getItem('session_start_time') || ServerTime.get());
-        sessionStorage.setItem('session_start_time', session_start_time);
-
-        if (duration && duration !== session_duration_limit) {
-            const current_session_duration = session_duration_limit ? ServerTime.get() - moment(session_start_time) : 0;
-            const remaining_session_time = duration * 60 * 1000 - current_session_duration;
-            clearTimeout(session_timeout);
-            session_timeout = setTimeout(() => {
-                client_store.logout();
-                sessionStorage.removeItem('session_start_time');
-            }, remaining_session_time);
-        } else if (!duration) {
-            clearTimeout(session_timeout);
-        }
-
-        session_duration_limit = duration;
-    };
-
     const setBalanceActiveAccount = flow(function* (obj_balance) {
         yield BinarySocket?.wait('website_status');
         client_store.setBalanceActiveAccount(obj_balance);
     });
-
-    const setBalanceOtherAccounts = obj_balance => {
-        client_store.setBalanceOtherAccounts(obj_balance);
-    };
 
     const handleError = response => {
         const msg_type = response.msg_type;
         const error_code = getPropertyValue(response, ['error', 'code']);
         switch (error_code) {
             case 'WrongResponse':
-                // TODO: Remove condition checks below for WrongResponse once mt5 is more reliable
-                if (msg_type === 'mt5_login_list') {
-                    WS.authorized.mt5LoginList().then(mt5_list_response => {
-                        if (!mt5_list_response.error) {
-                            client_store.responseMt5LoginList(mt5_list_response);
-                            WS.balanceAll().then(balance_response => {
-                                if (!balance_response.error)
-                                    client_store.setBalanceOtherAccounts(balance_response.balance);
-                            });
-                        } else {
-                            client_store.resetMt5ListPopulatedState();
-                        }
-                    });
-                } else if (msg_type === 'balance') {
+                if (msg_type === 'balance') {
                     WS.forgetAll('balance').then(subscribeBalances);
-                } else if (msg_type === 'get_account_status') {
-                    WS.authorized.getAccountStatus().then(account_status_response => {
-                        if (!account_status_response.error) {
-                            client_store.setAccountStatus(account_status_response.get_account_status);
-                        }
-                    });
-                } else if (msg_type === 'landing_company') {
-                    if (client_store.residence) {
-                        WS.authorized.landingCompany(client_store.residence).then(landing_company_response => {
-                            if (!landing_company_response.error) {
-                                client_store.responseLandingCompany(landing_company_response);
-                            }
-                        });
-                    }
                 }
                 break;
-            case 'InternalServerError':
-            case 'OutputValidationFailed': {
-                if (msg_type !== 'mt5_login_list') {
-                    common_store.setError(true, { message: response.error.message });
-                }
-                break;
-            }
             case 'RateLimit':
                 if (msg_type !== 'cashier_password') {
                     common_store.setError(true, {
@@ -245,57 +125,21 @@ const BinarySocketGeneral = (() => {
             case 'DisabledClient':
                 common_store.setError(true, { message: response.error.message });
                 break;
-            case 'InvalidToken': {
-                if (
-                    [
-                        'cashier',
-                        'paymentagent_withdraw',
-                        'reset_password',
-                        'trading_platform_password_reset',
-                        'trading_platform_investor_password_reset',
-                        'new_account_virtual',
-                        'portfolio',
-                        'proposal_open_contract',
-                        'change_email',
-                        'phone_number_challenge',
-                    ].includes(msg_type)
-                ) {
-                    return;
-                }
-                // eslint-disable-next-line no-case-declarations
-                const active_platform = getActivePlatform(common_store.app_routing_history);
-
-                // DBot handles this internally. Special case: 'client.invalid_token'
-                if (active_platform === 'DBot') return;
-
-                // Don't redirect during page refresh on valid pages
-                const current_path = window.location.pathname;
-                const is_on_contract_page = /^\/contract\//.test(current_path);
-                const is_on_reports_page = /^\/reports\//.test(current_path);
-                const is_on_trade_page = current_path === '/';
-
-                if (is_on_contract_page || is_on_reports_page || is_on_trade_page) {
-                    return;
-                }
-
-                client_store.logout().then(() => {
-                    const redirect_to = routes.index;
-                    const action = getActionFromUrl();
-                    if (action === 'system_email_change') {
-                        return;
-                    }
-                    common_store.routeTo(redirect_to);
-                });
-                break;
-            }
-            case 'AuthorizationRequired':
-                // if msg_type is coming from 'buy', behaviour should be handled in app itself.
+            case 'AuthorizationRequired': {
                 if (msg_type === 'buy') {
+                    return;
+                }
+
+                // For V2, check if we have a valid session token before logout
+                const hasSessionToken = !!localStorage.getItem('session_token');
+                if (hasSessionToken) {
                     return;
                 }
                 client_store.logout();
                 break;
-            // no default
+            }
+            default:
+                break;
         }
     };
 
@@ -312,41 +156,25 @@ const BinarySocketGeneral = (() => {
     };
 
     const subscribeBalances = () => {
-        WS.subscribeBalanceAll(ResponseHandlers.balanceOtherAccounts);
-
-        if (client_store.loginid) {
-            WS.subscribeBalanceActiveAccount(ResponseHandlers.balanceActiveAccount, client_store.loginid);
+        if (client_store.current_account?.loginid) {
+            WS.subscribeBalanceActiveAccount(
+                ResponseHandlers.balanceActiveAccount,
+                client_store.current_account.loginid
+            );
         }
     };
 
     const authorizeAccount = response => {
         client_store.responseAuthorize(response);
-        WS.getPhoneSettings();
-        subscribeBalances();
-        WS.storage.getSettings();
-        WS.getAccountStatus();
-        WS.storage.payoutCurrencies();
-        client_store.setIsAuthorize(true);
-        if (!client_store.is_virtual) {
-            WS.getSelfExclusion();
-        }
-        BinarySocket.sendBuffered();
-        if (/bch/i.test(response.authorize.currency) && !client_store.accounts[client_store.loginid].accepted_bch) {
-            // showPopup({
-            //     url        : urlFor('user/warning'),
-            //     popup_id   : 'warning_popup',
-            //     form_id    : '#frm_warning',
-            //     content_id : '#warning_content',
-            //     validations: [{ selector: '#chk_accept', validations: [['req', { hide_asterisk: true }]] }],
-            //     onAccept   : () => { Client.set('accepted_bch', 1); },
-            // });
-        }
+        subscribeBalances(); // Single account balance
+        WS.storage.payoutCurrencies(); // Currency configs for trading
+        client_store.setIsAuthorize(true); // Set auth state
+        BinarySocket.sendBuffered(); // Send queued requests
     };
 
     return {
         init,
         setBalanceActiveAccount,
-        setBalanceOtherAccounts,
         authorizeAccount,
     };
 })();
@@ -398,15 +226,10 @@ const ResponseHandlers = (() => {
         }
     };
 
-    const balanceOtherAccounts = response => {
-        if (!response.error) {
-            BinarySocketGeneral.setBalanceOtherAccounts(response.balance);
-        }
-    };
+    // Removed balanceOtherAccounts - not needed for single account
 
     return {
         websiteStatus,
         balanceActiveAccount,
-        balanceOtherAccounts,
     };
 })();

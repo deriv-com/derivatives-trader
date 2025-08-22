@@ -18,7 +18,7 @@ import { useDtraderQuery } from './useDtraderQuery';
 
 const useActiveSymbols = () => {
     const { client, common } = useStore();
-    const { loginid, is_switching } = client;
+    const { loginid } = client;
     const { showError, current_language } = common;
     const {
         active_symbols: symbols_from_store,
@@ -38,11 +38,9 @@ const useActiveSymbols = () => {
     const isQueryEnabled = useCallback(() => {
         // Remove dependency on available_contract_types to break circular dependency
         // Active symbols should load independently to provide data for other hooks
-        if (is_switching) {
-            return false;
-        }
+        // Removed switching logic for single account model
         return true;
-    }, [is_switching]);
+    }, []);
 
     const getContractType = () => {
         if (isTurbosContract(contract_type)) {

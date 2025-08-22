@@ -818,7 +818,6 @@ export default class TradeStore extends BaseStore {
     }
 
     async setActiveSymbols() {
-        const is_on_mf_account = this.root_store.client.landing_company_shortcode === 'maltainvest';
         const is_logged_in = this.root_store.client.is_logged_in;
         const showError = this.root_store.common.showError;
 
@@ -831,7 +830,7 @@ export default class TradeStore extends BaseStore {
 
         if (!active_symbols?.length) {
             await WS.wait('get_settings');
-            showUnavailableLocationError(showError, is_logged_in);
+            showUnavailableLocationError(showError);
         }
         await this.processNewValuesAsync({ active_symbols });
     }
@@ -858,8 +857,8 @@ export default class TradeStore extends BaseStore {
                     contract_types_list: contract_categories.contract_types_list,
                 });
                 contractType = contractTypeParam;
-                const { is_logging_in, is_switching } = this.root_store.client;
-                if (showModal && !is_logging_in && !is_switching) {
+                const { is_logging_in } = this.root_store.client;
+                if (showModal && !is_logging_in) {
                     this.root_store.ui.toggleUrlUnavailableModal(true);
                 }
                 this.processNewValuesAsync({
@@ -881,7 +880,7 @@ export default class TradeStore extends BaseStore {
 
     async prepareTradeStore(should_set_default_symbol = true) {
         this.initial_barriers = { barrier_1: this.barrier_1, barrier_2: this.barrier_2 };
-        await when(() => !this.root_store.client.is_populating_account_list);
+        await when(() => !this.root_store.client.is_logging_in);
 
         // waits for `website_status` in order to set `stake_default` for the selected currency
         await WS.wait('website_status');
@@ -1319,9 +1318,7 @@ export default class TradeStore extends BaseStore {
     }
 
     enablePurchase() {
-        if (!this.root_store.client.is_unwelcome) {
-            this.is_purchase_enabled = true;
-        }
+        this.is_purchase_enabled = true;
     }
 
     disablePurchaseButtons = () => {
@@ -1924,8 +1921,6 @@ export default class TradeStore extends BaseStore {
             return;
         }
         this.root_store.notifications.setShouldShowPopups(false);
-        this.onPreSwitchAccount(this.preSwitchAccountListener);
-        this.onSwitchAccount(this.accountSwitcherListener);
         this.resetAccumulatorData();
         this.onLogout(this.logoutListener);
         this.onClientInit(this.clientInitListener);
@@ -1984,8 +1979,6 @@ export default class TradeStore extends BaseStore {
         if (this.should_skip_prepost_lifecycle) {
             return;
         }
-        this.disposePreSwitchAccount();
-        this.disposeSwitchAccount();
         this.disposeLogout();
         this.disposeClientInit();
         this.disposeNetworkStatusChange();
@@ -2076,30 +2069,6 @@ export default class TradeStore extends BaseStore {
                     };
                 } else {
                     return;
-                }
-
-                // If switching accounts, include previous barrier values
-                if (this.root_store.client.is_switching) {
-                    const barriers_data = this.root_store.contract_trade
-                        .accumulator_barriers_data as AccumulatorBarriersData;
-
-                    if (
-                        current_spot_data.current_spot !== undefined &&
-                        barriers_data.barrier_spot_distance !== undefined
-                    ) {
-                        const barrier_spot_distance_num = parseFloat(barriers_data.barrier_spot_distance);
-
-                        current_spot_data = {
-                            ...current_spot_data,
-                            accumulators_high_barrier: String(
-                                current_spot_data.current_spot + barrier_spot_distance_num
-                            ),
-                            accumulators_low_barrier: String(
-                                current_spot_data.current_spot - barrier_spot_distance_num
-                            ),
-                            barrier_spot_distance: barriers_data.barrier_spot_distance,
-                        };
-                    }
                 }
 
                 this.root_store.contract_trade.updateAccumulatorBarriersData(current_spot_data);

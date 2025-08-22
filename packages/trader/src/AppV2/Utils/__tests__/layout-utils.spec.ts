@@ -145,9 +145,4 @@ describe('checkIsServiceModalError', () => {
     it('returns true if services_error code is AuthorizationRequired and type is buy', () => {
         expect(checkIsServiceModalError({ services_error: { code: 'AuthorizationRequired', type: 'buy' } })).toBe(true);
     });
-    it('returns true if is_mf_verification_pending_modal_visible is true', () => {
-        expect(checkIsServiceModalError({ services_error: {}, is_mf_verification_pending_modal_visible: true })).toBe(
-            true
-        );
-    });
 });

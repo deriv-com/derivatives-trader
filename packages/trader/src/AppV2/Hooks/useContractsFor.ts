@@ -40,7 +40,7 @@ const useContractsFor = () => {
         active_symbols,
     } = useTraderStore();
     const { client } = useStore();
-    const { loginid, is_switching } = client;
+    const { loginid } = client;
 
     // Helper function to get underlying_symbol from active_symbols
     const getUnderlyingSymbol = useCallback(
@@ -63,9 +63,9 @@ const useContractsFor = () => {
     const isQueryEnabled = useCallback(() => {
         // Always validate symbol presence first - prevents API calls with undefined symbol
         if (!symbol) return false;
-        if (is_switching) return false;
+        // Removed switching logic for single account model
         return true;
-    }, [symbol, is_switching]);
+    }, [symbol]);
 
     // Get the underlying_symbol for the API call
     const underlying_symbol = getUnderlyingSymbol(symbol);

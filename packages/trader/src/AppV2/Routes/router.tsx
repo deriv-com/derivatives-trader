@@ -10,7 +10,7 @@ import traderRoutes from './routes';
 
 const Router: React.FC = () => {
     const { client, common, portfolio } = useStore();
-    const { is_logged_in } = client;
+    const { is_logged_in, is_logging_in } = client;
     const { current_language } = common;
     const { onMount, onUnmount } = portfolio;
 
@@ -27,6 +27,7 @@ const Router: React.FC = () => {
                     <RouteWithSubroutes
                         key={index}
                         is_logged_in={is_logged_in}
+                        is_logging_in={is_logging_in}
                         language={current_language}
                         Component404={Page404}
                         should_redirect_login

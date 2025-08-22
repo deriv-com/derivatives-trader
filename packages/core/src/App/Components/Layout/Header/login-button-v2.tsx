@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '@deriv/components';
-import { getBrandHubLoginUrl } from '@deriv/shared';
+import { getBrandLoginUrl } from '@deriv/shared';
 import { localize } from '@deriv/translations';
 
 interface LoginButtonV2Props {
@@ -11,7 +11,7 @@ interface LoginButtonV2Props {
 
 const LoginButtonV2 = ({ className }: LoginButtonV2Props) => {
     const handleLogin = () => {
-        window.location.href = getBrandHubLoginUrl();
+        window.location.href = getBrandLoginUrl();
     };
 
     return (

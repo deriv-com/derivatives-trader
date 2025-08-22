@@ -11,11 +11,11 @@ import NewVersionNotification from 'App/Containers/new-version-notification';
 
 import BrandShortLogo from './brand-short-logo';
 import HeaderAccountActions from './header-account-actions';
-import HubButton from './hub-button';
+import HomeButton from './home-button';
 
 const HeaderLegacy = observer(() => {
     const { client, ui, notifications } = useStore();
-    const { currency, is_logged_in, is_logging_in, is_single_logging_in, is_switching } = client;
+    const { currency, is_logged_in, is_logging_in } = client;
     const { header_extension, is_app_disabled, is_route_modal_on } = ui;
     const { addNotificationMessage, client_notifications, removeNotificationMessage } = notifications;
 
@@ -44,7 +44,7 @@ const HeaderLegacy = observer(() => {
                         <React.Fragment>
                             <BrandShortLogo />
                             <div className='header__divider' />
-                            {is_logged_in && <HubButton />}
+                            {is_logged_in && <HomeButton />}
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
@@ -63,7 +63,7 @@ const HeaderLegacy = observer(() => {
                         'header__menu-right--hidden': !isDesktop && is_logging_in,
                     })}
                 >
-                    {is_logging_in || is_single_logging_in || is_switching ? (
+                    {is_logging_in ? (
                         <div
                             id='dt_core_header_acc-info-preloader'
                             className={classNames('acc-info__preloader', {

@@ -127,7 +127,7 @@ const Statement = observer(({ component_icon }: TStatement) => {
     const { client, common } = useStore();
     const { current_language } = common;
     const { statement } = useReportsStore();
-    const { currency, is_switching, is_virtual } = client;
+    const { currency, is_virtual } = client;
     const {
         action_type,
         data,
@@ -246,57 +246,53 @@ const Statement = observer(({ component_icon }: TStatement) => {
                 // key param is needed to force rerendering of the ReportsMeta component on language change
                 key={current_language}
             />
-            {is_switching ? (
-                <PlaceholderComponent is_loading />
-            ) : (
-                <React.Fragment>
-                    {data?.length === 0 || is_empty ? (
-                        <PlaceholderComponent
-                            is_loading={is_loading}
-                            has_selected_date={has_selected_date}
-                            is_empty={is_empty}
-                            empty_message_component={EmptyTradeHistoryMessage}
-                            component_icon={component_icon}
-                            localized_message={localize('You have no transactions yet.')}
-                            localized_period_message={localize(
-                                "You've made no transactions of this type during this period."
-                            )}
-                        />
-                    ) : (
-                        <div className='reports__content'>
-                            {isDesktop ? (
-                                <DataTable
-                                    className='statement'
-                                    columns={columns}
-                                    content_loader={ReportsTableRowLoader}
-                                    data_source={data}
-                                    getRowAction={getRowAction}
-                                    onScroll={handleScroll}
-                                    passthrough={{
-                                        isTopUp: (item: { action?: string }) => is_virtual && item.action === 'Deposit',
-                                    }}
-                                >
-                                    <PlaceholderComponent is_loading={is_loading} />
-                                </DataTable>
-                            ) : (
-                                <DataList
-                                    className='statement'
-                                    data_source={data}
-                                    getRowAction={getRowAction}
-                                    onScroll={handleScroll}
-                                    rowRenderer={mobileRowRenderer}
-                                    row_gap={8}
-                                    passthrough={{
-                                        isTopUp: (item: { action?: string }) => is_virtual && item.action === 'Deposit',
-                                    }}
-                                >
-                                    <PlaceholderComponent is_loading={is_loading} />
-                                </DataList>
-                            )}
-                        </div>
-                    )}
-                </React.Fragment>
-            )}
+            <React.Fragment>
+                {data?.length === 0 || is_empty ? (
+                    <PlaceholderComponent
+                        is_loading={is_loading}
+                        has_selected_date={has_selected_date}
+                        is_empty={is_empty}
+                        empty_message_component={EmptyTradeHistoryMessage}
+                        component_icon={component_icon}
+                        localized_message={localize('You have no transactions yet.')}
+                        localized_period_message={localize(
+                            "You've made no transactions of this type during this period."
+                        )}
+                    />
+                ) : (
+                    <div className='reports__content'>
+                        {isDesktop ? (
+                            <DataTable
+                                className='statement'
+                                columns={columns}
+                                content_loader={ReportsTableRowLoader}
+                                data_source={data}
+                                getRowAction={getRowAction}
+                                onScroll={handleScroll}
+                                passthrough={{
+                                    isTopUp: (item: { action?: string }) => is_virtual && item.action === 'Deposit',
+                                }}
+                            >
+                                <PlaceholderComponent is_loading={is_loading} />
+                            </DataTable>
+                        ) : (
+                            <DataList
+                                className='statement'
+                                data_source={data}
+                                getRowAction={getRowAction}
+                                onScroll={handleScroll}
+                                rowRenderer={mobileRowRenderer}
+                                row_gap={8}
+                                passthrough={{
+                                    isTopUp: (item: { action?: string }) => is_virtual && item.action === 'Deposit',
+                                }}
+                            >
+                                <PlaceholderComponent is_loading={is_loading} />
+                            </DataList>
+                        )}
+                    </div>
+                )}
+            </React.Fragment>
         </React.Fragment>
     );
 });
