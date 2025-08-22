@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { getBrandHubUrl, isEmptyObject, redirectToLogin, redirectToSignUp } from '@deriv/shared';
+import { getBrandUrl, isEmptyObject, redirectToLogin, redirectToSignUp } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv/translations';
 import { ActionSheet } from '@deriv-com/quill-ui';
@@ -41,7 +41,7 @@ const ServiceErrorSheet = observer(() => {
                     onAction: () => {
                         resetServicesError();
                         if (!is_virtual) {
-                            const hubUrl = getBrandHubUrl();
+                            const hubUrl = getBrandUrl();
                             const url_query_string = window.location.search;
                             const url_params = new URLSearchParams(url_query_string);
                             const account_currency =

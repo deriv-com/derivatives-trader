@@ -1,9 +1,9 @@
-import { getBrandHubLoginUrl, getBrandHubSignupUrl } from '../brand';
+import { getBrandLoginUrl, getBrandSignupUrl } from '../brand';
 
 export const redirectToLogin = () => {
-    window.location.href = getBrandHubLoginUrl();
+    window.location.href = getBrandLoginUrl();
 };
 
 export const redirectToSignUp = () => {
-    window.location.href = getBrandHubSignupUrl();
+    window.location.href = getBrandSignupUrl();
 };

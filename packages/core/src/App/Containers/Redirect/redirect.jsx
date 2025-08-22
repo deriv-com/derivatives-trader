@@ -3,7 +3,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 
-import { getBrandHubUrl, getDomainName, redirectToLogin, routes, SessionStore } from '@deriv/shared';
+import { getBrandUrl, getDomainName, redirectToLogin, routes, SessionStore } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Chat } from '@deriv/utils';
 import { Analytics } from '@deriv-com/analytics';
@@ -246,7 +246,7 @@ const Redirect = observer(() => {
         }
         // P2P functionality has been removed
         case 'ctrader_account_transfer': {
-            window.location.assign(`${getBrandHubUrl()}/transfer`);
+            window.location.assign(`${getBrandUrl()}/transfer`);
             redirected_to_route = true;
             break;
         }

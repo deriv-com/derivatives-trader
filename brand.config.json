@@ -2,7 +2,7 @@
     "brand_name": "Deriv",
     "brand_domain": "https://deriv.com",
     "brand_logo": "IcBrandShortLogo",
-    "brand_hub": {
+    "brand_url": {
         "staging": "https://staging-app.champion.trade/champion",
         "production": "https://app.champion.trade/champion"
     },

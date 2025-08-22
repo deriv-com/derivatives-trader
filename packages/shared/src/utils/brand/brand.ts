@@ -35,22 +35,22 @@ export const getDomainName = () => {
     return '';
 };
 
-export const getBrandHubUrl = () => {
+export const getBrandUrl = () => {
     // Determine environment - use production if NODE_ENV is production, otherwise staging
     const isProduction = process.env.NODE_ENV === 'production';
 
-    // Return appropriate hub URL from brand config
-    return isProduction ? config_data.brand_hub.production : config_data.brand_hub.staging;
+    // Return appropriate URL from brand config
+    return isProduction ? config_data.brand_url.production : config_data.brand_url.staging;
 };
 
-export const getBrandHubHomeUrl = () => {
-    return `${getBrandHubUrl()}/home`;
+export const getBrandHomeUrl = () => {
+    return `${getBrandUrl()}/home`;
 };
 
-export const getBrandHubLoginUrl = () => {
-    return `${getBrandHubUrl()}/login`;
+export const getBrandLoginUrl = () => {
+    return `${getBrandUrl()}/login`;
 };
 
-export const getBrandHubSignupUrl = () => {
-    return `${getBrandHubUrl()}/signup`;
+export const getBrandSignupUrl = () => {
+    return `${getBrandUrl()}/signup`;
 };

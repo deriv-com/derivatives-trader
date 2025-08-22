@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { Icon, Loading } from '@deriv/components';
 import { useOauth2 } from '@deriv/api';
 import { BrandBrandLightDerivWordmarkHorizontal25YearsEnglishIcon as DerivLogo } from '@deriv/quill-icons';
-import { getBrandHubUrl, routes } from '@deriv/shared';
+import { getBrandUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
 import { requestOidcAuthentication } from '@deriv-com/auth-client';
@@ -40,7 +40,7 @@ const AccessDeniedScreen = observer(() => {
     });
 
     const continueOnClick = () => {
-        window.location.href = getBrandHubUrl();
+        window.location.href = getBrandUrl();
     };
 
     return (
