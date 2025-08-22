@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-22 10:54:31 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-22 14:53:10 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,18 +13,19 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 59 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
-| **🤖 PRs with AI Analysis** | 45 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
-| **📄 Files Analyzed** | 656 | **⚡ Total AI Characters** | 39,991 |
+| **📁 Total Merged PRs** | 60 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **🤖 PRs with AI Analysis** | 46 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
+| **📄 Files Analyzed** | 659 | **⚡ Total AI Characters** | 39,991 |
 
 ---
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 59 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 60 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#225](#) **Nijil / Fix open positions not showing in tablet positions modal** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/22/2025 | 3 | 0 / 437 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#221](#) **Akmal / feat: ensure duration_unit resets to minutes for all Vanilla contract types** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/22/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#222](#) **Farabi/rename-hub-to-home** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/22/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#219](#) **Update derivatives-charts to 1.1.0** | [@DerivFE](https://github.com/DerivFE) | 8/22/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#211](#) **Nijil / Fix all codeQL issues** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/21/2025 | 5 | 1,083 / 4,939 chars | 🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  22% |
 | [#204](#) **Farabi/remove legacy auth and logic** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/21/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#207](#) **Nijil / Remove account-verification-pending-modal and all it's usage** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/21/2025 | 13 | 0 / 662 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#205](#) **Akmal / Fix more bugs** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/20/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 

@@ -1,7 +1,48 @@
 {
-  "lastUpdated": "2025-08-22T10:54:30.992Z",
-  "totalMergedPRs": 59,
+  "lastUpdated": "2025-08-22T14:53:10.819Z",
+  "totalMergedPRs": 60,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 437,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/shared/src/styles/tokens/semantic.scss",
+          "totalCharacters": 77,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "        --color-surface-overlay: var(--brand-white); // Modal/dialog overlays"
+        },
+        {
+          "name": "packages/trader/src/App/Components/Elements/PositionsDrawer/positions-modal-card.tsx",
+          "totalCharacters": 264,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "            // @ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update\n            underlying_symbol,\n        const is_crypto = isCryptoContract(underlying_symbol);\n                    {underlying_symbol ? contract_el : loader_el}"
+        },
+        {
+          "name": "scripts/generate-colors.js",
+          "totalCharacters": 96,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    --color-surface-overlay: var(--brand-white);                        // Modal/dialog overlays"
+        }
+      ],
+      "timestamp": "2025-08-22T14:53:10.768Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "225",
+      "branch": "nijil/tablet-positions-fix",
+      "author": "nijil-deriv",
+      "prTitle": "Nijil / Fix open positions not showing in tablet positions modal",
+      "hasAnalysis": true
+    },
     {
       "timestamp": "2025-08-22T10:54:30.939Z",
       "repository": "deriv-com/derivatives-trader",
