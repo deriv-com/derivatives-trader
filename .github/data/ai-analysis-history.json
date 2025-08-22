@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-22T05:31:28.653Z",
-  "totalMergedPRs": 57,
+  "lastUpdated": "2025-08-22T08:28:41.871Z",
+  "totalMergedPRs": 58,
   "analyses": [
+    {
+      "timestamp": "2025-08-22T08:28:41.819Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "222",
+      "branch": "farabi/rename-hub-to-home",
+      "author": "farabi-deriv",
+      "prTitle": "Farabi/rename-hub-to-home",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "timestamp": "2025-08-22T05:31:28.602Z",
       "repository": "deriv-com/derivatives-trader",

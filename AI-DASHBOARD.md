@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-22 05:31:28 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-22 08:28:41 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,7 +13,7 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 57 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **📁 Total Merged PRs** | 58 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
 | **🤖 PRs with AI Analysis** | 45 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
 | **📄 Files Analyzed** | 656 | **⚡ Total AI Characters** | 39,991 |
 
@@ -21,10 +21,11 @@
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 57 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 58 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#222](#) **Farabi/rename-hub-to-home** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/22/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#219](#) **Update derivatives-charts to 1.1.0** | [@DerivFE](https://github.com/DerivFE) | 8/22/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#213](#) **revert: restore original code with no memoization** | [@jim-deriv](https://github.com/jim-deriv) | 8/22/2025 | 2 | 0 / 1,892 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#215](#) **fix: rest of the codeQL issues** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/21/2025 | 5 | 1,507 / 3,700 chars | 🟧🟧🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜  41% |
@@ -34,7 +35,6 @@
 | [#207](#) **Nijil / Remove account-verification-pending-modal and all it's usage** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/21/2025 | 13 | 0 / 662 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#205](#) **Akmal / Fix more bugs** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/20/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#202](#) **Nijil / Remove [AI] tags from codebase** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/19/2025 | 0 | 0 / 0 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
-| [#198](#) **Jim/grwt 6886/barrier on the chart glitch** | [@jim-deriv](https://github.com/jim-deriv) | 8/19/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
