@@ -1,7 +1,39 @@
 {
-  "lastUpdated": "2025-08-21T11:17:18.672Z",
-  "totalMergedPRs": 55,
+  "lastUpdated": "2025-08-22T05:13:15.069Z",
+  "totalMergedPRs": 56,
   "analyses": [
+    {
+      "percentage": 0,
+      "totalCharacters": 1892,
+      "aiCharacters": 0,
+      "files": [
+        {
+          "name": "packages/core/src/Stores/portfolio-store.js",
+          "totalCharacters": 148,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "import throttle from 'lodash.throttle';\n        this.throttledUpdatePositions();\n    throttledUpdatePositions = throttle(this.updatePositions, 500);"
+        },
+        {
+          "name": "packages/trader/src/Modules/Trading/Containers/trade-chart.tsx",
+          "totalCharacters": 1744,
+          "aiCharacters": 0,
+          "percentage": 0,
+          "status": "modified",
+          "hasAddedContent": true,
+          "addedContent": "    const settings = {\n        countdown: is_chart_countdown_visible,\n        isHighestLowestMarkerEnabled: false, // TODO: Pending UI,\n        language: current_language.toLowerCase(),\n        position: is_chart_layout_default ? 'bottom' : 'left',\n        theme: is_dark_mode_on ? 'dark' : 'light',\n        ...(is_accumulator ? { whitespace: 190, minimumLeftBars: isMobile ? 3 : undefined } : {}),\n        ...(has_barrier ? { whitespace: 110 } : {}),\n    };\n    const getMarketsOrder = (active_symbo..."
+        }
+      ],
+      "timestamp": "2025-08-22T05:13:15.018Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "213",
+      "branch": "jim/grwt-6908/chart-is-lagging",
+      "author": "jim-deriv",
+      "prTitle": "revert: restore original code with no memoization",
+      "hasAnalysis": true
+    },
     {
       "percentage": 41,
       "totalCharacters": 3700,
