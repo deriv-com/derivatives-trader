@@ -199,7 +199,7 @@ function generateSemanticTokens() {
   .theme--light {
     // Surface Colors
     --color-surface-primary: var(--brand-white);                        // Main backgrounds, cards
-    --color-surface-overlay: #{transparentize($color-white, 0.04)};     // Modal/dialog overlays
+    --color-surface-overlay: var(--brand-white);                        // Modal/dialog overlays
     --color-surface-contrast: var(--brand-white);                       // High contrast backgrounds for text
     --color-surface-section: #{mix($color-black, $color-white, 5%)};    // Section backgrounds (light grey)
     --color-surface-border: #{mix($color-black, $color-white, 6%)};     // Border color for surfaces and containers
