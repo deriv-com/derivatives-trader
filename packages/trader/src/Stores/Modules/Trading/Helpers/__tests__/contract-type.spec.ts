@@ -283,7 +283,7 @@ describe('ContractType.getContractValues', () => {
             barrier_count: 0,
             barrier_1: '',
             barrier_2: '',
-            duration_unit: 'd',
+            duration_unit: 'm', // Updated: Vanilla contracts now always return 'm'
             duration_units_list: [{ text: 'Days', value: 'd' }],
             duration_min_max: { daily: { min: 86400, max: 31536000 } },
             expiry_type: 'duration',
@@ -331,10 +331,95 @@ describe('ContractType.getDurationUnit', () => {
     const duration_unit = 'd';
     const contract_type = 'rise_fall';
     const contract_start_type = 'spot';
-    it('should return correct duration_unit given the input', async () => {
+
+    beforeEach(async () => {
         await ContractType.buildContractTypesConfig(symbol);
-        const result = ContractType.getDurationUnit(duration_unit, contract_type);
+    });
+
+    it('should return correct duration_unit given the input for non-Vanilla contracts', async () => {
+        // Use a non-Vanilla contract type for this test
+        const non_vanilla_contract_type = 'multiplier';
+        const result = ContractType.getDurationUnit(duration_unit, non_vanilla_contract_type);
         expect(result).toEqual({ duration_unit: 'd' });
+    });
+
+    it('should return minutes (m) for rise_fall contract type (Vanilla)', async () => {
+        // rise_fall is a Vanilla contract type, so it should always return 'm'
+        const result = ContractType.getDurationUnit(duration_unit, contract_type);
+        expect(result).toEqual({ duration_unit: 'm' });
+    });
+
+    it('should always return minutes (m) for all Vanilla contract types regardless of input duration_unit', async () => {
+        const vanillaContractTypes = [
+            'rise_fall',
+            'call_put',
+            'vanilla_call',
+            'vanilla_put',
+            'vanillalongcall',
+            'vanillalongput',
+            'higher_lower',
+            'call',
+            'put',
+        ];
+
+        // Test with different input duration units to ensure they all get reset to 'm'
+        const inputDurationUnits = ['d', 'h', 't', 's'];
+
+        vanillaContractTypes.forEach(vanilla_contract_type => {
+            inputDurationUnits.forEach(input_duration => {
+                const result = ContractType.getDurationUnit(input_duration, vanilla_contract_type);
+                expect(result).toEqual({
+                    duration_unit: 'm',
+                });
+            });
+        });
+    });
+
+    it('should preserve original duration_unit for non-Vanilla contract types', async () => {
+        const nonVanillaContractTypes = [
+            'multiplier',
+            'accumulator',
+            'turboslong',
+            'turbosshort',
+            'end',
+            'stay',
+            'touch',
+            'notouch',
+        ];
+
+        const testDurationUnit = 'h';
+
+        nonVanillaContractTypes.forEach(non_vanilla_contract_type => {
+            const result = ContractType.getDurationUnit(testDurationUnit, non_vanilla_contract_type);
+            expect(result).toEqual({
+                duration_unit: testDurationUnit,
+            });
+        });
+    });
+
+    it('should handle edge cases for Vanilla contract detection', async () => {
+        // Test case sensitivity and variations
+        const edgeCases = [
+            { contract_type: 'RISE_FALL', expected: 'm' },
+            { contract_type: 'Call_Put', expected: 'm' },
+            { contract_type: 'VANILLA_CALL', expected: 'm' },
+            { contract_type: 'unknown_vanilla_type', expected: 'd' }, // Should not be treated as Vanilla
+            { contract_type: '', expected: 'd' }, // Empty string
+        ];
+
+        edgeCases.forEach(({ contract_type, expected }) => {
+            const result = ContractType.getDurationUnit('d', contract_type);
+            expect(result).toEqual({
+                duration_unit: expected,
+            });
+        });
+
+        // Test null and undefined separately with proper type handling
+        const nullResult = ContractType.getDurationUnit('d', null as any);
+        expect(nullResult).toEqual({ duration_unit: 'd' });
+
+        const undefinedResult = ContractType.getDurationUnit('d', undefined as any);
+        expect(undefinedResult).toEqual({ duration_unit: 'd' });
     });
 });
 
