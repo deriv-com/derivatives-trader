@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-22T08:28:41.871Z",
-  "totalMergedPRs": 58,
+  "lastUpdated": "2025-08-22T10:54:30.992Z",
+  "totalMergedPRs": 59,
   "analyses": [
+    {
+      "timestamp": "2025-08-22T10:54:30.939Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "221",
+      "branch": "fix-more-bugs",
+      "author": "akmal-deriv",
+      "prTitle": "Akmal / feat: ensure duration_unit resets to minutes for all Vanilla contract types",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "timestamp": "2025-08-22T08:28:41.819Z",
       "repository": "deriv-com/derivatives-trader",
