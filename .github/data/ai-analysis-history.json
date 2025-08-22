@@ -1,7 +1,20 @@
 {
-  "lastUpdated": "2025-08-22T05:13:15.069Z",
-  "totalMergedPRs": 56,
+  "lastUpdated": "2025-08-22T05:31:28.653Z",
+  "totalMergedPRs": 57,
   "analyses": [
+    {
+      "timestamp": "2025-08-22T05:31:28.602Z",
+      "repository": "deriv-com/derivatives-trader",
+      "pullRequest": "219",
+      "branch": "chore/update-derivatives-charts-to-1.1.0",
+      "author": "DerivFE",
+      "prTitle": "Update derivatives-charts to 1.1.0",
+      "hasAnalysis": false,
+      "percentage": 0,
+      "totalCharacters": 0,
+      "aiCharacters": 0,
+      "files": []
+    },
     {
       "percentage": 0,
       "totalCharacters": 1892,
