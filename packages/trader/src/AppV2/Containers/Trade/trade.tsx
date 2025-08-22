@@ -65,7 +65,6 @@ const Trade = observer(() => {
     const is_high_low = /^high_low$/.test(contract_type.toLowerCase());
 
     // Showing snackbar for all cases, except when it is Rise/Fall or Digits and only one subtype has error
-    // Fixed: Show errors for Higher/Lower contracts when any subtype has an error
     const should_show_snackbar =
         contract_types.length === 1 ||
         is_multiplier ||
