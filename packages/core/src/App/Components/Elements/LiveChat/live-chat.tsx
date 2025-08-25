@@ -1,7 +1,7 @@
 import { Icon, Popover, Text } from '@deriv/components';
 import { useIsIntercomAvailable, useIsLiveChatWidgetAvailable } from '@deriv/api';
 import { observer } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Chat } from '@deriv/utils';
 import { useDevice } from '@deriv-com/ui';
 

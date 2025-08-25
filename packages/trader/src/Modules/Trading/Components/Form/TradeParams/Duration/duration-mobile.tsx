@@ -3,7 +3,7 @@ import React from 'react';
 import { RelativeDatepicker, Tabs } from '@deriv/components';
 import { getDurationMinMaxValues } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import type { TTradeParamsMobile } from 'Modules/Trading/Containers/trade-params-mobile';
 import { useTraderStore } from 'Stores/useTraderStores';

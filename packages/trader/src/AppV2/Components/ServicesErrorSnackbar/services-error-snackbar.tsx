@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { getStaticUrl, isEmptyObject, isValidToCancel, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { SnackbarController, useSnackbar } from '@deriv-com/quill-ui';
 
 import useContractDetails from 'AppV2/Hooks/useContractDetails';

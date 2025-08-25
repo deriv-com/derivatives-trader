@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import { Skeleton } from '@deriv/components';
 import { getCurrencyDisplayCode, isEmptyObject } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, TextField } from '@deriv-com/quill-ui';
 
 import Carousel from 'AppV2/Components/Carousel';

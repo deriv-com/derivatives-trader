@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { routes } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import Redirect from 'App/Containers/Redirect';
 import Endpoint from 'Modules/Endpoint';

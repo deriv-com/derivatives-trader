@@ -1,5 +1,5 @@
 import React from 'react';
-import { getInitialLanguage } from '@deriv/translations';
+import { getInitialLanguage } from '@deriv-com/translations';
 import i18n from 'i18next';
 import { setLocale, initMoment } from '../date';
 import { routes } from '../routes';

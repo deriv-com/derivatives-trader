@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import { getContractDescription } from 'AppV2/Utils/contract-description-utils';
 

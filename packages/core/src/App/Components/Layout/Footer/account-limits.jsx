@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icon, Popover } from '@deriv/components';
 import { useAccountSettingsRedirect } from '@deriv/api';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { observer } from '@deriv/stores';
 
 export const AccountLimits = observer(({ showPopover }) => {

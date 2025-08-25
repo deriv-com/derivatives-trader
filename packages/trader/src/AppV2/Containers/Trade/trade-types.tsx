@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 
 import { LabelPairedPresentationScreenSmRegularIcon } from '@deriv/quill-icons';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { safeParse } from '@deriv/utils';
 import { ActionSheet, Button, Chip, Text } from '@deriv-com/quill-ui';
 

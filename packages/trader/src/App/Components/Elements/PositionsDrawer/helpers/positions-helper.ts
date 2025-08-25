@@ -8,7 +8,7 @@ import {
     TContractInfo,
     TRADE_TYPES,
 } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 export const addCommaToNumber = (
     num: number | null | undefined,

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Stream } from '@cloudflare/stream-react';
 import { LabelPairedPlayMdFillIcon } from '@deriv/quill-icons';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { CaptionText } from '@deriv-com/quill-ui';
 
 type TVideoPreview = {

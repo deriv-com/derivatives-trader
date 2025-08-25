@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 import { toMoment } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, DatePicker } from '@deriv-com/quill-ui';
 
 import { DEFAULT_DATE_FORMATTING_CONFIG } from 'AppV2/Utils/positions-utils';

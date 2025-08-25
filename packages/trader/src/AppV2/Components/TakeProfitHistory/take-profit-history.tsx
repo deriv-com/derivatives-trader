@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 
 import { formatDate, formatMoney, formatTime, TContractStore } from '@deriv/shared';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { CaptionText, Pagination, Text } from '@deriv-com/quill-ui';
 
 import Carousel from 'AppV2/Components/Carousel';

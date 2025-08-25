@@ -1,7 +1,7 @@
 import { flow } from 'mobx';
 
 import { checkServerMaintenance, getPropertyValue, getSocketURL, State } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import WS from './ws-methods';
 

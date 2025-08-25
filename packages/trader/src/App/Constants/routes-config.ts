@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { moduleLoader, routes } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import Trade from 'Modules/Trading';
 import { TRouteConfig } from 'Types';

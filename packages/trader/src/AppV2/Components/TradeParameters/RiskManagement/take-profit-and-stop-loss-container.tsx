@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Button, useSnackbar } from '@deriv-com/quill-ui';
 
 import { getSnackBarText } from 'AppV2/Utils/trade-params-utils';

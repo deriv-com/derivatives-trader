@@ -7,7 +7,7 @@ import { Div100vhContainer, Icon, MobileDrawer, ToggleSwitch } from '@deriv/comp
 // eslint-disable-next-line no-unused-vars -- getDomainUrl kept for future handleTradershubRedirect restoration
 import { routes, getBrandHomeUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of Analytics functionality
 import { Analytics } from '@deriv-com/analytics';
 

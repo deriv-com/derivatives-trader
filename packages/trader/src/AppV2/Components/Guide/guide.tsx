@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LabelPairedPresentationScreenSmRegularIcon } from '@deriv/quill-icons';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Button, Text } from '@deriv-com/quill-ui';
 
 import useContractsFor from 'AppV2/Hooks/useContractsFor';

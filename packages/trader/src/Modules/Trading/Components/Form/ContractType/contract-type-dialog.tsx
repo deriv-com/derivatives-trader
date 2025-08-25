@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { MobileDialog } from '@deriv/components';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { Header } from './ContractTypeInfo';

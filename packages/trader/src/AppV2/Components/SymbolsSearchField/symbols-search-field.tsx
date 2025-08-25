@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { getContractTypesConfig } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { Button, SearchField } from '@deriv-com/quill-ui';
 
 import { useTraderStore } from 'Stores/useTraderStores';

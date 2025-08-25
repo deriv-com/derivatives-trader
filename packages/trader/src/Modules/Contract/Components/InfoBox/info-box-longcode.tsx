@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Button, Icon, Modal, Text } from '@deriv/components';
 import { isTabletOs, TContractInfo } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 type TInfoBoxLongcode = { contract_info: TContractInfo };
 

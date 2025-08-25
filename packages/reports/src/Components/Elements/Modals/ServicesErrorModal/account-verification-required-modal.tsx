@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Modal } from '@deriv/components';
 import { routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize, Localize } from '@deriv/translations';
+import { localize, Localize } from '@deriv-com/translations';
 
 type TAccountVerificationRequiredModalProps = {
     is_visible: boolean;

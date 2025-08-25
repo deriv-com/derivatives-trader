@@ -10,7 +10,7 @@ import {
     shouldShowExpiration,
     TRADE_TYPES,
 } from '@deriv/shared';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 
 import { createProposalRequestForContract, getProposalInfo } from 'Stores/Modules/Trading/Helpers/proposal';
 import { TTradeStore } from 'Types';

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Money, Text } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 type TMinMaxStakeInfo = {
     className?: string;

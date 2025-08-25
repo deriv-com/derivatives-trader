@@ -12,7 +12,7 @@ import {
 } from '@deriv/quill-icons';
 import { routes } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Badge, Navigation } from '@deriv-com/quill-ui';
 
 type BottomNavProps = {

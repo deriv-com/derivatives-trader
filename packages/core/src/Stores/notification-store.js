@@ -18,7 +18,7 @@ import {
     unique,
     getPlatformName,
 } from '@deriv/shared';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
 
 import { sortNotifications, sortNotificationsMobile } from '../App/Components/Elements/NotificationMessage/constants';

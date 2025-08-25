@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { render, screen } from '@testing-library/react';
 
 import {

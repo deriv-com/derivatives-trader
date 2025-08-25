@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useLocalStorageData } from '@deriv/api';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Modal } from '@deriv-com/quill-ui';
 
 import GuideContainer from './guide-container';

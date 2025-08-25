@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Checkbox, Popover } from '@deriv/components';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import {
     hasCallPutEqual,

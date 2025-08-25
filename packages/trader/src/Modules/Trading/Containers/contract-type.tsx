@@ -3,7 +3,7 @@ import React from 'react';
 import { MobileWrapper, usePrevious } from '@deriv/components';
 import { getMarketNamesMap, unsupported_contract_types_list } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import { ToastPopup } from 'Modules/Trading/Containers/toast-popup';
 import { isDigitTradeType } from 'Modules/Trading/Helpers/digits';

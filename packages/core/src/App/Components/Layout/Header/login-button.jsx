@@ -2,11 +2,11 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 
-import { Button } from '@deriv/components';
 import { useTMB } from '@deriv/api';
+import { Button } from '@deriv/components';
 import { getDomainUrl, isStaging, redirectToLogin } from '@deriv/shared';
-import { localize } from '@deriv/translations';
 import { requestOidcAuthentication } from '@deriv-com/auth-client';
+import { localize } from '@deriv-com/translations';
 
 const LoginButton = ({ className }) => {
     const is_deriv_com = /deriv\.(com)/.test(window.location.hostname) || /localhost:8443/.test(window.location.host);

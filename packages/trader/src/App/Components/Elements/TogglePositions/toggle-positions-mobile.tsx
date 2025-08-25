@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Div100vhContainer, Icon, Modal, Text } from '@deriv/components';
 import { isDisabledLandscapeBlockerRoute, isMobileOs, isTabletOs, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import PositionsModalCard from 'App/Components/Elements/PositionsDrawer/positions-modal-card';

@@ -5,7 +5,7 @@ import moment from 'moment';
 import { DatePicker, Tooltip } from '@deriv/components';
 import { getTomorrowDate, hasIntradayDurationUnit, isTimeValid, setTime, toMoment, useIsMounted } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
 import { useTraderStore } from 'Stores/useTraderStores';

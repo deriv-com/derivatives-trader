@@ -16,7 +16,7 @@ import {
     isVanillaContract,
 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import ChartLoader from 'App/Components/Elements/chart-loader';

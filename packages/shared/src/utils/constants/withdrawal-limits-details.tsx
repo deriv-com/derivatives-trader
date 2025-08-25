@@ -1,4 +1,4 @@
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 export const getWithdrawalTitle = (withdrawal_type: string, num_of_days?: number) => {
     const titles = {

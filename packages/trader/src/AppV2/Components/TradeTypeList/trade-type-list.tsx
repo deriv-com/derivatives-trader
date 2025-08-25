@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Button, Text } from '@deriv-com/quill-ui';
 
 import TradeTypeListItem from './trade-type-list-item';

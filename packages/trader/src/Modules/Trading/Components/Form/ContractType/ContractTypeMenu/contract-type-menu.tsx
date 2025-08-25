@@ -2,7 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { Loading, ThemedScrollbars, VerticalTab } from '@deriv/components';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { getContractCategoryKey } from '../../../../Helpers/contract-type';
 import ContractType from '../contract-type';

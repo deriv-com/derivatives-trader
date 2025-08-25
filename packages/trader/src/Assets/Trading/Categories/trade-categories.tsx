@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Text } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import AccumulatorTradeDescription from './Description/accumulator-trade-description';
 import AsianTradeDescription from './Description/asian-trade-description';

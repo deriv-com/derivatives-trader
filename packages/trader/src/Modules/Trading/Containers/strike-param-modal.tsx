@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Div100vhContainer, Modal, Popover, RadioGroup } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 
 type TStrikeParamModalProps = {
     contract_type: string;

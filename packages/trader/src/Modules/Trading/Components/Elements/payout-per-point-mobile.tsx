@@ -3,7 +3,7 @@ import React from 'react';
 import { ArrowIndicator, Money, Popover, Text } from '@deriv/components';
 import { getLocalizedBasis } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';

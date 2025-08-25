@@ -3,7 +3,7 @@ import React from 'react';
 import { Icon, Text } from '@deriv/components';
 import { getBrandHomeUrl } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 const HomeButton = observer(() => {
     const handleHomeRedirect = () => {

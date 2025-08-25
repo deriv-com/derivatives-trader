@@ -20,7 +20,7 @@ import {
     unsupported_contract_types_list,
     WS,
 } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { TConfig, TTradeStore } from 'Types';
 

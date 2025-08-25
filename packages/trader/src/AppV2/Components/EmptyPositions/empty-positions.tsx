@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { StandaloneBriefcaseFillIcon, StandaloneSearchFillIcon } from '@deriv/quill-icons';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Text } from '@deriv-com/quill-ui';
 
 import { TAB_NAME } from 'AppV2/Utils/positions-utils';

@@ -1,5 +1,5 @@
 import { formatMoney, toTitleCase, toMoment, getMarketInformation, getSymbolDisplayName } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { ActiveSymbols, Statement } from '@deriv/api-types';
 
 export const formatStatementTransaction = (

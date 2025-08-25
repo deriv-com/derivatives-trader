@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { usePrevious } from '@deriv/components';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Heading, Text } from '@deriv-com/quill-ui';
 
 type TCurrentSpotDisplayProps = {

@@ -1,7 +1,7 @@
 import { Icon, Popover } from '@deriv/components';
 import { isTabletOs } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 const TradersHubOnboarding = observer(() => {
     const { ui } = useStore();

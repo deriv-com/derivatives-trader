@@ -3,7 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import { MobileDialog, useOnClickOutside } from '@deriv/components';
 import { Analytics } from '@deriv-com/analytics';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 import NotificationListWrapper from './notification-list-wrapper';
 

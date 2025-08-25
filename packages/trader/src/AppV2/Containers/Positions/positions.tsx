@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useLocalStorageData } from '@deriv/api';
 import { getPositionsV2TabIndexFromURL } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Tab } from '@deriv-com/quill-ui';
 
 import BottomNav from 'AppV2/Components/BottomNav';

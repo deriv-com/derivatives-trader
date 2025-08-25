@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ActiveSymbols } from '@deriv/api-types';
 import { unsupported_contract_types_list } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { TContractCategory, TContractType, TList } from '../Components/Form/ContractType/types';
 

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Money, Popover, Text } from '@deriv/components';
 import { getCurrencyDisplayCode, getGrowthRatePercentage, getLocalizedBasis } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { useTraderStore } from 'Stores/useTraderStores';

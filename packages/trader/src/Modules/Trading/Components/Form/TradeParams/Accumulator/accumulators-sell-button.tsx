@@ -4,7 +4,7 @@ import { Button, Money, Text } from '@deriv/components';
 import { getCardLabels, isValidToSell } from '@deriv/shared';
 import { TContractInfo } from '@deriv/shared/src/utils/contract/contract-types';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 

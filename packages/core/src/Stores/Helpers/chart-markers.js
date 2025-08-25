@@ -25,7 +25,7 @@ import {
     isVanillaContract,
     unique,
 } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { MARKER_TYPES_CONFIG } from '../Constants/markers';
 import { getChartType } from './logic';
 

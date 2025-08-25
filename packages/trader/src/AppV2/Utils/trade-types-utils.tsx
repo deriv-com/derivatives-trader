@@ -6,7 +6,7 @@ import {
     TRADE_TYPES,
     unsupported_contract_types_list,
 } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import { getAvailableContractTypes, getCategoriesSortedByKey } from 'Modules/Trading/Helpers/contract-type';
 import { useTraderStore } from 'Stores/useTraderStores';

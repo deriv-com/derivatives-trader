@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import Loadable from 'react-loadable';
 import { UILoader } from '@deriv/components';
 import { urlForLanguage } from '@deriv/shared';
-import { getLanguage } from '@deriv/translations';
+import { useTranslations } from '@deriv-com/translations';
 import BinaryRoutes from 'App/Components/Routes';
 import { observer, useStore } from '@deriv/stores';
 
@@ -21,6 +21,7 @@ const Routes = observer(({ history, location, passthrough }) => {
     const { client, common } = useStore();
     const { is_logged_in, is_logging_in } = client;
     const { error, has_error, setAppRouterHistory, addRouteHistoryItem, setInitialRouteHistoryItem } = common;
+    const { currentLang } = useTranslations();
     const initial_route = React.useRef(null);
     const unlisten_to_change = React.useRef(null);
 
@@ -47,7 +48,7 @@ const Routes = observer(({ history, location, passthrough }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const lang = getLanguage();
+    const lang = currentLang;
     const lang_regex = /[?&]lang=/;
     const has_lang = lang_regex.test(location.search);
 

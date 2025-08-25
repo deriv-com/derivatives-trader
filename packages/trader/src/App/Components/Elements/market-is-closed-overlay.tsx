@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Button, Text, UILoader } from '@deriv/components';
 import { useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 
 import { useTraderStore } from '../../../Stores/useTraderStores';
 

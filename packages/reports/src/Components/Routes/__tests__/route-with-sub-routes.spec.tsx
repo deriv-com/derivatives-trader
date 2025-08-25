@@ -36,10 +36,6 @@ jest.mock('@deriv/shared', () => ({
     default_title: 'Default Title',
 }));
 
-jest.mock('@deriv/translations', () => ({
-    getLanguage: jest.fn().mockReturnValue('EN'),
-}));
-
 beforeEach(() => jest.clearAllMocks());
 
 const route = {

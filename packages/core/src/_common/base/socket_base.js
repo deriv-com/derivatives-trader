@@ -4,7 +4,7 @@ const getSocketURL = require('@deriv/shared').getSocketURL;
 const cloneObject = require('@deriv/shared').cloneObject;
 const getPropertyValue = require('@deriv/shared').getPropertyValue;
 const State = require('@deriv/shared').State;
-const { getLanguage } = require('@deriv/translations');
+const { getInitialLanguage } = require('@deriv-com/translations');
 const website_name = require('@deriv/shared').website_name;
 const SocketCache = require('./socket_cache');
 const APIMiddleware = require('./api_middleware');
@@ -46,7 +46,7 @@ const BinarySocketBase = (() => {
         binary_socket.close();
     };
 
-    const closeAndOpenNewConnection = (language = getLanguage(), session_id = '') => {
+    const closeAndOpenNewConnection = (language = getInitialLanguage(), session_id = '') => {
         close();
         is_switching_socket = true;
         openNewConnection(language, session_id);
@@ -71,7 +71,7 @@ const BinarySocketBase = (() => {
               };
     };
 
-    const openNewConnection = (language = getLanguage()) => {
+    const openNewConnection = (language = getInitialLanguage()) => {
         const mock_server_config = getMockServerConfig();
         const session_id = mock_server_config?.session_id || '';
 

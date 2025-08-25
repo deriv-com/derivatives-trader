@@ -9,7 +9,7 @@ import {
     getContractPath,
     getUnsupportedContracts,
 } from '@deriv/shared';
-import { localize, Localize } from '@deriv/translations';
+import { localize, Localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
 import { ReportsTableRowLoader } from '../Components/Elements/ContentLoader';
 import { getStatementTableColumnsTemplate } from '../Constants/data-table-constants';

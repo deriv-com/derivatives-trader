@@ -2,13 +2,14 @@ import Cookies from 'js-cookie';
 
 import FIREBASE_INIT_DATA from '@deriv/api/src/remote_config.json';
 import { getAppId, LocalStore } from '@deriv/shared';
-import { getLanguage } from '@deriv/translations';
 import { Analytics } from '@deriv-com/analytics';
+import { useTranslations } from '@deriv-com/translations';
 import { CountryUtils } from '@deriv-com/utils';
 
 import { MAX_MOBILE_WIDTH } from '../../Constants';
 
 export const AnalyticsInitializer = async () => {
+    const { currentLang } = useTranslations();
     if (process.env.REMOTE_CONFIG_URL) {
         const flags = await fetch(process.env.REMOTE_CONFIG_URL)
             .then(res => res.json())
@@ -38,7 +39,7 @@ export const AnalyticsInitializer = async () => {
                         app_id: String(getAppId()),
                         device_type: window.innerWidth <= MAX_MOBILE_WIDTH ? 'mobile' : 'desktop',
                         device_language: navigator?.language || 'en-EN',
-                        user_language: getLanguage().toLowerCase(),
+                        user_language: currentLang.toLowerCase(),
                         country: await CountryUtils.getCountry(),
                         utm_source: ppc_campaign_cookies?.utm_source,
                         utm_medium: ppc_campaign_cookies?.utm_medium,

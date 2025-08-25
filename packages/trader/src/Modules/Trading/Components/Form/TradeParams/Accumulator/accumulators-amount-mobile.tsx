@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { MobileWrapper } from '@deriv/components';
 import { AMOUNT_MAX_LENGTH, getDecimalPlaces } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 

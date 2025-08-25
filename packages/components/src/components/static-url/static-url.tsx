@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { getStaticUrl, setUrlLanguage } from '@deriv/shared';
-import { getLanguage } from '@deriv/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 type TStaticUrl = React.HTMLAttributes<HTMLAnchorElement> & {
     href?: string;
@@ -9,8 +10,9 @@ type TStaticUrl = React.HTMLAttributes<HTMLAnchorElement> & {
 };
 
 const StaticUrl = ({ href, is_document, is_eu_url = false, children = null, ...props }: TStaticUrl) => {
+    const { currentLang } = useTranslations();
     const getHref = () => {
-        setUrlLanguage(getLanguage());
+        setUrlLanguage(currentLang);
         return getStaticUrl(href, is_document, is_eu_url);
     };
 

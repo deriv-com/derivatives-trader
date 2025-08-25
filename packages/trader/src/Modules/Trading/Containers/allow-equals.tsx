@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Checkbox, Text } from '@deriv/components';
 import { observer } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 

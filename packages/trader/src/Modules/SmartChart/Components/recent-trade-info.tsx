@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from '@deriv/components';
 import { isAccumulatorContract, isDigitContract, isEnded } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 const RecentTradeInfo = observer(() => {
     const { contract_trade } = useStore();

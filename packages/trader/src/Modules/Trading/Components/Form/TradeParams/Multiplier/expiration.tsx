@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from '@deriv/components';
 import { formatDuration, getDateFromNow, getDiffDuration } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';

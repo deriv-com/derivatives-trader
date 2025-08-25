@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, StaticUrl, Text } from '@deriv/components';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { observer, useStore } from '@deriv/stores';
 import './url-unavailable-modal.scss';
 

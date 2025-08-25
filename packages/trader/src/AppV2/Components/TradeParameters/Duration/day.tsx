@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { LabelPairedCalendarSmRegularIcon, LabelPairedClockThreeSmRegularIcon } from '@deriv/quill-icons';
 import { hasIntradayDurationUnit, setTime, toMoment } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Text, TextField, useSnackbar } from '@deriv-com/quill-ui';
 
 import { invalidateDTraderCache, useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';

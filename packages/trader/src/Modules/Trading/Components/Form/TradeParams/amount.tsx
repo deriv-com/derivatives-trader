@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ButtonToggle, Dropdown, InputField } from '@deriv/components';
 import { addComma, AMOUNT_MAX_LENGTH, getDecimalPlaces, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';

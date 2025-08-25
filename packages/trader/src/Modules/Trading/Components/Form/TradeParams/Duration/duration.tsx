@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Dropdown } from '@deriv/components';
 import { isVanillaContract, toMoment } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import RangeSlider from 'App/Components/Form/RangeSlider';
