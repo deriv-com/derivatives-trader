@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Text } from '@deriv/components';
 import { addComma } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 type TDurationRangeText = {
     min: number | null;

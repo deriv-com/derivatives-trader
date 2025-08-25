@@ -3,7 +3,7 @@ import React from 'react';
 import { Icon, InlineMessage, Text } from '@deriv/components';
 import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
 
 import { useTraderStore } from 'Stores/useTraderStores';

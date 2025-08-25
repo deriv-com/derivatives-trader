@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Modal, Popover } from '@deriv/components';
-import { localize, Localize } from '@deriv/translations';
+import { localize, Localize } from '@deriv-com/translations';
 import { deriv_urls } from '@deriv/shared';
 
 const MFRegulatoryInformation = () => (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { getBrandUrl, isEmptyObject, redirectToLogin, redirectToSignUp } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet } from '@deriv-com/quill-ui';
 
 import { checkIsServiceModalError, SERVICE_ERROR } from 'AppV2/Utils/layout-utils';

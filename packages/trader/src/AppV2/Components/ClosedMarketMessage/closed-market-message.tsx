@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { TradingTimesRequest } from '@deriv/api-types';
 import { isMarketClosed, toMoment, useIsMounted, WS } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { CaptionText } from '@deriv-com/quill-ui';
 
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';

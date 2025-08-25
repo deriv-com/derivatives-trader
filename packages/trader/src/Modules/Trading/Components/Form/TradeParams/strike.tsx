@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Dropdown, InputField, Text } from '@deriv/components';
 import { clickAndKeyEventHandler, toMoment, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import Fieldset from 'App/Components/Form/fieldset';

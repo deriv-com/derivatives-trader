@@ -2,7 +2,7 @@ import React from 'react';
 import debounce from 'lodash.debounce';
 
 import { Skeleton } from '@deriv/components';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
 
 import type { TV2ParamsInitialValues } from 'Stores/Modules/Trading/trade-store';

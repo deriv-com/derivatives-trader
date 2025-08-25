@@ -1,6 +1,6 @@
 import React from 'react';
 import { getDisplayStatus, getCardLabels, isCryptocurrency, CONTRACT_TYPES } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import ContractCardItem from './contract-card-item';
 import MobileWrapper from '../../mobile-wrapper';
 import Money from '../../money';

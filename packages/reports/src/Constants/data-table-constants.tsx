@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { ArrowIndicator, Label, Money, ContractCard, ContractCardSell, Popover } from '@deriv/components';
 import { getCurrencyDisplayCode, getTotalProfit, getGrowthRatePercentage, getCardLabels } from '@deriv/shared';
-import { localize, Localize } from '@deriv/translations';
+import { localize, Localize } from '@deriv-com/translations';
 import ProgressSliderStream from '../Containers/progress-slider-stream';
 import { TCellContentProps, THeaderProps } from 'Types';
 import { getProfitOrLoss } from '../Helpers/profit-loss';

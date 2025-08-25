@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { DesktopWrapper, Icon, InputField, MobileWrapper, Modal, Text } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';

@@ -67,7 +67,7 @@
         "bootstrap:dev": "npm install --strict-peer-deps --verbose",
         "clean": "echo \"This will remove ALL node_modules directories in the project.\" && read -p \"Are you sure? (y/N): \" -n 1 -r && echo && if [[ $REPLY =~ ^[Yy]$ ]]; then echo \"Removing all node_modules directories...\" && find . -name \"node_modules\" -type d -prune -exec rm -rf {} + && echo \"All node_modules directories removed\"; else echo \"Operation cancelled\"; fi",
         "build:all": "npm run build --workspace=@deriv/components && npm run build --workspace=@deriv/reports && npm run build --workspace=@deriv/trader && npm run --workspaces --if-present build",
-        "build:travis": "npm run build:travis --workspace=@deriv/shared && npm run build:travis --workspace=@deriv/components && npm run build:travis --workspace=@deriv/translations && npm run build:travis --workspace=@deriv/reports",
+        "build:travis": "npm run build:travis --workspace=@deriv/shared && npm run build:travis --workspace=@deriv/components && npm run build:travis --workspace=@deriv/reports",
         "build:prod": "export NODE_ENV=staging && npm run build:all && export NODE_ENV=",
         "build:gh-pages": "npm run build:components && npm run build:reports",
         "generate:colors": "node ./scripts/generate-colors.js",
@@ -82,7 +82,6 @@
         "deploy": "f () { export NODE_ENV=staging && npm run build:all && npm exec --workspace=@deriv/core -- npm run deploy $@ && export NODE_ENV= ;}; f",
         "deploy:clean": "f () { npm run build:travis && npm exec --workspace=@deriv/core -- npm run deploy:clean $@ ;}; f",
         "deploy:folder": "f () { export NODE_ENV=staging && npm run build:gh-pages $1 && npm exec --workspace=@deriv/core -- npm run deploy:folder $@ && export NODE_ENV= ;}; f",
-        "translate": "npm exec --workspace=@deriv/translations -- npm run translate",
         "publish-package": "npm exec --workspace=@deriv/${1:-'*'} -- npm run publish_package",
         "prepare": "husky install"
     },

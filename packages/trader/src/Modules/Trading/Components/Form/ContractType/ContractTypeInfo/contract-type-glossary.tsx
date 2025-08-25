@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Text } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 const ContractTypeGlossary = ({
     category,

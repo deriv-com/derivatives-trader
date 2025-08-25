@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import Badge from '../badge';
 import Button from '../button';
 import Icon from '../icon';

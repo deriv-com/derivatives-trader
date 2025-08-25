@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import Text from '../text';
 import './open-livechat-link.scss';
 import { Chat } from '@deriv/utils';

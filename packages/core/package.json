@@ -109,7 +109,6 @@
         "@deriv/shared": "^1.0.0",
         "@deriv/stores": "^1.0.0",
         "@deriv/trader": "^3.8.0",
-        "@deriv/translations": "^1.0.0",
         "@deriv/utils": "^1.0.0",
         "acorn": "^6.1.1",
         "canvas-toBlob": "^1.0.0",

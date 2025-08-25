@@ -1,7 +1,6 @@
 import * as SocketCache from '_common/base/socket_cache';
 import { action, computed, makeObservable, observable } from 'mobx';
-import { changeLanguage } from '@deriv/translations';
-import { getAllowedLanguages } from '@deriv-com/translations';
+import { getAllowedLanguages, getInitialLanguage } from '@deriv-com/translations';
 import {
     UNSUPPORTED_LANGUAGES,
     getAppId,
@@ -17,7 +16,6 @@ import BaseStore from './base-store';
 import BinarySocket from '_common/base/socket_base';
 import ServerTime from '_common/base/server_time';
 import WS from 'Services/ws-methods';
-import { currentLanguage } from 'Utils/Language/index';
 
 export default class CommonStore extends BaseStore {
     constructor(root_store) {
@@ -73,7 +71,7 @@ export default class CommonStore extends BaseStore {
     app_router = { history: null };
     app_routing_history = [];
     changing_language_timer_id = '';
-    current_language = currentLanguage;
+    current_language = getInitialLanguage();
     deposit_url = '';
     has_error = false;
     is_language_changing = false;
@@ -138,11 +136,9 @@ export default class CommonStore extends BaseStore {
                 try {
                     await initMoment(key);
                     await setLocale(key);
-                    await changeLanguage(key, () => {
-                        this.changeCurrentLanguage(key);
-                        BinarySocket.closeAndOpenNewConnection(key);
-                        this.root_store.client.setIsAuthorize(false);
-                    });
+                    this.changeCurrentLanguage(key);
+                    BinarySocket.closeAndOpenNewConnection(key);
+                    this.root_store.client.setIsAuthorize(false);
                     resolve();
                 } catch (e) {
                     reject();

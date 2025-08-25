@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import moment from 'moment';
 
 import { addComma, formatDate, formatTime, getEndTime, TContractInfo } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import CardWrapper from '../CardWrapper';
 

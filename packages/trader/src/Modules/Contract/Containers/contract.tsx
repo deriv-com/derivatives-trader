@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import { routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import ErrorComponent from 'App/Components/Elements/Errors';
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@deriv/components';
 import { getBrandLoginUrl } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 interface LoginButtonV2Props {
     className?: string;

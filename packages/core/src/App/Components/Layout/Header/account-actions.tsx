@@ -4,7 +4,7 @@ import { Button, Icon, Popover } from '@deriv/components';
 // import { useAccountSettingsRedirect } from '@deriv/api';
 import { formatMoney } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { LoginButtonV2 } from './login-button-v2';

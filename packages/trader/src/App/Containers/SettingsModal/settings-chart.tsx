@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox, InlineMessage } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import MediaItem, { MediaDescription, MediaHeading, MediaIcon } from 'App/Components/Elements/Media';
 // TODO: enable asset information

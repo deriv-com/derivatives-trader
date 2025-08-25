@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import { getTomorrowDate, getUnitMap, toMoment } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, TextField, useSnackbar } from '@deriv-com/quill-ui';
 
 import { getDatePickerStartDate, getSmallestDuration, isValidPersistedDuration } from 'AppV2/Utils/trade-params-utils';

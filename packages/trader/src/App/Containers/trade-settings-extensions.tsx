@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import { UILoader } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
 import type { TCoreStores } from '@deriv/stores/types';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import TraderProviders from '../../trader-providers';
 

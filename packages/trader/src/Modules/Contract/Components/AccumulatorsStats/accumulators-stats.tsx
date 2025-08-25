@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Icon, MobileDialog, Text } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { useTraderStore } from 'Stores/useTraderStores';

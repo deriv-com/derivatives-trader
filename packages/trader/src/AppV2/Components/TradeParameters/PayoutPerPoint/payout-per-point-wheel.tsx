@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { Skeleton } from '@deriv/components';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
 
 import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';

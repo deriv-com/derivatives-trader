@@ -1,6 +1,6 @@
 import React from 'react';
 import { FilterDropdown } from '@deriv/components';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import CompositeCalendar from './Form/CompositeCalendar';
 import { observer } from '@deriv/stores';
 import { useReportsStore } from 'Stores/useReportsStores';

@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { localize, Localize } from '@deriv/translations';
+import { localize, Localize } from '@deriv-com/translations';
 import { Chat } from '@deriv/utils';
 
 export const VERIFICATION_SERVICES = {

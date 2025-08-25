@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Text } from '@deriv/components';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import DarkModeIcon from 'Assets/SvgComponents/settings/img-theme-dark.svg';
 import LightModeIcon from 'Assets/SvgComponents/settings/img-theme-light.svg';
 import { observer, useStore } from '@deriv/stores';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, Modal } from '@deriv/components';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import AccountVerificationRequiredModal from './account-verification-required-modal';
 import AuthorizationRequiredModal from './authorization-required-modal';

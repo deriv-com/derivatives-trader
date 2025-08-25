@@ -2,8 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { observer, useStore } from '@deriv/stores';
 import { Icon, Modal, Popover, Text } from '@deriv/components';
-import { useTranslations } from '@deriv-com/translations';
-import { Localize, localize } from '@deriv/translations'; // [TODO]: Remove this import after integrating Deriv app with new translation lib
+import { useTranslations, Localize, localize } from '@deriv-com/translations';
 import 'Sass/app/modules/settings.scss';
 import LanguageSettings from '../../../Containers/SettingsModal/settings-language';
 import { TranslationFlag } from '@deriv/shared';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { convertTimeFormat, toMoment } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { CaptionText } from '@deriv-com/quill-ui';
 
 type TMarketOpeningTimeBanner = {

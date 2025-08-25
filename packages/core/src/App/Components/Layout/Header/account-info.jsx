@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Text } from '@deriv/components';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { getCurrencyDisplayCode } from '@deriv/shared';
 import { useDevice } from '@deriv-com/ui';
 import AccountInfoWrapper from './account-info-wrapper';

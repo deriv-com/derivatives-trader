@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { formatMoney, getCurrencyDisplayCode, getTradeTypeName, TRADE_TYPES } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Text } from '@deriv-com/quill-ui';
 
 import { TTradeStore } from 'Types';

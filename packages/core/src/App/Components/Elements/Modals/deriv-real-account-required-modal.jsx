@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dialog } from '@deriv/components';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { observer, useStore } from '@deriv/stores';
 import './deriv-real-account-required-modal.scss';
 

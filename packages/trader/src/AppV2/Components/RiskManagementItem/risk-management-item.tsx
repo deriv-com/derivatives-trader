@@ -9,7 +9,7 @@ import {
     isValidToCancel,
 } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, Text, TextField, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
 
 import useContractDetails from 'AppV2/Hooks/useContractDetails';

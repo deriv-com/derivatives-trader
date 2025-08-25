@@ -1,7 +1,7 @@
 import * as Cookies from 'js-cookie';
 import { action, computed, makeObservable } from 'mobx';
 import { getAppId, toMoment, epochToMoment } from '@deriv/shared';
-import { getLanguage } from '@deriv/translations';
+import { getInitialLanguage } from '@deriv-com/translations';
 import BinarySocket from '_common/base/socket_base';
 import BaseStore from './base-store';
 
@@ -51,7 +51,7 @@ export default class GTMStore extends BaseStore {
         };
 
         return {
-            language: getLanguage(),
+            language: getInitialLanguage(),
             ...(this.root_store.client.is_logged_in && {
                 visitorId: this.visitorId,
                 currency: this.root_store.client.currency,

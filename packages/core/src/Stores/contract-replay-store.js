@@ -2,7 +2,7 @@ import { action, observable, makeObservable, override, when } from 'mobx';
 import { routes, isEmptyObject, WS, contractCancelled, contractSold } from '@deriv/shared';
 import { Money } from '@deriv/components';
 import { Analytics } from '@deriv-com/analytics';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import ContractStore from './contract-store';
 import BaseStore from './base-store';
 

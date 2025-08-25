@@ -5,7 +5,7 @@ import { toJS } from 'mobx';
 import { TickSpotData } from '@deriv/api-types';
 import { Popover, Text } from '@deriv/components';
 import { getMarketNamesMap, isContractElapsed, TContractStore, useIsMounted } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { Bounce, SlideIn } from 'App/Components/Animations';

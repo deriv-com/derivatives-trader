@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { observer } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import useContractDetails from 'AppV2/Hooks/useContractDetails';
 import { getContractDetailsConfig } from 'AppV2/Utils/contract-details-config';

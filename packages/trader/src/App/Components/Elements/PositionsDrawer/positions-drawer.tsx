@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { DataList, Icon, Money, PositionsDrawerCard, Text } from '@deriv/components';
 import { useNewRowTransition, getEndTime } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 

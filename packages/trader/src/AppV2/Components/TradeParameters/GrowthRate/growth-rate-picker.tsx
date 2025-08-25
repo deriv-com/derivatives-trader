@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 
 import { Skeleton } from '@deriv/components';
 import { getGrowthRatePercentage } from '@deriv/shared';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
 
 import type { TV2ParamsInitialValues } from 'Stores/Modules/Trading/trade-store';

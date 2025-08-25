@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { formatMoney, getCurrencyDisplayCode, getDecimalPlaces } from '@deriv/shared';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, TextFieldWithSteppers } from '@deriv-com/quill-ui';
 
 import { useFetchProposalData } from 'AppV2/Hooks/useFetchProposalData';

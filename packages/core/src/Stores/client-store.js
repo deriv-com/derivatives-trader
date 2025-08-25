@@ -16,7 +16,7 @@ import {
     setCurrencies,
     urlForLanguage,
 } from '@deriv/shared';
-import { getLanguage, getRedirectionLanguage, localize } from '@deriv/translations';
+import { getInitialLanguage, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
 import { CountryUtils } from '@deriv-com/utils';
 
@@ -455,10 +455,7 @@ export default class ClientStore extends BaseStore {
                 }
             }
 
-            const language = getRedirectionLanguage(
-                authorize_response.authorize.preferred_language,
-                this.is_new_session
-            );
+            const language = authorize_response.authorize.preferred_language || getInitialLanguage();
             const stored_language_without_double_quotes = LocalStore.get(LANGUAGE_KEY).replace(/"/g, '');
             if (stored_language_without_double_quotes && language !== stored_language_without_double_quotes) {
                 window.history.replaceState({}, document.title, urlForLanguage(language));
@@ -541,9 +538,9 @@ export default class ClientStore extends BaseStore {
             residence_country,
             app_id: String(getAppId()),
             device_type: isMobile() ? 'mobile' : 'desktop',
-            language: getLanguage(),
+            language: getInitialLanguage(),
             device_language: navigator?.language || 'en-EN',
-            user_language: getLanguage().toLowerCase(),
+            user_language: getInitialLanguage().toLowerCase(),
             country: await CountryUtils.getCountry(),
             utm_source: ppc_campaign_cookies?.utm_source,
             utm_medium: ppc_campaign_cookies?.utm_medium,

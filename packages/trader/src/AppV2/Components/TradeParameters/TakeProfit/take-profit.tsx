@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
 import { getCurrencyDisplayCode } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, TextField } from '@deriv-com/quill-ui';
 
 import Carousel from 'AppV2/Components/Carousel';

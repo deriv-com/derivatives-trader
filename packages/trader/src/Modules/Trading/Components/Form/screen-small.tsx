@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Collapsible, FadeWrapper, PageOverlay, Text } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import { TradeParamsLoader } from 'App/Components/Elements/ContentLoader';
 import AccumulatorsStats from 'Modules/Contract/Components/AccumulatorsStats';

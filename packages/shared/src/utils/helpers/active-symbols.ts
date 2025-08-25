@@ -1,11 +1,12 @@
 import { flow } from 'mobx';
-import { LocalStore } from '../storage';
-import { redirectToLogin } from '../login';
-import { WS } from '../../services';
 
-import { localize } from '@deriv/translations';
 import { ActiveSymbols } from '@deriv/api-types';
+import { localize } from '@deriv-com/translations';
+
+import { WS } from '../../services';
 import { getMarketNamesMap } from '../constants/contract';
+import { redirectToLogin } from '../login';
+import { LocalStore } from '../storage';
 
 type TResidenceList = {
     residence_list: {

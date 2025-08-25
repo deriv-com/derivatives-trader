@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Money, Text } from '@deriv/components';
 import { getDecimalPlaces } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { FastMarker } from 'Modules/SmartChart';
 

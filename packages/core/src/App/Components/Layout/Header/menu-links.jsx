@@ -3,7 +3,7 @@ import { Text, Icon } from '@deriv/components';
 import { BinaryLink } from '../../Routes';
 import { observer, useStore } from '@deriv/stores';
 import { routes } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import './menu-links.scss';
 
 const MenuItems = ({ id, text, icon, link_to }) => {

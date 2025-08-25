@@ -4,7 +4,7 @@ import { Icon, Text } from '@deriv/components';
 import { routes, getStaticUrl } from '@deriv/shared';
 import { isExternalLink } from '@deriv/utils';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { BinaryLink } from 'App/Components/Routes';
 
 type TMenuLink = {

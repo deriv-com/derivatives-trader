@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { observer } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Text } from '@deriv-com/quill-ui';
 
 import { useGetSymbolSearchResults } from 'AppV2/Hooks/useGetSymbolSearchResults';

@@ -6,7 +6,7 @@ import Input from '../input';
 import DropdownList, { TItem } from '../dropdown-list';
 import { useBlockScroll } from '../../hooks/use-blockscroll';
 import { getEnglishCharacters } from '../../../utils/helper';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 type TAutocompleteProps = {
     autoComplete: string;

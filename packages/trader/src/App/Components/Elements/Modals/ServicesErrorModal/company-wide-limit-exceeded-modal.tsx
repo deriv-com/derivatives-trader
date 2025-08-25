@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Modal, StaticUrl } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 
 type TCompanyWideLimitExceededModal = {
     is_visible: boolean;

@@ -3,7 +3,7 @@ import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import { Button } from '@deriv/components';
 import { useGrowthbookGetFeatureValue } from '@deriv/api';
 import { routes } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Callback } from '@deriv-com/auth-client';
 
 import AccessDeniedScreen from './AccessDeniedScreen';

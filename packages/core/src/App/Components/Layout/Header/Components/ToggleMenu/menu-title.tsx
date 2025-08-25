@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer, useStore } from '@deriv/stores';
 import { Icon, Text } from '@deriv/components';
-import { localize, Localize } from '@deriv/translations';
+import { localize, Localize } from '@deriv-com/translations';
 import { TranslationFlag } from '@deriv/shared';
 
 const MenuTitle = observer(() => {

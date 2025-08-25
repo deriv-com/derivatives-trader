@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Icon, PageOverlay, Popover, Text } from '@deriv/components';
 import { LabelPairedChevronsDownCaptionRegularIcon, LabelPairedChevronsUpCaptionRegularIcon } from '@deriv/quill-icons';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { LabelPairedChevronDownMdRegularIcon } from '@deriv/quill-icons';
 import { getMarketNamesMap, getSymbolDisplayName } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { CaptionText, Skeleton, Tag, Text, useSnackbar } from '@deriv-com/quill-ui';
 
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
