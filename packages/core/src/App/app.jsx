@@ -22,16 +22,11 @@ import 'Sass/app.scss';
 
 const App = ({ root_store }) => {
     const i18nInstance = initializeI18n({
-        cdnUrl: `${process.env.CROWDIN_URL}/${process.env.ACC_TRANSLATION_PATH}`, // https://translations.deriv.com/deriv-app-accounts/staging/translations
+        cdnUrl: `${process.env.CROWDIN_URL}/${process.env.ACC_TRANSLATION_PATH}`,
     });
-    // const { TRANSLATIONS_CDN_URL, R2_PROJECT_NAME, CROWDIN_BRANCH_NAME } = process.env;
-    // const i18nInstance = initializeI18n({
-    //     cdnUrl: `${TRANSLATIONS_CDN_URL}/${R2_PROJECT_NAME}/${CROWDIN_BRANCH_NAME}`,
-    // });
     const l = window.location;
     const base = l.pathname.split('/')[1];
     const has_base = /^\/(br_)/.test(l.pathname);
-    // const { i18n } = useTranslation();
     const { preferred_language } = root_store.client;
     const { is_dark_mode_on } = root_store.ui;
     const is_dark_mode = is_dark_mode_on || JSON.parse(localStorage.getItem('ui_store'))?.is_dark_mode_on;
