@@ -3,7 +3,7 @@
 <div align="center">
 
 **deriv-com/derivatives-trader**
-📅 Last updated: 2025-08-26 06:44:47 UTC • 🔄 Tracking merged PRs to main/master
+📅 Last updated: 2025-08-26 07:30:51 UTC • 🔄 Tracking merged PRs to main/master
 
 </div>
 
@@ -13,7 +13,7 @@
 
 | Metric | Value | Metric | Value |
 |--------|-------|--------|-------|
-| **📁 Total Merged PRs** | 61 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
+| **📁 Total Merged PRs** | 62 | **📈 Average AI Code** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 11% |
 | **🤖 PRs with AI Analysis** | 46 | **🎯 Overall AI Percentage** | 🟥⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10% |
 | **📄 Files Analyzed** | 659 | **⚡ Total AI Characters** | 39,991 |
 
@@ -21,10 +21,11 @@
 
 ## 🚀 Recent Merged Pull Requests
 
-> 📊 Showing the 10 most recent merged PRs (stats above include all 61 PRs)
+> 📊 Showing the 10 most recent merged PRs (stats above include all 62 PRs)
 
 | PR | Author | Date | Files | AI Content | Percentage |
 |----|--------|------|-------|------------|------------|
+| [#232](#) **Update derivatives-charts to 1.1.2** | [@DerivFE](https://github.com/DerivFE) | 8/26/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#230](#) **Update derivatives-charts to 1.1.1** | [@DerivFE](https://github.com/DerivFE) | 8/26/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#225](#) **Nijil / Fix open positions not showing in tablet positions modal** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/22/2025 | 3 | 0 / 437 chars | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#221](#) **Akmal / feat: ensure duration_unit resets to minutes for all Vanilla contract types** | [@akmal-deriv](https://github.com/akmal-deriv) | 8/22/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
@@ -34,7 +35,6 @@
 | [#215](#) **fix: rest of the codeQL issues** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/21/2025 | 5 | 1,507 / 3,700 chars | 🟧🟧🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜  41% |
 | [#210](#) **Farabi/grwt-6913/fix-signup-redirection** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/21/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 | [#211](#) **Nijil / Fix all codeQL issues** | [@nijil-deriv](https://github.com/nijil-deriv) | 8/21/2025 | 5 | 1,083 / 4,939 chars | 🟧🟧🟧⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  22% |
-| [#204](#) **Farabi/remove legacy auth and logic** | [@farabi-deriv](https://github.com/farabi-deriv) | 8/21/2025 | N/A | No data | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜   0% |
 
 ---
 
