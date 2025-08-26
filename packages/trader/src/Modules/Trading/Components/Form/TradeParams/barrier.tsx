@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { DesktopWrapper, Icon, InputField, MobileWrapper, Modal, Text } from '@deriv/components';
+import { DesktopWrapper, InputField, MobileWrapper, Modal, Text } from '@deriv/components';
+import { LegacyArrowUp1pxIcon, LegacyArrowDown1pxIcon } from '@deriv/quill-icons';
 import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
 
@@ -114,8 +115,8 @@ const Barrier = observer(({ is_minimized, is_absolute_only }: TBarrier) => {
                                     is_signed
                                     setCurrentFocus={setCurrentFocus}
                                 />
-                                <Icon icon='IcArrowUp' className='trade-container__barriers--up' />
-                                <Icon icon='IcArrowDown' className='trade-container__barriers--down' />
+                                <LegacyArrowUp1pxIcon className='trade-container__barriers--up' />
+                                <LegacyArrowDown1pxIcon className='trade-container__barriers--down' />
                             </React.Fragment>
                         )}
                     </div>

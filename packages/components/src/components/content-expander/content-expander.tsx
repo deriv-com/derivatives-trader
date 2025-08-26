@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import Text from '../text/text';
-import Icon from '../icon/icon';
+import { LegacyChevronDown1pxIcon } from '@deriv/quill-icons';
 
 type TContentExpander = {
     className?: string;
@@ -85,8 +85,7 @@ const ContentExpander = ({
                         title
                     )}
                 </div>
-                <Icon
-                    icon='IcChevronDown'
+                <LegacyChevronDown1pxIcon
                     className={classNames('dc-content-expander__select-arrow', {
                         'dc-content-expander__select-arrow--invert': is_arrow_inverted,
                     })}

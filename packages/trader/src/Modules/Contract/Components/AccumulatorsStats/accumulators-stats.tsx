@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Icon, MobileDialog, Text } from '@deriv/components';
+import { MobileDialog, Text } from '@deriv/components';
+import { LegacyArrowUp1pxIcon, LegacyArrowDown1pxIcon } from '@deriv/quill-icons';
 import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
 import { useDevice } from '@deriv-com/ui';
@@ -94,12 +95,13 @@ const AccumulatorsStats = observer(({ is_expandable = true }: TAccumulatorStats)
                     </MobileDialog>
                 ))}
             {is_expandable && (
-                <Icon
-                    icon={is_collapsed ? 'IcArrowUp' : 'IcArrowDown'}
+                <div
                     onClick={() => setIsCollapsed(!is_collapsed)}
                     className='accordion-toggle-arrow'
-                    data_testid='dt_accordion-toggle-arrow'
-                />
+                    data-testid='dt_accordion-toggle-arrow'
+                >
+                    {is_collapsed ? <LegacyArrowUp1pxIcon iconSize='xs' /> : <LegacyArrowDown1pxIcon iconSize='xs' />}
+                </div>
             )}
         </div>
     );

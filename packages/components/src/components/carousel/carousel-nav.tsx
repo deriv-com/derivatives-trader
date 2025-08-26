@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
+import { LegacyChevronLeft1pxIcon, LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
 
 type TNav = {
     active_index: number;
@@ -35,7 +35,7 @@ const Nav = ({
         <nav id='dt_components_carousel-nav_nav-tag' className={classNames('dc-carousel__nav', className)}>
             {show_nav && (
                 <span id='dt_contract_info_left_nav' className='dc-carousel__icon' onClick={handlePrevClick}>
-                    <Icon icon='IcChevronLeft' />
+                    <LegacyChevronLeft1pxIcon />
                 </span>
             )}
             {show_bullet && (
@@ -61,7 +61,7 @@ const Nav = ({
             )}
             {show_nav && (
                 <span id='dt_contract_info_right_nav' className='dc-carousel__icon' onClick={handleNextClick}>
-                    <Icon icon='IcChevronRight' />
+                    <LegacyChevronRight1pxIcon />
                 </span>
             )}
         </nav>

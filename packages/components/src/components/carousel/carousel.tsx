@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useSwipeable } from 'react-swipeable';
 import Card from './carousel-card';
 import Nav from './carousel-nav';
-import Icon from '../icon';
+import { LegacyChevronLeft1pxIcon, LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
 import Button from '../button/button';
 import { useInterval } from '../../hooks';
 
@@ -109,12 +109,7 @@ const Carousel = ({
                         <Button
                             className={classNames('dc-carousel__icon', { 'dc-carousel__icon--mt5': is_mt5 })}
                             onClick={handlePrevClick}
-                            icon={
-                                <Icon
-                                    icon={is_mt5 ? 'IcChevronLeftBoldMt5' : 'IcChevronLeft'}
-                                    size={is_mt5 ? '28' : '24'}
-                                />
-                            }
+                            icon={<LegacyChevronLeft1pxIcon />}
                         />
                     )}
 
@@ -142,12 +137,7 @@ const Carousel = ({
                         <Button
                             className={classNames('dc-carousel__icon', { 'dc-carousel__icon--mt5': is_mt5 })}
                             onClick={handleNextClick}
-                            icon={
-                                <Icon
-                                    icon={is_mt5 ? 'IcChevronRightBoldMt5' : 'IcChevronRight'}
-                                    size={is_mt5 ? '28' : '24'}
-                                />
-                            }
+                            icon={<LegacyChevronRight1pxIcon />}
                         />
                     )}
                 </div>

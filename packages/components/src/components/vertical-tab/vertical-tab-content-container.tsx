@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Icon from '../icon/icon';
 import { TItem } from './vertical-tab-header';
 
 type TSideNotes = {
@@ -18,7 +17,7 @@ type TContent = {
 export type TAction_bar = {
     component?: typeof React.Component;
     onClick?: () => void;
-    icon: string;
+    icon: React.ReactElement;
     title?: string;
 };
 
@@ -124,7 +123,7 @@ const VerticalTabContentContainer = ({
                                 key={idx}
                                 onClick={onClick}
                             >
-                                <Icon className='dc-vertical-tab__action-bar--icon' icon={icon} />
+                                {React.cloneElement(icon, { className: 'dc-vertical-tab__action-bar--icon' })}
                             </div>
                         );
                     })}

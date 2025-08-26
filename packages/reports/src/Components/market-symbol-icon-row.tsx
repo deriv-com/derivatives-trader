@@ -1,6 +1,13 @@
 import React from 'react';
 import { TContractInfo, extractInfoFromShortcode, getMarketName, getTradeTypeName, isHighLow } from '@deriv/shared';
-import { Icon, Popover, IconTradeTypes } from '@deriv/components';
+import { Popover, IconTradeTypes, SymbolIconsMapper } from '@deriv/components';
+import {
+    DerivLightDepositIcon,
+    DerivLightWithdrawalIcon,
+    DerivLightTransferIcon,
+    LegacyDerivP2pIcon,
+    LegacyResetIcon,
+} from '@deriv/quill-icons';
 import classNames from 'classnames';
 import { formatStatementTransaction } from 'Stores/Modules/Statement/Helpers/format-response';
 
@@ -49,14 +56,7 @@ const MarketSymbolIconRow = ({
                         is_bubble_hover_enabled
                         disable_target_icon
                     >
-                        <Icon
-                            icon={
-                                info_from_shortcode.underlying
-                                    ? `IcUnderlying${info_from_shortcode.underlying}`
-                                    : 'IcUnknown'
-                            }
-                            size={32}
-                        />
+                        <SymbolIconsMapper symbol={info_from_shortcode.underlying || ''} iconSize='md' />
                     </Popover>
                     {has_full_contract_title && (payload as TContractInfo).display_name}
                 </div>
@@ -95,18 +95,18 @@ const MarketSymbolIconRow = ({
     ) {
         return (
             <div className='market-symbol-icon'>
-                {payload.action_type === 'deposit' && <Icon icon={icon || 'IcCashierDeposit'} size={32} />}
-                {payload.action_type === 'withdrawal' && <Icon icon='IcCashierWithdrawal' size={32} />}
-                {payload.action_type === 'transfer' && <Icon icon='IcAccountTransferColored' size={32} />}
+                {payload.action_type === 'deposit' && <DerivLightDepositIcon width={32} height={32} />}
+                {payload.action_type === 'withdrawal' && <DerivLightWithdrawalIcon width={32} height={32} />}
+                {payload.action_type === 'transfer' && <DerivLightTransferIcon width={32} height={32} />}
                 {(payload.action_type === 'hold' || payload.action_type === 'release') && (
-                    <Icon icon='IcCashierDp2p' size={32} />
+                    <LegacyDerivP2pIcon iconSize='md' />
                 )}
             </div>
         );
     } else if (['adjustment'].includes((payload as TStatementData).action_type ?? '')) {
         return (
             <div className='market-symbol-icon'>
-                <Icon icon='IcAdjustment' size={32} />
+                <LegacyResetIcon iconSize='md' />
             </div>
         );
     }

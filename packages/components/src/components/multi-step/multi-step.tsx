@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import Icon from '../icon';
+import { LegacyArrowLeft2pxIcon } from '@deriv/quill-icons';
 import { TMultiStepProps, TMultiStepRefProps } from '../types';
 
 const MultiStep = React.forwardRef(
@@ -23,7 +23,7 @@ const MultiStep = React.forwardRef(
         const prev_btn = (
             <div className='multi-step__header'>
                 <a onClick={goPrevStep} className='multi-step__btn'>
-                    <Icon icon='IcArrowLeftBold' className='multi-step__btn-icon' />
+                    <LegacyArrowLeft2pxIcon className='multi-step__btn-icon' />
                     {lbl_previous}
                 </a>
             </div>

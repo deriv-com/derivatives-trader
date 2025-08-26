@@ -1,99 +1,106 @@
 import React from 'react';
-import Icon from '../icon/icon';
-import { TIconProps } from '../types';
+import TradeTypeIconsMapper from '../trade-type-icons-mapper';
 import { CONTRACT_TYPES } from '@deriv/shared';
 
-type TIconTradeTypes = Omit<TIconProps, 'icon'> & {
+type TIconTradeTypes = {
     type: string;
     className?: string;
+    iconSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+    color?: string;
 };
 
-const IconTradeTypes = ({ type, className, ...props }: TIconTradeTypes) => {
-    switch (type.toUpperCase()) {
-        case CONTRACT_TYPES.ACCUMULATOR:
-            return <Icon icon='IcTradetypeAccu' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.ASIAN.DOWN:
-            return <Icon icon='IcTradetypeAsiand' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.ASIAN.UP:
-            return <Icon icon='IcTradetypeAsianu' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.CALL_BARRIER:
-            return <Icon icon='IcTradetypeCallBarrier' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.CALLE:
-        case CONTRACT_TYPES.CALL:
-            return <Icon icon='IcTradetypeCall' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.CALL_PUT_SPREAD.CALL:
-            return <Icon icon='IcTradetypeCallspread' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.CALL_PUT_SPREAD.PUT:
-            return <Icon icon='IcTradetypePutsread' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.MATCH_DIFF.DIFF:
-            return <Icon icon='IcTradetypeDigitdiff' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.EVEN_ODD.EVEN:
-            return <Icon icon='IcTradetypeDigiteven' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.MATCH_DIFF.MATCH:
-            return <Icon icon='IcTradetypeDigitmatch' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.EVEN_ODD.ODD:
-            return <Icon icon='IcTradetypeDigitodd' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.OVER_UNDER.OVER:
-            return <Icon icon='IcTradetypeDigitover' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.OVER_UNDER.UNDER:
-            return <Icon icon='IcTradetypeDigitunder' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.END.OUT:
-            return <Icon icon='IcTradetypeExpirymiss' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.EXPIRYRANGEE:
-        case CONTRACT_TYPES.END.IN:
-            return <Icon icon='IcTradetypeExpiryrange' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.LB_CALL:
-            return <Icon icon='IcTradetypeLbcall' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.HIGHER:
-        case 'HIGHER_BARRIER':
-            return <Icon icon='IcTradetypeCallBarrier' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.LB_PUT:
-            return <Icon icon='IcTradetypeLbput' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.LB_HIGH_LOW:
-            return <Icon icon='IcTradetypeLbhighlow' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.LOWER:
-        case 'LOWER_BARRIER':
-            return <Icon icon='IcTradetypePutBarrier' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.MULTIPLIER.DOWN:
-            return <Icon icon='IcTradetypeMultdown' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.MULTIPLIER.UP:
-            return <Icon icon='IcTradetypeMultup' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.TOUCH.NO_TOUCH:
-            return <Icon icon='IcTradetypeNotouch' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.TOUCH.ONE_TOUCH:
-            return <Icon icon='IcTradetypeOnetouch' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.PUT_BARRIER:
-            return <Icon icon='IcTradetypePutBarrier' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.PUTE:
-        case CONTRACT_TYPES.PUT:
-            return <Icon icon='IcTradetypePut' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.STAY.IN:
-            return <Icon icon='IcTradetypeRange' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.RESET.CALL:
-            return <Icon icon='IcTradetypeResetcall' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.RESET.PUT:
-            return <Icon icon='IcTradetypeResetput' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.RUN_HIGH_LOW.HIGH:
-            return <Icon icon='IcTradetypeRunhigh' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.RUN_HIGH_LOW.LOW:
-            return <Icon icon='IcTradetypeRunlow' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.TICK_HIGH_LOW.HIGH:
-            return <Icon icon='IcTradetypeTickhigh' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.TICK_HIGH_LOW.LOW:
-            return <Icon icon='IcTradetypeTicklow' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.TURBOS.LONG:
-            return <Icon icon='IcTradetypeTurboslong' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.TURBOS.SHORT:
-            return <Icon icon='IcTradetypeTurbosshort' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.STAY.OUT:
-            return <Icon icon='IcTradetypeUpordown' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.VANILLA.CALL:
-            return <Icon icon='IcTradetypeVanillaLongCall' className={className} color='brand' {...props} />;
-        case CONTRACT_TYPES.VANILLA.PUT:
-            return <Icon icon='IcTradetypeVanillaLongPut' className={className} color='brand' {...props} />;
-        default:
-            return <Icon icon='IcUnknown' className={className} {...props} />;
-    }
+const IconTradeTypes = ({ type, className, iconSize = 'md', color, ...props }: TIconTradeTypes) => {
+    const getIconName = (contractType: string): string => {
+        switch (contractType.toUpperCase()) {
+            case CONTRACT_TYPES.ACCUMULATOR:
+                return 'IcTradetypeAccu';
+            case CONTRACT_TYPES.ASIAN.DOWN:
+                return 'IcTradetypeAsiand';
+            case CONTRACT_TYPES.ASIAN.UP:
+                return 'IcTradetypeAsianu';
+            case CONTRACT_TYPES.CALL_BARRIER:
+                return 'IcTradetypeCallBarrier';
+            case CONTRACT_TYPES.CALLE:
+            case CONTRACT_TYPES.CALL:
+                return 'IcTradetypeCall';
+            case CONTRACT_TYPES.CALL_PUT_SPREAD.CALL:
+                return 'IcTradetypeCallspread';
+            case CONTRACT_TYPES.CALL_PUT_SPREAD.PUT:
+                return 'IcTradetypePutspread';
+            case CONTRACT_TYPES.MATCH_DIFF.DIFF:
+                return 'IcTradetypeDigitdiff';
+            case CONTRACT_TYPES.EVEN_ODD.EVEN:
+                return 'IcTradetypeDigiteven';
+            case CONTRACT_TYPES.MATCH_DIFF.MATCH:
+                return 'IcTradetypeDigitmatch';
+            case CONTRACT_TYPES.EVEN_ODD.ODD:
+                return 'IcTradetypeDigitodd';
+            case CONTRACT_TYPES.OVER_UNDER.OVER:
+                return 'IcTradetypeDigitover';
+            case CONTRACT_TYPES.OVER_UNDER.UNDER:
+                return 'IcTradetypeDigitunder';
+            case CONTRACT_TYPES.END.OUT:
+                return 'IcTradetypeExpirymiss';
+            case CONTRACT_TYPES.EXPIRYRANGEE:
+            case CONTRACT_TYPES.END.IN:
+                return 'IcTradetypeExpiryrange';
+            case CONTRACT_TYPES.LB_CALL:
+                return 'IcTradetypeLbcall';
+            case CONTRACT_TYPES.HIGHER:
+            case 'HIGHER_BARRIER':
+                return 'IcTradetypeCallBarrier';
+            case CONTRACT_TYPES.LB_PUT:
+                return 'IcTradetypeLbput';
+            case CONTRACT_TYPES.LB_HIGH_LOW:
+                return 'IcTradetypeLbhighlow';
+            case CONTRACT_TYPES.LOWER:
+            case 'LOWER_BARRIER':
+                return 'IcTradetypePutBarrier';
+            case CONTRACT_TYPES.MULTIPLIER.DOWN:
+                return 'IcTradetypeMultdown';
+            case CONTRACT_TYPES.MULTIPLIER.UP:
+                return 'IcTradetypeMultup';
+            case CONTRACT_TYPES.TOUCH.NO_TOUCH:
+                return 'IcTradetypeNotouch';
+            case CONTRACT_TYPES.TOUCH.ONE_TOUCH:
+                return 'IcTradetypeOnetouch';
+            case CONTRACT_TYPES.PUT_BARRIER:
+                return 'IcTradetypePutBarrier';
+            case CONTRACT_TYPES.PUTE:
+            case CONTRACT_TYPES.PUT:
+                return 'IcTradetypePut';
+            case CONTRACT_TYPES.STAY.IN:
+                return 'IcTradetypeRange';
+            case CONTRACT_TYPES.RESET.CALL:
+                return 'IcTradetypeResetcall';
+            case CONTRACT_TYPES.RESET.PUT:
+                return 'IcTradetypeResetput';
+            case CONTRACT_TYPES.RUN_HIGH_LOW.HIGH:
+                return 'IcTradetypeRunhigh';
+            case CONTRACT_TYPES.RUN_HIGH_LOW.LOW:
+                return 'IcTradetypeRunlow';
+            case CONTRACT_TYPES.TICK_HIGH_LOW.HIGH:
+                return 'IcTradetypeTickhigh';
+            case CONTRACT_TYPES.TICK_HIGH_LOW.LOW:
+                return 'IcTradetypeTicklow';
+            case CONTRACT_TYPES.TURBOS.LONG:
+                return 'IcTradetypeTurboslong';
+            case CONTRACT_TYPES.TURBOS.SHORT:
+                return 'IcTradetypeTurbosshort';
+            case CONTRACT_TYPES.STAY.OUT:
+                return 'IcTradetypeUpordown';
+            case CONTRACT_TYPES.VANILLA.CALL:
+                return 'IcTradetypeVanillaLongCall';
+            case CONTRACT_TYPES.VANILLA.PUT:
+                return 'IcTradetypeVanillaLongPut';
+            default:
+                return 'IcUnknown';
+        }
+    };
+
+    const iconName = getIconName(type);
+
+    return <TradeTypeIconsMapper icon={iconName} className={className} iconSize={iconSize} color={color} {...props} />;
 };
 
 export default IconTradeTypes;

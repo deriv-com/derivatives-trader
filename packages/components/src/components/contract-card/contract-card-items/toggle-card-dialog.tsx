@@ -1,7 +1,7 @@
 import React from 'react';
 import ContractCardDialog from './contract-card-dialog';
 import ContractUpdateForm, { TGeneralContractCardBodyProps } from './contract-update-form';
-import Icon from '../../icon';
+import { LegacyEdit1pxIcon } from '@deriv/quill-icons';
 import MobileDialog from '../../mobile-dialog';
 import Popover from '../../popover';
 import Div100vhContainer from '../../div100vh-container';
@@ -103,11 +103,11 @@ const ToggleCardDialog = ({
     const toggleDialogWrapper = React.useCallback(toggleDialog, [toggleDialog]);
 
     const edit_icon = (
-        <Icon
+        <LegacyEdit1pxIcon
             className='dc-contract-card-dialog-toggle__icon'
-            icon='IcEdit'
-            color={is_risk_management_edition_disabled ? 'disabled' : ''}
-            size={12}
+            fill={is_risk_management_edition_disabled ? 'var(--color-text-disabled)' : 'var(--color-text-primary)'}
+            width={12}
+            height={12}
         />
     );
 

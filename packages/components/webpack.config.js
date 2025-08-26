@@ -1,12 +1,9 @@
-const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const path = require('path');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = function () {
     return {
-        entry: {
-            'icon/js/icons': 'Components/icon/icons.js',
-        },
+        entry: {},
         output: {
             path: path.resolve(__dirname, 'lib'),
             filename: '[name].js',
@@ -28,49 +25,7 @@ module.exports = function () {
                 publicPath: '/dist/',
             },
         },
-
-        module: {
-            rules: [
-                {
-                    test: /\.svg$/,
-                    use: [
-                        {
-                            loader: 'svg-sprite-loader',
-                            options: {
-                                extract: true,
-                                spriteFilename: svgPath => {
-                                    const category = /components\/icon\/([\w-]*)/.exec(svgPath)[1];
-
-                                    return category ? `${category}.[contenthash].svg` : 'common.[contenthash].svg';
-                                },
-                                publicPath: '/icon/sprites/',
-                            },
-                        },
-                        {
-                            loader: 'svgo-loader',
-                            options: {
-                                plugins: [
-                                    {
-                                        name: 'removeUselessStrokeAndFill',
-                                        params: {
-                                            attrs: 'false',
-                                        },
-                                    },
-                                    {
-                                        name: 'removeUnknownsAndDefaults',
-                                        params: {
-                                            attr: false,
-                                        },
-                                    },
-                                ],
-                            },
-                        },
-                    ],
-                },
-            ],
-        },
         plugins: [
-            new SpriteLoaderPlugin({ plainSprite: true }),
             // ...(!is_release ? [ new BundleAnalyzerPlugin({ analyzerMode: 'static' }) ] : []),
         ],
         externals: [

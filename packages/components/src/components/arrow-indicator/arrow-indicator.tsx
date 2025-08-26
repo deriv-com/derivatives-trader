@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../icon/icon';
+import { LegacyTrendUpIcon, LegacyTrendDownIcon } from '@deriv/quill-icons';
 
 type TArrowIndicatorProps = {
     className?: string;
@@ -27,9 +27,9 @@ const ArrowIndicator = ({ className, value }: TArrowIndicatorProps) => {
         setIsVisible(true);
         setData(prev_data => {
             const has_increased = Number(prev_data.value) < Number(value);
-            const icon_name = has_increased ? 'IcProfit' : 'IcLoss';
+            const icon_component = has_increased ? 'profit' : 'loss';
             return {
-                icon: has_comparable_values ? icon_name : '',
+                icon: has_comparable_values ? icon_component : '',
                 previous_icon: prev_data.icon,
                 previous_value: prev_data.value,
                 value,
@@ -44,11 +44,17 @@ const ArrowIndicator = ({ className, value }: TArrowIndicatorProps) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
+    const renderIcon = (iconType: string) => {
+        if (iconType === 'profit') return <LegacyTrendUpIcon iconSize='xs' fill='var(--color-status-success)' />;
+        if (iconType === 'loss') return <LegacyTrendDownIcon iconSize='xs' fill='var(--color-status-danger)' />;
+        return null;
+    };
+
     return (
         <div className={className} data-testid='dt_arrow_indicator'>
-            {has_comparable_values && is_visible ? (
-                <Icon icon={previous_value === Number(value) ? previous_icon : icon} />
-            ) : null}
+            {has_comparable_values && is_visible
+                ? renderIcon(previous_value === Number(value) ? previous_icon : icon)
+                : null}
         </div>
     );
 };

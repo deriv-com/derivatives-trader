@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { Div100vhContainer, Icon, Modal, Text } from '@deriv/components';
+import { Div100vhContainer, Modal, Text } from '@deriv/components';
+import { LegacyPositionIcon, LegacyMinimize2pxIcon } from '@deriv/quill-icons';
 import { isDisabledLandscapeBlockerRoute, isMobileOs, isTabletOs, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
@@ -120,11 +121,11 @@ const TogglePositionsMobile = observer(
                         <Div100vhContainer className='positions-modal' height_offset={isTablet ? '16rvh' : '48px'}>
                             <div className='positions-modal__header'>
                                 <Text size='xxxs' className='positions-modal__title'>
-                                    <Icon icon='IcPortfolio' className='positions-modal__title-icon' />
+                                    <LegacyPositionIcon className='positions-modal__title-icon' />
                                     {localize('Recent positions')}
                                 </Text>
                                 <div className='positions-modal__close-btn' onClick={closeModal}>
-                                    <Icon data_testid='dt_modal_header_close' icon='IcMinusBold' />
+                                    <LegacyMinimize2pxIcon data-testid='dt_modal_header_close' />
                                 </div>
                             </div>
                             <div className='positions-modal__body'>

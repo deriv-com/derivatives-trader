@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { Text, Icon } from '@deriv/components';
+import { Text } from '@deriv/components';
+import { LegacyReportsIcon } from '@deriv/quill-icons';
 import { BinaryLink } from '../../Routes';
 import { observer, useStore } from '@deriv/stores';
 import { routes } from '@deriv/shared';
@@ -26,7 +27,7 @@ const MenuItems = ({ id, text, icon, link_to }) => {
 const ReportTab = () => (
     <MenuItems
         id={'dt_reports_tab'}
-        icon={<Icon icon='IcReports' className='header__icon' />}
+        icon={<LegacyReportsIcon className='header__icon' iconSize='xs' />}
         text={localize('Reports')}
         link_to={routes.reports}
     />

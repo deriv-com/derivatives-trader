@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
-import { Button, DatePicker, Icon, InputField, MobileDialog, Text } from '@deriv/components';
+import { Button, DatePicker, InputField, MobileDialog, Text } from '@deriv/components';
+import { LegacyCalendar1pxIcon } from '@deriv/quill-icons';
 import { localize } from '@deriv/translations';
 import { toMoment } from '@deriv/shared';
 import { TInputDateRange } from 'Types';
@@ -184,7 +185,7 @@ const CompositeCalendarMobile = React.memo(
                         id='dt_calendar_input'
                         current_focus={current_focus ?? ''}
                         is_read_only={true}
-                        icon={() => <Icon icon='IcCalendarDatefrom' className='inline-icon' />}
+                        icon={() => <LegacyCalendar1pxIcon className='inline-icon' iconSize='xs' />}
                         onClick={openDialog}
                         setCurrentFocus={setCurrentFocus}
                         value={applied_date_range?.label ?? ''}

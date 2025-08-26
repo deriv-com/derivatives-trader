@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Icon } from '@deriv/components';
+import { LegacyClose2pxIcon } from '@deriv/quill-icons';
 
 type TContractError = {
     message?: string;
@@ -26,7 +26,7 @@ const ContractError = ({ message = '', onClickClose }: TContractError) =>
             </div>
             <div className='message-text'>{message}</div>
             <div className='message-close' onClick={onClickClose}>
-                <Icon icon='IcCross' />
+                <LegacyClose2pxIcon />
             </div>
         </div>
     );

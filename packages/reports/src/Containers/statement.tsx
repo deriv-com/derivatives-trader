@@ -34,7 +34,7 @@ type TAction =
     | string;
 
 type TStatement = RouteComponentProps & {
-    component_icon: string;
+    component_icon: React.ReactElement;
 };
 
 type TDetailsComponent = {

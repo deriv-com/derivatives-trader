@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
-import Icon from '../icon';
 
 type TButtonProps = {
     className?: string;
-    icon?: string;
+    icon?: React.ReactElement;
     is_disabled?: boolean;
     is_hidden?: boolean;
     label?: string;
@@ -33,14 +32,13 @@ const Button = ({
                 onClick={onClick}
             >
                 {label}
-                {icon && (
-                    <Icon
-                        data_testid={`dt_calendar_icon_${icon}`}
-                        icon={icon}
-                        className='dc-calendar__icon'
-                        color={is_disabled ? 'disabled' : undefined}
-                    />
-                )}
+                {icon &&
+                    React.cloneElement(icon, {
+                        'data-testid': `dt_calendar_icon`,
+                        className: classNames('dc-calendar__icon', icon.props.className),
+                        iconSize: icon.props.iconSize || 'xs',
+                        fill: is_disabled ? 'var(--color-text-disabled)' : icon.props.fill,
+                    })}
                 {children}
             </span>
         )}

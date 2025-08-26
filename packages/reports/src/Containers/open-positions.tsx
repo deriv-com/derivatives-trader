@@ -52,7 +52,7 @@ export type TTotals = {
 };
 
 type TOpenPositions = RouteComponentProps & {
-    component_icon: string;
+    component_icon: React.ReactElement;
 };
 
 const getOpenPositionsTotals = (

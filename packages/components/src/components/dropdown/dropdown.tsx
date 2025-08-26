@@ -9,7 +9,7 @@ import DisplayText from './display-text';
 import Text from '../text/text';
 import { useBlockScroll, useOnClickOutside } from '../../hooks';
 import ThemedScrollbars from '../themed-scrollbars/themed-scrollbars';
-import Icon from '../icon/icon';
+import { LegacyChevronLeft1pxIcon, LegacyChevronDown1pxIcon } from '@deriv/quill-icons';
 
 type TDropdown = {
     className?: string;
@@ -44,7 +44,7 @@ type TDropdown = {
     onClick?: () => void;
     placeholder?: string;
     should_animate_suffix_icon?: boolean;
-    suffix_icon?: string;
+    suffix_icon?: React.ReactElement;
     suffix_icon_size?: number;
     should_open_on_hover?: boolean;
     should_scroll_to_selected?: boolean;
@@ -72,7 +72,7 @@ type TDropdownList = {
     onKeyPressed: (event: KeyboardEvent, item: TListItem) => void;
     parent_ref: React.RefObject<HTMLElement>;
     portal_id?: string;
-    suffix_icon?: string;
+    suffix_icon?: React.ReactElement;
     suffix_icon_size?: number;
     should_scroll_to_selected?: boolean;
     should_autohide?: boolean;
@@ -501,15 +501,13 @@ const Dropdown = ({
                         id='dropdown-display'
                         ref={dropdown_ref}
                     >
-                        {!!suffix_icon && (
-                            <Icon
-                                className={classNames('suffix-icon', {
+                        {!!suffix_icon &&
+                            React.cloneElement(suffix_icon, {
+                                className: classNames('suffix-icon', {
                                     'suffix-icon--flip': is_list_visible && should_animate_suffix_icon,
-                                })}
-                                icon={suffix_icon}
-                                size={suffix_icon_size}
-                            />
-                        )}
+                                }),
+                                size: suffix_icon_size,
+                            })}
                         <DisplayText
                             className={classNames({
                                 'dc-dropdown__display--has-suffix-icon-text': suffix_icon,
@@ -522,16 +520,26 @@ const Dropdown = ({
                             list={list}
                         />
                     </div>
-                    {!(isSingleOption() || !!suffix_icon) && (
-                        <Icon
-                            icon={is_alignment_left ? 'IcChevronLeft' : 'IcChevronDown'}
-                            className={classNames('dc-dropdown__select-arrow', classNameIcon, {
-                                'dc-dropdown__select-arrow--left': is_alignment_left,
-                                'dc-dropdown__select-arrow--up': is_list_visible,
-                                'dc-dropdown__select-arrow--error': error || hint,
-                            })}
-                        />
-                    )}
+                    {!(isSingleOption() || !!suffix_icon) &&
+                        (is_alignment_left ? (
+                            <LegacyChevronLeft1pxIcon
+                                className={classNames('dc-dropdown__select-arrow', classNameIcon, {
+                                    'dc-dropdown__select-arrow--left': is_alignment_left,
+                                    'dc-dropdown__select-arrow--up': is_list_visible,
+                                    'dc-dropdown__select-arrow--error': error || hint,
+                                })}
+                                iconSize='xs'
+                            />
+                        ) : (
+                            <LegacyChevronDown1pxIcon
+                                className={classNames('dc-dropdown__select-arrow', classNameIcon, {
+                                    'dc-dropdown__select-arrow--left': is_alignment_left,
+                                    'dc-dropdown__select-arrow--up': is_list_visible,
+                                    'dc-dropdown__select-arrow--error': error || hint,
+                                })}
+                                iconSize='xs'
+                            />
+                        ))}
                     {error && (
                         <Text as='p' size='xxs' color='loss-danger' className='dc-field--error'>
                             {error}

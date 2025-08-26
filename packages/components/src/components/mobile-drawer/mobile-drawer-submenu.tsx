@@ -2,16 +2,16 @@ import classNames from 'classnames';
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import Text from '../text/text';
-import Icon from '../icon/icon';
+import { LegacyChevronLeft1pxIcon } from '@deriv/quill-icons';
 
 type TMobileDrawerSubmenu = {
     has_subheader?: boolean;
     is_expanded?: boolean;
     onToggle: (params: boolean) => void;
     submenu_toggle_class?: string;
-    submenu_icon?: string;
+    submenu_icon?: React.ReactElement;
     submenu_title?: string | React.ReactElement;
-    submenu_suffix_icon?: string;
+    submenu_suffix_icon?: React.ReactElement;
     route_config_path?: string;
 };
 
@@ -38,7 +38,8 @@ const SubMenu = ({
     return (
         <React.Fragment>
             <div className={classNames('dc-mobile-drawer__submenu-toggle', submenu_toggle_class)} onClick={toggleMenu}>
-                {submenu_icon && <Icon className='dc-mobile-drawer__submenu-toggle-icon' icon={submenu_icon} />}
+                {submenu_icon &&
+                    React.cloneElement(submenu_icon, { className: 'dc-mobile-drawer__submenu-toggle-icon' })}
                 {submenu_title && (
                     <Text
                         as='h3'
@@ -50,9 +51,10 @@ const SubMenu = ({
                         {submenu_title}
                     </Text>
                 )}
-                {submenu_suffix_icon && (
-                    <Icon className='dc-mobile-drawer__submenu-toggle-suffix-icon' icon={submenu_suffix_icon} />
-                )}
+                {submenu_suffix_icon &&
+                    React.cloneElement(submenu_suffix_icon, {
+                        className: 'dc-mobile-drawer__submenu-toggle-suffix-icon',
+                    })}
             </div>
             <SubMenuList
                 collapse={toggleMenu}
@@ -97,7 +99,7 @@ const SubMenuList = ({
         >
             <div className='dc-mobile-drawer__submenu-list-title' onClick={collapse}>
                 <div className='dc-mobile-drawer__submenu-back'>
-                    <Icon className='dc-mobile-drawer__submenu-back-icon' icon='IcChevronLeft' />
+                    <LegacyChevronLeft1pxIcon className='dc-mobile-drawer__submenu-back-icon' />
                 </div>
                 {submenu_title && (
                     <Text as='h3' weight='bold' color='primary'>

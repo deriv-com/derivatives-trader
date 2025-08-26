@@ -3,10 +3,9 @@ import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { getKebabCase } from '@deriv/shared';
 import Counter from '../counter';
-import Icon from '../icon/icon';
 
 export type THeaderIcon = {
-    icon: string;
+    icon: React.ReactElement;
     is_active: boolean;
 };
 
@@ -21,7 +20,7 @@ export type TItem = {
     default?: boolean;
     getTitle?: () => string;
     has_side_note?: boolean;
-    icon?: string;
+    icon?: React.ReactElement;
     is_hidden?: boolean;
     is_disabled?: boolean;
     key?: string;
@@ -41,14 +40,13 @@ type TVerticalTabHeader = {
     selectedKey: string;
 };
 
-const HeaderIcon = ({ icon, is_active }: THeaderIcon) => (
-    <Icon
-        icon={icon}
-        className={classNames('dc-vertical-tab__header__icon', {
+const HeaderIcon = ({ icon, is_active }: THeaderIcon) =>
+    React.cloneElement(icon, {
+        className: classNames('dc-vertical-tab__header__icon', {
             'dc-vertical-tab__header__icon--active': is_active,
-        })}
-    />
-);
+        }),
+        iconSize: icon.props.iconSize || 'xs',
+    });
 
 const Header = ({ text, path }: THeader) => (
     <div className='dc-vertical-tab__header__link' id={path}>
@@ -89,7 +87,7 @@ const VerticalTabHeader = ({
                 'dc-vertical-tab__header--active': is_active,
             })}
         >
-            <HeaderIcon icon={item.icon ?? ''} is_active={is_active} />
+            {item.icon && <HeaderIcon icon={item.icon} is_active={is_active} />}
             <Header text={label} path={item.path} />
             {!!count && <Counter count={count} className='dc-vertical-tab__header__counter' />}
             {children}
@@ -103,7 +101,7 @@ const VerticalTabHeader = ({
             })}
             onClick={handleClick}
         >
-            <HeaderIcon icon={item.icon ?? ''} is_active={is_active} />
+            {item.icon && <HeaderIcon icon={item.icon} is_active={is_active} />}
             <Header text={label} />
             {children}
             <>{item.component}</>

@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Icon, Text } from '@deriv/components';
+import { Text } from '@deriv/components';
+import { StandaloneClockThreeRegularIcon } from '@deriv/quill-icons';
 import { addComma, toMoment } from '@deriv/shared';
 
 import MarkerSpot from './marker-spot.jsx';
@@ -51,10 +52,9 @@ const MarkerSpotLabel = ({
                         >
                             {spot_epoch && (
                                 <div className='chart-spot-label__time-container'>
-                                    <Icon
-                                        icon='IcClockOutline'
-                                        height={10}
+                                    <StandaloneClockThreeRegularIcon
                                         width={10}
+                                        height={10}
                                         className='chart-spot-label__time-icon'
                                     />
                                     <Text as='p' color='primary' size='xxxs'>

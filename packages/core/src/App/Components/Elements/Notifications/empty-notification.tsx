@@ -1,16 +1,16 @@
 import React from 'react';
-import { Icon, Text } from '@deriv/components';
+import { Text } from '@deriv/components';
 import { Localize } from '@deriv/translations';
+import { DerivLightEmptyCardboardBoxIcon } from '@deriv/quill-icons';
 
 const EmptyNotification = () => (
     <div className='notifications-empty__container'>
         <div className='notifications-empty'>
-            <Icon
-                data_testid='dt_ic_box_icon'
-                icon='IcBox'
+            <DerivLightEmptyCardboardBoxIcon
+                data-testid='dt_ic_box_icon'
                 className='notifications-empty__icon'
-                size={64}
-                color='secondary'
+                width={64}
+                height={64}
             />
             <div className='notifications-empty__content'>
                 <Text

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Icon } from '@deriv/components';
+import { LegacyCalendar1pxIcon } from '@deriv/quill-icons';
 
 type TCalendarIcon = {
     onClick: () => void;
 };
 
 const CalendarIcon = ({ onClick }: TCalendarIcon) => (
-    <Icon onClick={onClick} icon='IcCalendarDatefrom' className='inline-icon' data_testid='dt_calendar_icon' />
+    <LegacyCalendar1pxIcon onClick={onClick} iconSize='xs' className='inline-icon' data-testid='dt_calendar_icon' />
 );
 
 export default CalendarIcon;

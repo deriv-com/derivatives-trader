@@ -2,9 +2,9 @@ import * as React from 'react';
 import { isDesktop, isMobile } from '@deriv/shared';
 import PopupContext from './popup-context';
 import Button from '../button';
-import Icon from '../icon';
 import Text from '../text';
 import Money from '../money';
+import { LegacyPlayFillIcon, LegacyClose2pxIcon } from '@deriv/quill-icons';
 
 const PopupHeader = () => {
     const {
@@ -53,7 +53,7 @@ const PopupHeader = () => {
                                     is_circle={isMobile()}
                                     is_circular={isDesktop()}
                                     className='dc-popup__header-button'
-                                    icon={<Icon icon='IcPlay' size={10} color='active' />}
+                                    icon={<LegacyPlayFillIcon width={10} height={10} />}
                                     onClick={onHeaderButtonClick}
                                     text={isDesktop() ? header_button_text : ''}
                                 />
@@ -62,7 +62,11 @@ const PopupHeader = () => {
                     </div>
                     {header_icon && (
                         <div className='dc-popup__header-container-right'>
-                            <Icon icon={header_icon} size={40} className='dc-popup__header-icon' />
+                            {React.cloneElement(header_icon, {
+                                width: 40,
+                                height: 40,
+                                className: 'dc-popup__header-icon',
+                            })}
                         </div>
                     )}
                 </div>
@@ -93,12 +97,7 @@ const PopupHeader = () => {
                 )}
             </div>
             <div className='dc-popup__header-close'>
-                <Icon
-                    icon='IcCross'
-                    className='dc-popup__header-close-icon'
-                    color={close_icon_color}
-                    onClick={togglePopupModal}
-                />
+                <LegacyClose2pxIcon className='dc-popup__header-close-icon' onClick={togglePopupModal} />
             </div>
         </div>
     );

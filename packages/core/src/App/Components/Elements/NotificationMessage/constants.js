@@ -1,15 +1,17 @@
+import { LegacyErrorIcon, LegacyInformationIcon, LegacyAnnouncementIcon, LegacyWarningIcon } from '@deriv/quill-icons';
+
 export const default_delay = 3000;
 
 export const max_display_notifications = 3;
 export const max_display_notifications_mobile = 1;
 
 export const icon_types = {
-    danger: 'IcAlertDanger',
-    info: 'IcAlertInfo',
-    success: 'IcAlertSuccess',
-    warning: 'IcAlertWarning',
-    contract_sold: 'IcAlertInfo',
-    announce: 'IcAlertAnnounce',
+    danger: { component: LegacyErrorIcon, fill: '#ec3f3f' },
+    info: { component: LegacyInformationIcon, fill: '#2196f3' },
+    success: { component: LegacyAnnouncementIcon, fill: '#4bb4b3' },
+    warning: { component: LegacyWarningIcon, fill: '#FFAD3A' },
+    contract_sold: { component: LegacyInformationIcon, fill: '#2196f3' },
+    announce: { component: LegacyAnnouncementIcon, fill: '#4bb4b3' },
 };
 
 export const types = {

@@ -1,7 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
-import { StandalonePauseFillIcon, StandalonePlayFillIcon, StandaloneXmarkRegularIcon } from '@deriv/quill-icons';
+import {
+    StandalonePauseFillIcon,
+    StandalonePlayFillIcon,
+    StandaloneXmarkRegularIcon,
+    StandaloneArrowRotateRightRegularIcon,
+} from '@deriv/quill-icons';
 
 type TVideoOverlay = {
     onClick: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
@@ -24,7 +28,7 @@ const VideoOverlay = ({
     is_playing,
     onModalClose,
 }: TVideoOverlay) => {
-    const handleClick: React.MouseEventHandler<HTMLDivElement> = e => {
+    const handleClick = (e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<SVGSVGElement>) => {
         togglePlay(e as React.MouseEvent<HTMLDivElement>);
     };
 
@@ -37,12 +41,12 @@ const VideoOverlay = ({
             onKeyDown={onClick}
         >
             {is_ended && (
-                <Icon
-                    icon='IcReplay'
-                    custom_color='var(--border-normal-1)'
-                    size={is_mobile ? 88 : 128}
+                <StandaloneArrowRotateRightRegularIcon
+                    fill='var(--border-normal-1)'
+                    width={is_mobile ? 88 : 128}
+                    height={is_mobile ? 88 : 128}
                     className='player__overlay__icon'
-                    data_testid='dt_player_overlay_icon'
+                    data-testid='dt_player_overlay_icon'
                     onClick={handleClick}
                 />
             )}

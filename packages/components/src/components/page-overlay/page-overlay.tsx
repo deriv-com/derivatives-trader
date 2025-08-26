@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { MouseEventHandler } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
-import Icon from '../icon/icon';
+import { LegacyClose2pxIcon, LegacyArrowLeft2pxIcon } from '@deriv/quill-icons';
 import { platforms } from '@deriv/shared';
 
 type TPageOverlay = {
@@ -38,7 +38,7 @@ const PageOverlay = ({
             className='dc-page-overlay__header-close'
             onClick={(onClickClose as unknown as MouseEventHandler<HTMLDivElement>) || window.history.back}
         >
-            <Icon icon='IcCross' />
+            <LegacyClose2pxIcon iconSize='xs' />
         </div>
     );
 
@@ -59,7 +59,7 @@ const PageOverlay = ({
                     <div className='dc-page-overlay__header-wrapper'>
                         <div className={classNames('dc-page-overlay__header-title', header_classname)}>
                             {has_return_icon && (
-                                <Icon icon='IcArrowLeftBold' onClick={onReturn} className='dc-modal-header__icon' />
+                                <LegacyArrowLeft2pxIcon onClick={onReturn} className='dc-modal-header__icon' />
                             )}
                             {header}
                         </div>

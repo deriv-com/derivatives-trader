@@ -1,5 +1,6 @@
 import React from 'react';
-import { Popover, Icon, StaticUrl } from '@deriv/components';
+import { Popover, StaticUrl } from '@deriv/components';
+import { LegacyHelpCentreIcon } from '@deriv/quill-icons';
 import { localize } from '@deriv/translations';
 
 export const HelpCentre = ({ showPopover }) => (
@@ -11,10 +12,10 @@ export const HelpCentre = ({ showPopover }) => (
                 message={localize('Help centre')}
                 zIndex={9999}
             >
-                <Icon icon='IcHelpCentre' className='footer__icon' />
+                <LegacyHelpCentreIcon className='footer__icon' />
             </Popover>
         ) : (
-            <Icon icon='IcHelpCentre' className='footer__icon' />
+            <LegacyHelpCentreIcon className='footer__icon' />
         )}
     </StaticUrl>
 );

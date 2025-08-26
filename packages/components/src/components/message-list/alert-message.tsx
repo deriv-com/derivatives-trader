@@ -1,21 +1,21 @@
 import React from 'react';
 import { isMobile } from '@deriv/shared';
 import Button from '../button';
-import Icon from '../icon';
 import Text from '../text';
+import { LegacyInformationIcon, LegacyErrorIcon, LegacyCheck1pxIcon } from '@deriv/quill-icons';
 
 const type_mapper = {
     info: {
-        icon: 'IcWalletInfoMessageWithThreeDots',
-        color: 'status-info-blue',
+        icon: <LegacyInformationIcon />,
+        color: '#2196f3',
     },
     error: {
-        icon: 'IcWalletErrorMessageWithCross',
-        color: 'loss-danger',
+        icon: <LegacyErrorIcon />,
+        color: '#ec3f3f',
     },
     success: {
-        icon: 'IcWalletSuccessMessage',
-        color: 'profit-success',
+        icon: <LegacyCheck1pxIcon />,
+        color: '#4bb4b3',
     },
 };
 
@@ -44,7 +44,10 @@ const AlertMessage = (props: TAlertMessageProps) => {
             <div className='alert-message__icon-container'>
                 <div className='icon-container__line' />
                 <div className='icon-container__icon'>
-                    <Icon icon={icon} custom_color={`var(--text-${color})`} data_testid={`dt_${icon}`} />
+                    {React.cloneElement(icon, {
+                        fill: color,
+                        'data-testid': `dt_alert_message_icon`,
+                    })}
                 </div>
             </div>
             <div className='alert-message__message-container'>

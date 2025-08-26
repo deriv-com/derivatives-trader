@@ -2,6 +2,7 @@ import React from 'react';
 
 import { routes } from '@deriv/shared';
 import { localize } from '@deriv/translations';
+import { LegacyReportsIcon, LegacyPositionIcon, LegacyProfitTableIcon, LegacyStatementIcon } from '@deriv/quill-icons';
 
 import Redirect from 'App/Containers/Redirect';
 import Endpoint from 'Modules/Endpoint';
@@ -21,26 +22,26 @@ const getModules = () => {
             path: routes.reports,
             component: Reports,
             getTitle: () => localize('Reports'),
-            icon_component: 'IcReports',
+            icon_component: LegacyReportsIcon,
             routes: [
                 {
                     path: routes.positions,
                     component: Reports,
                     getTitle: () => localize('Open positions'),
-                    icon_component: 'IcOpenPositions',
+                    icon_component: LegacyPositionIcon,
                     default: true,
                 },
                 {
                     path: routes.profit,
                     component: Reports,
                     getTitle: () => localize('Trade table'),
-                    icon_component: 'IcProfitTable',
+                    icon_component: LegacyProfitTableIcon,
                 },
                 {
                     path: routes.statement,
                     component: Reports,
                     getTitle: () => localize('Statement'),
-                    icon_component: 'IcStatement',
+                    icon_component: LegacyStatementIcon,
                 },
             ],
         },

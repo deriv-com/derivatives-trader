@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, Modal, Popover } from '@deriv/components';
+import { Modal, Popover } from '@deriv/components';
+import { LegacyRegulatoryInformationIcon } from '@deriv/quill-icons';
 import { localize, Localize } from '@deriv/translations';
 import { deriv_urls } from '@deriv/shared';
 
@@ -31,7 +32,7 @@ export const RegulatoryInformation = ({ landing_company, is_eu, show_eu_related_
     const is_mf = landing_company === 'maltainvest';
     const content = (
         <a onClick={() => showModal(true)}>
-            <Icon icon='IcRegulatoryInformation' className='footer__icon ic-deriv__icon' />
+            <LegacyRegulatoryInformationIcon className='footer__icon ic-deriv__icon' />
         </a>
     );
 

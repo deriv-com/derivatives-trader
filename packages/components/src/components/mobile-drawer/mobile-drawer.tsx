@@ -9,7 +9,7 @@ import Item from './mobile-drawer-item';
 import SubMenu from './mobile-drawer-submenu';
 import SubMenuSection from './mobile-drawer-submenu-section';
 import Text from '../text/text';
-import Icon from '../icon/icon';
+import { LegacyClose2pxIcon } from '@deriv/quill-icons';
 
 type TMobileDrawer = {
     className: string;
@@ -65,7 +65,7 @@ const MobileDrawer = ({
                             })}
                         >
                             <div onClick={toggle} className='dc-mobile-drawer__header-close'>
-                                <Icon icon='IcCross' />
+                                <LegacyClose2pxIcon />
                             </div>
                             <div className='dc-mobile-drawer__header-wrapper'>
                                 {title && (

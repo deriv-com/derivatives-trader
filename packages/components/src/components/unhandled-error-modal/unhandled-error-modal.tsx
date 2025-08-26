@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../icon';
+import { DerivLightIcCashierBlockedIcon } from '@deriv/quill-icons';
 import DesktopWrapper from '../desktop-wrapper';
 import MobileWrapper from '../mobile-wrapper';
 import Modal from '../modal';
@@ -10,7 +10,7 @@ import { getDefaultError } from '@deriv/shared';
 
 const ModalContent = () => (
     <div className='unhandled-error'>
-        <Icon icon='IcAccountError' size={96} />
+        <DerivLightIcCashierBlockedIcon width={96} height={96} />
         <Text
             className='da-icon-with-message__text'
             as='p'

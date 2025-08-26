@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import Icon from '../icon';
+import { LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
 import { TItem } from '../types/common.types';
 
 type TArrayRenderer = {
@@ -31,10 +31,10 @@ const ArrayRenderer = ({ array, open_ids, setOpenIds }: TArrayRenderer) => {
                             >
                                 <span className='dc-expansion-panel__content-array-item-index'>{`${index + 1}: `}</span>
                                 ({`${item.value.length}`})
-                                <Icon
+                                <LegacyChevronRight1pxIcon
                                     className='dc-expansion-panel__content-chevron-icon'
-                                    icon='IcChevronRight'
                                     onClick={() => onArrayItemClick(item.id)}
+                                    iconSize='xs'
                                 />
                             </div>
                             {open_ids.includes(item.id) ? (

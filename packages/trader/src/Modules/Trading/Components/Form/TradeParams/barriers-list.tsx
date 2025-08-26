@@ -2,7 +2,8 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
-import { DesktopWrapper, Icon, MobileWrapper, Text } from '@deriv/components';
+import { DesktopWrapper, MobileWrapper, Text } from '@deriv/components';
+import { LegacyClose2pxIcon } from '@deriv/quill-icons';
 
 import Fieldset from 'App/Components/Form/fieldset';
 
@@ -35,7 +36,7 @@ const BarriersList = ({ className, header, onClickCross, show_table, ...props }:
                             {header}
                         </Text>
                         <div className={`${className}__icon-close`} onClick={onClickCross}>
-                            <Icon icon='IcCross' data_testid={`dt_${className}__icon_close`} />
+                            <LegacyClose2pxIcon data-testid={`dt_${className}__icon_close`} />
                         </div>
                     </div>
                     <BarriersListBody className={className} {...props} />

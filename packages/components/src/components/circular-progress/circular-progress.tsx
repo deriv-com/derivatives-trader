@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React from 'react';
-import Icon from '../icon/icon';
 
 type TCircularProgressProps = {
     className?: string;
@@ -10,13 +9,13 @@ type TCircularProgressProps = {
     radius?: number;
     stroke?: number;
     warning_limit?: number;
-    icon?: string;
+    icon?: React.ReactElement;
 };
 
 const CircularProgress = ({
     className,
     danger_limit = 20,
-    icon = '',
+    icon,
     is_clockwise = false,
     progress = 0,
     radius = 22,
@@ -28,7 +27,7 @@ const CircularProgress = ({
     const strokeDashoffset = circumference - (progress / 100) * circumference;
     return (
         <div className={classNames('dc-circular-progress', className)}>
-            <Icon icon={icon} className='dc-circular-progress__icon' />
+            {icon && React.cloneElement(icon, { className: 'dc-circular-progress__icon' })}
             <svg height={radius * 2} width={radius * 2}>
                 <circle
                     className={classNames('dc-circular-progress__bar', {

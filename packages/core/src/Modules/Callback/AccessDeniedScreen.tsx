@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 
-import { Icon, Loading } from '@deriv/components';
+import { Loading } from '@deriv/components';
 import { useOauth2 } from '@deriv/api';
-import { BrandBrandLightDerivWordmarkHorizontal25YearsEnglishIcon as DerivLogo } from '@deriv/quill-icons';
+import {
+    BrandBrandLightDerivWordmarkHorizontal25YearsEnglishIcon as DerivLogo,
+    LegacyWarningIcon,
+} from '@deriv/quill-icons';
 import { getBrandUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
@@ -54,7 +57,7 @@ const AccessDeniedScreen = observer(() => {
                     <Loading />
                 ) : (
                     <>
-                        <Icon icon='IcWarningOrange' width={72} height={72} />
+                        <LegacyWarningIcon width={72} height={72} fill='#F59F00' />
                         <Text as='h2' className='access-denied__title' weight='bold' align='center'>
                             {localize("You're currently logged in as")} <br />
                             {email_address}

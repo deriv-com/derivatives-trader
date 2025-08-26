@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { NavLink } from 'react-router-dom';
-import Icon from '../../icon';
+import { LegacySellExpiredIcon } from '@deriv/quill-icons';
 import { TGetCardLables, TGetContractPath } from '../../types';
 import Text from '../../text';
 import Money from '../../money';
@@ -32,7 +32,7 @@ export const ResultStatusIcon = ({ getCardLabels, is_contract_won }: TResultStat
             'dc-result__caption--lost': !is_contract_won,
         })}
     >
-        <Icon icon='IcPositionClosed' className='dc-result__icon' color={is_contract_won ? 'green' : 'red'} />
+        <LegacySellExpiredIcon className='dc-result__icon' fill={is_contract_won ? 'green' : 'red'} />
         {getCardLabels().CLOSED}
     </span>
 );

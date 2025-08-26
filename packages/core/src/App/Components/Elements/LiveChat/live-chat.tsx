@@ -1,9 +1,10 @@
-import { Icon, Popover, Text } from '@deriv/components';
+import { Popover, Text } from '@deriv/components';
 import { useIsIntercomAvailable, useIsLiveChatWidgetAvailable } from '@deriv/api';
 import { observer } from '@deriv/stores';
 import { Localize } from '@deriv/translations';
 import { Chat } from '@deriv/utils';
 import { useDevice } from '@deriv-com/ui';
+import { LegacyLiveChatOutlineIcon } from '@deriv/quill-icons';
 
 const LiveChat = observer(({ showPopover }: { showPopover?: boolean }) => {
     const { isDesktop } = useDevice();
@@ -43,11 +44,11 @@ const LiveChat = observer(({ showPopover }: { showPopover?: boolean }) => {
                         message={<Localize i18n_default_text='Live chat' />}
                         zIndex='9999'
                     >
-                        <Icon icon='IcLiveChat' className='footer__icon gtm-deriv-livechat' />
+                        <LegacyLiveChatOutlineIcon className='footer__icon gtm-deriv-livechat' iconSize='sm' />
                     </Popover>
                 ) : (
                     <div className='footer__link'>
-                        <Icon icon='IcLiveChat' className='footer__icon gtm-deriv-livechat' />
+                        <LegacyLiveChatOutlineIcon className='footer__icon gtm-deriv-livechat' iconSize='sm' />
                     </div>
                 )}
             </div>
@@ -56,7 +57,7 @@ const LiveChat = observer(({ showPopover }: { showPopover?: boolean }) => {
     return (
         <div className='livechat gtm-deriv-livechat' onKeyDown={liveChatClickHandler} onClick={liveChatClickHandler}>
             <div className='livechat__icon-wrapper'>
-                <Icon icon='IcLiveChat' className='livechat__icon' />
+                <LegacyLiveChatOutlineIcon className='livechat__icon' iconSize='sm' />
             </div>
             <Text size='xs'>
                 <Localize i18n_default_text='Live chat' />

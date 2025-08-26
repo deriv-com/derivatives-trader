@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import Icon from '../icon/icon';
+import { LegacyChevronUp2pxIcon } from '@deriv/quill-icons';
 import { THeader, THeaderIcon, TItem } from './vertical-tab-header';
 
 type TVerticalTabHeaderGroup = {
@@ -14,14 +14,12 @@ type TVerticalTabHeaderGroup = {
     onToggle: (toggle: boolean) => void;
 };
 
-const HeaderIcon = ({ icon, is_active }: THeaderIcon) => (
-    <Icon
-        icon={icon}
-        className={classNames('dc-vertical-tab__header-group__icon', {
+const HeaderIcon = ({ icon, is_active }: THeaderIcon) =>
+    React.cloneElement(icon, {
+        className: classNames('dc-vertical-tab__header-group__icon', {
             'dc-vertical-tab__header-group__icon--active': is_active,
-        })}
-    />
-);
+        }),
+    });
 
 const Header = ({ text }: THeader) => <div className='dc-vertical-tab__header-group__link'>{text}</div>;
 
@@ -62,11 +60,10 @@ const VerticalTabHeaderGroup = ({
             })}
             onClick={handleClick}
         >
-            <HeaderIcon icon={group.icon ?? ''} is_active={selected} />
+            {group.icon && <HeaderIcon icon={group.icon} is_active={selected} />}
             <Header text={label} />
             {is_collapsible && (
-                <Icon
-                    icon='IcChevronUpBold' // Point up because default state of tab header group is open
+                <LegacyChevronUp2pxIcon
                     className={classNames('dc-vertical-tab__header-group-chevron', {
                         'dc-vertical-tab__header-group-chevron--invert': !show_items,
                     })}
@@ -83,11 +80,10 @@ const VerticalTabHeaderGroup = ({
                 })}
                 onClick={handleClick}
             >
-                <HeaderIcon icon={group.icon ?? ''} is_active={selected} />
+                {group.icon && <HeaderIcon icon={group.icon} is_active={selected} />}
                 <Header text={label} />
                 {is_collapsible && (
-                    <Icon
-                        icon='IcChevronUpBold' // Point up because default state of tab header group is open
+                    <LegacyChevronUp2pxIcon
                         className={classNames('dc-vertical-tab__header-group-chevron', {
                             'dc-vertical-tab__header-group-chevron--invert': !show_items,
                         })}

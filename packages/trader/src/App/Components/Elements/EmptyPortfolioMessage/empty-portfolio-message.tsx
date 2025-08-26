@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Icon, Text } from '@deriv/components';
+import { Text } from '@deriv/components';
+import { LegacyPositionIcon } from '@deriv/quill-icons';
 import { localize } from '@deriv/translations';
 
 type TEmptyPortfolioMessage = {
@@ -16,7 +17,11 @@ const EmptyPortfolioMessage = ({ error }: TEmptyPortfolioMessage) => (
                 </Text>
             ) : (
                 <React.Fragment>
-                    <Icon icon='IcPortfolio' className='portfolio-empty__icon' size={96} color='disabled' />
+                    <LegacyPositionIcon
+                        className='portfolio-empty__icon'
+                        iconSize='2xl'
+                        fill='var(--color-text-disabled)'
+                    />
                     <Text align='center' className='portfolio-empty__text' color='disabled' size='xs'>
                         {localize('You have no open positions.')}
                     </Text>

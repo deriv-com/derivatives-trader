@@ -1,4 +1,11 @@
+import React from 'react';
 import { TRADE_TYPES } from '@deriv/shared';
+import {
+    LegacyTradeTypeAllIcon,
+    LegacyTradeTypeMultipliersIcon,
+    LegacyVanillaIcon,
+    LegacyAccumulatorIcon,
+} from '@deriv/quill-icons';
 
 import {
     getAvailableContractTypes,
@@ -36,12 +43,12 @@ const contract_category_list = [
         contract_categories: [
             {
                 contract_types: contract_type_array,
-                icon: 'IcCatAll',
+                icon: <LegacyTradeTypeAllIcon />,
                 key: 'All',
                 label: 'All',
             },
         ],
-        icon: 'IcCatAll',
+        icon: <LegacyTradeTypeAllIcon />,
         key: 'All',
         label: 'All',
     },
@@ -50,12 +57,12 @@ const contract_category_list = [
         contract_categories: [
             {
                 contract_types: [{ value: TRADE_TYPES.MULTIPLIER, text: 'Multipliers' }],
-                icon: 'IcCatMultiplier',
+                icon: <LegacyTradeTypeMultipliersIcon />,
                 key: 'Multipliers',
                 label: 'Multipliers',
             },
         ],
-        icon: 'IcCatMultiplier',
+        icon: <LegacyTradeTypeMultipliersIcon />,
         key: 'Multipliers',
         label: 'Multipliers',
     },
@@ -63,14 +70,14 @@ const contract_category_list = [
 const unavailable_trade_types_list = [
     {
         contract_types: [{ text: 'Vanillas', value: 'vanilla' }],
-        icon: 'IcVanillas',
+        icon: <LegacyVanillaIcon />,
         is_unavailable: true,
         key: 'Vanillas',
         label: 'Vanillas',
     },
     {
         contract_types: [{ text: 'Accumulators', value: TRADE_TYPES.ACCUMULATOR }],
-        icon: 'IcAccumulators',
+        icon: <LegacyAccumulatorIcon />,
         is_unavailable: true,
         key: 'Accumulators',
         label: 'Accumulators',
@@ -79,7 +86,8 @@ const unavailable_trade_types_list = [
 
 describe('getContractTypeCategoryIcons', () => {
     it('should return an object with specific fields (like All, Options , Multipliers and etc.)', () => {
-        expect(getContractTypeCategoryIcons().All).toEqual('IcCatAll');
+        const icons = getContractTypeCategoryIcons();
+        expect(React.isValidElement(icons.All)).toBe(true);
     });
 });
 

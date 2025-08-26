@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
+import { LegacyCheck1pxIcon, LegacyArrowRight2pxIcon } from '@deriv/quill-icons';
 import Button from '../button';
 
 type TItemStatusProps = {
@@ -30,7 +30,7 @@ const ItemStatus = ({ status, onClick, button_text }: TItemStatusProps) => {
         case 'done':
             return (
                 <div className='dc-checklist__item-status--done'>
-                    <Icon icon='IcCheckmark' color='green' size={16} />
+                    <LegacyCheck1pxIcon iconSize='xs' fill='#008000' />
                 </div>
             );
         case 'button-action':
@@ -43,7 +43,7 @@ const ItemStatus = ({ status, onClick, button_text }: TItemStatusProps) => {
                     data-testid='dt_checklist_item_status_action'
                     onClick={onItemStatusClick}
                 >
-                    <Icon icon='IcArrowRightBold' color='active' />
+                    <LegacyArrowRight2pxIcon fill='var(--color-interactive-active)' />
                 </div>
             );
     }

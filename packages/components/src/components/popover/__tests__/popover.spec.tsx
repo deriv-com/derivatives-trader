@@ -3,7 +3,6 @@ import { render, screen, within } from '@testing-library/react';
 import { useDevice } from '@deriv-com/ui';
 import userEvent from '@testing-library/user-event';
 import Popover from '../popover';
-import Icon from '../../icon';
 import { MAX_MOBILE_WIDTH } from '../../../hooks';
 
 const blue_info_icon = 'IcInfoBlue';
@@ -29,9 +28,12 @@ jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(() => ({ isDesktop: true })),
 }));
 
-jest.mock('../../icon', () =>
-    jest.fn((props: React.ComponentProps<typeof Icon>) => <div data-testid='mocked_icon'>{props.icon}</div>)
-);
+jest.mock('@deriv/quill-icons', () => ({
+    LegacyInformationIcon: () => <div>{blue_info_icon}</div>,
+    LegacyInfo1pxIcon: () => <div>{target_info_icon}</div>,
+    LabelPairedQuestionCaptionBoldIcon: () => <div>IcUnknown</div>,
+    StandaloneCircleFillIcon: () => <div>IcCircle</div>,
+}));
 
 describe('<Popover/>', () => {
     const mockPopover = (mocked_props = default_mocked_props) => {

@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
+import { LegacyTradeTypeAllIcon, LegacyTradeTypeOptionsIcon } from '@deriv/quill-icons';
 
 import ContractTypeList from '../contract-type-list';
 
 const list = [
-    { contract_types: [], label: 'first-item', icon: 'first-icon', key: 'All' },
-    { contract_types: [], label: 'second-item', icon: 'second-icon', key: 'Options' },
+    { contract_types: [], label: 'first-item', icon: <LegacyTradeTypeAllIcon />, key: 'All' },
+    { contract_types: [], label: 'second-item', icon: <LegacyTradeTypeOptionsIcon />, key: 'Options' },
 ];
 const MockContractTypeList = () => <ContractTypeList list={list} />;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
-import { Icon } from '@deriv/components';
+import { LegacySellExpiredIcon } from '@deriv/quill-icons';
 import { getCardLabels } from '@deriv/shared';
 
 type TPositionsResultMobile = {
@@ -31,10 +31,9 @@ const PositionsResultMobile = ({ is_visible, result }: TPositionsResultMobile) =
                             'positions-modal-card__caption--lost': !is_contract_won,
                         })}
                     >
-                        <Icon
-                            icon='IcPositionClosed'
+                        <LegacySellExpiredIcon
                             className='positions-modal-card__icon'
-                            color={is_contract_won ? 'green' : 'red'}
+                            fill={is_contract_won ? 'green' : 'red'}
                         />
                         <span>{getCardLabels().CLOSED}</span>
                     </span>

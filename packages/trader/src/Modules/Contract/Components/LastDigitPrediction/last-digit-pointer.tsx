@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Icon } from '@deriv/components';
+import { LegacyTrendUpIcon } from '@deriv/quill-icons';
 
 type TLastDigitPointer = {
     is_lost?: boolean;
@@ -20,14 +20,13 @@ const LastDigitPointer = ({ is_lost, is_trade_page, is_won, position }: TLastDig
                 className='digits__pointer'
                 style={{ transform: `translate3d(calc(${position.left}px), ${position.top}px, 0px)` }}
             >
-                <Icon
-                    icon='IcProfit'
+                <LegacyTrendUpIcon
                     className={classNames('digits__icon', {
                         'digits__icon--win': is_won && !is_trade_page,
                         'digits__icon--loss': is_lost && !is_trade_page,
                     })}
-                    color={is_won ? 'green' : 'red'}
-                    custom_color={!(is_won || is_lost) ? 'var(--brand-orange)' : undefined}
+                    fill={is_won ? 'green' : is_lost ? 'red' : 'var(--brand-primary)'}
+                    iconSize='xs'
                 />
             </span>
         )}

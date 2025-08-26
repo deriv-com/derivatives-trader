@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import Icon from '../icon';
+import { LegacyCheck1pxIcon } from '@deriv/quill-icons';
 import Text from '../text';
 
 type TCheckBoxProps = Omit<React.HTMLProps<HTMLInputElement>, 'value' | 'label'> & {
@@ -86,7 +86,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, TCheckBoxProps>(
                         tabIndex={withTabIndex}
                         onKeyDown={handleKeyDown}
                     >
-                        {!!checked && <Icon icon='IcCheckmark' color='active' />}
+                        {!!checked && <LegacyCheck1pxIcon />}
                     </span>
                 </span>
                 <Text

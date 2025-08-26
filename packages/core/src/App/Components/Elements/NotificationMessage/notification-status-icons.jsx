@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Icon } from '@deriv/components';
+import { LegacyErrorIcon } from '@deriv/quill-icons';
 import { icon_types } from './constants';
 
 const NotificationStatusIcons = ({ type, class_suffix }) => {
@@ -9,27 +9,30 @@ const NotificationStatusIcons = ({ type, class_suffix }) => {
     // if danger icon is not lazyloaded and user loses internet connection, it will crash with missing chunk error
     if (type && type === 'danger') {
         return (
-            <Icon
-                icon='IcAlertDanger'
+            <LegacyErrorIcon
+                fill='#ec3f3f'
                 className={classNames('inline-icon', 'notification__icon-type', {
                     [`notification__icon-type--${class_suffix}`]: class_suffix,
                 })}
             />
         );
     }
-    return (
-        <React.Fragment>
-            {!!type && (
-                <Icon
-                    icon={icon_types[type]}
-                    className={classNames('notification__icon-type', {
-                        [`notification__icon-type--${class_suffix}`]: class_suffix,
-                    })}
-                    color={type === 'success' ? 'green' : undefined}
-                />
-            )}
-        </React.Fragment>
-    );
+
+    if (type && icon_types[type]) {
+        const IconComponent = icon_types[type].component;
+        const iconFill = icon_types[type].fill;
+
+        return (
+            <IconComponent
+                fill={iconFill}
+                className={classNames('notification__icon-type', {
+                    [`notification__icon-type--${class_suffix}`]: class_suffix,
+                })}
+            />
+        );
+    }
+
+    return null;
 };
 
 NotificationStatusIcons.propTypes = {

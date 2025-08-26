@@ -3,8 +3,9 @@ import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import moment from 'moment';
 
-import { Icon, InputField } from '@deriv/components';
+import { InputField } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
+import { StandaloneClockThreeRegularIcon } from '@deriv/quill-icons';
 
 import Dialog from './dialog';
 
@@ -97,7 +98,7 @@ const TimePicker = observer(
                             placeholder={placeholder}
                             setCurrentFocus={setCurrentFocus}
                         />
-                        <Icon icon='IcClockOutline' className={`${class_prefix}__icon`} />
+                        <StandaloneClockThreeRegularIcon className={`${class_prefix}__icon`} iconSize='sm' />
                         <CSSTransition
                             in={is_open}
                             classNames={{

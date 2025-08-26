@@ -1,5 +1,6 @@
 import React from 'react';
 import { isMobile } from '@deriv/shared';
+import { LegacyFilter1pxIcon } from '@deriv/quill-icons';
 import Dropdown from '../dropdown/dropdown';
 import SelectNative from '../select-native/select-native';
 import { useDevice } from '@deriv-com/ui';
@@ -51,7 +52,7 @@ const FilterDropdown = ({
                 name='dc-filter-dropdown'
                 className={dropdown_className}
                 classNameDisplay={dropdown_display_className}
-                suffix_icon='IcFilter'
+                suffix_icon={<LegacyFilter1pxIcon iconSize='xs' />}
                 onChange={onChange}
             />
         );
@@ -62,7 +63,7 @@ const FilterDropdown = ({
             list_items={filter_list}
             value={selected_filter}
             hide_selected_value
-            suffix_icon='IcFilter'
+            suffix_icon={<LegacyFilter1pxIcon iconSize='xs' />}
             should_show_empty_option={false}
             onChange={onChange}
             label={label}

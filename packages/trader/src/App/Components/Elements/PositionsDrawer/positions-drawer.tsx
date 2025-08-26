@@ -2,7 +2,8 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
-import { DataList, Icon, Money, PositionsDrawerCard, Text } from '@deriv/components';
+import { DataList, Money, PositionsDrawerCard, Text } from '@deriv/components';
+import { LegacyMinimize2pxIcon } from '@deriv/quill-icons';
 import { useNewRowTransition, getEndTime } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { localize } from '@deriv/translations';
@@ -205,7 +206,7 @@ const PositionsDrawer = observer(({ ...props }) => {
                         className='positions-drawer__icon-close'
                         onClick={toggleDrawer}
                     >
-                        <Icon data-testid='dt_positions_drawer_close_icon' icon='IcMinusBold' />
+                        <LegacyMinimize2pxIcon data-testid='dt_positions_drawer_close_icon' />
                     </div>
                 </div>
                 <div className='positions-drawer__body' ref={drawer_ref}>

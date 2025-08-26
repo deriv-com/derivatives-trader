@@ -2,6 +2,12 @@ import React from 'react';
 
 import { isDesktop, isMobile, TRADE_TYPES } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
+import {
+    LegacyTradeTypeMultipliersIcon,
+    LegacyTradeTypeUpsDownsIcon,
+    LegacyTradeTypeHighLowIcon,
+    LegacyTradeTypeDigitsIcon,
+} from '@deriv/quill-icons';
 
 import Display from '../contract-type-display';
 
@@ -25,7 +31,7 @@ const list = [
                 value: TRADE_TYPES.MULTIPLIER,
             },
         ],
-        icon: 'IcMultiplier',
+        icon: <LegacyTradeTypeMultipliersIcon />,
         label: 'Multipliers',
         key: 'Multipliers',
     },
@@ -40,7 +46,7 @@ const list = [
                 value: TRADE_TYPES.RISE_FALL_EQUAL,
             },
         ],
-        icon: 'IcUpsDowns',
+        icon: <LegacyTradeTypeUpsDownsIcon />,
         label: 'Ups & Downs',
         key: 'Options',
     },
@@ -55,7 +61,7 @@ const list = [
                 value: TRADE_TYPES.TOUCH,
             },
         ],
-        icon: 'IcHighsLows',
+        icon: <LegacyTradeTypeHighLowIcon />,
         label: 'Touch & No Touch',
         key: 'Options',
     },
@@ -74,7 +80,7 @@ const list = [
                 value: TRADE_TYPES.OVER_UNDER,
             },
         ],
-        icon: 'IcDigits',
+        icon: <LegacyTradeTypeDigitsIcon />,
         label: 'Digits',
         key: 'Options',
     },

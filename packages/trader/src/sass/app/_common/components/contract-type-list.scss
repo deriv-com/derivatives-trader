@@ -67,17 +67,6 @@
         @include mobile {
             display: block;
         }
-
-        /* postcss-bem-linter: ignore */
-        .dc-icon {
-            pointer-events: none;
-        }
-        &:hover {
-            /* postcss-bem-linter: ignore */
-            .dc-icon {
-                pointer-events: none;
-            }
-        }
     }
     &--selected {
         background: var(--color-interactive-active);
@@ -91,15 +80,10 @@
             color: var(--color-text-primary);
         }
         .contract-type-item__icon {
-            /* postcss-bem-linter: ignore */
-            .dc-icon {
-                pointer-events: none;
-            }
+            pointer-events: none;
             &:hover {
                 /* postcss-bem-linter: ignore */
-                .dc-icon {
-                    pointer-events: none;
-                }
+                pointer-events: none;
             }
         }
     }

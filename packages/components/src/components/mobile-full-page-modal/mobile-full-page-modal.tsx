@@ -4,7 +4,7 @@ import Div100vhContainer from '../div100vh-container';
 import FadeWrapper from '../fade-wrapper';
 import PageOverlay from '../page-overlay/page-overlay';
 import Text from '../text/text';
-import Icon from '../icon/icon';
+import { LegacyArrowLeft2pxIcon } from '@deriv/quill-icons';
 
 type TMobileFullPageModal = {
     className?: string;
@@ -80,10 +80,9 @@ const MobileFullPageModal = ({
                     >
                         {pageHeaderReturnFn && (
                             <div className='dc-mobile-full-page-modal__header-return'>
-                                <Icon
-                                    icon='IcArrowLeftBold'
+                                <LegacyArrowLeft2pxIcon
                                     onClick={pageHeaderReturnFn}
-                                    data_testid='dt_mobile_full_page_return_icon'
+                                    data-testid='dt_mobile_full_page_return_icon'
                                 />
                             </div>
                         )}

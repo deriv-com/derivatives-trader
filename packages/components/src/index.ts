@@ -57,11 +57,8 @@ export { default as FormSubmitErrorMessage } from './components/form-submit-erro
 export { default as FormCancelButton } from './components/form-cancel-button';
 export * from './components/gradient-background';
 export * from './components/gradient-background-two-point';
-export { default as HintBox } from './components/hint-box';
 export { default as HorizontalSwipe } from './components/horizontal-swipe';
-export { default as Icon } from './components/icon';
 export { default as IconTradeTypes } from './components/icon-trade-types';
-// export { default as Icon/icons.js } from './components/icon/icons.js';
 export { default as InfiniteDataList } from './components/infinite-data-list';
 export * from './components/inline-message';
 export { default as Input } from './components/input';
@@ -130,3 +127,5 @@ export * from './components/app-linked-with-wallet-icon';
 export * from './hooks';
 export * from './components/types';
 export * from './utils/contract-helpers';
+export { default as SymbolIconsMapper } from './components/symbol-icons-mapper';
+export { default as TradeTypeIconsMapper } from './components/trade-type-icons-mapper';

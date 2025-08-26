@@ -2,6 +2,13 @@ import React from 'react';
 import { WalletIcon } from '../wallet-icon';
 import './app-linked-with-wallet-icon.scss';
 
+// Helper function to convert icon string to React component
+const getIconComponent = (iconName: string): React.ReactElement => {
+    // For now, we'll need to create a mapping or use a fallback
+    // This is a placeholder - in practice, you'd need proper icon mapping
+    return <div data-icon={iconName} />;
+};
+
 type TAppIconProps = {
     app_icon: string;
     gradient_class: string;
@@ -44,13 +51,13 @@ const AppLinkedWithWalletIcon = ({
         <div className={`app-icon app-icon--${size}`}>
             {/* Top Icon */}
             <div className='app-icon__top-icon'>
-                <WalletIcon icon={app_icon} size={sizes.top[size]} type='app' />
+                <WalletIcon icon={getIconComponent(app_icon)} size={sizes.top[size]} type='app' />
             </div>
 
             {/* Bottom Icon */}
             <div className='app-icon__bottom-icon'>
                 <WalletIcon
-                    icon={wallet_icon}
+                    icon={getIconComponent(wallet_icon)}
                     gradient_class={gradient_class}
                     type={type}
                     size={sizes.bottom[size]}

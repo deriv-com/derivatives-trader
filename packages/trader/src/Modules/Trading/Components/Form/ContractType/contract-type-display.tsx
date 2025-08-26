@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Icon } from '@deriv/components';
+import { LegacyChevronRight1pxIcon, LegacyChevronDown1pxIcon } from '@deriv/quill-icons';
 import { useDevice } from '@deriv-com/ui';
 
 import IconTradeCategory from 'Assets/Trading/Categories/icon-trade-categories';
@@ -38,10 +38,10 @@ const Display = ({ is_open, name, list, onClick, value }: TDisplay) => {
                 {getDisplayText()}
             </span>
             {isMobile ? (
-                <Icon icon='IcChevronRight' size={20} className='contract-type-widget__select-arrow--right' />
+                <LegacyChevronRight1pxIcon iconSize='xs' className='contract-type-widget__select-arrow--right' />
             ) : (
-                <Icon
-                    icon='IcChevronDown'
+                <LegacyChevronDown1pxIcon
+                    iconSize='xs'
                     className={classNames(
                         'contract-type-widget__select-arrow',
                         'contract-type-widget__select-arrow--left'

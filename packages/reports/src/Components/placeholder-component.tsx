@@ -2,7 +2,7 @@ import React from 'react';
 import Loading from '_common/components/loading';
 
 type TPlaceholderComponent = {
-    component_icon?: string;
+    component_icon?: React.ReactElement;
     empty_message_component?: React.ElementType;
     has_selected_date?: boolean;
     is_empty?: boolean;

@@ -12,14 +12,14 @@ export type TEmptyPositionsProps = {
 };
 
 const EmptyPositions = ({ isClosedTab, noMatchesFound }: TEmptyPositionsProps) => {
-    const Icon = noMatchesFound ? StandaloneSearchFillIcon : StandaloneBriefcaseFillIcon;
+    const IconComponent = noMatchesFound ? StandaloneSearchFillIcon : StandaloneBriefcaseFillIcon;
 
     return (
         <div
             className={`empty-positions__${isClosedTab ? TAB_NAME.CLOSED.toLowerCase() : TAB_NAME.OPEN.toLowerCase()}`}
         >
             <div className='icon' data-testid='dt_empty_state_icon'>
-                <Icon iconSize='2xl' />
+                <IconComponent iconSize='2xl' />
             </div>
             <div className='message'>
                 <Text bold size='lg' color='quill-typography__color--subtle'>

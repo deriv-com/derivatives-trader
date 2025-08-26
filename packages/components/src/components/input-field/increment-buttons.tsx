@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Button from '../button';
-import Icon from '../icon';
+import { StandalonePlusRegularIcon, StandaloneMinusRegularIcon } from '@deriv/quill-icons';
 
 export type TButtonType = 'button' | 'submit' | 'reset';
 
@@ -91,10 +91,10 @@ const IncrementButtons = ({
                 type={type}
                 {...getPressEvents(incrementValue)}
             >
-                <Icon
-                    icon='IcAdd'
+                <StandalonePlusRegularIcon
                     className={'dc-input-wrapper__icon dc-input-wrapper__icon--plus'}
-                    color={max_is_disabled ? 'disabled' : undefined}
+                    fill={max_is_disabled ? 'var(--color-text-disabled)' : 'var(--color-text-primary)'}
+                    iconSize='xs'
                 />
             </Button>
             <Button
@@ -109,10 +109,10 @@ const IncrementButtons = ({
                 type={type}
                 {...getPressEvents(decrementValue)}
             >
-                <Icon
-                    icon='IcMinus'
+                <StandaloneMinusRegularIcon
                     className={'dc-input-wrapper__icon dc-input-wrapper__icon--minus'}
-                    color={min_is_disabled ? 'disabled' : undefined}
+                    fill={min_is_disabled ? 'var(--color-text-disabled)' : 'var(--color-text-primary)'}
+                    iconSize='xs'
                 />
             </Button>
         </React.Fragment>

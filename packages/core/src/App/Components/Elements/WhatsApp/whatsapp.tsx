@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 
-import { Icon, Popover } from '@deriv/components';
+import { Popover } from '@deriv/components';
 import { useIsIntercomAvailable, useIsLiveChatWidgetAvailable } from '@deriv/api';
 import { localize } from '@deriv/translations';
 import { useDevice } from '@deriv-com/ui';
 import { URLConstants } from '@deriv-com/utils';
+import { LegacyWhatsappIcon } from '@deriv/quill-icons';
 
 const WhatsApp = ({ showPopover, onClick }: { showPopover?: boolean; onClick?: () => void }) => {
     const { isDesktop } = useDevice();
@@ -17,7 +18,7 @@ const WhatsApp = ({ showPopover, onClick }: { showPopover?: boolean; onClick?: (
     if (!isDesktop)
         return (
             <Fragment>
-                <Icon icon='IcWhatsApp' className='drawer-icon' />
+                <LegacyWhatsappIcon className='drawer-icon' iconSize='sm' />
                 <a
                     className='header__menu-mobile-whatsapp-link'
                     href={URLConstants.whatsApp}
@@ -45,10 +46,10 @@ const WhatsApp = ({ showPopover, onClick }: { showPopover?: boolean; onClick?: (
                     message={localize('WhatsApp')}
                     zIndex='9999'
                 >
-                    <Icon icon='IcWhatsApp' className='footer__icon' />
+                    <LegacyWhatsappIcon className='footer__icon' iconSize='sm' />
                 </Popover>
             ) : (
-                <Icon icon='IcWhatsApp' className='footer__icon' />
+                <LegacyWhatsappIcon className='footer__icon' iconSize='sm' />
             )}
         </a>
     );

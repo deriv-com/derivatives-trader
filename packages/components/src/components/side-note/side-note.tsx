@@ -1,14 +1,19 @@
 import React from 'react';
 import { isMobile } from '@deriv/shared';
-import Icon from '../icon/icon';
+import {
+    LegacyWarningIcon,
+    LegacyInformationIcon,
+    LegacyErrorIcon,
+    LegacyChevronRight1pxIcon,
+} from '@deriv/quill-icons';
 import Text from '../text';
 import './side-note.scss';
 
 const type_icon_mapper = {
-    warning: 'IcAlertWarning',
-    information: 'IcAlertInfo',
-    announcement: 'IcAlertAnnounce',
-    error: 'IcAlertDanger',
+    warning: { Component: LegacyWarningIcon, fill: '#FFAD3A' },
+    information: { Component: LegacyInformationIcon, fill: '#2196f3' },
+    announcement: { Component: LegacyInformationIcon, fill: '#4bb4b3' },
+    error: { Component: LegacyErrorIcon, fill: '#ec3f3f' },
 };
 
 type TProps = {
@@ -28,7 +33,11 @@ const SideNote: React.FC<React.PropsWithChildren<TProps>> = ({ title, descriptio
                         <Text weight='bold' size={title_font_size}>
                             {title}
                         </Text>
-                        {type && <Icon icon={type_icon_mapper[type]} />}
+                        {type &&
+                            (() => {
+                                const { Component: IconComponent, fill } = type_icon_mapper[type];
+                                return <IconComponent fill={fill} />;
+                            })()}
                     </div>
                 )}
                 {(description || children) && (
@@ -43,7 +52,7 @@ const SideNote: React.FC<React.PropsWithChildren<TProps>> = ({ title, descriptio
                     <Text size={content_font_size} color='red'>
                         {action?.label}
                     </Text>
-                    <Icon icon='IcChevronRight' color='red' size={16} />
+                    <LegacyChevronRight1pxIcon fill='red' width={16} height={16} />
                 </div>
             )}
         </div>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import ArrowIndicator from '../arrow-indicator';
-import Icon from '../../icon/icon';
 
-jest.mock('../../icon/icon', () => jest.fn((props: React.ComponentProps<typeof Icon>) => <div>{props.icon}</div>));
+jest.mock('@deriv/quill-icons', () => ({
+    LegacyTrendUpIcon: () => <div>IcProfit</div>,
+    LegacyTrendDownIcon: () => <div>IcLoss</div>,
+}));
 
 describe('ArrowIndicator', () => {
     it('should render without an icon if value is undefined', () => {

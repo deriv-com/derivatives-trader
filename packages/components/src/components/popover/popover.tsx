@@ -2,10 +2,15 @@ import classNames from 'classnames';
 import React, { RefObject } from 'react';
 import { ArrowContainer, Popover as TinyPopover } from 'react-tiny-popover';
 import { useDevice } from '@deriv-com/ui';
-import Icon from '../icon';
 import Text from '../text';
 import { useHover, useHoverCallback } from '../../hooks';
 import { TPopoverProps } from '../types';
+import {
+    LegacyInformationIcon,
+    LegacyInfo1pxIcon,
+    LabelPairedQuestionCaptionBoldIcon,
+    StandaloneCircleFillIcon,
+} from '@deriv/quill-icons';
 
 const Popover = ({
     alignment,
@@ -194,7 +199,7 @@ const Popover = ({
                                 >
                                     {!disable_message_icon && icon === 'info' && (
                                         <i className='dc-popover__bubble__icon'>
-                                            <Icon icon='IcInfoBlue' />
+                                            <LegacyInformationIcon fill='#2196f3' iconSize='xs' />
                                         </i>
                                     )}
                                     {(has_error && (
@@ -219,9 +224,24 @@ const Popover = ({
                                         message ? 'dc-popover__target__icon' : 'dc-popover__target__icon--disabled'
                                     }
                                 >
-                                    {icon === 'info' && <Icon icon='IcInfoOutline' className={icon_class_name} />}
-                                    {icon === 'question' && <Icon icon='IcUnknown' className={icon_class_name} />}
-                                    {icon === 'dot' && <Icon icon='IcCircle' className={icon_class_name} size={4} />}
+                                    {icon === 'info' && (
+                                        <LegacyInfo1pxIcon
+                                            className={icon_class_name}
+                                            iconSize='xs'
+                                            fill='var(--color-text-disabled)'
+                                        />
+                                    )}
+                                    {icon === 'question' && (
+                                        <LabelPairedQuestionCaptionBoldIcon className={icon_class_name} />
+                                    )}
+                                    {icon === 'dot' && (
+                                        <StandaloneCircleFillIcon
+                                            className={icon_class_name}
+                                            width={4}
+                                            height={4}
+                                            fill='#E31C4B'
+                                        />
+                                    )}
                                     {icon === 'counter' && <span className={icon_class_name}>{counter}</span>}
                                 </i>
                             )}

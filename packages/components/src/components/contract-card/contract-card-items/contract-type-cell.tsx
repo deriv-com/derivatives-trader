@@ -26,7 +26,7 @@ const ContractTypeCell = ({
             <IconTradeTypes
                 type={is_high_low && !isVanillaContract(type) ? `${type.toLowerCase()}_barrier` : type.toLowerCase()}
                 className='category-type'
-                size={24}
+                iconSize='sm'
             />
         </div>
         <div

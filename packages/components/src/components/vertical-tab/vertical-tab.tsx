@@ -8,7 +8,7 @@ import VerticalTabHeaders from './vertical-tab-headers';
 import VerticalTabHeaderTitle from './vertical-tab-header-title';
 import VerticalTabLayout from './vertical-tab-layout';
 import VerticalTabWrapper from './vertical-tab-wrapper';
-import Icon from '../icon/icon';
+import { LegacyClose2pxIcon } from '@deriv/quill-icons';
 
 type TSetSelectedIndex = {
     current_path: string;
@@ -136,7 +136,7 @@ const VerticalTab = ({
                         <div className='dc-vertical-tab__title-text'>{title}</div>
                         {onClickClose && (
                             <div className='dc-vertical-tab__title-close' onClick={onClickClose || window.history.back}>
-                                <Icon icon='IcCross' />
+                                <LegacyClose2pxIcon />
                             </div>
                         )}
                     </div>

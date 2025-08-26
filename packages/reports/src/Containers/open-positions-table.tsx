@@ -14,7 +14,7 @@ import { TPortfolioPosition } from '@deriv/stores/types';
 
 type TEmptyPlaceholderWrapper = React.PropsWithChildren<{
     is_empty: boolean;
-    component_icon: string;
+    component_icon: React.ReactElement;
 }>;
 
 type TOpenPositionsTable = {
@@ -22,7 +22,7 @@ type TOpenPositionsTable = {
     active_positions: TPortfolioPosition[];
     className: string;
     columns: Record<string, unknown>[];
-    component_icon: string;
+    component_icon: React.ReactElement;
     contract_type_value: string;
     currency: string;
     is_empty: boolean;

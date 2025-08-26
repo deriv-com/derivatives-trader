@@ -1,6 +1,5 @@
 import React from 'react';
 import Dropdown from '../dropdown';
-import Icon from '../icon';
 import clsx from 'clsx';
 import { StandalonePlaybackSpeedFillIcon } from '@deriv/quill-icons';
 import { localize } from '@deriv/translations';
@@ -36,12 +35,15 @@ const PlaybackRateControl = ({
     return (
         <button className='player__controls__button player__playback-rate__wrapper'>
             {is_v2 ? (
-                <StandalonePlaybackSpeedFillIcon fill='#ffffff' iconSize='md' className='playback-rate__icon' />
+                <StandalonePlaybackSpeedFillIcon
+                    fill='var(--color-surface-contrast)'
+                    iconSize='md'
+                    className='playback-rate__icon'
+                />
             ) : (
-                <Icon
-                    icon='IcPlaybackRate'
-                    custom_color='var(--color-surface-contrast)'
-                    size={20}
+                <StandalonePlaybackSpeedFillIcon
+                    fill='var(--color-surface-contrast)'
+                    iconSize='sm'
                     className='playback-rate__icon'
                 />
             )}

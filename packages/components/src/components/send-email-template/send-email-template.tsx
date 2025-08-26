@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../icon/icon';
+import { DerivLightIcEmailSentIcon } from '@deriv/quill-icons';
 import Button from '../button/button';
 import Text from '../text';
 
@@ -69,7 +69,7 @@ const SendEmailTemplate = ({
     return (
         <div className='send-email-template'>
             <div className='send-email-template__sent'>
-                <Icon icon='IcEmailSent' className='send-email-template__icon' size={128} />
+                <DerivLightIcEmailSentIcon className='send-email-template__icon' width={128} height={128} />
                 <Text as='h1' align='center' className='send-email-template__title' color='primary' weight='bold'>
                     {title}
                 </Text>

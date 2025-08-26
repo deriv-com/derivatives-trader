@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Button, Icon, Modal, Text } from '@deriv/components';
+import { Button, Modal, Text } from '@deriv/components';
+import { LegacySellExpiredIcon } from '@deriv/quill-icons';
 import { isTabletOs, TContractInfo } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv/translations';
@@ -28,7 +29,7 @@ const InfoBoxLongcode = observer(({ contract_info }: TInfoBoxLongcode) => {
 
     return (
         <div className='info-box-longcode'>
-            <Icon icon='IcContractFlag' className='info-box-longcode-icon' size={24} />
+            <LegacySellExpiredIcon className='info-box-longcode-icon' width={24} height={24} />
             <div
                 className='info-box-longcode-wrapper'
                 onClick={is_mobile ? handleToggle : undefined}

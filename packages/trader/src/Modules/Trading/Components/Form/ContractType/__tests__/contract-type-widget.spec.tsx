@@ -3,6 +3,14 @@ import React from 'react';
 import { TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
+import {
+    LegacyTradeTypeMultipliersIcon,
+    LegacyTradeTypeUpsDownsIcon,
+    LegacyTradeTypeHighLowIcon,
+    LegacyTradeTypeDigitsIcon,
+    LegacyVanillaIcon,
+    LegacyAccumulatorIcon,
+} from '@deriv/quill-icons';
 
 import TraderProviders from '../../../../../../trader-providers';
 import ContractTypeWidget from '../contract-type-widget';
@@ -26,7 +34,7 @@ describe('<ContractTypeWidget />', () => {
                     value: TRADE_TYPES.MULTIPLIER,
                 },
             ],
-            icon: 'IcMultiplier',
+            icon: <LegacyTradeTypeMultipliersIcon />,
             label: 'Multipliers',
             key: 'Multipliers',
         },
@@ -41,7 +49,7 @@ describe('<ContractTypeWidget />', () => {
                     value: TRADE_TYPES.RISE_FALL_EQUAL,
                 },
             ],
-            icon: 'IcUpsDowns',
+            icon: <LegacyTradeTypeUpsDownsIcon />,
             label: 'Ups & Downs',
             key: 'Options',
         },
@@ -56,7 +64,7 @@ describe('<ContractTypeWidget />', () => {
                     value: TRADE_TYPES.TOUCH,
                 },
             ],
-            icon: 'IcHighsLows',
+            icon: <LegacyTradeTypeHighLowIcon />,
             label: 'Touch & No Touch',
             key: 'Options',
         },
@@ -75,7 +83,7 @@ describe('<ContractTypeWidget />', () => {
                     value: TRADE_TYPES.OVER_UNDER,
                 },
             ],
-            icon: 'IcDigits',
+            icon: <LegacyTradeTypeDigitsIcon />,
             label: 'Digits',
             key: 'Options',
         },
@@ -84,14 +92,14 @@ describe('<ContractTypeWidget />', () => {
     const unavailable_trade_types_list = [
         {
             contract_types: [{ text: 'Vanillas', value: 'vanilla' }],
-            icon: 'IcVanillas',
+            icon: <LegacyVanillaIcon />,
             is_unavailable: true,
             key: 'Vanillas',
             label: 'Vanillas',
         },
         {
             contract_types: [{ text: 'Accumulators', value: TRADE_TYPES.ACCUMULATOR }],
-            icon: 'IcAccumulators',
+            icon: <LegacyAccumulatorIcon />,
             is_unavailable: true,
             key: 'Accumulators',
             label: 'Accumulators',

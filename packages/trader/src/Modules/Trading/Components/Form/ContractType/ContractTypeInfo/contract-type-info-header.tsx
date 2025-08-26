@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Icon, Text } from '@deriv/components';
+import { Text } from '@deriv/components';
+import { LegacyArrowLeft2pxIcon, LegacyClose2pxIcon } from '@deriv/quill-icons';
 import { clickAndKeyEventHandler } from '@deriv/shared';
 
 type THeader = {
@@ -27,7 +28,7 @@ const Header = ({
                 onClick={e => clickAndKeyEventHandler(onClickBack, e)}
                 onKeyDown={e => clickAndKeyEventHandler(onClickBack, e)}
             >
-                <Icon icon='IcArrowLeftBold' />
+                <LegacyArrowLeft2pxIcon iconSize='xs' />
             </span>
         )}
         <Text size={text_size} weight='bold' color='primary' className='contract-type-info__title'>
@@ -39,7 +40,7 @@ const Header = ({
                 onClick={e => clickAndKeyEventHandler(onClose, e)}
                 onKeyDown={e => clickAndKeyEventHandler(onClose, e)}
             >
-                <Icon icon='IcCross' />
+                <LegacyClose2pxIcon iconSize='xs' />
             </span>
         )}
     </div>

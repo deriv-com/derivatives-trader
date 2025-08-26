@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
+import { StandalonePauseFillIcon, StandalonePlayFillIcon } from '@deriv/quill-icons';
 import Text from '../text';
 import { formatDurationTime } from '@deriv/shared';
 import VolumeControl from './volume-control';
@@ -155,12 +155,11 @@ const VideoControls = ({
                 >
                     <div className='player__controls__bottom-bar controls__left'>
                         <button onClick={togglePlay} className='player__controls__button'>
-                            <Icon
-                                icon={is_playing ? 'IcPause' : 'IcPlay'}
-                                custom_color='var(--color-surface-contrast)'
-                                height={18}
-                                width={15}
-                            />
+                            {is_playing ? (
+                                <StandalonePauseFillIcon fill='var(--color-surface-contrast)' height={18} width={15} />
+                            ) : (
+                                <StandalonePlayFillIcon fill='var(--color-surface-contrast)' height={18} width={15} />
+                            )}
                         </button>
                         <div className='player__controls__time-wrapper'>
                             <Text size='xxxs' line_height='s' color='inverse'>

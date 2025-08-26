@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Icon, Money, Text, ThemedScrollbars } from '@deriv/components';
+import { Money, Text, ThemedScrollbars } from '@deriv/components';
+import { DerivLightEmptyCardboardBoxIcon } from '@deriv/quill-icons';
 import { isMobile, TContractStore } from '@deriv/shared';
 import { localize } from '@deriv/translations';
 
@@ -14,7 +15,7 @@ const ContractHistory = ({ currency, history = [] }: TContractHistory) => {
     if (!history.length) {
         return (
             <div className='contract-audit__empty'>
-                <Icon icon='IcBox' size={48} color='secondary' />
+                <DerivLightEmptyCardboardBoxIcon width={48} height={48} fill='var(--color-secondary)' />
                 <h4 className='contract-audit__empty-header'>{localize('No history')}</h4>
                 <Text align='center' line_height='s' color='less-prominent' size='xxs'>
                     {localize('You have yet to update either take profit or stop loss')}

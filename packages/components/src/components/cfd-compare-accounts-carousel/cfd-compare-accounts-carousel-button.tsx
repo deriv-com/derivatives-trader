@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
+import { LegacyChevronLeft2pxIcon, LegacyChevronRight2pxIcon } from '@deriv/quill-icons';
 
 type TPrevNextButtonProps = {
     enabled: boolean;
@@ -12,8 +12,12 @@ type TPrevNextButtonProps = {
 const CFDCompareAccountsCarouselButton = (props: TPrevNextButtonProps) => {
     const { enabled, onClick, isNext = false, isRtl = false } = props;
 
-    const nextButtonName = isRtl ? 'IcChevronLeftBold' : 'IcChevronRightBold';
-    const prevButtonName = isRtl ? 'IcChevronRightBold' : 'IcChevronLeftBold';
+    const getIconComponent = () => {
+        if (isNext) {
+            return isRtl ? <LegacyChevronLeft2pxIcon /> : <LegacyChevronRight2pxIcon />;
+        }
+        return isRtl ? <LegacyChevronRight2pxIcon /> : <LegacyChevronLeft2pxIcon />;
+    };
 
     return (
         <button
@@ -24,10 +28,9 @@ const CFDCompareAccountsCarouselButton = (props: TPrevNextButtonProps) => {
             onClick={onClick}
             disabled={!enabled}
         >
-            <Icon
-                icon={isNext ? nextButtonName : prevButtonName}
-                className='cfd-compare-accounts-carousel__button__svg'
-            />
+            {React.cloneElement(getIconComponent(), {
+                className: 'cfd-compare-accounts-carousel__button__svg',
+            })}
         </button>
     );
 };

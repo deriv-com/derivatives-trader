@@ -45,10 +45,6 @@
                 border-radius: $BORDER_RADIUS;
                 @include rtl {
                     direction: rtl;
-
-                    .dc-icon {
-                        rotate: 180deg;
-                    }
                 }
             }
         }

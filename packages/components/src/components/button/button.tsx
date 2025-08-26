@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import ButtonLoading from './button_loading';
-import Icon from '../icon';
+import { LegacyCheck1pxIcon, LegacyPlus2pxIcon } from '@deriv/quill-icons';
 import Text from '../text';
 
 export type TButtonCommonProps = {
@@ -128,8 +128,8 @@ const Button = ({
                     </Text>
                 ))}
             {is_loading && <ButtonLoading />}
-            {is_submit_success && <Icon icon='IcCheckmark' color='active' size={24} />}
-            {is_plus && <Icon icon='IcAddBold' color='black' size={18} />}
+            {is_submit_success && <LegacyCheck1pxIcon fill='var(--color-interactive-active)' iconSize='sm' />}
+            {is_plus && <LegacyPlus2pxIcon fill='black' iconSize='sm' />}
             {!text && !is_loading && children && (
                 <Text size='xs' weight='bold' align='center' className={classNames('dc-btn__text', classNameSpan)}>
                     {children}

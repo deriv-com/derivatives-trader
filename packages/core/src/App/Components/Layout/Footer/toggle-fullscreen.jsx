@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Popover } from '@deriv/components';
+import { Popover } from '@deriv/components';
+import { LegacyFullscreen1pxIcon, LegacyRestore1pxIcon } from '@deriv/quill-icons';
 import { localize } from '@deriv/translations';
 
 const ToggleFullScreen = ({ showPopover }) => {
@@ -43,9 +44,9 @@ const ToggleFullScreen = ({ showPopover }) => {
     });
 
     const fullScreenIcon = is_full_screen ? (
-        <Icon icon='IcFullScreenRestore' className='footer__icon' />
+        <LegacyRestore1pxIcon className='footer__icon' />
     ) : (
-        <Icon data_testid='dt_icon' icon='IcFullScreen' className='footer__icon' />
+        <LegacyFullscreen1pxIcon data-testid='dt_icon' className='footer__icon' />
     );
 
     return (

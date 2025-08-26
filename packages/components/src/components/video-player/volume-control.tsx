@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
-import Icon from '../icon';
 import { StandaloneVolumeHighRegularIcon, StandaloneVolumeXmarkRegularIcon } from '@deriv/quill-icons';
 
 type TVolumeControl = {
@@ -128,13 +127,11 @@ const VolumeControl = ({ onVolumeChange, volume, is_mobile, is_muted, is_v2 = fa
             <button className='player__controls__button' onClick={buttonClickHandler}>
                 {is_v2 && is_muted && <StandaloneVolumeXmarkRegularIcon fill='#ffffff' iconSize='md' />}
                 {is_v2 && !is_muted && <StandaloneVolumeHighRegularIcon fill='#ffffff' iconSize='md' />}
-                {!is_v2 && (
-                    <Icon
-                        icon={is_muted ? 'IcSoundOff' : 'IcSoundOn'}
-                        custom_color='var(--color-surface-contrast)'
-                        height={18}
-                        width={20}
-                    />
+                {!is_v2 && is_muted && (
+                    <StandaloneVolumeXmarkRegularIcon fill='var(--color-surface-contrast)' height={18} width={20} />
+                )}
+                {!is_v2 && !is_muted && (
+                    <StandaloneVolumeHighRegularIcon fill='var(--color-surface-contrast)' height={18} width={20} />
                 )}
             </button>
             <CSSTransition

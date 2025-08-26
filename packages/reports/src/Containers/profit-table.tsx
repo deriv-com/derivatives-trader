@@ -17,7 +17,7 @@ import { useReportsStore } from 'Stores/useReportsStores';
 import { useDevice } from '@deriv-com/ui';
 
 type TProfitTable = {
-    component_icon: string;
+    component_icon: React.ReactElement;
 };
 
 type TDataListCell = React.ComponentProps<typeof DataList.Cell>;

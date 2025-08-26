@@ -15,12 +15,13 @@ import {
 import { getUnderlyingFromShortcode } from '../../../utils/contract-helpers';
 import ContractTypeCell from './contract-type-cell';
 import Button from '../../button';
-import Icon from '../../icon';
 import Text from '../../text';
 import ProgressSlider from '../../progress-slider';
 import DesktopWrapper from '../../desktop-wrapper';
 import MobileWrapper from '../../mobile-wrapper';
 import TickCounterBar from './tick-counter-bar';
+import SymbolIconsMapper from '../../symbol-icons-mapper';
+import { LabelPairedQuestionCaptionBoldIcon } from '@deriv/quill-icons';
 import { TContractInfo } from '@deriv/shared/src/utils/contract/contract-types';
 import { TGetCardLables, TGetContractTypeDisplay } from '../../types/common.types';
 
@@ -115,11 +116,11 @@ const ContractCardHeader = ({
                         'dc-contract-card__underlying-name--accumulator': is_accumulator,
                     })}
                 >
-                    <Icon
-                        icon={effective_underlying ? `IcUnderlying${effective_underlying}` : 'IcUnknown'}
-                        width={is_accumulator ? 46 : 40}
-                        size={32}
-                    />
+                    {effective_underlying ? (
+                        <SymbolIconsMapper symbol={effective_underlying} width={is_accumulator ? 46 : 40} height={32} />
+                    ) : (
+                        <LabelPairedQuestionCaptionBoldIcon width={is_accumulator ? 46 : 40} height={32} />
+                    )}
                     <Text
                         size='xxs'
                         className={classNames('dc-contract-card__symbol', {

@@ -21,7 +21,7 @@ export type TPopupContext = {
     header_button_text: string;
     header_contents_color?: string;
     header_content_color?: string;
-    header_icon: string;
+    header_icon: React.ReactElement;
     is_overlay_shown: boolean;
     onHeaderButtonClick?: () => void;
     overlay_ref?: HTMLDivElement | null;
@@ -43,7 +43,7 @@ const PopupContext = React.createContext<TPopupContext>({
     header_banner_text: '',
     header_button_text: '',
     header_content_color: '',
-    header_icon: '',
+    header_icon: <></>,
     is_overlay_shown: false,
     should_show_popup: false,
     title: '',

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Icon, Input } from '@deriv/components';
+import { Input } from '@deriv/components';
+import { LegacySearch1pxIcon, LegacyCloseCircle1pxBlackIcon } from '@deriv/quill-icons';
 import { localize } from '@deriv/translations';
 
 type TSearchInput = {
@@ -15,8 +16,8 @@ const SearchInput = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TSe
         <Input
             ref={ref}
             data-lpignore='true'
-            leading_icon={<Icon icon='IcSearch' />}
-            trailing_icon={value ? <Icon icon='IcCloseCircle' onClick={onClickClearInput} /> : undefined}
+            leading_icon={<LegacySearch1pxIcon />}
+            trailing_icon={value ? <LegacyCloseCircle1pxBlackIcon onClick={onClickClearInput} /> : undefined}
             placeholder={localize('Search')}
             type='text'
             onChange={onChange}

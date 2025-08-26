@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { observer, useStore } from '@deriv/stores';
-import { Icon, Modal, Popover, Text } from '@deriv/components';
+import { Modal, Popover, Text } from '@deriv/components';
 import { useTranslations } from '@deriv-com/translations';
 import { Localize, localize } from '@deriv/translations'; // [TODO]: Remove this import after integrating Deriv app with new translation lib
 import 'Sass/app/modules/settings.scss';
@@ -21,13 +21,7 @@ const ToggleLanguageSettings = observer(({ showPopover }: { showPopover?: boolea
 
     const content = (
         <React.Fragment>
-            {TranslationFlag[currentLang] ? (
-                TranslationFlag[currentLang](18, 12)
-            ) : (
-                //TODOs: remove this when Korean flag is included in quill-icons
-                <Icon icon={`IcFlag${currentLang}`} data_testid='dt_icon' size={18} />
-            )}
-
+            {TranslationFlag[currentLang] && TranslationFlag[currentLang](18, 12)}
             <Text weight='bold' size='xxs' className='ic-settings-language__text'>
                 <Localize i18n_default_text={currentLang} />
             </Text>

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Icon, InlineMessage, Text } from '@deriv/components';
+import { InlineMessage, Text } from '@deriv/components';
+import { LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
 import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize, localize } from '@deriv/translations';
@@ -204,14 +205,14 @@ const ContractTypeWidget = observer(
                 ({ label }) => label !== localize('Multipliers') && label !== localize('Accumulators')
             );
             const categories: TList[] = [];
-            const contract_type_category_icon: { [key: string]: string } = getContractTypeCategoryIcons();
+            const contract_type_category_icon: { [key: string]: React.ReactElement } = getContractTypeCategoryIcons();
 
             if (list && list.length > 0) {
                 categories.push({
                     label: localize('All'),
                     contract_categories: all_trade_types_list,
                     key: 'All',
-                    icon: '',
+                    icon: undefined,
                 });
             }
 
@@ -220,7 +221,7 @@ const ContractTypeWidget = observer(
                     label: localize('Multipliers'),
                     contract_categories: multipliers_category,
                     key: 'Multipliers',
-                    icon: '',
+                    icon: undefined,
                 });
             }
 
@@ -230,7 +231,7 @@ const ContractTypeWidget = observer(
                     contract_categories: options_category,
                     component: null,
                     key: 'Options',
-                    icon: '',
+                    icon: undefined,
                 });
             }
 
@@ -240,7 +241,7 @@ const ContractTypeWidget = observer(
                     contract_categories: accumulators_category,
                     component: null,
                     key: 'Accumulators',
-                    icon: '',
+                    icon: undefined,
                 });
             }
 
@@ -348,7 +349,7 @@ const ContractTypeWidget = observer(
                                 <Text size={is_mobile ? 'xxs' : 'xs'} line_height={is_mobile ? 'l' : 'xl'}>
                                     <Localize i18n_default_text='Learn more about trade types' />
                                 </Text>
-                                <Icon icon='IcChevronRight' size={16} />
+                                <LegacyChevronRight1pxIcon iconSize='xs' />
                             </button>
                         }
                     >

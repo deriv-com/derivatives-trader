@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
-import Icon from '../icon';
 import Input, { TInputProps } from '../input';
+import { LegacyVisibility1pxIcon, LegacyVisibilityOff1pxIcon } from '@deriv/quill-icons';
 
 type TPasswordInput = Partial<TInputProps> & {
     autoComplete: string;
@@ -30,14 +30,23 @@ const PasswordInput = ({
                 input_id={input_id}
                 className={classNames('dc-password-input__field', className)}
                 trailing_icon={
-                    <Icon
-                        icon={should_show_password ? 'IcPasswordEyeVisible' : 'IcPasswordEyeHide'}
-                        className='dc-password-input__visibility-icon'
-                        onClick={togglePasswordVisibility}
-                        color='secondary'
-                        width={18}
-                        data_testid='dt_password_input_visibility_icon'
-                    />
+                    should_show_password ? (
+                        <LegacyVisibility1pxIcon
+                            className='dc-password-input__visibility-icon'
+                            onClick={togglePasswordVisibility}
+                            width={18}
+                            height={18}
+                            data-testid='dt_password_input_visibility_icon'
+                        />
+                    ) : (
+                        <LegacyVisibilityOff1pxIcon
+                            className='dc-password-input__visibility-icon'
+                            onClick={togglePasswordVisibility}
+                            width={18}
+                            height={18}
+                            data-testid='dt_password_input_visibility_icon'
+                        />
+                    )
                 }
             />
         </div>

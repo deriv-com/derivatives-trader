@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import { localize } from '@deriv/translations';
 import Badge from '../badge';
 import Button from '../button';
-import Icon from '../icon';
 import Text from '../text';
 import { isMobile } from '@deriv/shared';
 import { WalletIcon } from '../wallet-icon';
+import { LegacyCheck2pxIcon, LegacyPlus2pxIcon, LegacyWonIcon } from '@deriv/quill-icons';
 import './wallet-card.scss';
 
 type TWalletCardProps = {
@@ -27,14 +27,22 @@ type TWalletCardProps = {
 type IconComponentProps = {
     size: TWalletCardProps['size'];
     icon_type: TWalletCardProps['wallet']['icon_type'];
-    icon: TWalletCardProps['wallet']['icon'];
+    icon_name: string;
 };
 
-const IconComponent = ({ size, icon_type, icon }: IconComponentProps) => {
+// Helper function to convert icon string to React component
+const getIconComponent = (iconName: string): React.ReactElement => {
+    // For now, we'll need to create a mapping or use a fallback
+    // This is a placeholder - in practice, you'd need proper icon mapping
+    return <div data-icon={iconName} />;
+};
+
+const IconComponent = ({ size, icon_type, icon_name }: IconComponentProps) => {
     let icon_size: React.ComponentProps<typeof WalletIcon>['size'] = 'large';
     if (size === 'small') icon_size = 'medium';
     if (size === 'medium') icon_size = isMobile() && icon_type === 'crypto' ? 'medium' : 'large';
-    return <WalletIcon type={icon_type} icon={icon} size={icon_size} />;
+    const iconComponent = getIconComponent(icon_name);
+    return <WalletIcon type={icon_type} icon={iconComponent} size={icon_size} />;
 };
 
 const WalletCard: React.FC<React.PropsWithChildren<TWalletCardProps>> = ({
@@ -52,11 +60,11 @@ const WalletCard: React.FC<React.PropsWithChildren<TWalletCardProps>> = ({
                     [`wallet-card__container-fade--${state}`]: state,
                 })}
             />
-            {size === 'small' && <IconComponent size={size} icon_type={wallet.icon_type} icon={wallet.icon} />}
+            {size === 'small' && <IconComponent size={size} icon_type={wallet.icon_type} icon_name={wallet.icon} />}
             {size !== 'small' && (
                 <div className={`wallet-card__content wallet-card__content--${size}`}>
                     <div className='wallet-card__top-wrapper'>
-                        <IconComponent size={size} icon_type={wallet.icon_type} icon={wallet.icon} />
+                        <IconComponent size={size} icon_type={wallet.icon_type} icon_name={wallet.icon} />
                         {wallet.jurisdiction_title === 'virtual' ? (
                             <Badge label={localize('Demo')} type='contained' background_color='blue' />
                         ) : (
@@ -83,12 +91,19 @@ const WalletCard: React.FC<React.PropsWithChildren<TWalletCardProps>> = ({
                                 className={`wallet-card__wallet-button wallet-card__wallet-button--${state}`}
                                 classNameSpan='wallet-card__wallet-button-text'
                                 icon={
-                                    <Icon
-                                        className='wallet-card__wallet-button-icon'
-                                        custom_color='$color-black-1'
-                                        icon={state === 'added' ? 'IcCheckmarkBold' : 'IcAddBold'}
-                                        size={12}
-                                    />
+                                    state === 'added' ? (
+                                        <LegacyCheck2pxIcon
+                                            className='wallet-card__wallet-button-icon'
+                                            width={12}
+                                            height={12}
+                                        />
+                                    ) : (
+                                        <LegacyPlus2pxIcon
+                                            className='wallet-card__wallet-button-icon'
+                                            width={12}
+                                            height={12}
+                                        />
+                                    )
                                 }
                                 text={state === 'added' ? localize('Added') : localize('Add')}
                                 is_disabled={state === 'added'}
@@ -100,11 +115,10 @@ const WalletCard: React.FC<React.PropsWithChildren<TWalletCardProps>> = ({
         </div>
         {state === 'active' && (
             <div className={`wallet-card__active-icon wallet-card__active-icon--${size}`}>
-                <Icon
-                    color='brand'
-                    data_testid='dt_ic_checkmark_circle'
-                    icon='IcCheckmarkCircle'
-                    size={size === 'small' ? 16 : 32}
+                <LegacyWonIcon
+                    data-testid='dt_ic_checkmark_circle'
+                    width={size === 'small' ? 16 : 32}
+                    height={size === 'small' ? 16 : 32}
                 />
             </div>
         )}

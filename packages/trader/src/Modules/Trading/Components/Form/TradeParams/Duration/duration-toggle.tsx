@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Icon } from '@deriv/components';
 import { localize } from '@deriv/translations';
+import { LegacyChevronDown1pxIcon } from '@deriv/quill-icons';
 
 type TDurationToggle = {
     name: string;
@@ -24,7 +24,7 @@ const DurationToggle = ({ name, onChange, value }: TDurationToggle) => {
             onClick={toggle}
             aria-label={localize('Toggle between advanced and simple duration settings')}
         >
-            <Icon icon='IcChevronDown' className={icon_className} />
+            <LegacyChevronDown1pxIcon className={icon_className} iconSize='xs' />
         </button>
     );
 };

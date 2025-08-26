@@ -2,6 +2,12 @@ import React from 'react';
 import { routes, makeLazyLoader, moduleLoader } from '@deriv/shared';
 import { Loading } from '@deriv/components';
 import { localize } from '@deriv/translations';
+import {
+    LegacyReportsIcon,
+    LegacyOpenPositionIcon,
+    LegacyProfitTableIcon,
+    LegacyStatementIcon,
+} from '@deriv/quill-icons';
 import type { TRoute, TRouteConfig } from 'Types';
 
 const Page404 = React.lazy(() => import(/* webpackChunkName: "404" */ 'Modules/Page404'));
@@ -19,26 +25,26 @@ const initRoutesConfig = (): TRouteConfig[] => {
             component: lazyLoadReportComponent('Reports'),
             is_authenticated: true,
             getTitle: () => localize('Reports'),
-            icon_component: 'IcReports',
+            icon_component: <LegacyReportsIcon iconSize='xs' />,
             routes: [
                 {
                     path: routes.positions,
                     component: lazyLoadReportComponent('OpenPositions'),
                     getTitle: () => localize('Open positions'),
-                    icon_component: 'IcOpenPositions',
+                    icon_component: <LegacyOpenPositionIcon iconSize='xs' />,
                     default: true,
                 },
                 {
                     path: routes.profit,
                     component: lazyLoadReportComponent('ProfitTable'),
                     getTitle: () => localize('Trade table'),
-                    icon_component: 'IcProfitTable',
+                    icon_component: <LegacyProfitTableIcon iconSize='xs' />,
                 },
                 {
                     path: routes.statement,
                     component: lazyLoadReportComponent('Statement'),
                     getTitle: () => localize('Statement'),
-                    icon_component: 'IcStatement',
+                    icon_component: <LegacyStatementIcon iconSize='xs' />,
                 },
             ],
         },

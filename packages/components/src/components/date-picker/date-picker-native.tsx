@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { toMoment } from '@deriv/shared';
-import Icon from '../icon';
+import { LegacyCalendar1pxIcon } from '@deriv/quill-icons';
 import Text from '../text';
 
 type TDatePickerNativeProps = Omit<React.HTMLAttributes<HTMLInputElement>, 'onSelect' | 'onChange'> & {
@@ -97,10 +97,9 @@ const Native = ({
                     {label || (!value && placeholder)}
                 </label>
 
-                <Icon
-                    icon='IcCalendar'
+                <LegacyCalendar1pxIcon
                     className='dc-datepicker__calendar-icon'
-                    color={disabled ? 'disabled' : undefined}
+                    fill={disabled ? 'var(--color-text-disabled)' : 'var(--color-text-primary)'}
                 />
 
                 <input

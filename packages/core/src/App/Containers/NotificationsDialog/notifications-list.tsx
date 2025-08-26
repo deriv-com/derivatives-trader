@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
-import { Button, Icon, Text } from '@deriv/components';
+import { Button, Text } from '@deriv/components';
 import { isEmptyObject, toTitleCase } from '@deriv/shared';
+import { icon_types } from 'App/Components/Elements/NotificationMessage/constants';
 import { observer, useStore } from '@deriv/stores';
 import { Analytics } from '@deriv-com/analytics';
 import { BinaryLink } from 'App/Components/Routes';
@@ -18,10 +19,18 @@ const NotificationsList = observer(() => {
 
     const getNotificationItemIcon = (item: TNotificationMessage) => {
         const { type } = item;
-        if (['contract_sold', 'info', 'news', 'promotions'].includes(type)) {
-            return 'IcAlertInfo';
-        }
-        return `IcAlert${toTitleCase(type)}`;
+        const iconConfig = icon_types[type as keyof typeof icon_types] || icon_types.info;
+        const IconComponent = iconConfig.component;
+        const iconFill = iconConfig.fill;
+
+        return (
+            <IconComponent
+                fill={iconFill}
+                className={classNames('notifications-item__title-icon', {
+                    [`notifications-item__title-icon--${type}`]: type,
+                })}
+            />
+        );
     };
 
     const getButtonSettings = (item: TNotificationMessage): TActionProps | undefined => {
@@ -56,14 +65,7 @@ const NotificationsList = observer(() => {
                 filtered_notifications.map(item => (
                     <div className='notifications-item' key={item.key}>
                         <Text as='h2' className='notifications-item__title' weight='bold' size='xs' color='primary'>
-                            {item.type && (
-                                <Icon
-                                    icon={getNotificationItemIcon(item)}
-                                    className={classNames('notifications-item__title-icon', {
-                                        [`notifications-item__title-icon--${item.type}`]: item.type,
-                                    })}
-                                />
-                            )}
+                            {item.type && getNotificationItemIcon(item)}
                             {item.header}
                         </Text>
                         <div className='notifications-item__message'>{item.message}</div>

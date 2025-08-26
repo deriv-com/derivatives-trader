@@ -1,11 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
 import Input from '../input';
-
-const DatePickerIcon = ({ icon, ...props }: React.ComponentProps<typeof Icon>) => (
-    <Icon className='dc-datepicker__icon' icon={icon} {...props} />
-);
+import { LegacyCalendar1pxIcon, StandaloneCircleXmarkRegularIcon } from '@deriv/quill-icons';
 
 type TDatePickerInputProps = React.ComponentProps<typeof Input> & {
     is_placeholder_visible: boolean;
@@ -48,18 +44,19 @@ const DatePickerInput = ({
     };
 
     const OpenIcon = (
-        <DatePickerIcon
-            className={classNames({
+        <LegacyCalendar1pxIcon
+            className={classNames('dc-datepicker__icon', {
                 'dc-datepicker__icon': typeof onClick === 'function',
             })}
-            icon='IcCalendar'
-            {...(disabled ? { color: 'disabled' } : { onClick })}
+            {...(disabled
+                ? { fill: 'var(--color-text-disabled)' }
+                : { onClick: onClick as unknown as React.MouseEventHandler<SVGSVGElement> })}
         />
     );
 
     const trailing_icon =
         is_clearable && is_clear_btn_visible && !disabled ? (
-            <DatePickerIcon icon='IcCloseCircle' onClick={onClickClear} color='secondary' />
+            <StandaloneCircleXmarkRegularIcon className='dc-datepicker__icon' onClick={onClickClear} />
         ) : (
             OpenIcon
         );

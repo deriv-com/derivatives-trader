@@ -2,13 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import { useIsMounted } from '@deriv/shared';
 import Popover from '../popover';
-import Icon from '../icon';
 import { TPopoverProps } from '../types';
 import { useCopyToClipboard } from '../../hooks';
+import { LegacyWonIcon, LegacyCopy1pxIcon } from '@deriv/quill-icons';
 
 type TClipboard = {
     text_copy: string;
-    icon?: string;
+    icon?: React.ReactElement;
     info_message?: string;
     success_message?: string;
     className?: string;
@@ -16,7 +16,7 @@ type TClipboard = {
     popoverClassName?: string;
     popoverAlignment?: 'top' | 'right' | 'bottom' | 'left';
     popover_props?: Partial<TPopoverProps>;
-    size?: string;
+    size?: number;
 };
 const Clipboard = ({
     text_copy,
@@ -28,11 +28,11 @@ const Clipboard = ({
     popoverClassName,
     popover_props = {},
     popoverAlignment = 'bottom',
-    size = '16',
+    size = 16,
 }: TClipboard) => {
     const [is_copied, copyToClipboard, setIsCopied] = useCopyToClipboard();
     const isMounted = useIsMounted();
-    let timeout_clipboard: NodeJS.Timeout;
+    let timeout_clipboard: ReturnType<typeof setTimeout>;
 
     const onClick = (event: { stopPropagation: () => void }) => {
         copyToClipboard(text_copy);
@@ -58,18 +58,22 @@ const Clipboard = ({
             zIndex='9999'
         >
             {is_copied ? (
-                <Icon
-                    icon='IcCheckmarkCircle'
-                    custom_color='var(--status-success)'
-                    className={classNames('dc-clipboard', className)}
-                />
+                <LegacyWonIcon fill='var(--status-success)' className={classNames('dc-clipboard', className)} />
+            ) : icon ? (
+                React.cloneElement(icon, {
+                    fill: 'var(--color-text-secondary)',
+                    className: classNames('dc-clipboard', className),
+                    onClick,
+                    width: size,
+                    height: size,
+                })
             ) : (
-                <Icon
-                    icon={icon || 'IcClipboard'}
-                    custom_color='var(--color-text-secondary)'
+                <LegacyCopy1pxIcon
+                    fill='var(--color-text-secondary)'
                     className={classNames('dc-clipboard', className)}
                     onClick={onClick}
-                    size={size}
+                    width={size}
+                    height={size}
                 />
             )}
         </Popover>

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Icon } from '@deriv/components';
+import { LegacyExitTimeIcon, LegacyStartTimeIcon, LegacyResetIcon } from '@deriv/quill-icons';
 import { BARRIER_COLORS } from '@deriv/shared';
 
 const MarkerLine = ({ label, line_style, marker_config, status }) => {
@@ -11,29 +11,17 @@ const MarkerLine = ({ label, line_style, marker_config, status }) => {
     return (
         <div className={classNames('chart-marker-line__wrapper', `chart-marker-line--${line_style}`)}>
             {label === marker_config.LINE_END.content_config.label && (
-                <Icon
-                    icon='IcContractExitTimeCircle'
+                <LegacyExitTimeIcon
                     className='chart-marker-line__icon'
-                    color={status === 'lost' ? 'red' : 'green'}
-                    custom_color={status === 'lost' ? BARRIER_COLORS.RED : BARRIER_COLORS.GREEN}
-                    size={24}
+                    fill={status === 'lost' ? BARRIER_COLORS.RED : BARRIER_COLORS.GREEN}
+                    iconSize='sm'
                 />
             )}
             {label === marker_config.LINE_START.content_config.label && (
-                <Icon
-                    icon='IcContractStartTimeCircle'
-                    className='chart-marker-line__icon chart-marker-line__icon--time'
-                    color='secondary'
-                    size={24}
-                />
+                <LegacyStartTimeIcon className='chart-marker-line__icon chart-marker-line__icon--time' iconSize='sm' />
             )}
             {label === marker_config.LINE_RESET.content_config.label && (
-                <Icon
-                    icon='IcContractResetTimeCircle'
-                    className='chart-marker-line__icon chart-marker-line__icon--time'
-                    color='secondary'
-                    size={24}
-                />
+                <LegacyResetIcon className='chart-marker-line__icon chart-marker-line__icon--time' iconSize='sm' />
             )}
         </div>
     );

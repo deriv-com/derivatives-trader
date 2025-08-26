@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
-import { Counter, Icon, Popover } from '@deriv/components';
+import { Counter, Popover } from '@deriv/components';
+import { LegacyNotification1pxIcon } from '@deriv/quill-icons';
 import NotificationsDialog from 'App/Containers/NotificationsDialog';
 import 'Sass/app/modules/notifications-dialog.scss';
 import { useDevice } from '@deriv-com/ui';
@@ -21,7 +22,7 @@ const ToggleNotificationsDrawer = ({
             })}
             onClick={toggleDialog}
         >
-            <Icon className='notifications-toggle__icon' icon='IcBell' />
+            <LegacyNotification1pxIcon className='notifications-toggle__icon' />
             {!!count && <Counter count={count} className='notifications-toggle__step' />}
         </div>
     );

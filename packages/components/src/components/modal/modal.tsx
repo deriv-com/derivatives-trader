@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import Body from './modal-body';
 import Footer from './modal-footer';
 import Text from '../text/text';
-import Icon from '../icon/icon';
+import { LegacyArrowLeft2pxIcon, LegacyClose2pxIcon } from '@deriv/quill-icons';
 import { useOnClickOutside } from '../../hooks';
 
 interface IClickEvent extends MouseEvent {
@@ -188,7 +188,7 @@ const ModalElement = ({
                             })}
                         >
                             {has_return_icon && (
-                                <Icon icon='IcArrowLeftBold' onClick={onReturn} className='dc-modal-header__icon' />
+                                <LegacyArrowLeft2pxIcon onClick={onReturn} className='dc-modal-header__icon' />
                             )}
                             {title}
                         </Text>
@@ -204,7 +204,11 @@ const ModalElement = ({
                     )}
                     {has_close_icon && (
                         <div onClick={toggleModal} className='dc-modal-header__close' role='button'>
-                            <Icon icon='IcCross' color={close_icon_color} data_testid='dt_modal_close_icon' />
+                            <LegacyClose2pxIcon
+                                fill={close_icon_color}
+                                iconSize='xs'
+                                data-testid='dt_modal_close_icon'
+                            />
                         </div>
                     )}
                 </div>

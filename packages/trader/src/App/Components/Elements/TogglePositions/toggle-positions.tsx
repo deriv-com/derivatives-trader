@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Icon } from '@deriv/components';
+import { LegacyPositionIcon } from '@deriv/quill-icons';
 
 import 'Sass/app/_common/components/positions-toggle.scss';
 
@@ -24,7 +24,7 @@ const TogglePositions = ({ positions_count, is_open, togglePositions }: TToggleP
             onClick={togglePositions}
             data-count={positions_count}
         >
-            <Icon data_testid='dt_icon' icon='IcPortfolio' className='positions-toggle__icon' />
+            <LegacyPositionIcon data-testid='dt_icon' className='positions-toggle__icon' />
         </a>
     );
 };

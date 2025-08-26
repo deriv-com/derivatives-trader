@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Icon, Modal, Popover, VerticalTab } from '@deriv/components';
+import { Modal, Popover, VerticalTab } from '@deriv/components';
+import { LegacySettings1pxIcon } from '@deriv/quill-icons';
 import { localize } from '@deriv/translations';
 import 'Sass/app/modules/settings.scss';
 
@@ -34,10 +35,10 @@ const ToggleSettings = ({
             >
                 {showPopover ? (
                     <Popover alignment='top' message={localize('Platform settings')} zIndex={9999}>
-                        <Icon icon='IcGear' data_testid='dt_icon' className='footer__icon ic-settings__icon' />
+                        <LegacySettings1pxIcon data-testid='dt_icon' className='footer__icon ic-settings__icon' />
                     </Popover>
                 ) : (
-                    <Icon icon='IcGear' data_testid='dt_icon' className='footer__icon ic-settings__icon' />
+                    <LegacySettings1pxIcon data-testid='dt_icon' className='footer__icon ic-settings__icon' />
                 )}
             </a>
             <Modal

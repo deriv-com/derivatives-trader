@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import { Button, Icon, Text } from '@deriv/components';
+import { Button, Text } from '@deriv/components';
+import { LegacyChevronUp1pxIcon } from '@deriv/quill-icons';
 
 const transition = {
     duration: 0.24,
@@ -107,10 +108,10 @@ const WheelPicker = ({ options, onClick, defaultValue, currency }: WheelPickerTy
                     name='up-btn'
                     onClick={handleIncrease}
                 >
-                    <Icon
-                        icon='IcChevronUp'
-                        color={selectedIndex === 0 ? 'disabled' : 'black'}
+                    <LegacyChevronUp1pxIcon
+                        fill={selectedIndex === 0 ? 'var(--color-text-disabled)' : 'black'}
                         className='chevron-icon'
+                        iconSize='xs'
                     />
                 </Button>
                 <Button
@@ -121,10 +122,10 @@ const WheelPicker = ({ options, onClick, defaultValue, currency }: WheelPickerTy
                     data-testid='dt_down_btn'
                     onClick={handleDecrease}
                 >
-                    <Icon
-                        icon='IcChevronUp'
-                        color={selectedIndex === options.length - 1 ? 'disabled' : 'black'}
+                    <LegacyChevronUp1pxIcon
+                        fill={selectedIndex === options.length - 1 ? 'var(--color-text-disabled)' : 'black'}
                         className='chevron-up'
+                        iconSize='xs'
                     />
                 </Button>
             </div>

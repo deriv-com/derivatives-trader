@@ -86,14 +86,7 @@
             text-align: center;
         }
     }
-    .dc-icon {
-        margin-bottom: 0.3rem;
-        margin-right: -0.2rem;
 
-        &:not(.dc-icon--disabled) {
-            cursor: pointer;
-        }
-    }
     &__picker {
         position: absolute;
         z-index: 2;

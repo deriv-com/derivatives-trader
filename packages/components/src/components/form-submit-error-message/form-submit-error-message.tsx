@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon/icon';
+import { LegacyErrorIcon } from '@deriv/quill-icons';
 import Text from '../text';
 
 type TFormSubmitErrorMessage = {
@@ -18,7 +18,7 @@ const FormSubmitErrorMessage = ({
 }: TFormSubmitErrorMessage) => {
     return (
         <div className={classNames('dc-form-submit-error-message', className)}>
-            <Icon icon='IcAlertDanger' data_testid='form_submit_error' />
+            <LegacyErrorIcon fill='#ec3f3f' data-testid='form_submit_error' />
             {
                 <Text as='p' size='xxs' weight={weight} color={text_color}>
                     {message}

@@ -13,7 +13,7 @@ type TList = {
     value: React.ComponentType | typeof Redirect;
     default?: boolean;
     label: string;
-    icon?: string;
+    icon?: React.ReactElement;
     path?: string;
 };
 

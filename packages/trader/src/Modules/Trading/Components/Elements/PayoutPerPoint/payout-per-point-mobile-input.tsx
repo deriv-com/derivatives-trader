@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import { Button, Icon, PageOverlay, Popover, Text } from '@deriv/components';
-import { LabelPairedChevronsDownCaptionRegularIcon, LabelPairedChevronsUpCaptionRegularIcon } from '@deriv/quill-icons';
+import { Button, PageOverlay, Popover, Text } from '@deriv/components';
+import {
+    LabelPairedChevronsDownCaptionRegularIcon,
+    LabelPairedChevronsUpCaptionRegularIcon,
+    LegacyClose2pxIcon,
+} from '@deriv/quill-icons';
 import { Localize } from '@deriv/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
@@ -83,7 +87,7 @@ const PayoutPerPointMobileInput = ({
                         />
                     </div>
                     <button className='cross-icon' onClick={onClose}>
-                        <Icon icon='IcCross' data_testid='dt_modal_close_icon' />
+                        <LegacyClose2pxIcon data-testid='dt_modal_close_icon' iconSize='xs' />
                     </button>
                 </Fieldset>
                 <WheelPickerMobile

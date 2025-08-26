@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 import Counter from '../counter';
-import Icon from '../icon';
 
 type TTabProps = {
     active_icon_color?: string;
@@ -13,7 +12,7 @@ type TTabProps = {
     header_fit_content?: boolean;
     icon_color?: string;
     icon_size?: number;
-    icon: string;
+    icon: React.ReactElement;
     id?: string;
     is_active: boolean;
     is_label_hidden?: boolean;
@@ -61,7 +60,13 @@ const Tab = ({
     const title_color = is_active ? active_icon_color : icon_color;
     return (
         <li id={id} className={classes} style={{ color: title_color }} onClick={onClick} ref={active_tab_ref}>
-            {icon && <Icon icon={icon} size={icon_size} custom_color={title_color} className='dc-tabs__item__icon' />}
+            {icon &&
+                React.cloneElement(icon, {
+                    width: icon_size,
+                    height: icon_size,
+                    fill: title_color,
+                    className: 'dc-tabs__item__icon',
+                })}
             {header_content || label}
             {!!count && <Counter className='dc-tabs__item__counter' count={count} />}
         </li>

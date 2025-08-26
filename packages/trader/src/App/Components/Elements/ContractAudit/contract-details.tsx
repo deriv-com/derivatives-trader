@@ -1,7 +1,22 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Icon, Money, Text, ThemedScrollbars } from '@deriv/components';
+import { Money, Text, ThemedScrollbars } from '@deriv/components';
+import {
+    LegacyIdIcon,
+    LegacyCommissionIcon,
+    LegacyDealCancellationIcon,
+    LegacyTimeIcon,
+    LegacyBarrierIcon,
+    LegacyBarrierResetIcon,
+    LegacyResetIcon,
+    LegacyTargetIcon,
+    IllustrativePayoutIcon,
+    LegacyStartTimeIcon,
+    LegacyEntrySpotIcon,
+    LegacyExitSpotIcon,
+    LegacyExitTimeIcon,
+} from '@deriv/quill-icons';
 import {
     addComma,
     CONTRACT_TYPES,
@@ -171,7 +186,7 @@ const ContractDetails = ({
             <div className='contract-audit__tabs-content'>
                 <ContractAuditItem
                     id='dt_id_label'
-                    icon={<Icon icon='IcContractId' size={24} />}
+                    icon={<LegacyIdIcon iconSize='xs' />}
                     label={localize('Reference ID')}
                     value={localize('{{buy_value}} (Buy)', { buy_value: buy })}
                     value2={sell ? localize('{{sell_value}} (Sell)', { sell_value: sell }) : undefined}
@@ -180,14 +195,14 @@ const ContractDetails = ({
                     <React.Fragment>
                         <ContractAuditItem
                             id='dt_commission_label'
-                            icon={<Icon icon='IcContractCommission' size={24} />}
+                            icon={<LegacyCommissionIcon iconSize='xs' />}
                             label={localize('Commission')}
                             value={<Money amount={commission ?? ''} currency={currency} show_currency />}
                         />
                         {!!cancellation_price && (
                             <ContractAuditItem
                                 id='dt_cancellation_label'
-                                icon={<Icon icon='IcContractSafeguard' size={24} />}
+                                icon={<LegacyDealCancellationIcon iconSize='xs' />}
                                 label={getLabel()}
                                 value={<Money amount={cancellation_price} currency={currency} />}
                             />
@@ -198,7 +213,7 @@ const ContractDetails = ({
                         {show_duration && (
                             <ContractAuditItem
                                 id='dt_duration_label'
-                                icon={<Icon icon='IcContractDuration' size={24} />}
+                                icon={<LegacyTimeIcon iconSize='xs' />}
                                 label={localize('Duration')}
                                 value={Number(tick_count) > 0 ? ticks_duration_text : `${duration} ${duration_unit}`}
                                 additional_info={additional_info}
@@ -208,7 +223,7 @@ const ContractDetails = ({
                             <React.Fragment>
                                 <ContractAuditItem
                                     id='dt_bt_label'
-                                    icon={<Icon icon='IcContractStrike' size={24} />}
+                                    icon={<LegacyBarrierIcon iconSize='xs' />}
                                     label={getBarrierLabel(contract_info)}
                                     value={
                                         (isResetContract(contract_type)
@@ -220,13 +235,13 @@ const ContractDetails = ({
                                     <React.Fragment>
                                         <ContractAuditItem
                                             id='dt_reset_barrier_label'
-                                            icon={<Icon icon='IcContractResetBarrier' size={24} />}
+                                            icon={<LegacyBarrierResetIcon iconSize='xs' />}
                                             label={localize('Reset barrier')}
                                             value={reset_barrier ? addComma(reset_barrier) : ' - '}
                                         />
                                         <ContractAuditItem
                                             id='dt_reset_time_label'
-                                            icon={<Icon icon='IcContractResetTime' size={24} />}
+                                            icon={<LegacyResetIcon iconSize='xs' />}
                                             label={localize('Reset time')}
                                             value={toGMTFormat(epochToMoment(reset_time))}
                                         />
@@ -239,9 +254,9 @@ const ContractDetails = ({
                                 id='dt_bt_label'
                                 icon={
                                     isDigitType(contract_type) ? (
-                                        <Icon icon='IcContractTarget' size={24} />
+                                        <LegacyTargetIcon iconSize='xs' />
                                     ) : (
-                                        <Icon icon='IcContractBarrier' size={24} />
+                                        <LegacyBarrierIcon iconSize='xs' />
                                     )
                                 }
                                 label={getBarrierLabel(contract_info)}
@@ -253,7 +268,7 @@ const ContractDetails = ({
                                 {[high_barrier, low_barrier].map((barrier, index) => (
                                     <ContractAuditItem
                                         id={`dt_bt_label_${index + 1}`}
-                                        icon={<Icon icon='IcContractStrike' size={24} />}
+                                        icon={<LegacyBarrierIcon iconSize='xs' />}
                                         key={barrier}
                                         label={
                                             high_barrier === barrier
@@ -268,7 +283,7 @@ const ContractDetails = ({
                         {show_payout_per_point && (
                             <ContractAuditItem
                                 id='dt_bt_label'
-                                icon={<Icon icon='IcContractPayout' size={24} />}
+                                icon={<IllustrativePayoutIcon iconSize='xs' />}
                                 label={vanilla_payout_text}
                                 value={
                                     display_number_of_contracts
@@ -300,7 +315,7 @@ const ContractDetails = ({
                 )}
                 <ContractAuditItem
                     id='dt_start_time_label'
-                    icon={<Icon icon='IcContractStartTime' size={24} />}
+                    icon={<LegacyStartTimeIcon iconSize='xs' />}
                     label={localize('Start time')}
                     value={toGMTFormat(epochToMoment(Number(date_start))) || ' - '}
                 />
@@ -337,7 +352,7 @@ const ContractDetails = ({
                 {!isDigitType(contract_type) && (
                     <ContractAuditItem
                         id='dt_entry_spot_label'
-                        icon={<Icon icon='IcContractEntrySpot' size={24} />}
+                        icon={<LegacyEntrySpotIcon iconSize='xs' />}
                         label={localize('Entry spot')}
                         value={actual_entry_spot ? addComma(actual_entry_spot.toString()) : ' - '}
                         value2={entry_spot_time ? toGMTFormat(epochToMoment(entry_spot_time)) : ' - '}
@@ -350,7 +365,7 @@ const ContractDetails = ({
                 {(!isNaN(Number(exit_spot)) || actual_exit_spot_display_value || actual_exit_spot) && (
                     <ContractAuditItem
                         id='dt_exit_spot_label'
-                        icon={<Icon icon='IcContractExitSpot' size={24} />}
+                        icon={<LegacyExitSpotIcon iconSize='xs' />}
                         label={localize('Exit spot')}
                         value={
                             exit_spot
@@ -367,7 +382,7 @@ const ContractDetails = ({
                 {!isNaN(Number(contract_end_time)) && (
                     <ContractAuditItem
                         id='dt_exit_time_label'
-                        icon={<Icon icon='IcContractExitTime' color={is_profit ? 'green' : 'red'} size={24} />}
+                        icon={<LegacyExitTimeIcon iconSize='xs' fill={is_profit ? 'green' : 'red'} />}
                         label={localize('Exit time')}
                         value={toGMTFormat(epochToMoment(Number(contract_end_time))) || ' - '}
                     />

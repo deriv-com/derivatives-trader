@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { SwipeableProps, useSwipeable } from 'react-swipeable';
-import Icon from '../icon';
+import { StandaloneChevronsLeftBoldIcon, StandaloneChevronsRightBoldIcon } from '@deriv/quill-icons';
 
 type TSwipeableWrapper = {
     className?: string;
@@ -75,22 +75,26 @@ const SwipeableWrapper = ({
                         'dc-swipeable__nav-elevated': should_elevate_navigation,
                     })}
                 >
-                    <Icon
+                    <StandaloneChevronsLeftBoldIcon
                         className='dc-swipeable__nav__item'
-                        icon='IcChevronDoubleLeft'
-                        size={24}
+                        width={24}
+                        height={24}
                         onClick={() => swipedRight(true)}
-                        color={active_index === 0 || is_disabled ? 'disabled' : ''}
+                        fill={
+                            active_index === 0 || is_disabled
+                                ? 'var(--color-text-disabled)'
+                                : 'var(--color-text-primary)'
+                        }
                     />
-                    <Icon
+                    <StandaloneChevronsRightBoldIcon
                         className='dc-swipeable__nav__item'
-                        icon='IcChevronDoubleRight'
-                        size={24}
+                        width={24}
+                        height={24}
                         onClick={() => swipedLeft(true)}
-                        color={
+                        fill={
                             active_index + 1 === React.Children.toArray(children).length || is_disabled
-                                ? 'disabled'
-                                : ''
+                                ? 'var(--color-text-disabled)'
+                                : 'var(--color-text-primary)'
                         }
                     />
                 </nav>

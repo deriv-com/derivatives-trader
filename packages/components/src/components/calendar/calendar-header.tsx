@@ -1,5 +1,11 @@
 import React from 'react';
 import { addMonths, addYears, subMonths, subYears, toMoment } from '@deriv/shared';
+import {
+    StandaloneChevronLeftBoldIcon,
+    StandaloneChevronRightBoldIcon,
+    StandaloneChevronsLeftBoldIcon,
+    StandaloneChevronsRightBoldIcon,
+} from '@deriv/quill-icons';
 import Button from './calendar-button';
 import { getCentury, getDecade } from './helpers';
 
@@ -69,14 +75,14 @@ const Header = ({
         <div className='dc-calendar__header'>
             <Button
                 className='dc-calendar__btn--prev-year'
-                icon='IcChevronDoubleLeft'
+                icon={<StandaloneChevronsLeftBoldIcon iconSize='xs' />}
                 is_disabled={is_prev_year_disabled}
                 is_hidden={should_hide_prev_year}
                 onClick={onClickPrevYear}
             />
             <Button
                 className='dc-calendar__btn--prev-month'
-                icon='IcChevronLeft'
+                icon={<StandaloneChevronLeftBoldIcon iconSize='xs' />}
                 is_disabled={is_prev_month_disabled}
                 is_hidden={!is_date_view || should_hide_prev_month}
                 onClick={onClickPrevMonth}
@@ -113,14 +119,14 @@ const Header = ({
 
             <Button
                 className='dc-calendar__btn--next-month'
-                icon='IcChevronRight'
+                icon={<StandaloneChevronRightBoldIcon iconSize='xs' />}
                 is_disabled={is_next_month_disabled}
                 is_hidden={!is_date_view || should_hide_next_month}
                 onClick={onClickNextMonth}
             />
             <Button
                 className='dc-calendar__btn--next-year'
-                icon='IcChevronDoubleRight'
+                icon={<StandaloneChevronsRightBoldIcon iconSize='xs' />}
                 is_disabled={is_next_year_disabled}
                 is_hidden={should_hide_next_year}
                 onClick={onClickNextYear}

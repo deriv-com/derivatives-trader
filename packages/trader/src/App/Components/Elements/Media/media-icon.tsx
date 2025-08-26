@@ -7,8 +7,8 @@ type TMediaIcon = {
     is_enabled: boolean;
 };
 const MediaIcon = ({ id, is_enabled, enabled, disabled }: TMediaIcon) => {
-    const Icon = is_enabled ? enabled : disabled;
-    return <Icon id={id} className='media__icon' />;
+    const IconComponent = is_enabled ? enabled : disabled;
+    return <IconComponent id={id} className='media__icon' />;
 };
 
 export { MediaIcon };

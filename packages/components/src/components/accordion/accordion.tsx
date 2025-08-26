@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { usePrevious } from '../../hooks';
-import Icon from '../icon';
+import { LegacyMinus1pxIcon, LegacyPlus1pxIcon } from '@deriv/quill-icons';
 import { TAccordionProps } from '../types';
 
 const Accordion = ({ className, icon_close, icon_open, list }: TAccordionProps) => {
@@ -34,9 +34,15 @@ const Accordion = ({ className, icon_close, icon_open, list }: TAccordionProps) 
                         {item.header}
                         <div className='dc-accordion__item-header-icon-wrapper'>
                             {open_idx === idx ? (
-                                <Icon icon={icon_open || 'IcMinus'} className='dc-accordion__item-header-icon' />
+                                icon_open ? (
+                                    <span className='dc-accordion__item-header-icon'>{icon_open}</span>
+                                ) : (
+                                    <LegacyMinus1pxIcon className='dc-accordion__item-header-icon' />
+                                )
+                            ) : icon_close ? (
+                                <span className='dc-accordion__item-header-icon'>{icon_close}</span>
                             ) : (
-                                <Icon icon={icon_close || 'IcAdd'} className='dc-accordion__item-header-icon' />
+                                <LegacyPlus1pxIcon className='dc-accordion__item-header-icon' />
                             )}
                         </div>
                     </div>

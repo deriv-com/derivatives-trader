@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { getTimePercentage } from '@deriv/shared';
+import { LegacyTimeIcon } from '@deriv/quill-icons';
 import ProgressTicksMobile from './progress-ticks-mobile';
 import CircularProgress from '../circular-progress';
 import RemainingTime from '../remaining-time';
@@ -51,7 +52,7 @@ const ProgressSliderMobile = ({
                         <CircularProgress
                             className='dc-progress-slider-mobile__timer'
                             danger_limit={20}
-                            icon='IcClockOutline'
+                            icon={<LegacyTimeIcon />}
                             progress={percentage}
                             warning_limit={50}
                         />

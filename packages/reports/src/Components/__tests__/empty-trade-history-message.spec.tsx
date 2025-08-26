@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import EmptyTradeHistoryMessage from '../empty-trade-history-message';
 
 const mockProps = {
-    component_icon: 'calendar',
+    component_icon: <div>MockIcon</div>,
     has_selected_date: false,
     localized_message: 'No trades in your history yet.',
     localized_period_message: 'No trades for the selected period.',

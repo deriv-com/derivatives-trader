@@ -116,9 +116,6 @@
         .dc-select-native__placeholder:not(.dc-select-native__placeholder--has-value) {
             color: var(--color-text-secondary);
         }
-        .dc-icon {
-            --fill-color1: var(--color-text-secondary);
-        }
     }
     &--error {
         .dc-select-native__placeholder {

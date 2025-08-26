@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Icon, Text } from '@deriv/components';
+import { Button, Text } from '@deriv/components';
+import { LegacyClose2pxIcon } from '@deriv/quill-icons';
 
 const NotificationPromo = ({ cta_btn, img_alt, img_src, message, onClose }) => {
     return (
@@ -16,7 +17,7 @@ const NotificationPromo = ({ cta_btn, img_alt, img_src, message, onClose }) => {
                         </Button>
                     )}
                 </div>
-                <Icon className='notification-promo__close-icon' icon='IcCloseLight' onClick={onClose} />
+                <LegacyClose2pxIcon className='notification-promo__close-icon' onClick={onClose} />
             </div>
         </div>
     );

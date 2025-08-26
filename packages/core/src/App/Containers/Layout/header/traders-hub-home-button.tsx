@@ -1,10 +1,11 @@
 import React from 'react';
 import { useLocation } from 'react-router';
 import classNames from 'classnames';
-import { Icon, Text } from '@deriv/components';
+import { Text } from '@deriv/components';
 import { getBrandUrl, routes } from '@deriv/shared';
 import { observer } from '@deriv/stores';
 import { Localize } from '@deriv/translations';
+import { LegacyHomeNewIcon } from '@deriv/quill-icons';
 
 const TradersHubHomeButton = observer(() => {
     const location = useLocation();
@@ -28,7 +29,7 @@ const TradersHubHomeButton = observer(() => {
             onClick={handleTradershubRedirect}
         >
             <div className='traders-hub-header__tradershub--home-logo'>
-                <Icon icon={'IcAppstoreTradersHubHome'} size={16} />
+                <LegacyHomeNewIcon width={16} height={16} />
             </div>
             <Text className='traders-hub-header__tradershub--text'>
                 <Localize i18n_default_text="Trader's Hub" />

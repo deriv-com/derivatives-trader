@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Icon, Loading, Modal, Text } from '@deriv/components';
+import { Loading, Modal, Text } from '@deriv/components';
+import { LegacyInfo1pxIcon } from '@deriv/quill-icons';
 import { getUrlBase, isMobile } from '@deriv/shared';
 import { localize } from '@deriv/translations';
 
@@ -39,12 +40,11 @@ const AccumulatorsStatsManualModal = ({
 
     return (
         <React.Fragment>
-            <Icon
-                icon='IcInfoOutline'
+            <LegacyInfo1pxIcon
                 onClick={toggleManual}
-                size={16}
+                iconSize='xs'
                 className={icon_classname}
-                data_testid='dt_ic_info_icon'
+                data-testid='dt_ic_info_icon'
             />
             <Modal
                 is_open={is_manual_open && !!mp4_src && !!webm_src}

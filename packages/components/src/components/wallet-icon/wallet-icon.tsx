@@ -1,13 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../icon';
 import './wallet-icon.scss';
 
-type TWalletIconSizes = keyof typeof sizes['square' | 'box'];
+type TWalletIconSizes = keyof (typeof sizes)['square' | 'box'];
 
 type TWalletIconProps = {
     gradient_class?: string;
-    icon: string;
+    icon: React.ReactElement;
     size?: TWalletIconSizes;
     type?: 'demo' | 'fiat' | 'crypto' | 'app';
     has_bg?: boolean;
@@ -66,10 +65,16 @@ const WalletIcon = ({ gradient_class, icon, size = 'medium', type, has_bg, hide_
             })}
             data-testid='dt_wallet_icon'
         >
-            {(type === 'fiat' || type === 'app') && <Icon icon={icon} size={sizes.square[size]} />}
-            {(type === 'demo' || type === 'crypto') && (
-                <Icon icon={icon} width={sizes.box[size].width} height={sizes.box[size].height} />
-            )}
+            {(type === 'fiat' || type === 'app') &&
+                React.cloneElement(icon, {
+                    width: sizes.square[size],
+                    height: sizes.square[size],
+                })}
+            {(type === 'demo' || type === 'crypto') &&
+                React.cloneElement(icon, {
+                    width: sizes.box[size].width,
+                    height: sizes.box[size].height,
+                })}
         </div>
     );
 };

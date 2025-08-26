@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import ArrayRenderer from './array-renderer';
-import Icon from '../icon';
+import { LegacyChevronDown1pxIcon } from '@deriv/quill-icons';
 import { TItem } from '../types/common.types';
 
 type TExpansionPanel = {
@@ -32,7 +32,7 @@ const ExpansionPanel = ({ message, onResize }: TExpansionPanel) => {
                 })}
             >
                 {message.header}
-                <Icon icon='IcChevronDown' className='dc-expansion-panel__header-chevron-icon' onClick={onClick} />
+                <LegacyChevronDown1pxIcon className='dc-expansion-panel__header-chevron-icon' onClick={onClick} />
             </div>
             {is_open &&
                 (Array.isArray(message.content) ? (

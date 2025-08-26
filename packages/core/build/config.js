@@ -94,11 +94,6 @@ const copyConfig = base => {
         },
         { from: path.resolve(__dirname, '../src/public/images/app/header/'), to: 'public/images/app/header/' },
         {
-            from: path.resolve(__dirname, '../../../node_modules/@deriv/components/lib/icon/sprites'),
-            to: 'public/sprites',
-            toType: 'dir',
-        },
-        {
             from: path.resolve(__dirname, '../src/templates/app/manifest.json'),
             to: 'manifest.json',
             toType: 'file',
@@ -121,7 +116,7 @@ const generateSWConfig = () => ({
     exclude: [/\**/],
     runtimeCaching: [
         {
-            urlPattern: /public\/(images|sprites)\/(?!.*favicons).*$/,
+            urlPattern: /public\/images\/(?!.*favicons).*$/,
             handler: 'CacheFirst',
             options: {
                 cacheName: 'assets',

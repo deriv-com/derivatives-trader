@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from './calendar-button';
 import Text from '../text';
+import { LegacyCalendar1pxIcon } from '@deriv/quill-icons';
 
 type TFooterProps = {
     clear_text?: string;
@@ -9,10 +10,10 @@ type TFooterProps = {
     has_today_btn?: boolean;
     onClick?: React.MouseEventHandler<HTMLSpanElement>;
     onClear?: React.MouseEventHandler<HTMLSpanElement>;
-    use_icon?: string;
+    use_icon?: React.ReactElement;
 };
 
-const FooterIcon = (use_icon?: string) => use_icon || 'IcCalendarToday';
+const FooterIcon = (use_icon?: React.ReactElement) => use_icon || <LegacyCalendar1pxIcon iconSize='xs' />;
 
 const Footer = ({ footer, has_today_btn, onClick, use_icon, has_clear_btn, clear_text, onClear }: TFooterProps) => (
     <React.Fragment>
