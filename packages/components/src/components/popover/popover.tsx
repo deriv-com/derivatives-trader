@@ -199,7 +199,7 @@ const Popover = ({
                                 >
                                     {!disable_message_icon && icon === 'info' && (
                                         <i className='dc-popover__bubble__icon'>
-                                            <LegacyInformationIcon fill='var(--color-text-link)' iconSize='xs' />
+                                            <LegacyInformationIcon fill='var(--color-text-info)' iconSize='xs' />
                                         </i>
                                     )}
                                     {(has_error && (

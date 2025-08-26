@@ -5,10 +5,10 @@ import Text from '../text';
 import './inline-message.scss';
 
 const type_icon_mapper = {
-    warning: { Component: LegacyWarningIcon, fill: '#FFAD3A' },
-    information: { Component: LegacyInformationIcon, fill: '#2196f3' },
-    announcement: { Component: LegacyAnnouncementIcon, fill: '#4bb4b3' },
-    error: { Component: LegacyErrorIcon, fill: '#ec3f3f' },
+    warning: { Component: LegacyWarningIcon, fill: 'var(--color-text-warning)' },
+    information: { Component: LegacyInformationIcon, fill: 'var(--color-text-info)' },
+    announcement: { Component: LegacyAnnouncementIcon, fill: 'var(--color-text-success)' },
+    error: { Component: LegacyErrorIcon, fill: 'var(--color-text-danger)' },
 };
 
 const size_to_font_size_mapper = {

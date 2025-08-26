@@ -7,10 +7,10 @@ export const max_display_notifications_mobile = 1;
 
 export const icon_types = {
     danger: { component: LegacyErrorIcon, fill: 'var(--color-text-danger)' },
-    info: { component: LegacyInformationIcon, fill: 'var(--color-text-link)' },
+    info: { component: LegacyInformationIcon, fill: 'var(--color-text-info)' },
     success: { component: LegacyAnnouncementIcon, fill: 'var(--color-text-success)' },
     warning: { component: LegacyWarningIcon, fill: 'var(--color-text-warning)' },
-    contract_sold: { component: LegacyInformationIcon, fill: 'var(--color-text-link)' },
+    contract_sold: { component: LegacyInformationIcon, fill: 'var(--color-text-info)' },
     announce: { component: LegacyAnnouncementIcon, fill: 'var(--color-text-success)' },
 };
 

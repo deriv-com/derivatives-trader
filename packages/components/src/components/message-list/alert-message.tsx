@@ -7,7 +7,7 @@ import { LegacyInformationIcon, LegacyErrorIcon, LegacyCheck1pxIcon } from '@der
 const type_mapper = {
     info: {
         icon: <LegacyInformationIcon />,
-        color: 'var(--color-text-link)',
+        color: 'var(--color-text-info)',
     },
     error: {
         icon: <LegacyErrorIcon />,

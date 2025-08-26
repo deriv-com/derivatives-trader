@@ -11,7 +11,7 @@ import './side-note.scss';
 
 const type_icon_mapper = {
     warning: { Component: LegacyWarningIcon, fill: 'var(--color-text-warning)' },
-    information: { Component: LegacyInformationIcon, fill: 'var(--color-text-link)' },
+    information: { Component: LegacyInformationIcon, fill: 'var(--color-text-info)' },
     announcement: { Component: LegacyInformationIcon, fill: 'var(--color-text-success)' },
     error: { Component: LegacyErrorIcon, fill: 'var(--color-text-danger)' },
 };
