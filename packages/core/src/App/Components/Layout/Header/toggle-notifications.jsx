@@ -22,7 +22,7 @@ const ToggleNotificationsDrawer = ({
             })}
             onClick={toggleDialog}
         >
-            <LegacyNotification1pxIcon className='notifications-toggle__icon' />
+            <LegacyNotification1pxIcon className='notifications-toggle__icon' iconSize='xs' />
             {!!count && <Counter count={count} className='notifications-toggle__step' />}
         </div>
     );

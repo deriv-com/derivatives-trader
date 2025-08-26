@@ -73,7 +73,7 @@ const FormProgress = ({ steps = [], current_step, sub_section_index }: TFormProg
                                             align='center'
                                             size='xxs'
                                             weight={active ? 'bold' : 'unset'}
-                                            color={active ? 'loss-danger' : 'prominent'}
+                                            color={active ? 'var(--color-status-danger)' : 'prominent'}
                                         >
                                             {item.header.title}
                                         </Text>

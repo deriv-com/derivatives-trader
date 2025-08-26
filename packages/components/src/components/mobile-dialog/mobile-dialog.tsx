@@ -140,7 +140,7 @@ const MobileDialog = (props: React.PropsWithChildren<TMobileDialog>) => {
                                     className='icons dc-btn-close dc-mobile-dialog__close-btn'
                                     onClick={props.onClose}
                                 >
-                                    <LegacyClose2pxIcon className='dc-mobile-dialog__close-btn-icon' />
+                                    <LegacyClose2pxIcon className='dc-mobile-dialog__close-btn-icon' iconSize='xs' />
                                 </div>
                             )}
                         </div>

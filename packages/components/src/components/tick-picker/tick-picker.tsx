@@ -93,7 +93,7 @@ const TickPicker = ({
         <div className='dc-tick-picker'>
             <div className='dc-tick-picker__calculation'>
                 <Button rounded className='operator' onClick={handleDecrease}>
-                    <LegacyMinus1pxIcon fill='var(--color-text-primary)' />
+                    <LegacyMinus1pxIcon fill='var(--color-text-primary)' iconSize='xs' />
                 </Button>
                 <div className='dc-tick-picker__holder' {...swipe_handlers}>
                     <Text styles={{ fontSize: '96px', lineHeight: 1, color: 'inherit' }}>
@@ -104,7 +104,7 @@ const TickPicker = ({
                     </Text>
                 </div>
                 <Button rounded className='operator' onClick={handleIncrease}>
-                    <LegacyPlus1pxIcon fill='var(--color-text-primary)' />
+                    <LegacyPlus1pxIcon fill='var(--color-text-primary)' iconSize='xs' />
                 </Button>
             </div>
             <div

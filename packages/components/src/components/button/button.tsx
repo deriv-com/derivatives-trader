@@ -129,7 +129,7 @@ const Button = ({
                 ))}
             {is_loading && <ButtonLoading />}
             {is_submit_success && <LegacyCheck1pxIcon fill='var(--color-interactive-active)' iconSize='sm' />}
-            {is_plus && <LegacyPlus2pxIcon fill='black' iconSize='sm' />}
+            {is_plus && <LegacyPlus2pxIcon fill='var(--color-text-primary)' iconSize='sm' />}
             {!text && !is_loading && children && (
                 <Text size='xs' weight='bold' align='center' className={classNames('dc-btn__text', classNameSpan)}>
                     {children}

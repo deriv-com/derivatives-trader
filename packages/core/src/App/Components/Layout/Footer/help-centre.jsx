@@ -12,10 +12,10 @@ export const HelpCentre = ({ showPopover }) => (
                 message={localize('Help centre')}
                 zIndex={9999}
             >
-                <LegacyHelpCentreIcon className='footer__icon' />
+                <LegacyHelpCentreIcon className='footer__icon' iconSize='xs' />
             </Popover>
         ) : (
-            <LegacyHelpCentreIcon className='footer__icon' />
+            <LegacyHelpCentreIcon className='footer__icon' iconSize='xs' />
         )}
     </StaticUrl>
 );

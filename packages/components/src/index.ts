@@ -123,7 +123,6 @@ export { default as VideoPlayer } from './components/video-player';
 export { default as InformationBanner } from './components/information-banner';
 export * from './components/wallet-card';
 export * from './components/wallet-icon';
-export * from './components/app-linked-with-wallet-icon';
 export * from './hooks';
 export * from './components/types';
 export * from './utils/contract-helpers';

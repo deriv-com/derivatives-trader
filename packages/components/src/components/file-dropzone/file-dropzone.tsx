@@ -176,7 +176,7 @@ const FileDropzone = ({ className, noClick = false, ...props }: TFileDropzone) =
                             // message shown if there are errors with the dragged file
                             is_visible={isDragReject}
                             timeout={150}
-                            color='loss-danger'
+                            color='var(--color-status-danger)'
                         >
                             {props.error_message}
                         </FadeInMessage>
@@ -184,7 +184,7 @@ const FileDropzone = ({ className, noClick = false, ...props }: TFileDropzone) =
                             // message shown on if there are validation errors with file uploaded
                             is_visible={!!validation_error_message && !isDragActive}
                             timeout={150}
-                            color='loss-danger'
+                            color='var(--color-status-danger)'
                         >
                             <RenderValidationErrorMessage open={open} />
                         </FadeInMessage>

@@ -18,7 +18,7 @@ const WhatsApp = ({ showPopover, onClick }: { showPopover?: boolean; onClick?: (
     if (!isDesktop)
         return (
             <Fragment>
-                <LegacyWhatsappIcon className='drawer-icon' iconSize='sm' />
+                <LegacyWhatsappIcon className='drawer-icon' iconSize='xs' />
                 <a
                     className='header__menu-mobile-whatsapp-link'
                     href={URLConstants.whatsApp}
@@ -46,10 +46,10 @@ const WhatsApp = ({ showPopover, onClick }: { showPopover?: boolean; onClick?: (
                     message={localize('WhatsApp')}
                     zIndex='9999'
                 >
-                    <LegacyWhatsappIcon className='footer__icon' iconSize='sm' />
+                    <LegacyWhatsappIcon className='footer__icon' iconSize='xs' />
                 </Popover>
             ) : (
-                <LegacyWhatsappIcon className='footer__icon' iconSize='sm' />
+                <LegacyWhatsappIcon className='footer__icon' iconSize='xs' />
             )}
         </a>
     );

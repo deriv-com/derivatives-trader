@@ -65,7 +65,7 @@ const MobileDrawer = ({
                             })}
                         >
                             <div onClick={toggle} className='dc-mobile-drawer__header-close'>
-                                <LegacyClose2pxIcon />
+                                <LegacyClose2pxIcon iconSize='xs' />
                             </div>
                             <div className='dc-mobile-drawer__header-wrapper'>
                                 {title && (

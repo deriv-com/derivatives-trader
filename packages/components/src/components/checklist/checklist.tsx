@@ -30,7 +30,7 @@ const ItemStatus = ({ status, onClick, button_text }: TItemStatusProps) => {
         case 'done':
             return (
                 <div className='dc-checklist__item-status--done'>
-                    <LegacyCheck1pxIcon iconSize='xs' fill='#008000' />
+                    <LegacyCheck1pxIcon iconSize='xs' fill='var(--color-status-success)' />
                 </div>
             );
         case 'button-action':

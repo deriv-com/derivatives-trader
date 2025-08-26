@@ -17,7 +17,7 @@ const NotificationPromo = ({ cta_btn, img_alt, img_src, message, onClose }) => {
                         </Button>
                     )}
                 </div>
-                <LegacyClose2pxIcon className='notification-promo__close-icon' onClick={onClose} />
+                <LegacyClose2pxIcon className='notification-promo__close-icon' onClick={onClose} iconSize='xs' />
             </div>
         </div>
     );

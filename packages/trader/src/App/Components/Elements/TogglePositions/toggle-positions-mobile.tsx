@@ -125,7 +125,7 @@ const TogglePositionsMobile = observer(
                                     {localize('Recent positions')}
                                 </Text>
                                 <div className='positions-modal__close-btn' onClick={closeModal}>
-                                    <LegacyMinimize2pxIcon data-testid='dt_modal_header_close' />
+                                    <LegacyMinimize2pxIcon data-testid='dt_modal_header_close' iconSize='xs' />
                                 </div>
                             </div>
                             <div className='positions-modal__body'>

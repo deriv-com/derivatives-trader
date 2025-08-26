@@ -6,17 +6,16 @@ import { isExternalLink } from '@deriv/utils';
 import { observer } from '@deriv/stores';
 import { localize } from '@deriv/translations';
 import { BinaryLink } from 'App/Components/Routes';
-import * as QuillIcons from '@deriv/quill-icons';
 
 type TMenuLink = {
-    data_testid: string;
-    icon: React.ComponentType<any>;
-    is_active: boolean;
-    is_disabled: boolean;
-    is_hidden: boolean;
+    data_testid?: string;
+    icon: React.ReactElement;
+    is_active?: boolean;
+    is_disabled?: boolean;
+    is_hidden?: boolean;
     link_to: string;
     onClickLink: () => void;
-    suffix_icon: React.ComponentType<any>;
+    suffix_icon?: React.ReactElement;
     text: React.ReactNode;
 };
 
@@ -36,9 +35,8 @@ const MenuLink = observer(
         const deriv_static_url = getStaticUrl(link_to);
         const is_external_link = deriv_static_url && isExternalLink(link_to);
 
-        const renderIcon = (IconComponent: React.ComponentType<any> | undefined, className: string) => {
-            if (!IconComponent) return null;
-            return <IconComponent className={className} iconSize='sm' />;
+        const renderIcon = (IconComponent: React.ReactElement, className: string) => {
+            return React.cloneElement(IconComponent, { className, iconSize: 'xs' });
         };
 
         if (is_hidden) return null;
@@ -51,9 +49,9 @@ const MenuLink = observer(
                     })}
                     data-testid={data_testid}
                 >
-                    {renderIcon(icon, 'header__menu-mobile-link-icon')}
+                    {icon && renderIcon(icon, 'header__menu-mobile-link-icon')}
                     <span className='header__menu-mobile-link-text'>{text}</span>
-                    {renderIcon(suffix_icon, 'header__menu-mobile-link-suffix-icon')}
+                    {suffix_icon && renderIcon(suffix_icon, 'header__menu-mobile-link-suffix-icon')}
                 </div>
             );
         } else if (is_external_link) {
@@ -66,7 +64,7 @@ const MenuLink = observer(
                     href={link_to}
                     data-testid={data_testid}
                 >
-                    {renderIcon(icon, 'header__menu-mobile-link-icon')}
+                    {icon && renderIcon(icon, 'header__menu-mobile-link-icon')}
                     <Text
                         className={is_trade_text ? '' : 'header__menu-mobile-link-text'}
                         as='h3'
@@ -75,7 +73,7 @@ const MenuLink = observer(
                     >
                         {text}
                     </Text>
-                    {renderIcon(suffix_icon, 'header__menu-mobile-link-suffix-icon')}
+                    {suffix_icon && renderIcon(suffix_icon, 'header__menu-mobile-link-suffix-icon')}
                 </a>
             );
         }
@@ -90,7 +88,7 @@ const MenuLink = observer(
                 onClick={onClickLink}
                 data-testid={data_testid}
             >
-                {renderIcon(icon, 'header__menu-mobile-link-icon')}
+                {icon && renderIcon(icon, 'header__menu-mobile-link-icon')}
                 <Text
                     className={is_trade_text ? '' : 'header__menu-mobile-link-text'}
                     as='h3'
@@ -99,7 +97,7 @@ const MenuLink = observer(
                 >
                     {text}
                 </Text>
-                {renderIcon(suffix_icon, 'header__menu-mobile-link-suffix-icon')}
+                {suffix_icon && renderIcon(suffix_icon, 'header__menu-mobile-link-suffix-icon')}
             </BinaryLink>
         );
     }

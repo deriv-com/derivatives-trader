@@ -4,7 +4,17 @@ import classNames from 'classnames';
 
 import { /* useOauth2, */ useRemoteConfig } from '@deriv/api';
 import { Div100vhContainer, MobileDrawer, ToggleSwitch } from '@deriv/components';
-import { LegacyMenuHamburger1pxIcon, LegacyTheme1pxIcon, LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
+import {
+    LegacyChartsIcon,
+    LegacyHelpCentreIcon,
+    LegacyHomeNewIcon,
+    LegacyLogout1pxIcon,
+    LegacyMenuHamburger1pxIcon,
+    LegacyRegulatoryInformationIcon,
+    LegacyResponsibleTradingIcon,
+    LegacyTheme1pxIcon,
+    LegacyChevronRight1pxIcon,
+} from '@deriv/quill-icons';
 // eslint-disable-next-line no-unused-vars -- getDomainUrl kept for future handleTradershubRedirect restoration
 import { routes, getBrandHomeUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
@@ -119,7 +129,7 @@ const ToggleMenuDrawer = observer(() => {
             <MobileDrawer.Item>
                 <MenuLink
                     link_to={/* TODO: add redirect to Help centre */ ''}
-                    icon='LegacyHelpCentreIcon'
+                    icon={<LegacyHelpCentreIcon />}
                     text={localize('Help centre')}
                     onClickLink={toggleDrawer}
                 />
@@ -134,7 +144,7 @@ const ToggleMenuDrawer = observer(() => {
                 <MobileDrawer.Item>
                     <MenuLink
                         link_to={/* TODO: add redirect to Responsible trading */ ''}
-                        icon='LegacyResponsibleTradingIcon'
+                        icon={<LegacyResponsibleTradingIcon />}
                         text={localize('Responsible trading')}
                         onClickLink={toggleDrawer}
                     />
@@ -152,7 +162,7 @@ const ToggleMenuDrawer = observer(() => {
                     <MobileDrawer.Item>
                         <MenuLink
                             link_to={/* TODO: add redirect to Regulatory information */ ''}
-                            icon='LegacyRegulatoryInformationIcon'
+                            icon={<LegacyRegulatoryInformationIcon />}
                             text={localize('Regulatory information')}
                             onClickLink={toggleDrawer}
                         />
@@ -189,7 +199,7 @@ const ToggleMenuDrawer = observer(() => {
                                     <MobileDrawer.Item>
                                         <MenuLink
                                             link_to={getBrandHomeUrl()}
-                                            icon='LegacyHomeNewIcon'
+                                            icon={<LegacyHomeNewIcon />}
                                             text={localize('Home')}
                                             onClickLink={() => {
                                                 window.open(getBrandHomeUrl(), '_blank', 'noopener,noreferrer');
@@ -201,7 +211,7 @@ const ToggleMenuDrawer = observer(() => {
                                 <MobileDrawer.Item>
                                     <MenuLink
                                         link_to={routes.index}
-                                        icon='LegacyChartsIcon'
+                                        icon={<LegacyChartsIcon />}
                                         text={localize('Trade')}
                                         onClickLink={toggleDrawer}
                                     />
@@ -215,7 +225,7 @@ const ToggleMenuDrawer = observer(() => {
                                     }}
                                 >
                                     <div className={classNames('header__menu-mobile-link')}>
-                                        <LegacyTheme1pxIcon className='header__menu-mobile-link-icon' />
+                                        <LegacyTheme1pxIcon className='header__menu-mobile-link-icon' iconSize='xs' />
                                         <span className='header__menu-mobile-link-text'>{localize('Dark theme')}</span>
                                         <ToggleSwitch
                                             id='dt_mobile_drawer_theme_toggler'
@@ -239,7 +249,7 @@ const ToggleMenuDrawer = observer(() => {
                                 )} */}
                                 {is_logged_in && (
                                     <MobileDrawer.Item onClick={handleLogout}>
-                                        <MenuLink icon='LegacyLogout1pxIcon' text={localize('Log out')} />
+                                        <MenuLink icon={<LegacyLogout1pxIcon />} text={localize('Log out')} />
                                     </MobileDrawer.Item>
                                 )}
                             </MobileDrawer.Body>

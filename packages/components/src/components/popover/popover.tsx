@@ -199,7 +199,7 @@ const Popover = ({
                                 >
                                     {!disable_message_icon && icon === 'info' && (
                                         <i className='dc-popover__bubble__icon'>
-                                            <LegacyInformationIcon fill='#2196f3' iconSize='xs' />
+                                            <LegacyInformationIcon fill='var(--color-text-link)' iconSize='xs' />
                                         </i>
                                     )}
                                     {(has_error && (
@@ -239,7 +239,7 @@ const Popover = ({
                                             className={icon_class_name}
                                             width={4}
                                             height={4}
-                                            fill='#E31C4B'
+                                            fill='var(--color-status-danger)'
                                         />
                                     )}
                                     {icon === 'counter' && <span className={icon_class_name}>{counter}</span>}

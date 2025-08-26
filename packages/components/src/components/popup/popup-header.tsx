@@ -97,7 +97,7 @@ const PopupHeader = () => {
                 )}
             </div>
             <div className='dc-popup__header-close'>
-                <LegacyClose2pxIcon className='dc-popup__header-close-icon' onClick={togglePopupModal} />
+                <LegacyClose2pxIcon className='dc-popup__header-close-icon' onClick={togglePopupModal} iconSize='xs' />
             </div>
         </div>
     );

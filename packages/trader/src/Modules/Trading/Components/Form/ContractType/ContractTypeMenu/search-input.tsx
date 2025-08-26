@@ -16,8 +16,10 @@ const SearchInput = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TSe
         <Input
             ref={ref}
             data-lpignore='true'
-            leading_icon={<LegacySearch1pxIcon />}
-            trailing_icon={value ? <LegacyCloseCircle1pxBlackIcon onClick={onClickClearInput} /> : undefined}
+            leading_icon={<LegacySearch1pxIcon iconSize='xs' />}
+            trailing_icon={
+                value ? <LegacyCloseCircle1pxBlackIcon onClick={onClickClearInput} iconSize='xs' /> : undefined
+            }
             placeholder={localize('Search')}
             type='text'
             onChange={onChange}

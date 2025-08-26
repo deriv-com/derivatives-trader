@@ -41,7 +41,7 @@ const NotificationBanner = ({ className, header, message, primary_btn, secondary
         <div className='notification-banner--right'>
             <div className='notification-banner__bg' />
             <img className='notification-banner__img' src={img_src} alt={img_alt} />
-            <LegacyClose2pxIcon className='notification-banner__close-icon' onClick={onClose} />
+            <LegacyClose2pxIcon className='notification-banner__close-icon' onClick={onClose} iconSize='xs' />
         </div>
     </div>
 );

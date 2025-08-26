@@ -43,7 +43,8 @@ const PlaybackRateControl = ({
             ) : (
                 <StandalonePlaybackSpeedFillIcon
                     fill='var(--color-surface-contrast)'
-                    iconSize='sm'
+                    height={20}
+                    width={20}
                     className='playback-rate__icon'
                 />
             )}

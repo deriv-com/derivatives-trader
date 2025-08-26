@@ -2,24 +2,15 @@ import type { RouteComponentProps } from 'react-router';
 import type { Moment } from 'moment';
 
 import type {
-    AccountLimitsResponse,
     ActiveSymbols,
     Authorize,
     ContractUpdate,
     ContractUpdateHistory,
     DetailsOfEachMT5Loginid,
-    GetAccountStatus,
-    GetLimits,
-    GetSelfExclusion,
     GetSettings,
-    LandingCompany,
     LogOutResponse,
     Portfolio1,
     ProposalOpenContract,
-    ResidenceList,
-    SetFinancialAssessmentRequest,
-    SetFinancialAssessmentResponse,
-    Statement,
     StatesList,
     Transaction,
     WebsiteStatus,
@@ -27,6 +18,7 @@ import type {
 import { TContractInfo } from '@deriv/shared/src/utils/contract/contract-types';
 
 import type { FeatureFlagsStore } from './src/stores';
+import React from 'react';
 
 type TRoutes =
     | '/404'
@@ -74,7 +66,7 @@ type TRoutes =
     | '/compare-accounts';
 
 type TPopulateSettingsExtensionsMenuItem = {
-    icon: string;
+    icon: React.ReactElement;
     label: string;
     value: <T extends object>(props: T) => JSX.Element;
 };

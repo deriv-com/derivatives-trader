@@ -33,7 +33,7 @@ const PositionsResultMobile = ({ is_visible, result }: TPositionsResultMobile) =
                     >
                         <LegacySellExpiredIcon
                             className='positions-modal-card__icon'
-                            fill={is_contract_won ? 'green' : 'red'}
+                            fill={is_contract_won ? 'var(--color-status-success)' : 'var(--color-status-danger)'}
                         />
                         <span>{getCardLabels().CLOSED}</span>
                     </span>

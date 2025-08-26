@@ -136,7 +136,7 @@ const VerticalTab = ({
                         <div className='dc-vertical-tab__title-text'>{title}</div>
                         {onClickClose && (
                             <div className='dc-vertical-tab__title-close' onClick={onClickClose || window.history.back}>
-                                <LegacyClose2pxIcon />
+                                <LegacyClose2pxIcon iconSize='xs' />
                             </div>
                         )}
                     </div>

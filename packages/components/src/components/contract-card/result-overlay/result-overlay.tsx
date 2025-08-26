@@ -32,7 +32,11 @@ export const ResultStatusIcon = ({ getCardLabels, is_contract_won }: TResultStat
             'dc-result__caption--lost': !is_contract_won,
         })}
     >
-        <LegacySellExpiredIcon className='dc-result__icon' fill={is_contract_won ? 'green' : 'red'} />
+        <LegacySellExpiredIcon
+            className='dc-result__icon'
+            iconSize='xs'
+            fill={is_contract_won ? 'var(--color-status-success)' : 'var(--color-status-danger)'}
+        />
         {getCardLabels().CLOSED}
     </span>
 );
@@ -88,7 +92,7 @@ const ResultOverlay = ({
                             weight='bold'
                             size='s'
                             line_height='xxl'
-                            color={is_contract_won ? 'profit-success' : 'loss-danger'}
+                            color={is_contract_won ? 'var(--color-status-success)' : 'var(--color-status-danger)'}
                         >
                             <Money amount={payout_info} currency={currency} has_sign show_currency />
                         </Text>

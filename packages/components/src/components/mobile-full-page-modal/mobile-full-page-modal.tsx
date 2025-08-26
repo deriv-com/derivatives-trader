@@ -83,6 +83,7 @@ const MobileFullPageModal = ({
                                 <LegacyArrowLeft2pxIcon
                                     onClick={pageHeaderReturnFn}
                                     data-testid='dt_mobile_full_page_return_icon'
+                                    iconSize='xs'
                                 />
                             </div>
                         )}

@@ -541,7 +541,7 @@ const Dropdown = ({
                             />
                         ))}
                     {error && (
-                        <Text as='p' size='xxs' color='loss-danger' className='dc-field--error'>
+                        <Text as='p' size='xxs' color='var(--color-status-danger)' className='dc-field--error'>
                             {error}
                         </Text>
                     )}

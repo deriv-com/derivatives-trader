@@ -35,10 +35,18 @@ const ToggleSettings = ({
             >
                 {showPopover ? (
                     <Popover alignment='top' message={localize('Platform settings')} zIndex={9999}>
-                        <LegacySettings1pxIcon data-testid='dt_icon' className='footer__icon ic-settings__icon' />
+                        <LegacySettings1pxIcon
+                            data-testid='dt_icon'
+                            className='footer__icon ic-settings__icon'
+                            iconSize='xs'
+                        />
                     </Popover>
                 ) : (
-                    <LegacySettings1pxIcon data-testid='dt_icon' className='footer__icon ic-settings__icon' />
+                    <LegacySettings1pxIcon
+                        data-testid='dt_icon'
+                        className='footer__icon ic-settings__icon'
+                        iconSize='xs'
+                    />
                 )}
             </a>
             <Modal

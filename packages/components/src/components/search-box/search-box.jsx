@@ -56,12 +56,15 @@ const SearchBox = ({ className, onClear, onSearch, placeholder }) => {
                                     onKeyDown={() => onSearchKeyUpDown(submitForm)}
                                     onKeyUp={() => onSearchKeyUpDown(submitForm)}
                                     onFocus={submitForm}
-                                    leading_icon={<LegacySearch1pxIcon className='search-box__field-icon' />}
+                                    leading_icon={
+                                        <LegacySearch1pxIcon className='search-box__field-icon' iconSize='xs' />
+                                    }
                                     trailing_icon={
                                         search ? (
                                             <StandaloneCircleXmarkRegularIcon
                                                 className='search-box__cross-icon'
                                                 onClick={() => onSearchClear(setFieldValue)}
+                                                iconSize='xs'
                                             />
                                         ) : null
                                     }

@@ -206,7 +206,7 @@ const PositionsDrawer = observer(({ ...props }) => {
                         className='positions-drawer__icon-close'
                         onClick={toggleDrawer}
                     >
-                        <LegacyMinimize2pxIcon data-testid='dt_positions_drawer_close_icon' />
+                        <LegacyMinimize2pxIcon data-testid='dt_positions_drawer_close_icon' iconSize='xs' />
                     </div>
                 </div>
                 <div className='positions-drawer__body' ref={drawer_ref}>
@@ -226,7 +226,11 @@ const PositionsDrawer = observer(({ ...props }) => {
                                 <Text
                                     size='xs'
                                     weight='bold'
-                                    color={getTotalProfit(all_positions) > 0 ? 'profit-success' : 'loss-danger'}
+                                    color={
+                                        getTotalProfit(all_positions) > 0
+                                            ? 'var(--color-status-success)'
+                                            : 'var(--color-status-danger)'
+                                    }
                                 >
                                     <React.Fragment>
                                         <Money amount={getTotalProfit(all_positions)} currency={currency} has_sign />{' '}

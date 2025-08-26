@@ -39,7 +39,10 @@ const SubMenu = ({
         <React.Fragment>
             <div className={classNames('dc-mobile-drawer__submenu-toggle', submenu_toggle_class)} onClick={toggleMenu}>
                 {submenu_icon &&
-                    React.cloneElement(submenu_icon, { className: 'dc-mobile-drawer__submenu-toggle-icon' })}
+                    React.cloneElement(submenu_icon, {
+                        className: 'dc-mobile-drawer__submenu-toggle-icon',
+                        iconSize: 'xs',
+                    })}
                 {submenu_title && (
                     <Text
                         as='h3'
@@ -99,7 +102,7 @@ const SubMenuList = ({
         >
             <div className='dc-mobile-drawer__submenu-list-title' onClick={collapse}>
                 <div className='dc-mobile-drawer__submenu-back'>
-                    <LegacyChevronLeft1pxIcon className='dc-mobile-drawer__submenu-back-icon' />
+                    <LegacyChevronLeft1pxIcon className='dc-mobile-drawer__submenu-back-icon' iconSize='xs' />
                 </div>
                 {submenu_title && (
                     <Text as='h3' weight='bold' color='primary'>

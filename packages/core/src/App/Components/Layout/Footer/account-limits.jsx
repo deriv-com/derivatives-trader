@@ -13,10 +13,10 @@ export const AccountLimits = observer(({ showPopover }) => {
         <a className='footer__link' href={redirect_url}>
             {showPopover ? (
                 <Popover alignment='top' message={localize('Account limits')} zIndex={9999}>
-                    <LegacyAccountLimitsIcon className='footer__icon ic-deriv__icon' />
+                    <LegacyAccountLimitsIcon className='footer__icon ic-deriv__icon' iconSize='xs' />
                 </Popover>
             ) : (
-                <LegacyAccountLimitsIcon className='footer__icon ic-deriv__icon' />
+                <LegacyAccountLimitsIcon className='footer__icon ic-deriv__icon' iconSize='xs' />
             )}
         </a>
     );

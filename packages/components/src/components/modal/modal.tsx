@@ -188,7 +188,11 @@ const ModalElement = ({
                             })}
                         >
                             {has_return_icon && (
-                                <LegacyArrowLeft2pxIcon onClick={onReturn} className='dc-modal-header__icon' />
+                                <LegacyArrowLeft2pxIcon
+                                    onClick={onReturn}
+                                    className='dc-modal-header__icon'
+                                    iconSize='xs'
+                                />
                             )}
                             {title}
                         </Text>

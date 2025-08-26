@@ -10,10 +10,10 @@ import Text from '../text';
 import './side-note.scss';
 
 const type_icon_mapper = {
-    warning: { Component: LegacyWarningIcon, fill: '#FFAD3A' },
-    information: { Component: LegacyInformationIcon, fill: '#2196f3' },
-    announcement: { Component: LegacyInformationIcon, fill: '#4bb4b3' },
-    error: { Component: LegacyErrorIcon, fill: '#ec3f3f' },
+    warning: { Component: LegacyWarningIcon, fill: 'var(--color-text-warning)' },
+    information: { Component: LegacyInformationIcon, fill: 'var(--color-text-link)' },
+    announcement: { Component: LegacyInformationIcon, fill: 'var(--color-text-success)' },
+    error: { Component: LegacyErrorIcon, fill: 'var(--color-text-danger)' },
 };
 
 type TProps = {
@@ -52,7 +52,7 @@ const SideNote: React.FC<React.PropsWithChildren<TProps>> = ({ title, descriptio
                     <Text size={content_font_size} color='red'>
                         {action?.label}
                     </Text>
-                    <LegacyChevronRight1pxIcon fill='red' width={16} height={16} />
+                    <LegacyChevronRight1pxIcon fill='var(--color-status-danger)' iconSize='xs' />
                 </div>
             )}
         </div>

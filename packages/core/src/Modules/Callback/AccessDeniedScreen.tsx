@@ -57,7 +57,7 @@ const AccessDeniedScreen = observer(() => {
                     <Loading />
                 ) : (
                     <>
-                        <LegacyWarningIcon width={72} height={72} fill='#F59F00' />
+                        <LegacyWarningIcon width={72} height={72} fill='var(--color-text-warning)' />
                         <Text as='h2' className='access-denied__title' weight='bold' align='center'>
                             {localize("You're currently logged in as")} <br />
                             {email_address}

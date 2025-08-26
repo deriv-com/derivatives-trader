@@ -5,7 +5,7 @@ import { UILoader } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
 import type { TCoreStores } from '@deriv/stores/types';
 import { localize } from '@deriv/translations';
-
+import { LegacyChartsIcon } from '@deriv/quill-icons';
 import TraderProviders from '../../trader-providers';
 
 type TTradeSettingsExtensionsProps = {
@@ -32,7 +32,7 @@ const TradeSettingsExtensions = observer(({ store }: TTradeSettingsExtensionsPro
     const populateSettings = () => {
         const menu_items: Parameters<typeof populateSettingsExtensions>[0] = [
             {
-                icon: 'IcChart',
+                icon: <LegacyChartsIcon />,
                 label: localize('Charts'),
                 value: props => renderItemValue(props, store),
             },

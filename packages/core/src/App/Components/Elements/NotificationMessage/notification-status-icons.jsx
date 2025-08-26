@@ -10,7 +10,7 @@ const NotificationStatusIcons = ({ type, class_suffix }) => {
     if (type && type === 'danger') {
         return (
             <LegacyErrorIcon
-                fill='#ec3f3f'
+                fill='var(--color-text-danger)'
                 className={classNames('inline-icon', 'notification__icon-type', {
                     [`notification__icon-type--${class_suffix}`]: class_suffix,
                 })}

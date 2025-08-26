@@ -18,7 +18,7 @@ const FormSubmitErrorMessage = ({
 }: TFormSubmitErrorMessage) => {
     return (
         <div className={classNames('dc-form-submit-error-message', className)}>
-            <LegacyErrorIcon fill='#ec3f3f' data-testid='form_submit_error' />
+            <LegacyErrorIcon fill='var(--color-status-danger)' data-testid='form_submit_error' />
             {
                 <Text as='p' size='xxs' weight={weight} color={text_color}>
                     {message}

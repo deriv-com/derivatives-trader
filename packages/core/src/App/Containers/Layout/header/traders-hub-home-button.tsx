@@ -29,7 +29,7 @@ const TradersHubHomeButton = observer(() => {
             onClick={handleTradershubRedirect}
         >
             <div className='traders-hub-header__tradershub--home-logo'>
-                <LegacyHomeNewIcon width={16} height={16} />
+                <LegacyHomeNewIcon iconSize='xs' />
             </div>
             <Text className='traders-hub-header__tradershub--text'>
                 <Localize i18n_default_text="Trader's Hub" />

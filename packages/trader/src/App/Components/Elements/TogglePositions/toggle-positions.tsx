@@ -24,7 +24,7 @@ const TogglePositions = ({ positions_count, is_open, togglePositions }: TToggleP
             onClick={togglePositions}
             data-count={positions_count}
         >
-            <LegacyPositionIcon data-testid='dt_icon' className='positions-toggle__icon' />
+            <LegacyPositionIcon data-testid='dt_icon' className='positions-toggle__icon' iconSize='xs' />
         </a>
     );
 };

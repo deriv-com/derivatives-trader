@@ -77,8 +77,7 @@ const SwipeableWrapper = ({
                 >
                     <StandaloneChevronsLeftBoldIcon
                         className='dc-swipeable__nav__item'
-                        width={24}
-                        height={24}
+                        iconSize='sm'
                         onClick={() => swipedRight(true)}
                         fill={
                             active_index === 0 || is_disabled
@@ -88,8 +87,7 @@ const SwipeableWrapper = ({
                     />
                     <StandaloneChevronsRightBoldIcon
                         className='dc-swipeable__nav__item'
-                        width={24}
-                        height={24}
+                        iconSize='sm'
                         onClick={() => swipedLeft(true)}
                         fill={
                             active_index + 1 === React.Children.toArray(children).length || is_disabled

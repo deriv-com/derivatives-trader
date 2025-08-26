@@ -15,7 +15,7 @@ const ContractHistory = ({ currency, history = [] }: TContractHistory) => {
     if (!history.length) {
         return (
             <div className='contract-audit__empty'>
-                <DerivLightEmptyCardboardBoxIcon width={48} height={48} fill='var(--color-secondary)' />
+                <DerivLightEmptyCardboardBoxIcon width={48} height={48} fill='var(--color-text-secondary)' />
                 <h4 className='contract-audit__empty-header'>{localize('No history')}</h4>
                 <Text align='center' line_height='s' color='less-prominent' size='xxs'>
                     {localize('You have yet to update either take profit or stop loss')}

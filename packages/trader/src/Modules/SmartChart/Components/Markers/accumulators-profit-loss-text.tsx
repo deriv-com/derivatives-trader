@@ -124,7 +124,7 @@ const AccumulatorsProfitLossText = ({
             <Text
                 weight='bold'
                 size={isMobile() ? 's' : 'sm'}
-                color={won ? 'profit-success' : 'loss-danger'}
+                color={won ? 'var(--color-status-success)' : 'var(--color-status-danger)'}
                 className={classNames(`${className}__profit`, `${className}__profit--${won ? 'won' : 'loss'}`, {
                     [`${className}__profit--fading-in`]: is_fading_in,
                 })}

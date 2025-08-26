@@ -42,7 +42,7 @@ const VideoOverlay = ({
         >
             {is_ended && (
                 <StandaloneArrowRotateRightRegularIcon
-                    fill='var(--border-normal-1)'
+                    fill='var(--color-surface-border)'
                     width={is_mobile ? 88 : 128}
                     height={is_mobile ? 88 : 128}
                     className='player__overlay__icon'
@@ -53,15 +53,15 @@ const VideoOverlay = ({
             {is_v2 && !is_ended && (
                 <div onClick={show_controls ? handleClick : undefined}>
                     {is_playing ? (
-                        <StandalonePauseFillIcon fill='#ffffff' iconSize='2xl' />
+                        <StandalonePauseFillIcon fill='var(--color-surface-primary)' iconSize='2xl' />
                     ) : (
-                        <StandalonePlayFillIcon fill='#ffffff' iconSize='2xl' />
+                        <StandalonePlayFillIcon fill='var(--color-surface-primary)' iconSize='2xl' />
                     )}
                 </div>
             )}
             {is_v2 && (
                 <div onClick={onModalClose} className='modal-player__icon-close'>
-                    <StandaloneXmarkRegularIcon fill='#ffffff' iconSize='md' />
+                    <StandaloneXmarkRegularIcon fill='var(--color-surface-primary)' iconSize='md' />
                 </div>
             )}
         </div>

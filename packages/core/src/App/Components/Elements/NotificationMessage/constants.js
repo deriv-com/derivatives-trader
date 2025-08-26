@@ -6,12 +6,12 @@ export const max_display_notifications = 3;
 export const max_display_notifications_mobile = 1;
 
 export const icon_types = {
-    danger: { component: LegacyErrorIcon, fill: '#ec3f3f' },
-    info: { component: LegacyInformationIcon, fill: '#2196f3' },
-    success: { component: LegacyAnnouncementIcon, fill: '#4bb4b3' },
-    warning: { component: LegacyWarningIcon, fill: '#FFAD3A' },
-    contract_sold: { component: LegacyInformationIcon, fill: '#2196f3' },
-    announce: { component: LegacyAnnouncementIcon, fill: '#4bb4b3' },
+    danger: { component: LegacyErrorIcon, fill: 'var(--color-text-danger)' },
+    info: { component: LegacyInformationIcon, fill: 'var(--color-text-link)' },
+    success: { component: LegacyAnnouncementIcon, fill: 'var(--color-text-success)' },
+    warning: { component: LegacyWarningIcon, fill: 'var(--color-text-warning)' },
+    contract_sold: { component: LegacyInformationIcon, fill: 'var(--color-text-link)' },
+    announce: { component: LegacyAnnouncementIcon, fill: 'var(--color-text-success)' },
 };
 
 export const types = {

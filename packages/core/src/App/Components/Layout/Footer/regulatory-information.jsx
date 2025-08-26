@@ -32,7 +32,7 @@ export const RegulatoryInformation = ({ landing_company, is_eu, show_eu_related_
     const is_mf = landing_company === 'maltainvest';
     const content = (
         <a onClick={() => showModal(true)}>
-            <LegacyRegulatoryInformationIcon className='footer__icon ic-deriv__icon' />
+            <LegacyRegulatoryInformationIcon className='footer__icon ic-deriv__icon' iconSize='xs' />
         </a>
     );
 
