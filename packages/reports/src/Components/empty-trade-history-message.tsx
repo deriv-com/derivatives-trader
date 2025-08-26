@@ -18,7 +18,10 @@ const EmptyTradeHistoryMessage = ({
         <React.Fragment>
             <div className='empty-trade-history'>
                 <div className='empty-trade-history__icon' data-testid='dt_empty_trade_history_icon'>
-                    {component_icon}
+                    {React.cloneElement(component_icon, {
+                        fill: 'var(--color-text-disabled)',
+                        iconSize: '2xl',
+                    })}
                 </div>
                 <Text size='xs' align='center' color='disabled' className='empty-trade-history__text'>
                     {!has_selected_date ? localized_message : localized_period_message}
