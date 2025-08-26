@@ -501,4 +501,142 @@ describe('TradeStore', () => {
             expect(mockedTradeStore.expiry_date).toBe('2024-09-15');
         });
     });
+
+    describe('Vanilla contract duration_unit reset behavior', () => {
+        beforeEach(() => {
+            // Reset trade store to a clean state
+            mockedTradeStore.contract_type = 'rise_fall';
+            mockedTradeStore.duration = 10;
+            mockedTradeStore.duration_unit = 'd';
+            mockedTradeStore.barrier_1 = '100';
+        });
+
+        it('should always reset duration_unit to minutes when switching from non-Vanilla to Vanilla Call', () => {
+            // Initial state: non-Vanilla contract with days duration
+            expect(mockedTradeStore.contract_type).toBe('rise_fall');
+            expect(mockedTradeStore.duration).toBe(10);
+            expect(mockedTradeStore.duration_unit).toBe('d');
+
+            // Switch to Vanilla Call
+            mockedTradeStore.onChange({ target: { name: 'contract_type', value: 'vanillalongcall' } });
+
+            // Should reset duration_unit to minutes and duration to 5
+            expect(mockedTradeStore.duration).toBe(5);
+            expect(mockedTradeStore.duration_unit).toBe('m');
+        });
+
+        it('should always reset duration_unit to minutes when switching from non-Vanilla to Vanilla Put', () => {
+            // Initial state: non-Vanilla contract with hours duration
+            mockedTradeStore.duration_unit = 'h';
+            expect(mockedTradeStore.contract_type).toBe('rise_fall');
+            expect(mockedTradeStore.duration_unit).toBe('h');
+
+            // Switch to Vanilla Put
+            mockedTradeStore.onChange({ target: { name: 'contract_type', value: 'vanillalongput' } });
+
+            // Should reset duration_unit to minutes
+            expect(mockedTradeStore.duration_unit).toBe('m');
+        });
+
+        it('should reset duration_unit to minutes when switching between Vanilla contracts with different duration units', () => {
+            // Set initial state to Vanilla Call with days duration (simulating the problematic scenario)
+            mockedTradeStore.contract_type = 'vanillalongcall';
+            mockedTradeStore.duration = 5;
+            mockedTradeStore.duration_unit = 'd'; // This simulates the bug scenario
+            mockedTradeStore.barrier_1 = '+0.1';
+
+            expect(mockedTradeStore.contract_type).toBe('vanillalongcall');
+            expect(mockedTradeStore.duration).toBe(5);
+            expect(mockedTradeStore.duration_unit).toBe('d');
+
+            // Switch to Vanilla Put (this should reset duration_unit to minutes)
+            mockedTradeStore.onChange({ target: { name: 'contract_type', value: 'vanillalongput' } });
+
+            // Should reset duration_unit to minutes but keep other values
+            expect(mockedTradeStore.duration).toBe(5); // Should not change
+            expect(mockedTradeStore.duration_unit).toBe('m'); // Should reset to minutes
+            expect(mockedTradeStore.barrier_1).toBe('+0.1'); // Should not change
+        });
+
+        it('should reset duration_unit to minutes when switching from Vanilla Put with days to Vanilla Call', () => {
+            // Set initial state to Vanilla Put with days duration
+            mockedTradeStore.contract_type = 'vanillalongput';
+            mockedTradeStore.duration = 7;
+            mockedTradeStore.duration_unit = 'd';
+            mockedTradeStore.barrier_1 = '-0.2';
+
+            expect(mockedTradeStore.contract_type).toBe('vanillalongput');
+            expect(mockedTradeStore.duration_unit).toBe('d');
+
+            // Switch to Vanilla Call
+            mockedTradeStore.onChange({ target: { name: 'contract_type', value: 'vanillalongcall' } });
+
+            // Should reset duration_unit to minutes
+            expect(mockedTradeStore.duration).toBe(7); // Should not change
+            expect(mockedTradeStore.duration_unit).toBe('m'); // Should reset to minutes
+            expect(mockedTradeStore.barrier_1).toBe('-0.2'); // Should not change
+        });
+
+        it('should reset duration_unit to minutes even when selecting the same Vanilla contract with non-minutes duration', () => {
+            // Set initial state to Vanilla Call with hours duration
+            mockedTradeStore.contract_type = 'vanillalongcall';
+            mockedTradeStore.duration = 3;
+            mockedTradeStore.duration_unit = 'h';
+            mockedTradeStore.barrier_1 = '+0.5';
+
+            expect(mockedTradeStore.duration_unit).toBe('h');
+
+            // Select the same Vanilla Call again (simulating user re-selecting)
+            mockedTradeStore.onChange({ target: { name: 'contract_type', value: 'vanillalongcall' } });
+
+            // Should reset duration_unit to minutes
+            expect(mockedTradeStore.duration).toBe(3); // Should not change
+            expect(mockedTradeStore.duration_unit).toBe('m'); // Should reset to minutes
+            expect(mockedTradeStore.barrier_1).toBe('+0.5'); // Should not change
+        });
+
+        it('should simulate the exact problematic scenario: Vanilla -> Days -> Non-Vanilla -> Vanilla', () => {
+            // Step 1: Start with Vanilla Call
+            mockedTradeStore.contract_type = 'vanillalongcall';
+            mockedTradeStore.duration = 5;
+            mockedTradeStore.duration_unit = 'm';
+            mockedTradeStore.barrier_1 = '+0.1';
+
+            expect(mockedTradeStore.contract_type).toBe('vanillalongcall');
+            expect(mockedTradeStore.duration_unit).toBe('m');
+
+            // Step 2: User changes duration unit to days (simulating UI interaction)
+            mockedTradeStore.duration_unit = 'd';
+            expect(mockedTradeStore.duration_unit).toBe('d');
+
+            // Step 3: Switch to non-Vanilla contract
+            mockedTradeStore.onChange({ target: { name: 'contract_type', value: 'rise_fall' } });
+            expect(mockedTradeStore.contract_type).toBe('rise_fall');
+            expect(mockedTradeStore.duration_unit).toBe('d'); // Should remain as days
+
+            // Step 4: Switch back to Vanilla - this should reset duration_unit to minutes
+            mockedTradeStore.onChange({ target: { name: 'contract_type', value: 'vanillalongcall' } });
+
+            // Should reset duration_unit to minutes (fixing the bug)
+            expect(mockedTradeStore.duration_unit).toBe('m');
+            expect(mockedTradeStore.duration).toBe(5); // Should reset to default
+            expect(mockedTradeStore.barrier_1).toBe('+0.1'); // Should reset to default
+        });
+
+        it('should not affect duration_unit for non-Vanilla contracts', () => {
+            // Set initial state to non-Vanilla with days duration
+            mockedTradeStore.contract_type = 'rise_fall';
+            mockedTradeStore.duration = 10;
+            mockedTradeStore.duration_unit = 'd';
+
+            expect(mockedTradeStore.duration_unit).toBe('d');
+
+            // Switch to another non-Vanilla contract
+            mockedTradeStore.onChange({ target: { name: 'contract_type', value: 'high_low' } });
+
+            // Should NOT reset duration_unit for non-Vanilla contracts
+            expect(mockedTradeStore.duration_unit).toBe('d');
+            expect(mockedTradeStore.duration).toBe(10);
+        });
+    });
 });

@@ -93,7 +93,8 @@ const PositionsModalCard = observer(
             sell_price,
             shortcode,
             tick_count,
-            underlying,
+            // @ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update
+            underlying_symbol,
         } = contract_info;
 
         // Backward compatibility: fallback to old field name
@@ -103,7 +104,7 @@ const PositionsModalCard = observer(
         const is_accumulator = isAccumulatorContract(contract_type);
         const is_turbos = isTurbosContract(contract_type);
         const is_vanilla = isVanillaContract(contract_type);
-        const is_crypto = isCryptoContract(underlying);
+        const is_crypto = isCryptoContract(underlying_symbol);
         const has_progress_slider = !is_multiplier || (is_crypto && is_multiplier);
         const has_ended = !!getEndTime(contract_info);
         const fallback_result = profit_loss >= 0 ? 'won' : 'lost';
@@ -291,7 +292,7 @@ const PositionsModalCard = observer(
                     })}
                     to={getContractPath(id)}
                 >
-                    {underlying ? contract_el : loader_el}
+                    {underlying_symbol ? contract_el : loader_el}
                 </BinaryLink>
             </div>
         );
