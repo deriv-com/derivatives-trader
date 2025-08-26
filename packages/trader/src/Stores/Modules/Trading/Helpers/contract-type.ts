@@ -311,6 +311,28 @@ export const ContractType = (() => {
     };
 
     const getDurationUnit = (duration_unit: string, contract_type: string) => {
+        // For ALL Vanilla contracts, always return 'm' (minutes) to ensure proper duration reset behavior
+        // This fixes the issue where switching back to Vanilla contracts would show "5 Days" instead of "5 minutes"
+        // Vanilla contracts include: vanilla_call, vanilla_put, rise_fall, rise_fall_equal, call_put, etc.
+        const vanillaContractTypes = [
+            'vanilla_call',
+            'vanilla_put',
+            'vanillalongcall',
+            'vanillalongput',
+            'call_put',
+            'rise_fall',
+            'rise_fall_equal',
+            'higher_lower',
+            'call',
+            'put',
+        ];
+
+        if (vanillaContractTypes.includes(contract_type)) {
+            return {
+                duration_unit: 'm',
+            };
+        }
+
         const duration_units =
             (getPropertyValue(available_contract_types, [
                 contract_type,
@@ -323,8 +345,10 @@ export const ContractType = (() => {
             arr_units.push(obj.value);
         });
 
+        const resolved_duration_unit = getArrayDefaultValue(arr_units, duration_unit);
+
         return {
-            duration_unit: getArrayDefaultValue(arr_units, duration_unit),
+            duration_unit: resolved_duration_unit || duration_unit,
         };
     };
 

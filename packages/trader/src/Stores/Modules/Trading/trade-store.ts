@@ -946,12 +946,19 @@ export default class TradeStore extends BaseStore {
                 this.expiry_time = null;
                 this.expiry_date = null;
 
+                // ALWAYS reset duration_unit to minutes for ALL Vanilla contract switches
+                // This ensures that switching back to Vanilla always shows minutes, not days/hours
+                this.duration_unit = 'm';
+
+                // Also reset UI store duration units to ensure dropdowns show minutes
+                this.root_store.ui.advanced_duration_unit = 'm';
+                this.root_store.ui.simple_duration_unit = 'm';
+
                 // Only reset other defaults when switching from non-Vanilla to Vanilla
                 if (!was_vanilla) {
                     // Reset to safe defaults for Vanilla contracts
                     // Use minutes (m) with duration 5 to ensure relative barriers (+/-)
                     this.duration = 5;
-                    this.duration_unit = 'm';
                     this.barrier_1 = '+0.1';
                 }
             }
