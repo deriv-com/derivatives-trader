@@ -27,7 +27,7 @@ const MenuItems = ({ id, text, icon, link_to }) => {
 const ReportTab = () => (
     <MenuItems
         id={'dt_reports_tab'}
-        icon={<LegacyReportsIcon className='header__icon' iconSize='xs' />}
+        icon={<LegacyReportsIcon className='header__icon' iconSize='xs' fill='var(--color-text-primary)' />}
         text={localize('Reports')}
         link_to={routes.reports}
     />

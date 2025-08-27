@@ -53,7 +53,9 @@ const PopupHeader = () => {
                                     is_circle={isMobile()}
                                     is_circular={isDesktop()}
                                     className='dc-popup__header-button'
-                                    icon={<LegacyPlayFillIcon width={10} height={10} />}
+                                    icon={
+                                        <LegacyPlayFillIcon width={10} height={10} fill='var(--color-text-primary)' />
+                                    }
                                     onClick={onHeaderButtonClick}
                                     text={isDesktop() ? header_button_text : ''}
                                 />
@@ -66,6 +68,7 @@ const PopupHeader = () => {
                                 width: 40,
                                 height: 40,
                                 className: 'dc-popup__header-icon',
+                                fill: header_icon.props.fill || 'var(--color-text-primary)',
                             })}
                         </div>
                     )}
@@ -97,7 +100,12 @@ const PopupHeader = () => {
                 )}
             </div>
             <div className='dc-popup__header-close'>
-                <LegacyClose2pxIcon className='dc-popup__header-close-icon' onClick={togglePopupModal} iconSize='xs' />
+                <LegacyClose2pxIcon
+                    className='dc-popup__header-close-icon'
+                    onClick={togglePopupModal}
+                    iconSize='xs'
+                    fill={close_icon_color || 'var(--color-text-primary)'}
+                />
             </div>
         </div>
     );

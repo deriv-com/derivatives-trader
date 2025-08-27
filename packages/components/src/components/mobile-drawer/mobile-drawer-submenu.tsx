@@ -41,7 +41,8 @@ const SubMenu = ({
                 {submenu_icon &&
                     React.cloneElement(submenu_icon, {
                         className: 'dc-mobile-drawer__submenu-toggle-icon',
-                        iconSize: 'xs',
+                        iconSize: submenu_icon.props.iconSize || 'xs',
+                        fill: submenu_icon.props.fill || 'var(--color-text-primary)',
                     })}
                 {submenu_title && (
                     <Text
@@ -57,6 +58,8 @@ const SubMenu = ({
                 {submenu_suffix_icon &&
                     React.cloneElement(submenu_suffix_icon, {
                         className: 'dc-mobile-drawer__submenu-toggle-suffix-icon',
+                        iconSize: submenu_suffix_icon.props.iconSize || 'xs',
+                        fill: submenu_suffix_icon.props.fill || 'var(--color-text-primary)',
                     })}
             </div>
             <SubMenuList
@@ -102,7 +105,11 @@ const SubMenuList = ({
         >
             <div className='dc-mobile-drawer__submenu-list-title' onClick={collapse}>
                 <div className='dc-mobile-drawer__submenu-back'>
-                    <LegacyChevronLeft1pxIcon className='dc-mobile-drawer__submenu-back-icon' iconSize='xs' />
+                    <LegacyChevronLeft1pxIcon
+                        className='dc-mobile-drawer__submenu-back-icon'
+                        iconSize='xs'
+                        fill='var(--color-text-primary)'
+                    />
                 </div>
                 {submenu_title && (
                     <Text as='h3' weight='bold' color='primary'>

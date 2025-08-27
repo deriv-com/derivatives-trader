@@ -96,12 +96,14 @@ const WalletCard: React.FC<React.PropsWithChildren<TWalletCardProps>> = ({
                                             className='wallet-card__wallet-button-icon'
                                             width={12}
                                             height={12}
+                                            fill='var(--color-text-primary)'
                                         />
                                     ) : (
                                         <LegacyPlus2pxIcon
                                             className='wallet-card__wallet-button-icon'
                                             width={12}
                                             height={12}
+                                            fill='var(--color-text-primary)'
                                         />
                                     )
                                 }
@@ -119,6 +121,7 @@ const WalletCard: React.FC<React.PropsWithChildren<TWalletCardProps>> = ({
                     data-testid='dt_ic_checkmark_circle'
                     width={size === 'small' ? 16 : 32}
                     height={size === 'small' ? 16 : 32}
+                    fill='var(--color-status-success)'
                 />
             </div>
         )}

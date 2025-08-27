@@ -43,7 +43,7 @@ const ItemStatus = ({ status, onClick, button_text }: TItemStatusProps) => {
                     data-testid='dt_checklist_item_status_action'
                     onClick={onItemStatusClick}
                 >
-                    <LegacyArrowRight2pxIcon fill='var(--color-interactive-active)' />
+                    <LegacyArrowRight2pxIcon iconSize='xs' fill='var(--color-interactive-active)' />
                 </div>
             );
     }

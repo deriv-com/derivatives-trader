@@ -26,7 +26,7 @@ const ContractError = ({ message = '', onClickClose }: TContractError) =>
             </div>
             <div className='message-text'>{message}</div>
             <div className='message-close' onClick={onClickClose}>
-                <LegacyClose2pxIcon iconSize='xs' />
+                <LegacyClose2pxIcon iconSize='xs' fill='var(--color-text-primary)' />
             </div>
         </div>
     );

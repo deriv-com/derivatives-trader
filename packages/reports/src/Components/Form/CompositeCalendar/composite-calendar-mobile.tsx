@@ -185,7 +185,13 @@ const CompositeCalendarMobile = React.memo(
                         id='dt_calendar_input'
                         current_focus={current_focus ?? ''}
                         is_read_only={true}
-                        icon={() => <LegacyCalendar1pxIcon className='inline-icon' iconSize='xs' />}
+                        icon={() => (
+                            <LegacyCalendar1pxIcon
+                                className='inline-icon'
+                                iconSize='xs'
+                                fill='var(--color-text-primary)'
+                            />
+                        )}
                         onClick={openDialog}
                         setCurrentFocus={setCurrentFocus}
                         value={applied_date_range?.label ?? ''}

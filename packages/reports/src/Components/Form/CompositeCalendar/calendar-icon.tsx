@@ -6,7 +6,13 @@ type TCalendarIcon = {
 };
 
 const CalendarIcon = ({ onClick }: TCalendarIcon) => (
-    <LegacyCalendar1pxIcon onClick={onClick} iconSize='xs' className='inline-icon' data-testid='dt_calendar_icon' />
+    <LegacyCalendar1pxIcon
+        onClick={onClick}
+        iconSize='xs'
+        className='inline-icon'
+        data-testid='dt_calendar_icon'
+        fill='var(--color-text-primary)'
+    />
 );
 
 export default CalendarIcon;

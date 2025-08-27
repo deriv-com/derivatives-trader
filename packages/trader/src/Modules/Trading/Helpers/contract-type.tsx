@@ -32,16 +32,6 @@ type TItem = {
 export const isMajorPairsSymbol = (checked_symbol: string, active_symbols: ActiveSymbols) =>
     active_symbols.some(({ submarket, symbol }) => /major_pairs/i.test(submarket) && checked_symbol === symbol);
 
-export const contract_category_icon = {
-    [localize('Ups & Downs')]: <LegacyTradeTypeUpsDownsIcon />,
-    [localize('Touch & No Touch')]: <LegacyTradeTypeHighLowIcon />,
-    [localize('Ins & Outs')]: <LegacyTradeTypeInsOutsIcon />,
-    [localize('Look Backs')]: <LegacyTradeTypeLookbacksIcon />,
-    [localize('Digits')]: <LegacyTradeTypeDigitsIcon />,
-    [localize('Multipliers')]: <LegacyTradeTypeMultipliersIcon />,
-    [localize('Accumulators')]: <LegacyAccumulatorIcon />,
-} as const;
-
 export const ordered_trade_categories = [
     'Accumulators',
     'Vanillas',
@@ -92,7 +82,6 @@ export const getAvailableContractTypes = (
                     key,
                     label: contract_name,
                     contract_types: available_contract_types,
-                    icon: contract_category_icon[contract_name],
                     component: null,
                 };
             }

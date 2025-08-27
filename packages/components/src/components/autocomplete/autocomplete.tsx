@@ -363,6 +363,8 @@ const Autocomplete = React.memo((props: TAutocompleteProps) => {
                                     'dc-autocomplete__trailing-icon--opened': should_show_list,
                                     'dc-autocomplete__trailing-icon--disabled': other_props.disabled,
                                 })}
+                                iconSize='xs'
+                                fill='var(--color-text-primary)'
                             />
                         )
                     }

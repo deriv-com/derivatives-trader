@@ -44,9 +44,14 @@ const ToggleFullScreen = ({ showPopover }) => {
     });
 
     const fullScreenIcon = is_full_screen ? (
-        <LegacyRestore1pxIcon className='footer__icon' iconSize='xs' />
+        <LegacyRestore1pxIcon className='footer__icon' iconSize='xs' fill='var(--color-text-primary)' />
     ) : (
-        <LegacyFullscreen1pxIcon data-testid='dt_icon' className='footer__icon' iconSize='xs' />
+        <LegacyFullscreen1pxIcon
+            data-testid='dt_icon'
+            className='footer__icon'
+            iconSize='xs'
+            fill='var(--color-text-primary)'
+        />
     );
 
     return (

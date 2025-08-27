@@ -39,6 +39,7 @@ const ToggleSettings = ({
                             data-testid='dt_icon'
                             className='footer__icon ic-settings__icon'
                             iconSize='xs'
+                            fill='var(--color-text-primary)'
                         />
                     </Popover>
                 ) : (
@@ -46,6 +47,7 @@ const ToggleSettings = ({
                         data-testid='dt_icon'
                         className='footer__icon ic-settings__icon'
                         iconSize='xs'
+                        fill='var(--color-text-primary)'
                     />
                 )}
             </a>

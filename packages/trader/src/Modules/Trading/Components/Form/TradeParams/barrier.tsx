@@ -115,8 +115,14 @@ const Barrier = observer(({ is_minimized, is_absolute_only }: TBarrier) => {
                                     is_signed
                                     setCurrentFocus={setCurrentFocus}
                                 />
-                                <LegacyArrowUp1pxIcon className='trade-container__barriers--up' />
-                                <LegacyArrowDown1pxIcon className='trade-container__barriers--down' />
+                                <LegacyArrowUp1pxIcon
+                                    className='trade-container__barriers--up'
+                                    fill='var(--color-text-primary)'
+                                />
+                                <LegacyArrowDown1pxIcon
+                                    className='trade-container__barriers--down'
+                                    fill='var(--color-text-primary)'
+                                />
                             </React.Fragment>
                         )}
                     </div>

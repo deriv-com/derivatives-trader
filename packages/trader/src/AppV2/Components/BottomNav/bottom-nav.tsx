@@ -30,8 +30,8 @@ const BottomNav = observer(({ children, className, onScroll }: BottomNavProps) =
 
     const bottomNavItems = [
         {
-            icon: <StandaloneChartAreaRegularIcon iconSize='sm' />,
-            activeIcon: <StandaloneChartAreaFillIcon iconSize='sm' />,
+            icon: <StandaloneChartAreaRegularIcon iconSize='sm' fill='var(--color-text-primary)' />,
+            activeIcon: <StandaloneChartAreaFillIcon iconSize='sm' fill='var(--color-text-primary)' />,
             label: <Localize i18n_default_text='Trade' />,
             path: routes.index,
         },
@@ -47,10 +47,10 @@ const BottomNav = observer(({ children, className, onScroll }: BottomNavProps) =
                         contentSize='sm'
                         className='bottom-nav-item__position-badge'
                     >
-                        <StandaloneClockThreeRegularIcon iconSize='sm' />
+                        <StandaloneClockThreeRegularIcon iconSize='sm' fill='var(--color-text-primary)' />
                     </Badge>
                 ) : (
-                    <StandaloneClockThreeRegularIcon iconSize='sm' />
+                    <StandaloneClockThreeRegularIcon iconSize='sm' fill='var(--color-text-primary)' />
                 ),
             activeIcon:
                 active_positions_count > 0 ? (
@@ -63,10 +63,10 @@ const BottomNav = observer(({ children, className, onScroll }: BottomNavProps) =
                         contentSize='sm'
                         className='bottom-nav-item__position-badge'
                     >
-                        <StandaloneClockThreeFillIcon iconSize='sm' />
+                        <StandaloneClockThreeFillIcon iconSize='sm' fill='var(--color-text-primary)' />
                     </Badge>
                 ) : (
-                    <StandaloneClockThreeFillIcon iconSize='sm' />
+                    <StandaloneClockThreeFillIcon iconSize='sm' fill='var(--color-text-primary)' />
                 ),
             label: (
                 <React.Fragment>

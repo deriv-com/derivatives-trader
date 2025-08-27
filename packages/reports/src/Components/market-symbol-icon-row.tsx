@@ -99,14 +99,14 @@ const MarketSymbolIconRow = ({
                 {payload.action_type === 'withdrawal' && <DerivLightWithdrawalIcon width={32} height={32} />}
                 {payload.action_type === 'transfer' && <DerivLightTransferIcon width={32} height={32} />}
                 {(payload.action_type === 'hold' || payload.action_type === 'release') && (
-                    <LegacyDerivP2pIcon iconSize='md' />
+                    <LegacyDerivP2pIcon iconSize='md' fill='var(--color-text-primary)' />
                 )}
             </div>
         );
     } else if (['adjustment'].includes((payload as TStatementData).action_type ?? '')) {
         return (
             <div className='market-symbol-icon'>
-                <LegacyResetIcon iconSize='md' />
+                <LegacyResetIcon iconSize='md' fill='var(--color-text-primary)' />
             </div>
         );
     }

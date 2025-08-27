@@ -82,7 +82,11 @@ const Drawer = ({
                         })}
                     />
                 ) : (
-                    <LegacyChevronUp1pxIcon className='dc-drawer__toggle-icon' iconSize='xs' />
+                    <LegacyChevronUp1pxIcon
+                        className='dc-drawer__toggle-icon'
+                        iconSize='xs'
+                        fill='var(--color-text-primary)'
+                    />
                 )}
             </div>
             <div className={classNames('dc-drawer__container', { [`dc-drawer__container--${anchor}`]: is_desktop })}>

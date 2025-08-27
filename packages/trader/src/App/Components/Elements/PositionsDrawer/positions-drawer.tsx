@@ -206,7 +206,11 @@ const PositionsDrawer = observer(({ ...props }) => {
                         className='positions-drawer__icon-close'
                         onClick={toggleDrawer}
                     >
-                        <LegacyMinimize2pxIcon data-testid='dt_positions_drawer_close_icon' iconSize='xs' />
+                        <LegacyMinimize2pxIcon
+                            data-testid='dt_positions_drawer_close_icon'
+                            iconSize='xs'
+                            fill='var(--color-text-primary)'
+                        />
                     </div>
                 </div>
                 <div className='positions-drawer__body' ref={drawer_ref}>

@@ -30,6 +30,8 @@ const CFDCompareAccountsCarouselButton = (props: TPrevNextButtonProps) => {
         >
             {React.cloneElement(getIconComponent(), {
                 className: 'cfd-compare-accounts-carousel__button__svg',
+                iconSize: 'xs',
+                fill: 'var(--color-text-primary)',
             })}
         </button>
     );

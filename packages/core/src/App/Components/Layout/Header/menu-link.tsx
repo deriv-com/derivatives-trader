@@ -36,7 +36,11 @@ const MenuLink = observer(
         const is_external_link = deriv_static_url && isExternalLink(link_to);
 
         const renderIcon = (IconComponent: React.ReactElement, className: string) => {
-            return React.cloneElement(IconComponent, { className, iconSize: 'xs' });
+            return React.cloneElement(IconComponent, {
+                className,
+                iconSize: IconComponent.props.iconSize || 'xs',
+                fill: IconComponent.props.fill || 'var(--color-text-primary)',
+            });
         };
 
         if (is_hidden) return null;

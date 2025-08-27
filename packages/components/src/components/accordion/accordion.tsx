@@ -37,12 +37,20 @@ const Accordion = ({ className, icon_close, icon_open, list }: TAccordionProps) 
                                 icon_open ? (
                                     <span className='dc-accordion__item-header-icon'>{icon_open}</span>
                                 ) : (
-                                    <LegacyMinus1pxIcon className='dc-accordion__item-header-icon' />
+                                    <LegacyMinus1pxIcon
+                                        className='dc-accordion__item-header-icon'
+                                        iconSize='xs'
+                                        fill='var(--color-text-primary)'
+                                    />
                                 )
                             ) : icon_close ? (
                                 <span className='dc-accordion__item-header-icon'>{icon_close}</span>
                             ) : (
-                                <LegacyPlus1pxIcon className='dc-accordion__item-header-icon' />
+                                <LegacyPlus1pxIcon
+                                    className='dc-accordion__item-header-icon'
+                                    iconSize='xs'
+                                    fill='var(--color-text-primary)'
+                                />
                             )}
                         </div>
                     </div>

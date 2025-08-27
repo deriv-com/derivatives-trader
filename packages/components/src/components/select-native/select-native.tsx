@@ -152,9 +152,17 @@ const SelectNative = ({
                         {label}
                     </div>
                     {!suffix_icon ? (
-                        <LegacyChevronDown1pxIcon className='dc-select-native__arrow' iconSize='xs' />
+                        <LegacyChevronDown1pxIcon
+                            className='dc-select-native__arrow'
+                            iconSize='xs'
+                            fill='var(--color-text-primary)'
+                        />
                     ) : (
-                        React.cloneElement(suffix_icon, { className: 'dc-select-native__suffix-icon', iconSize: 'xs' })
+                        React.cloneElement(suffix_icon, {
+                            className: 'dc-select-native__suffix-icon',
+                            iconSize: 'xs',
+                            fill: 'var(--color-text-primary)',
+                        })
                     )}
                     <select
                         className='dc-select-native__picker'

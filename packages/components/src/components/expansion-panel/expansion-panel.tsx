@@ -32,7 +32,11 @@ const ExpansionPanel = ({ message, onResize }: TExpansionPanel) => {
                 })}
             >
                 {message.header}
-                <LegacyChevronDown1pxIcon className='dc-expansion-panel__header-chevron-icon' onClick={onClick} />
+                <LegacyChevronDown1pxIcon
+                    className='dc-expansion-panel__header-chevron-icon'
+                    onClick={onClick}
+                    fill='var(--color-text-primary)'
+                />
             </div>
             {is_open &&
                 (Array.isArray(message.content) ? (

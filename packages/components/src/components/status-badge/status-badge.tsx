@@ -33,7 +33,11 @@ const StatusBadge = ({
                 `switcher-status-badge__container--icon--${account_status ?? 'failed'}`
             )}
         >
-            {React.cloneElement(icon, { width: icon_size, height: icon_size })}
+            {React.cloneElement(icon, {
+                width: icon_size,
+                height: icon_size,
+                fill: icon.props.fill || 'var(--color-text-primary)',
+            })}
         </div>
         {text}
     </div>

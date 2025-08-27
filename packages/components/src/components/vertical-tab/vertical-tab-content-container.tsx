@@ -123,7 +123,11 @@ const VerticalTabContentContainer = ({
                                 key={idx}
                                 onClick={onClick}
                             >
-                                {React.cloneElement(icon, { className: 'dc-vertical-tab__action-bar--icon' })}
+                                {React.cloneElement(icon, {
+                                    className: 'dc-vertical-tab__action-bar--icon',
+                                    iconSize: icon.props.iconSize || 'xs',
+                                    fill: icon.props.fill || 'var(--color-text-primary)',
+                                })}
                             </div>
                         );
                     })}

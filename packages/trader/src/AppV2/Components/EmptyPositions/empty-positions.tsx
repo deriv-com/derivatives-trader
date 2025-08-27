@@ -19,7 +19,7 @@ const EmptyPositions = ({ isClosedTab, noMatchesFound }: TEmptyPositionsProps) =
             className={`empty-positions__${isClosedTab ? TAB_NAME.CLOSED.toLowerCase() : TAB_NAME.OPEN.toLowerCase()}`}
         >
             <div className='icon' data-testid='dt_empty_state_icon'>
-                <IconComponent iconSize='2xl' />
+                <IconComponent iconSize='2xl' fill='var(--color-text-disabled)' />
             </div>
             <div className='message'>
                 <Text bold size='lg' color='quill-typography__color--subtle'>

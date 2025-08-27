@@ -112,7 +112,7 @@ const TwoMonthPicker = React.memo(({ onChange, isPeriodDisabled, value }: TTwoMo
                     updateSelected={updateSelectedDate}
                 />
                 <Calendar.Footer
-                    use_icon={<LegacyCalendarForward1pxIcon iconSize='xs' />}
+                    use_icon={<LegacyCalendarForward1pxIcon iconSize='xs' fill='var(--color-text-primary)' />}
                     has_today_btn
                     onClick={jumpToCurrentMonth}
                 />

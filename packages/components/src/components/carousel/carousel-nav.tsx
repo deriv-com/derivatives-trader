@@ -35,7 +35,7 @@ const Nav = ({
         <nav id='dt_components_carousel-nav_nav-tag' className={classNames('dc-carousel__nav', className)}>
             {show_nav && (
                 <span id='dt_contract_info_left_nav' className='dc-carousel__icon' onClick={handlePrevClick}>
-                    <LegacyChevronLeft1pxIcon />
+                    <LegacyChevronLeft1pxIcon iconSize='xs' fill='var(--color-text-primary)' />
                 </span>
             )}
             {show_bullet && (
@@ -61,7 +61,7 @@ const Nav = ({
             )}
             {show_nav && (
                 <span id='dt_contract_info_right_nav' className='dc-carousel__icon' onClick={handleNextClick}>
-                    <LegacyChevronRight1pxIcon />
+                    <LegacyChevronRight1pxIcon iconSize='xs' fill='var(--color-text-primary)' />
                 </span>
             )}
         </nav>

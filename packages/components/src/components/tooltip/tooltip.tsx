@@ -38,17 +38,21 @@ const Tooltip = ({
         >
             {icon === 'info' && (
                 <React.Fragment>
-                    <LegacyInfo1pxIcon className={icon_class} ref={hover_ref} />
+                    <LegacyInfo1pxIcon className={icon_class} ref={hover_ref} fill='var(--color-text-primary)' />
                     <LegacyInformationIcon
-                        fill='#2196f3'
+                        fill='var(--color-text-info)'
                         className={classNames(`${classNameIcon}-balloon-icon`, 'dc-tooltip__balloon-icon', {
                             'dc-tooltip__balloon-icon--show': show_tooltip_balloon_icon_on_hover,
                         })}
                     />
                 </React.Fragment>
             )}
-            {icon === 'question' && <LabelPairedQuestionCaptionBoldIcon className={icon_class} />}
-            {icon === 'dot' && <StandaloneCircleFillIcon className={icon_class} width={4} height={4} fill='#E31C4B' />}
+            {icon === 'question' && (
+                <LabelPairedQuestionCaptionBoldIcon className={icon_class} fill='var(--color-text-primary)' />
+            )}
+            {icon === 'dot' && (
+                <StandaloneCircleFillIcon className={icon_class} width={4} height={4} fill='var(--color-text-danger)' />
+            )}
             {children}
         </span>
     );

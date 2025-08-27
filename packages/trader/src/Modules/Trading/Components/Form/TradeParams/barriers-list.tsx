@@ -36,7 +36,10 @@ const BarriersList = ({ className, header, onClickCross, show_table, ...props }:
                             {header}
                         </Text>
                         <div className={`${className}__icon-close`} onClick={onClickCross}>
-                            <LegacyClose2pxIcon data-testid={`dt_${className}__icon_close`} />
+                            <LegacyClose2pxIcon
+                                data-testid={`dt_${className}__icon_close`}
+                                fill='var(--color-text-primary)'
+                            />
                         </div>
                     </div>
                     <BarriersListBody className={className} {...props} />

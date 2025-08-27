@@ -119,7 +119,11 @@ const ContractCardHeader = ({
                     {effective_underlying ? (
                         <SymbolIconsMapper symbol={effective_underlying} width={is_accumulator ? 46 : 40} height={32} />
                     ) : (
-                        <LabelPairedQuestionCaptionBoldIcon width={is_accumulator ? 46 : 40} height={32} />
+                        <LabelPairedQuestionCaptionBoldIcon
+                            width={is_accumulator ? 46 : 40}
+                            height={32}
+                            fill='var(--color-text-primary)'
+                        />
                     )}
                     <Text
                         size='xxs'

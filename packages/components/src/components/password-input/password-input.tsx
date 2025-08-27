@@ -36,6 +36,7 @@ const PasswordInput = ({
                             onClick={togglePasswordVisibility}
                             width={18}
                             height={18}
+                            fill='var(--color-text-primary)'
                             data-testid='dt_password_input_visibility_icon'
                         />
                     ) : (
@@ -44,6 +45,7 @@ const PasswordInput = ({
                             onClick={togglePasswordVisibility}
                             width={18}
                             height={18}
+                            fill='var(--color-text-primary)'
                             data-testid='dt_password_input_visibility_icon'
                         />
                     )

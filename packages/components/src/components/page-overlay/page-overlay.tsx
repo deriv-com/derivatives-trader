@@ -38,7 +38,7 @@ const PageOverlay = ({
             className='dc-page-overlay__header-close'
             onClick={(onClickClose as unknown as MouseEventHandler<HTMLDivElement>) || window.history.back}
         >
-            <LegacyClose2pxIcon iconSize='xs' />
+            <LegacyClose2pxIcon iconSize='xs' fill='var(--color-text-primary)' />
         </div>
     );
 
@@ -59,7 +59,11 @@ const PageOverlay = ({
                     <div className='dc-page-overlay__header-wrapper'>
                         <div className={classNames('dc-page-overlay__header-title', header_classname)}>
                             {has_return_icon && (
-                                <LegacyArrowLeft2pxIcon onClick={onReturn} className='dc-modal-header__icon' />
+                                <LegacyArrowLeft2pxIcon
+                                    onClick={onReturn}
+                                    className='dc-modal-header__icon'
+                                    fill='var(--color-text-primary)'
+                                />
                             )}
                             {header}
                         </div>

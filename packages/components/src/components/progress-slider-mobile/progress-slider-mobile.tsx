@@ -52,7 +52,7 @@ const ProgressSliderMobile = ({
                         <CircularProgress
                             className='dc-progress-slider-mobile__timer'
                             danger_limit={20}
-                            icon={<LegacyTimeIcon iconSize='xs' />}
+                            icon={<LegacyTimeIcon iconSize='xs' fill='var(--color-text-primary)' />}
                             progress={percentage}
                             warning_limit={50}
                         />

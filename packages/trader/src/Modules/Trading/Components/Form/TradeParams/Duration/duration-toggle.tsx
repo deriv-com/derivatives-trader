@@ -24,7 +24,7 @@ const DurationToggle = ({ name, onChange, value }: TDurationToggle) => {
             onClick={toggle}
             aria-label={localize('Toggle between advanced and simple duration settings')}
         >
-            <LegacyChevronDown1pxIcon className={icon_className} iconSize='xs' />
+            <LegacyChevronDown1pxIcon className={icon_className} iconSize='xs' fill='var(--color-text-primary)' />
         </button>
     );
 };

@@ -192,6 +192,7 @@ const ModalElement = ({
                                     onClick={onReturn}
                                     className='dc-modal-header__icon'
                                     iconSize='xs'
+                                    fill='var(--color-text-primary)'
                                 />
                             )}
                             {title}

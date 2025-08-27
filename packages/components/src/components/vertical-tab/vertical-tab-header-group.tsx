@@ -19,6 +19,8 @@ const HeaderIcon = ({ icon, is_active }: THeaderIcon) =>
         className: classNames('dc-vertical-tab__header-group__icon', {
             'dc-vertical-tab__header-group__icon--active': is_active,
         }),
+        iconSize: icon.props.iconSize || 'xs',
+        fill: icon.props.fill || 'var(--color-text-primary)',
     });
 
 const Header = ({ text }: THeader) => <div className='dc-vertical-tab__header-group__link'>{text}</div>;
@@ -67,6 +69,7 @@ const VerticalTabHeaderGroup = ({
                     className={classNames('dc-vertical-tab__header-group-chevron', {
                         'dc-vertical-tab__header-group-chevron--invert': !show_items,
                     })}
+                    fill='var(--color-text-primary)'
                 />
             )}
         </NavLink>
@@ -87,6 +90,7 @@ const VerticalTabHeaderGroup = ({
                         className={classNames('dc-vertical-tab__header-group-chevron', {
                             'dc-vertical-tab__header-group-chevron--invert': !show_items,
                         })}
+                        fill='var(--color-text-primary)'
                     />
                 )}
             </div>

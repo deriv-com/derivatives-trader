@@ -98,7 +98,11 @@ const TimePicker = observer(
                             placeholder={placeholder}
                             setCurrentFocus={setCurrentFocus}
                         />
-                        <StandaloneClockThreeRegularIcon className={`${class_prefix}__icon`} iconSize='sm' />
+                        <StandaloneClockThreeRegularIcon
+                            className={`${class_prefix}__icon`}
+                            iconSize='sm'
+                            fill='var(--color-text-primary)'
+                        />
                         <CSSTransition
                             in={is_open}
                             classNames={{

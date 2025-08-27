@@ -232,7 +232,10 @@ const Popover = ({
                                         />
                                     )}
                                     {icon === 'question' && (
-                                        <LabelPairedQuestionCaptionBoldIcon className={icon_class_name} />
+                                        <LabelPairedQuestionCaptionBoldIcon
+                                            className={icon_class_name}
+                                            fill='var(--color-text-primary)'
+                                        />
                                     )}
                                     {icon === 'dot' && (
                                         <StandaloneCircleFillIcon

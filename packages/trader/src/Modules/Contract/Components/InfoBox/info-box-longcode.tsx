@@ -29,7 +29,7 @@ const InfoBoxLongcode = observer(({ contract_info }: TInfoBoxLongcode) => {
 
     return (
         <div className='info-box-longcode'>
-            <LegacySellExpiredIcon className='info-box-longcode-icon' iconSize='sm' />
+            <LegacySellExpiredIcon className='info-box-longcode-icon' iconSize='sm' fill='var(--color-text-primary)' />
             <div
                 className='info-box-longcode-wrapper'
                 onClick={is_mobile ? handleToggle : undefined}

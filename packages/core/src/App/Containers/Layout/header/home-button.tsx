@@ -14,7 +14,7 @@ const HomeButton = observer(() => {
     return (
         <div data-testid='dt_home_button' className='header__menu-link' onClick={handleHomeRedirect}>
             <Text size='m' line_height='xs' title='Home' className='header__menu-link-text'>
-                <LegacyHomeNewIcon className='header__icon' iconSize='xs' />
+                <LegacyHomeNewIcon className='header__icon' iconSize='xs' fill='var(--color-text-primary)' />
                 <Localize i18n_default_text='Home' />
             </Text>
         </div>

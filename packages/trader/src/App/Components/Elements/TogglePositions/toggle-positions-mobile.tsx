@@ -121,11 +121,18 @@ const TogglePositionsMobile = observer(
                         <Div100vhContainer className='positions-modal' height_offset={isTablet ? '16rvh' : '48px'}>
                             <div className='positions-modal__header'>
                                 <Text size='xxxs' className='positions-modal__title'>
-                                    <LegacyPositionIcon className='positions-modal__title-icon' />
+                                    <LegacyPositionIcon
+                                        className='positions-modal__title-icon'
+                                        fill='var(--color-text-primary)'
+                                    />
                                     {localize('Recent positions')}
                                 </Text>
                                 <div className='positions-modal__close-btn' onClick={closeModal}>
-                                    <LegacyMinimize2pxIcon data-testid='dt_modal_header_close' iconSize='xs' />
+                                    <LegacyMinimize2pxIcon
+                                        data-testid='dt_modal_header_close'
+                                        iconSize='xs'
+                                        fill='var(--color-text-primary)'
+                                    />
                                 </div>
                             </div>
                             <div className='positions-modal__body'>

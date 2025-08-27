@@ -23,7 +23,11 @@ const MultiStep = React.forwardRef(
         const prev_btn = (
             <div className='multi-step__header'>
                 <a onClick={goPrevStep} className='multi-step__btn'>
-                    <LegacyArrowLeft2pxIcon className='multi-step__btn-icon' iconSize='xs' />
+                    <LegacyArrowLeft2pxIcon
+                        className='multi-step__btn-icon'
+                        iconSize='xs'
+                        fill='var(--color-text-primary)'
+                    />
                     {lbl_previous}
                 </a>
             </div>

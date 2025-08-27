@@ -50,13 +50,20 @@ const DatePickerInput = ({
             })}
             {...(disabled
                 ? { fill: 'var(--color-text-disabled)' }
-                : { onClick: onClick as unknown as React.MouseEventHandler<SVGSVGElement> })}
+                : {
+                      onClick: onClick as unknown as React.MouseEventHandler<SVGSVGElement>,
+                      fill: 'var(--color-text-primary)',
+                  })}
         />
     );
 
     const trailing_icon =
         is_clearable && is_clear_btn_visible && !disabled ? (
-            <StandaloneCircleXmarkRegularIcon className='dc-datepicker__icon' onClick={onClickClear} />
+            <StandaloneCircleXmarkRegularIcon
+                className='dc-datepicker__icon'
+                onClick={onClickClear}
+                fill='var(--color-text-primary)'
+            />
         ) : (
             OpenIcon
         );

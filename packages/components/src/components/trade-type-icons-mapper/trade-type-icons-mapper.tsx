@@ -9,7 +9,7 @@ type TTradeTypeIconsMapper = {
     color?: string;
 };
 
-const TradeTypeIconsMapper = ({ icon, iconSize = 'md', className, color }: TTradeTypeIconsMapper) => {
+const TradeTypeIconsMapper = ({ icon, iconSize = 'xs', className, color }: TTradeTypeIconsMapper) => {
     const IconComponent = tradeTypeIcons[icon as keyof typeof tradeTypeIcons];
 
     if (!IconComponent) return null;

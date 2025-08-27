@@ -46,6 +46,7 @@ const HeaderIcon = ({ icon, is_active }: THeaderIcon) =>
             'dc-vertical-tab__header__icon--active': is_active,
         }),
         iconSize: icon.props.iconSize || 'xs',
+        fill: icon.props.fille || 'var(--color-text-primary)',
     });
 
 const Header = ({ text, path }: THeader) => (

@@ -89,6 +89,8 @@ const ContentExpander = ({
                     className={classNames('dc-content-expander__select-arrow', {
                         'dc-content-expander__select-arrow--invert': is_arrow_inverted,
                     })}
+                    iconSize='xs'
+                    fill='var(--color-text-primary)'
                 />
             </div>
             {has_fade_in ? (

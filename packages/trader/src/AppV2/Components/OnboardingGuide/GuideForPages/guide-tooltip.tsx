@@ -24,7 +24,7 @@ const GuideTooltip = ({ isLastStep, primaryProps, skipProps, step, tooltipProps,
     if (step.title === 'scroll-icon') {
         return (
             <div {...swipe_handlers} className='guide-tooltip__wrapper-scroll'>
-                <LabelPairedChevronsUpXlBoldIcon className='guide-tooltip--bounce' />
+                <LabelPairedChevronsUpXlBoldIcon className='guide-tooltip--bounce' fill='var(--color-text-primary)' />
                 <Text size='sm' bold className='guide-tooltip__wrapper-scroll-text'>
                     <Localize i18n_default_text='Swipe up to see the chart' />
                 </Text>

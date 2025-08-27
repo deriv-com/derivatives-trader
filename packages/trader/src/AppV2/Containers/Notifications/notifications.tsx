@@ -32,6 +32,7 @@ const Notifications = observer(() => {
                         iconSize='sm'
                         className={`trade-notification--${result}`}
                         key='contract-closed'
+                        fill='var(--color-text-primary)'
                     />
                 ),
                 ...params,

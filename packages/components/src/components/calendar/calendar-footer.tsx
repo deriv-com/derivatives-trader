@@ -13,7 +13,8 @@ type TFooterProps = {
     use_icon?: React.ReactElement;
 };
 
-const FooterIcon = (use_icon?: React.ReactElement) => use_icon || <LegacyCalendar1pxIcon iconSize='xs' />;
+const FooterIcon = (use_icon?: React.ReactElement) =>
+    use_icon || <LegacyCalendar1pxIcon iconSize='xs' fill='var(--color-text-primary)' />;
 
 const Footer = ({ footer, has_today_btn, onClick, use_icon, has_clear_btn, clear_text, onClear }: TFooterProps) => (
     <React.Fragment>

@@ -35,6 +35,7 @@ const ArrayRenderer = ({ array, open_ids, setOpenIds }: TArrayRenderer) => {
                                     className='dc-expansion-panel__content-chevron-icon'
                                     onClick={() => onArrayItemClick(item.id)}
                                     iconSize='xs'
+                                    fill='var(--color-text-primary)'
                                 />
                             </div>
                             {open_ids.includes(item.id) ? (

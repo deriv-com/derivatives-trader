@@ -12,7 +12,11 @@ const SubMenuSection = ({ submenu_toggle_class, section_title, section_icon, chi
         <div className={classNames('dc-mobile-drawer__submenu-section', submenu_toggle_class)}>
             <div className='dc-mobile-drawer__submenu-section-title'>
                 {section_icon &&
-                    React.cloneElement(section_icon, { className: 'dc-mobile-drawer__submenu-section-title-icon' })}
+                    React.cloneElement(section_icon, {
+                        className: 'dc-mobile-drawer__submenu-section-title-icon',
+                        iconSize: section_icon.props.iconSize || 'xs',
+                        fill: section_icon.props.fill || 'var(--color-text-primary)',
+                    })}
                 {section_title && (
                     <Text as='h3' size='xs' weight='bold' className='dc-mobile-drawer__submenu-section-title-text'>
                         {section_title}

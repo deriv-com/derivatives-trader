@@ -75,14 +75,14 @@ const Header = ({
         <div className='dc-calendar__header'>
             <Button
                 className='dc-calendar__btn--prev-year'
-                icon={<StandaloneChevronsLeftBoldIcon iconSize='xs' />}
+                icon={<StandaloneChevronsLeftBoldIcon iconSize='xs' fill='var(--color-text-primary)' />}
                 is_disabled={is_prev_year_disabled}
                 is_hidden={should_hide_prev_year}
                 onClick={onClickPrevYear}
             />
             <Button
                 className='dc-calendar__btn--prev-month'
-                icon={<StandaloneChevronLeftBoldIcon iconSize='xs' />}
+                icon={<StandaloneChevronLeftBoldIcon iconSize='xs' fill='var(--color-text-primary)' />}
                 is_disabled={is_prev_month_disabled}
                 is_hidden={!is_date_view || should_hide_prev_month}
                 onClick={onClickPrevMonth}
@@ -119,14 +119,14 @@ const Header = ({
 
             <Button
                 className='dc-calendar__btn--next-month'
-                icon={<StandaloneChevronRightBoldIcon iconSize='xs' />}
+                icon={<StandaloneChevronRightBoldIcon iconSize='xs' fill='var(--color-text-primary)' />}
                 is_disabled={is_next_month_disabled}
                 is_hidden={!is_date_view || should_hide_next_month}
                 onClick={onClickNextMonth}
             />
             <Button
                 className='dc-calendar__btn--next-year'
-                icon={<StandaloneChevronsRightBoldIcon iconSize='xs' />}
+                icon={<StandaloneChevronsRightBoldIcon iconSize='xs' fill='var(--color-text-primary)' />}
                 is_disabled={is_next_year_disabled}
                 is_hidden={should_hide_next_year}
                 onClick={onClickNextYear}

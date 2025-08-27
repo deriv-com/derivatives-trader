@@ -84,6 +84,7 @@ const MobileFullPageModal = ({
                                     onClick={pageHeaderReturnFn}
                                     data-testid='dt_mobile_full_page_return_icon'
                                     iconSize='xs'
+                                    fill='var(--color-text-primary)'
                                 />
                             </div>
                         )}

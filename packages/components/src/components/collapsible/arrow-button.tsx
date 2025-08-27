@@ -19,7 +19,7 @@ type TArrowButton = {
 };
 
 const IconArrow = ({ className }: { className?: string }) => (
-    <LegacyChevronUp1pxIcon width={30} height={9} className={className} />
+    <LegacyChevronUp1pxIcon width={30} height={9} className={className} fill='var(--color-text-primary)' />
 );
 
 const IconArrowWithTitle = ({ title, ...props }: TIconArrowWithTitle) => (
@@ -27,7 +27,7 @@ const IconArrowWithTitle = ({ title, ...props }: TIconArrowWithTitle) => (
         <Text size='xs' weight='bold' color='primary' className='dc-collapsible__title'>
             {title}
         </Text>
-        <LegacyChevronDown1pxIcon {...props} />
+        <LegacyChevronDown1pxIcon {...props} fill='var(--color-text-primary)' />
     </React.Fragment>
 );
 

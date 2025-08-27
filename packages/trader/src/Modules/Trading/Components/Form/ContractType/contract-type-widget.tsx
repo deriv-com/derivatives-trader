@@ -349,7 +349,7 @@ const ContractTypeWidget = observer(
                                 <Text size={is_mobile ? 'xxs' : 'xs'} line_height={is_mobile ? 'l' : 'xl'}>
                                     <Localize i18n_default_text='Learn more about trade types' />
                                 </Text>
-                                <LegacyChevronRight1pxIcon iconSize='xs' />
+                                <LegacyChevronRight1pxIcon iconSize='xs' fill='var(--color-text-primary)' />
                             </button>
                         }
                     >

@@ -52,7 +52,7 @@ const FilterDropdown = ({
                 name='dc-filter-dropdown'
                 className={dropdown_className}
                 classNameDisplay={dropdown_display_className}
-                suffix_icon={<LegacyFilter1pxIcon iconSize='xs' />}
+                suffix_icon={<LegacyFilter1pxIcon iconSize='xs' fill='var(--color-text-primary)' />}
                 onChange={onChange}
             />
         );
@@ -63,7 +63,7 @@ const FilterDropdown = ({
             list_items={filter_list}
             value={selected_filter}
             hide_selected_value
-            suffix_icon={<LegacyFilter1pxIcon iconSize='xs' />}
+            suffix_icon={<LegacyFilter1pxIcon iconSize='xs' fill='var(--color-text-primary)' />}
             should_show_empty_option={false}
             onChange={onChange}
             label={label}

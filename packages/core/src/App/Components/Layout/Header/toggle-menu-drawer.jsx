@@ -225,7 +225,11 @@ const ToggleMenuDrawer = observer(() => {
                                     }}
                                 >
                                     <div className={classNames('header__menu-mobile-link')}>
-                                        <LegacyTheme1pxIcon className='header__menu-mobile-link-icon' iconSize='xs' />
+                                        <LegacyTheme1pxIcon
+                                            className='header__menu-mobile-link-icon'
+                                            iconSize='xs'
+                                            fill='var(--color-text-primary)'
+                                        />
                                         <span className='header__menu-mobile-link-text'>{localize('Dark theme')}</span>
                                         <ToggleSwitch
                                             id='dt_mobile_drawer_theme_toggler'

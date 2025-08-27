@@ -109,7 +109,7 @@ const Carousel = ({
                         <Button
                             className={classNames('dc-carousel__icon', { 'dc-carousel__icon--mt5': is_mt5 })}
                             onClick={handlePrevClick}
-                            icon={<LegacyChevronLeft1pxIcon />}
+                            icon={<LegacyChevronLeft1pxIcon iconSize='xs' fill='var(--color-text-primary)' />}
                         />
                     )}
 
@@ -137,7 +137,7 @@ const Carousel = ({
                         <Button
                             className={classNames('dc-carousel__icon', { 'dc-carousel__icon--mt5': is_mt5 })}
                             onClick={handleNextClick}
-                            icon={<LegacyChevronRight1pxIcon />}
+                            icon={<LegacyChevronRight1pxIcon iconSize='xs' fill='var(--color-text-primary)' />}
                         />
                     )}
                 </div>

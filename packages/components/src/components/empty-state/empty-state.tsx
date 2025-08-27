@@ -4,10 +4,6 @@ import Button from '../button';
 import Text from '../text';
 import './empty-state.scss';
 
-type RequireAtLeastOne<T> = {
-    [K in keyof T]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<keyof T, K>>>;
-}[keyof T];
-
 type TAction = {
     label: string;
     onClick?: VoidFunction;
@@ -23,7 +19,7 @@ export type TProps = {
 
 const EmptyState: React.FC<TProps> = ({ icon, title, description, action }) => (
     <div className='empty-state'>
-        {icon && React.cloneElement(icon, { width: 128, height: 128 })}
+        {icon && React.cloneElement(icon, { width: 128, height: 128, fill: 'var(--color-text-disabled)' })}
         <div className='empty-state__content'>
             {title && (
                 <Text weight='bold' align='center' data-testid='dt_empty_state_title' size={isMobile() ? 'xs' : 's'}>

@@ -45,7 +45,7 @@ type TDropdown = {
     placeholder?: string;
     should_animate_suffix_icon?: boolean;
     suffix_icon?: React.ReactElement;
-    suffix_icon_size?: number;
+    suffix_icon_size?: string;
     should_open_on_hover?: boolean;
     should_scroll_to_selected?: boolean;
     should_auto_close_dropdown_list?: boolean;
@@ -73,7 +73,7 @@ type TDropdownList = {
     parent_ref: React.RefObject<HTMLElement>;
     portal_id?: string;
     suffix_icon?: React.ReactElement;
-    suffix_icon_size?: number;
+    suffix_icon_size?: string;
     should_scroll_to_selected?: boolean;
     should_autohide?: boolean;
     value?: string | number;
@@ -98,7 +98,6 @@ const DropdownList = React.forwardRef<HTMLDivElement, TDropdownList>((props, lis
         parent_ref,
         portal_id,
         suffix_icon,
-        suffix_icon_size = 16,
         should_scroll_to_selected,
         should_autohide,
         value,
@@ -282,7 +281,7 @@ const Dropdown = ({
     placeholder,
     suffix_icon,
     should_animate_suffix_icon = false,
-    suffix_icon_size = 16,
+    suffix_icon_size = 'xs',
     should_open_on_hover = false,
     should_scroll_to_selected,
     should_auto_close_dropdown_list,
@@ -506,7 +505,8 @@ const Dropdown = ({
                                 className: classNames('suffix-icon', {
                                     'suffix-icon--flip': is_list_visible && should_animate_suffix_icon,
                                 }),
-                                size: suffix_icon_size,
+                                iconSize: suffix_icon_size,
+                                fill: 'var(--color-text-primary)',
                             })}
                         <DisplayText
                             className={classNames({
@@ -529,6 +529,7 @@ const Dropdown = ({
                                     'dc-dropdown__select-arrow--error': error || hint,
                                 })}
                                 iconSize='xs'
+                                fill='var(--color-text-primary)'
                             />
                         ) : (
                             <LegacyChevronDown1pxIcon
@@ -538,6 +539,7 @@ const Dropdown = ({
                                     'dc-dropdown__select-arrow--error': error || hint,
                                 })}
                                 iconSize='xs'
+                                fill='var(--color-text-primary)'
                             />
                         ))}
                     {error && (
@@ -564,7 +566,6 @@ const Dropdown = ({
                         portal_id={list_portal_id}
                         ref={list_ref}
                         suffix_icon={suffix_icon}
-                        suffix_icon_size={suffix_icon_size}
                         should_scroll_to_selected={should_scroll_to_selected}
                         should_autohide={should_autohide}
                         value={value}
