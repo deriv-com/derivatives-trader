@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Checkbox, Chip, Text } from '@deriv-com/quill-ui';
 
 import { AVAILABLE_CONTRACTS } from 'AppV2/Utils/trade-types-utils';

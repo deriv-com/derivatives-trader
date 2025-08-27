@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import { Popover } from '@deriv/components';
 import { useIsIntercomAvailable, useIsLiveChatWidgetAvailable } from '@deriv/api';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 import { URLConstants } from '@deriv-com/utils';
 import { LegacyWhatsappIcon } from '@deriv/quill-icons';

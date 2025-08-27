@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, Popover, VerticalTab } from '@deriv/components';
 import { LegacySettings1pxIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import 'Sass/app/modules/settings.scss';
 
 const ModalContent = ({ settings_extension }) => {

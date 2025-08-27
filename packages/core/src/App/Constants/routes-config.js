@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { routes } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { LegacyReportsIcon, LegacyPositionIcon, LegacyProfitTableIcon, LegacyStatementIcon } from '@deriv/quill-icons';
-
 import Redirect from 'App/Containers/Redirect';
 import Endpoint from 'Modules/Endpoint';
-
 import CallbackPage from '../../Modules/Callback/CallbackPage.tsx';
 
 // Error Routes

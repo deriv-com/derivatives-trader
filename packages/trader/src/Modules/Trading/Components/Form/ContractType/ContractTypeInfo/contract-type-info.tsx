@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Button, ButtonToggle, Dropdown, ThemedScrollbars } from '@deriv/components';
 import { clickAndKeyEventHandler, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
 
 import TradeCategories from 'Assets/Trading/Categories/trade-categories';

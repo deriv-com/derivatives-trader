@@ -1,5 +1,5 @@
 import { ActiveSymbols } from '@deriv/api-types';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import sortSymbols from './sort-symbols-utils';
 

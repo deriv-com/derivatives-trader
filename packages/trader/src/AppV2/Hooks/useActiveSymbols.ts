@@ -9,7 +9,7 @@ import {
     TRADE_TYPES,
 } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 

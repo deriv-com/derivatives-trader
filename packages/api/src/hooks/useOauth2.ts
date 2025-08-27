@@ -1,8 +1,8 @@
 import { redirectToLogin } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { getLanguage, localize } from '@deriv/translations';
 import { Analytics } from '@deriv-com/analytics';
 import { OAuth2Logout, requestOidcAuthentication } from '@deriv-com/auth-client';
+import { localize } from '@deriv-com/translations';
 
 import useTMB from './useTMB';
 

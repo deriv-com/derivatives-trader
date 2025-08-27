@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Heading, Text } from '@deriv-com/quill-ui';
 
 import { getTermDefinition } from 'AppV2/Utils/contract-description-utils';

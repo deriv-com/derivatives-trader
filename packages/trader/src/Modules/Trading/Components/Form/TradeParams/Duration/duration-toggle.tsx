@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { LegacyChevronDown1pxIcon } from '@deriv/quill-icons';
 
 type TDurationToggle = {

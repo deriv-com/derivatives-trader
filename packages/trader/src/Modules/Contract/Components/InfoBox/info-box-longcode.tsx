@@ -5,7 +5,7 @@ import { Button, Modal, Text } from '@deriv/components';
 import { LegacySellExpiredIcon } from '@deriv/quill-icons';
 import { isTabletOs, TContractInfo } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 type TInfoBoxLongcode = { contract_info: TContractInfo };
 

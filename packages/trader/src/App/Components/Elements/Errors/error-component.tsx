@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Dialog, PageErrorContainer } from '@deriv/components';
 import { routes } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 type TErrorComponent = {
     header: React.ReactNode;

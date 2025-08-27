@@ -7,7 +7,7 @@ import { StandaloneClockThreeRegularIcon } from '@deriv/quill-icons';
 import { addComma, toMoment } from '@deriv/shared';
 
 import MarkerSpot from './marker-spot.jsx';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 const MarkerSpotLabel = ({
     align_label,

@@ -1,4 +1,4 @@
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { getMarketNamesMap, getContractConfig } from '../constants/contract';
 import { TContractOptions } from '../contract/contract-types';
 import { isHighLow } from '../shortcode';

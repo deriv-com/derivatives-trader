@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from '@deriv/components';
 import { getBrandHomeUrl } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { LegacyHomeNewIcon } from '@deriv/quill-icons';
 
 const HomeButton = observer(() => {

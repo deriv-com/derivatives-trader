@@ -1,7 +1,7 @@
 import React from 'react';
 import { routes, makeLazyLoader, moduleLoader } from '@deriv/shared';
 import { Loading } from '@deriv/components';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import {
     LegacyReportsIcon,
     LegacyOpenPositionIcon,

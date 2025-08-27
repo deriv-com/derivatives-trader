@@ -2,7 +2,7 @@ import React from 'react';
 import { useSwipeable } from 'react-swipeable';
 import clsx from 'clsx';
 
-import { getLanguage } from '@deriv/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import CarouselHeader, { TQuillIcon } from './carousel-header';
 
@@ -41,8 +41,8 @@ const Carousel = ({
 
     const isControlled = current_index !== undefined && setCurrentIndex !== undefined;
     const index = isControlled ? current_index : internalIndex;
-    const lang = getLanguage();
-    const is_rtl = lang === 'AR';
+    const { currentLang } = useTranslations();
+    const is_rtl = currentLang === 'AR';
 
     const handleNextClick = () => {
         if (!is_infinite_loop && index + 1 >= pages.length) return;

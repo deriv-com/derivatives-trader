@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, SegmentedControlSingleChoice } from '@deriv-com/quill-ui';
 
 import DealCancellation from './deal-cancellation';

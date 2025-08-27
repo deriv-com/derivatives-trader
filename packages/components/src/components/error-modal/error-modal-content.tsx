@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from '../button';
 import Text from '../text';
-import { Localize } from '@deriv/translations';
 import { DerivLightIcCashierBlockedIcon } from '@deriv/quill-icons';
+import { Localize } from '@deriv-com/translations';
 
 type TErrorModalContent = {
     error_message?: string;

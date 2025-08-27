@@ -2,7 +2,7 @@ import React from 'react';
 import Dropdown from '../dropdown';
 import clsx from 'clsx';
 import { StandalonePlaybackSpeedFillIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 type TPlaybackRateControl = {
     onPlaybackRateChange: (new_value: number) => void;

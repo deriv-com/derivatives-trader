@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { DesktopWrapper, InputField, MobileWrapper, Modal, Text } from '@deriv/components';
 import { LegacyArrowUp1pxIcon, LegacyArrowDown1pxIcon } from '@deriv/quill-icons';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';

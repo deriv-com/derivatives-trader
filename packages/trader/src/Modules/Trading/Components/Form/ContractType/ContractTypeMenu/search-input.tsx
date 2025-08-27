@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Input } from '@deriv/components';
 import { LegacySearch1pxIcon, LegacyCloseCircle1pxBlackIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 type TSearchInput = {
     onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | null>;

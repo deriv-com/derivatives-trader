@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Text } from '@deriv/components';
 import { LegacyPositionIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 type TEmptyPortfolioMessage = {
     error?: string;

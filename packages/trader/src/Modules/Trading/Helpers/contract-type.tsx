@@ -2,18 +2,12 @@ import React from 'react';
 
 import { ActiveSymbols } from '@deriv/api-types';
 import { unsupported_contract_types_list } from '@deriv/shared';
-import { localize } from '@deriv/translations';
 import {
     LegacyTradeTypeAllIcon,
     LegacyAccumulatorIcon,
     LegacyTradeTypeOptionsIcon,
     LegacyTradeTypeMultipliersIcon,
     LegacyTurboIcon,
-    LegacyTradeTypeUpsDownsIcon,
-    LegacyTradeTypeHighLowIcon,
-    LegacyTradeTypeInsOutsIcon,
-    LegacyTradeTypeLookbacksIcon,
-    LegacyTradeTypeDigitsIcon,
 } from '@deriv/quill-icons';
 
 import { TContractCategory, TContractType, TList } from '../Components/Form/ContractType/types';

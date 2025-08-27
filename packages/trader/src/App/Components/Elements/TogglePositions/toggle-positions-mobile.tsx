@@ -6,7 +6,7 @@ import { Div100vhContainer, Modal, Text } from '@deriv/components';
 import { LegacyPositionIcon, LegacyMinimize2pxIcon } from '@deriv/quill-icons';
 import { isDisabledLandscapeBlockerRoute, isMobileOs, isTabletOs, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import PositionsModalCard from 'App/Components/Elements/PositionsDrawer/positions-modal-card';

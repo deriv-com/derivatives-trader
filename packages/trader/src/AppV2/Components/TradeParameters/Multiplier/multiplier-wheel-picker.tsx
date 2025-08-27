@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import debounce from 'lodash.debounce';
 
 import { formatMoney } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Skeleton, Text, WheelPicker } from '@deriv-com/quill-ui';
 
 import { useTraderStore } from 'Stores/useTraderStores';

@@ -9,7 +9,7 @@ import {
 } from '@deriv/quill-icons';
 import { getBrandUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { requestOidcAuthentication } from '@deriv-com/auth-client';
 import { Text } from '@deriv-com/ui';
 

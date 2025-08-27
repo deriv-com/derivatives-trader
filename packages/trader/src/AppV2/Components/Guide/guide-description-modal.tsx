@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { VideoPlayer } from '@deriv/components';
 import { clickAndKeyEventHandler } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Heading } from '@deriv-com/quill-ui';
 
 import { getDescriptionVideoIds } from 'AppV2/Utils/contract-description-utils';

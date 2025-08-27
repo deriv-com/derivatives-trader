@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@deriv/components';
 import { formatMoney } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { LoginButtonV2 } from './login-button-v2';

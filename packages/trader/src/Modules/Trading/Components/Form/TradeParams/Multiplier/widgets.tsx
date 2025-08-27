@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Money, Popover, Text } from '@deriv/components';
 import { clickAndKeyEventHandler, getGrowthRatePercentage } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 
 import MultipliersExpiration from 'Modules/Trading/Components/Form/TradeParams/Multiplier/expiration';
 import MultipliersExpirationModal from 'Modules/Trading/Components/Form/TradeParams/Multiplier/expiration-modal';

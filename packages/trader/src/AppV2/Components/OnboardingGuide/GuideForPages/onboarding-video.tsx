@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { getUrlBase } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Skeleton } from '@deriv-com/quill-ui';
 
 import { ASPECT_RATIO } from 'AppV2/Utils/layout-utils';

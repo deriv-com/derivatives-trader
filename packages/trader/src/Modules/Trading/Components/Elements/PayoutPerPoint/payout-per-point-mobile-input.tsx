@@ -6,7 +6,7 @@ import {
     LabelPairedChevronsUpCaptionRegularIcon,
     LegacyClose2pxIcon,
 } from '@deriv/quill-icons';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 

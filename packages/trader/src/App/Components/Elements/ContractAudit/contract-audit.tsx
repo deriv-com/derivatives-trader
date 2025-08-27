@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Tabs } from '@deriv/components';
 import { TContractInfo, TContractStore, WS } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 

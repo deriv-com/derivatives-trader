@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { LegacyRef } from 'react';
 import { Text, ThemedScrollbars } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import EmptyNotification from 'App/Components/Elements/Notifications/empty-notification';
 import NotificationsClearAllFooter from './notifications-clear-all-footer';
 import NotificationsList from './notifications-list';

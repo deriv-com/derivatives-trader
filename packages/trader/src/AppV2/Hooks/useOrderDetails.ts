@@ -17,7 +17,7 @@ import {
     isUserCancelled,
     TContractInfo,
 } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 
 import { getBarrierValue } from 'App/Components/Elements/PositionsDrawer/helpers';
 import { isCancellationExpired } from 'Stores/Modules/Trading/Helpers/logic';

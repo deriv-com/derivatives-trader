@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Numpad } from '@deriv/components';
 import { addComma, getDurationMinMaxValues, getUnitMap, isEmptyObject } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 

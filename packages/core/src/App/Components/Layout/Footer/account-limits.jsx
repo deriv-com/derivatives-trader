@@ -2,7 +2,7 @@ import React from 'react';
 import { Popover } from '@deriv/components';
 import { LegacyAccountLimitsIcon } from '@deriv/quill-icons';
 import { useAccountSettingsRedirect } from '@deriv/api';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { observer } from '@deriv/stores';
 
 export const AccountLimits = observer(({ showPopover }) => {

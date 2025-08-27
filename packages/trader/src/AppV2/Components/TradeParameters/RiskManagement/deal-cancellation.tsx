@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Button, Skeleton, Text, ToggleSwitch, useSnackbar, WheelPicker } from '@deriv-com/quill-ui';
 
 import { addUnit, getSnackBarText } from 'AppV2/Utils/trade-params-utils';

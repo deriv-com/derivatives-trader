@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Text } from '@deriv/components';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 const NoResultsMessage = ({ text }: { text: string }) => (
     <div className='no-results-found'>

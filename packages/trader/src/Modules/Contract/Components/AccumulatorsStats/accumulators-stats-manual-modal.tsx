@@ -3,7 +3,7 @@ import React from 'react';
 import { Loading, Modal, Text } from '@deriv/components';
 import { LegacyInfo1pxIcon } from '@deriv/quill-icons';
 import { getUrlBase, isMobile } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import 'Sass/app/modules/contract/accumulators-stats.scss';
 

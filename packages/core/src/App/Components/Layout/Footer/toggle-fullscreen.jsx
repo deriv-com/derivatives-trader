@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Popover } from '@deriv/components';
 import { LegacyFullscreen1pxIcon, LegacyRestore1pxIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 const ToggleFullScreen = ({ showPopover }) => {
     const [is_full_screen, setIsFullScreen] = React.useState(false);

@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { ActionSheet, CaptionText, TextField } from '@deriv-com/quill-ui';
 
 import { useTraderStore } from 'Stores/useTraderStores';

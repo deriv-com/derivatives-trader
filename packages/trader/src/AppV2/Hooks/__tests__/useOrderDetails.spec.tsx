@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import useOrderDetails from '../useOrderDetails';
 
-jest.mock('@deriv/translations', () => ({
+jest.mock('@deriv-com/translations', () => ({
     localize: jest.fn(text => text),
     Localize: jest.fn(text => text),
 }));

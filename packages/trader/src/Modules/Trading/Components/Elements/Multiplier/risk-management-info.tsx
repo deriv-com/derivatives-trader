@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Money } from '@deriv/components';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import RiskManagementDialog from 'Modules/Trading/Containers/Multiplier/risk-management-dialog';
 import { useTraderStore } from 'Stores/useTraderStores';

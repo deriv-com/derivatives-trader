@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataList, DataTable } from '@deriv/components';
 import { getUnsupportedContracts, getContractPath, hasContractStarted } from '@deriv/shared';
-import { Localize } from '@deriv/translations';
+import { Localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
 import { useDevice } from '@deriv-com/ui';
 import { ReportsTableRowLoader } from '../Components/Elements/ContentLoader';

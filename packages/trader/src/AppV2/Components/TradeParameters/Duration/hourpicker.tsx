@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 import { WheelPickerContainer } from '@deriv-com/quill-ui';
 
 type TimeOption = {

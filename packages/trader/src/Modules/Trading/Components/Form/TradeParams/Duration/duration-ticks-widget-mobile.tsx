@@ -3,7 +3,7 @@ import React from 'react';
 import { TickPicker } from '@deriv/components';
 import { getDurationMinMaxValues, isEmptyObject } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 

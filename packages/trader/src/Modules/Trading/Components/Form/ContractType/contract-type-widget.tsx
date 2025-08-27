@@ -4,7 +4,7 @@ import { InlineMessage, Text } from '@deriv/components';
 import { LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
 import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv/translations';
+import { Localize, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
 
 import { useTraderStore } from 'Stores/useTraderStores';

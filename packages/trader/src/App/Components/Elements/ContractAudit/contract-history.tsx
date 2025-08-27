@@ -3,7 +3,7 @@ import React from 'react';
 import { Money, Text, ThemedScrollbars } from '@deriv/components';
 import { DerivLightEmptyCardboardBoxIcon } from '@deriv/quill-icons';
 import { isMobile, TContractStore } from '@deriv/shared';
-import { localize } from '@deriv/translations';
+import { localize } from '@deriv-com/translations';
 
 import ContractAuditItem from './contract-audit-item';
 
