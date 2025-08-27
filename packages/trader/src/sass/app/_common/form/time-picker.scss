@@ -9,9 +9,8 @@
     &__icon {
         @extend %inline-icon;
         position: absolute;
-        bottom: 0;
-        top: 0.8em;
-        left: 5%;
+        top: 0.4em;
+        left: 0.6rem;
         z-index: 1;
         margin: unset;
         /* postcss-bem-linter: ignore */
