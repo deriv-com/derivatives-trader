@@ -72,6 +72,10 @@
         }
     }
 
+    &__icon path {
+        fill: var(--color-surface-contrast);
+    }
+
     &__icon_wrapper {
         @extend %inline-icon-white;
         /* postcss-bem-linter: ignore */
@@ -145,6 +149,7 @@
     &__type-wrapper {
         display: flex;
         align-items: center;
+        gap: 0.4rem;
         transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
         transform: none;
     }
