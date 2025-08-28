@@ -156,9 +156,9 @@ const VideoControls = ({
                     <div className='player__controls__bottom-bar controls__left'>
                         <button onClick={togglePlay} className='player__controls__button'>
                             {is_playing ? (
-                                <StandalonePauseFillIcon fill='var(--color-surface-contrast)' height={18} width={15} />
+                                <StandalonePauseFillIcon fill='var(--color-surface-primary)' height={18} width={15} />
                             ) : (
-                                <StandalonePlayFillIcon fill='var(--color-surface-contrast)' height={18} width={15} />
+                                <StandalonePlayFillIcon fill='var(--color-surface-primary)' height={18} width={15} />
                             )}
                         </button>
                         <div className='player__controls__time-wrapper'>

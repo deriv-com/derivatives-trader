@@ -86,7 +86,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, TCheckBoxProps>(
                         tabIndex={withTabIndex}
                         onKeyDown={handleKeyDown}
                     >
-                        {!!checked && <LegacyCheck1pxIcon iconSize='xs' fill='var(--color-surface-contrast)' />}
+                        {!!checked && <LegacyCheck1pxIcon iconSize='xs' fill='var(--color-surface-primary)' />}
                     </span>
                 </span>
                 <Text

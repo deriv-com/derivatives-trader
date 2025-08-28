@@ -237,7 +237,7 @@ $solid-blue-700: #2c9aff;
         }
         &--won,
         &--lost {
-            color: var(--color-surface-contrast);
+            color: var(--color-surface-primary);
         }
         @include mobile {
             font-size: 1rem;
@@ -592,7 +592,7 @@ $solid-blue-700: #2c9aff;
             }
 
             #{$self}__text {
-                color: var(--color-surface-contrast);
+                color: var(--color-surface-primary);
             }
         }
     }

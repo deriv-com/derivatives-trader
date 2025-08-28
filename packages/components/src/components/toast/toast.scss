@@ -13,7 +13,7 @@
         max-width: calc(100vw - 3.2rem);
         padding: 0.4rem 0.8rem;
         @include typeface(--paragraph-center-normal-black);
-        color: var(--color-surface-contrast);
+        color: var(--color-surface-primary);
         border-radius: $BORDER_RADIUS;
         min-height: 34px;
         display: flex;

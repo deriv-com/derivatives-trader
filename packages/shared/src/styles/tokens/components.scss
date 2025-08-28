@@ -12,7 +12,7 @@
     .theme--light {
         // Button Colors
         --color-button-primary-bg: var(--brand-primary);
-        --color-button-primary-text: var(--color-surface-contrast);
+        --color-button-primary-text: var(--color-surface-primary);
         --color-button-primary-hover: var(--brand-primary-dark);
 
         --color-button-secondary-bg: transparent;
@@ -92,21 +92,21 @@
 
         // Badge Colors
         --color-badge-success-bg: var(--color-status-success);
-        --color-badge-success-text: var(--color-surface-contrast);
+        --color-badge-success-text: var(--color-surface-primary);
         --color-badge-danger-bg: var(--color-status-danger);
-        --color-badge-danger-text: var(--color-surface-contrast);
+        --color-badge-danger-text: var(--color-surface-primary);
         --color-badge-warning-bg: var(--color-status-warning);
         --color-badge-warning-text: var(--brand-black);
         --color-badge-info-bg: var(--color-status-info);
-        --color-badge-info-text: var(--color-surface-contrast);
+        --color-badge-info-text: var(--color-surface-primary);
         --color-badge-neutral-bg: var(--color-status-neutral);
-        --color-badge-neutral-text: var(--color-surface-contrast);
+        --color-badge-neutral-text: var(--color-surface-primary);
     }
 
     .theme--dark {
         // Button Colors
         --color-button-primary-bg: var(--brand-primary);
-        --color-button-primary-text: var(--color-surface-contrast);
+        --color-button-primary-text: var(--color-surface-primary);
         --color-button-primary-hover: var(--brand-primary-dark);
 
         --color-button-secondary-bg: transparent;
@@ -186,14 +186,14 @@
 
         // Badge Colors
         --color-badge-success-bg: var(--color-status-success);
-        --color-badge-success-text: var(--color-surface-contrast);
+        --color-badge-success-text: var(--color-surface-primary);
         --color-badge-danger-bg: var(--color-status-danger);
-        --color-badge-danger-text: var(--color-surface-contrast);
+        --color-badge-danger-text: var(--color-surface-primary);
         --color-badge-warning-bg: var(--color-status-warning);
         --color-badge-warning-text: var(--brand-black);
         --color-badge-info-bg: var(--color-status-info);
-        --color-badge-info-text: var(--color-surface-contrast);
+        --color-badge-info-text: var(--color-surface-primary);
         --color-badge-neutral-bg: var(--color-status-neutral);
-        --color-badge-neutral-text: var(--color-surface-contrast);
+        --color-badge-neutral-text: var(--color-surface-primary);
     }
 }

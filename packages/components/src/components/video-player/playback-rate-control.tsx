@@ -36,13 +36,13 @@ const PlaybackRateControl = ({
         <button className='player__controls__button player__playback-rate__wrapper'>
             {is_v2 ? (
                 <StandalonePlaybackSpeedFillIcon
-                    fill='var(--color-surface-contrast)'
+                    fill='var(--color-surface-primary)'
                     iconSize='md'
                     className='playback-rate__icon'
                 />
             ) : (
                 <StandalonePlaybackSpeedFillIcon
-                    fill='var(--color-surface-contrast)'
+                    fill='var(--color-surface-primary)'
                     height={20}
                     width={20}
                     className='playback-rate__icon'

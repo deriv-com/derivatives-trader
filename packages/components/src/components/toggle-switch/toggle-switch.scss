@@ -21,7 +21,7 @@
         height: 1.9rem;
         border-radius: 1.9rem;
         transition: transform 0.25s;
-        background: var(--color-surface-contrast);
+        background: var(--color-surface-primary);
     }
     &:checked + &__label {
         background: var(--color-text-success);

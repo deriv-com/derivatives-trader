@@ -43,7 +43,7 @@ type TButtonTextWrapper = {
 const ButtonTextWrapper = ({ should_fade, is_loading, type, is_high_low }: TButtonTextWrapper) => {
     return (
         <div className='btn-purchase__text_wrapper'>
-            <Text size='xs' weight='bold' color='inverse'>
+            <Text size='xs' weight='bold' color='white'>
                 {!should_fade && is_loading
                     ? ''
                     : getContractTypeDisplay(type, { isHighLow: is_high_low, showButtonName: true })}
@@ -54,12 +54,7 @@ const ButtonTextWrapper = ({ should_fade, is_loading, type, is_high_low }: TButt
 
 const IconComponentWrapper = ({ type }: { type: string }) => (
     <div className='btn-purchase__icon_wrapper'>
-        <IconTradeTypes
-            type={type}
-            className='btn-purchase__icon'
-            color='var(--color-interactive-active)'
-            iconSize='sm'
-        />
+        <IconTradeTypes type={type} className='btn-purchase__icon' color='var(--color-text-white)' iconSize='sm' />
     </div>
 );
 
@@ -97,13 +92,13 @@ const PurchaseButton = ({
 
     if (is_multiplier) {
         button_value = (
-            <Text size='xs' weight='bold' color='inverse'>
+            <Text size='xs' weight='bold' color='white'>
                 <Money amount={info.stake} currency={currency} show_currency />
             </Text>
         );
     } else if (!is_vanilla && !is_turbos && !is_accumulator) {
         button_value = (
-            <Text size='xs' weight='bold' color='inverse'>
+            <Text size='xs' weight='bold' color='white'>
                 {!(is_loading || is_disabled) ? info.returns : ''}
             </Text>
         );

@@ -273,7 +273,7 @@
             align-items: center;
 
             @include mobile-screen {
-                color: var(--color-surface-contrast);
+                color: var(--color-surface-primary);
                 width: 100%;
                 justify-content: space-between;
                 align-items: center;
@@ -329,7 +329,7 @@
                 transition: 0.3s;
 
                 @include mobile-screen {
-                    color: var(--color-surface-contrast);
+                    color: var(--color-surface-primary);
                 }
             }
             &-basis {
@@ -339,7 +339,7 @@
                 color: var(--color-text-secondary);
                 @include mobile-screen {
                     @include typeface(--xsmall-left-normal-black);
-                    color: var(--color-surface-contrast);
+                    color: var(--color-surface-primary);
                 }
             }
             &-currency {

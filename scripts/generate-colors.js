@@ -199,8 +199,8 @@ function generateSemanticTokens() {
   .theme--light {
     // Surface Colors
     --color-surface-primary: var(--brand-white);                        // Main backgrounds, cards
-    --color-surface-overlay: var(--brand-white);                        // Modal/dialog overlays
-    --color-surface-contrast: var(--brand-white);                       // High contrast backgrounds for text
+    --color-surface-overlay: #{transparentize($color-white, 0.04)};     // Modal/dialog overlays
+    --color-surface-inverse: var(--brand-black);                        // Inverse surface for light text on dark backgrounds
     --color-surface-section: #{mix($color-black, $color-white, 5%)};    // Section backgrounds (light grey)
     --color-surface-border: #{mix($color-black, $color-white, 6%)};     // Border color for surfaces and containers
 
@@ -208,7 +208,8 @@ function generateSemanticTokens() {
     --color-text-primary: var(--brand-black);                           // Primary text (headings, important text)
     --color-text-secondary: #{transparentize($color-black, 0.3)};       // Secondary text (body text)
     --color-text-disabled: #{transparentize($color-black, 0.6)};        // Disabled text
-    --color-text-inverse: var(--brand-white);                           // Text on dark backgrounds
+    --color-text-inverse: var(--brand-white);                           // Inverse text
+    --color-text-white: var(--brand-white);                             // White text
     --color-text-success: var(--brand-success);                         // Success messages, profit text
     --color-text-danger: var(--brand-danger);                           // Error messages, loss text
     --color-text-warning: var(--brand-warning);                         // Warning messages
@@ -248,7 +249,7 @@ function generateSemanticTokens() {
     // Surface Colors
     --color-surface-primary: var(--brand-black);                        // Main backgrounds, cards
     --color-surface-overlay: #{transparentize($color-black, 0.04)};     // Modal/dialog overlays
-    --color-surface-contrast: var(--brand-white);                       // High contrast backgrounds for text
+    --color-surface-inverse: var(--brand-white);                        // Inverse surface for dark text on light backgrounds
     --color-surface-section: #{mix($color-white, $color-black, 3%)};    // Section backgrounds (derived from brand colors to get #151717)
     --color-surface-border: #{mix($color-white, $color-black, 8%)};     // Border color for surfaces and containers (dark theme)
 
@@ -256,7 +257,8 @@ function generateSemanticTokens() {
     --color-text-primary: var(--brand-white);                           // Primary text (headings, important text)
     --color-text-secondary: #{transparentize($color-white, 0.2)};       // Secondary text (body text)
     --color-text-disabled: #{transparentize($color-white, 0.6)};        // Disabled text
-    --color-text-inverse: var(--brand-white);                           // Text on dark backgrounds
+    --color-text-inverse: var(--brand-black);                           // Inverse text
+    --color-text-white: var(--brand-white);                             // White text
     --color-text-success: var(--brand-success);                         // Success messages, profit text
     --color-text-danger: var(--brand-danger);                           // Error messages, loss text
     --color-text-warning: var(--brand-warning);                         // Warning messages
@@ -311,7 +313,7 @@ function generateComponentTokens() {
   .theme--light {
     // Button Colors
     --color-button-primary-bg: var(--brand-primary);
-    --color-button-primary-text: var(--color-surface-contrast);
+    --color-button-primary-text: var(--color-surface-primary);
     --color-button-primary-hover: var(--brand-primary-dark);
     
     --color-button-secondary-bg: transparent;
@@ -391,21 +393,21 @@ function generateComponentTokens() {
 
     // Badge Colors
     --color-badge-success-bg: var(--color-status-success);
-    --color-badge-success-text: var(--color-surface-contrast);
+    --color-badge-success-text: var(--color-surface-primary);
     --color-badge-danger-bg: var(--color-status-danger);
-    --color-badge-danger-text: var(--color-surface-contrast);
+    --color-badge-danger-text: var(--color-surface-primary);
     --color-badge-warning-bg: var(--color-status-warning);
     --color-badge-warning-text: var(--brand-black);
     --color-badge-info-bg: var(--color-status-info);
-    --color-badge-info-text: var(--color-surface-contrast);
+    --color-badge-info-text: var(--color-surface-primary);
     --color-badge-neutral-bg: var(--color-status-neutral);
-    --color-badge-neutral-text: var(--color-surface-contrast);
+    --color-badge-neutral-text: var(--color-surface-primary);
   }
 
   .theme--dark {
     // Button Colors
     --color-button-primary-bg: var(--brand-primary);
-    --color-button-primary-text: var(--color-surface-contrast);
+    --color-button-primary-text: var(--color-surface-primary);
     --color-button-primary-hover: var(--brand-primary-dark);
     
     --color-button-secondary-bg: transparent;
@@ -485,15 +487,15 @@ function generateComponentTokens() {
 
     // Badge Colors
     --color-badge-success-bg: var(--color-status-success);
-    --color-badge-success-text: var(--color-surface-contrast);
+    --color-badge-success-text: var(--color-surface-primary);
     --color-badge-danger-bg: var(--color-status-danger);
-    --color-badge-danger-text: var(--color-surface-contrast);
+    --color-badge-danger-text: var(--color-surface-primary);
     --color-badge-warning-bg: var(--color-status-warning);
     --color-badge-warning-text: var(--brand-black);
     --color-badge-info-bg: var(--color-status-info);
-    --color-badge-info-text: var(--color-surface-contrast);
+    --color-badge-info-text: var(--color-surface-primary);
     --color-badge-neutral-bg: var(--color-status-neutral);
-    --color-badge-neutral-text: var(--color-surface-contrast);
+    --color-badge-neutral-text: var(--color-surface-primary);
   }
 }
 `;

@@ -126,16 +126,16 @@ const VolumeControl = ({ onVolumeChange, volume, is_mobile, is_muted, is_v2 = fa
         >
             <button className='player__controls__button' onClick={buttonClickHandler}>
                 {is_v2 && is_muted && (
-                    <StandaloneVolumeXmarkRegularIcon fill='var(--color-surface-contrast)' iconSize='md' />
+                    <StandaloneVolumeXmarkRegularIcon fill='var(--color-surface-primary)' iconSize='md' />
                 )}
                 {is_v2 && !is_muted && (
-                    <StandaloneVolumeHighRegularIcon fill='var(--color-surface-contrast)' iconSize='md' />
+                    <StandaloneVolumeHighRegularIcon fill='var(--color-surface-primary)' iconSize='md' />
                 )}
                 {!is_v2 && is_muted && (
-                    <StandaloneVolumeXmarkRegularIcon fill='var(--color-surface-contrast)' height={18} width={20} />
+                    <StandaloneVolumeXmarkRegularIcon fill='var(--color-surface-primary)' height={18} width={20} />
                 )}
                 {!is_v2 && !is_muted && (
-                    <StandaloneVolumeHighRegularIcon fill='var(--color-surface-contrast)' height={18} width={20} />
+                    <StandaloneVolumeHighRegularIcon fill='var(--color-surface-primary)' height={18} width={20} />
                 )}
             </button>
             <CSSTransition

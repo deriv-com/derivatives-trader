@@ -59,7 +59,7 @@
             padding: 0.8rem;
             width: 100%;
             height: 100%;
-            color: var(--color-surface-contrast);
+            color: var(--color-surface-primary);
             background-color: var(--color-status-danger);
             justify-content: center;
             align-items: center;
@@ -73,25 +73,25 @@
     }
 
     &__icon path {
-        fill: var(--color-surface-contrast);
+        fill: var(--color-text-white);
     }
 
     &__icon_wrapper {
         @extend %inline-icon-white;
         /* postcss-bem-linter: ignore */
         .color1-fill {
-            fill: var(--color-surface-contrast);
+            fill: var(--color-surface-primary);
         }
         /* postcss-bem-linter: ignore */
         .color2-fill {
-            fill: var(--color-surface-contrast);
+            fill: var(--color-surface-primary);
         }
         @include mobile-screen {
             margin-right: 0.5rem;
         }
     }
     &__info {
-        color: var(--color-surface-contrast);
+        color: var(--color-surface-primary);
         text-align: left;
         position: relative;
         display: flex;

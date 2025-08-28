@@ -71,7 +71,7 @@
     }
     &--primary {
         background: var(--color-button-primary-bg);
-        color: var(--color-surface-contrast);
+        color: var(--color-surface-primary);
 
         &:hover:not([disabled]) {
             background: var(--color-button-primary-hover);
@@ -86,7 +86,7 @@
         }
         .dc-btn__text,
         .dc-btn__icon {
-            color: var(--color-surface-contrast);
+            color: var(--color-surface-primary);
         }
 
         &__light {
@@ -156,7 +156,7 @@
             background: var(--color-button-primary-bg);
 
             .dc-btn__text {
-                color: var(--color-surface-contrast);
+                color: var(--color-surface-primary);
             }
         }
 
@@ -177,7 +177,7 @@
         }
         .dc-btn__text,
         .dc-btn__icon {
-            color: var(--color-surface-contrast);
+            color: var(--color-surface-primary);
         }
     }
     &--black {
@@ -256,7 +256,7 @@
 
         /* postcss-bem-linter: ignore */
         .initial-loader__barspinner--rect {
-            background-color: var(--color-surface-contrast);
+            background-color: var(--color-surface-primary);
         }
         /* postcss-bem-linter: ignore */
         .barspinner {

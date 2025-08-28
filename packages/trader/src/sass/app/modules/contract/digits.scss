@@ -221,12 +221,12 @@
                     color: var(--color-text-success);
                 }
                 &--win {
-                    color: var(--color-surface-contrast);
+                    color: var(--color-surface-primary);
                     border-color: var(--color-text-success);
                     background: var(--color-text-success);
                 }
                 &--loss {
-                    color: var(--color-surface-contrast);
+                    color: var(--color-surface-primary);
                     border-color: var(--color-text-danger);
                     background: var(--color-text-danger);
                 }

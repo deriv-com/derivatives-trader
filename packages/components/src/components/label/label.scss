@@ -70,11 +70,11 @@
             }
         }
         &--success-invert {
-            color: var(--color-surface-contrast);
+            color: var(--color-surface-primary);
             background-color: var(--color-status-success);
         }
         &--warn-invert {
-            color: var(--color-surface-contrast);
+            color: var(--color-surface-primary);
             background-color: var(--color-status-warning);
         }
         &--info {
