@@ -77,5 +77,7 @@ runs:
       REF_NAME: ${{ inputs.REF_NAME }}
       # REMOTE_CONFIG_URL: ${{ inputs.REMOTE_CONFIG_URL }}
       # TRUSTPILOT_API_KEY: ${{ inputs.TRUSTPILOT_API_KEY }}
+      R2_PROJECT_NAME: ${{ inputs.R2_PROJECT_NAME }}
+      CROWDIN_BRANCH_NAME: ${{ inputs.CROWDIN_BRANCH_NAME }}
     run: npm run build:all
     shell: bash
