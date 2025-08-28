@@ -60,6 +60,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      - name: Checkout PR for Fork PRs
+        if: github.event_name == 'issue_comment' && github.event.issue.pull_request
+        run: |
+          # Use GitHub CLI to checkout the PR (works for forks)
+          gh pr checkout ${{ github.event.issue.number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
         timeout-minutes: 60
