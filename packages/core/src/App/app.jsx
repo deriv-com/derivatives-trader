@@ -22,7 +22,7 @@ import 'Sass/app.scss';
 
 const App = ({ root_store }) => {
     const i18nInstance = initializeI18n({
-        cdnUrl: `${process.env.CROWDIN_URL}/${process.env.ACC_TRANSLATION_PATH}`,
+        cdnUrl: `${process.env.CROWDIN_URL}/${process.env.R2_PROJECT_NAME}/${process.env.CROWDIN_BRANCH_NAME}`,
     });
     const l = window.location;
     const base = l.pathname.split('/')[1];
