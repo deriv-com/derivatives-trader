@@ -43,6 +43,7 @@ const AccumulatorsStatsManualModal = ({
             <LegacyInfo1pxIcon
                 onClick={toggleManual}
                 iconSize='xs'
+                fill='var(--color-text-primary)'
                 className={icon_classname}
                 data-testid='dt_ic_info_icon'
             />

@@ -100,7 +100,11 @@ const AccumulatorsStats = observer(({ is_expandable = true }: TAccumulatorStats)
                     className='accordion-toggle-arrow'
                     data-testid='dt_accordion-toggle-arrow'
                 >
-                    {is_collapsed ? <LegacyArrowUp1pxIcon iconSize='xs' /> : <LegacyArrowDown1pxIcon iconSize='xs' />}
+                    {is_collapsed ? (
+                        <LegacyArrowUp1pxIcon iconSize='xs' fill='var(--color-text-primary)' />
+                    ) : (
+                        <LegacyArrowDown1pxIcon iconSize='xs' fill='var(--color-text-primary)' />
+                    )}
                 </div>
             )}
         </div>
