@@ -109,7 +109,7 @@ const WheelPicker = ({ options, onClick, defaultValue, currency }: WheelPickerTy
                     onClick={handleIncrease}
                 >
                     <LegacyChevronUp1pxIcon
-                        fill={selectedIndex === 0 ? 'var(--color-surface-section)' : 'var(--color-surface-inverse)'}
+                        fill={selectedIndex === 0 ? 'var(--color-text-disabled)' : 'var(--color-surface-inverse)'}
                         className='chevron-icon'
                         iconSize='xs'
                     />
@@ -125,7 +125,7 @@ const WheelPicker = ({ options, onClick, defaultValue, currency }: WheelPickerTy
                     <LegacyChevronUp1pxIcon
                         fill={
                             selectedIndex === options.length - 1
-                                ? 'var(--color-surface-section)'
+                                ? 'var(--color-text-disabled)'
                                 : 'var(--color-surface-inverse)'
                         }
                         className='chevron-up'
