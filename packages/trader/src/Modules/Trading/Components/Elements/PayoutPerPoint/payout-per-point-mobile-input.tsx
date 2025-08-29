@@ -87,7 +87,11 @@ const PayoutPerPointMobileInput = ({
                         />
                     </div>
                     <button className='cross-icon' onClick={onClose}>
-                        <LegacyClose2pxIcon data-testid='dt_modal_close_icon' iconSize='xs' />
+                        <LegacyClose2pxIcon
+                            data-testid='dt_modal_close_icon'
+                            iconSize='xs'
+                            fill='var(--color-text-primary)'
+                        />
                     </button>
                 </Fieldset>
                 <WheelPickerMobile

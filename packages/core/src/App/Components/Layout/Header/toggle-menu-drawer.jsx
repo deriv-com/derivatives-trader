@@ -175,7 +175,11 @@ const ToggleMenuDrawer = observer(() => {
     return (
         <React.Fragment>
             <a id='dt_mobile_drawer_toggle' onClick={toggleDrawer} className='header__mobile-drawer-toggle'>
-                <LegacyMenuHamburger1pxIcon iconSize='xs' className='header__mobile-drawer-icon' />
+                <LegacyMenuHamburger1pxIcon
+                    iconSize='xs'
+                    className='header__mobile-drawer-icon'
+                    fill='var(--color-text-primary)'
+                />
             </a>
             <MobileDrawer
                 alignment='left'

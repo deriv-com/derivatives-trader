@@ -361,7 +361,7 @@ const InputField = ({
                 </label>
             )}
             {!!helper && (
-                <Text size='xxs' color='less-prominent' weight='lighter'>
+                <Text size='xxs' color='secondary' weight='lighter'>
                     {helper}
                 </Text>
             )}
