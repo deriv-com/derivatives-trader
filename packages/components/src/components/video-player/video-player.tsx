@@ -8,6 +8,16 @@ import { useDebounceCallback } from 'usehooks-ts';
 import VideoOverlay from './video-overlay';
 import VideoControls from './video-controls';
 
+// Safe hook wrapper to handle context unavailability
+const useSafeIsRtl = () => {
+    try {
+        return useIsRtl();
+    } catch (error) {
+        // Fallback to false when context is not available (e.g., in portals)
+        return false;
+    }
+};
+
 type TVideoPlayerProps = {
     className?: string;
     data_testid?: string;
@@ -43,7 +53,7 @@ const VideoPlayer = ({
     onModalClose,
     should_show_controls = false,
 }: TVideoPlayerProps) => {
-    const is_rtl = useIsRtl();
+    const is_rtl = useSafeIsRtl();
 
     const should_autoplay =
         (!isSafariBrowser() || (is_mobile && mobileOSDetect() !== 'iOS' && mobileOSDetect() !== 'unknown')) ?? true;
