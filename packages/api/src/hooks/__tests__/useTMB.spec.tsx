@@ -12,7 +12,10 @@ import useTMB from '../useTMB';
 // Mock dependencies
 jest.mock('js-cookie');
 jest.mock('@deriv-com/auth-client');
-jest.mock('@deriv/shared');
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    removeCookies: jest.fn(),
+}));
 jest.mock('@deriv/utils');
 
 // Mock window.location
@@ -57,6 +60,12 @@ Object.defineProperty(window, 'fcWidget', {
     value: {
         close: jest.fn(),
     },
+    writable: true,
+});
+
+// Mock document.domain for removeCookies function
+Object.defineProperty(document, 'domain', {
+    value: 'app.deriv.com',
     writable: true,
 });
 
