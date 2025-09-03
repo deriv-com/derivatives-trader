@@ -76,7 +76,7 @@
         "test:eslint-all": "npm run --workspaces --if-present test:eslint",
         "test:stylelint": "stylelint \"./packages/*/src/**/*.s(a|c)ss\"",
         "test:jest": "jest --all --maxWorkers=${JEST_MAX_WORKERS:-'50%'}",
-        "test:ci": "npm run test:stylelint && npm run test:eslint-all",
+        "test:ci": "npm run test:stylelint && npm run test:eslint-all && npm run test:jest",
         "stylelint:fix": "stylelint \"./packages/*/src/**/*.s(a|c)ss\" --fix",
         "prettify": "prettier --config ./.prettierrc --write \"./packages/*/{stories,script,src,build}/**/*.{js,jsx,ts,tsx,scss}\"",
         "deploy": "f () { export NODE_ENV=staging && npm run build:all && npm exec --workspace=@deriv/core -- npm run deploy $@ && export NODE_ENV= ;}; f",
