@@ -162,12 +162,12 @@ describe('<ContractDetails />', () => {
     it('should render correct rounding for barrier, entry spot and exit spot', () => {
         mock_default_props.contract_info.contract_type = CONTRACT_TYPES.VANILLA.CALL;
         mock_default_props.contract_info.barrier = '2037.000';
-        mock_default_props.contract_info.entry_spot_display_value = '2031.00';
+        mock_default_props.contract_info.entry_spot = 2031.0;
         mock_default_props.exit_spot = '2039.0';
         render(<ContractDetails {...mock_default_props} />);
 
         expect(screen.getByText('2,037.000')).toBeInTheDocument();
-        expect(screen.getByText('2,031.00')).toBeInTheDocument();
+        expect(screen.getByText('2,031')).toBeInTheDocument();
         expect(screen.getByText('2,039.0')).toBeInTheDocument();
     });
 

@@ -7,24 +7,20 @@ jest.mock('Stores/Modules/Trading/Helpers/contract-type', () => ({
             run_high_low: {
                 config: {
                     durations: {
-                        units_display: {
-                            spot: [{ text: 'Ticks', value: 't' }],
-                        },
+                        units_display: [{ text: 'Ticks', value: 't' }],
                     },
                 },
             },
             rise_fall_equal: {
                 config: {
                     durations: {
-                        units_display: {
-                            spot: [
-                                { text: 'Ticks', value: 't' },
-                                { text: 'Seconds', value: 's' },
-                                { text: 'Minutes', value: 'm' },
-                                { text: 'Hours', value: 'h' },
-                                { text: 'Days', value: 'd' },
-                            ],
-                        },
+                        units_display: [
+                            { text: 'Ticks', value: 't' },
+                            { text: 'Seconds', value: 's' },
+                            { text: 'Minutes', value: 'm' },
+                            { text: 'Hours', value: 'h' },
+                            { text: 'Days', value: 'd' },
+                        ],
                     },
                 },
             },

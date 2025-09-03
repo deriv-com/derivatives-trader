@@ -18,9 +18,9 @@ const view_less_text = /View less/i;
 const mocked_props = {
     contract_info: mockContractInfo({ longcode: test_longcode_short, contract_type: 'test' }),
 };
-jest.mock('@deriv/components', () => ({
-    ...jest.requireActual('@deriv/components'),
-    Icon: jest.fn(() => 'MockedIcon'),
+jest.mock('@deriv/quill-icons', () => ({
+    ...jest.requireActual('@deriv/quill-icons'),
+    LegacySellExpiredIcon: jest.fn(() => 'MockedIcon'),
 }));
 
 describe('InfoBoxLongcode', () => {

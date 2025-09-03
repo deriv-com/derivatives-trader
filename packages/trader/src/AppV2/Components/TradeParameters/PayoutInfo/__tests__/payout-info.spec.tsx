@@ -72,6 +72,12 @@ describe('<PayoutInfo />', () => {
                         value: 456,
                     },
                 },
+                LOWER: {
+                    obj_contract_basis: {
+                        text: 'payout',
+                        value: 123,
+                    },
+                },
             };
             mockedPayoutInfo();
 
@@ -83,6 +89,12 @@ describe('<PayoutInfo />', () => {
             default_mock_store.modules.trade.contract_type = TRADE_TYPES.HIGH_LOW;
             default_mock_store.modules.trade.trade_type_tab = 'PUT';
             default_mock_store.modules.trade.proposal_info = {
+                HIGHER: {
+                    obj_contract_basis: {
+                        text: 'payout',
+                        value: 123,
+                    },
+                },
                 LOWER: {
                     obj_contract_basis: {
                         text: 'payout',
@@ -164,7 +176,13 @@ describe('<PayoutInfo />', () => {
                     has_error: true,
                     obj_contract_basis: {
                         text: 'payout',
-                        value: 333,
+                        value: null,
+                    },
+                },
+                LOWER: {
+                    obj_contract_basis: {
+                        text: 'payout',
+                        value: null,
                     },
                 },
             };
@@ -172,7 +190,6 @@ describe('<PayoutInfo />', () => {
 
             expect(screen.getByText(label)).toBeInTheDocument();
             expect(screen.getByText('- USD')).toBeInTheDocument();
-            expect(screen.queryByText('333.00 USD')).not.toBeInTheDocument();
         });
     });
 

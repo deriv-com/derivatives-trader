@@ -11,9 +11,10 @@ import {
 
 import Display from '../contract-type-display';
 
-jest.mock('@deriv/components', () => ({
-    ...jest.requireActual('@deriv/components'),
-    Icon: () => <div>MockedIcon</div>,
+jest.mock('@deriv/quill-icons', () => ({
+    ...jest.requireActual('@deriv/quill-icons'),
+    LegacyChevronRight1pxIcon: () => <div>MockedIcon</div>,
+    LegacyChevronDown1pxIcon: () => <div>MockedIcon</div>,
 }));
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),

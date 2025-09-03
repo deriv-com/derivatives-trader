@@ -120,7 +120,7 @@ describe('<PositionsModalCard />', () => {
         render(
             mockPositionsModalCard(mockStore(default_mock_store), {
                 ...default_mock_props,
-                contract_info: { ...default_mock_props.contract_info, underlying },
+                contract_info: { ...default_mock_props.contract_info, underlying_symbol: underlying } as any,
             })
         );
 
@@ -151,8 +151,8 @@ describe('<PositionsModalCard />', () => {
                     is_sold: 1,
                     profit: 2,
                     sell_price: 8,
-                    underlying,
-                },
+                    underlying_symbol: underlying,
+                } as any,
             })
         );
 
@@ -179,8 +179,8 @@ describe('<PositionsModalCard />', () => {
                 contract_info: {
                     ...default_mock_props.contract_info,
                     contract_type: TRADE_TYPES.TURBOS.LONG,
-                    underlying,
-                },
+                    underlying_symbol: underlying,
+                } as any,
             })
         );
 
@@ -205,8 +205,8 @@ describe('<PositionsModalCard />', () => {
                 contract_info: {
                     ...default_mock_props.contract_info,
                     contract_type: TRADE_TYPES.RISE_FALL,
-                    underlying,
-                },
+                    underlying_symbol: underlying,
+                } as any,
             })
         );
 
@@ -227,8 +227,8 @@ describe('<PositionsModalCard />', () => {
                 contract_info: {
                     ...default_mock_props.contract_info,
                     contract_type: TRADE_TYPES.TOUCH,
-                    underlying,
-                },
+                    underlying_symbol: underlying,
+                } as any,
             })
         );
 
@@ -249,8 +249,8 @@ describe('<PositionsModalCard />', () => {
                 contract_info: {
                     ...default_mock_props.contract_info,
                     contract_type: TRADE_TYPES.MULTIPLIER,
-                    underlying,
-                },
+                    underlying_symbol: underlying,
+                } as any,
             })
         );
 

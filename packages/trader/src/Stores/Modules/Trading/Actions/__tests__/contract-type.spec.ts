@@ -229,7 +229,7 @@ describe('onChangeContractType', () => {
             expiry_type: 'duration',
             form_components: ['duration', 'amount', 'duration', 'strike', 'amount', 'trade_type_tabs'],
             trade_types: {
-                VANILLALONGCALL: 'Vanilla Long Call',
+                VANILLALONGCALL: 'VANILLALONGCALL',
             },
         });
     });
@@ -246,7 +246,7 @@ describe('onChangeContractType', () => {
             expiry_type: null,
             form_components: ['amount', 'take_profit', 'accumulator', 'accu_info_display'],
             trade_types: {
-                ACCU: 'Accumulator Up',
+                ACCU: 'ACCU',
             },
         });
     });

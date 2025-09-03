@@ -19,9 +19,12 @@ const mock_history = [
 
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
-    Icon: jest.fn(() => <div>test_icon</div>),
 }));
-jest.mock('../contract-audit-item', () => jest.fn(props => <div data-testid={props.value}>ContractAuditItem</div>));
+
+jest.mock('@deriv/quill-icons', () => ({
+    ...jest.requireActual('@deriv/quill-icons'),
+    DerivLightEmptyCardboardBoxIcon: () => <div>test_icon</div>,
+}));
 
 describe('<ContractHistory />', () => {
     it('should render special message if history.length === 0', () => {
@@ -35,13 +38,15 @@ describe('<ContractHistory />', () => {
     it('should render ContractAuditItem if history.length !== 0', () => {
         render(<ContractHistory {...mocked_default_props} history={mock_history} />);
 
-        expect(screen.getByText(/ContractAuditItem/i)).toBeInTheDocument();
+        expect(screen.getByText(/test_name/i)).toBeInTheDocument();
+        expect(screen.getByText(/123.00/)).toBeInTheDocument();
+        expect(screen.getByText(/test_value/i)).toBeInTheDocument();
     });
 
     it('should render Cancelled if order_amount is 0', () => {
         mock_history[0].order_amount = '0';
         render(<ContractHistory {...mocked_default_props} history={mock_history} />);
 
-        expect(screen.getByTestId(/Cancelled/i)).toBeInTheDocument();
+        expect(screen.getByText(/Cancelled/i)).toBeInTheDocument();
     });
 });

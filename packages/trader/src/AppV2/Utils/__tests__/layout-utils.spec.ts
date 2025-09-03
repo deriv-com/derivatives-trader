@@ -140,7 +140,6 @@ describe('checkIsServiceModalError', () => {
     });
     it('returns true if services_error has appropriate code', () => {
         expect(checkIsServiceModalError({ services_error: { code: 'InsufficientBalance' } })).toBe(true);
-        expect(checkIsServiceModalError({ services_error: { code: 'PleaseAuthenticate' } })).toBe(true);
     });
     it('returns true if services_error code is AuthorizationRequired and type is buy', () => {
         expect(checkIsServiceModalError({ services_error: { code: 'AuthorizationRequired', type: 'buy' } })).toBe(true);

@@ -80,7 +80,7 @@ describe('categorizeSymbols', () => {
                     subgroup_display_name: 'Baskets',
                     submarkets: {
                         commodity_basket: {
-                            submarket_display_name: 'Commodities Basket',
+                            submarket_display_name: 'Commodities basket',
                             items: [
                                 {
                                     symbol: 'WLDXAU',
@@ -140,7 +140,7 @@ describe('categorizeSymbols', () => {
                     subgroup_display_name: 'Forex',
                     submarkets: {
                         major_pairs: {
-                            submarket_display_name: 'Major Pairs',
+                            submarket_display_name: 'Major pairs',
                             items: [
                                 {
                                     symbol: 'frxAUDUSD',
@@ -157,7 +157,7 @@ describe('categorizeSymbols', () => {
                     },
                 },
                 indices: {
-                    subgroup_display_name: 'Stock Indices',
+                    subgroup_display_name: 'Stock indices',
                     submarkets: {
                         americas_OTC: {
                             submarket_display_name: 'American indices',
@@ -180,7 +180,7 @@ describe('categorizeSymbols', () => {
                     subgroup_display_name: 'Synthetics',
                     submarkets: {
                         crash_index: {
-                            submarket_display_name: 'Crash/Boom Indices',
+                            submarket_display_name: 'Crash/Boom',
                             items: [
                                 {
                                     symbol: 'BOOM300N',
@@ -206,7 +206,7 @@ describe('categorizeSymbols', () => {
                     subgroup_display_name: 'Baskets',
                     submarkets: {
                         commodity_basket: {
-                            submarket_display_name: 'Commodities Basket',
+                            submarket_display_name: 'Commodities basket',
                             items: [
                                 {
                                     symbol: 'WLDXAU',
@@ -226,7 +226,7 @@ describe('categorizeSymbols', () => {
                     subgroup_display_name: 'Synthetics',
                     submarkets: {
                         crash_index: {
-                            submarket_display_name: 'Crash/Boom Indices',
+                            submarket_display_name: 'Crash/Boom',
                             items: [
                                 {
                                     symbol: 'BOOM300N',
@@ -249,10 +249,10 @@ describe('categorizeSymbols', () => {
             market_display_name: 'Forex',
             subgroups: {
                 none: {
-                    subgroup_display_name: 'None',
+                    subgroup_display_name: 'Forex',
                     submarkets: {
                         major_pairs: {
-                            submarket_display_name: 'Major Pairs',
+                            submarket_display_name: 'Major pairs',
                             items: [
                                 {
                                     symbol: 'frxAUDUSD',
@@ -272,10 +272,10 @@ describe('categorizeSymbols', () => {
         },
         indices: {
             market: 'indices',
-            market_display_name: 'Stock Indices',
+            market_display_name: 'Stock indices',
             subgroups: {
                 none: {
-                    subgroup_display_name: 'None',
+                    subgroup_display_name: 'Stock indices',
                     submarkets: {
                         americas_OTC: {
                             submarket_display_name: 'American indices',
@@ -301,7 +301,7 @@ describe('categorizeSymbols', () => {
             market_display_name: 'Cryptocurrencies',
             subgroups: {
                 none: {
-                    subgroup_display_name: 'None',
+                    subgroup_display_name: 'Cryptocurrencies',
                     submarkets: {
                         non_stable_coin: {
                             submarket_display_name: 'Cryptocurrencies',
@@ -327,7 +327,7 @@ describe('categorizeSymbols', () => {
             market_display_name: 'Commodities',
             subgroups: {
                 none: {
-                    subgroup_display_name: 'None',
+                    subgroup_display_name: 'Commodities',
                     submarkets: {
                         metals: {
                             submarket_display_name: 'Metals',

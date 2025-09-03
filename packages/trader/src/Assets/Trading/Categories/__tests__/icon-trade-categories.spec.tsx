@@ -7,7 +7,7 @@ import IconTradeCategory from '../icon-trade-categories';
 
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
-    Icon: jest.fn(() => 'MockedIcon'),
+    TradeTypeIconsMapper: jest.fn(() => 'MockedIcon'),
 }));
 
 describe('<IconTradeCategory />', () => {
