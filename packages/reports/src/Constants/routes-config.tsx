@@ -8,7 +8,7 @@ import {
     LegacyStatementIcon,
 } from '@deriv/quill-icons';
 import { makeLazyLoader, moduleLoader, routes } from '@deriv/shared';
-import { Localize } from '@deriv-com/translations';
+import { localize } from '@deriv-com/translations';
 
 import type { TRoute, TRouteConfig } from 'Types';
 
@@ -26,26 +26,26 @@ const initRoutesConfig = (): TRouteConfig[] => {
             path: routes.reports,
             component: lazyLoadReportComponent('Reports'),
             is_authenticated: true,
-            getTitle: () => <Localize i18n_default_text='Reports' />,
+            getTitle: () => localize('Reports'),
             icon_component: <LegacyReportsIcon iconSize='xs' />,
             routes: [
                 {
                     path: routes.positions,
                     component: lazyLoadReportComponent('OpenPositions'),
-                    getTitle: () => <Localize i18n_default_text='Open positions' />,
+                    getTitle: () => localize('Open positions'),
                     icon_component: <LegacyOpenPositionIcon iconSize='xs' />,
                     default: true,
                 },
                 {
                     path: routes.profit,
                     component: lazyLoadReportComponent('ProfitTable'),
-                    getTitle: () => <Localize i18n_default_text='Trade table' />,
+                    getTitle: () => localize('Trade table'),
                     icon_component: <LegacyProfitTableIcon iconSize='xs' />,
                 },
                 {
                     path: routes.statement,
                     component: lazyLoadReportComponent('Statement'),
-                    getTitle: () => <Localize i18n_default_text='Statement' />,
+                    getTitle: () => localize('Statement'),
                     icon_component: <LegacyStatementIcon iconSize='xs' />,
                 },
             ],
@@ -56,7 +56,7 @@ const initRoutesConfig = (): TRouteConfig[] => {
 let routesConfig: TRouteConfig[];
 
 // For default page route if page/path is not found, must be kept at the end of routes_config array
-const route_default: TRoute = { component: Page404, getTitle: () => <Localize i18n_default_text='Error 404' /> };
+const route_default: TRoute = { component: Page404, getTitle: () => localize('Error 404') };
 
 const getRoutesConfig = (): TRouteConfig[] => {
     if (!routesConfig) {

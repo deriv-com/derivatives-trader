@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 import { Skeleton } from '@deriv/components';
 import { getGrowthRatePercentage } from '@deriv/shared';
 import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import type { TV2ParamsInitialValues } from 'Stores/Modules/Trading/trade-store';
 
@@ -31,6 +31,7 @@ const GrowthRatePicker = ({
     should_show_details,
     tick_size_barrier_percentage,
 }: TGrowthRatePickerProps) => {
+    const { localize } = useTranslations();
     const initial_growth_rate = React.useRef<number>();
     const selected_growth_rate = React.useRef<number>(growth_rate);
     const data = accumulator_range_list.map(rate => ({ value: `${getGrowthRatePercentage(rate)}%` }));
@@ -43,16 +44,7 @@ const GrowthRatePicker = ({
         {
             key: 'max_duration',
             label: <Localize i18n_default_text='Max duration' />,
-            value: (
-                <>
-                    {maximum_ticks || 0}{' '}
-                    {maximum_ticks === 1 ? (
-                        <Localize i18n_default_text='tick' />
-                    ) : (
-                        <Localize i18n_default_text='ticks' />
-                    )}
-                </>
-            ),
+            value: `${maximum_ticks || 0} ${maximum_ticks === 1 ? localize('tick') : localize('ticks')}`,
         },
     ];
 

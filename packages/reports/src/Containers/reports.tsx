@@ -12,14 +12,6 @@ import { TRoute } from 'Types';
 
 import 'Sass/app/modules/reports.scss';
 
-type TList = {
-    value: React.ComponentType | typeof Redirect;
-    default?: boolean;
-    label: string;
-    icon?: React.ReactElement;
-    path?: string;
-};
-
 type TReports = {
     history: RouteComponentProps['history'];
     location: RouteComponentProps['location'];
@@ -32,7 +24,7 @@ const Reports = observer(({ history, location, routes }: TReports) => {
 
     const { is_logged_in, is_logging_in } = client;
     const { is_from_derivgo, routeBackInApp } = common;
-    const { is_reports_visible, setReportsTabIndex, reports_route_tab_index, toggleReports } = ui;
+    const { is_reports_visible, setReportsTabIndex, toggleReports } = ui;
     const { isDesktop } = useDevice();
 
     React.useEffect(() => {
@@ -62,19 +54,13 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     const handleRouteChange = (e: React.ChangeEvent<HTMLSelectElement>) => history.push(e.target.value);
 
     const menu_options = () => {
-        const options: TList[] = [];
-
-        routes.forEach(route => {
-            options.push({
-                default: route.default,
-                icon: route.icon_component,
-                label: route.getTitle(),
-                value: route.component,
-                path: route.path,
-            });
-        });
-
-        return options;
+        return routes.map(route => ({
+            default: route.default,
+            icon: route.icon_component,
+            label: route.getTitle(),
+            value: route.component,
+            path: route.path,
+        }));
     };
 
     const selected_route = getSelectedRoute({ routes, pathname: location.pathname });
@@ -94,7 +80,6 @@ const Reports = observer(({ history, location, routes }: TReports) => {
                             is_routed
                             is_full_width
                             setVerticalTabIndex={setReportsTabIndex}
-                            vertical_tab_index={selected_route.default ? 0 : reports_route_tab_index}
                             list={menu_options()}
                         />
                     ) : (

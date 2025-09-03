@@ -161,11 +161,11 @@ const useContractsFor = () => {
                         if (contract.contract_category) {
                             // For Rise/Fall contracts with contract_category "callput"
                             if (contract.contract_category === 'callput' && key === 'rise_fall') {
-                                return isContractTypeMatch && contract_types[key].barrier_count === 1;
+                                return isContractTypeMatch;
                             }
                             // For Higher/Lower contracts with contract_category "higherlower"
                             if (contract.contract_category === 'higherlower' && key === 'high_low') {
-                                return isContractTypeMatch && contract_types[key].barrier_count === 1;
+                                return isContractTypeMatch;
                             }
                             // For other contract categories, use existing logic
                             return isContractTypeMatch;

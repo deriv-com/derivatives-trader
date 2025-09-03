@@ -26,7 +26,7 @@ export type TRoute = {
     path?: string;
     component: React.ComponentType | typeof Redirect;
     is_authenticated?: boolean;
-    getTitle: () => string | React.ReactElement;
+    getTitle: () => string;
     icon_component?: React.ReactElement;
     routes?: TRoute[];
     default?: boolean;
