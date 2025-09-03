@@ -96,21 +96,21 @@ export const getValidationRules = (): TValidationRules => ({
             [
                 'custom',
                 {
-                    func: (value: TTradeStore['start_time'], options, store) => true, // Always valid since all contracts now default to spot behavior
+                    func: (value: TTradeStore['start_time'], options, store) => !value || isTimeValid(value),
                     message: localize('Please enter the start time in the format "HH:MM".'),
                 },
             ],
             [
                 'custom',
                 {
-                    func: (value: TTradeStore['start_time'], options, store) => true, // Always valid since all contracts now default to spot behavior
+                    func: (value: TTradeStore['start_time'], options, store) => !value || isHourValid(value),
                     message: localize('Hour must be between 0 and 23.'),
                 },
             ],
             [
                 'custom',
                 {
-                    func: (value: TTradeStore['start_time'], options, store) => true, // Always valid since all contracts now default to spot behavior
+                    func: (value: TTradeStore['start_time'], options, store) => !value || isMinuteValid(value),
                     message: localize('Minute must be between 0 and 59.'),
                 },
             ],
@@ -130,21 +130,21 @@ export const getValidationRules = (): TValidationRules => ({
             [
                 'custom',
                 {
-                    func: (value: TTradeStore['expiry_time'], options, store) => true, // Always valid since all contracts now default to spot behavior
+                    func: (value: TTradeStore['expiry_time'], options, store) => !value || isTimeValid(value),
                     message: localize('Please enter the expiry time in the format "HH:MM".'),
                 },
             ],
             [
                 'custom',
                 {
-                    func: (value: TTradeStore['expiry_time'], options, store) => true, // Always valid since all contracts now default to spot behavior
+                    func: (value: TTradeStore['expiry_time'], options, store) => !value || isHourValid(value),
                     message: localize('Hour must be between 0 and 23.'),
                 },
             ],
             [
                 'custom',
                 {
-                    func: (value: TTradeStore['expiry_time'], options, store) => true, // Always valid since all contracts now default to spot behavior
+                    func: (value: TTradeStore['expiry_time'], options, store) => !value || isMinuteValid(value),
                     message: localize('Minute must be between 0 and 59.'),
                 },
             ],
