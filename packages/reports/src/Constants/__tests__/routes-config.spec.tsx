@@ -3,6 +3,28 @@ import { routes } from '@deriv/shared';
 import { render } from '@testing-library/react';
 import getRoutesConfig from '../routes-config';
 
+// Mock shared utilities
+jest.mock('@deriv/shared', () => ({
+    routes: {
+        reports: '/reports',
+        positions: '/reports/positions',
+        profit: '/reports/profit',
+        statement: '/reports/statement',
+    },
+    makeLazyLoader: (loader: () => any, fallback: () => React.ReactNode) => {
+        return (component: string) => {
+            const components: Record<string, React.ComponentType> = {
+                Reports: () => <div>Reports</div>,
+                OpenPositions: () => <div>OpenPositions</div>,
+                ProfitTable: () => <div>ProfitTable</div>,
+                Statement: () => <div>Statement</div>,
+            };
+            return components[component] || (() => <div>{component}</div>);
+        };
+    },
+    moduleLoader: (loader: () => any) => loader,
+}));
+
 // Mock the lazy-loaded components
 jest.mock('Modules/Page404', () => ({
     __esModule: true,
@@ -25,6 +47,11 @@ jest.mock('@deriv/quill-icons', () => ({
     LegacyProfitTableIcon: ({ iconSize }: { iconSize: string }) => <span>ProfitTableIcon-{iconSize}</span>,
     LegacyReportsIcon: ({ iconSize }: { iconSize: string }) => <span>ReportsIcon-{iconSize}</span>,
     LegacyStatementIcon: ({ iconSize }: { iconSize: string }) => <span>StatementIcon-{iconSize}</span>,
+}));
+
+// Mock @deriv/components
+jest.mock('@deriv/components', () => ({
+    Loading: () => <div>Loading</div>,
 }));
 
 describe('Routes Config', () => {
@@ -65,10 +92,11 @@ describe('Routes Config', () => {
             expect(typeof reportsRoute.component).toBe('function');
         });
 
-        it('should have getTitle function that returns a Localize component', () => {
+        it('should have getTitle function that returns a localized string', () => {
             expect(reportsRoute.getTitle).toBeDefined();
-            const titleComponent = reportsRoute.getTitle!();
-            expect(React.isValidElement(titleComponent)).toBe(true);
+            const title = reportsRoute.getTitle!();
+            expect(typeof title).toBe('string');
+            expect(title).toBe('Reports');
         });
 
         it('should have an icon component that renders correctly', () => {
@@ -100,9 +128,10 @@ describe('Routes Config', () => {
                 expect(openPositionsRoute.icon_component).toBeDefined();
             });
 
-            it('should have getTitle function that returns a Localize component', () => {
-                const titleComponent = openPositionsRoute.getTitle!();
-                expect(React.isValidElement(titleComponent)).toBe(true);
+            it('should have getTitle function that returns a localized string', () => {
+                const title = openPositionsRoute.getTitle!();
+                expect(typeof title).toBe('string');
+                expect(title).toBe('Open positions');
             });
 
             it('should have an icon component that renders correctly', () => {
@@ -130,9 +159,10 @@ describe('Routes Config', () => {
                 expect(profitTableRoute.icon_component).toBeDefined();
             });
 
-            it('should have getTitle function that returns a Localize component', () => {
-                const titleComponent = profitTableRoute.getTitle!();
-                expect(React.isValidElement(titleComponent)).toBe(true);
+            it('should have getTitle function that returns a localized string', () => {
+                const title = profitTableRoute.getTitle!();
+                expect(typeof title).toBe('string');
+                expect(title).toBe('Trade table');
             });
 
             it('should have an icon component that renders correctly', () => {
@@ -160,9 +190,10 @@ describe('Routes Config', () => {
                 expect(statementRoute.icon_component).toBeDefined();
             });
 
-            it('should have getTitle function that returns a Localize component', () => {
-                const titleComponent = statementRoute.getTitle!();
-                expect(React.isValidElement(titleComponent)).toBe(true);
+            it('should have getTitle function that returns a localized string', () => {
+                const title = statementRoute.getTitle!();
+                expect(typeof title).toBe('string');
+                expect(title).toBe('Statement');
             });
 
             it('should have an icon component that renders correctly', () => {
@@ -190,9 +221,10 @@ describe('Routes Config', () => {
             expect(defaultRoute.getTitle).toBeDefined();
         });
 
-        it('should have getTitle function that returns a Localize component', () => {
-            const titleComponent = defaultRoute.getTitle!();
-            expect(React.isValidElement(titleComponent)).toBe(true);
+        it('should have getTitle function that returns a localized string', () => {
+            const title = defaultRoute.getTitle!();
+            expect(typeof title).toBe('string');
+            expect(title).toBe('Error 404');
         });
 
         it('should have a component that can be rendered', () => {
@@ -220,8 +252,8 @@ describe('Routes Config', () => {
 
                 if (route.getTitle) {
                     expect(typeof route.getTitle).toBe('function');
-                    const titleComponent = route.getTitle();
-                    expect(React.isValidElement(titleComponent)).toBe(true);
+                    const title = route.getTitle();
+                    expect(typeof title).toBe('string');
                 }
 
                 if (route.icon_component) {
