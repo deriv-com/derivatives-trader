@@ -74,7 +74,7 @@ describe('ProfitTableStore', () => {
         contract_id: 246293653348,
         contract_type: 'MULTUP',
         deal_cancellation_duration: '60m',
-        display_name: '',
+        display_name: 'Volatility 100 Index',
         duration_type: 'days',
         longcode:
             "If you select 'Up', your total profit/loss will be the percentage increase in Volatility 100 Index, multiplied by 300, minus commissions.",
@@ -94,7 +94,7 @@ describe('ProfitTableStore', () => {
         buy_price: 10,
         contract_id: 245824534328,
         contract_type: 'CALL',
-        display_name: '',
+        display_name: 'Volatility 100 Index',
         duration_type: 'hours',
         longcode:
             'Win payout if Volatility 100 Index is strictly higher than entry spot at 6 hours after contract start time.',

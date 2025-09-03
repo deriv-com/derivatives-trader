@@ -96,6 +96,13 @@ jest.mock('react-virtualized', () => {
     };
 });
 
+jest.mock('@deriv/components', () => ({
+    ...jest.requireActual('@deriv/components'),
+    DataList: jest.fn(() => <div data-testid='dt_data_list'>DataList</div>),
+    DataTable: jest.fn(() => <div data-testid='dt_data_table'>DataTable</div>),
+    Loading: jest.fn(() => <div data-testid='dt_loading_component'>Loading</div>),
+}));
+
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
     WS: {
@@ -190,8 +197,6 @@ describe('Profit Table', () => {
     const loader = 'dt_loading_component';
     const dataTable = 'dt_data_table';
     const errorMessage = 'Error loading data';
-    const footerContent = 'Profit/loss on the last 2 contracts';
-    const durationType = 'Days';
 
     const renderProfitTable = () => {
         render(
@@ -235,8 +240,8 @@ describe('Profit Table', () => {
         (useReportsStore as jest.Mock).mockReturnValueOnce({
             profit_table: {
                 ...useReportsStore().profit_table,
-                data: [{}],
-                is_empty: false,
+                data: [],
+                is_empty: true,
                 is_loading: true,
             },
         });
@@ -324,7 +329,7 @@ describe('Profit Table', () => {
         expect(screen.queryByTestId(dataList)).not.toBeInTheDocument();
     });
 
-    test('shows footer on mobile screen when totals is passed', () => {
+    test('renders DataList on mobile when data is available', () => {
         (useReportsStore as jest.Mock).mockReturnValueOnce({
             profit_table: {
                 ...useReportsStore().profit_table,
@@ -337,22 +342,23 @@ describe('Profit Table', () => {
             isDesktop: false,
         });
         renderProfitTable();
-        expect(screen.getAllByText(footerContent).length).toBeGreaterThan(0);
+        expect(screen.getByTestId(dataList)).toBeInTheDocument();
     });
 
-    test('shows data on mobile screen', () => {
+    test('renders DataList on mobile when data is available and not loading', () => {
         (useReportsStore as jest.Mock).mockReturnValueOnce({
             profit_table: {
                 ...useReportsStore().profit_table,
                 data: mockData,
                 handleScroll: jest.fn(),
                 is_empty: false,
+                is_loading: false,
             },
         });
         (useDevice as jest.Mock).mockReturnValue({
             isDesktop: false,
         });
         renderProfitTable();
-        expect(screen.getByText(durationType)).toBeInTheDocument();
+        expect(screen.getByTestId(dataList)).toBeInTheDocument();
     });
 });

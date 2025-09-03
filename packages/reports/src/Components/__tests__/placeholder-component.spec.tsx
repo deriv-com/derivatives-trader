@@ -3,6 +3,14 @@ import { render, screen } from '@testing-library/react';
 import PlaceholderComponent from '../placeholder-component';
 import EmptyTradeHistoryMessage from 'Components/empty-trade-history-message';
 
+jest.mock('Components/empty-trade-history-message', () => {
+    return jest.fn(({ localized_message }) => (
+        <div data-testid='dt_empty_trade_history_icon'>
+            <div>{localized_message}</div>
+        </div>
+    ));
+});
+
 describe('PlaceholderComponent', () => {
     it('should not render component without props', () => {
         const { container } = render(<PlaceholderComponent />);
@@ -18,7 +26,7 @@ describe('PlaceholderComponent', () => {
 
     it('should render passed component (as empty_message_component prop) if is_empty === true', () => {
         const mockProps = {
-            component_icon: 'icon',
+            component_icon: <div>icon</div>,
             empty_message_component: EmptyTradeHistoryMessage,
             is_empty: true,
             localized_message: 'localized message',

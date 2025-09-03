@@ -6,15 +6,6 @@ import { TCoreStores } from '@deriv/stores/types';
 import ReportsProviders from '../../../reports-providers';
 import TradeModals from '../trade-modals';
 
-jest.mock('../../Elements/Modals/MarketUnavailableModal', () =>
-    jest.fn(props => (
-        <div>
-            <div>Market unavailable modal</div>
-            <button onClick={props.onConfirm}>onConfirm market</button>
-            <button onClick={props.onCancel}>onCancel market</button>
-        </div>
-    ))
-);
 jest.mock('../../Elements/Modals/ServicesErrorModal', () =>
     jest.fn(props => (
         <div>
@@ -40,26 +31,7 @@ describe('TradeModals', () => {
 
         render(mockTradeModals(mock_root_store));
 
-        expect(screen.getByText('Market unavailable modal')).toBeInTheDocument();
         expect(screen.getByText('Services error modal')).toBeInTheDocument();
-    });
-    it('should handle marketUnavailableOnConfirm if button onConfirm in MarketUnavailableModal component was clicked', async () => {
-        const mock_root_store = mockStore({});
-
-        render(mockTradeModals(mock_root_store));
-        await userEvent.click(screen.getByText('onConfirm market'));
-
-        // Modal confirmed - no specific action expected
-        expect(screen.getByText('Market unavailable modal')).toBeInTheDocument();
-    });
-    it('should handle marketUnavailableOnCancel if button onCancel in MarketUnavailableModal component was clicked', async () => {
-        const mock_root_store = mockStore({});
-
-        render(mockTradeModals(mock_root_store));
-        await userEvent.click(screen.getByText('onCancel market'));
-
-        // Should open SmartTrader
-        expect(window.open).toHaveBeenCalled();
     });
     it('should call function servicesErrorModalOnConfirm if button onConfirm in ServicesErrorModal component was clicked', async () => {
         const mock_root_store = mockStore({});

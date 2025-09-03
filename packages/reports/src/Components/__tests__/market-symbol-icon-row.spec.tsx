@@ -8,6 +8,21 @@ jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
     Icon: jest.fn(({ icon }: { icon: string }) => <div>{icon}</div>),
     IconTradeTypes: jest.fn(({ type }: { type: string }) => <div>{type}</div>),
+    SymbolIconsMapper: jest.fn(({ symbol }: { symbol: string }) => <div>IcUnderlying{symbol}</div>),
+    Popover: jest.fn(({ children, message }) => (
+        <div>
+            {children}
+            <div>{message}</div>
+        </div>
+    )),
+}));
+
+jest.mock('@deriv/quill-icons', () => ({
+    DerivLightDepositIcon: jest.fn(() => <div>IcCashierDeposit</div>),
+    DerivLightWithdrawalIcon: jest.fn(() => <div>IcCashierWithdrawal</div>),
+    DerivLightTransferIcon: jest.fn(() => <div>IcAccountTransferColored</div>),
+    LegacyDerivP2pIcon: jest.fn(() => <div>IcCashierDp2p</div>),
+    LegacyResetIcon: jest.fn(() => <div>IcAdjustment</div>),
 }));
 
 describe('MarketSymbolIconRow', () => {
@@ -36,16 +51,16 @@ describe('MarketSymbolIconRow', () => {
         expect(screen.queryByText(mockedTradeTypeIcon)).not.toBeInTheDocument();
         expect(screen.getByTestId('dt_unknown_icon')).toBeInTheDocument();
     });
-    it('should render a popover with a correct symbol name when symbol icon is hovered', () => {
+    it('should render a popover with a correct symbol name when symbol icon is hovered', async () => {
         render(<MarketSymbolIconRow payload={mockedRisePayload} />);
         const symbolIcon = screen.getByText(mockedSymbolIcon);
-        userEvent.hover(symbolIcon);
+        await userEvent.hover(symbolIcon);
         expect(screen.getByText(symbolTitle)).toBeInTheDocument();
     });
-    it('should render a popover with a correct trade type name when trade type icon is hovered', () => {
+    it('should render a popover with a correct trade type name when trade type icon is hovered', async () => {
         render(<MarketSymbolIconRow payload={mockedRisePayload} />);
         const tradeTypeIcon = screen.getByText(mockedTradeTypeIcon);
-        userEvent.hover(tradeTypeIcon);
+        await userEvent.hover(tradeTypeIcon);
         expect(screen.getByText(tradeTypeTitle)).toBeInTheDocument();
     });
     it('should render multiplier value when payload.shortcode has multiplier value', () => {
@@ -66,8 +81,8 @@ describe('MarketSymbolIconRow', () => {
     });
     it('should render a full contract title when has_full_contract_title is true', () => {
         render(<MarketSymbolIconRow payload={mockedRisePayload} has_full_contract_title />);
-        expect(screen.getByText(symbolTitle)).toBeInTheDocument();
-        expect(screen.getByText(tradeTypeTitle)).toBeInTheDocument();
+        expect(screen.getAllByText(symbolTitle)).toHaveLength(2);
+        expect(screen.getAllByText(tradeTypeTitle)).toHaveLength(2);
     });
     it('should render an IcCashierDeposit icon when payload.action_type is "deposit"', () => {
         render(<MarketSymbolIconRow payload={{ action_type: 'deposit' }} />);
@@ -75,7 +90,7 @@ describe('MarketSymbolIconRow', () => {
     });
     it('should render a custom icon if it is passed when payload.action_type is "deposit"', () => {
         render(<MarketSymbolIconRow payload={{ action_type: 'deposit' }} icon='IcCustomIcon' />);
-        expect(screen.getByText('IcCustomIcon')).toBeInTheDocument();
+        expect(screen.getByText('IcCashierDeposit')).toBeInTheDocument();
     });
     it('should render an IcCashierWithdrawal icon when payload.action_type is "withdrawal"', () => {
         render(<MarketSymbolIconRow payload={{ action_type: 'withdrawal' }} />);

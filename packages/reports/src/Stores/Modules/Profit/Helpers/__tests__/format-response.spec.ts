@@ -27,7 +27,7 @@ describe('formatProfitTableTransactions', () => {
         const returnValue = formatProfitTableTransactions(mockProfitTableTransactionData, currency);
         expect(returnValue).toEqual({
             ...mockProfitTableTransactionData,
-            display_name: '',
+            display_name: 'Volatility 100 (1s) Index',
             purchase_time: '21 Nov 2023 04:07:41',
             purchase_time_unix: 1700539661,
             sell_time: '21 Nov 2023 04:10:16',

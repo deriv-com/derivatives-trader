@@ -2,8 +2,10 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import EmptyTradeHistoryMessage from '../empty-trade-history-message';
 
+const MockIcon = ({ fill, iconSize, ...props }: any) => <div {...props}>MockIcon</div>;
+
 const mockProps = {
-    component_icon: <div>MockIcon</div>,
+    component_icon: <MockIcon />,
     has_selected_date: false,
     localized_message: 'No trades in your history yet.',
     localized_period_message: 'No trades for the selected period.',

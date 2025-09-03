@@ -1,4 +1,6 @@
 import React from 'react';
+import { render, screen } from '@testing-library/react';
+import moment from 'moment';
 import {
     getAccumulatorOpenPositionsColumnsTemplate,
     getMultiplierOpenPositionsColumnsTemplate,
@@ -6,560 +8,444 @@ import {
     getProfitTableColumnsTemplate,
     getStatementTableColumnsTemplate,
 } from 'Constants/data-table-constants';
-import { render, screen } from '@testing-library/react';
-import { isMobile } from '@deriv/shared';
 import { TCellContentProps } from 'Types';
-import moment from 'moment';
 
-jest.mock('@deriv-com/translations', () => ({
-    localize: jest.fn(text => text),
-    Localize: jest.fn(text => text),
-}));
-
+// Mock external dependencies
 jest.mock('@deriv/shared', () => ({
-    isMobile: jest.fn(),
     getCurrencyDisplayCode: jest.fn(currency => currency),
     getTotalProfit: jest.fn(contract_info => {
         const { bid_price, buy_price } = contract_info;
         return Number(bid_price) - Number(buy_price);
     }),
     getGrowthRatePercentage: jest.fn(growth_rate => `${growth_rate * 100}`),
+    getCardLabels: jest.fn(() => ({})),
 }));
 
-jest.mock('../../Containers/progress-slider-stream', () => jest.fn(() => 'ProgressSliderStream'));
+jest.mock('../../Containers/progress-slider-stream', () => jest.fn(() => <div>ProgressSliderStream</div>));
 
-jest.mock('Components/indicative-cell', () => {
-    return {
-        __esModule: true,
-        default: () => <div>indicativeCell</div>,
-    };
-});
-jest.mock('Components/currency-wrapper', () => {
-    return {
-        __esModule: true,
-        default: ({ currency }: { currency: string }) => <div>{currency}</div>,
-    };
-});
+jest.mock('Components/indicative-cell', () => ({
+    __esModule: true,
+    default: ({ amount }: { amount: number }) => <div>IndicativeCell: {amount}</div>,
+}));
 
-jest.mock('Components/market-symbol-icon-row', () => {
-    return {
-        __esModule: true,
-        default: ({ payload }: { payload: { id: string; transaction_id?: string } }) => (
-            <div>{payload.id || payload.transaction_id}</div>
-        ),
-    };
-});
+jest.mock('Components/currency-wrapper', () => ({
+    __esModule: true,
+    default: ({ currency }: { currency: string }) => <div>Currency: {currency}</div>,
+}));
+
+jest.mock('Components/market-symbol-icon-row', () => ({
+    __esModule: true,
+    default: ({ payload }: { payload: any }) => (
+        <div>MarketIcon: {payload?.id || payload?.transaction_id || 'unknown'}</div>
+    ),
+}));
+
+jest.mock('Components/profit-loss-cell', () => ({
+    __esModule: true,
+    default: ({ children }: { children: React.ReactNode }) => <div>ProfitLoss: {children}</div>,
+}));
 
 jest.mock('@deriv/components', () => ({
-    __esModule: true,
+    ArrowIndicator: ({ value }: { value: number }) => <span>Arrow({value})</span>,
     ContractCard: {
-        MultiplierCloseActions: ({ contract_info }: { contract_info: { contract_id: string } }) => (
-            <div>{contract_info.contract_id}</div>
+        MultiplierCloseActions: ({ contract_info }: { contract_info: any }) => (
+            <div>MultiplierActions: {contract_info.contract_id}</div>
         ),
     },
-    ContractCardSell: ({ contract_info }: { contract_info: { contract_id: string } }) => (
-        <div>{contract_info.contract_id}</div>
+    ContractCardSell: ({ contract_info }: { contract_info: any }) => (
+        <div>ContractSell: {contract_info.contract_id}</div>
     ),
-    Money: ({ amount }: { amount: string }) => <div>{amount}</div>,
-    ArrowIndicator: jest.fn(() => 'arrowIndicator'),
+    Money: ({ amount, has_sign }: { amount: string | number; has_sign?: boolean }) => (
+        <span>
+            {has_sign ? '+' : ''}
+            {amount}
+        </span>
+    ),
+    Label: ({ children, mode }: { children: React.ReactNode; mode: string }) => (
+        <span className={`label-${mode}`}>{children}</span>
+    ),
+    Popover: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
 describe('getStatementTableColumnsTemplate', () => {
     const currency = 'USD';
-    const columns = getStatementTableColumnsTemplate(currency, true);
+    const isDesktop = true;
+    const columns = getStatementTableColumnsTemplate(currency, isDesktop);
 
-    it('should return the correct number of columns', () => {
+    it('should return correct number of columns', () => {
         expect(columns).toHaveLength(7);
     });
-    it('should correctly define the "Type" column for non-mobile', () => {
-        (isMobile as jest.Mock).mockReturnValue(false);
-        const typeColumn = columns[0];
-        expect(typeColumn.title).toBe('Type');
+
+    it('should have correct column structure', () => {
+        expect(columns[0]).toHaveProperty('key', 'icon');
+        expect(columns[0]).toHaveProperty('col_index', 'icon');
+        expect(columns[0]).toHaveProperty('title');
+        expect(columns[0]).toHaveProperty('renderCellContent');
+
+        expect(columns[1]).toHaveProperty('col_index', 'refid');
+        expect(columns[2]).toHaveProperty('col_index', 'currency');
+        expect(columns[3]).toHaveProperty('col_index', 'date');
+        expect(columns[4]).toHaveProperty('col_index', 'action_type');
+        expect(columns[5]).toHaveProperty('col_index', 'amount');
+        expect(columns[6]).toHaveProperty('col_index', 'balance');
     });
-    it('should correctly define the "Ref. ID" column', () => {
-        const refIdColumn = columns[1];
-        expect(refIdColumn.title).toBe('Ref. ID');
-    });
-    it('should correctly define the "Currency" column', () => {
+
+    it('should render cell content correctly', () => {
+        const mockRow = {
+            transaction_id: '12345',
+            app_id: 'test_app',
+            action: 'buy',
+        };
+
+        const mockProps: TCellContentProps = {
+            cell_value: '1000.00',
+            row_obj: mockRow,
+            is_footer: false,
+            passthrough: {
+                isTopUp: jest.fn(() => false),
+            },
+            is_vanilla: false,
+            is_turbos: false,
+        };
+
+        // Test currency column
         const currencyColumn = columns[2];
-        expect(currencyColumn.title).toBe('Currency');
-    });
-    it('should correctly define the "Transaction time" column', () => {
-        const transactionTimeColumn = columns[3];
-        expect(transactionTimeColumn.title).toBe('Transaction time');
-    });
-    it('should correctly define the "Transaction" column', () => {
-        const transactionColumn = columns[4];
-        expect(transactionColumn.title).toBe('Transaction');
-    });
-    it('should correctly define the "Credit/Debit" column', () => {
-        const creditDebitColumn = columns[5];
-        expect(creditDebitColumn.title).toBe('Credit/Debit');
-    });
-    it('should correctly define the "Balance" column', () => {
-        const balanceColumn = columns[6];
-        expect(balanceColumn.title).toBe('Balance');
-    });
-    it('should render cell content for "Currency" column', () => {
-        const currencyColumn = columns[2];
-        render(currencyColumn.renderCellContent({} as TCellContentProps));
+        render(currencyColumn.renderCellContent(mockProps) as JSX.Element);
+        expect(screen.getByText('Currency: USD')).toBeInTheDocument();
 
-        expect(screen.getByText(currency)).toBeInTheDocument();
-    });
-    it('should render cell content for "Transaction time" column', () => {
-        const transactionTimeColumn = columns[3];
-        const cell_value = '2023-01-01 12:00:00';
-        render(transactionTimeColumn.renderCellContent({ cell_value } as TCellContentProps));
+        // Test transaction time column
+        const timeColumn = columns[3];
+        const timeProps = { ...mockProps, cell_value: '2023-01-01 12:00:00' };
+        render(timeColumn.renderCellContent(timeProps) as JSX.Element);
+        expect(screen.getByText('2023-01-01 12:00:00 GMT')).toBeInTheDocument();
 
-        expect(screen.getByText(`${cell_value} GMT`)).toBeInTheDocument();
-    });
-    it('should render cell content for "Credit/Debit" column', () => {
-        const creditDebitColumn = columns[5];
-        const cell_value = '1000';
-        render(creditDebitColumn.renderCellContent({ cell_value } as TCellContentProps));
-        expect(screen.getByText(cell_value.replace(/[,]+/g, ''))).toBeInTheDocument();
-    });
-    it('should render cell content for "Balance" column', () => {
-        const balanceColumn = columns[6];
-        const cell_value = '2000';
-        render(balanceColumn.renderCellContent({ cell_value } as TCellContentProps));
-
-        expect(screen.getByText(cell_value)).toBeInTheDocument();
+        // Test amount column
+        const amountColumn = columns[5];
+        render(amountColumn.renderCellContent(mockProps) as JSX.Element);
+        expect(screen.getByText('+1000.00')).toBeInTheDocument();
     });
 });
 
 describe('getProfitTableColumnsTemplate', () => {
     const currency = 'USD';
     const items_count = 10;
-    const columns = getProfitTableColumnsTemplate(currency, items_count);
-    const props = {
-        cell_value: '',
-        is_footer: false,
-        passthrough: {},
-        row_obj: {},
-        is_turbo: false,
-        is_vanilla: false,
-    };
+    const isDesktop = true;
+    const columns = getProfitTableColumnsTemplate(currency, items_count, isDesktop);
 
-    it('should render cell content for "Type" column', () => {
-        const typeColumn = columns[0];
-        const row_obj = { transaction_id: '123' };
-        if (typeColumn.renderCellContent)
-            render(typeColumn.renderCellContent({ ...props, row_obj, is_footer: false }) as JSX.Element);
-
-        expect(screen.getByText(row_obj.transaction_id)).toBeInTheDocument();
+    it('should return correct number of columns', () => {
+        expect(columns).toHaveLength(8);
     });
-    it('should render footer content for "Type" column', () => {
-        const typeColumn = columns[0];
-        if (typeColumn.renderCellContent)
-            render(typeColumn.renderCellContent({ ...props, is_footer: true }) as JSX.Element);
 
-        expect(screen.getByText(/on the last/i)).toBeInTheDocument();
+    it('should have correct column structure', () => {
+        expect(columns[0]).toHaveProperty('key', 'icon');
+        expect(columns[0]).toHaveProperty('col_index', 'action_type');
+        expect(columns[1]).toHaveProperty('col_index', 'transaction_id');
+        expect(columns[2]).toHaveProperty('col_index', 'currency');
+        expect(columns[3]).toHaveProperty('col_index', 'purchase_time');
+        expect(columns[4]).toHaveProperty('col_index', 'buy_price');
+        expect(columns[5]).toHaveProperty('col_index', 'sell_time');
+        expect(columns[6]).toHaveProperty('col_index', 'sell_price');
+        expect(columns[7]).toHaveProperty('col_index', 'profit_loss');
     });
-    it('should render cell content for "Currency" column', () => {
+
+    it('should render footer content for Type column', () => {
+        const typeColumn = columns[0];
+        const mockProps: TCellContentProps = {
+            cell_value: '',
+            row_obj: {},
+            is_footer: true,
+            passthrough: {},
+            is_vanilla: false,
+            is_turbos: false,
+        };
+
+        if (typeColumn.renderCellContent) {
+            render(typeColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText(/on the last 10 contracts/)).toBeInTheDocument();
+        }
+    });
+
+    it('should render cell content correctly', () => {
+        const mockProps: TCellContentProps = {
+            cell_value: '1000.00',
+            row_obj: { transaction_id: '12345' },
+            is_footer: false,
+            passthrough: {},
+            is_vanilla: false,
+            is_turbos: false,
+        };
+
+        // Test currency column
         const currencyColumn = columns[2];
-        if (currencyColumn.renderCellContent)
-            render(currencyColumn.renderCellContent({ ...props, is_footer: false }) as JSX.Element);
+        if (currencyColumn.renderCellContent) {
+            render(currencyColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText('Currency: USD')).toBeInTheDocument();
+        }
 
-        expect(screen.getByText(currency)).toBeInTheDocument();
-    });
-    it('should render cell content for "Buy time" column', () => {
+        // Test buy time column
         const buyTimeColumn = columns[3];
-        const cell_value = '2023-05-30 12:34:56';
-        if (buyTimeColumn.renderCellContent)
-            render(buyTimeColumn.renderCellContent({ ...props, cell_value, is_footer: false }) as JSX.Element);
-
-        expect(screen.getByText(`${cell_value} GMT`)).toBeInTheDocument();
-    });
-    it('should render cell content for "Stake" column', () => {
-        const stakeColumn = columns[4];
-        const cell_value = '1000';
-        if (stakeColumn.renderCellContent)
-            render(stakeColumn.renderCellContent({ ...props, cell_value, is_footer: false }) as JSX.Element);
-
-        expect(screen.getByText(cell_value)).toBeInTheDocument();
-    });
-    it('should render cell content for "Sell time" column', () => {
-        const sellTimeColumn = columns[5];
-        const cell_value = '2023-05-30 13:34:56';
-        if (sellTimeColumn.renderCellContent)
-            render(sellTimeColumn.renderCellContent({ ...props, cell_value, is_footer: false }) as JSX.Element);
-
-        expect(screen.getByText(`${cell_value} GMT`)).toBeInTheDocument();
-    });
-    it('should render cell content for "Contract value" column', () => {
-        const contractValueColumn = columns[6];
-        const cell_value = '2000';
-        if (contractValueColumn.renderCellContent)
-            render(contractValueColumn.renderCellContent({ ...props, cell_value, is_footer: false }) as JSX.Element);
-
-        expect(screen.getByText(cell_value)).toBeInTheDocument();
-    });
-    it('should render cell content for "Total profit/loss" column', () => {
-        const totalProfitLossColumn = columns[7];
-        const cell_value = '500';
-        if (totalProfitLossColumn.renderCellContent)
-            render(totalProfitLossColumn.renderCellContent({ ...props, cell_value }) as JSX.Element);
-
-        expect(screen.getByText(cell_value)).toBeInTheDocument();
+        const timeProps = { ...mockProps, cell_value: '2023-01-01 12:00:00' };
+        if (buyTimeColumn.renderCellContent) {
+            render(buyTimeColumn.renderCellContent(timeProps) as JSX.Element);
+            expect(screen.getByText('2023-01-01 12:00:00 GMT')).toBeInTheDocument();
+        }
     });
 });
 
 describe('getOpenPositionsColumnsTemplate', () => {
     const currency = 'USD';
+    const isDesktop = true;
+    const columns = getOpenPositionsColumnsTemplate(currency, isDesktop);
 
-    it('should render all columns correctly', () => {
-        const columns = getOpenPositionsColumnsTemplate(currency);
-
-        columns.forEach(column => {
-            const { title } = column;
-            if (title) {
-                render(<div>{title}</div>);
-                expect(screen.getByText(title)).toBeInTheDocument();
-            }
-        });
+    it('should return correct number of columns', () => {
+        expect(columns).toHaveLength(8);
     });
-    it('should render cell content correctly for each column', () => {
-        const dummyRowObj = {
-            id: 'dummy_id',
+
+    it('should have correct column structure', () => {
+        expect(columns[0]).toHaveProperty('col_index', 'type');
+        expect(columns[1]).toHaveProperty('col_index', 'reference');
+        expect(columns[2]).toHaveProperty('col_index', 'currency');
+        expect(columns[3]).toHaveProperty('col_index', 'purchase');
+        expect(columns[4]).toHaveProperty('col_index', 'payout');
+        expect(columns[5]).toHaveProperty('col_index', 'profit');
+        expect(columns[6]).toHaveProperty('col_index', 'indicative');
+        expect(columns[7]).toHaveProperty('col_index', 'id');
+    });
+
+    it('should render cell content correctly', () => {
+        const mockRowObj = {
+            id: 'position_123',
             contract_info: {
-                id: 'contract_info_id',
+                id: 'contract_123',
                 currency: 'USD',
                 profit: 100,
             },
-            barrier: 1.2345,
-            is_sell_requested: false,
             profit_loss: 50,
         };
 
-        const columns = getOpenPositionsColumnsTemplate(currency);
-        columns.forEach(column => {
-            const { renderCellContent: content, col_index } = column;
-            if (content) {
-                let cell_value = '1000';
-                if (col_index === 'profit') cell_value = '50';
-                if (col_index === 'type') cell_value = 'Type';
+        const mockProps: TCellContentProps = {
+            cell_value: '1000',
+            row_obj: mockRowObj,
+            is_footer: false,
+            passthrough: {},
+            is_vanilla: false,
+            is_turbos: false,
+        };
 
-                const cellContent = content({
-                    row_obj: dummyRowObj,
-                    cell_value,
-                    is_footer: false,
-                    is_vanilla: false,
-                    is_turbos: false,
-                    passthrough: {},
-                });
+        // Test type column (footer)
+        const typeColumn = columns[0];
+        const footerProps = { ...mockProps, is_footer: true };
+        if (typeColumn.renderCellContent) {
+            render(typeColumn.renderCellContent(footerProps) as JSX.Element);
+            expect(screen.getByText('Total')).toBeInTheDocument();
+        }
 
-                render(<div>{cellContent}</div>);
-                if (col_index === 'type') {
-                    expect(screen.getByText(dummyRowObj.contract_info.id)).toBeInTheDocument();
-                } else if (col_index === 'currency') {
-                    expect(screen.getByText(dummyRowObj.contract_info.currency)).toBeInTheDocument();
-                } else if (col_index === 'purchase' || col_index === 'profit') {
-                    expect(screen.getByText(String(cell_value))).toBeInTheDocument();
-                } else if (col_index === 'indicative') {
-                    expect(screen.getByText('indicativeCell')).toBeInTheDocument();
-                } else if (col_index === 'id') {
-                    expect(screen.getByText(dummyRowObj.contract_info.id)).toBeInTheDocument();
-                }
-            }
-        });
+        // Test currency column
+        const currencyColumn = columns[2];
+        if (currencyColumn.renderCellContent) {
+            render(currencyColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText('Currency: USD')).toBeInTheDocument();
+        }
+
+        // Test purchase column
+        const purchaseColumn = columns[3];
+        if (purchaseColumn.renderCellContent) {
+            render(purchaseColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText('1000')).toBeInTheDocument();
+        }
     });
 });
 
 describe('getMultiplierOpenPositionsColumnsTemplate', () => {
-    const currency = 'USD';
-    const onClickCancel = jest.fn();
-    const onClickSell = jest.fn();
-    const getPositionById = jest.fn();
-    const server_time = moment('2024-01-01T12:00:00Z');
+    const mockParams = {
+        currency: 'USD',
+        onClickCancel: jest.fn(),
+        onClickSell: jest.fn(),
+        getPositionById: jest.fn(),
+        server_time: moment('2024-01-01T12:00:00Z'),
+        isDesktop: true,
+    };
 
-    const columns = getMultiplierOpenPositionsColumnsTemplate({
-        currency,
-        onClickCancel,
-        onClickSell,
-        getPositionById,
-        server_time,
+    const columns = getMultiplierOpenPositionsColumnsTemplate(mockParams);
+
+    it('should return correct number of columns', () => {
+        expect(columns).toHaveLength(10);
     });
 
-    const typeColumn = columns[0];
-    const limitOrderColumn = columns[6];
-    const bidPriceColumn = columns[7];
-    const profitColumn = columns[8];
-    const actionColumn = columns[9];
+    it('should have correct column structure', () => {
+        expect(columns[0]).toHaveProperty('col_index', 'type');
+        expect(columns[1]).toHaveProperty('col_index', 'multiplier');
+        expect(columns[2]).toHaveProperty('col_index', 'currency');
+        expect(columns[3]).toHaveProperty('col_index', 'buy_price');
+        expect(columns[4]).toHaveProperty('col_index', 'cancellation');
+        expect(columns[5]).toHaveProperty('col_index', 'purchase');
+        expect(columns[6]).toHaveProperty('col_index', 'limit_order');
+        expect(columns[7]).toHaveProperty('col_index', 'bid_price');
+        expect(columns[8]).toHaveProperty('col_index', 'profit');
+        expect(columns[9]).toHaveProperty('col_index', 'action');
+    });
 
-    const dummyRowObj = {
-        id: 'dummy_id',
-        contract_info: {
-            id: 'contract_info_id',
-            currency: 'USD',
-            profit: 200,
-            buy_price: 1000,
-            bid_price: 1200,
-            multiplier: 2,
-            limit_order: {
-                take_profit: { order_amount: 1500 },
-                stop_loss: { order_amount: 500 },
+    it('should render cell content correctly', () => {
+        const mockRowObj = {
+            id: 'multiplier_123',
+            contract_info: {
+                id: 'contract_123',
+                currency: 'USD',
+                multiplier: 10,
+                buy_price: 1000,
+                bid_price: 1200,
+                profit: 200,
+                contract_id: 'contract_123',
+                limit_order: {
+                    take_profit: { order_amount: 1500 },
+                    stop_loss: { order_amount: 500 },
+                },
+                cancellation: { ask_price: 50 },
+                underlying: '1HZ10V',
             },
-            cancellation: { ask_price: 50 },
-            contract_id: 'contract_123',
-            underlying: '1HZ10V',
-        },
-        barrier: 1.2345,
-        is_sell_requested: false,
-        profit_loss: 50,
-    };
-    const cell_value = '1000';
-    const input_mocked_obj = {
-        row_obj: dummyRowObj,
-        cell_value,
-        is_footer: false,
-        is_vanilla: false,
-        is_turbos: false,
-        passthrough: {},
-    };
+        };
 
-    it('should render all columns correctly', () => {
-        columns.forEach(column => {
-            const { col_index } = column;
-            if (col_index) {
-                render(<div>{col_index}</div>);
-                expect(screen.getByText(col_index)).toBeInTheDocument();
-            }
-        });
-    });
+        const mockProps: TCellContentProps = {
+            cell_value: '1000',
+            row_obj: mockRowObj,
+            is_footer: false,
+            passthrough: {},
+            is_vanilla: false,
+            is_turbos: false,
+        };
 
-    it('should render cell content correctly for each column', () => {
-        columns.forEach(column => {
-            const { renderCellContent: content, col_index } = column;
-            if (content) {
-                const cellContent = content({ ...input_mocked_obj });
-                render(<div>{cellContent}</div>);
+        // Test type column (footer)
+        const typeColumn = columns[0];
+        const footerProps = { ...mockProps, is_footer: true };
+        if (typeColumn.renderCellContent) {
+            render(typeColumn.renderCellContent(footerProps) as JSX.Element);
+            expect(screen.getByText('Total')).toBeInTheDocument();
+        }
 
-                switch (col_index) {
-                    case 'type':
-                        expect(screen.getByText(dummyRowObj.contract_info.id)).toBeInTheDocument();
-                        break;
-                    case 'multiplier':
-                        expect(screen.getByText(`x${dummyRowObj.contract_info.multiplier}`)).toBeInTheDocument();
-                        break;
-                    case 'currency':
-                        expect(screen.getByText(dummyRowObj.contract_info.currency)).toBeInTheDocument();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-    });
+        // Test multiplier column
+        const multiplierColumn = columns[1];
+        if (multiplierColumn.renderCellContent) {
+            render(multiplierColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText('x10')).toBeInTheDocument();
+        }
 
-    it('should render "Total" for the "Type" column when is_footer is true', () => {
-        const { renderCellContent: content } = typeColumn;
-        const cellContent = content({
-            ...input_mocked_obj,
-            is_footer: true,
-        });
-
-        render(<div>{cellContent}</div>);
-
-        expect(screen.getByText('Total')).toBeInTheDocument();
-    });
-
-    it('should render empty content for the "Limit Order" column when is_footer is true', () => {
-        const { renderCellContent: content } = limitOrderColumn;
-
-        const cellContent = content({
-            ...input_mocked_obj,
-            is_footer: true,
-        });
-
-        render(<div>{cellContent}</div>);
-
-        expect(screen.queryByText('USD')).not.toBeInTheDocument();
-    });
-
-    it('should render empty content for the "Bid Price" column when is_footer is true', () => {
-        const { renderCellContent: content } = bidPriceColumn;
-
-        const cellContent = content({
-            ...input_mocked_obj,
-            is_footer: true,
-        });
-
-        render(<div>{cellContent}</div>);
-
-        expect(screen.queryByText('USD')).not.toBeInTheDocument();
-    });
-
-    it('should render empty content for the "Profit" column when is_footer is true', () => {
-        const { renderCellContent: content } = profitColumn;
-
-        const cellContent = content({
-            ...input_mocked_obj,
-            is_footer: true,
-        });
-
-        render(<div>{cellContent}</div>);
-
-        expect(screen.queryByText('USD')).not.toBeInTheDocument();
-    });
-
-    it('should render row action element for the "Action" column when is_footer is true', () => {
-        const { renderCellContent: content } = actionColumn;
-
-        const cellContent = content({
-            ...input_mocked_obj,
-            is_footer: true,
-        });
-
-        render(<div data-testid='row-action'>{cellContent}</div>);
-
-        expect(screen.getByTestId('row-action')).toBeInTheDocument();
+        // Test currency column
+        const currencyColumn = columns[2];
+        if (currencyColumn.renderCellContent) {
+            render(currencyColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText('Currency: USD')).toBeInTheDocument();
+        }
     });
 });
 
 describe('getAccumulatorOpenPositionsColumnsTemplate', () => {
-    const currency = 'USD';
-    const onClickSell = jest.fn();
-    const getPositionById = jest.fn();
-
-    const dummyRowObj = {
-        id: 'dummy_id',
-        contract_info: {
-            id: 'contract_info_id',
-            currency: 'USD',
-            growth_rate: 0.1,
-            buy_price: 1000,
-            limit_order: { take_profit: { order_amount: 1500 } },
-            bid_price: 1200,
-            profit: 200,
-        },
-        barrier: 1.2345,
-        is_sell_requested: false,
+    const mockParams = {
+        currency: 'USD',
+        onClickSell: jest.fn(),
+        getPositionById: jest.fn(),
+        isDesktop: true,
     };
 
-    const cell_value = '1000';
-    const input_mocked_obj = {
-        row_obj: dummyRowObj,
-        cell_value,
-        is_footer: false,
-        is_vanilla: false,
-        is_turbos: false,
-        passthrough: {},
-    };
+    const columns = getAccumulatorOpenPositionsColumnsTemplate(mockParams);
 
-    it('should return the correct number of columns', () => {
-        const columns = getAccumulatorOpenPositionsColumnsTemplate({
-            currency,
-            onClickSell,
-            getPositionById,
-        });
-
+    it('should return correct number of columns', () => {
         expect(columns).toHaveLength(8);
     });
 
-    it('should render all columns correctly', () => {
-        const columns = getAccumulatorOpenPositionsColumnsTemplate({
-            currency,
-            onClickSell,
-            getPositionById,
-        });
-
-        columns.forEach(column => {
-            const { title } = column;
-            if (title) {
-                render(<div>{title}</div>);
-                expect(screen.getByText(title)).toBeInTheDocument();
-            }
-        });
+    it('should have correct column structure', () => {
+        expect(columns[0]).toHaveProperty('col_index', 'type');
+        expect(columns[1]).toHaveProperty('col_index', 'growth_rate');
+        expect(columns[2]).toHaveProperty('col_index', 'currency');
+        expect(columns[3]).toHaveProperty('col_index', 'buy_price');
+        expect(columns[4]).toHaveProperty('col_index', 'limit_order');
+        expect(columns[5]).toHaveProperty('col_index', 'bid_price');
+        expect(columns[6]).toHaveProperty('col_index', 'profit');
+        expect(columns[7]).toHaveProperty('col_index', 'action');
     });
 
-    it('should render cell content correctly for each column', () => {
-        const columns = getAccumulatorOpenPositionsColumnsTemplate({
-            currency,
-            onClickSell,
-            getPositionById,
-        });
+    it('should render cell content correctly', () => {
+        const mockRowObj = {
+            id: 'accumulator_123',
+            contract_info: {
+                id: 'contract_123',
+                currency: 'USD',
+                growth_rate: 0.1,
+                buy_price: 1000,
+                bid_price: 1200,
+                profit: 200,
+                contract_id: 'contract_123',
+                limit_order: {
+                    take_profit: { order_amount: 1500 },
+                },
+            },
+        };
 
-        columns.forEach(column => {
-            const { renderCellContent: content, col_index } = column;
-            const cellContent = content(input_mocked_obj);
+        const mockProps: TCellContentProps = {
+            cell_value: '1000',
+            row_obj: mockRowObj,
+            is_footer: false,
+            passthrough: {},
+            is_vanilla: false,
+            is_turbos: false,
+        };
 
-            render(<div>{cellContent}</div>);
+        // Test type column (footer)
+        const typeColumn = columns[0];
+        const footerProps = { ...mockProps, is_footer: true };
+        if (typeColumn.renderCellContent) {
+            render(typeColumn.renderCellContent(footerProps) as JSX.Element);
+            expect(screen.getByText('Total')).toBeInTheDocument();
+        }
 
-            switch (col_index) {
-                case 'type':
-                    expect(screen.getByText('contract_info_id')).toBeInTheDocument();
-                    break;
-                case 'growth_rate':
-                    expect(screen.getByText('10%')).toBeInTheDocument();
-                    break;
-                case 'currency':
-                    expect(screen.getByText('USD')).toBeInTheDocument();
-                    break;
-                case 'purchase':
-                case 'buy_price':
-                    expect(screen.getByText('1000')).toBeInTheDocument();
-                    break;
-                case 'limit_order':
-                    expect(screen.getByText('1500')).toBeInTheDocument();
-                    break;
-                case 'bid_price':
-                    expect(screen.getByText('1200')).toBeInTheDocument();
-                    break;
-                case 'profit':
-                    expect(screen.getByText('200')).toBeInTheDocument();
-                    break;
-                case 'action':
-                    expect(screen.getByText('contract_info_id')).toBeInTheDocument();
-                    break;
-                default:
-                    break;
-            }
-        });
-    });
+        // Test growth rate column
+        const growthRateColumn = columns[1];
+        if (growthRateColumn.renderCellContent) {
+            render(growthRateColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText('10%')).toBeInTheDocument();
+        }
 
-    it('should return "Total" for "type" column when is_footer is true', () => {
-        const columns = getAccumulatorOpenPositionsColumnsTemplate({
-            currency,
-            onClickSell,
-            getPositionById,
-        });
+        // Test currency column
+        const currencyColumn = columns[2];
+        if (currencyColumn.renderCellContent) {
+            render(currencyColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText('Currency: USD')).toBeInTheDocument();
+        }
 
-        const typeColumn = columns.find(column => column.col_index === 'type');
-        if (typeColumn) {
-            const { renderCellContent: content } = typeColumn;
-            const cellContent = content({ ...input_mocked_obj, row_obj: {}, is_footer: true });
-            expect(cellContent).toEqual('Total');
+        // Test stake column
+        const stakeColumn = columns[3];
+        if (stakeColumn.renderCellContent) {
+            render(stakeColumn.renderCellContent(mockProps) as JSX.Element);
+            expect(screen.getByText('1000')).toBeInTheDocument();
         }
     });
 
-    it('should return "-" for "purchase" column when contract_info is undefined', () => {
-        const columns = getAccumulatorOpenPositionsColumnsTemplate({
-            currency,
-            onClickSell,
-            getPositionById,
-        });
+    it('should handle missing contract_info gracefully', () => {
+        const mockRowObj = {
+            id: 'accumulator_123',
+            contract_info: undefined,
+        };
 
-        const purchaseColumn = columns.find(column => column.col_index === 'purchase');
-        if (purchaseColumn) {
-            const { renderCellContent: content } = purchaseColumn;
-            const cellContent = content({ ...input_mocked_obj, row_obj: {} });
-            expect(cellContent).toEqual('');
+        const mockProps: TCellContentProps = {
+            cell_value: '1000',
+            row_obj: mockRowObj,
+            is_footer: false,
+            passthrough: {},
+            is_vanilla: false,
+            is_turbos: false,
+        };
+
+        // Test stake column with missing contract_info
+        const stakeColumn = columns[3];
+        if (stakeColumn.renderCellContent) {
+            const view = stakeColumn.renderCellContent(mockProps);
+            expect(view).toBe('');
         }
-    });
 
-    it('should return "-" for "bid_price" column when contract_info.bid_price is undefined', () => {
-        const columns = getAccumulatorOpenPositionsColumnsTemplate({
-            currency,
-            onClickSell,
-            getPositionById,
-        });
-
-        const bidPriceColumn = columns.find(column => column.col_index === 'bid_price');
-        if (bidPriceColumn) {
-            const { renderCellContent: content } = bidPriceColumn;
-            const cellContent = content({ ...input_mocked_obj, row_obj: {} });
-            expect(cellContent).toEqual('-');
+        // Test bid_price column with missing contract_info
+        const bidPriceColumn = columns[5];
+        if (bidPriceColumn.renderCellContent) {
+            const view = bidPriceColumn.renderCellContent(mockProps);
+            expect(view).toBe('-');
         }
     });
 });

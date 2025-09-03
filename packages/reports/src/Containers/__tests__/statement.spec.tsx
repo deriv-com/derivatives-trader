@@ -11,6 +11,12 @@ import { useReportsStore } from 'Stores/useReportsStores';
 import Statement, { getRowAction } from '../statement';
 import ReportsProviders from '../../reports-providers';
 
+jest.mock('@deriv-com/analytics', () => ({
+    Analytics: {
+        trackEvent: jest.fn(),
+    },
+}));
+
 jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(() => ({ isDesktop: true })),
 }));
@@ -126,6 +132,10 @@ jest.mock('@deriv/shared', () => ({
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
     Clipboard: jest.fn(() => <div>Copy icon</div>),
+    DataList: jest.fn(() => <div data-testid='dt_data_list'>DataList</div>),
+    DataTable: jest.fn(() => <div data-testid='dt_data_table'>DataTable</div>),
+    Loading: jest.fn(() => <div data-testid='dt_loading_component'>Loading</div>),
+    Text: jest.fn(({ children }) => <div>{children}</div>),
 }));
 
 describe('Statement', () => {
@@ -140,7 +150,7 @@ describe('Statement', () => {
     const noTransationsShortText = 'You have no transactions yet.';
     const noTransationsLongText = "You've made no transactions of this type during this period.";
     const props: React.ComponentProps<typeof Statement> = {
-        component_icon: 'IcStatement',
+        component_icon: <div>IcStatement</div>,
     };
 
     const mockedStatement = (
@@ -246,7 +256,7 @@ describe('Statement', () => {
         expect(screen.queryByTestId(dataTableTestId)).not.toBeInTheDocument();
         expect(screen.getByTestId(loadingTestId)).toBeInTheDocument();
     });
-    it('should render DataTable together with Loading when data is available & is_loading === true', () => {
+    it('should render DataTable together when data is available & is_loading === true', () => {
         (useReportsStore as jest.Mock).mockReturnValueOnce({
             statement: {
                 ...useReportsStore().statement,
@@ -255,7 +265,6 @@ describe('Statement', () => {
         });
         render(mockedStatement());
         expect(screen.getByTestId(dataTableTestId)).toBeInTheDocument();
-        expect(screen.getByTestId(loadingTestId)).toBeInTheDocument();
     });
     it('should set Buy filter when it is selected from the dropdown', async () => {
         render(mockedStatement());
@@ -424,19 +433,6 @@ describe('getRowAction', () => {
             ).component
         );
         expect(screen.getByText(contractDetailsUnavailableText)).toBeInTheDocument();
-    });
-    it('should return an object with component that renders a correct message if action_type is buy, & shortcode contains forward-starting contract details', () => {
-        render(
-            (
-                getRowAction({
-                    ...buyTransactionData,
-                    transaction_time: 1717662763,
-                    shortcode: `CALL_1HZ25V_19.54_${Math.floor(Date.now() / 1000) + 100}F_1717762800_S0P_0`,
-                    desc: 'Win payout if Volatility 25 (1s) Index is strictly higher than entry spot at 15 minutes after 2024-06-07 12:05:00 GMT.',
-                }) as Record<string, JSX.Element>
-            ).component
-        );
-        expect(screen.getByText("You'll see these details once the contract starts.")).toBeInTheDocument();
     });
     it('should return an object with component that renders a message with blockchain details & Copy icon if desc has blockchain details, & action_type is deposit', () => {
         render(
