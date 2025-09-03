@@ -42,6 +42,10 @@ jest.mock('../login-button.jsx', () => ({
     LoginButton: () => <div data-testid='dt_login_button'>Login Button</div>,
 }));
 
+jest.mock('../login-button-v2.tsx', () => ({
+    LoginButtonV2: () => <div data-testid='dt_login_button'>Login Button V2</div>,
+}));
+
 jest.mock('../signup-button.jsx', () => ({
     SignupButton: () => <div data-testid='dt_signup_button'>Signup Button</div>,
 }));
@@ -139,23 +143,12 @@ describe('AccountActions component', () => {
     // Default props
     const default_props = {
         acc_switcher_disabled_message: 'Account switcher disabled',
-        account_type: 'real',
         balance: 1000,
         currency: 'USD',
-        disableApp: jest.fn(),
-        enableApp: jest.fn(),
-        is_acc_switcher_on: false,
         is_acc_switcher_disabled: false,
-        is_eu: false,
-        is_notifications_visible: false,
         is_logged_in: true,
-        is_traders_hub_routes: false,
         is_virtual: false,
-        notifications_count: 0,
-        onClickDeposit: jest.fn(),
-        toggleAccountsDialog: jest.fn(),
-        toggleNotifications: jest.fn(),
-        openRealAccountSignup: jest.fn(),
+        onClickLogout: jest.fn(),
     };
 
     beforeEach(() => {
@@ -165,119 +158,35 @@ describe('AccountActions component', () => {
         (formatMoney as jest.Mock).mockImplementation((currency, balance) => `${balance} ${currency}`);
     });
 
-    it('should render LoggedOutView when is_logged_in is false', () => {
-        render(<AccountActions {...default_props} is_logged_in={false} />);
-
-        expect(screen.getByTestId('dt_login_button')).toBeInTheDocument();
-        expect(screen.getByTestId('dt_signup_button')).toBeInTheDocument();
-        expect(screen.queryByTestId('dt_account_info')).not.toBeInTheDocument();
-    });
-
-    it('should render CurrencyButton when currency is not provided and not virtual', () => {
-        render(<AccountActions {...default_props} currency='' />);
-
-        expect(screen.getByText('Set currency')).toBeInTheDocument();
-        expect(screen.queryByText('Deposit')).not.toBeInTheDocument();
-    });
-
-    it('should render DepositButton when currency is provided and not on traders hub or cashier', () => {
+    it('should render AccountInfo when logged in', async () => {
         render(<AccountActions {...default_props} />);
 
-        expect(screen.getByText('Deposit')).toBeInTheDocument();
-        expect(screen.queryByText('Set currency')).not.toBeInTheDocument();
-    });
-
-    it('should not render DepositButton when on cashier page', () => {
-        (useLocation as jest.Mock).mockReturnValue({ pathname: '/cashier/deposit' });
-
-        render(<AccountActions {...default_props} />);
-
-        expect(screen.queryByText('Deposit')).not.toBeInTheDocument();
-    });
-
-    it('should not render DepositButton when on traders hub routes', () => {
-        render(<AccountActions {...default_props} is_traders_hub_routes={true} />);
-
-        expect(screen.queryByText('Deposit')).not.toBeInTheDocument();
-    });
-
-    it('should not render DepositButton on mobile', () => {
-        (useDevice as jest.Mock).mockReturnValue({ isDesktop: false });
-
-        render(<AccountActions {...default_props} />);
-
-        expect(screen.queryByText('Deposit')).not.toBeInTheDocument();
-    });
-
-    it('should render AccountInfo when not on traders hub routes', () => {
-        render(<AccountActions {...default_props} />);
-
+        // Wait for lazy component to load
+        await screen.findByTestId('dt_account_info');
         expect(screen.getByTestId('dt_account_info')).toBeInTheDocument();
     });
 
-    it('should not render AccountInfo when on traders hub routes', () => {
-        render(<AccountActions {...default_props} is_traders_hub_routes={true} />);
-
-        expect(screen.queryByTestId('dt_account_info')).not.toBeInTheDocument();
-    });
-
-    // TODO: Uncomment when NotificationsToggle is implemented
-    // it('should render NotificationsToggle with correct props', () => {
-    //     render(<AccountActions {...default_props} notifications_count={5} is_notifications_visible={true} />);
-
-    //     const notifications = screen.getByTestId('dt_toggle_notifications');
-    //     expect(notifications).toBeInTheDocument();
-    //     expect(notifications).toHaveTextContent(/Toggle Notifications 5 visible/);
-    // });
-
-    it('should call toggleNotifications when NotificationsToggle is clicked', async () => {
+    it('should render logout button on desktop when logged in', () => {
         render(<AccountActions {...default_props} />);
 
-        const notifications = screen.getByTestId('dt_toggle_notifications');
-        await userEvent.click(notifications);
-
-        expect(default_props.toggleNotifications).toHaveBeenCalledTimes(1);
+        expect(screen.getByText('Log out')).toBeInTheDocument();
     });
 
-    it('should render AccountSettingsToggle when not on mobile', () => {
-        render(<AccountActions {...default_props} />);
-
-        expect(screen.getByRole('link', { name: '' })).toHaveClass('account-settings-toggle');
-    });
-
-    it('should not render AccountSettingsToggle on mobile', () => {
+    it('should not render logout button on mobile', () => {
         (useDevice as jest.Mock).mockReturnValue({ isDesktop: false });
 
         render(<AccountActions {...default_props} />);
 
-        expect(screen.queryByRole('link', { name: '' })).not.toBeInTheDocument();
+        expect(screen.queryByText('Log out')).not.toBeInTheDocument();
     });
 
-    it('should call onClickDeposit when DepositButton is clicked', async () => {
+    it('should call onClickLogout when logout button is clicked', async () => {
         render(<AccountActions {...default_props} />);
 
-        const deposit_button = screen.getByText('Deposit');
-        await userEvent.click(deposit_button);
+        const logout_button = screen.getByText('Log out');
+        await userEvent.click(logout_button);
 
-        expect(default_props.onClickDeposit).toHaveBeenCalledTimes(1);
-    });
-
-    it('should call openRealAccountSignup when CurrencyButton is clicked', async () => {
-        render(<AccountActions {...default_props} currency='' />);
-
-        const currency_button = screen.getByText('Set currency');
-        await userEvent.click(currency_button);
-
-        expect(default_props.openRealAccountSignup).toHaveBeenCalledWith('set_currency');
-    });
-
-    it('should call toggleAccountsDialog when AccountInfo is clicked', async () => {
-        render(<AccountActions {...default_props} />);
-
-        const account_info = screen.getByTestId('dt_account_info');
-        await userEvent.click(account_info);
-
-        expect(default_props.toggleAccountsDialog).toHaveBeenCalledTimes(1);
+        expect(default_props.onClickLogout).toHaveBeenCalledTimes(1);
     });
 
     it('should render AccountInfo with formatted balance', () => {

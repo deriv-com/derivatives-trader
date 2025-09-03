@@ -35,6 +35,7 @@ describe('MenuLink', () => {
             link_to: '',
             data_testid: 'dt_menu_link',
             text: 'Mock text',
+            icon: <div>Mock Link Icon</div>,
             onClickLink: jest.fn(),
         };
     });
@@ -100,7 +101,7 @@ describe('MenuLink', () => {
     it('should render menu link for mobile and two icons with passed suffix_icon', async () => {
         (useDevice as jest.Mock).mockReturnValue({ isDesktop: false });
         mock_props.link_to = '/account/languages';
-        mock_props.suffix_icon = 'suffix_icon';
+        mock_props.suffix_icon = <div>Mock Link Icon</div>;
 
         renderComponent();
 
@@ -109,6 +110,6 @@ describe('MenuLink', () => {
         const link = screen.getByTestId('dt_menu_link');
         expect(link).toBeInTheDocument();
         await userEvent.click(link);
-        expect(mockRootStore.ui.setMobileLanguageMenuOpen).toHaveBeenCalled();
+        expect(mock_props.onClickLink).toHaveBeenCalled();
     });
 });

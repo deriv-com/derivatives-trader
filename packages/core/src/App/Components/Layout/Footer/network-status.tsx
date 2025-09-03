@@ -1,12 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-
 import { Popover } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 
-const NetworkStatus = observer(({ is_mobile }) => {
+interface NetworkStatusProps {
+    is_mobile?: boolean;
+}
+
+const NetworkStatus: React.FC<NetworkStatusProps> = observer(({ is_mobile }) => {
     const { localize } = useTranslations();
     const { common } = useStore();
     const { network_status: status } = common;
@@ -45,8 +47,6 @@ const NetworkStatus = observer(({ is_mobile }) => {
     );
 });
 
-NetworkStatus.propTypes = {
-    is_mobile: PropTypes.bool,
-};
+NetworkStatus.displayName = 'NetworkStatus';
 
 export default NetworkStatus;

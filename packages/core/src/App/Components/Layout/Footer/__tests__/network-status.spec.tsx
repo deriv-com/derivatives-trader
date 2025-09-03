@@ -1,11 +1,18 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
-import NetworkStatus from '../network-status.jsx';
+import NetworkStatus from '../network-status';
 import { StoreProvider, mockStore } from '@deriv/stores';
 
-const store = mockStore();
-const MockNetworkStatus = ({ is_mobile = true }) => (
+const store = mockStore({
+    common: {
+        network_status: {
+            class: 'online',
+            tooltip: '',
+        },
+    },
+});
+const MockNetworkStatus = ({ is_mobile = true }: { is_mobile?: boolean }) => (
     <StoreProvider store={store}>
         <NetworkStatus is_mobile={is_mobile} />
     </StoreProvider>
@@ -46,16 +53,16 @@ describe('network-status component', () => {
         expect(screen.getByTestId('dt_network_status_element')).toHaveClass('network-status__circle--blinker');
     });
 
-    it('should contain "Popover" with default message when "status.tooltip" is empty', () => {
+    it('should contain "Popover" with default message when "status.tooltip" is empty', async () => {
         store.common.network_status.tooltip = '';
         render(<MockNetworkStatus is_mobile={false} />);
         const popover_wrapper = screen.getByTestId('dt_popover_wrapper');
-        userEvent.hover(popover_wrapper);
-        const network_status = screen.getByText(/connecting to server/i);
+        await userEvent.hover(popover_wrapper);
+        const network_status = screen.getByText(/network status.*connecting to server/i);
         expect(network_status).toBeInTheDocument();
     });
 
-    it('should contain "Tooltip" message passed in the status property', () => {
+    it('should contain "Tooltip" message passed in the status property', async () => {
         const status = {
             class: 'online',
             tooltip: 'Online',
@@ -67,7 +74,7 @@ describe('network-status component', () => {
             </StoreProvider>
         );
         const popover_wrapper = screen.getByTestId('dt_popover_wrapper');
-        userEvent.hover(popover_wrapper);
+        await userEvent.hover(popover_wrapper);
         const network_status = screen.getByText(/online/i);
         expect(network_status).toBeInTheDocument();
     });
