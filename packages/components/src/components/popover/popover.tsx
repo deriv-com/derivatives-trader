@@ -203,7 +203,7 @@ const Popover = ({
                                         </i>
                                     )}
                                     {(has_error && (
-                                        <Text size='xxs' color='inverse'>
+                                        <Text size='xxs' color='white'>
                                             {message}
                                         </Text>
                                     )) || (

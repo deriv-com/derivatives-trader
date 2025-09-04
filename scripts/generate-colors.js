@@ -315,12 +315,12 @@ function generateComponentTokens() {
   .theme--light {
     // Button Colors
     --color-button-primary-bg: var(--brand-primary);
-    --color-button-primary-text: var(--color-surface-primary);
+    --color-button-primary-text: var(--color-text-white);
     --color-button-primary-hover: var(--brand-primary-dark);
     
     --color-button-secondary-bg: transparent;
     --color-button-secondary-border: var(--color-interactive-active);
-    --color-button-secondary-text: var(--brand-black);
+    --color-button-secondary-text: var(--color-text-black);
     --color-button-secondary-hover: var(--color-interactive-hover);
     
     --color-button-tertiary-bg: transparent;
@@ -409,12 +409,12 @@ function generateComponentTokens() {
   .theme--dark {
     // Button Colors
     --color-button-primary-bg: var(--brand-primary);
-    --color-button-primary-text: var(--color-surface-primary);
+    --color-button-primary-text: var(--color-text-white);
     --color-button-primary-hover: var(--brand-primary-dark);
     
     --color-button-secondary-bg: transparent;
     --color-button-secondary-border: var(--color-interactive-active);
-    --color-button-secondary-text: var(--brand-white);
+    --color-button-secondary-text: var(--color-text-white);
     --color-button-secondary-hover: #{transparentize($color-white, 0.92)};
     
     --color-button-tertiary-bg: transparent;
