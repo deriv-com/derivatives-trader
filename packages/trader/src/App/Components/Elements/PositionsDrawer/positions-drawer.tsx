@@ -6,7 +6,7 @@ import { DataList, Money, PositionsDrawerCard, Text } from '@deriv/components';
 import { LegacyMinimize2pxIcon } from '@deriv/quill-icons';
 import { getEndTime, useNewRowTransition } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv-com/translations';
+import { localize, Localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -221,7 +221,7 @@ const PositionsDrawer = observer(({ ...props }) => {
                         <div className='positions-drawer__summary'>
                             <Text size='xxs' color='less-prominent' className='positions-drawer__count'>
                                 {all_positions.length}{' '}
-                                {`${all_positions.length > 1 ? <Localize i18n_default_text='open positions' /> : <Localize i18n_default_text='open position' />}`}
+                                {`${all_positions.length > 1 ? localize('open positions') : localize('open position')}`}
                             </Text>
                             <div className='positions-drawer__total'>
                                 <Text size='xs' weight='bold'>
