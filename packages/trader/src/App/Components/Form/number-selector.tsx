@@ -42,7 +42,7 @@ const NumberSelector = ({
                             <span
                                 key={i}
                                 className={classNames('number-selector__selection', {
-                                    'number-selector__selection--selected': selected_number === i,
+                                    'number-selector__selection--selected': Number(selected_number) === Number(i),
                                     'number-selector__selection--percentage': should_show_in_percents,
                                     'number-selector__selection--disabled': is_disabled,
                                 })}
