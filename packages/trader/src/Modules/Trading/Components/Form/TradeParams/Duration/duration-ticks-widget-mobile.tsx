@@ -3,7 +3,7 @@ import React from 'react';
 import { TickPicker } from '@deriv/components';
 import { getDurationMinMaxValues, isEmptyObject } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -51,6 +51,7 @@ const DurationTicksWidgetMobile = observer(
             amount: trade_amount,
             onChangeMultiple,
         } = useTraderStore();
+        const { localize } = useTranslations();
 
         React.useEffect(() => {
             setDurationError(false);

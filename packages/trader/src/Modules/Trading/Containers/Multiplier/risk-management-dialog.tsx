@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Button, Div100vhContainer, MobileDialog } from '@deriv/components';
 import { isDeepEqual, pick } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import CancelDeal from 'Modules/Trading/Components/Elements/Multiplier/cancel-deal-mobile';
 import StopLoss from 'Modules/Trading/Components/Form/TradeParams/Multiplier/stop-loss';
@@ -22,6 +22,7 @@ type TValidation_errors = {
 };
 
 const RiskManagementDialog = observer(({ is_open, onClose, toggleDialog }: TRiskManagementDialog) => {
+    const { localize } = useTranslations();
     const {
         is_turbos,
         take_profit,

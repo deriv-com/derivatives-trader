@@ -5,12 +5,9 @@ import userEvent from '@testing-library/user-event';
 
 import DurationToggle from '../duration-toggle';
 
-jest.mock('@deriv/components', () => {
-    return {
-        ...jest.requireActual('@deriv/components'),
-        Icon: jest.fn(() => <div>MockedIcon</div>),
-    };
-});
+jest.mock('@deriv/quill-icons', () => ({
+    LegacyChevronDown1pxIcon: jest.fn(() => <div>MockedIcon</div>),
+}));
 describe('<DurationToggle />', () => {
     let mocked_props: React.ComponentProps<typeof DurationToggle>;
     beforeEach(() => {

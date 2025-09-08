@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 
-import { Popover } from '@deriv/components';
 import { useIsIntercomAvailable, useIsLiveChatWidgetAvailable } from '@deriv/api';
-import { localize } from '@deriv-com/translations';
+import { Popover } from '@deriv/components';
+import { LegacyWhatsappIcon } from '@deriv/quill-icons';
+import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 import { URLConstants } from '@deriv-com/utils';
-import { LegacyWhatsappIcon } from '@deriv/quill-icons';
 
 const WhatsApp = ({ showPopover, onClick }: { showPopover?: boolean; onClick?: () => void }) => {
+    const { localize } = useTranslations();
     const { isDesktop } = useDevice();
 
     const { is_livechat_available } = useIsLiveChatWidgetAvailable();

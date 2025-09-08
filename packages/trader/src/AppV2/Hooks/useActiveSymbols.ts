@@ -1,19 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { ActiveSymbols, ActiveSymbolsResponse } from '@deriv/api-types';
-import {
-    CONTRACT_TYPES,
-    getContractTypesConfig,
-    isTurbosContract,
-    isVanillaContract,
-    TRADE_TYPES,
-} from '@deriv/shared';
+import { CONTRACT_TYPES, getContractTypesConfig, isTurbosContract, isVanillaContract } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import useContractsFor from './useContractsFor';
 import { useDtraderQuery } from './useDtraderQuery';
 
 const useActiveSymbols = () => {
@@ -75,10 +68,24 @@ const useActiveSymbols = () => {
                 if (!response) return;
 
                 const { active_symbols = [], error } = response;
+
                 if (error) {
-                    showError({ message: localize('Trading is unavailable at this time.') });
+                    // Fallback: try to use existing symbols from store if available
+                    if (symbols_from_store?.length) {
+                        setActiveSymbols(symbols_from_store);
+                        setActiveSymbolsV2(symbols_from_store);
+                    } else {
+                        showError({ message: localize('Trading is unavailable at this time.') });
+                        setActiveSymbols([]);
+                    }
                 } else if (!active_symbols?.length) {
-                    setActiveSymbols([]);
+                    // Fallback: try to use existing symbols from store if available
+                    if (symbols_from_store?.length) {
+                        setActiveSymbols(symbols_from_store);
+                        setActiveSymbolsV2(symbols_from_store);
+                    } else {
+                        setActiveSymbols([]);
+                    }
                 } else {
                     setActiveSymbols(active_symbols);
                     setActiveSymbolsV2(active_symbols);

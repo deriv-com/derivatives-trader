@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ButtonToggle } from '@deriv/components';
 import { isTurbosContract, isVanillaContract, TRADE_TYPES } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -13,6 +13,7 @@ type TTradeTypeTabs = {
 };
 
 const TradeTypeTabs = observer(({ className }: TTradeTypeTabs) => {
+    const { localize } = useTranslations();
     const { onChange, contract_type } = useTraderStore();
 
     const is_turbos = isTurbosContract(contract_type);

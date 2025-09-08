@@ -1,10 +1,13 @@
 import { useTranslation } from 'react-i18next';
+
 import { Text } from '@deriv/components';
 import { LegacyReportsIcon } from '@deriv/quill-icons';
-import { BinaryLink } from '../../Routes';
-import { observer, useStore } from '@deriv/stores';
 import { routes } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
+import { observer, useStore } from '@deriv/stores';
+import { useTranslations } from '@deriv-com/translations';
+
+import { BinaryLink } from '../../Routes';
+
 import './menu-links.scss';
 
 const MenuItems = ({ id, text, icon, link_to }) => {
@@ -24,14 +27,17 @@ const MenuItems = ({ id, text, icon, link_to }) => {
     );
 };
 
-const ReportTab = () => (
-    <MenuItems
-        id={'dt_reports_tab'}
-        icon={<LegacyReportsIcon className='header__icon' iconSize='xs' fill='var(--color-text-primary)' />}
-        text={localize('Reports')}
-        link_to={routes.reports}
-    />
-);
+const ReportTab = () => {
+    const { localize } = useTranslations();
+    return (
+        <MenuItems
+            id={'dt_reports_tab'}
+            icon={<LegacyReportsIcon className='header__icon' iconSize='xs' fill='var(--color-text-primary)' />}
+            text={localize('Reports')}
+            link_to={routes.reports}
+        />
+    );
+};
 
 const MenuLinks = observer(({ is_traders_hub_routes = false }) => {
     const { i18n } = useTranslation();

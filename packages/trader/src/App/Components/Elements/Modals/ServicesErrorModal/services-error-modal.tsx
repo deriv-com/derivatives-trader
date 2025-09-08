@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, Modal } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import AccountVerificationRequiredModal from './account-verification-required-modal';
 import AuthorizationRequiredModal from './authorization-required-modal';
@@ -31,6 +31,7 @@ const ServicesErrorModal = ({
     services_error,
 }: TPropServicesErrorModel) => {
     const { code, message, type } = services_error;
+    const { localize } = useTranslations();
 
     if (!code || !message) return <React.Fragment />;
     switch (code) {

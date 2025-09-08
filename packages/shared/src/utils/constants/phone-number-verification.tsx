@@ -1,7 +1,8 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { localize, Localize } from '@deriv-com/translations';
+
 import { Chat } from '@deriv/utils';
+import { Localize } from '@deriv-com/translations';
 
 export const VERIFICATION_SERVICES = {
     SMS: 'sms',
@@ -10,8 +11,8 @@ export const VERIFICATION_SERVICES = {
 
 export const getCarriers = () =>
     ({
-        SMS: localize('SMS'),
-        WHATSAPP: localize('WhatsApp'),
+        SMS: <Localize i18n_default_text='SMS' />,
+        WHATSAPP: <Localize i18n_default_text='WhatsApp' />,
     }) as const;
 
 export const shouldShowPhoneVerificationNotification = (nextAttemptTimestamp: number, current_time: dayjs.Dayjs) => {

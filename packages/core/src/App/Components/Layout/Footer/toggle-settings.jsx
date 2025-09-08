@@ -1,9 +1,11 @@
+import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+
 import { Modal, Popover, VerticalTab } from '@deriv/components';
 import { LegacySettings1pxIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
+
 import 'Sass/app/modules/settings.scss';
 
 const ModalContent = ({ settings_extension }) => {
@@ -22,6 +24,7 @@ const ToggleSettings = ({
     settings_extension,
     showPopover,
 }) => {
+    const { localize } = useTranslations();
     const toggle_settings_class = classNames('ic-settings', 'footer__link', {
         'ic-settings--active': is_settings_visible,
     });

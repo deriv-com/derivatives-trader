@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { MobileWrapper } from '@deriv/components';
 import { AMOUNT_MAX_LENGTH, getDecimalPlaces } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -15,6 +15,7 @@ const AccumulatorsAmountMobile = observer(() => {
     const { current_focus, setCurrentFocus } = ui;
     const { is_single_currency } = client;
     const { amount, currency, onChange, has_open_accu_contract } = useTraderStore();
+    const { localize } = useTranslations();
     return (
         <>
             <MobileWrapper>

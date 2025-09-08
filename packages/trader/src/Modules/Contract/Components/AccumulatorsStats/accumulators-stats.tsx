@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { MobileDialog, Text } from '@deriv/components';
-import { LegacyArrowUp1pxIcon, LegacyArrowDown1pxIcon } from '@deriv/quill-icons';
+import { LegacyArrowDown1pxIcon, LegacyArrowUp1pxIcon } from '@deriv/quill-icons';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -26,6 +26,7 @@ export const ROW_SIZES = {
 };
 
 const AccumulatorsStats = observer(({ is_expandable = true }: TAccumulatorStats) => {
+    const { localize } = useTranslations();
     const { ui } = useStore();
     const { ticks_history_stats = {} } = useTraderStore();
     const { is_dark_mode_on: is_dark_theme } = ui;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Modal, StaticUrl } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 type TCompanyWideLimitExceededModal = {
     is_visible: boolean;
@@ -10,6 +10,7 @@ type TCompanyWideLimitExceededModal = {
 };
 
 const CompanyWideLimitExceededModal = observer(({ is_visible, onConfirm }: TCompanyWideLimitExceededModal) => {
+    const { localize } = useTranslations();
     const {
         ui: { is_mobile },
     } = useStore();

@@ -459,7 +459,6 @@ describe('getProposalRequestObject', () => {
         expect(result).toEqual(
             expect.objectContaining({
                 amount: 20,
-                barrier: 5,
                 basis: '',
                 contract_type: 'CALL',
                 currency: '',
@@ -467,7 +466,7 @@ describe('getProposalRequestObject', () => {
                 duration_unit: 'm',
                 limit_order: undefined,
                 proposal: 1,
-                symbol: 'R_100',
+                underlying_symbol: 'R_100',
             })
         );
     });
@@ -527,7 +526,6 @@ describe('getProposalRequestObject', () => {
             contract_type: TRADE_TYPES.TURBOS.LONG,
             currency: 'USD',
             underlying_symbol: '1HZ100V',
-            symbol: '1HZ100V',
             payout_per_point: 5,
             limit_order: { take_profit: 5 },
         });
@@ -544,7 +542,6 @@ describe('getProposalRequestObject', () => {
             contract_type: TRADE_TYPES.TURBOS.LONG,
             currency: 'USD',
             underlying_symbol: '1HZ100V',
-            symbol: '1HZ100V',
             payout_per_point: 5,
             limit_order: undefined,
         });
@@ -568,7 +565,6 @@ describe('getProposalRequestObject', () => {
             contract_type: 'multiplier',
             currency: 'USD',
             underlying_symbol: '1HZ100V',
-            symbol: '1HZ100V',
             barrier: 5,
             limit_order: { stop_loss: 5 },
             multiplier: 0,
@@ -594,7 +590,6 @@ describe('getProposalRequestObject', () => {
             contract_type: 'multiplier',
             currency: 'USD',
             underlying_symbol: '1HZ100V',
-            symbol: '1HZ100V',
             barrier: 5,
             limit_order: { stop_loss: 1 },
             multiplier: 0,
@@ -621,7 +616,6 @@ describe('getProposalRequestObject', () => {
             basis: 'stake',
             contract_type: 'multiplier',
             currency: 'USD',
-            symbol: '1HZ100V',
             underlying_symbol: '1HZ100V',
             barrier: 5,
             limit_order: { stop_loss: 5 },

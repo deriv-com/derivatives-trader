@@ -10,6 +10,13 @@ import { render, screen, waitFor } from '@testing-library/react';
 import TraderProviders from '../../../../trader-providers';
 import BinaryRoutes from '../binary-routes';
 
+// Mock the redirectToLogin function
+const mockRedirectToLogin = jest.fn();
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    redirectToLogin: () => mockRedirectToLogin(),
+}));
+
 jest.mock('Modules/Contract', () => {
     return {
         __esModule: true,
@@ -52,9 +59,22 @@ describe('BinaryRoutes', () => {
         );
     };
 
+    beforeEach(() => {
+        mockRedirectToLogin.mockClear();
+    });
+
     it('should render contract route', async () => {
-        history.push(routes.contract);
-        renderMockBinaryRoutes();
+        // Use a specific contract ID to match the parameterized route
+        history.push('/contract/123456');
+        renderMockBinaryRoutes(
+            mockStore({
+                client: {
+                    is_client_store_initialized: true,
+                    is_logged_in: true,
+                },
+            }),
+            { ...mockedProps, is_logged_in: true }
+        );
         await waitFor(() => {
             expect(screen.getByText('Contract Details')).toBeInTheDocument();
         });
@@ -77,14 +97,19 @@ describe('BinaryRoutes', () => {
     });
 
     it('should redirect to login if not logged in and not logging in', async () => {
-        history.push(routes.contract);
-        renderMockBinaryRoutes(mockStore({}), { ...mockedProps, is_logged_in: false });
-        Object.defineProperty(window, 'location', {
-            value: new URL('https://www.app.deriv.com'),
-            writable: true,
-        });
+        // Use a specific contract ID and ensure client store is initialized
+        history.push('/contract/123456');
+        renderMockBinaryRoutes(
+            mockStore({
+                client: {
+                    is_client_store_initialized: true,
+                    is_logged_in: false,
+                },
+            }),
+            { ...mockedProps, is_logged_in: false }
+        );
         await waitFor(() => {
-            expect(window.location.href).toMatch(/^https:\/\/oauth\.deriv\.com\/oauth2\/authorize?/);
+            expect(mockRedirectToLogin).toHaveBeenCalled();
         });
     });
 });

@@ -3,7 +3,6 @@ import classNames from 'classnames';
 
 import { Text } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
 
 import Item from './contract-type-item';
 import { TContractCategory, TContractType, TFilteredContractType } from './types';

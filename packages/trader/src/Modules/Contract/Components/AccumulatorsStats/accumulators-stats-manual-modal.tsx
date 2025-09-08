@@ -3,7 +3,7 @@ import React from 'react';
 import { Loading, Modal, Text } from '@deriv/components';
 import { LegacyInfo1pxIcon } from '@deriv/quill-icons';
 import { getUrlBase, isMobile } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 import 'Sass/app/modules/contract/accumulators-stats.scss';
 
@@ -70,7 +70,7 @@ const AccumulatorsStatsManualModal = ({
                             {/* a browser will select a source with extension it recognizes */}
                             <source src={mp4_src} type='video/mp4' />
                             <source src={webm_src} type='video/webm' />
-                            {localize('Unfortunately, your browser does not support the video.')}
+                            <Localize i18n_default_text='Unfortunately, your browser does not support the video.' />
                         </video>
                     </div>
                     <Text
@@ -79,9 +79,7 @@ const AccumulatorsStatsManualModal = ({
                         color='primary'
                         className='accumulators-stats-modal-body__text'
                     >
-                        {localize(
-                            'Stats show the history of consecutive tick counts, i.e. the number of ticks the price remained within range continuously.'
-                        )}
+                        <Localize i18n_default_text='Stats show the history of consecutive tick counts, i.e. the number of ticks the price remained within range continuously.' />
                     </Text>
                 </Modal.Body>
             </Modal>

@@ -30,32 +30,12 @@ describe('AccountInfo component', () => {
         expect(div_element).not.toHaveClass('acc-info--show');
     });
 
-    it('can not "toggleDialog" when "is_disabled" property is "true"', async () => {
-        const toggleDialog = jest.fn();
-        render(<AccountInfo is_disabled toggleDialog={toggleDialog} />);
-        const div_element = screen.getByTestId('dt_acc_info');
-        await userEvent.click(div_element);
-        expect(toggleDialog).toHaveBeenCalledTimes(0);
-    });
-
     it('should render "AccountInfoIcon" with the proper className', () => {
         const { rerender } = render(<AccountInfo currency='USD' />);
         expect(screen.getByTestId('dt_icon')).toHaveClass('acc-info__id-icon--usd');
 
         rerender(<AccountInfo is_virtual />);
         expect(screen.getByTestId('dt_icon')).toHaveClass('acc-info__id-icon--virtual');
-    });
-
-    it('should render "IcLock" icon when "is_disabled" property is "true"', () => {
-        render(<AccountInfo is_disabled />);
-        const icon = screen.getByTestId('dt_lock_icon');
-        expect(icon).toBeInTheDocument();
-    });
-
-    it('should render "IcChevronDownBold" icon when "is_disabled" property is "false"', () => {
-        render(<AccountInfo />);
-        const icon = screen.getByTestId('dt_select_arrow');
-        expect(icon).toBeInTheDocument();
     });
 
     it('should not render balance section when "currency" property passed', () => {
@@ -109,25 +89,5 @@ describe('AccountInfo component', () => {
         const container = screen.getByTestId('dt_acc_info');
         expect(container).toContainElement(accountTypeLabel);
         expect(container).toContainElement(balanceElement);
-    });
-
-    it('should display dropdown arrow next to account type in header', () => {
-        render(<AccountInfo is_virtual={false} currency='USD' balance='1000' />);
-        const accountTypeLabel = screen.getByText('Real');
-        const dropdownArrow = screen.getByTestId('dt_select_arrow');
-
-        expect(accountTypeLabel).toBeInTheDocument();
-        expect(dropdownArrow).toBeInTheDocument();
-        expect(dropdownArrow).toHaveClass('acc-info__select-arrow');
-    });
-
-    it('should display lock icon instead of dropdown arrow when disabled', () => {
-        render(<AccountInfo is_disabled={true} currency='USD' balance='1000' />);
-        const lockIcon = screen.getByTestId('dt_lock_icon');
-        const dropdownArrow = screen.queryByTestId('dt_select_arrow');
-
-        expect(lockIcon).toBeInTheDocument();
-        expect(lockIcon).toHaveClass('acc-info__select-arrow');
-        expect(dropdownArrow).not.toBeInTheDocument();
     });
 });

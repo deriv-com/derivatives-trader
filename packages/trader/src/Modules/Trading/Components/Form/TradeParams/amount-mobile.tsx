@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Money, Numpad, Tabs } from '@deriv/components';
 import { getDecimalPlaces, isEmptyObject } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -42,6 +42,7 @@ const Basis = observer(
         setSelectedAmount,
         setAmountError,
     }: TBasis) => {
+        const { localize } = useTranslations();
         const { ui, client } = useStore();
         const { addToast } = ui;
         const { currency } = client;

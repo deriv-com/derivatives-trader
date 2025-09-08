@@ -5,6 +5,7 @@ import Checkbox from '../checkbox';
 import Popover from '../popover';
 import { TToastConfig } from '../types';
 import { useDevice } from '@deriv-com/ui';
+import { Localize } from '@deriv-com/translations';
 
 type TPosition = 'left' | 'right' | 'top' | 'bottom';
 type TInputWithCheckbox = {
@@ -159,7 +160,7 @@ const InputWithCheckbox = ({
             id={`dc_${name}-checkbox_input`}
             onChange={changeValue}
             name={checkboxName}
-            label={label}
+            label={<Localize i18n_default_text={label} />}
             classNameLabel={`${name}-checkbox__label`}
             defaultChecked={defaultChecked}
             disabled={is_disabled}

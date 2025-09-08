@@ -209,20 +209,25 @@ describe('onChangeStartDate', () => {
         ).toEqual(result);
     });
     it('should return an object with defined start_time when start_date is not 0', async () => {
+        const result = {
+            contract_start_type: 'spot',
+            duration_units_list,
+            duration_min_max: {
+                daily: { min: 86400, max: 31536000 },
+                intraday: { min: 60, max: 86400 },
+            },
+            duration_unit: 'h',
+            start_time: '22:05',
+            expiry_date: null,
+            expiry_type: 'duration',
+        };
         expect(
             await onChangeStartDate({
                 ...trade_store,
                 start_date: 1701388800,
                 start_time: '22:05',
             })
-        ).toEqual({
-            contract_start_type: 'forward',
-            duration_units_list: [],
-            duration_min_max: {},
-            start_time: '22:05',
-            expiry_date: null,
-            expiry_type: null,
-        });
+        ).toEqual(result);
     });
 });
 

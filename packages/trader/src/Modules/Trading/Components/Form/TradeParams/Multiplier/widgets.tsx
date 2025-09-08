@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Money, Popover, Text } from '@deriv/components';
 import { clickAndKeyEventHandler, getGrowthRatePercentage } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 import MultipliersExpiration from 'Modules/Trading/Components/Form/TradeParams/Multiplier/expiration';
 import MultipliersExpirationModal from 'Modules/Trading/Components/Form/TradeParams/Multiplier/expiration-modal';
@@ -135,14 +135,14 @@ const RadioGroupOptionsWidget = ({
 export const MultiplierOptionsWidget = observer(() => {
     const { multiplier } = useTraderStore();
     const displayed_trade_param = `x${multiplier}`;
-    const modal_title = localize('Multiplier');
+    const modal_title = <Localize i18n_default_text='Multiplier' />;
     return <RadioGroupOptionsWidget displayed_trade_param={displayed_trade_param} modal_title={modal_title} />;
 });
 
 export const AccumulatorOptionsWidget = observer(() => {
     const { growth_rate, has_open_accu_contract, tick_size_barrier_percentage } = useTraderStore();
     const displayed_trade_param = `${getGrowthRatePercentage(growth_rate)}%`;
-    const modal_title = localize('Growth rate');
+    const modal_title = <Localize i18n_default_text='Growth rate' />;
     const tooltip_message = (
         <Localize
             i18n_default_text='Your stake will grow at {{growth_rate}}% per tick as long as the current spot price remains within ±{{tick_size_barrier_percentage}} from the previous spot price.'

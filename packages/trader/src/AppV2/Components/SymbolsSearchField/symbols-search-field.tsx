@@ -3,8 +3,8 @@ import clsx from 'clsx';
 
 import { getContractTypesConfig } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
 import { Button, SearchField } from '@deriv-com/quill-ui';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -22,6 +22,7 @@ const SymbolsSearchField = observer(
         const { contract_type } = useTraderStore();
         const contract_name = getContractTypesConfig()[contract_type]?.title;
         const inputRef = useRef<HTMLInputElement | null>(null);
+        const { localize } = useTranslations();
 
         useEffect(() => {
             const inputElement = inputRef.current;

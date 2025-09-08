@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Text } from '@deriv/components';
 import { LegacyPositionIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 type TEmptyPortfolioMessage = {
     error?: string;
@@ -23,7 +23,7 @@ const EmptyPortfolioMessage = ({ error }: TEmptyPortfolioMessage) => (
                         fill='var(--color-text-disabled)'
                     />
                     <Text align='center' className='portfolio-empty__text' color='disabled' size='xs'>
-                        {localize('You have no open positions.')}
+                        <Localize i18n_default_text='You have no open positions.' />
                     </Text>
                 </React.Fragment>
             )}

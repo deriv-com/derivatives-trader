@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { localize } from '@deriv-com/translations';
 import { LegacyChevronDown1pxIcon } from '@deriv/quill-icons';
+import { useTranslations } from '@deriv-com/translations';
 
 type TDurationToggle = {
     name: string;
@@ -11,6 +11,7 @@ type TDurationToggle = {
 };
 
 const DurationToggle = ({ name, onChange, value }: TDurationToggle) => {
+    const { localize } = useTranslations();
     const toggle = () => {
         onChange({ target: { value: !value, name } });
     };

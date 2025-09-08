@@ -1,14 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+
 import { Text } from '@deriv/components';
-import { Localize, localize } from '@deriv-com/translations';
 import { getCurrencyDisplayCode } from '@deriv/shared';
+import { Localize, useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
-import AccountInfoWrapper from './account-info-wrapper';
+
 import AccountInfoIcon from './account-info-icon';
+import AccountInfoWrapper from './account-info-wrapper';
 
 const AccountInfo = ({ acc_switcher_disabled_message, balance, currency, is_virtual, is_disabled, is_mobile }) => {
+    const { localize } = useTranslations();
     const currency_lower = currency?.toLowerCase();
     const { isDesktop } = useDevice();
 

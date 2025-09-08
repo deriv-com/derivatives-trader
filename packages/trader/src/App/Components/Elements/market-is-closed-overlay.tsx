@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Button, Text, UILoader } from '@deriv/components';
 import { useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from '../../../Stores/useTraderStores';
 
@@ -27,6 +27,7 @@ const MarketIsClosedOverlay = ({
     symbol,
 }: TMarketIsClosedOverlay) => {
     const [is_timer_loading, setIsTimerLoading] = React.useState(true);
+    const { localize } = useTranslations();
 
     let message: JSX.Element | null = (
         <Localize i18n_default_text='In the meantime, try our synthetic indices. They simulate real-market volatility and are open 24/7.' />

@@ -6,6 +6,7 @@ import { /* useOauth2, */ useRemoteConfig } from '@deriv/api';
 import { Div100vhContainer, MobileDrawer, ToggleSwitch } from '@deriv/components';
 import {
     LegacyChartsIcon,
+    LegacyChevronRight1pxIcon,
     LegacyHelpCentreIcon,
     LegacyHomeNewIcon,
     LegacyLogout1pxIcon,
@@ -13,14 +14,13 @@ import {
     LegacyRegulatoryInformationIcon,
     LegacyResponsibleTradingIcon,
     LegacyTheme1pxIcon,
-    LegacyChevronRight1pxIcon,
 } from '@deriv/quill-icons';
 // eslint-disable-next-line no-unused-vars -- getDomainUrl kept for future handleTradershubRedirect restoration
-import { routes, getBrandHomeUrl } from '@deriv/shared';
+import { getBrandHomeUrl, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of Analytics functionality
 import { Analytics } from '@deriv-com/analytics';
+import { useTranslations } from '@deriv-com/translations';
 
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of LiveChat functionality
 import LiveChat from 'App/Components/Elements/LiveChat';
@@ -34,6 +34,7 @@ import { MenuTitle, MobileLanguageMenu } from './Components/ToggleMenu';
 import MenuLink from './menu-link';
 
 const ToggleMenuDrawer = observer(() => {
+    const { localize } = useTranslations();
     const { ui, client, traders_hub } = useStore();
     const {
         disableApp,
@@ -175,7 +176,11 @@ const ToggleMenuDrawer = observer(() => {
     return (
         <React.Fragment>
             <a id='dt_mobile_drawer_toggle' onClick={toggleDrawer} className='header__mobile-drawer-toggle'>
-                <LegacyMenuHamburger1pxIcon iconSize='xs' className='header__mobile-drawer-icon' />
+                <LegacyMenuHamburger1pxIcon
+                    iconSize='xs'
+                    className='header__mobile-drawer-icon'
+                    fill='var(--color-text-primary)'
+                />
             </a>
             <MobileDrawer
                 alignment='left'

@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { MobileDrawer } from '@deriv/components';
-import { observer, useStore } from '@deriv/stores';
-import { getAllowedLanguages, localize } from '@deriv-com/translations';
-import { LanguageLink } from 'App/Components/Routes';
 import { UNSUPPORTED_LANGUAGES } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { getAllowedLanguages, useTranslations } from '@deriv-com/translations';
+
+import { LanguageLink } from 'App/Components/Routes';
 
 type TMobileLanguageMenu = {
     expandSubMenu: (prop: boolean) => void;
@@ -15,6 +17,7 @@ const MobileLanguageMenu = observer(({ expandSubMenu, toggleDrawer }: TMobileLan
     const { common, ui } = useStore();
     const { is_language_changing } = common;
     const { is_mobile_language_menu_open, setMobileLanguageMenuOpen } = ui;
+    const { localize } = useTranslations();
 
     const allowed_languages = Object.keys(getAllowedLanguages(UNSUPPORTED_LANGUAGES));
 

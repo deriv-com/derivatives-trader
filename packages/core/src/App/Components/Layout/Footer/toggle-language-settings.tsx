@@ -1,13 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
-import { observer, useStore } from '@deriv/stores';
+
 import { Modal, Popover, Text } from '@deriv/components';
-import { useTranslations, Localize, localize } from '@deriv-com/translations';
-import 'Sass/app/modules/settings.scss';
-import LanguageSettings from '../../../Containers/SettingsModal/settings-language';
 import { TranslationFlag } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { Localize, useTranslations } from '@deriv-com/translations';
+
+import LanguageSettings from '../../../Containers/SettingsModal/settings-language';
+
+import 'Sass/app/modules/settings.scss';
 
 const ToggleLanguageSettings = observer(({ showPopover }: { showPopover?: boolean }) => {
+    const { localize } = useTranslations();
     const { common, ui } = useStore();
     const { currentLang } = useTranslations();
     const { is_language_settings_modal_on, toggleLanguageSettingsModal } = ui;

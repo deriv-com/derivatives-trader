@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Numpad } from '@deriv/components';
 import { addComma, getDurationMinMaxValues, getUnitMap, isEmptyObject } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -57,6 +57,7 @@ const DurationNumbersWidgetMobile = observer(
             amount: trade_amount,
             onChangeMultiple,
         } = useTraderStore();
+        const { localize } = useTranslations();
         const { value: duration_unit } = duration_unit_option;
         const [min, max] = getDurationMinMaxValues(duration_min_max, contract_expiry, duration_unit);
         const [has_error, setHasError] = React.useState(false);

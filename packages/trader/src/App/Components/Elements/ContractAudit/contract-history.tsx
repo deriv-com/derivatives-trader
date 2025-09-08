@@ -3,7 +3,7 @@ import React from 'react';
 import { Money, Text, ThemedScrollbars } from '@deriv/components';
 import { DerivLightEmptyCardboardBoxIcon } from '@deriv/quill-icons';
 import { isMobile, TContractStore } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 import ContractAuditItem from './contract-audit-item';
 
@@ -16,9 +16,11 @@ const ContractHistory = ({ currency, history = [] }: TContractHistory) => {
         return (
             <div className='contract-audit__empty'>
                 <DerivLightEmptyCardboardBoxIcon width={48} height={48} fill='var(--color-text-secondary)' />
-                <h4 className='contract-audit__empty-header'>{localize('No history')}</h4>
+                <h4 className='contract-audit__empty-header'>
+                    <Localize i18n_default_text='No history' />
+                </h4>
                 <Text align='center' line_height='s' color='less-prominent' size='xxs'>
-                    {localize('You have yet to update either take profit or stop loss')}
+                    <Localize i18n_default_text='You have yet to update either take profit or stop loss' />
                 </Text>
             </div>
         );
@@ -45,7 +47,7 @@ const ContractHistory = ({ currency, history = [] }: TContractHistory) => {
                                     )}
                                 </React.Fragment>
                             ) : (
-                                localize('Cancelled')
+                                <Localize i18n_default_text='Cancelled' />
                             )
                         }
                     />

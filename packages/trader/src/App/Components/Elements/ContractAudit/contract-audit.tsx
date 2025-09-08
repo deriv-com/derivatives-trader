@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Tabs } from '@deriv/components';
 import { TContractInfo, TContractStore, WS } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -43,6 +43,7 @@ const ContractAudit = ({
 }: TContractAudit) => {
     const { contract_id, currency } = props.contract_info;
     const [update_history, setUpdateHistory] = React.useState<TContractUpdateHistory>([]);
+    const { localize } = useTranslations();
 
     const getSortedUpdateHistory = (history: TContractUpdateHistory) =>
         history.sort((a, b) => Number(b?.order_date) - Number(a?.order_date));

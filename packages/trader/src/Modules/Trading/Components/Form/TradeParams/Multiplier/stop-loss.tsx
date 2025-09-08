@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { InputWithCheckbox } from '@deriv/components';
 import { isDesktop } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -19,6 +19,7 @@ type TStopLossProps = {
 };
 
 const StopLoss = observer((props: TStopLossProps) => {
+    const { localize } = useTranslations();
     const { ui, client } = useStore();
     const trade = useTraderStore();
 

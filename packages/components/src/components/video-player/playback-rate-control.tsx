@@ -1,8 +1,10 @@
 import React from 'react';
-import Dropdown from '../dropdown';
 import clsx from 'clsx';
+
 import { StandalonePlaybackSpeedFillIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
+
+import Dropdown from '../dropdown';
 
 type TPlaybackRateControl = {
     onPlaybackRateChange: (new_value: number) => void;
@@ -19,6 +21,7 @@ const PlaybackRateControl = ({
     is_v2 = false,
     show_controls = false,
 }: TPlaybackRateControl) => {
+    const { localize } = useTranslations();
     const playback_rate_list = [
         { text: '0.25x', value: '0.25' },
         { text: '0.5x', value: '0.5' },

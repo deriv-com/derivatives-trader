@@ -86,7 +86,7 @@
         }
         .dc-btn__text,
         .dc-btn__icon {
-            color: var(--color-surface-primary);
+            color: var(--color-button-primary-text);
         }
 
         &__light {
@@ -105,7 +105,7 @@
             }
             .dc-btn__text,
             .dc-btn__icon {
-                color: var(--brand-primary);
+                color: var(--color-text-primary);
             }
         }
     }
@@ -126,7 +126,7 @@
         }
         .dc-btn__text,
         .dc-btn__icon {
-            color: var(--color-text-primary);
+            color: var(--color-button-secondary-text);
         }
     }
     &--tertiary {
@@ -140,7 +140,7 @@
         }
         .dc-btn__text,
         .dc-btn__icon {
-            color: var(--brand-primary);
+            color: var(--color-button-tertiary-text);
         }
         &:disabled,
         &[disabled] {
@@ -156,13 +156,13 @@
             background: var(--color-button-primary-bg);
 
             .dc-btn__text {
-                color: var(--color-surface-primary);
+                color: var(--color-text-primary);
             }
         }
 
         .dc-btn__text,
         .dc-btn__icon {
-            color: var(--brand-primary);
+            color: var(--color-text-primary);
         }
     }
     /* TODO: confirm this button with designer are we still using this? */
@@ -177,7 +177,7 @@
         }
         .dc-btn__text,
         .dc-btn__icon {
-            color: var(--color-surface-primary);
+            color: var(--color-text-primary);
         }
     }
     &--black {
@@ -191,7 +191,7 @@
 
         .dc-btn__text,
         .dc-btn__icon {
-            color: var(--color-surface-primary);
+            color: var(--color-text-primary);
         }
     }
     &__small {

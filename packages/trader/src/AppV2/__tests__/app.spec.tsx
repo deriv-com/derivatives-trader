@@ -3,16 +3,75 @@ import { BrowserRouter } from 'react-router-dom';
 import moment from 'moment';
 
 import { mockStore } from '@deriv/stores';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import App from '../app';
 
-const rootStore = mockStore({
+// Mock external dependencies
+jest.mock('@deriv/reports/src/Stores/useReportsStores', () => ({
+    ReportsStoreProvider: ({ children }: { children: React.ReactNode }) => (
+        <div data-testid='reports-provider'>{children}</div>
+    ),
+}));
+
+jest.mock('@deriv-com/quill-ui', () => ({
+    NotificationsProvider: ({ children }: { children: React.ReactNode }) => (
+        <div data-testid='notifications-provider'>{children}</div>
+    ),
+    SnackbarProvider: ({ children }: { children: React.ReactNode }) => (
+        <div data-testid='snackbar-provider'>{children}</div>
+    ),
+}));
+
+jest.mock('App/init-store', () => jest.fn(rootStore => rootStore));
+
+jest.mock('Stores/Providers/modules-providers', () => {
+    const MockModulesProvider = ({ children }: { children: React.ReactNode }) => (
+        <div data-testid='modules-provider'>{children}</div>
+    );
+    MockModulesProvider.displayName = 'MockModulesProvider';
+    return MockModulesProvider;
+});
+
+jest.mock('../../trader-providers', () => {
+    const MockTraderProviders = ({ children }: { children: React.ReactNode }) => (
+        <div data-testid='trader-providers'>{children}</div>
+    );
+    MockTraderProviders.displayName = 'MockTraderProviders';
+    return MockTraderProviders;
+});
+
+jest.mock('../Components/ServicesErrorSnackbar', () => {
+    const MockServicesErrorSnackbar = () => <div data-testid='services-error-snackbar' />;
+    MockServicesErrorSnackbar.displayName = 'MockServicesErrorSnackbar';
+    return MockServicesErrorSnackbar;
+});
+
+jest.mock('../Containers/Notifications', () => {
+    const MockNotifications = () => <div data-testid='notifications' />;
+    MockNotifications.displayName = 'MockNotifications';
+    return MockNotifications;
+});
+
+jest.mock('../Routes/router', () => {
+    const MockRouter = () => <div data-testid='router' />;
+    MockRouter.displayName = 'MockRouter';
+    return MockRouter;
+});
+
+jest.mock('../../Analytics', () => ({
+    sendDtraderV2OpenToAnalytics: jest.fn(),
+}));
+
+const mockRootStore = mockStore({
     common: {
         server_time: moment(new Date()).utc(),
     },
     client: {
         is_logged_in: false,
+    },
+    ui: {
+        setPromptHandler: jest.fn(),
     },
 });
 
@@ -42,45 +101,44 @@ const mockWs = {
     wait: jest.fn(),
 };
 
-jest.mock('@lottiefiles/dotlottie-react', () => ({
-    DotLottieReact: jest.fn(() => <div>DotLottieReact</div>),
-}));
-
-jest.mock('AppV2/Components/BottomNav', () => {
-    const MockedBottomNav = () => <div data-testid='mocked-bottom-nav' />;
-    MockedBottomNav.displayName = 'MockedBottomNav';
-    return MockedBottomNav;
-});
+const renderApp = () => {
+    return render(
+        <BrowserRouter>
+            <App
+                passthrough={{
+                    root_store: mockRootStore,
+                    WS: mockWs,
+                }}
+            />
+        </BrowserRouter>
+    );
+};
 
 describe('App', () => {
-    it('should render the app component', () => {
-        const { container } = render(
-            <BrowserRouter>
-                <App
-                    passthrough={{
-                        root_store: rootStore,
-                        WS: mockWs,
-                    }}
-                />
-            </BrowserRouter>
-        );
-        expect(container).toBeInTheDocument();
+    beforeEach(() => {
+        jest.clearAllMocks();
+        // Reset document.head for each test
+        document.head.innerHTML = '';
     });
 
-    it('should call setPromptHandler on unmount', () => {
-        const setPromptHandler = jest.fn();
-        rootStore.ui.setPromptHandler = setPromptHandler;
-        const { unmount } = render(
-            <BrowserRouter>
-                <App
-                    passthrough={{
-                        root_store: rootStore,
-                        WS: mockWs,
-                    }}
-                />
-            </BrowserRouter>
-        );
+    it('should render all required providers and components', () => {
+        renderApp();
+
+        expect(screen.getByTestId('trader-providers')).toBeInTheDocument();
+        expect(screen.getByTestId('reports-provider')).toBeInTheDocument();
+        expect(screen.getByTestId('modules-provider')).toBeInTheDocument();
+        expect(screen.getByTestId('notifications-provider')).toBeInTheDocument();
+        expect(screen.getByTestId('snackbar-provider')).toBeInTheDocument();
+        expect(screen.getByTestId('notifications')).toBeInTheDocument();
+        expect(screen.getByTestId('router')).toBeInTheDocument();
+        expect(screen.getByTestId('services-error-snackbar')).toBeInTheDocument();
+    });
+
+    it('should call setPromptHandler(false) on unmount', () => {
+        const { unmount } = renderApp();
+
         unmount();
-        expect(setPromptHandler).toHaveBeenCalledWith(false);
+
+        expect(mockRootStore.ui.setPromptHandler).toHaveBeenCalledWith(false);
     });
 });

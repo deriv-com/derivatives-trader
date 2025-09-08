@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { MobileDialog } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { Header } from './ContractTypeInfo';
@@ -57,7 +57,7 @@ const ContractTypeDialog = ({
             should_render_arrow={!hide_back_button}
         />
     ) : (
-        localize('Trade types')
+        <Localize i18n_default_text='Trade types' />
     );
 
     if (isMobile) {

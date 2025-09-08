@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Localize, localize } from '@deriv-com/translations';
 import { Text } from '@deriv-com/quill-ui';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 const SymbolNotFound = ({ searchTerm }: { searchTerm?: string }) => {
+    const { localize } = useTranslations();
     return (
         <div className='symbol-not-found__container'>
             <div className='symbol-not-found__content'>

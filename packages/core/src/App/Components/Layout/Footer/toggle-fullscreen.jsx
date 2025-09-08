@@ -1,11 +1,13 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
+
 import { Popover } from '@deriv/components';
 import { LegacyFullscreen1pxIcon, LegacyRestore1pxIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 const ToggleFullScreen = ({ showPopover }) => {
+    const { localize } = useTranslations();
     const [is_full_screen, setIsFullScreen] = React.useState(false);
 
     const fullscreen_map = {

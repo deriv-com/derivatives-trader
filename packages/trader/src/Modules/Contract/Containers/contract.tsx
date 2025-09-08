@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import { routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import ErrorComponent from 'App/Components/Elements/Errors';
 
@@ -17,6 +17,7 @@ type TContract = RouteComponentProps<TContractParams>;
 const dialog_errors = ['GetProposalFailure', 'ContractValidationError'];
 
 const Contract = observer(({ match, history }: TContract) => {
+    const { localize } = useTranslations();
     const { contract_replay } = useStore();
     const {
         removeErrorMessage,

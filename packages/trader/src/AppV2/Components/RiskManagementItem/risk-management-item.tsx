@@ -9,7 +9,7 @@ import {
     isValidToCancel,
 } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 import { ActionSheet, Text, TextField, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
 
 import useContractDetails from 'AppV2/Hooks/useContractDetails';
@@ -40,6 +40,7 @@ const RiskManagementItem = observer(
         const is_valid_to_cancel = isValidToCancel(contract_info);
         const is_accumulator = isAccumulatorContract(contract_type);
         const total_profit = getProfit(contract_info);
+        const { localize } = useTranslations();
 
         React.useEffect(() => {
             if (value) {

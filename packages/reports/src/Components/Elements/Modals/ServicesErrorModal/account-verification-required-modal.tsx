@@ -1,9 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+
 import { Button, Modal } from '@deriv/components';
-import { routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize, Localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 type TAccountVerificationRequiredModalProps = {
     is_visible: boolean;
@@ -12,7 +11,7 @@ type TAccountVerificationRequiredModalProps = {
 
 const AccountVerificationRequiredModal = observer(
     ({ is_visible, onConfirm }: TAccountVerificationRequiredModalProps) => {
-        const history = useHistory();
+        const { localize } = useTranslations();
         const {
             ui: { is_mobile },
         } = useStore();
@@ -22,7 +21,7 @@ const AccountVerificationRequiredModal = observer(
                 is_vertical_centered={is_mobile}
                 className='account-verification-required-modal'
                 toggleModal={onConfirm}
-                title={localize('Account verification required')}
+                title={<Localize i18n_default_text='Account verification required' />}
                 width='440px'
                 height={is_mobile ? 'auto' : '220px'}
             >

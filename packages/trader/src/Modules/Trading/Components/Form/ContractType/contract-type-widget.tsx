@@ -4,8 +4,8 @@ import { InlineMessage, Text } from '@deriv/components';
 import { LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
 import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -39,6 +39,7 @@ const ContractTypeWidget = observer(
             active_symbols: { active_symbols },
             ui: { is_mobile },
         } = useStore();
+        const { localize } = useTranslations();
         const { symbol, contract_type } = useTraderStore();
         const wrapper_ref = React.useRef<HTMLDivElement | null>(null);
         const [is_dialog_open, setDialogVisibility] = React.useState<boolean | null>();

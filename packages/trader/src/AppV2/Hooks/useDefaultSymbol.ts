@@ -21,8 +21,8 @@ const useDefaultSymbol = () => {
             return active_symbols.some(symbol_info => {
                 const exchange_open_check = has_initialized ? true : symbol_info.exchange_is_open === 1;
                 return (
-                    ((symbol_info as any).underlying_symbol || symbol_info.symbol) === symbol_from_store &&
-                    exchange_open_check
+                    ((symbol_info as { underlying_symbol?: string }).underlying_symbol || symbol_info.symbol) ===
+                        symbol_from_store && exchange_open_check
                 );
             });
         },
@@ -35,6 +35,7 @@ const useDefaultSymbol = () => {
             const has_initialized = has_initialized_ref.current;
             const is_initailization = !has_initialized && new_symbol;
             const has_symbol_changed = symbol_from_store != new_symbol && new_symbol;
+
             setSymbol(new_symbol);
 
             if (is_initailization || has_symbol_changed) {
@@ -48,7 +49,13 @@ const useDefaultSymbol = () => {
 
     useEffect(() => {
         const process = async () => {
-            const new_symbol = isSymbolAvailable(active_symbols)
+            if (active_symbols.length === 0) {
+                return;
+            }
+
+            const is_symbol_available = isSymbolAvailable(active_symbols);
+
+            const new_symbol = is_symbol_available
                 ? symbol_from_store
                 : (await pickDefaultSymbol(active_symbols)) || '1HZ100V';
 

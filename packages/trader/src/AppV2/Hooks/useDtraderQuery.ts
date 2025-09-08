@@ -14,6 +14,7 @@ type QueryResult<T> = {
 type QueryOptions = {
     wait_for_authorize?: boolean;
     enabled?: boolean;
+    timeout?: number; // timeout in milliseconds, default 30 seconds
 };
 
 // Cache object to store the results
@@ -31,7 +32,7 @@ export const useDtraderQuery = <Response>(
     options: QueryOptions = {}
 ): QueryResult<Response> => {
     const key = getKey(keys);
-    const { enabled = true } = options;
+    const { enabled = true, timeout: _timeout = 30000 } = options;
     const [data, setData] = useState<Response | null>(cache[key] || null);
     const [error, setError] = useState<TServerError | null>(null);
     const [is_fetching, setIsFetching] = useState(!cache[key] && enabled);
@@ -62,7 +63,13 @@ export const useDtraderQuery = <Response>(
             ongoing_requests[key] = send_promise;
         }
 
-        send_promise
+        // Add timeout to the promise
+        const timeout_ms = options?.timeout || 30000; // Default 30 seconds
+        const timeout_promise = new Promise((_, reject) => {
+            setTimeout(() => reject(new Error(`Request timeout after ${timeout_ms}ms`)), timeout_ms);
+        });
+
+        Promise.race([send_promise, timeout_promise])
             ?.then((result: Response) => {
                 if (!is_mounted.current) return;
 
@@ -70,16 +77,16 @@ export const useDtraderQuery = <Response>(
                 setData(result);
                 setIsFetching(false);
             })
-            .catch((err: TServerError) => {
+            .catch((err: TServerError | Error) => {
                 if (!is_mounted.current) return;
 
-                setError(err);
+                setError(err as TServerError);
                 setIsFetching(false);
             })
             .finally(() => {
                 delete ongoing_requests[key];
             });
-    }, [key, request_string, wait_for_authorize]);
+    }, [key, request_string, wait_for_authorize, options?.timeout]);
 
     useEffect(() => {
         if (enabled && !cache[key]) {

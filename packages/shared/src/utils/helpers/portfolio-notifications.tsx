@@ -1,9 +1,10 @@
 import React from 'react';
-import { localize, Localize } from '@deriv-com/translations';
+
+import { Localize } from '@deriv-com/translations';
 
 export const contractSold = (currency: string, sold_for: number | string, Money: React.ElementType) => ({
     key: 'contract_sold',
-    header: localize('Contract sold'),
+    header: <Localize i18n_default_text='Contract sold' />,
     message: (
         <Localize
             i18n_default_text='Contract was sold for <0 />.'
@@ -18,7 +19,7 @@ export const contractSold = (currency: string, sold_for: number | string, Money:
 
 export const contractCancelled = () => ({
     key: 'contract_sold',
-    header: localize('Contract cancelled'),
+    header: <Localize i18n_default_text='Contract cancelled' />,
     message: (
         <Localize
             i18n_default_text='Contract was cancelled.'

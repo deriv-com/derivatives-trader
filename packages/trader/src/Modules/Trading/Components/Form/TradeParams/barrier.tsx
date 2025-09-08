@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { DesktopWrapper, InputField, MobileWrapper, Modal, Text } from '@deriv/components';
-import { LegacyArrowUp1pxIcon, LegacyArrowDown1pxIcon } from '@deriv/quill-icons';
+import { LegacyArrowDown1pxIcon, LegacyArrowUp1pxIcon } from '@deriv/quill-icons';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -18,6 +18,7 @@ type TBarrier = {
 };
 
 const Barrier = observer(({ is_minimized, is_absolute_only }: TBarrier) => {
+    const { localize } = useTranslations();
     const { ui } = useStore();
     const { current_focus, setCurrentFocus } = ui;
     const {

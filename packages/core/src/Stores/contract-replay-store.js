@@ -124,6 +124,10 @@ export default class ContractReplayStore extends BaseStore {
     populateConfig(response) {
         if ('error' in response) {
             const { code, message } = response.error;
+            if (this.root_store.common.is_language_changing && code === 'AuthorizationRequired') {
+                return;
+            }
+
             this.has_error = true;
             this.is_chart_loading = false;
             this.error_message = message;

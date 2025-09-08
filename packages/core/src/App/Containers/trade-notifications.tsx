@@ -1,11 +1,13 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
+
 import { MobileWrapper, Money, SwipeableNotification, Text } from '@deriv/components';
-import { useStore } from '@deriv/stores';
 import { getCardLabels, getContractPath } from '@deriv/shared';
-import { localize, Localize } from '@deriv-com/translations';
+import { useStore } from '@deriv/stores';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 const TradeNotifications = observer(({ show_trade_notifications }: { show_trade_notifications?: boolean }) => {
+    const { localize } = useTranslations();
     const {
         notifications: { removeTradeNotifications, trade_notifications },
     } = useStore();

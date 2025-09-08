@@ -1,17 +1,20 @@
 import React from 'react';
 
 import { Text } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
-const NoResultsMessage = ({ text }: { text: string }) => (
-    <div className='no-results-found'>
-        <h2 className='no-results-found__title'>
-            {localize('No results for "{{text}}"', { text, interpolation: { escapeValue: false } })}
-        </h2>
-        <Text as='p' size='xxs' align='center' color='less-prominent' className='no-results-found__subtitle'>
-            {localize('Try checking your spelling or use a different term')}
-        </Text>
-    </div>
-);
+const NoResultsMessage = ({ text }: { text: string }) => {
+    const { localize } = useTranslations();
+    return (
+        <div className='no-results-found'>
+            <h2 className='no-results-found__title'>
+                {localize('No results for "{{text}}"', { text, interpolation: { escapeValue: false } })}
+            </h2>
+            <Text as='p' size='xxs' align='center' color='less-prominent' className='no-results-found__subtitle'>
+                {localize('Try checking your spelling or use a different term')}
+            </Text>
+        </div>
+    );
+};
 
 export default NoResultsMessage;

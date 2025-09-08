@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { observer, useStore } from '@deriv/stores';
+
 import { TranslationFlag, UNSUPPORTED_LANGUAGES } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
 import { getAllowedLanguages, useTranslations } from '@deriv-com/translations';
 
 export type TLanguageLink = {

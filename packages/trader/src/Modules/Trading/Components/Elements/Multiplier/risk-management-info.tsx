@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Money } from '@deriv/components';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 import RiskManagementDialog from 'Modules/Trading/Containers/Multiplier/risk-management-dialog';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -38,13 +38,19 @@ const RiskManagementInfo = observer(() => {
             >
                 {!has_risk_management && (
                     <div className='mobile-widget__item'>
-                        <div className='mobile-widget__item-label'>{localize('Risk management')}</div>
-                        <div className='mobile-widget__item-value'>{localize('Not set')}</div>
+                        <div className='mobile-widget__item-label'>
+                            <Localize i18n_default_text='Risk management' />
+                        </div>
+                        <div className='mobile-widget__item-value'>
+                            <Localize i18n_default_text='Not set' />
+                        </div>
                     </div>
                 )}
                 {has_take_profit && (
                     <div className='mobile-widget__item'>
-                        <div className='mobile-widget__item-label'>{localize('Take profit')}</div>
+                        <div className='mobile-widget__item-label'>
+                            <Localize i18n_default_text='Take profit' />
+                        </div>
                         <div className='mobile-widget__item-value'>
                             <Money amount={take_profit} currency={currency} show_currency />
                         </div>
@@ -52,7 +58,9 @@ const RiskManagementInfo = observer(() => {
                 )}
                 {has_stop_loss && (
                     <div className='mobile-widget__item'>
-                        <div className='mobile-widget__item-label'>{localize('Stop loss')}</div>
+                        <div className='mobile-widget__item-label'>
+                            <Localize i18n_default_text='Stop loss' />
+                        </div>
                         <div className='mobile-widget__item-value'>
                             <Money amount={stop_loss} currency={currency} show_currency />
                         </div>
@@ -60,7 +68,9 @@ const RiskManagementInfo = observer(() => {
                 )}
                 {has_cancellation && (
                     <div className='mobile-widget__item'>
-                        <div className='mobile-widget__item-label'>{localize('Deal Cancellation')}</div>
+                        <div className='mobile-widget__item-label'>
+                            <Localize i18n_default_text='Deal Cancellation' />
+                        </div>
                         <div className='mobile-widget__item-value'>{cancellation_label}</div>
                     </div>
                 )}

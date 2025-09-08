@@ -8,9 +8,14 @@ jest.mock('@deriv/components', () => {
     const original_module = jest.requireActual('@deriv/components');
     return {
         ...original_module,
-        Icon: jest.fn(() => 'mockedIcon'),
     };
 });
+
+jest.mock('@deriv/quill-icons', () => ({
+    ...jest.requireActual('@deriv/quill-icons'),
+    LegacyArrowLeft2pxIcon: () => 'mockedIcon',
+    LegacyClose2pxIcon: () => 'mockedIcon',
+}));
 
 const mocked_props = {
     onClickBack: jest.fn(),

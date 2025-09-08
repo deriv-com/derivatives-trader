@@ -123,7 +123,7 @@ export default class ClientStore extends BaseStore {
             resetVirtualBalance: action.bound,
             authenticateV2: action.bound,
             storeSessionToken: action.bound,
-            getSessionToken: action.bound,
+            getStoredSessionToken: action.bound,
             clearSessionToken: action.bound,
             removeTokenFromUrl: action.bound,
             is_crypto: action.bound,
@@ -179,7 +179,7 @@ export default class ClientStore extends BaseStore {
     }
 
     get is_logged_in() {
-        const hasSessionToken = !!this.getSessionToken();
+        const hasSessionToken = !!this.getStoredSessionToken();
         const hasCurrentAccountLoginId = !!this.current_account?.loginid;
         const hasLoginId = !!this.loginid;
         return hasSessionToken && hasCurrentAccountLoginId && hasLoginId;
@@ -294,7 +294,7 @@ export default class ClientStore extends BaseStore {
                 email: authorize.email || '',
                 landing_company_shortcode: authorize.landing_company_name || '',
                 residence: authorize.country || '',
-                session_token: this.getSessionToken(),
+                session_token: this.getStoredSessionToken(),
                 session_start: parseInt(moment().utc().valueOf() / 1000),
             };
 
@@ -372,14 +372,15 @@ export default class ClientStore extends BaseStore {
 
         const urlParams = new URLSearchParams(search);
         const oneTimeToken = urlParams.get('token');
-        const existingSessionToken = this.getSessionToken();
+        const existingSessionToken = this.getStoredSessionToken();
 
         let authorize_response;
 
-        if (existingSessionToken) {
-            authorize_response = await this.authenticateV2(null);
-        } else if (oneTimeToken) {
+        if (oneTimeToken) {
+            this.removeTokenFromUrl();
             authorize_response = await this.authenticateV2(oneTimeToken);
+        } else if (existingSessionToken) {
+            authorize_response = await this.authenticateV2(null);
         } else {
             // No authentication available - continue with logged-out state
             authorize_response = null;
@@ -513,7 +514,7 @@ export default class ClientStore extends BaseStore {
     }
 
     getToken() {
-        return this.getSessionToken();
+        return this.getStoredSessionToken();
     }
 
     async getAnalyticsConfig(isLoggedOut = false) {
@@ -593,7 +594,7 @@ export default class ClientStore extends BaseStore {
     }
 
     async cleanUp() {
-        const hasSessionToken = !!this.getSessionToken();
+        const hasSessionToken = !!this.getStoredSessionToken();
         if (hasSessionToken) {
             return;
         }
@@ -656,13 +657,9 @@ export default class ClientStore extends BaseStore {
         try {
             this.setIsLoggingIn(true);
 
-            let sessionToken = this.getSessionToken();
+            let sessionToken;
 
-            // If we don't have a session token but we have a one-time token, exchange it
-            if (!sessionToken && oneTimeToken) {
-                // Remove the one-time token from URL immediately
-                this.removeTokenFromUrl();
-
+            if (oneTimeToken) {
                 const sessionResponse = await WS.getSessionToken(oneTimeToken);
 
                 if (sessionResponse.error) {
@@ -676,13 +673,17 @@ export default class ClientStore extends BaseStore {
 
                 sessionToken = sessionResponse.get_session_token.token;
                 this.storeSessionToken(sessionToken);
-            } else if (!sessionToken) {
-                return {
-                    error: {
-                        code: 'NoSessionToken',
-                        message: 'No valid session token available',
-                    },
-                };
+            } else {
+                sessionToken = this.getStoredSessionToken();
+
+                if (!sessionToken) {
+                    return {
+                        error: {
+                            code: 'NoSessionToken',
+                            message: 'No valid session token available',
+                        },
+                    };
+                }
             }
 
             // Authorize with session token
@@ -724,7 +725,7 @@ export default class ClientStore extends BaseStore {
         }
     }
 
-    getSessionToken() {
+    getStoredSessionToken() {
         return localStorage.getItem('session_token');
     }
 

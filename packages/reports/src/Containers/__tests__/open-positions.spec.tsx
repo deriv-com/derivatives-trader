@@ -44,6 +44,27 @@ jest.mock('@deriv-com/ui', () => ({
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
     DataList: jest.fn(() => <>{data_list}</>),
+    Dropdown: jest.fn(({ list, value, onChange }) => (
+        <div>
+            <div data-testid='dt_dropdown_display' onClick={() => {}}>
+                {list?.find((item: any) => item.value === value)?.text || value}
+            </div>
+            {list?.map((item: any) => (
+                <div key={item.value} onClick={() => onChange({ target: { value: item.value, name: item.value } })}>
+                    {item.text}
+                </div>
+            ))}
+        </div>
+    )),
+    SelectNative: jest.fn(({ list_items, value, onChange }) => (
+        <select role='combobox' value={value} onChange={onChange}>
+            {list_items?.map((item: any) => (
+                <option key={item.value} value={item.value}>
+                    {item.text}
+                </option>
+            ))}
+        </select>
+    )),
 }));
 
 describe('OpenPositions', () => {
@@ -146,7 +167,7 @@ describe('OpenPositions', () => {
         return (
             <ReportsProviders store={store}>
                 <MemoryRouter>
-                    <OpenPositions component_icon='IcOpenPositions' />
+                    <OpenPositions component_icon={<div>IcOpenPositions</div>} />
                 </MemoryRouter>
             </ReportsProviders>
         );
@@ -271,7 +292,7 @@ describe('OpenPositions', () => {
 
         const dropdown = screen.getByTestId(filter_dropdown);
         expect(dropdown).toHaveTextContent(options);
-        await userEvent.click(screen.getByText(options));
+        await userEvent.click(dropdown);
         rerender(mockedOpenPositions());
         await userEvent.click(screen.getByText(multipliers));
 

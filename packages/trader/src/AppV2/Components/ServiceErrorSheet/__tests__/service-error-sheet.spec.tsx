@@ -73,16 +73,6 @@ describe('ServiceErrorSheet', () => {
         expect(spyRedirectToLogin).toBeCalled();
     });
 
-    it('renders the Action Sheet with appropriate message and action for PleaseAuthenticate error', async () => {
-        default_mock_store.common.services_error.code = 'PleaseAuthenticate';
-        render(mockTrade());
-
-        expect(screen.getByText('Account verification required')).toBeInTheDocument();
-
-        await userEvent.click(screen.getByRole('button'));
-        expect(default_mock_store.common.resetServicesError).toBeCalled();
-    });
-
     it('does not render the Action Sheet if there is no services_error', () => {
         default_mock_store.common.services_error = {};
         const { container } = render(mockTrade());

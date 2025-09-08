@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" translate="no" dir="auto">
+<html lang="en" dir="auto">
     <head>
         <!-- Set skeleton theme color properties -->
         <style>
@@ -270,13 +270,13 @@
                     },
                     init: function () {
                         var n = t.createElement('script');
-                        (n.async = !0),
+                        ((n.async = !0),
                             (n.type = 'text/javascript'),
                             (n.src = 'https://cdn.livechatinc.com/tracking.js'),
-                            t.head.appendChild(n);
+                            t.head.appendChild(n));
                     },
                 };
-                !n.__lc.asyncInit && e.init(), (n.LiveChatWidget = n.LiveChatWidget || e);
+                (!n.__lc.asyncInit && e.init(), (n.LiveChatWidget = n.LiveChatWidget || e));
             })(window, document, [].slice);
         </script>
         <!-- End LiveChat script -->

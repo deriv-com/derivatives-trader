@@ -1,13 +1,14 @@
+import React from 'react';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import PropTypes from 'prop-types';
-import React from 'react';
+
 import { Text } from '@deriv/components';
 import { StandaloneClockThreeRegularIcon } from '@deriv/quill-icons';
 import { addComma, toMoment } from '@deriv/shared';
+import { Localize } from '@deriv-com/translations';
 
 import MarkerSpot from './marker-spot.jsx';
-import { localize } from '@deriv-com/translations';
 
 const MarkerSpotLabel = ({
     align_label,
@@ -21,7 +22,6 @@ const MarkerSpotLabel = ({
     status,
 }) => {
     const [show_label, setShowLabel] = React.useState(!has_hover_toggle);
-
     const handleHoverToggle = () => {
         setShowLabel(!show_label);
     };
@@ -90,7 +90,7 @@ const MarkerSpotLabel = ({
                         })}
                     >
                         <Text as='p' size='xxs'>
-                            {localize('Total profit/loss:')}
+                            <Localize i18n_default_text='Total profit/loss:' />
                         </Text>
                         <Text as='p' size='xs'>{`${parseFloat(spot_profit) > 0 ? '+' : ''}${spot_profit}`}</Text>
                     </div>

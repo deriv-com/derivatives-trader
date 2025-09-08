@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Text } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
+import { useTranslations, Localize } from '@deriv-com/translations';
 
 import TickSteps from './tick-steps';
 
@@ -103,8 +103,12 @@ const RangeSlider = ({ className, name, value, min_value, max_value, onChange }:
             <div className='range-slider__caption'>
                 {!!display_value && (
                     <Text align='center' weight='bold' size='xs' color='primary' id='dt_range_slider_label'>
-                        {display_value === 1 && localize('{{display_value}} Tick', { display_value })}
-                        {display_value > 1 && localize('{{display_value}} Ticks', { display_value })}
+                        {display_value === 1 && (
+                            <Localize i18n_default_text='{{display_value}} Tick' values={{ display_value }} />
+                        )}
+                        {display_value > 1 && (
+                            <Localize i18n_default_text='{{display_value}} Ticks' values={{ display_value }} />
+                        )}
                     </Text>
                 )}
             </div>

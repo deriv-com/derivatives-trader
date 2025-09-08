@@ -1,4 +1,4 @@
-import PortfolioStore from '../portfolio-store.js';
+import PortfolioStore from '../portfolio-store';
 import { configure } from 'mobx';
 
 configure({ safeDescriptors: false });
@@ -83,7 +83,7 @@ describe('PortfolioStore', () => {
             contract_info: contracts[1],
             contract_update: undefined,
             details: contracts[1].longcode,
-            display_name: '',
+            display_name: 'AUD/JPY',
             id: contracts[1].contract_id,
             indicative: 0,
             payout: contracts[1].payout,

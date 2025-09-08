@@ -210,11 +210,12 @@ function generateSemanticTokens() {
     --color-text-disabled: #{transparentize($color-black, 0.6)};        // Disabled text
     --color-text-inverse: var(--brand-white);                           // Inverse text
     --color-text-white: var(--brand-white);                             // White text
+    --color-text-black: var(--brand-black);                             // Black text
     --color-text-success: var(--brand-success);                         // Success messages, profit text
     --color-text-danger: var(--brand-danger);                           // Error messages, loss text
     --color-text-warning: var(--brand-warning);                         // Warning messages
     --color-text-info: var(--brand-info);                               // Info messages
-    --color-text-link: #{lighten($color-primary, 5%)};                  // Link text color (derived from brand-info to match #2196f3)
+    --color-text-link: #{lighten($color-primary, 5%)};                  // Link text color (derived from color-primary)
 
     // Interactive States
     --color-interactive-default: #{transparentize($color-black, 0.8)};  // Default borders, dividers
@@ -231,7 +232,7 @@ function generateSemanticTokens() {
     --color-status-warning: var(--brand-warning);
     --color-status-warning-bg: #{transparentize($color-warning, 0.84)};
     --color-status-info: var(--brand-info);
-    --color-status-info-bg: #{transparentize($color-primary, 0.84)};
+    --color-status-info-bg: #{transparentize($color-info, 0.84)};
     --color-status-neutral: var(--brand-neutral);
 
     // Shadow Colors
@@ -259,11 +260,12 @@ function generateSemanticTokens() {
     --color-text-disabled: #{transparentize($color-white, 0.6)};        // Disabled text
     --color-text-inverse: var(--brand-black);                           // Inverse text
     --color-text-white: var(--brand-white);                             // White text
+    --color-text-black: var(--brand-black);                             // Black text
     --color-text-success: var(--brand-success);                         // Success messages, profit text
     --color-text-danger: var(--brand-danger);                           // Error messages, loss text
     --color-text-warning: var(--brand-warning);                         // Warning messages
     --color-text-info: var(--brand-info);                               // Info messages
-    --color-text-link: #{lighten($color-primary, 5%)};                  // Link text color (derived from brand-info to match #2196f3)
+    --color-text-link: #{lighten($color-primary, 5%)};                  // Link text color (derived from color-primary)
 
     // Interactive States
     --color-interactive-default: #{lighten($color-black, 20%)};         // Default borders, dividers
@@ -280,7 +282,7 @@ function generateSemanticTokens() {
     --color-status-warning: var(--brand-warning);
     --color-status-warning-bg: #{transparentize($color-warning, 0.84)};
     --color-status-info: var(--brand-info);
-    --color-status-info-bg: #{transparentize($color-primary, 0.84)};
+    --color-status-info-bg: #{transparentize($color-info, 0.84)};
     --color-status-neutral: var(--brand-neutral);
 
     // Shadow Colors
@@ -313,12 +315,12 @@ function generateComponentTokens() {
   .theme--light {
     // Button Colors
     --color-button-primary-bg: var(--brand-primary);
-    --color-button-primary-text: var(--color-surface-primary);
+    --color-button-primary-text: var(--color-text-white);
     --color-button-primary-hover: var(--brand-primary-dark);
     
     --color-button-secondary-bg: transparent;
     --color-button-secondary-border: var(--color-interactive-active);
-    --color-button-secondary-text: var(--brand-black);
+    --color-button-secondary-text: var(--color-text-black);
     --color-button-secondary-hover: var(--color-interactive-hover);
     
     --color-button-tertiary-bg: transparent;
@@ -407,12 +409,12 @@ function generateComponentTokens() {
   .theme--dark {
     // Button Colors
     --color-button-primary-bg: var(--brand-primary);
-    --color-button-primary-text: var(--color-surface-primary);
+    --color-button-primary-text: var(--color-text-white);
     --color-button-primary-hover: var(--brand-primary-dark);
     
     --color-button-secondary-bg: transparent;
     --color-button-secondary-border: var(--color-interactive-active);
-    --color-button-secondary-text: var(--brand-white);
+    --color-button-secondary-text: var(--color-text-white);
     --color-button-secondary-hover: #{transparentize($color-white, 0.92)};
     
     --color-button-tertiary-bg: transparent;

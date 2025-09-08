@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Money, Text } from '@deriv/components';
 import { getDecimalPlaces } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 import { FastMarker } from 'Modules/SmartChart';
 
@@ -129,7 +129,7 @@ const AccumulatorsProfitLossTooltip = ({
             >
                 <div className={classNames(`${className}__content`, `arrow-${opposite_arrow_position}`)}>
                     <Text size={is_mobile ? 'xxxxs' : 'xxs'} className={`${className}__text`}>
-                        {localize('Total profit/loss:')}
+                        <Localize i18n_default_text='Total profit/loss:' />
                     </Text>
                     <Text size={is_mobile ? 'xxxs' : 'xs'} className={`${className}__text`} weight='bold'>
                         <Money amount={profit} currency={currency} has_sign show_currency />

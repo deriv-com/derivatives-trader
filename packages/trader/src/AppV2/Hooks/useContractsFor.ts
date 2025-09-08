@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { cloneObject, getContractCategoriesConfig, getContractTypesConfig, setTradeURLParams } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 
-import { isLoginidDefined } from 'AppV2/Utils/client';
 import { checkContractTypePrefix } from 'AppV2/Utils/contract-type';
 import { getTradeTypesList } from 'AppV2/Utils/trade-types-utils';
 import { TContractType } from 'Modules/Trading/Components/Form/ContractType/types';
@@ -21,6 +20,9 @@ type TContractsForResponse = {
             sentiment: string;
             underlying_symbol?: string; // New field (symbol → underlying_symbol)
             symbol?: string; // Legacy field for backward compatibility
+            barrier?: string;
+            barriers?: number;
+            exchange_name?: string;
         }[];
         hit_count: number;
     };
@@ -49,13 +51,15 @@ const useContractsFor = () => {
 
             // Find symbol object where either symbol or underlying_symbol matches current_symbol
             const symbolInfo = active_symbols.find(symbol_info => {
-                const underlying = (symbol_info as any).underlying_symbol;
-                const symbol = (symbol_info as any).symbol;
+                const underlying = (symbol_info as { underlying_symbol?: string }).underlying_symbol;
+                const symbol = (symbol_info as { symbol?: string }).symbol;
                 return underlying === current_symbol || symbol === current_symbol;
             });
 
             // Return underlying_symbol if found, otherwise fallback to current_symbol
-            return symbolInfo ? (symbolInfo as any).underlying_symbol || current_symbol : current_symbol;
+            return symbolInfo
+                ? (symbolInfo as { underlying_symbol?: string }).underlying_symbol || current_symbol
+                : current_symbol;
         },
         [active_symbols]
     );
@@ -148,13 +152,35 @@ const useContractsFor = () => {
 
             if (!error && contracts_for?.available.length) {
                 contracts_for.available.forEach(contract => {
-                    const type = Object.keys(contract_types).find(
-                        key =>
-                            contract_types[key].trade_types.indexOf(contract.contract_type) !== -1 &&
-                            (contract.contract_type !== 'PUT' || contract_types[key].barrier_count === 1) // To distinguish betweeen Rise/Fall & Higher/Lower
-                    );
+                    // Enhanced contract type matching logic from legacy implementation
+                    const type = Object.keys(contract_types).find(key => {
+                        const isContractTypeMatch =
+                            contract_types[key].trade_types.indexOf(contract.contract_type) !== -1;
 
-                    if (!type) return; // ignore unsupported contract types
+                        // Handle the new API structure where Rise/Fall and Higher/Lower are distinguished by contract_category
+                        if (contract.contract_category) {
+                            // For Rise/Fall contracts with contract_category "callput"
+                            if (contract.contract_category === 'callput' && key === 'rise_fall') {
+                                return isContractTypeMatch;
+                            }
+                            // For Higher/Lower contracts with contract_category "higherlower"
+                            if (contract.contract_category === 'higherlower' && key === 'high_low') {
+                                return isContractTypeMatch;
+                            }
+                            // For other contract categories, use existing logic
+                            return isContractTypeMatch;
+                        }
+
+                        // Fallback to original logic for backward compatibility
+                        return (
+                            isContractTypeMatch &&
+                            (contract.contract_type !== 'PUT' || contract_types[key].barrier_count === 1)
+                        );
+                    });
+
+                    if (!type) {
+                        return; // ignore unsupported contract types
+                    }
 
                     if (!available_contract_types[type]) {
                         // extend contract_categories to include what is needed to create the contract list
@@ -165,7 +191,9 @@ const useContractsFor = () => {
 
                         const sub_cats = available_categories[category]?.categories;
 
-                        if (!sub_cats) return;
+                        if (!sub_cats) {
+                            return;
+                        }
 
                         sub_cats[(sub_cats as string[]).indexOf(type)] = {
                             value: type,
@@ -192,6 +220,15 @@ const useContractsFor = () => {
 
                 // Process contracts for V2 when data is available
                 processContractsForV2();
+            } else if (symbol && !error) {
+                // Fallback: Set basic trade types if API fails but we have a valid symbol
+                const fallbackTradeTypes = [
+                    { text: 'Rise/Fall', value: 'rise_fall' },
+                    { text: 'Higher/Lower', value: 'high_low' },
+                ];
+                setTradeTypes(fallbackTradeTypes);
+            } else {
+                setTradeTypes([]);
             }
         } catch (err) {
             /* eslint-disable no-console */

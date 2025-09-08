@@ -3,13 +3,14 @@ import classNames from 'classnames';
 
 import { getGrowthRatePercentage, isEmptyObject } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import NumberSelector from 'App/Components/Form/number-selector';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 const Accumulator = observer(() => {
+    const { localize } = useTranslations();
     const {
         accumulator_range_list,
         growth_rate,

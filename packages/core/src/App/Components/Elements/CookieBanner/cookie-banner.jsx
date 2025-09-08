@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, StaticUrl } from '@deriv/components';
-import { localize, Localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 const CookieBanner = ({ onAccept, onDecline, is_open, is_dark_mode }) => (
     <div
@@ -20,7 +20,7 @@ const CookieBanner = ({ onAccept, onDecline, is_open, is_dark_mode }) => (
             />
         </div>
         <Button className='cookie-banner__btn-dont-accept' secondary onClick={onDecline}>
-            {localize('Don’t accept')}
+            <Localize i18n_default_text='Don’t accept' />
         </Button>
         <Button
             id='dt_core_cookie-banner_accept-btn'
@@ -28,7 +28,7 @@ const CookieBanner = ({ onAccept, onDecline, is_open, is_dark_mode }) => (
             secondary
             onClick={onAccept}
         >
-            {localize('Accept')}
+            <Localize i18n_default_text='Accept' />
         </Button>
     </div>
 );

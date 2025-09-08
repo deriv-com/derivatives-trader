@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Modal, Popover } from '@deriv/components';
 import { LegacyRegulatoryInformationIcon } from '@deriv/quill-icons';
-import { localize, Localize } from '@deriv-com/translations';
 import { deriv_urls } from '@deriv/shared';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 const MFRegulatoryInformation = () => (
     <div className='footer-regulatory-information'>
@@ -28,6 +29,7 @@ const MFRegulatoryInformation = () => (
 
 export const RegulatoryInformation = ({ landing_company, is_eu, show_eu_related_content, showPopover }) => {
     const [should_show_modal, showModal] = React.useState(false);
+    const { localize } = useTranslations();
     if (!is_eu || (is_eu && !show_eu_related_content)) return null;
     const is_mf = landing_company === 'maltainvest';
     const content = (

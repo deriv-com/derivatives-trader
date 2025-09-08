@@ -210,7 +210,7 @@ const ModalElement = ({
                     {has_close_icon && (
                         <div onClick={toggleModal} className='dc-modal-header__close' role='button'>
                             <LegacyClose2pxIcon
-                                fill={close_icon_color}
+                                fill={close_icon_color || 'var(--color-text-primary)'}
                                 iconSize='xs'
                                 data-testid='dt_modal_close_icon'
                             />

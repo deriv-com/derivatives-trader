@@ -4,12 +4,13 @@ import classNames from 'classnames';
 import { Money, Popover, Text } from '@deriv/components';
 import { isMobile } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 const AccumulatorsInfoDisplay = observer(() => {
+    const { localize } = useTranslations();
     const { currency, maximum_payout, maximum_ticks } = useTraderStore();
 
     const content = [

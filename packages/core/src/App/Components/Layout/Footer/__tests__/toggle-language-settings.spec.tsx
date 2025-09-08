@@ -13,6 +13,14 @@ jest.mock('@deriv-com/translations', () => ({
         switchLanguage: jest.fn(),
     }),
     Localize: jest.fn().mockImplementation(({ i18n_default_text }) => i18n_default_text),
+    localize: jest.fn().mockImplementation(key => key),
+}));
+
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    TranslationFlag: {
+        EN: jest.fn(() => <div>Flag</div>),
+    },
 }));
 
 describe('ToggleLanguageSettings Component', () => {
@@ -26,7 +34,7 @@ describe('ToggleLanguageSettings Component', () => {
         expect(link).toHaveClass('ic-settings--active');
     });
 
-    it('should call "toggleSettings" function when the user clicked on the link', () => {
+    it('should call "toggleSettings" function when the user clicked on the link', async () => {
         const mockRootStore = mockStore({});
 
         render(<ToggleLanguageSettings />, {
@@ -34,7 +42,7 @@ describe('ToggleLanguageSettings Component', () => {
         });
 
         const link = screen.getByTestId('dt_toggle_language_settings');
-        userEvent.click(link);
+        await userEvent.click(link);
         expect(mockRootStore.ui.toggleLanguageSettingsModal).toHaveBeenCalled();
     });
 });

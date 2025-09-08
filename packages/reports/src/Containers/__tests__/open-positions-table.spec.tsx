@@ -36,6 +36,11 @@ jest.mock('@deriv-com/ui', () => ({
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
     DataList: jest.fn(() => <>{data_list}</>),
+    DataTable: jest.fn(({ className }) => (
+        <div data-testid='dt_data_table' className={className}>
+            DataTable
+        </div>
+    )),
 }));
 
 describe('OpenPositionsTable', () => {
@@ -80,7 +85,7 @@ describe('OpenPositionsTable', () => {
                 col_index: 'id',
             },
         ],
-        component_icon: 'IcOpenPositions',
+        component_icon: <div>IcOpenPositions</div>,
         contract_type_value: 'Options',
         currency: 'USD',
         is_empty: false,

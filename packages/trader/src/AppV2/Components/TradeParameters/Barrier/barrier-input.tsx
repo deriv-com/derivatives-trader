@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, Chip, Text, TextField, TextFieldAddon } from '@deriv-com/quill-ui';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -31,6 +31,7 @@ const BarrierInput = observer(
         const [option, setOption] = React.useState(0);
         const [should_show_error, setShouldShowError] = React.useState(false);
         const [previous_value, setPreviousValue] = React.useState(barrier_1);
+        const { localize } = useTranslations();
 
         // Constants for localStorage keys
         const SPOT_BARRIER_KEY = 'deriv_spot_barrier_value';

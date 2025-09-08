@@ -11,7 +11,11 @@ import TimePicker from '../time-picker';
 jest.mock('../dialog', () => jest.fn(() => 'TimePickerDialog'));
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
-    Icon: jest.fn(() => <div>Mocked Icon</div>),
+}));
+
+jest.mock('@deriv/quill-icons', () => ({
+    ...jest.requireActual('@deriv/quill-icons'),
+    StandaloneClockThreeRegularIcon: () => <div>Mocked Icon</div>,
 }));
 jest.mock('react-transition-group', () => ({
     CSSTransition: jest.fn(({ children, ...props }) =>

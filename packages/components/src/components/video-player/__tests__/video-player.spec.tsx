@@ -3,6 +3,17 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import VideoPlayer from '../video-player';
 import userEvent from '@testing-library/user-event';
 
+jest.mock('@deriv/quill-icons', () => ({
+    StandalonePlayFillIcon: () => <div>IcPlay</div>,
+    StandalonePauseFillIcon: () => <div>IcPause</div>,
+    StandaloneArrowRotateRightRegularIcon: () => <div>IcReplay</div>,
+    StandaloneVolumeHighRegularIcon: () => <div>IcVolumeHigh</div>,
+    StandaloneVolumeXmarkRegularIcon: () => <div>IcVolumeXmark</div>,
+    StandalonePlaybackSpeedFillIcon: () => <div>IcPlaybackSpeed</div>,
+    LegacyChevronLeft1pxIcon: () => <div>IcChevronLeft</div>,
+    LegacyChevronDown1pxIcon: () => <div>IcChevronDown</div>,
+}));
+
 type TMockedStreamProps = {
     onEnded: () => void;
     onPlay: () => void;
@@ -23,11 +34,6 @@ const mocked_props: React.ComponentProps<typeof VideoPlayer> = {
     data_testid: player_data_testid,
     src: 'test_src',
 };
-
-jest.mock('../../icon', () => ({
-    __esModule: true,
-    default: jest.fn(({ icon }: { icon: string }) => <div>{icon}</div>),
-}));
 
 jest.mock('@cloudflare/stream-react', () => ({
     ...jest.requireActual('@cloudflare/stream-react'),

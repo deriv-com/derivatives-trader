@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Dropdown } from '@deriv/components';
 import { isVanillaContract, toMoment } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import RangeSlider from 'App/Components/Form/RangeSlider';
@@ -67,6 +67,8 @@ const Duration = ({
     simple_duration_unit,
     start_date,
 }: TDuration) => {
+    const { localize } = useTranslations();
+
     React.useEffect(() => {
         if (isVanillaContract(contract_type)) {
             onToggleDurationType({ target: { value: true, name: 'is_advanced_duration' } });

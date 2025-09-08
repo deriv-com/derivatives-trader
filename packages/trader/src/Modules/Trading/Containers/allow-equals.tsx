@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Checkbox, Text } from '@deriv/components';
 import { observer } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -26,7 +26,7 @@ const AllowEquals = ({ onChange, is_allow_equal, has_equals_only, className }: T
     return (
         <div className={classNames('allow-equals', 'mobile-widget', className)}>
             <Checkbox
-                label={localize('Equals')}
+                label={<Localize i18n_default_text='Equals' />}
                 value={is_allow_equal}
                 name='is_equal'
                 onChange={handleOnChange}

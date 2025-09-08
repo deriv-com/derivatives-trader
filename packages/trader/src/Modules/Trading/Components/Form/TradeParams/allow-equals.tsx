@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Checkbox, Popover } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import {
     hasCallPutEqual,
@@ -29,6 +29,7 @@ const AllowEquals = ({
     value,
     has_equals_only,
 }: TAllowEquals) => {
+    const { localize } = useTranslations();
     const has_callputequal_duration = hasDurationForCallPutEqual(contract_types_list, duration_unit);
     const has_callputequal = hasCallPutEqual(contract_types_list);
 

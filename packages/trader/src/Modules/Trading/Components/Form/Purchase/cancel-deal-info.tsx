@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Money } from '@deriv/components';
 import { getDecimalPlaces, isDesktop, isMobile } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 import { TProposalTypeInfo } from 'Types';
@@ -44,7 +44,7 @@ const CancelDealInfo = observer(
                 {cancellation && (
                     <React.Fragment>
                         <div className='trade-container__price-info-basis' ref={ref}>
-                            {localize('Deal cancel. fee')}
+                            <Localize i18n_default_text='Deal cancel. fee' />
                         </div>
                         <div className='trade-container__price-info-value'>
                             {!error && (

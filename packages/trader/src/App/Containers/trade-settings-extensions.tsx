@@ -2,10 +2,11 @@ import React from 'react';
 import Loadable from 'react-loadable';
 
 import { UILoader } from '@deriv/components';
+import { LegacyChartsIcon } from '@deriv/quill-icons';
 import { observer, useStore } from '@deriv/stores';
 import type { TCoreStores } from '@deriv/stores/types';
-import { localize } from '@deriv-com/translations';
-import { LegacyChartsIcon } from '@deriv/quill-icons';
+import { useTranslations } from '@deriv-com/translations';
+
 import TraderProviders from '../../trader-providers';
 
 type TTradeSettingsExtensionsProps = {
@@ -27,6 +28,7 @@ const renderItemValue = <T extends object>(props: T, store: TCoreStores) => (
 );
 
 const TradeSettingsExtensions = observer(({ store }: TTradeSettingsExtensionsProps) => {
+    const { localize } = useTranslations();
     const { ui } = useStore();
     const { populateSettingsExtensions } = ui;
     const populateSettings = () => {

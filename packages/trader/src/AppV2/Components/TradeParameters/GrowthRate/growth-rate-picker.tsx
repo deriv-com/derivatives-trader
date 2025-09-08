@@ -3,8 +3,8 @@ import debounce from 'lodash.debounce';
 
 import { Skeleton } from '@deriv/components';
 import { getGrowthRatePercentage } from '@deriv/shared';
-import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import type { TV2ParamsInitialValues } from 'Stores/Modules/Trading/trade-store';
 
@@ -31,15 +31,18 @@ const GrowthRatePicker = ({
     should_show_details,
     tick_size_barrier_percentage,
 }: TGrowthRatePickerProps) => {
+    const { localize } = useTranslations();
     const initial_growth_rate = React.useRef<number>();
     const selected_growth_rate = React.useRef<number>(growth_rate);
     const data = accumulator_range_list.map(rate => ({ value: `${getGrowthRatePercentage(rate)}%` }));
     const details_content = [
         {
+            key: 'barrier',
             label: <Localize i18n_default_text='Barrier' />,
             value: `±${tick_size_barrier_percentage}`,
         },
         {
+            key: 'max_duration',
             label: <Localize i18n_default_text='Max duration' />,
             value: `${maximum_ticks || 0} ${maximum_ticks === 1 ? localize('tick') : localize('ticks')}`,
         },
@@ -86,8 +89,8 @@ const GrowthRatePicker = ({
                     )}
                 </div>
                 <div className='growth-rate__details'>
-                    {details_content.map(({ label, value }) => (
-                        <span key={value} className='growth-rate__details-item'>
+                    {details_content.map(({ key, label, value }) => (
+                        <span key={key} className='growth-rate__details-item'>
                             <Text color='quill-typography__color--subtle' size='sm'>
                                 {label}
                             </Text>

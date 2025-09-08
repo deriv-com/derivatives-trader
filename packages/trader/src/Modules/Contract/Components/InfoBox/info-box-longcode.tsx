@@ -42,7 +42,7 @@ const InfoBoxLongcode = observer(({ contract_info }: TInfoBoxLongcode) => {
                         'info-box-longcode-text--collapsed--fixed-height': !isTabletOs && (is_collapsed || is_mobile),
                     })}
                 >
-                    {contract_info.longcode}
+                    {contract_info.longcode && <Localize i18n_default_text={contract_info.longcode} />}
                 </Text>
                 {` `}
                 {contract_info?.longcode && contract_info.longcode.length > max_longcode_length && (
@@ -65,7 +65,9 @@ const InfoBoxLongcode = observer(({ contract_info }: TInfoBoxLongcode) => {
                 toggleModal={handleToggle}
             >
                 <Modal.Body>
-                    <Text size='xs'>{contract_info.longcode}</Text>
+                    <Text size='xs'>
+                        {contract_info.longcode && <Localize i18n_default_text={contract_info.longcode} />}
+                    </Text>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className='info-box-longcode--modal-button' primary large onClick={handleToggle}>

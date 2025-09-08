@@ -6,9 +6,10 @@ import { useTMB } from '@deriv/api';
 import { Button } from '@deriv/components';
 import { getDomainUrl, isStaging, redirectToLogin } from '@deriv/shared';
 import { requestOidcAuthentication } from '@deriv-com/auth-client';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 const LoginButton = ({ className }) => {
+    const { localize } = useTranslations();
     const is_deriv_com = /deriv\.(com)/.test(window.location.hostname) || /localhost:8443/.test(window.location.host);
     const has_wallet_cookie = Cookies.get('wallet_account');
     const { isTmbEnabled } = useTMB();

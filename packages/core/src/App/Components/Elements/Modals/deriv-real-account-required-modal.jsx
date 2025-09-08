@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { Dialog } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
 import { observer, useStore } from '@deriv/stores';
+import { useTranslations } from '@deriv-com/translations';
+
 import './deriv-real-account-required-modal.scss';
 
 const DerivRealAccountRequiredModal = observer(() => {
+    const { localize } = useTranslations();
     const { ui, traders_hub } = useStore();
     const { is_eu_user } = traders_hub;
     const {

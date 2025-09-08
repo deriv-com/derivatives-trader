@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 
-import { Loading } from '@deriv/components';
 import { useOauth2 } from '@deriv/api';
+import { Loading } from '@deriv/components';
 import {
     BrandBrandLightDerivWordmarkHorizontal25YearsEnglishIcon as DerivLogo,
     LegacyWarningIcon,
 } from '@deriv/quill-icons';
 import { getBrandUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
 import { requestOidcAuthentication } from '@deriv-com/auth-client';
+import { Localize } from '@deriv-com/translations';
 import { Text } from '@deriv-com/ui';
 
 import './AccessDeniedScreen.scss';
@@ -59,24 +59,24 @@ const AccessDeniedScreen = observer(() => {
                     <>
                         <LegacyWarningIcon width={72} height={72} fill='var(--color-text-warning)' />
                         <Text as='h2' className='access-denied__title' weight='bold' align='center'>
-                            {localize("You're currently logged in as")} <br />
+                            <Localize i18n_default_text="You're currently logged in as" /> <br />
                             {email_address}
                         </Text>
                         <Text as='p' align='center' className='access-denied__description'>
-                            {localize('Would you like to continue with this')}
+                            <Localize i18n_default_text='Would you like to continue with this' />
                             <br />
-                            {localize('account or switch to a different one?')}
+                            <Localize i18n_default_text='account or switch to a different one?' />
                         </Text>
 
                         <div className='access-denied__actions'>
                             <button className='access-denied__button' onClick={continueOnClick}>
-                                {localize('Continue')}
+                                <Localize i18n_default_text='Continue' />
                             </button>
                             <button
                                 className='access-denied__button access-denied__button--switch'
                                 onClick={oAuthLogout}
                             >
-                                {localize('Switch account')}
+                                <Localize i18n_default_text='Switch account' />
                             </button>
                         </div>
                     </>

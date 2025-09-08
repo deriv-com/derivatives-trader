@@ -3,130 +3,219 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
 import { ReportsStoreProvider } from '@deriv/reports/src/Stores/useReportsStores';
-import { redirectToLogin, redirectToSignUp, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 import ModulesProvider from 'Stores/Providers/modules-providers';
-
 import TraderProviders from '../../../../trader-providers';
 import Trade from '../trade';
 
-const mock_contract_data = {
-    contracts_for: {
-        available: [{ contract_type: 'type_1' }, { contract_type: 'type_2' }, { contract_type: 'unsupported_type' }],
-        hit_count: 3,
+// Mock all external dependencies
+jest.mock('@deriv/components', () => ({
+    ...jest.requireActual('@deriv/components'),
+    Loading: {
+        DTraderV2: jest.fn(() => <div data-testid='dt_trade_loader'>Loading...</div>),
     },
-};
-const localStorage_key = 'guide_dtrader_v2';
+}));
 
-jest.mock('AppV2/Components/BottomNav', () =>
-    jest.fn(({ children, onScroll }) => (
-        <div onScroll={onScroll} data-testid='dt_bottom_nav'>
-            {children}
-        </div>
-    ))
-);
-const mockHistoryPush = jest.fn();
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useHistory: () => ({
-        push: mockHistoryPush,
-    }),
+jest.mock('@deriv/api', () => ({
+    useLocalStorageData: jest.fn(() => [{ trade_page: false }]),
 }));
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
+    getSymbolDisplayName: jest.fn((symbols, symbol) => `${symbol} Display Name`),
     redirectToLogin: jest.fn(),
     redirectToSignUp: jest.fn(),
+    getBrandUrl: jest.fn(() => 'https://deriv.com'),
+    isEmptyObject: jest.fn(obj => !obj || Object.keys(obj).length === 0),
 }));
 
-jest.mock('AppV2/Components/ClosedMarketMessage', () => jest.fn(() => <div>ClosedMarketMessage</div>));
-jest.mock('AppV2/Components/CurrentSpot', () => jest.fn(() => <div>Current Spot</div>));
-jest.mock('AppV2/Components/PurchaseButton', () => jest.fn(() => <div>Purchase Button</div>));
-jest.mock('../trade-types', () => jest.fn(() => <div>Trade Types Selection</div>));
-jest.mock('AppV2/Components/MarketSelector', () => jest.fn(() => <div>MarketSelector</div>));
-jest.mock('../../Chart', () => ({
-    ...jest.requireActual('../../Chart'),
-    TradeChart: jest.fn(() => <div>Chart</div>),
+jest.mock('Modules/Trading/Helpers/digits', () => ({
+    isDigitTradeType: jest.fn(
+        contract_type =>
+            contract_type === 'even_odd' || contract_type === 'match_diff' || contract_type === 'over_under'
+    ),
 }));
-jest.mock('AppV2/Components/AccumulatorStats', () => jest.fn(() => <div>AccumulatorStats</div>));
 
+// Mock all components
+jest.mock('AppV2/Components/AccumulatorStats', () =>
+    jest.fn(() => <div data-testid='accumulator-stats'>AccumulatorStats</div>)
+);
+jest.mock('AppV2/Components/BottomNav', () =>
+    jest.fn(({ children, onScroll }) => (
+        <div data-testid='bottom-nav' onScroll={onScroll}>
+            {children}
+        </div>
+    ))
+);
+jest.mock('AppV2/Components/ClosedMarketMessage', () =>
+    jest.fn(() => <div data-testid='closed-market-message'>ClosedMarketMessage</div>)
+);
+jest.mock('AppV2/Components/CurrentSpot', () => jest.fn(() => <div data-testid='current-spot'>CurrentSpot</div>));
+jest.mock('AppV2/Components/MarketSelector', () =>
+    jest.fn(() => <div data-testid='market-selector'>MarketSelector</div>)
+);
+jest.mock('AppV2/Components/OnboardingGuide/GuideForPages', () =>
+    jest.fn(() => <div data-testid='onboarding-guide'>OnboardingGuide</div>)
+);
+jest.mock('AppV2/Components/PurchaseButton', () =>
+    jest.fn(() => <div data-testid='purchase-button'>PurchaseButton</div>)
+);
+jest.mock('AppV2/Components/ServiceErrorSheet', () =>
+    jest.fn(() => <div data-testid='service-error-sheet'>ServiceErrorSheet</div>)
+);
+jest.mock('AppV2/Components/TradeErrorSnackbar', () =>
+    jest.fn(() => <div data-testid='trade-error-snackbar'>TradeErrorSnackbar</div>)
+);
 jest.mock('AppV2/Components/TradeParameters', () => ({
-    ...jest.requireActual('AppV2/Components/TradeParameters'),
-    TradeParametersContainer: jest.fn(({ children }) => <div>{children}</div>),
-    TradeParameters: jest.fn(() => <div>Trade Parameters</div>),
+    TradeParametersContainer: jest.fn(({ children }) => <div data-testid='trade-params-container'>{children}</div>),
+    TradeParameters: jest.fn(() => <div data-testid='trade-parameters'>TradeParameters</div>),
 }));
+jest.mock('../../Chart', () => ({
+    TradeChart: jest.fn(() => <div data-testid='trade-chart'>TradeChart</div>),
+}));
+jest.mock('../trade-types', () => jest.fn(() => <div data-testid='trade-types'>TradeTypes</div>));
+
+// Mock analytics
+jest.mock('../../../../Analytics', () => ({
+    sendSelectedTradeTypeToAnalytics: jest.fn(),
+}));
+
+// Mock layout utils
+jest.mock('AppV2/Utils/layout-utils', () => ({
+    getChartHeight: jest.fn(() => 400),
+    HEIGHT: { BOTTOM_NAV: 60 },
+    checkIsServiceModalError: jest.fn(() => true),
+    SERVICE_ERROR: {
+        INSUFFICIENT_BALANCE: 'InsufficientBalance',
+        AUTHORIZATION_REQUIRED: 'AuthorizationRequired',
+    },
+}));
+
+// Mock trade types utils
 jest.mock('AppV2/Utils/trade-types-utils', () => ({
-    ...jest.requireActual('AppV2/Utils/trade-types-utils'),
-    getTradeTypesList: jest.fn(() => ['mock_trade_type']),
+    getDisplayedContractTypes: jest.fn(() => ['rise_fall', 'higher_lower']),
 }));
-jest.mock('@lottiefiles/dotlottie-react', () => ({
-    DotLottieReact: jest.fn(() => <div>DotLottieReact</div>),
+
+// Default mock data
+const mockTradeTypes = [
+    { text: 'Rise/Fall', value: 'rise_fall' },
+    { text: 'Higher/Lower', value: 'higher_lower' },
+];
+
+const mockActiveSymbols = [
+    {
+        symbol: 'cryBTCUSD',
+        display_name: 'BTC/USD',
+        market: 'cryptocurrency',
+        submarket: 'non_stable_coin',
+    },
+];
+
+// Mock hooks
+const mockUseContractsFor = jest.fn(() => ({
+    trade_types: mockTradeTypes,
+    is_fetching_ref: { current: false },
+    resetTradeTypes: jest.fn(),
 }));
-jest.mock('AppV2/Components/OnboardingGuide/GuideForPages', () => jest.fn(() => 'OnboardingGuide'));
+
+const mockUseDefaultSymbol = jest.fn(() => ({
+    symbol: 'cryBTCUSD',
+}));
+
+const mockUseTraderStore = jest.fn(() => ({
+    active_symbols: mockActiveSymbols,
+    contract_type: 'rise_fall',
+    has_cancellation: false,
+    is_accumulator: false,
+    is_multiplier: false,
+    is_market_closed: false,
+    onChange: jest.fn(),
+    onMount: jest.fn(),
+    onUnmount: jest.fn(),
+    symbol: 'cryBTCUSD',
+    proposal_info: {},
+    trade_types: {
+        rise_fall: {},
+        higher_lower: {},
+    },
+    trade_type_tab: '',
+    clearPurchaseInfo: jest.fn(),
+    requestProposal: jest.fn(),
+}));
+
 jest.mock('AppV2/Hooks/useContractsFor', () => ({
     __esModule: true,
-    default: jest.fn(() => ({
-        is_fetching_ref: { current: false },
-        trade_types: mock_contract_data.contracts_for.available,
-        resetTradeTypes: jest.fn(),
-    })),
+    default: () => mockUseContractsFor(),
+}));
+
+jest.mock('AppV2/Hooks/useDefaultSymbol', () => ({
+    __esModule: true,
+    default: () => mockUseDefaultSymbol(),
+}));
+
+jest.mock('Stores/useTraderStores', () => ({
+    TraderStoreProvider: ({ children }: { children: React.ReactNode }) => (
+        <div data-testid='trader-store-provider'>{children}</div>
+    ),
+    useTraderStore: () => mockUseTraderStore(),
 }));
 
 describe('Trade', () => {
-    let default_mock_store: ReturnType<typeof mockStore>;
+    let default_mock_store: ReturnType<typeof mockStore>, history: ReturnType<typeof createMemoryHistory>;
 
-    const history = createMemoryHistory();
     beforeEach(() => {
+        history = createMemoryHistory();
         default_mock_store = mockStore({
-            modules: {
-                trade: {
-                    active_symbols: [
-                        {
-                            allow_forward_starting: 0,
-                            display_name: 'BTC/USD',
-                            display_order: 0,
-                            exchange_is_open: 1,
-                            is_trading_suspended: 0,
-                            market: 'cryptocurrency',
-                            market_display_name: 'Cryptocurrencies',
-                            pip: 0.001,
-                            subgroup: 'none',
-                            subgroup_display_name: 'None',
-                            submarket: 'non_stable_coin',
-                            submarket_display_name: 'Cryptocurrencies',
-                            symbol: 'cryBTCUSD',
-                            symbol_type: 'cryptocurrency',
-                        },
-                        {
-                            allow_forward_starting: 1,
-                            display_name: 'Bear Market Index',
-                            display_order: 10,
-                            exchange_is_open: 1,
-                            is_trading_suspended: 0,
-                            market: 'synthetic_index',
-                            market_display_name: 'Derived',
-                            pip: 0.0001,
-                            subgroup: 'synthetics',
-                            subgroup_display_name: 'Synthetics',
-                            submarket: 'random_daily',
-                            submarket_display_name: 'Daily Reset Indices',
-                            symbol: 'RDBEAR',
-                            symbol_type: 'stockindex',
-                        },
-                    ],
-                },
+            client: {
+                is_logged_in: true,
+                is_virtual: false,
             },
-            client: { is_logged_in: true },
-            common: { resetServicesError: jest.fn() },
+            common: {
+                current_language: 'EN',
+                network_status: { class: 'online' },
+                services_error: undefined,
+                resetServicesError: jest.fn(),
+            },
+            ui: {
+                is_dark_mode_on: false,
+            },
         });
-        localStorage.clear();
+
+        // Reset all mocks to defaults
+        mockUseContractsFor.mockReturnValue({
+            trade_types: mockTradeTypes,
+            is_fetching_ref: { current: false },
+            resetTradeTypes: jest.fn(),
+        });
+
+        mockUseTraderStore.mockReturnValue({
+            active_symbols: mockActiveSymbols,
+            contract_type: 'rise_fall',
+            has_cancellation: false,
+            is_accumulator: false,
+            is_multiplier: false,
+            is_market_closed: false,
+            onChange: jest.fn(),
+            onMount: jest.fn(),
+            onUnmount: jest.fn(),
+            symbol: 'cryBTCUSD',
+            proposal_info: {},
+            trade_types: {
+                rise_fall: {},
+                higher_lower: {},
+            },
+            trade_type_tab: '',
+            clearPurchaseInfo: jest.fn(),
+            requestProposal: jest.fn(),
+        });
+
+        jest.clearAllMocks();
     });
 
-    const mockTrade = () => {
-        return (
+    const renderTrade = () => {
+        return render(
             <Router history={history}>
                 <TraderProviders store={default_mock_store}>
                     <ReportsStoreProvider>
@@ -139,137 +228,166 @@ describe('Trade', () => {
         );
     };
 
-    it('should render loader if there is no active_symbols or contract_types_list', () => {
-        default_mock_store = mockStore({});
-        render(mockTrade());
+    describe('Loading States', () => {
+        it('should render loading component when symbols are empty', () => {
+            mockUseTraderStore.mockReturnValue({
+                ...mockUseTraderStore(),
+                active_symbols: [],
+            });
 
-        expect(screen.getByTestId('dt_trade_loader')).toBeInTheDocument();
+            renderTrade();
+
+            expect(screen.getByTestId('dt_trade_loader')).toBeInTheDocument();
+        });
+
+        it('should render loading component when trade_types are empty', () => {
+            mockUseContractsFor.mockReturnValue({
+                trade_types: [],
+                is_fetching_ref: { current: false },
+                resetTradeTypes: jest.fn(),
+            });
+
+            renderTrade();
+
+            expect(screen.getByTestId('dt_trade_loader')).toBeInTheDocument();
+        });
     });
 
-    it('should show loader if we are switching from demo to real account', () => {
-        render(mockTrade());
+    describe('Main Trading Interface', () => {
+        it('should render all main trading components when data is loaded', () => {
+            renderTrade();
 
-        expect(screen.getByTestId('dt_trade_loader')).toBeInTheDocument();
+            expect(screen.getByTestId('bottom-nav')).toBeInTheDocument();
+            expect(screen.getByTestId('trade-types')).toBeInTheDocument();
+            expect(screen.getByTestId('market-selector')).toBeInTheDocument();
+            expect(screen.getAllByTestId('trade-params-container')).toHaveLength(2);
+            expect(screen.getAllByTestId('trade-parameters')).toHaveLength(2);
+            expect(screen.getByTestId('trade-chart')).toBeInTheDocument();
+            expect(screen.getByTestId('purchase-button')).toBeInTheDocument();
+            expect(screen.getByTestId('service-error-sheet')).toBeInTheDocument();
+            expect(screen.getByTestId('closed-market-message')).toBeInTheDocument();
+            expect(screen.getByTestId('trade-error-snackbar')).toBeInTheDocument();
+        });
+
+        it('should call onMount on component mount', () => {
+            const mockOnMount = jest.fn();
+            mockUseTraderStore.mockReturnValue({
+                ...mockUseTraderStore(),
+                onMount: mockOnMount,
+            });
+
+            renderTrade();
+
+            expect(mockOnMount).toHaveBeenCalled();
+        });
+
+        it('should handle scroll events on BottomNav', () => {
+            // Mock getBoundingClientRect
+            const mockGetBoundingClientRect = jest.fn(() => ({
+                bottom: 500,
+            }));
+
+            Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
+                value: mockGetBoundingClientRect,
+                writable: true,
+            });
+
+            renderTrade();
+
+            const bottomNav = screen.getByTestId('bottom-nav');
+            fireEvent.scroll(bottomNav);
+
+            expect(mockGetBoundingClientRect).toHaveBeenCalled();
+        });
     });
 
-    it('should render trading page with all necessary components', () => {
-        render(mockTrade());
+    describe('Conditional Rendering', () => {
+        it('should render CurrentSpot when contract type is digit type', () => {
+            mockUseTraderStore.mockReturnValue({
+                ...mockUseTraderStore(),
+                contract_type: 'even_odd',
+            });
 
-        expect(screen.queryByTestId('dt_trade_loader')).not.toBeInTheDocument();
-        expect(screen.queryByText('Current Spot')).not.toBeInTheDocument();
-        expect(screen.queryByText('AccumulatorStats')).not.toBeInTheDocument();
+            renderTrade();
 
-        expect(screen.getByText('Trade Types Selection')).toBeInTheDocument();
-        expect(screen.getByText('MarketSelector')).toBeInTheDocument();
-        expect(screen.getAllByText('Trade Parameters')).toHaveLength(2);
-        expect(screen.getByText('Chart')).toBeInTheDocument();
-        expect(screen.getByText('Purchase Button')).toBeInTheDocument();
-        expect(screen.getByText('OnboardingGuide')).toBeInTheDocument();
+            expect(screen.getByTestId('current-spot')).toBeInTheDocument();
+        });
+
+        it('should not render CurrentSpot for non-digit contract types', () => {
+            mockUseTraderStore.mockReturnValue({
+                ...mockUseTraderStore(),
+                contract_type: 'rise_fall',
+            });
+
+            renderTrade();
+
+            expect(screen.queryByTestId('current-spot')).not.toBeInTheDocument();
+        });
+
+        it('should render AccumulatorStats when is_accumulator is true', () => {
+            mockUseTraderStore.mockReturnValue({
+                ...mockUseTraderStore(),
+                is_accumulator: true,
+            });
+
+            renderTrade();
+
+            expect(screen.getByTestId('accumulator-stats')).toBeInTheDocument();
+        });
+
+        it('should not render AccumulatorStats when is_accumulator is false', () => {
+            renderTrade();
+
+            expect(screen.queryByTestId('accumulator-stats')).not.toBeInTheDocument();
+        });
+
+        it('should not render PurchaseButton when market is closed', () => {
+            mockUseTraderStore.mockReturnValue({
+                ...mockUseTraderStore(),
+                is_market_closed: true,
+            });
+
+            renderTrade();
+
+            expect(screen.queryByTestId('purchase-button')).not.toBeInTheDocument();
+        });
+
+        it('should render OnboardingGuide when user is logged in and guide is not completed', () => {
+            const { useLocalStorageData } = jest.requireMock('@deriv/api');
+            useLocalStorageData.mockReturnValue([{ trade_page: false }]);
+
+            renderTrade();
+
+            expect(screen.getByTestId('onboarding-guide')).toBeInTheDocument();
+        });
+
+        it('should not render OnboardingGuide when user is not logged in', () => {
+            default_mock_store.client.is_logged_in = false;
+
+            renderTrade();
+
+            expect(screen.queryByTestId('onboarding-guide')).not.toBeInTheDocument();
+        });
+
+        it('should not render OnboardingGuide when guide is completed', () => {
+            const { useLocalStorageData } = jest.requireMock('@deriv/api');
+            useLocalStorageData.mockReturnValue([{ trade_page: true }]);
+
+            renderTrade();
+
+            expect(screen.queryByTestId('onboarding-guide')).not.toBeInTheDocument();
+        });
     });
 
-    it('should render Current Spot  component if it is digit contract type', () => {
-        default_mock_store.modules.trade.contract_type = TRADE_TYPES.EVEN_ODD;
-        render(mockTrade());
+    describe('Component Behavior', () => {
+        it('should render trade parameters in both normal and minimized containers', () => {
+            renderTrade();
 
-        expect(screen.getByText('Current Spot')).toBeInTheDocument();
-    });
+            const tradeParamsContainers = screen.getAllByTestId('trade-params-container');
+            const tradeParameters = screen.getAllByTestId('trade-parameters');
 
-    it('should render AccumulatorStats if is_accumulator === true', () => {
-        default_mock_store.modules.trade.is_accumulator = true;
-        render(mockTrade());
-
-        expect(screen.getByText('AccumulatorStats')).toBeInTheDocument();
-    });
-
-    it('should call state setter when user scrolls BottomNav', () => {
-        const spySetIsMinimizedParamsVisible = jest.spyOn(React, 'useState');
-        render(mockTrade());
-
-        fireEvent.scroll(screen.getByTestId('dt_bottom_nav'));
-
-        expect(spySetIsMinimizedParamsVisible).toBeCalled();
-    });
-
-    it('should not render OnboardingGuide if localStorage flag is equal to true', () => {
-        const field = { trade_page: true };
-        localStorage.setItem(localStorage_key, JSON.stringify(field));
-        render(mockTrade());
-        expect(screen.queryByText('OnboardingGuide')).not.toBeInTheDocument();
-    });
-
-    it('should not render OnboardingGuide if client is not logged in', () => {
-        default_mock_store.client.is_logged_in = false;
-        render(mockTrade());
-
-        expect(screen.queryByText('OnboardingGuide')).not.toBeInTheDocument();
-    });
-    it('should not render the ActionSheet when there is no error', () => {
-        render(mockTrade());
-
-        expect(screen.queryByText('Insufficient balance')).not.toBeInTheDocument();
-        expect(screen.queryByText('Start trading with us')).not.toBeInTheDocument();
-    });
-
-    it('should display insufficient balance message when services_error is InsufficientBalance', () => {
-        default_mock_store.common.services_error = {
-            code: 'InsufficientBalance',
-            message: 'You do not have enough balance.',
-        };
-        render(mockTrade());
-        expect(screen.getByText('Insufficient balance')).toBeInTheDocument();
-        expect(screen.getByText('You do not have enough balance.')).toBeInTheDocument();
-    });
-
-    it('should display authorization required message when services_error is AuthorizationRequired', () => {
-        default_mock_store.common.services_error = {
-            code: 'AuthorizationRequired',
-            message: 'You need to log in to place a trade',
-            type: 'buy',
-        };
-        render(mockTrade());
-        expect(screen.getByText('Start trading with us')).toBeInTheDocument();
-        expect(screen.getByText('Log in or create a free account to place a trade.')).toBeInTheDocument();
-    });
-
-    it('should call history.push to deposit when Deposit now button is clicked', async () => {
-        default_mock_store.common.services_error = {
-            code: 'InsufficientBalance',
-            message: 'You do not have enough balance.',
-        };
-        render(mockTrade());
-
-        const depositButton = screen.getByText('Deposit now');
-        await userEvent.click(depositButton);
-        expect(history.location.pathname).toBe('/cashier/deposit');
-    });
-
-    it('should handle login when Login button is clicked', async () => {
-        default_mock_store.common.services_error = {
-            code: 'AuthorizationRequired',
-            message: 'You need to log in to place a trade',
-            type: 'buy',
-        };
-
-        render(mockTrade());
-
-        const loginButton = screen.getByText('Login');
-        await userEvent.click(loginButton);
-
-        expect(redirectToLogin).toHaveBeenCalled();
-    });
-
-    it('should handle sign-up when Create free account button is clicked', async () => {
-        default_mock_store.common.services_error = {
-            code: 'AuthorizationRequired',
-            message: 'You need to log in to place a trade',
-            type: 'buy',
-        };
-
-        render(mockTrade());
-
-        const signupButton = screen.getByText('Create free account');
-        await userEvent.click(signupButton);
-
-        expect(redirectToSignUp).toHaveBeenCalled();
+            expect(tradeParamsContainers).toHaveLength(2);
+            expect(tradeParameters).toHaveLength(2);
+        });
     });
 });

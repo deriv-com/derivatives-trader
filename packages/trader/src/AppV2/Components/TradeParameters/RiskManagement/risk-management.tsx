@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
 import { getCurrencyDisplayCode } from '@deriv/shared';
-import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, TextField } from '@deriv-com/quill-ui';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import Carousel from 'AppV2/Components/Carousel';
 import CarouselHeader from 'AppV2/Components/Carousel/carousel-header';
@@ -19,6 +19,7 @@ import RiskManagementContent from './risk-management-content';
 import RiskManagementPicker from './risk-management-picker';
 
 const RiskManagement = observer(({ is_minimized }: TTradeParametersProps) => {
+    const { localize } = useTranslations();
     const [is_open, setIsOpen] = React.useState(false);
     const {
         cancellation_range_list,

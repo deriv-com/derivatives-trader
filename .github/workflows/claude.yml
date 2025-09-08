@@ -54,19 +54,40 @@ jobs:
           echo "Only organization members and repository collaborators can trigger Claude actions."
           exit 1
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - name: Get PR details
+        id: pr
+        run: |
+          # Get PR URL based on event type
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            PR_URL="${{ github.event.issue.pull_request.url }}"
+          elif [ "${{ github.event_name }}" = "pull_request_review_comment" ]; then
+            PR_URL="${{ github.event.pull_request.url }}"
+          elif [ "${{ github.event_name }}" = "pull_request_review" ]; then
+            PR_URL="${{ github.event.pull_request.url }}"
+          fi
+          
+          echo "Getting PR data from: $PR_URL"
+          PR_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$PR_URL")
+          
+          # Extract fork repository and branch
+          FORK_REPO=$(echo "$PR_DATA" | jq -r '.head.repo.full_name')
+          BRANCH_NAME=$(echo "$PR_DATA" | jq -r '.head.ref')
+          
+          echo "fork_repo=$FORK_REPO" >> $GITHUB_OUTPUT
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          
+          echo "PR is from: $FORK_REPO:$BRANCH_NAME"
+
+      - name: Checkout PR branch from fork
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
+          repository: ${{ steps.pr.outputs.fork_repo }}
+          ref: ${{ steps.pr.outputs.branch_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Run Claude Code Action
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@0c127307fa529d701bc1f0f8f9c0bea881c49a9b
         timeout-minutes: 60
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          allowed_bots: ""
-          use_commit_signing: true
-          claude_args: |
-            --allowedTools Edit,Read,Write,Bash

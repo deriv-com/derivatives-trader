@@ -3,19 +3,19 @@ import classNames from 'classnames';
 
 import { Money, Text, ThemedScrollbars } from '@deriv/components';
 import {
-    LegacyIdIcon,
-    LegacyCommissionIcon,
-    LegacyDealCancellationIcon,
-    LegacyTimeIcon,
+    IllustrativePayoutIcon,
     LegacyBarrierIcon,
     LegacyBarrierResetIcon,
-    LegacyResetIcon,
-    LegacyTargetIcon,
-    IllustrativePayoutIcon,
-    LegacyStartTimeIcon,
+    LegacyCommissionIcon,
+    LegacyDealCancellationIcon,
     LegacyEntrySpotIcon,
     LegacyExitSpotIcon,
     LegacyExitTimeIcon,
+    LegacyIdIcon,
+    LegacyResetIcon,
+    LegacyStartTimeIcon,
+    LegacyTargetIcon,
+    LegacyTimeIcon,
 } from '@deriv/quill-icons';
 import {
     addComma,
@@ -41,8 +41,8 @@ import {
     TContractInfo,
     toGMTFormat,
 } from '@deriv/shared';
-import { Localize, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
+import { Localize, useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { getBarrierLabel, getBarrierValue, isDigitType } from 'App/Components/Elements/PositionsDrawer/helpers';
@@ -100,6 +100,7 @@ const ContractDetails = ({
         underlying,
     } = contract_info;
     const { isMobile } = useDevice();
+    const { localize } = useTranslations();
 
     // Backward compatibility: fallback to old field names
     const actual_entry_spot = entry_spot ?? entry_spot_display_value;

@@ -2,7 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { Loading, ThemedScrollbars, VerticalTab } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import { getContractCategoryKey } from '../../../../Helpers/contract-type';
 import ContractType from '../contract-type';
@@ -49,6 +49,7 @@ const Dialog = ({
     hide_back_button,
     title,
 }: React.PropsWithChildren<TDialog>) => {
+    const { localize } = useTranslations();
     const input_ref = React.useRef<(HTMLInputElement & HTMLTextAreaElement) | null>(null);
     const [input_value, setInputValue] = React.useState('');
     const contract_category = getContractCategoryKey(categories, item);

@@ -3,7 +3,7 @@ import React from 'react';
 import { Div100vhContainer, Modal, usePreventIOSZoom } from '@deriv/components';
 import { CONTRACT_TYPES, useIsMounted, WS } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 import AmountMobile from 'Modules/Trading/Components/Form/TradeParams/amount-mobile';
 import MultipliersInfo from 'Modules/Trading/Components/Form/TradeParams/Multiplier/info';
@@ -32,7 +32,7 @@ const MultiplierAmountModal = ({ is_open, toggleModal }: TMultiplierAmountModal)
                 toggleModal={toggleModal}
                 height='auto'
                 width='calc(100vw - 32px)'
-                title={localize('Stake')}
+                title={<Localize i18n_default_text='Stake' />}
             >
                 <Div100vhContainer className='mobile-widget-dialog__wrapper' max_autoheight_offset='48px'>
                     <TradeParamsMobile toggleModal={toggleModal} />

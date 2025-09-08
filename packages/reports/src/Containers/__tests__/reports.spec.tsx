@@ -15,6 +15,10 @@ jest.mock('@deriv-com/analytics', () => ({
     },
 }));
 
+jest.mock('@deriv-com/ui', () => ({
+    useDevice: jest.fn(),
+}));
+
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
     getSelectedRoute: jest.fn(({ routes, pathname }) => {
@@ -46,7 +50,7 @@ jest.mock('@deriv/components', () => ({
             {children}
         </div>
     )),
-    VerticalTab: (props: { list: { label: string }[] }) => {
+    VerticalTab: (props: { list: { label: string }[]; vertical_tab_index?: number; [key: string]: any }) => {
         mockVerticalTab(props);
 
         return (
@@ -106,6 +110,15 @@ describe('Reports', () => {
     beforeEach(() => {
         store = mockStore(mock);
         jest.clearAllMocks();
+
+        // Default mock for useDevice
+        (useDevice as jest.Mock).mockReturnValue({
+            isDesktop: false,
+            isMobile: true,
+            isTablet: false,
+            isTabletPortrait: false,
+            isMobileOrTabletLandscape: false,
+        });
     });
 
     const renderReports = (store: TStores, history: History) => {
@@ -188,7 +201,7 @@ describe('Reports', () => {
         expect(mockRouteBackInApp).toHaveBeenCalled();
     });
 
-    test('sets vertical_tab_index to 0 if the selected route is default', () => {
+    test('calls setReportsTabIndex when VerticalTab is rendered on desktop', () => {
         (useDevice as jest.Mock).mockReturnValue({
             isDesktop: true,
             isMobile: false,
@@ -202,12 +215,17 @@ describe('Reports', () => {
 
         expect(mockVerticalTab).toHaveBeenCalledWith(
             expect.objectContaining({
-                vertical_tab_index: 0,
+                is_floating: true,
+                is_routed: true,
+                is_full_width: true,
+                current_path: route1,
+                setVerticalTabIndex: expect.any(Function),
+                list: expect.any(Array),
             })
         );
     });
 
-    test('sets vertical_tab_index to reports_route_tab_index if the selected route is not default', () => {
+    test('renders correctly for different routes', () => {
         (useDevice as jest.Mock).mockReturnValue({
             isDesktop: true,
             isMobile: false,
@@ -221,7 +239,18 @@ describe('Reports', () => {
 
         expect(mockVerticalTab).toHaveBeenCalledWith(
             expect.objectContaining({
-                vertical_tab_index: mock.ui.reports_route_tab_index,
+                current_path: route2,
+                list: expect.arrayContaining([
+                    expect.objectContaining({
+                        label: report1Text,
+                        path: route1,
+                        default: true,
+                    }),
+                    expect.objectContaining({
+                        label: report2Text,
+                        path: route2,
+                    }),
+                ]),
             })
         );
     });

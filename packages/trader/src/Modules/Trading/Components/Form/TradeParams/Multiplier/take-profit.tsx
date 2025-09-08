@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { InputWithCheckbox } from '@deriv/components';
 import { isDesktop } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -22,6 +22,7 @@ type TTakeProfitProps = {
 const TakeProfit = observer((props: TTakeProfitProps) => {
     const { ui, client } = useStore();
     const trade = useTraderStore();
+    const { localize } = useTranslations();
 
     const { addToast, removeToast, current_focus, setCurrentFocus } = ui;
     const { is_single_currency } = client;

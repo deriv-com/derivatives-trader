@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { localize } from '@deriv-com/translations';
 import { WheelPickerContainer } from '@deriv-com/quill-ui';
+import { useTranslations } from '@deriv-com/translations';
 
 type TimeOption = {
     label: string;
@@ -21,6 +21,7 @@ const HourPicker = ({
 }) => {
     const [hours, setHours] = useState<TimeOption[]>([]);
     const [minutes, setMinutes] = useState<TimeOption[]>([]);
+    const { localize } = useTranslations();
 
     useEffect(() => {
         const min_seconds = Math.max(duration_min_max.intraday.min, 3600);

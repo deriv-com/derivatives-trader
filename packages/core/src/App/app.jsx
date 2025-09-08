@@ -1,7 +1,6 @@
 import React from 'react';
 // import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router } from 'react-router-dom';
-import i18n from 'i18next';
 import PropTypes from 'prop-types';
 
 import { APIProvider } from '@deriv/api';
@@ -31,11 +30,6 @@ const App = ({ root_store }) => {
     const { is_dark_mode_on } = root_store.ui;
     const is_dark_mode = is_dark_mode_on || JSON.parse(localStorage.getItem('ui_store'))?.is_dark_mode_on;
     const language = preferred_language ?? getInitialLanguage();
-
-    React.useEffect(() => {
-        const dir = i18n.dir(language.toLowerCase());
-        document.documentElement.dir = dir;
-    }, [language]);
 
     React.useEffect(() => {
         sessionStorage.removeItem('redirect_url');

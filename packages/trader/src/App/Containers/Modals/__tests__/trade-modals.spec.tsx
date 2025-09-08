@@ -8,15 +8,6 @@ import userEvent from '@testing-library/user-event';
 import TraderProviders from '../../../../trader-providers';
 import TradeModals from '../trade-modals';
 
-jest.mock('App/Components/Elements/Modals/MarketUnavailableModal', () =>
-    jest.fn(props => (
-        <div>
-            <div>Market unavailable modal</div>
-            <button onClick={props.onConfirm}>onConfirm market</button>
-            <button onClick={props.onCancel}>onCancel market</button>
-        </div>
-    ))
-);
 jest.mock('App/Components/Elements/Modals/ServicesErrorModal', () =>
     jest.fn(props => (
         <div>
@@ -50,41 +41,7 @@ describe('TradeModals', () => {
 
         render(mockTradeModals(mock_root_store));
 
-        expect(screen.getByText('Market unavailable modal')).toBeInTheDocument();
         expect(screen.getByText('Services error modal')).toBeInTheDocument();
-    });
-    it('should call function marketUnavailableOnConfirm if button onConfirm in MarketUnavailableModal component was clicked', async () => {
-        const mock_root_store = mockStore({
-            modules: {
-                trade: {
-                    resetPreviousSymbol: jest.fn(),
-                    clearPurchaseInfo: jest.fn(),
-                    requestProposal: jest.fn(),
-                },
-            },
-        });
-
-        render(mockTradeModals(mock_root_store));
-        await userEvent.click(screen.getByText('onConfirm market'));
-
-        expect(mock_root_store.modules.trade.resetPreviousSymbol).toHaveBeenCalled();
-    });
-    it('should call function marketUnavailableOnCancel if button onCancel in MarketUnavailableModal component was clicked', async () => {
-        const mock_root_store = mockStore({
-            modules: {
-                trade: {
-                    resetPreviousSymbol: jest.fn(),
-                    clearPurchaseInfo: jest.fn(),
-                    requestProposal: jest.fn(),
-                },
-            },
-        });
-
-        render(mockTradeModals(mock_root_store));
-        await userEvent.click(screen.getByText('onCancel market'));
-
-        expect(window.open).toHaveBeenCalled();
-        expect(mock_root_store.modules.trade.resetPreviousSymbol).toHaveBeenCalled();
     });
     it('should call function servicesErrorModalOnConfirm if button onConfirm in ServicesErrorModal component was clicked', async () => {
         const mock_root_store = mockStore({

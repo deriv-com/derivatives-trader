@@ -20,9 +20,10 @@ $FONT_SIZES: (
 );
 
 $FONT_COLORS: (
-    'active' var(--color-surface-primary),
+    'active' var(--color-text-primary),
     'prominent' var(--color-text-primary),
-    'black' var(--color-text-secondary),
+    'white' var(--color-text-white),
+    'black' var(--color-text-black),
     'grey' var(--color-text-secondary),
     'disabled' var(--color-text-disabled),
     'green' var(--color-text-success),

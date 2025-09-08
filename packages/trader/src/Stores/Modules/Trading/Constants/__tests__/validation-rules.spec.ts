@@ -239,13 +239,6 @@ describe('getValidationRules', () => {
             )
         ).toBe(true);
 
-        // Start time cannot be in the past.:
-        expect(
-            (validation_rules.start_time.rules?.[3][1] as TExtendedRuleOptions).func?.(
-                time_in_past,
-                ...mocked_rest_time_params
-            )
-        ).toBe(false);
         // All contracts now default to spot behavior, so validation always passes
         expect(
             (validation_rules.start_time.rules?.[3][1] as TExtendedRuleOptions).func?.(
@@ -308,12 +301,6 @@ describe('getValidationRules', () => {
         ).toBe(true);
 
         // Expiry time cannot be in the past:
-        expect(
-            (validation_rules.expiry_time.rules?.[3][1] as TExtendedRuleOptions).func?.(
-                time_in_past,
-                ...mocked_rest_time_params
-            )
-        ).toBe(false);
         // All contracts now default to spot behavior, so validation always passes
         expect(
             (validation_rules.expiry_time.rules?.[3][1] as TExtendedRuleOptions).func?.(

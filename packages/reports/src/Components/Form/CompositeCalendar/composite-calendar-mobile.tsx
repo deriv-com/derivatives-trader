@@ -1,9 +1,11 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+
 import { Button, DatePicker, InputField, MobileDialog, Text } from '@deriv/components';
 import { LegacyCalendar1pxIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv-com/translations';
 import { toMoment } from '@deriv/shared';
+import { useTranslations } from '@deriv-com/translations';
+
 import { TInputDateRange } from 'Types';
 
 type TDatePickerOnChangeParams = Parameters<React.ComponentProps<typeof DatePicker>['onChange']>[0];
@@ -69,6 +71,7 @@ const CompositeCalendarMobile = React.memo(
         from,
         to,
     }: TCompositeCalendarMobile) => {
+        const { localize } = useTranslations();
         const date_range = input_date_range || duration_list?.find(range => range.value === 'all_time');
 
         const [from_date, setFrom] = React.useState(from ? toMoment(from).format('YYYY-MM-DD') : undefined);

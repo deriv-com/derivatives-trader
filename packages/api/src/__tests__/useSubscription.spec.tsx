@@ -4,27 +4,30 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import APIProvider from '../APIProvider';
 import useSubscription from '../useSubscription';
 
-jest.mock('@deriv/shared');
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    useWS: jest.fn(),
+}));
 
 const mockUseWS = useWS as jest.MockedFunction<typeof useWS>;
 
 describe('useSubscription', () => {
-    test('should subscribe to p2p_order_info and get the order updates', async () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    test('should subscribe to proposal_open_contract and get the contract updates', async () => {
         mockUseWS.mockReturnValue({
             subscribe: jest.fn(() => {
                 return {
                     subscribe: async (onData: (response: unknown) => void, onError: (response: unknown) => void) => {
                         const delay = (ms: number) => new Promise<never>(resolve => setTimeout(resolve, ms));
-                        await delay(500);
-                        onData({ p2p_order_info: { status: 'pending' } });
-                        await delay(500);
-                        onData({ p2p_order_info: { status: 'buyer-confirmed' } });
-                        await delay(500);
-                        onData({ p2p_order_info: { status: 'disputed' } });
-                        await delay(500);
-                        onError({ error: { code: 'Foo', message: 'Error message' } });
-                        await delay(500);
-                        onData({ p2p_order_info: { status: 'completed' } });
+                        await delay(100);
+                        onData({ proposal_open_contract: { contract_id: '123', status: 'open' } });
+                        await delay(100);
+                        onData({ proposal_open_contract: { contract_id: '123', status: 'sold', profit: 10 } });
+                        await delay(100);
+                        onError({ error: { code: 'ContractNotFound', message: 'Contract not found' } });
                         return { unsubscribe: () => Promise.resolve() };
                     },
                 };
@@ -33,26 +36,26 @@ describe('useSubscription', () => {
 
         const wrapper = ({ children }: { children: JSX.Element }) => <APIProvider>{children}</APIProvider>;
 
-        const { result, waitForNextUpdate } = renderHook(() => useSubscription('p2p_order_info'), { wrapper });
+        const { result, waitForNextUpdate } = renderHook(() => useSubscription('proposal_open_contract'), { wrapper });
 
         expect(result.current.isLoading).toBe(false);
         expect(result.current.isIdle).toBe(false);
         expect(result.current.error).toBe(undefined);
-        expect(result.current.data?.p2p_order_info).toBe(undefined);
+        expect(result.current.data?.proposal_open_contract).toBe(undefined);
 
         act(() => {
-            result.current.subscribe({ payload: { id: '2' } });
+            result.current.subscribe({ payload: { contract_id: 123 } });
         });
 
         await waitForNextUpdate();
-        expect(result.current.data?.p2p_order_info).toStrictEqual({ status: 'pending' });
+        expect(result.current.data?.proposal_open_contract).toStrictEqual({ contract_id: '123', status: 'open' });
         await waitForNextUpdate();
-        expect(result.current.data?.p2p_order_info).toStrictEqual({ status: 'buyer-confirmed' });
+        expect(result.current.data?.proposal_open_contract).toStrictEqual({
+            contract_id: '123',
+            status: 'sold',
+            profit: 10,
+        });
         await waitForNextUpdate();
-        expect(result.current.data?.p2p_order_info).toStrictEqual({ status: 'disputed' });
-        await waitForNextUpdate();
-        expect(result.current.error).toStrictEqual({ code: 'Foo', message: 'Error message' });
-        await waitForNextUpdate();
-        expect(result.current.data?.p2p_order_info).toStrictEqual({ status: 'completed' });
+        expect(result.current.error).toStrictEqual({ code: 'ContractNotFound', message: 'Contract not found' });
     });
 });

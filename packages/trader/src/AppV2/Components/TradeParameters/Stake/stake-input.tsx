@@ -2,8 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { formatMoney, getCurrencyDisplayCode, getDecimalPlaces } from '@deriv/shared';
-import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, TextFieldWithSteppers } from '@deriv-com/quill-ui';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { useFetchProposalData } from 'AppV2/Hooks/useFetchProposalData';
 import useIsVirtualKeyboardOpen from 'AppV2/Hooks/useIsVirtualKeyboardOpen';
@@ -148,6 +148,7 @@ const calculateMaxLength = (amount: number | string, decimals: number): number =
 };
 
 const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
+    const { localize } = useTranslations();
     const trade_store = useTraderStore();
     const {
         contract_type,

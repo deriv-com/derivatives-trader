@@ -1,9 +1,10 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+
 import { Button, Modal } from '@deriv/components';
 import { getBrandUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 type TInsufficientBalanceModal = RouteComponentProps & {
     is_virtual?: boolean;
@@ -17,6 +18,7 @@ const InsufficientBalanceModal = observer(
         const {
             ui: { is_mobile },
         } = useStore();
+        const { localize } = useTranslations();
         return (
             <Modal
                 id='dt_insufficient_balance_modal'

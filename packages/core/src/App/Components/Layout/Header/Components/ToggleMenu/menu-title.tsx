@@ -1,10 +1,12 @@
 import React from 'react';
-import { observer, useStore } from '@deriv/stores';
+
 import { Text } from '@deriv/components';
-import { localize, Localize } from '@deriv-com/translations';
 import { TranslationFlag } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 const MenuTitle = observer(() => {
+    const { localize } = useTranslations();
     const { common, ui } = useStore();
     const { current_language } = common;
     const { is_mobile_language_menu_open, setMobileLanguageMenuOpen } = ui;

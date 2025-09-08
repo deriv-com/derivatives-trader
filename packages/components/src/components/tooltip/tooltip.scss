@@ -43,7 +43,7 @@
             transform-origin: top;
         }
         &:before {
-            @include typeface(--small-left-normal-active, none);
+            @include typeface(--small-left-normal-white, none);
             line-height: 1.5;
             text-decoration: none;
             letter-spacing: normal;

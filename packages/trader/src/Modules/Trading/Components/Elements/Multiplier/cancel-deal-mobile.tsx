@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox, Dialog, Popover, RadioGroup, Text } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { onChangeCancellationDuration, onToggleCancellation } from 'Stores/Modules/Trading/Helpers/multiplier';
@@ -37,6 +37,7 @@ type TCancelDeal = {
 
 const DealCancellationWarningDialog = observer(
     ({ is_visible, onConfirm, onCancel }: TDealCancellationWarningDialog) => {
+        const { localize } = useTranslations();
         const { ui } = useStore();
         const { disableApp, enableApp, should_show_cancellation_warning, toggleCancellationWarning } = ui;
         return (
@@ -100,7 +101,7 @@ const CancelDeal = observer(
                                 }
                             }}
                             name='has_cancellation'
-                            label={localize('Deal cancellation')}
+                            label={<Localize i18n_default_text='Deal cancellation' />}
                             defaultChecked={has_cancellation}
                         />
                         <Popover
@@ -110,9 +111,9 @@ const CancelDeal = observer(
                             is_bubble_hover_enabled
                             classNameBubble='trade-container__deal-cancellation-popover'
                             zIndex='9999'
-                            message={localize(
-                                'When this is active, you can cancel your trade within the chosen time frame. Your stake will be returned without loss.'
-                            )}
+                            message={
+                                <Localize i18n_default_text='When this is active, you can cancel your trade within the chosen time frame. Your stake will be returned without loss.' />
+                            }
                         />
                     </div>
                     {has_cancellation && (

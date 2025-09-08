@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Div100vhContainer, Modal, Popover, RadioGroup } from '@deriv/components';
 import { TRADE_TYPES } from '@deriv/shared';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 type TStrikeParamModalProps = {
     contract_type: string;
@@ -24,6 +24,7 @@ const StrikeParamModal = ({
     name,
     strike_price_list,
 }: TStrikeParamModalProps) => {
+    const { localize } = useTranslations();
     return (
         <Modal
             className='trade-params dc-modal-header--title-bar'
@@ -33,7 +34,7 @@ const StrikeParamModal = ({
             toggleModal={toggleModal}
             height='auto'
             width='calc(100vw - 32px)'
-            title={localize('Strike')}
+            title={<Localize i18n_default_text='Strike' />}
         >
             <Div100vhContainer className='mobile-widget-dialog__wrapper' max_autoheight_offset='48px'>
                 <div className='trade-params__vanilla-ic-info-wrapper'>

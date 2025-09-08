@@ -3,7 +3,7 @@ import React from 'react';
 import { Div100vhContainer, Modal, usePreventIOSZoom } from '@deriv/components';
 import { getGrowthRatePercentage, isEmptyObject, TRADE_TYPES } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import RadioGroupWithInfoMobile from 'Modules/Trading/Components/Form/RadioGroupWithInfoMobile';
 import MultiplierOptions from 'Modules/Trading/Containers/Multiplier/multiplier-options';
@@ -16,6 +16,7 @@ type TRadioGroupOptionsModal = {
 };
 
 const RadioGroupOptionsModal = observer(({ is_open, modal_title, toggleModal }: TRadioGroupOptionsModal) => {
+    const { localize } = useTranslations();
     const { accumulator_range_list, growth_rate, onChange, tick_size_barrier_percentage, proposal_info } =
         useTraderStore();
 

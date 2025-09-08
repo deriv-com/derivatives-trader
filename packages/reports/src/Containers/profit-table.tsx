@@ -1,20 +1,23 @@
-import classNames from 'classnames';
 import React from 'react';
 import { withRouter } from 'react-router';
+import classNames from 'classnames';
+
 import { DataList, DataTable, usePrevious } from '@deriv/components';
 import { extractInfoFromShortcode, formatDate, getContractPath, getUnsupportedContracts } from '@deriv/shared';
-import { localize, Localize } from '@deriv-com/translations';
+import { observer, useStore } from '@deriv/stores';
 import { Analytics } from '@deriv-com/analytics';
-import { ReportsTableRowLoader } from '../Components/Elements/ContentLoader';
-import CompositeCalendar from '../Components/Form/CompositeCalendar';
+import { Localize, useTranslations } from '@deriv-com/translations';
+import { useDevice } from '@deriv-com/ui';
+
+import { getProfitTableColumnsTemplate } from 'Constants/data-table-constants';
+import { useReportsStore } from 'Stores/useReportsStores';
 import { TUnsupportedContractType } from 'Types';
+
+import { ReportsTableRowLoader } from '../Components/Elements/ContentLoader';
 import EmptyTradeHistoryMessage from '../Components/empty-trade-history-message';
+import CompositeCalendar from '../Components/Form/CompositeCalendar';
 import PlaceholderComponent from '../Components/placeholder-component';
 import { ReportsMeta } from '../Components/reports-meta';
-import { getProfitTableColumnsTemplate } from 'Constants/data-table-constants';
-import { observer, useStore } from '@deriv/stores';
-import { useReportsStore } from 'Stores/useReportsStores';
-import { useDevice } from '@deriv-com/ui';
 
 type TProfitTable = {
     component_icon: React.ReactElement;
@@ -43,6 +46,7 @@ export const getRowAction = (row_obj: { [key: string]: unknown }) => {
 };
 
 const ProfitTable = observer(({ component_icon }: TProfitTable) => {
+    const { localize } = useTranslations();
     const { client } = useStore();
     const { profit_table } = useReportsStore();
     const { currency } = client;

@@ -1,7 +1,9 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { useDevice } from '@deriv-com/ui';
-import { DataList, DataTable, Text, Clipboard, usePrevious } from '@deriv/components';
+
+import { Clipboard, DataList, DataTable, Text, usePrevious } from '@deriv/components';
+import { TSource } from '@deriv/components/src/components/data-table/table-row';
+import { TRow } from '@deriv/components/src/components/types/common.types';
 import {
     capitalizeFirstLetter,
     extractInfoFromShortcode,
@@ -9,19 +11,20 @@ import {
     getContractPath,
     getUnsupportedContracts,
 } from '@deriv/shared';
-import { localize, Localize } from '@deriv-com/translations';
-import { Analytics } from '@deriv-com/analytics';
-import { ReportsTableRowLoader } from '../Components/Elements/ContentLoader';
-import { getStatementTableColumnsTemplate } from '../Constants/data-table-constants';
-import PlaceholderComponent from '../Components/placeholder-component';
-import FilterComponent from '../Components/filter-component';
-import { ReportsMeta } from '../Components/reports-meta';
-import EmptyTradeHistoryMessage from '../Components/empty-trade-history-message';
 import { observer, useStore } from '@deriv/stores';
+import { Analytics } from '@deriv-com/analytics';
+import { Localize, useTranslations } from '@deriv-com/translations';
+import { useDevice } from '@deriv-com/ui';
+
 import { useReportsStore } from 'Stores/useReportsStores';
 import { TUnsupportedContractType } from 'Types';
-import { TSource } from '@deriv/components/src/components/data-table/table-row';
-import { TRow } from '@deriv/components/src/components/types/common.types';
+
+import { ReportsTableRowLoader } from '../Components/Elements/ContentLoader';
+import EmptyTradeHistoryMessage from '../Components/empty-trade-history-message';
+import FilterComponent from '../Components/filter-component';
+import PlaceholderComponent from '../Components/placeholder-component';
+import { ReportsMeta } from '../Components/reports-meta';
+import { getStatementTableColumnsTemplate } from '../Constants/data-table-constants';
 
 type TGetStatementTableColumnsTemplate = ReturnType<typeof getStatementTableColumnsTemplate>;
 type TColIndex = 'icon' | 'refid' | 'currency' | 'date' | 'action_type' | 'amount' | 'balance';
@@ -124,6 +127,7 @@ export const getRowAction = (row_obj: TSource | TRow): TAction => {
 };
 
 const Statement = observer(({ component_icon }: TStatement) => {
+    const { localize } = useTranslations();
     const { client, common } = useStore();
     const { current_language } = common;
     const { statement } = useReportsStore();

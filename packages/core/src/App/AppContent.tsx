@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useRemoteConfig, useGrowthbookGetFeatureValue, useGrowthbookIsOn, useIntercom, useLiveChat } from '@deriv/api';
+import { useGrowthbookGetFeatureValue, useGrowthbookIsOn, useIntercom, useLiveChat, useRemoteConfig } from '@deriv/api';
 import { observer, useStore } from '@deriv/stores';
 import { ThemeProvider } from '@deriv-com/quill-ui';
 import { useTranslations } from '@deriv-com/translations';
@@ -72,9 +72,13 @@ const AppContent: React.FC<{ passthrough: any }> = observer(({ passthrough }) =>
     const token = current_account?.session_token || null;
     useIntercom(token);
 
+    const html = document.documentElement;
+
     React.useEffect(() => {
         switchLanguage(current_language);
-    }, [current_language, switchLanguage]);
+        html?.setAttribute('lang', current_language.toLowerCase());
+        html?.setAttribute('dir', current_language.toLowerCase() === 'ar' ? 'rtl' : 'ltr');
+    }, [current_language, switchLanguage, html]);
 
     React.useEffect(() => {
         if (isGBLoaded && isWebPasskeysFFEnabled && isServicePasskeysFFEnabled) {

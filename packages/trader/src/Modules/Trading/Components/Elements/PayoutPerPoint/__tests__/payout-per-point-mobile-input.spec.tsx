@@ -8,7 +8,13 @@ import PayoutPerPointMobileInput from '../payout-per-point-mobile-input';
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
     Popover: ({ message }: { message: string }) => <div>{message}</div>,
-    Icon: ({ icon }: { icon: string }) => <div>{icon}</div>,
+}));
+
+jest.mock('@deriv/quill-icons', () => ({
+    ...jest.requireActual('@deriv/quill-icons'),
+    LegacyClose2pxIcon: () => <div>IcCross</div>,
+    LabelPairedChevronsDownCaptionRegularIcon: () => <div>IcChevronDown</div>,
+    LabelPairedChevronsUpCaptionRegularIcon: () => <div>IcChevronUp</div>,
 }));
 
 jest.mock('../../../Form/WheelPicker/wheel-picker-mobile', () =>

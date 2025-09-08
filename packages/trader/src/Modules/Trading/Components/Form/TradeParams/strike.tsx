@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Dropdown, InputField, Text } from '@deriv/components';
 import { clickAndKeyEventHandler, toMoment, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import Fieldset from 'App/Components/Form/fieldset';
@@ -14,6 +14,7 @@ import { useTraderStore } from 'Stores/useTraderStores';
 import BarriersList from './barriers-list';
 
 const Strike = observer(() => {
+    const { localize } = useTranslations();
     const { ui, common } = useStore();
     const {
         barrier_1,

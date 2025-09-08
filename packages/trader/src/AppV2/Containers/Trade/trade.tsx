@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
@@ -18,6 +18,7 @@ import ServiceErrorSheet from 'AppV2/Components/ServiceErrorSheet';
 import TradeErrorSnackbar from 'AppV2/Components/TradeErrorSnackbar';
 import { TradeParameters, TradeParametersContainer } from 'AppV2/Components/TradeParameters';
 import useContractsFor from 'AppV2/Hooks/useContractsFor';
+import useDefaultSymbol from 'AppV2/Hooks/useDefaultSymbol';
 import { getChartHeight, HEIGHT } from 'AppV2/Utils/layout-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { isDigitTradeType } from 'Modules/Trading/Helpers/digits';
@@ -51,7 +52,8 @@ const Trade = observer(() => {
         trade_types: trade_types_store,
         trade_type_tab,
     } = useTraderStore();
-    const { trade_types, resetTradeTypes } = useContractsFor();
+    const { trade_types } = useContractsFor();
+    useDefaultSymbol(); // This will initialize and set the default symbol
     const [guide_dtrader_v2] = useLocalStorageData<Record<string, boolean>>('guide_dtrader_v2', {
         trade_types_selection: false,
         trade_page: false,

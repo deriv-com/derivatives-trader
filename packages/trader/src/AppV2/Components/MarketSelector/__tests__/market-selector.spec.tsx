@@ -44,12 +44,17 @@ jest.mock('AppV2/Hooks/useContractsFor', () => ({
     })),
 }));
 
-// Mock the useSnackbar hook
+// Mock the useSnackbar hook and Skeleton component
 jest.mock('@deriv-com/quill-ui', () => ({
     ...jest.requireActual('@deriv-com/quill-ui'),
     useSnackbar: jest.fn(() => ({
         addSnackbar: jest.fn(),
     })),
+    Skeleton: {
+        Square: ({ height, width }: { height: number; width: number }) => (
+            <div data-testid='square-skeleton' style={{ height, width }} />
+        ),
+    },
 }));
 
 jest.mock('AppV2/Components/ActiveSymbolsList', () => jest.fn(() => 'MockedActiveSymbolsList'));
@@ -93,11 +98,11 @@ describe('MarketSelector', () => {
         expect(screen.getByText(default_trade_store.modules.trade.tick_data.quote)).toBeInTheDocument();
         expect(screen.getByText('CLOSED')).toBeInTheDocument();
     });
-    it('renders loader when current symbol exchange_is_open is not defined (is not among active symbols list)', () => {
+    it('renders error message when current symbol is not among active symbols list', () => {
         default_trade_store.modules.trade.symbol = 'USDJPY';
         render(MockedMarketSelector());
 
-        expect(screen.getByTestId('square-skeleton')).toBeInTheDocument();
+        expect(screen.getByText('Symbol not available. Please select another market.')).toBeInTheDocument();
     });
     it('renders loader instead of current spot when tick_data is empty', () => {
         default_trade_store.modules.trade.tick_data = {};

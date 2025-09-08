@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { Button } from '@deriv/components';
 import { formatMoney } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import { LoginButtonV2 } from './login-button-v2';
@@ -25,9 +26,10 @@ const AccountInfo = React.lazy(
         )
 );
 
-const LogoutButton = ({ onClickLogout }: { onClickLogout: () => void }) => (
-    <Button className='acc-info__button' has_effect text={localize('Log out')} onClick={onClickLogout} />
-);
+const LogoutButton = ({ onClickLogout }: { onClickLogout: () => void }) => {
+    const { localize } = useTranslations();
+    return <Button className='acc-info__button' has_effect text={localize('Log out')} onClick={onClickLogout} />;
+};
 
 const LoggedOutView = () => (
     <>

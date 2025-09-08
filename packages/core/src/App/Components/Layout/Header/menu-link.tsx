@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Text } from '@deriv/components';
-import { routes, getStaticUrl } from '@deriv/shared';
-import { isExternalLink } from '@deriv/utils';
+import { getStaticUrl, routes } from '@deriv/shared';
 import { observer } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { isExternalLink } from '@deriv/utils';
+import { useTranslations } from '@deriv-com/translations';
+
 import { BinaryLink } from 'App/Components/Routes';
 
 type TMenuLink = {
@@ -31,6 +33,7 @@ const MenuLink = observer(
         suffix_icon,
         text,
     }: Partial<TMenuLink>) => {
+        const { localize } = useTranslations();
         const is_trade_text = text === localize('Trade');
         const deriv_static_url = getStaticUrl(link_to);
         const is_external_link = deriv_static_url && isExternalLink(link_to);

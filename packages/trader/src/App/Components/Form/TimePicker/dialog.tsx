@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { toMoment } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 
 type TDialogProps = {
     className: string;
@@ -59,7 +59,9 @@ const Dialog = ({ preClass, selected_time, end_times, start_times, onChange, cla
             <div className={`${preClass}__selector`}>
                 <div className={`${preClass}__selector--hours`}>
                     <div className={classNames(`${preClass}__selector-list-title`, 'center-text')}>
-                        <strong>{localize('Hour')}</strong>
+                        <strong>
+                            <Localize i18n_default_text='Hour' />
+                        </strong>
                     </div>
                     <div>
                         {hours.map(h => {
@@ -104,7 +106,9 @@ const Dialog = ({ preClass, selected_time, end_times, start_times, onChange, cla
                 </div>
                 <div className={`${preClass}__selector--minutes`}>
                     <div className={classNames(`${preClass}__selector-list-title`, 'center-text')}>
-                        <strong>{localize('Minute')}</strong>
+                        <strong>
+                            <Localize i18n_default_text='Minute' />
+                        </strong>
                     </div>
                     <div>
                         {minutes.map(mm => {

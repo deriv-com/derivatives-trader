@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { Button, ButtonToggle, Dropdown, ThemedScrollbars } from '@deriv/components';
 import { clickAndKeyEventHandler, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
+import { useTranslations } from '@deriv-com/translations';
 
 import TradeCategories from 'Assets/Trading/Categories/trade-categories';
 import TradeCategoriesGIF from 'Assets/Trading/Categories/trade-categories-gif';
@@ -35,6 +35,7 @@ const TABS = {
 type TSelectedTab = 'description' | 'glossary';
 
 const Info = observer(({ handleSelect, item, selected_value, list, info_banner }: TInfo) => {
+    const { localize } = useTranslations();
     const { cached_multiplier_cancellation_list } = useTraderStore();
     const {
         ui: { is_mobile },

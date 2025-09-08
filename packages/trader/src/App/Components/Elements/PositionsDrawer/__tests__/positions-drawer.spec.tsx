@@ -193,12 +193,14 @@ describe('<PositionsDrawer />', () => {
                         profit: 100,
                         currency: 'USD',
                     }),
+                    profit_loss: 100,
                 },
                 {
                     contract_info: mockContractInfo({
                         profit: 50,
                         currency: 'USD',
                     }),
+                    profit_loss: 50,
                 },
             ] as TAllPositions;
 
@@ -217,12 +219,14 @@ describe('<PositionsDrawer />', () => {
                         profit: -75,
                         currency: 'USD',
                     }),
+                    profit_loss: -75,
                 },
                 {
                     contract_info: mockContractInfo({
                         profit: -25,
                         currency: 'USD',
                     }),
+                    profit_loss: -25,
                 },
             ] as TAllPositions;
 
@@ -241,12 +245,14 @@ describe('<PositionsDrawer />', () => {
                         profit: 100,
                         currency: 'USD',
                     }),
+                    profit_loss: 100,
                 },
                 {
                     contract_info: mockContractInfo({
                         profit: -60,
                         currency: 'USD',
                     }),
+                    profit_loss: -60,
                 },
             ] as TAllPositions;
 
@@ -264,12 +270,14 @@ describe('<PositionsDrawer />', () => {
                         profit: 50,
                         currency: 'USD',
                     }),
+                    profit_loss: 50,
                 },
                 {
                     contract_info: mockContractInfo({
                         profit: -50,
                         currency: 'USD',
                     }),
+                    profit_loss: -50,
                 },
             ] as TAllPositions;
 
@@ -289,6 +297,7 @@ describe('<PositionsDrawer />', () => {
                         profit: 100,
                         currency: 'EUR',
                     }),
+                    profit_loss: 100,
                 },
             ] as TAllPositions;
 
@@ -314,12 +323,14 @@ describe('<PositionsDrawer />', () => {
                         profit: undefined,
                         currency: 'USD',
                     }),
+                    profit_loss: undefined,
                 },
                 {
                     contract_info: mockContractInfo({
                         profit: 50,
                         currency: 'USD',
                     }),
+                    profit_loss: 50,
                 },
             ] as TAllPositions;
 

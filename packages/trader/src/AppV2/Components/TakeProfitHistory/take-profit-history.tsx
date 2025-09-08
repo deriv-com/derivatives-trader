@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 
 import { formatDate, formatMoney, formatTime, TContractStore } from '@deriv/shared';
-import { Localize, localize } from '@deriv-com/translations';
 import { CaptionText, Pagination, Text } from '@deriv-com/quill-ui';
+import { Localize } from '@deriv-com/translations';
 
 import Carousel from 'AppV2/Components/Carousel';
 
@@ -67,9 +67,11 @@ const TakeProfitHistory = ({ history = [], currency, is_multiplier }: TContractH
                                 {item.display_name}
                             </Text>
                             <Text size='sm'>
-                                {Math.abs(Number(item.order_amount)) === 0
-                                    ? localize('Cancelled')
-                                    : `${formatMoney(String(currency), String(item.order_amount), true)} ${currency}`}
+                                {Math.abs(Number(item.order_amount)) === 0 ? (
+                                    <Localize i18n_default_text='Cancelled' />
+                                ) : (
+                                    `${formatMoney(String(currency), String(item.order_amount), true)} ${currency}`
+                                )}
                             </Text>
                         </div>
                     </div>

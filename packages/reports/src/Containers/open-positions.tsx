@@ -11,8 +11,8 @@ import {
     toMoment,
 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
+import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import {
@@ -151,6 +151,7 @@ const getOpenPositionsTotals = (
 };
 
 const OpenPositions = observer(({ component_icon, ...props }: TOpenPositions) => {
+    const { localize } = useTranslations();
     const { portfolio, client, ui, common, contract_trade } = useStore();
     const {
         active_positions,

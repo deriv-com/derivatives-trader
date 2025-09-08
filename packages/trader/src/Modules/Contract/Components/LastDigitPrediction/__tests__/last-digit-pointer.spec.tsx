@@ -4,9 +4,9 @@ import { render, screen } from '@testing-library/react';
 
 import LastDigitPointer from '../last-digit-pointer';
 
-jest.mock('@deriv/components', () => ({
-    ...jest.requireActual('@deriv/components'),
-    Icon: jest.fn(() => 'MockedIcon'),
+jest.mock('@deriv/quill-icons', () => ({
+    ...jest.requireActual('@deriv/quill-icons'),
+    LegacyTrendUpIcon: jest.fn(() => 'MockedIcon'),
 }));
 
 const mocked_props = {

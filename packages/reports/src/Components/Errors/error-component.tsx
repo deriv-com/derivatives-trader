@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { Dialog, PageErrorContainer } from '@deriv/components';
 import { routes } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
+
 import { TErrorComponent } from 'Types';
 
 const ErrorComponent = ({
@@ -12,6 +14,7 @@ const ErrorComponent = ({
     redirectOnClick,
     should_show_refresh = true,
 }: Partial<TErrorComponent>) => {
+    const { localize } = useTranslations();
     const refresh_message = should_show_refresh ? localize('Please refresh this page to continue.') : '';
 
     if (is_dialog) {

@@ -3,10 +3,10 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { Div100vhContainer, Modal, Text } from '@deriv/components';
-import { LegacyPositionIcon, LegacyMinimize2pxIcon } from '@deriv/quill-icons';
+import { LegacyMinimize2pxIcon, LegacyPositionIcon } from '@deriv/quill-icons';
 import { isDisabledLandscapeBlockerRoute, isMobileOs, isTabletOs, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { Localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
 import PositionsModalCard from 'App/Components/Elements/PositionsDrawer/positions-modal-card';
@@ -125,7 +125,7 @@ const TogglePositionsMobile = observer(
                                         className='positions-modal__title-icon'
                                         fill='var(--color-text-primary)'
                                     />
-                                    {localize('Recent positions')}
+                                    <Localize i18n_default_text='Recent positions' />
                                 </Text>
                                 <div className='positions-modal__close-btn' onClick={closeModal}>
                                     <LegacyMinimize2pxIcon
@@ -149,7 +149,7 @@ const TogglePositionsMobile = observer(
                                     to={routes.positions}
                                 >
                                     <Text size='xs' weight='bold'>
-                                        {localize('Go to Reports')}
+                                        <Localize i18n_default_text='Go to Reports' />
                                     </Text>
                                 </NavLink>
                             </div>

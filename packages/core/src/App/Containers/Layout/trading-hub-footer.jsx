@@ -1,27 +1,30 @@
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import * as React from 'react';
 import { withRouter } from 'react-router';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+
+import { useRemoteConfig } from '@deriv/api';
+import { Popover } from '@deriv/components';
+import { isTabletOs, routes } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { useTranslations } from '@deriv-com/translations';
+
+import LiveChat from 'App/Components/Elements/LiveChat';
+import WhatsApp from 'App/Components/Elements/WhatsApp/index.ts';
 import NetworkStatus, {
     // AccountLimits as AccountLimitsFooter,
     EndpointNote,
     // HelpCentre,
     RegulatoryInformation,
-    // ResponsibleTrading,
-    ToggleSettings,
     ToggleFullScreen,
     ToggleLanguageSettings,
+    // ResponsibleTrading,
+    ToggleSettings,
 } from 'App/Components/Layout/Footer';
-import LiveChat from 'App/Components/Elements/LiveChat';
-import WhatsApp from 'App/Components/Elements/WhatsApp/index.ts';
-import ServerTime from '../server-time.jsx';
-import { routes, isTabletOs } from '@deriv/shared';
-import { observer, useStore } from '@deriv/stores';
-import DarkModeToggleIcon from 'Assets/SvgComponents/footer/ic-footer-light-theme.svg';
 import LightModeToggleIcon from 'Assets/SvgComponents/footer/ic-footer-dark-theme.svg';
-import { Popover } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
-import { useRemoteConfig } from '@deriv/api';
+import DarkModeToggleIcon from 'Assets/SvgComponents/footer/ic-footer-light-theme.svg';
+
+import ServerTime from '../server-time.jsx';
 
 const FooterIconSeparator = () => <div className='footer-icon-separator' />;
 
@@ -37,6 +40,7 @@ const FooterExtensionRenderer = (footer_extension, idx) => {
 };
 
 const TradingHubFooter = observer(() => {
+    const { localize } = useTranslations();
     const { client, common, ui, traders_hub } = useStore();
     const { show_eu_related_content } = traders_hub;
     const { has_wallet, is_logged_in, is_eu, landing_company_shortcode, is_virtual } = client;

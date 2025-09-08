@@ -4,9 +4,9 @@ import classNames from 'classnames';
 
 import { DataList, Money, PositionsDrawerCard, Text } from '@deriv/components';
 import { LegacyMinimize2pxIcon } from '@deriv/quill-icons';
-import { useNewRowTransition, getEndTime } from '@deriv/shared';
+import { getEndTime, useNewRowTransition } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { localize, Localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -198,7 +198,7 @@ const PositionsDrawer = observer(({ ...props }) => {
             >
                 <div className='positions-drawer__header'>
                     <Text color='primary' weight='bold' size='xs'>
-                        {localize('Open positions')}
+                        <Localize i18n_default_text='Open positions' />
                     </Text>
                     <div
                         data-testid='dt_positions_drawer_close_icon'
@@ -225,7 +225,7 @@ const PositionsDrawer = observer(({ ...props }) => {
                             </Text>
                             <div className='positions-drawer__total'>
                                 <Text size='xs' weight='bold'>
-                                    {localize('Total P/L:')}
+                                    <Localize i18n_default_text='Total P/L:' />
                                 </Text>
                                 <Text
                                     size='xs'

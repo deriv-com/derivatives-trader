@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ButtonToggle, Dropdown, InputField } from '@deriv/components';
 import { addComma, AMOUNT_MAX_LENGTH, getDecimalPlaces, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import Fieldset from 'App/Components/Form/fieldset';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -34,34 +34,38 @@ export const Input = ({
     is_disabled,
     onChange,
     setCurrentFocus,
-}: TInput) => (
-    <InputField
-        className='trade-container__amount'
-        classNameInlinePrefix='trade-container__currency'
-        classNameInput='trade-container__input'
-        currency={currency}
-        current_focus={current_focus}
-        error_messages={error_messages}
-        fractional_digits={getDecimalPlaces(currency)}
-        id='dt_amount_input'
-        inline_prefix={is_single_currency ? currency : undefined}
-        is_autocomplete_disabled
-        is_float
-        is_hj_whitelisted
-        is_incrementable
-        is_negative_disabled
-        is_disabled={is_disabled}
-        max_length={AMOUNT_MAX_LENGTH}
-        name='amount'
-        onChange={onChange}
-        type='tel'
-        value={amount}
-        ariaLabel={localize('Amount')}
-        setCurrentFocus={setCurrentFocus}
-    />
-);
+}: TInput) => {
+    const { localize } = useTranslations();
+    return (
+        <InputField
+            className='trade-container__amount'
+            classNameInlinePrefix='trade-container__currency'
+            classNameInput='trade-container__input'
+            currency={currency}
+            current_focus={current_focus}
+            error_messages={error_messages}
+            fractional_digits={getDecimalPlaces(currency)}
+            id='dt_amount_input'
+            inline_prefix={is_single_currency ? currency : undefined}
+            is_autocomplete_disabled
+            is_float
+            is_hj_whitelisted
+            is_incrementable
+            is_negative_disabled
+            is_disabled={is_disabled}
+            max_length={AMOUNT_MAX_LENGTH}
+            name='amount'
+            onChange={onChange}
+            type='tel'
+            value={amount}
+            ariaLabel={localize('Amount')}
+            setCurrentFocus={setCurrentFocus}
+        />
+    );
+};
 
 const Amount = observer(({ is_minimized = false }: { is_minimized?: boolean }) => {
+    const { localize } = useTranslations();
     const { ui, client } = useStore();
     const { currencies_list, is_single_currency } = client;
     const { setCurrentFocus, current_focus } = ui;

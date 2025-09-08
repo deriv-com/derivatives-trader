@@ -1,11 +1,15 @@
 import React from 'react';
+
 import { FilterDropdown } from '@deriv/components';
-import { localize } from '@deriv-com/translations';
-import CompositeCalendar from './Form/CompositeCalendar';
 import { observer } from '@deriv/stores';
+import { useTranslations } from '@deriv-com/translations';
+
 import { useReportsStore } from 'Stores/useReportsStores';
 
+import CompositeCalendar from './Form/CompositeCalendar';
+
 const FilterComponent = observer(() => {
+    const { localize } = useTranslations();
     const { statement } = useReportsStore();
     const { action_type, date_from, date_to, handleFilterChange, handleDateChange } = statement;
 

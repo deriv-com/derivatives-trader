@@ -30,10 +30,14 @@ jest.mock('@deriv/components', () => {
     Modal.Body = jest.fn(({ children }) => <div>{children}</div>);
     return {
         ...original_module,
-        Icon: jest.fn(({ icon, onClick }) => <div onClick={onClick}>{icon}</div>),
         Modal,
     };
 });
+
+jest.mock('@deriv/quill-icons', () => ({
+    ...jest.requireActual('@deriv/quill-icons'),
+    LegacyInfo1pxIcon: ({ onClick }: { onClick: () => void }) => <div onClick={onClick}>IcInfoOutline</div>,
+}));
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),

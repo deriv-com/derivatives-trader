@@ -4,8 +4,8 @@ import { observer } from 'mobx-react-lite';
 
 import { getTomorrowDate, getUnitMap, toMoment } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { Localize, localize } from '@deriv-com/translations';
 import { ActionSheet, TextField, useSnackbar } from '@deriv-com/quill-ui';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { getDatePickerStartDate, getSmallestDuration, isValidPersistedDuration } from 'AppV2/Utils/trade-params-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
@@ -57,6 +57,7 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
     const { common, client } = useStore();
     const { is_logged_in } = client;
     const { server_time } = common;
+    const { localize } = useTranslations();
 
     useEffect(() => {
         if (expiry_epoch && duration_unit !== 'd' && !saved_expiry_date_v2) {

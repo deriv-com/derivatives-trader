@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Input } from '@deriv/components';
-import { LegacySearch1pxIcon, LegacyCloseCircle1pxBlackIcon } from '@deriv/quill-icons';
-import { localize } from '@deriv-com/translations';
+import { LegacyCloseCircle1pxBlackIcon, LegacySearch1pxIcon } from '@deriv/quill-icons';
+import { useTranslations } from '@deriv-com/translations';
 
 type TSearchInput = {
     onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | null>;
@@ -12,21 +12,24 @@ type TSearchInput = {
 };
 
 const SearchInput = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TSearchInput>(
-    ({ onChange, onClickClearInput, onBlur, value }, ref) => (
-        <Input
-            ref={ref}
-            data-lpignore='true'
-            leading_icon={<LegacySearch1pxIcon iconSize='xs' />}
-            trailing_icon={
-                value ? <LegacyCloseCircle1pxBlackIcon onClick={onClickClearInput} iconSize='xs' /> : undefined
-            }
-            placeholder={localize('Search')}
-            type='text'
-            onChange={onChange}
-            onBlur={onBlur}
-            value={value}
-        />
-    )
+    ({ onChange, onClickClearInput, onBlur, value }, ref) => {
+        const { localize } = useTranslations();
+        return (
+            <Input
+                ref={ref}
+                data-lpignore='true'
+                leading_icon={<LegacySearch1pxIcon iconSize='xs' />}
+                trailing_icon={
+                    value ? <LegacyCloseCircle1pxBlackIcon onClick={onClickClearInput} iconSize='xs' /> : undefined
+                }
+                placeholder={localize('Search')}
+                type='text'
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value}
+            />
+        );
+    }
 );
 
 SearchInput.displayName = 'SearchInput';

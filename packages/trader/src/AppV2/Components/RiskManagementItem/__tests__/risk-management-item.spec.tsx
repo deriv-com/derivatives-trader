@@ -10,7 +10,9 @@ import RiskManagementItem from '../risk-management-item';
 
 jest.mock('@deriv-com/translations', () => ({
     Localize: ({ i18n_default_text }: { i18n_default_text: string }) => <span>{i18n_default_text}</span>,
-    localize: (text: string) => text,
+    useTranslations: () => ({
+        localize: (text: string) => text,
+    }),
 }));
 
 jest.mock('@deriv-com/quill-ui', () => ({

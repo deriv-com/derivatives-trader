@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Div100vhContainer, Modal, Money, Tabs, ThemedScrollbars, usePreventIOSZoom } from '@deriv/components';
 import { observer, useStore } from '@deriv/stores';
-import { localize } from '@deriv-com/translations';
+import { useTranslations } from '@deriv-com/translations';
 
 import AmountMobile from 'Modules/Trading/Components/Form/TradeParams/amount-mobile';
 import Barrier from 'Modules/Trading/Components/Form/TradeParams/barrier';
@@ -228,6 +228,7 @@ const TradeParamsMobile = observer(
             is_vanilla,
             duration_unit: store_duration_unit,
         } = useTraderStore();
+        const { localize } = useTranslations();
 
         const resetToDefaultDuration = () => {
             const default_store_duration = getDefaultDuration(store_duration_unit);

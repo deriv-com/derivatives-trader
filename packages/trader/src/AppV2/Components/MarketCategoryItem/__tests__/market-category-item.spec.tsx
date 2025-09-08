@@ -26,6 +26,17 @@ jest.mock('@deriv-com/quill-ui', () => ({
 jest.mock('AppV2/Components/SymbolIconsMapper/symbol-icons-mapper', () =>
     jest.fn(() => <div>MockedSymbolIconsMapper</div>)
 );
+
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    WS: {
+        send: jest.fn().mockResolvedValue({}),
+        authorized: {
+            send: jest.fn().mockResolvedValue({}),
+        },
+    },
+}));
+
 describe('<MarketCategoryItem />', () => {
     const mocked_props = {
         item: { symbol: 'cryBTCUSD', display_name: 'Bitcoin', exchange_is_open: 1 } as ActiveSymbols[0],
@@ -70,7 +81,7 @@ describe('<MarketCategoryItem />', () => {
         (useSnackbar as jest.Mock).mockReturnValue({ addSnackbar: mockAddSnackbar });
     });
 
-    const display_name = 'Bitcoin';
+    const display_name = 'BTC/USD';
 
     it('should render content correctly when market is open', () => {
         render(MockMarketCategoryItem(mockStore(mocked_store), mocked_props));
