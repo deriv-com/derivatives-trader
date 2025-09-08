@@ -96,7 +96,6 @@ const css_loaders = [
         loader: 'resolve-url-loader',
         options: {
             sourceMap: true,
-            keepQuery: true,
         },
     },
     {
