@@ -46,6 +46,8 @@ export default class BaseStore {
     theme_change_listener: null | ((is_dark_mode_on: boolean) => void) = null;
     validation_errors: { [key: string]: string[] } = {};
     validation_rules: TValidationRules | Record<string, never> = {};
+    switchAccountDisposer: null | (() => void) = null;
+    switch_account_listener: null | (() => Promise<void>) = null;
     /**
      * Constructor of the base class that gets properties' name of child which should be saved in storages
      *
@@ -79,6 +81,8 @@ export default class BaseStore {
             disposeRealAccountSignupEnd: action.bound,
             onUnmount: action.bound,
             assertHasValidCache: action.bound,
+            onSwitchAccount: action.bound,
+            disposeSwitchAccount: action.bound,
         });
 
         const { root_store, local_storage_properties, session_storage_properties, validation_rules, store_name } =
@@ -424,7 +428,41 @@ export default class BaseStore {
         this.real_account_signup_ended_listener = listener;
     }
 
-    // Removed account switching dispose methods - not needed for trading-only app
+    onSwitchAccount(listener: null | (() => Promise<void>)): void {
+        if (listener) {
+            this.switch_account_listener = listener;
+
+            this.switchAccountDisposer = when(
+                () => !!this.root_store.client.switch_broadcast,
+                () => {
+                    try {
+                        const result = this.switch_account_listener?.();
+                        if (result?.then && typeof result.then === 'function') {
+                            result.then(() => {
+                                this.root_store.client.switchEndSignal();
+                                this.onSwitchAccount(this.switch_account_listener);
+                            });
+                        } else {
+                            throw new Error('Switching account listeners are required to return a promise.');
+                        }
+                    } catch (error) {
+                        // there is no listener currently active. so we can just ignore the error raised from treating
+                        // a null object as a function. Although, in development mode, we throw a console error.
+                        if (!isProduction()) {
+                            console.error(error); // eslint-disable-line
+                        }
+                    }
+                }
+            );
+        }
+    }
+
+    disposeSwitchAccount() {
+        if (typeof this.switchAccountDisposer === 'function') {
+            this.switchAccountDisposer();
+        }
+        this.switch_account_listener = null;
+    }
 
     disposeLogout() {
         if (typeof this.logoutDisposer === 'function') {
@@ -462,6 +500,7 @@ export default class BaseStore {
     }
 
     onUnmount() {
+        this.disposeSwitchAccount();
         this.disposeLogout();
         this.disposeClientInit();
         this.disposeNetworkStatusChange();

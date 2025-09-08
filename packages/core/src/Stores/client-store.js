@@ -54,6 +54,7 @@ export default class ClientStore extends BaseStore {
     website_status = {};
 
     has_cookie_account = false;
+    switch_broadcast = false;
 
     constructor(root_store) {
         const local_storage_properties = [];
@@ -127,6 +128,7 @@ export default class ClientStore extends BaseStore {
             clearSessionToken: action.bound,
             removeTokenFromUrl: action.bound,
             is_crypto: action.bound,
+            switch_broadcast: observable, // This is not to observe account changes, just to trigger reaction that listens to changes in the websoket connection status and login status
         });
 
         reaction(
@@ -553,6 +555,13 @@ export default class ClientStore extends BaseStore {
 
     setIsLoggingIn(bool) {
         this.is_logging_in = bool;
+    }
+    broadcastAccountChangeAfterAuthorize() {
+        this.switch_broadcast = true;
+    }
+
+    switchEndSignal() {
+        this.switch_broadcast = false;
     }
 
     setBalanceActiveAccount(obj_balance) {
