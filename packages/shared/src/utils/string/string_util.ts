@@ -31,6 +31,7 @@ export const matchStringByChar = (s: string, p: string) => {
     return RegExp(z, 'i').test(s);
 };
 
+export const numberToString = (n?: number | string | null) => (typeof n === 'number' ? String(n) : n);
 export const getKebabCase = (str?: string) => {
     if (!str || typeof str !== 'string') return str;
     return str
