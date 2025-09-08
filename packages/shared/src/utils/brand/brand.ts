@@ -5,14 +5,6 @@ export const getBrandWebsiteName = () => {
     return config_data.brand_domain;
 };
 
-export const getBrandName = () => {
-    return config_data.brand_name;
-};
-
-export const getBrandLogo = () => {
-    return config_data.brand_logo;
-};
-
 export const getPlatformName = () => {
     return config_data.platform?.name;
 };

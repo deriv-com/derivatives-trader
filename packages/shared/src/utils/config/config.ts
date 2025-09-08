@@ -9,9 +9,6 @@ import { isStaging } from '../url/helpers';
  *
  */
 
-export const livechat_license_id = 12049137;
-export const livechat_client_id = '66aa088aad5a414484c1fd1fa8a5ace7';
-
 export const domain_app_ids = {
     // these domains as supported "production domains"
     'deriv.app': 16929, // TODO: [app-link-refactor] - Remove backwards compatibility for `deriv.app`
