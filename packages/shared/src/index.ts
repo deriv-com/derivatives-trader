@@ -19,7 +19,6 @@ export * from './utils/login';
 export * from './utils/number';
 export * from './utils/object';
 export * from './utils/os';
-export * from './utils/promise';
 export * from './utils/platform';
 export * from './utils/route';
 export * from './utils/routes';
