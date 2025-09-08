@@ -7,23 +7,6 @@ import { getSupportedContracts } from '../constants/contract';
 
 type TIsSoldBeforeStart = Required<Pick<TContractInfo, 'sell_time' | 'date_start'>>;
 
-export const sortApiData = (arr: AccountListResponse[]) => {
-    return arr.slice().sort((a, b) => {
-        const loginA = a?.login;
-        const loginB = b?.login;
-
-        if (loginA && loginB) {
-            if (loginA < loginB) {
-                return -1;
-            }
-            if (loginA > loginB) {
-                return 1;
-            }
-        }
-        return 0;
-    });
-};
-
 export const isContractElapsed = (contract_info: TContractInfo, tick?: null | TickSpotData) => {
     if (isEmptyObject(tick) || isEmptyObject(contract_info)) return false;
     const end_time = getEndTime(contract_info) || 0;
@@ -38,9 +21,6 @@ export const isEndedBeforeCancellationExpired = (contract_info: TContractInfo) =
     const end_time = getEndTime(contract_info) || 0;
     return !!(contract_info.cancellation?.date_expiry && end_time < contract_info.cancellation.date_expiry);
 };
-
-export const isSoldBeforeStart = (contract_info: TIsSoldBeforeStart) =>
-    contract_info.sell_time && +contract_info.sell_time < +contract_info.date_start;
 
 export const hasContractStarted = (contract_info?: TContractInfo) =>
     Number(contract_info?.current_spot_time) > Number(contract_info?.date_start);

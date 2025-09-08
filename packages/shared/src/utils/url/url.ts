@@ -91,29 +91,6 @@ export const urlFor = (
     return new_url;
 };
 
-export const urlForCurrentDomain = (href: string) => {
-    const current_domain = getCurrentProductionDomain();
-
-    if (!current_domain) {
-        return href; // don't change when domain is not supported
-    }
-
-    const url_object = new URL(href);
-    if (Object.keys(host_map).includes(url_object.hostname)) {
-        url_object.hostname = host_map[url_object.hostname as keyof typeof host_map];
-    } else if (url_object.hostname.match(default_domain)) {
-        // to keep all non-Binary links unchanged, we use default domain for all Binary links in the codebase (javascript and templates)
-        url_object.hostname = url_object.hostname.replace(
-            new RegExp(`\\.${default_domain}`, 'i'),
-            `.${current_domain}`
-        );
-    } else {
-        return href;
-    }
-
-    return url_object.href;
-};
-
 export const websiteUrl = () => `${location.protocol}//${location.hostname}/`;
 
 export const getUrlBase = (path = '') => {
@@ -127,8 +104,6 @@ export const getUrlBase = (path = '') => {
 export const removeBranchName = (path = '') => {
     return path.replace(/^\/br_.*?\//, '/');
 };
-
-export const getHostMap = () => host_map;
 
 export const setUrlLanguage = (lang: string) => {
     default_language = lang;
@@ -157,15 +132,6 @@ export const getStaticUrl = (path = '', is_document = false, is_eu_url = false) 
     }
 
     return `${host}${lang}/${normalizePath(path)}`;
-};
-
-export const getHubSignupUrl = (redirect_url?: string) => {
-    const current_domain = process.env.NODE_ENV === 'production' ? deriv_urls.HUB_PRODUCTION : deriv_urls.HUB_STAGING;
-
-    const lang = `?lang=${default_language?.toLowerCase() || 'en'}`;
-    const redirect_param = redirect_url ? `&redirect_url=${encodeURIComponent(redirect_url)}` : '';
-
-    return `${current_domain}/signup${lang}${redirect_param}`;
 };
 
 export const getPath = (route_path: string, parameters = {}) =>

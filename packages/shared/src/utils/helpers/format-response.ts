@@ -58,9 +58,6 @@ const isVerifiedOrNone = (errors: Array<TIDVErrorStatus>, status_code: string, i
     );
 };
 
-export const isIDVReportNotAvailable = (idv: Record<string, unknown>) =>
-    'report_available' in idv && idv?.report_available === 0;
-
 const getIDVErrorStatus = (errors: Array<TIDVErrorStatus>, is_report_not_available?: boolean) => {
     const status: Array<TIDVErrorStatus> = [];
     errors.forEach(error => {
@@ -120,14 +117,6 @@ export const formatOnfidoError = (status_code: string, errors: Array<TOnfidoErro
         return [ONFIDO_ERROR_STATUS.Expired.code, ...errors];
     }
     return errors;
-};
-
-export const getOnfidoError = (error: TOnfidoErrorStatus) => {
-    return ONFIDO_ERROR_STATUS[error]?.message ?? '';
-};
-
-export const getIDVError = (error: TIDVErrorStatus) => {
-    return IDV_ERROR_STATUS[error]?.message ?? '';
 };
 
 export const isVerificationServiceSupported = (

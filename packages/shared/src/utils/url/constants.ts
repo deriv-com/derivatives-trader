@@ -25,4 +25,3 @@ export const deriv_urls = Object.freeze({
 /**
  * @deprecated Please use 'URLConstants.whatsApp' from '@deriv-com/utils' instead of this.
  */
-export const whatsapp_url = 'https://wa.me/35699578341';

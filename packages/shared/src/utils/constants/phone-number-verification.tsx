@@ -4,24 +4,6 @@ import dayjs from 'dayjs';
 import { Chat } from '@deriv/utils';
 import { Localize } from '@deriv-com/translations';
 
-export const VERIFICATION_SERVICES = {
-    SMS: 'sms',
-    WHATSAPP: 'whatsapp',
-} as const;
-
-export const getCarriers = () =>
-    ({
-        SMS: <Localize i18n_default_text='SMS' />,
-        WHATSAPP: <Localize i18n_default_text='WhatsApp' />,
-    }) as const;
-
-export const shouldShowPhoneVerificationNotification = (nextAttemptTimestamp: number, current_time: dayjs.Dayjs) => {
-    const request_in_milliseconds = dayjs(nextAttemptTimestamp * 1000);
-    const seconds_until_next_attempt = Math.round(request_in_milliseconds.diff(current_time) / 1000);
-
-    return seconds_until_next_attempt > 0;
-};
-
 export const getUseRequestPhoneNumberOTPErrorMessage = (
     error_code: string,
     getCurrentCarrier: () => string,
@@ -50,49 +32,6 @@ export const getUseRequestPhoneNumberOTPErrorMessage = (
         case 'InvalidPhone':
             return (
                 <Localize i18n_default_text='Enter a valid phone number, including the country code (e.g. +15417541234).' />
-            );
-        default:
-            break;
-    }
-};
-
-export const phoneOTPErrorMessage = (error_code: string, verify_attempts_remaining: number) => {
-    switch (error_code) {
-        case 'PhoneCodeExpired':
-            return <Localize i18n_default_text='Code expired. Get a new one.' />;
-        case 'InvalidOTP':
-            if (verify_attempts_remaining - 1 === 1) {
-                return <Localize i18n_default_text='Try again. You have 1 attempt left.' />;
-            }
-            return <Localize i18n_default_text='Invalid code. Try again.' />;
-        default:
-            break;
-    }
-};
-
-export const emailOTPErrorMessage = (
-    error_code: string,
-    getCurrentCarrier: () => string,
-    getOtherCarrier: () => string,
-    challenge_attempts_remaining: number
-) => {
-    switch (error_code) {
-        case 'EmailCodeExpired':
-            return <Localize i18n_default_text='Code expired. Get a new code.' />;
-        case 'InvalidToken':
-            if (challenge_attempts_remaining - 1 === 1) {
-                return <Localize i18n_default_text='Try again. You have 1 attempt left.' />;
-            }
-            return <Localize i18n_default_text='Invalid code. Try again or get a new code.' />;
-        case 'PhoneNumberVerificationSuspended':
-            return (
-                <Localize
-                    i18n_default_text="We're unable to send codes via {{ current_carrier }} right now. Get your code by {{other_carriers}}."
-                    values={{
-                        current_carrier: getCurrentCarrier(),
-                        other_carriers: getOtherCarrier(),
-                    }}
-                />
             );
         default:
             break;

@@ -77,8 +77,6 @@ export const validLength = (value = '', options: TOptions) =>
     (options.max ? value.length <= Number(options.max) : true);
 export const validPassword = (value: string) => /^(?=.*[a-z])(?=.*\d)(?=.*[A-Z])[!-~]{8,25}$/.test(value);
 export const validEmail = (value: string) => /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/.test(value);
-export const validAddressState = (value: string) => /^[\w\s\W'.;,-]{0,99}$/.test(value);
-
 const validBarrier = (value: string) => {
     if (value === '+' || value === '-') {
         return {
@@ -93,12 +91,6 @@ const validRegular = (value: string, options: TOptions) => options.regex?.test(v
 const confirmRequired = (value: string) => !!value;
 const checkPOBox = (value: string) => !/p[.\s]+o[.\s]+box/i.test(value);
 const validEmailToken = (value: string) => value.trim().length === 8;
-export const hasInvalidCharacters = (target_string: string) => /[^\dX\s]/.test(target_string);
-export const isFormattedCardNumber = (target_string: string) =>
-    /(^\d{4})\s(\d{2}X{2})\s(X{4})\s(\d{4}$)/.test(target_string);
-export const validFile = (file: File) => file?.type && /(image|application)\/(jpe?g|pdf|png)$/.test(file?.type);
-export const validMT5Password = (value: string) => /^(?=.*[!@#$%^&*()+\-=[\]{};':"|,.<>/?_~])[ -~]{8,16}$/.test(value);
-
 let pre_build_dvrs: TInitPreBuildDVRs, form_error_messages: TFormErrorMessagesTypes;
 
 const isMoreThanMax = (value: number, options: TOptions) =>
@@ -209,8 +201,4 @@ export const initFormErrorMessages = (all_form_error_messages: TFormErrorMessage
 
 export const getPreBuildDVRs = () => {
     return pre_build_dvrs;
-};
-
-export const getErrorMessages = () => {
-    return form_error_messages;
 };
