@@ -6,11 +6,6 @@ export const padLeft = (txt: string, len: number, char: string) => {
     return text.length >= len ? text : `${Array(len - text.length + 1).join(char)}${text}`;
 };
 
-const numberToString = (value: number | string | null | undefined) => {
-    if (value === null || value === undefined) return '';
-    return String(value);
-};
-
 export const compareBigUnsignedInt = (a: number, b?: number | string | null) => {
     let first_num = numberToString(a);
     let second_num = numberToString(b);
