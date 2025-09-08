@@ -8,7 +8,6 @@
         "start": "npm run test && npm run serve",
         "serve": "f() { echo \"Serving...\" && ../../node_modules/.bin/webpack serve --config \"./build/webpack.config.js\" --env open $1;}; f",
         "build": "f () { webpack --config \"./build/webpack.config.js\" --env base=$1 --env IS_CRYPTO_APP=${IS_CRYPTO_APP:-false};}; f",
-        "build:travis": "echo \"No build:travis specified\"",
         "test:eslint": "eslint \"./src/**/*.?(js|jsx|ts|tsx)\"",
         "deploy": "npm run build && gh-pages -d dist --remove=\"js\"",
         "deploy:clean": "npm run build && gh-pages -d dist",
@@ -27,7 +26,7 @@
         "url": "https://github.com/deriv-com/deriv-app/issues"
     },
     "engines": {
-        "node": "18.x"
+        "node": "20.x"
     },
     "homepage": "https://github.com/deriv-com/deriv-app",
     "devDependencies": {
