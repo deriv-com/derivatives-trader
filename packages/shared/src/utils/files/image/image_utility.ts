@@ -12,8 +12,6 @@ export type TImage = {
     filename: string;
 };
 
-export type TFile = File & { file: Blob };
-
 const compressImg = (image: TImage): Promise<Blob> =>
     new Promise(resolve => {
         const img = new Image();
