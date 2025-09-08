@@ -4,6 +4,9 @@
     "version": "1.0.0",
     "main": "src/index.ts",
     "sideEffects": false,
+    "engines": {
+        "node": "20.x"
+    },
     "dependencies": {
         "@binary-com/binary-document-uploader": "^2.4.8",
         "@deriv-com/analytics": "1.31.6",
