@@ -14,7 +14,10 @@ type TPlatform = {
 };
 
 type TPlatforms = Record<'derivgo' | 'tradershub_os', TPlatform>;
-export const tradershub_os_url = `https://staging-hub.${getDomainUrl()}/tradershub`;
+export const tradershub_os_url =
+    process.env.NODE_ENV === 'production'
+        ? `https://hub.${getDomainUrl()}/tradershub`
+        : `https://staging-hub.${getDomainUrl()}/tradershub`;
 
 // TODO: This should be moved to PlatformContext
 export const platforms: TPlatforms = {

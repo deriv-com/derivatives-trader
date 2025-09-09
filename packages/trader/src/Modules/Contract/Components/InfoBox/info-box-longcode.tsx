@@ -5,7 +5,7 @@ import { Button, Modal, Text } from '@deriv/components';
 import { LegacySellExpiredIcon } from '@deriv/quill-icons';
 import { isTabletOs, TContractInfo } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv-com/translations';
+import { Localize, useTranslations } from '@deriv-com/translations';
 
 type TInfoBoxLongcode = { contract_info: TContractInfo };
 
@@ -13,6 +13,7 @@ const InfoBoxLongcode = observer(({ contract_info }: TInfoBoxLongcode) => {
     const {
         ui: { is_mobile },
     } = useStore();
+    const { localize } = useTranslations();
     const max_longcode_length = is_mobile ? 47 : 150;
     const [is_collapsed, setIsCollapsed] = React.useState(true);
 
@@ -42,7 +43,7 @@ const InfoBoxLongcode = observer(({ contract_info }: TInfoBoxLongcode) => {
                         'info-box-longcode-text--collapsed--fixed-height': !isTabletOs && (is_collapsed || is_mobile),
                     })}
                 >
-                    {contract_info.longcode && <Localize i18n_default_text={contract_info.longcode} />}
+                    {contract_info.longcode && localize(contract_info.longcode)}
                 </Text>
                 {` `}
                 {contract_info?.longcode && contract_info.longcode.length > max_longcode_length && (
@@ -65,9 +66,7 @@ const InfoBoxLongcode = observer(({ contract_info }: TInfoBoxLongcode) => {
                 toggleModal={handleToggle}
             >
                 <Modal.Body>
-                    <Text size='xs'>
-                        {contract_info.longcode && <Localize i18n_default_text={contract_info.longcode} />}
-                    </Text>
+                    <Text size='xs'>{contract_info.longcode && localize(contract_info.longcode)}</Text>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className='info-box-longcode--modal-button' primary large onClick={handleToggle}>

@@ -6,11 +6,6 @@ export const padLeft = (txt: string, len: number, char: string) => {
     return text.length >= len ? text : `${Array(len - text.length + 1).join(char)}${text}`;
 };
 
-const numberToString = (value: number | string | null | undefined) => {
-    if (value === null || value === undefined) return '';
-    return String(value);
-};
-
 export const compareBigUnsignedInt = (a: number, b?: number | string | null) => {
     let first_num = numberToString(a);
     let second_num = numberToString(b);
@@ -36,6 +31,7 @@ export const matchStringByChar = (s: string, p: string) => {
     return RegExp(z, 'i').test(s);
 };
 
+export const numberToString = (n?: number | string | null) => (typeof n === 'number' ? String(n) : n);
 export const getKebabCase = (str?: string) => {
     if (!str || typeof str !== 'string') return str;
     return str
