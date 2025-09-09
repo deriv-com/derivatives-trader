@@ -1,14 +1,5 @@
 import moment from 'moment';
-import { epochToMoment, toMoment } from '../moment';
-
-describe('epochToMoment', () => {
-    it('should convert a numerical epoch value to a Moment instance', () => {
-        const epochValue = 1609459200;
-        const momentInstance = epochToMoment(epochValue);
-        expect(momentInstance).toBeInstanceOf(moment);
-        expect(momentInstance.valueOf()).toBe(epochValue * 1000);
-    });
-});
+import { toMoment } from '../moment';
 
 describe('toMoment', () => {
     it('should return the current UTC moment if no value is provided', () => {
@@ -23,7 +14,7 @@ describe('toMoment', () => {
         expect(momentInstance).toBe(existingMoment);
     });
 
-    it('should convert a numerical value to a Moment instance using epochToMoment', () => {
+    it('should convert a numerical value to a Moment instance using internal epoch conversion', () => {
         const epochValue = 1609459200;
         const momentInstance = toMoment(epochValue);
         expect(momentInstance).toBeInstanceOf(moment);
