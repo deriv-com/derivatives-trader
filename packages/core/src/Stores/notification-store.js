@@ -7,7 +7,6 @@ import {
     getEndTime,
     getMarketName,
     getPathname,
-    getStaticUrl,
     getTotalProfit,
     getTradeTypeName,
     getUrlBase,
@@ -17,6 +16,7 @@ import {
     LocalStore,
     unique,
     getPlatformName,
+    getBrandUrl,
 } from '@deriv/shared';
 import { Localize, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
@@ -439,7 +439,7 @@ export default class NotificationStore extends BaseStore {
                 cta_btn: {
                     text: localize('Learn more'),
                     onClick: () => {
-                        window.open(getStaticUrl('/landing/deriv-go'), '_blank');
+                        window.open(`${getBrandUrl()}/landing/deriv-go`);
                     },
                 },
                 img_src: getUrlBase('/public/images/common/derivgo_banner.png'),

@@ -3,9 +3,8 @@ import { action, computed, makeObservable, observable, reaction, runInAction, wh
 import moment from 'moment';
 
 import {
-    deriv_urls,
     filterUrlQuery,
-    getAppId,
+    getBrandDomain,
     isCryptocurrency,
     isMobile,
     LocalStore,
@@ -97,7 +96,6 @@ export default class ClientStore extends BaseStore {
 
             has_active_real_account: computed,
             has_any_real_account: computed,
-            has_wallet: computed,
             is_single_currency: computed,
 
             setPreferredLanguage: action.bound,
@@ -152,10 +150,6 @@ export default class ClientStore extends BaseStore {
 
     get has_any_real_account() {
         return !this.is_virtual;
-    }
-
-    get has_wallet() {
-        return false; // Simplified for trading app
     }
 
     get currency() {
@@ -249,9 +243,7 @@ export default class ClientStore extends BaseStore {
     };
 
     setCookieAccount() {
-        const domain = /deriv\.(com|me|be)/.test(window.location.hostname)
-            ? deriv_urls.DERIV_HOST_NAME
-            : window.location.hostname;
+        const domain = /deriv\.(com)/.test(window.location.hostname) ? getBrandDomain() : window.location.hostname;
 
         const { loginid, landing_company_shortcode, currency, preferred_language, user_id } = this;
         const email = this.email;
@@ -316,9 +308,7 @@ export default class ClientStore extends BaseStore {
         setCurrencies(this.website_status);
 
         // TODO: remove the below lines after full smartcharts v2 launch.
-        const domain = /deriv\.(com|me)/.test(window.location.hostname)
-            ? deriv_urls.DERIV_HOST_NAME
-            : window.location.hostname;
+        const domain = /deriv\.(com)/.test(window.location.hostname) ? getBrandDomain() : window.location.hostname;
         const { clients_country } = this.website_status;
 
         const options = {
@@ -537,7 +527,6 @@ export default class ClientStore extends BaseStore {
             loggedIn: login_status,
             account_type: broker === 'null' ? 'unlogged' : broker,
             residence_country,
-            app_id: String(getAppId()),
             device_type: isMobile() ? 'mobile' : 'desktop',
             language: getInitialLanguage(),
             device_language: navigator?.language || 'en-EN',

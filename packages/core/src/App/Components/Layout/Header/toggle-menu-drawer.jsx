@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { /* useOauth2, */ useRemoteConfig } from '@deriv/api';
+import { useRemoteConfig } from '@deriv/api';
 import { Div100vhContainer, MobileDrawer, ToggleSwitch } from '@deriv/components';
 import {
     LegacyChartsIcon,
@@ -15,13 +15,9 @@ import {
     LegacyResponsibleTradingIcon,
     LegacyTheme1pxIcon,
 } from '@deriv/quill-icons';
-// eslint-disable-next-line no-unused-vars -- getDomainUrl kept for future handleTradershubRedirect restoration
 import { getBrandHomeUrl, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-// eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of Analytics functionality
-import { Analytics } from '@deriv-com/analytics';
 import { useTranslations } from '@deriv-com/translations';
-
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of LiveChat functionality
 import LiveChat from 'App/Components/Elements/LiveChat';
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of WhatsApp functionality
@@ -53,7 +49,7 @@ const ToggleMenuDrawer = observer(() => {
 
     const { data } = useRemoteConfig(true);
     // eslint-disable-next-line no-unused-vars -- Variables kept for future LiveChat/WhatsApp restoration
-    const { cs_chat_livechat, cs_chat_whatsapp } = data;
+    const { cs_chat_intercom, cs_chat_whatsapp } = data;
 
     const [is_open, setIsOpen] = React.useState(false);
     const [transitionExit, setTransitionExit] = React.useState(false);
@@ -90,8 +86,6 @@ const ToggleMenuDrawer = observer(() => {
         toggleDrawer();
         await logoutClient();
     }, [logoutClient, toggleDrawer]);
-
-    // const { oAuthLogout } = useOauth2({ handleLogout });
 
     const renderSubMenuFromConfig = routePath => {
         const routes_config = getRoutesConfig();
@@ -251,7 +245,7 @@ const ToggleMenuDrawer = observer(() => {
                                         <WhatsApp onClick={toggleDrawer} />
                                     </MobileDrawer.Item>
                                 )}
-                                {cs_chat_livechat && (
+                                {cs_chat_intercom && (
                                     <MobileDrawer.Item className='header__menu-mobile-livechat'>
                                         <LiveChat />
                                     </MobileDrawer.Item>

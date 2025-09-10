@@ -16,7 +16,6 @@ module.exports = {
 
     // Token functions
     getToken: jest.fn(() => 'mock_token'),
-    isTmbEnabled: jest.fn(() => Promise.resolve(true)),
 
     // Feature flag functions
     getFeatureFlag: jest.fn(() => false),

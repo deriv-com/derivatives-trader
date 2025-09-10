@@ -55,7 +55,6 @@ describe('<InsufficientBalanceModal />', () => {
 
     beforeEach(() => {
         mock_store = mockStore({
-            client: { has_wallet: false },
             ui: {
                 is_mobile: false,
             },
@@ -87,7 +86,6 @@ describe('<InsufficientBalanceModal />', () => {
     // TODO: Remove if this test is not needed
     it('button text should be "Deposit now" if is_virtual is false', async () => {
         mocked_props.is_virtual = false;
-        mock_store.client.has_wallet = true;
         render(<InsufficientBalanceModal {...mocked_props} />, { wrapper });
         const button = screen.getByText(/deposit now/i);
         expect(button).toBeInTheDocument();

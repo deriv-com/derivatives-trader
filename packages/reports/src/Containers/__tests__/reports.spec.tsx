@@ -82,7 +82,6 @@ const mock = {
         is_logging_in: false,
     },
     common: {
-        is_from_derivgo: false,
         routeBackInApp: jest.fn(),
     },
     ui: {

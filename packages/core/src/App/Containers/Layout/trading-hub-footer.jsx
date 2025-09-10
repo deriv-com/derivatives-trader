@@ -43,7 +43,7 @@ const TradingHubFooter = observer(() => {
     const { localize } = useTranslations();
     const { client, common, ui, traders_hub } = useStore();
     const { show_eu_related_content } = traders_hub;
-    const { has_wallet, is_logged_in, is_eu, landing_company_shortcode, is_virtual } = client;
+    const { is_logged_in, is_eu, landing_company_shortcode, is_virtual } = client;
     const { current_language } = common;
     const {
         enableApp,
@@ -73,7 +73,7 @@ const TradingHubFooter = observer(() => {
 
     const location = window.location.pathname;
     const { data } = useRemoteConfig(true);
-    const { cs_chat_livechat, cs_chat_whatsapp } = data;
+    const { cs_chat_intercom, cs_chat_whatsapp } = data;
 
     const showPopover = !isTabletOs;
 
@@ -102,7 +102,7 @@ const TradingHubFooter = observer(() => {
             <div className='footer__links'>
                 {footer_extensions_right.map(FooterExtensionRenderer)}
                 {cs_chat_whatsapp && <WhatsApp showPopover={showPopover} />}
-                {cs_chat_livechat && <LiveChat showPopover={showPopover} />}
+                {cs_chat_intercom && <LiveChat showPopover={showPopover} />}
                 {/* <ResponsibleTrading showPopover={showPopover} /> */}
                 {/* {is_logged_in && <AccountLimitsFooter showPopover={showPopover} />} */}
                 {is_logged_in && !is_virtual && (
@@ -113,17 +113,15 @@ const TradingHubFooter = observer(() => {
                         showPopover={showPopover}
                     />
                 )}
-                {!has_wallet && (
-                    <div className='footer__links--dark-mode'>
-                        {showPopover ? (
-                            <Popover alignment='top' message={localize('Change theme')} zIndex={9999}>
-                                {modeIcon}
-                            </Popover>
-                        ) : (
-                            modeIcon
-                        )}
-                    </div>
-                )}
+                <div className='footer__links--dark-mode'>
+                    {showPopover ? (
+                        <Popover alignment='top' message={localize('Change theme')} zIndex={9999}>
+                            {modeIcon}
+                        </Popover>
+                    ) : (
+                        modeIcon
+                    )}
+                </div>
                 <FooterIconSeparator />
                 {/* <HelpCentre showPopover={showPopover} /> */}
                 {location === routes.index && (

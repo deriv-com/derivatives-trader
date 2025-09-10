@@ -1,13 +1,12 @@
 import React, { createContext, PropsWithChildren, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
-import { getAppId, getSocketURL } from '@deriv/shared';
+import { getBrandName, getSocketURL } from '@deriv/shared';
 import { getInitialLanguage } from '@deriv-com/translations';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { TSocketRequestPayload, TSocketResponseData, TSocketSubscribableEndpointNames } from '../types';
 
 import WSClient from './ws-client/ws-client';
-import { PLATFORMS } from './constants';
 import { hashObject } from './utils';
 
 type TSubscribeFunction = <T extends TSocketSubscribableEndpointNames>(
@@ -39,9 +38,8 @@ type APIContextData = {
  * @returns {string} The WebSocket URL.
  */
 const getWebSocketURL = (endpoint: string) => {
-    const app_id = getAppId();
-    const language = getInitialLanguage();
-    return `wss://${endpoint}/websockets/v3?app_id=${app_id}&l=${language}&brand=deriv`;
+    // TODO remove hardcoded app_id in future
+    return `wss://${endpoint}/websockets/v3?app_id=16929&brand=${getBrandName().toLowerCase()}`;
 };
 
 const APIContext = createContext<APIContextData | null>(null);
@@ -92,7 +90,7 @@ const APIProvider = ({ children, platform }: PropsWithChildren<TAPIProviderProps
 
     const language = getInitialLanguage();
     const [prevLanguage, setPrevLanguage] = useState<string>(language);
-    const endpoint = getSocketURL(platform === PLATFORMS.WALLETS);
+    const endpoint = getSocketURL();
 
     useEffect(() => {
         isMounted.current = true;

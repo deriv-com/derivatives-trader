@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useScript } from 'usehooks-ts';
 
-import useGrowthbookGetFeatureValue from './useGrowthbookGetFeatureValue';
+import useRemoteConfig from './useRemoteConfig';
 
 export const useIntercom = (token: string | null) => {
     const intercom_script = 'https://static.deriv.com/scripts/intercom/v1.0.1.js';
-    const [enable_intercom] = useGrowthbookGetFeatureValue({
-        featureFlag: 'enable_intercom',
-    });
+    const { data: remoteConfig } = useRemoteConfig(true);
+    const enable_intercom = remoteConfig?.cs_chat_intercom ?? false;
     const scriptStatus = useScript(enable_intercom ? intercom_script : null);
 
     useEffect(() => {

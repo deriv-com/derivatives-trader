@@ -56,79 +56,72 @@ const NotificationsContent = ({
     );
 };
 
-const AppNotificationMessages = observer(
-    ({ is_notification_loaded, is_mt5, stopNotificationLoading, show_trade_notifications }) => {
-        const { notifications } = useStore();
-        const {
-            marked_notifications,
-            notification_messages,
-            removeNotificationMessage,
-            markNotificationMessage,
-            should_show_popups,
-        } = notifications;
-        const [style, setStyle] = React.useState({});
-        const [notifications_ref, setNotificationsRef] = React.useState(null);
+const AppNotificationMessages = observer(({ is_notification_loaded, show_trade_notifications }) => {
+    const { notifications } = useStore();
+    const {
+        marked_notifications,
+        notification_messages,
+        removeNotificationMessage,
+        markNotificationMessage,
+        should_show_popups,
+    } = notifications;
+    const [style, setStyle] = React.useState({});
+    const [notifications_ref, setNotificationsRef] = React.useState(null);
 
-        React.useEffect(() => {
-            if (is_mt5) {
-                stopNotificationLoading();
+    React.useEffect(() => {
+        if (notifications_ref && isMobile()) {
+            if (notifications_ref.parentElement !== null) {
+                const bounds = notifications_ref.parentElement.getBoundingClientRect();
+                setStyle({ top: bounds.top + 8 });
             }
-            if (notifications_ref && isMobile()) {
-                if (notifications_ref.parentElement !== null) {
-                    const bounds = notifications_ref.parentElement.getBoundingClientRect();
-                    setStyle({ top: bounds.top + 8 });
-                }
-            }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [is_mt5, notifications_ref]);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [notifications_ref]);
 
-        const notifications_msg = notification_messages.filter(message => {
-            const is_not_marked_notification = !marked_notifications.includes(message.key);
-            const is_non_hidden_notification = isMobile()
-                ? [...maintenance_notifications, 'deriv_go', 'contract_sold', 'install_pwa', 'trustpilot'].includes(
-                      message.key
-                  )
-                : true;
+    const notifications_msg = notification_messages.filter(message => {
+        const is_not_marked_notification = !marked_notifications.includes(message.key);
+        const is_non_hidden_notification = isMobile()
+            ? [...maintenance_notifications, 'deriv_go', 'contract_sold', 'install_pwa', 'trustpilot'].includes(
+                  message.key
+              )
+            : true;
 
-            const is_maintenance_notifications = maintenance_notifications.includes(message.key);
+        const is_maintenance_notifications = maintenance_notifications.includes(message.key);
 
-            return is_not_marked_notification && is_non_hidden_notification && is_maintenance_notifications;
-        });
+        return is_not_marked_notification && is_non_hidden_notification && is_maintenance_notifications;
+    });
 
-        const notifications_limit = isMobile() ? max_display_notifications_mobile : max_display_notifications;
+    const notifications_limit = isMobile() ? max_display_notifications_mobile : max_display_notifications;
 
-        const filtered_excluded_notifications = notifications_msg.filter(message =>
-            priority_toast_messages.includes(message.key) ? message : excluded_notifications.includes(message.key)
-        );
+    const filtered_excluded_notifications = notifications_msg.filter(message =>
+        priority_toast_messages.includes(message.key) ? message : excluded_notifications.includes(message.key)
+    );
 
-        // Cashier functionality has been removed
-        const notifications_sublist = filtered_excluded_notifications.slice(0, notifications_limit);
+    // Cashier functionality has been removed
+    const notifications_sublist = filtered_excluded_notifications.slice(0, notifications_limit);
 
-        if (!should_show_popups && !notifications_sublist.some(n => n.key === 'site_maintenance')) return null;
+    if (!should_show_popups && !notifications_sublist.some(n => n.key === 'site_maintenance')) return null;
 
-        return notifications_sublist.length ? (
-            <div ref={ref => setNotificationsRef(ref)} className='notification-messages-bounds'>
-                <Portal>
-                    <NotificationsContent
-                        notifications={notifications_sublist}
-                        is_notification_loaded={is_notification_loaded}
-                        style={style}
-                        removeNotificationMessage={removeNotificationMessage}
-                        markNotificationMessage={markNotificationMessage}
-                        show_trade_notifications={show_trade_notifications}
-                    />
-                </Portal>
-            </div>
-        ) : (
-            <TradeNotifications show_trade_notifications={show_trade_notifications} />
-        );
-    }
-);
+    return notifications_sublist.length ? (
+        <div ref={ref => setNotificationsRef(ref)} className='notification-messages-bounds'>
+            <Portal>
+                <NotificationsContent
+                    notifications={notifications_sublist}
+                    is_notification_loaded={is_notification_loaded}
+                    style={style}
+                    removeNotificationMessage={removeNotificationMessage}
+                    markNotificationMessage={markNotificationMessage}
+                    show_trade_notifications={show_trade_notifications}
+                />
+            </Portal>
+        </div>
+    ) : (
+        <TradeNotifications show_trade_notifications={show_trade_notifications} />
+    );
+});
 
 AppNotificationMessages.propTypes = {
-    is_mt5: PropTypes.bool,
     is_notification_loaded: PropTypes.bool,
-    stopNotificationLoading: PropTypes.func,
     show_trade_notifications: PropTypes.bool,
 };
 

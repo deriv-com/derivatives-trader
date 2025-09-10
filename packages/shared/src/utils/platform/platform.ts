@@ -1,13 +1,5 @@
-import { getPlatformName, getPlatformIcon } from '../brand';
+import { getPlatformName } from '../brand';
 import { routes } from '../routes';
-
-type TRoutingHistory = {
-    action: string;
-    hash: string;
-    key: string;
-    pathname: string;
-    search: string;
-}[];
 
 /*
  * These functions exist because we want to refresh the browser page on switch between Bot and the rest of the platforms.

@@ -19,16 +19,16 @@ function getAcct1Value(url: string) {
 const getConfigValues = (environment: string) => {
     if (environment === 'production') {
         return {
-            serviceName: 'app.deriv.com',
-            dataDogVersion: `deriv-app-${process.env.REF_NAME}`,
+            serviceName: 'dtrader.deriv.com',
+            dataDogVersion: `derivatives-app-${process.env.REF_NAME}`,
             dataDogSessionReplaySampleRate: Number(process.env.DATADOG_SESSION_REPLAY_SAMPLE_RATE ?? 1),
             dataDogSessionSampleRate: Number(process.env.DATADOG_SESSION_SAMPLE_RATE ?? 10),
             dataDogEnv: 'production',
         };
     } else if (environment === 'staging') {
         return {
-            serviceName: 'staging-app.deriv.com',
-            dataDogVersion: `deriv-app-staging-v${process.env.REF_NAME}`,
+            serviceName: 'staging-dtrader.deriv.com',
+            dataDogVersion: `derivatives-app-staging-v${process.env.REF_NAME}`,
             dataDogSessionReplaySampleRate: 0,
             dataDogSessionSampleRate: 100,
             dataDogEnv: 'staging',

@@ -11,7 +11,6 @@ import { useDevice } from '@deriv-com/ui';
 
 const mockData = [
     {
-        app_id: 36300,
         buy_price: 9.39,
         contract_id: 3213,
         action_type: 'sell',
@@ -32,7 +31,6 @@ const mockData = [
         underlying_symbol: '1HZ100V',
     },
     {
-        app_id: 321323,
         buy_price: 1.39,
         action_type: 'sell',
         contract_id: 312321312,
@@ -114,7 +112,6 @@ jest.mock('@deriv/shared', () => ({
                     {
                         action_type: 'sell',
                         amount: 11,
-                        app_id: 2,
                         balance_after: 8866.19,
                         contract_id: 243990619668,
                         longcode:
@@ -129,7 +126,6 @@ jest.mock('@deriv/shared', () => ({
                     {
                         action_type: 'buy',
                         amount: -10,
-                        app_id: 36300,
                         balance_after: 8845.35,
                         contract_id: 244170956768,
                         longcode:

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, Form, Formik } from 'formik';
 import { Button, Checkbox, Input, Text } from '@deriv/components';
-import { getAppId, getDebugServiceWorker, getSocketURL } from '@deriv/shared';
+import { getDebugServiceWorker, getSocketURL } from '@deriv/shared';
 import { FeatureFlagsSection } from './FeatureFlagsSection';
 
 const InputField = props => {
@@ -28,18 +28,11 @@ const Endpoint = () => {
     return (
         <Formik
             initialValues={{
-                app_id: getAppId(),
                 server: getSocketURL(),
                 is_debug_service_worker_enabled: !!getDebugServiceWorker(),
             }}
             validate={values => {
                 const errors = {};
-
-                if (!values.app_id) {
-                    errors.app_id = 'App ID is required.';
-                } else if (!/^\d+$/.test(values.app_id)) {
-                    errors.app_id = 'Please enter a valid app ID.';
-                }
 
                 if (!values.server) {
                     errors.server = 'Server is required.';
@@ -48,7 +41,6 @@ const Endpoint = () => {
                 return errors;
             }}
             onSubmit={values => {
-                localStorage.setItem('config.app_id', values.app_id);
                 localStorage.setItem('config.server_url', values.server);
                 localStorage.setItem('debug_service_worker', values.is_debug_service_worker_enabled ? 1 : 0);
                 sessionStorage.removeItem('config.platform');
@@ -63,23 +55,6 @@ const Endpoint = () => {
                         </Text>
                     </div>
                     <InputField name='server' label='Server' hint='e.g. frontend.derivws.com' />
-                    <InputField
-                        name='app_id'
-                        label='OAuth App ID'
-                        hint={
-                            <React.Fragment>
-                                Register an{' '}
-                                <a
-                                    href='https://developers.binary.com/applications/'
-                                    target='_blank'
-                                    rel='noopener noreferrer'
-                                >
-                                    app ID
-                                </a>{' '}
-                                to use the above server for logging in.
-                            </React.Fragment>
-                        }
-                    />
                     <Field name='is_debug_service_worker_enabled'>
                         {({ field }) => (
                             <div className='endpoint__checkbox'>
@@ -99,11 +74,9 @@ const Endpoint = () => {
                         type='submit'
                         is_disabled={
                             !!(
-                                (!touched.server && !touched.app_id && !touched.is_debug_service_worker_enabled) ||
+                                (!touched.server && !touched.is_debug_service_worker_enabled) ||
                                 !values.server ||
-                                !values.app_id ||
                                 errors.server ||
-                                errors.app_id ||
                                 isSubmitting
                             )
                         }
@@ -113,7 +86,6 @@ const Endpoint = () => {
                     <Button
                         type='button'
                         onClick={() => {
-                            localStorage.removeItem('config.app_id');
                             localStorage.removeItem('config.server_url');
                             location.reload();
                         }}

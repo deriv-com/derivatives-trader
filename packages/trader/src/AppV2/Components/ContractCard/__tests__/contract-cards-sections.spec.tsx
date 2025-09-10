@@ -12,7 +12,6 @@ const mockProps = {
     positions: [
         {
             contract_info: {
-                app_id: 16929,
                 buy_price: 10,
                 contract_id: 243585717228,
                 contract_type: 'TURBOSLONG',
@@ -33,7 +32,6 @@ const mockProps = {
         },
         {
             contract_info: {
-                app_id: 16929,
                 buy_price: 10,
                 contract_id: 243578583348,
                 contract_type: 'MULTUP',

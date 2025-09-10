@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
-import { isEmptyObject, routes, removeBranchName, default_title } from '@deriv/shared';
+import { isEmptyObject, routes, removeBranchName, getBrandName } from '@deriv/shared';
 import type { TBinaryRoutes, TRoute } from 'Types';
 
 type TRouteWithSubRoutes = TRoute & TBinaryRoutes;
@@ -34,7 +34,7 @@ const RouteWithSubRoutes = (route: TRouteWithSubRoutes) => {
         }
 
         const title = route.getTitle?.() || '';
-        document.title = `${title} | ${default_title}`;
+        document.title = `${title} | ${getBrandName()}`;
         return result;
     };
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Modal, Popover } from '@deriv/components';
 import { LegacyRegulatoryInformationIcon } from '@deriv/quill-icons';
-import { deriv_urls } from '@deriv/shared';
+import { getBrandUrl } from '@deriv/shared';
 import { Localize, useTranslations } from '@deriv-com/translations';
 
 const MFRegulatoryInformation = () => (
@@ -12,7 +12,7 @@ const MFRegulatoryInformation = () => (
                 i18n_default_text='{{legal_entity_name}} is licensed in Malta and regulated by the Malta Financial Services Authority, under the Investment Services Act, to provide investment services (<0>view licence</0>).'
                 components={[
                     <a
-                        href={`https://${deriv_urls.DERIV_HOST_NAME}/regulatory/Deriv_Investments_(Europe)_Limited.pdf`}
+                        href={`${getBrandUrl()}/regulatory/Deriv_Investments_(Europe)_Limited.pdf`}
                         target='_blank'
                         rel='nofollow noreferrer'
                         key={0}

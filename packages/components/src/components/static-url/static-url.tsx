@@ -13,7 +13,7 @@ const StaticUrl = ({ href, is_document, is_eu_url = false, children = null, ...p
     const { currentLang } = useTranslations();
     const getHref = () => {
         setUrlLanguage(currentLang);
-        return getStaticUrl(href, is_document, is_eu_url);
+        return getStaticUrl(href, is_document);
     };
 
     return (

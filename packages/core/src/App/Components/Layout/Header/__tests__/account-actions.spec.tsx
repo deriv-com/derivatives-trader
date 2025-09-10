@@ -37,11 +37,6 @@ jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(),
 }));
 
-// Mock child components
-jest.mock('../login-button.jsx', () => ({
-    LoginButton: () => <div data-testid='dt_login_button'>Login Button</div>,
-}));
-
 jest.mock('../login-button-v2.tsx', () => ({
     LoginButtonV2: () => <div data-testid='dt_login_button'>Login Button V2</div>,
 }));

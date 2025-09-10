@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { useIsIntercomAvailable, useIsLiveChatWidgetAvailable } from '@deriv/api';
+import { useIsIntercomAvailable } from '@deriv/api';
 import { Popover } from '@deriv/components';
 import { LegacyWhatsappIcon } from '@deriv/quill-icons';
 import { useTranslations } from '@deriv-com/translations';
@@ -11,10 +11,9 @@ const WhatsApp = ({ showPopover, onClick }: { showPopover?: boolean; onClick?: (
     const { localize } = useTranslations();
     const { isDesktop } = useDevice();
 
-    const { is_livechat_available } = useIsLiveChatWidgetAvailable();
     const icAvailable = useIsIntercomAvailable();
 
-    if (!is_livechat_available && !icAvailable) return null;
+    if (!icAvailable) return null;
 
     if (!isDesktop)
         return (

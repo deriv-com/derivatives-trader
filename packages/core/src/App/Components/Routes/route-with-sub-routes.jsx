@@ -1,14 +1,10 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { removeBranchName, routes, isEmptyObject, default_title } from '@deriv/shared';
+import { removeBranchName, routes, isEmptyObject, getBrandName } from '@deriv/shared';
 import Page404 from 'Modules/Page404';
-import { observer, useStore } from '@deriv/stores';
+import { observer } from '@deriv/stores';
 
 const RouteWithSubRoutes = observer(route => {
-    const { common } = useStore();
-
-    const { checkAppId } = common;
-
     const validateRoute = () => {
         return true;
     };
@@ -17,11 +13,6 @@ const RouteWithSubRoutes = observer(route => {
         let result = null;
         const pathname = removeBranchName(location.pathname).replace(/\/$/, '');
         const is_valid_route = validateRoute(pathname);
-
-        // check if by re-rendering content should Platform app_id  change or not,
-        if (is_valid_route) {
-            checkAppId();
-        }
 
         if (route.component === Redirect) {
             let to = route.to;
@@ -49,7 +40,7 @@ const RouteWithSubRoutes = observer(route => {
         }
 
         const title = route.getTitle?.() || '';
-        document.title = `${title} | ${default_title}`;
+        document.title = `${title} | ${getBrandName()}`;
 
         return result;
     };

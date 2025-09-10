@@ -4,7 +4,6 @@ import { isMobile, isTouchDevice } from '@deriv/shared';
 
 import { MAX_MOBILE_WIDTH, MAX_TABLET_WIDTH } from 'Constants/ui';
 
-import { isOutsystemsSupported, redirectToOutSystems } from './Helpers/redirectToOutSystems';
 import BaseStore from './base-store';
 
 const store_name = 'ui_store';
@@ -292,7 +291,6 @@ export default class UIStore extends BaseStore {
             openAccountNeededModal: action.bound,
             openDerivRealAccountNeededModal: action.bound,
             openPositionsDrawer: action.bound,
-            openRealAccountSignup: action.bound,
             openSwitchToRealAccountModal: action.bound,
             openTopUpModal: action.bound,
             populateFooterExtensions: action.bound,
@@ -541,28 +539,12 @@ export default class UIStore extends BaseStore {
     }
 
     toggleLanguageSettingsModal() {
-        window.fcWidget?.close();
         this.is_language_settings_modal_on = !this.is_language_settings_modal_on;
     }
 
     openPositionsDrawer() {
         // show and hide Positions Drawer
         this.is_positions_drawer_on = true;
-    }
-
-    openRealAccountSignup(target) {
-        const acceptedTargets = target === 'maltainvest' || target === 'svg';
-        const hasRealAccount = this.root_store.client.has_active_real_account;
-
-        if (target) {
-            if (isOutsystemsSupported && acceptedTargets && !hasRealAccount) {
-                redirectToOutSystems(target);
-            } else {
-                this.is_real_acc_signup_on = true;
-            }
-            this.real_account_signup_target = target;
-            localStorage.removeItem('current_question_index');
-        }
     }
 
     setShouldShowCancel(value) {
