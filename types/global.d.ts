@@ -11,7 +11,6 @@ declare global {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Intercom: any;
         navigator: Navigator;
-        TrackJS: { console: { log: (arg0: unknown[]) => void }; track: (arg0: object) => void };
     }
     interface IntercomConfig {
         token: string | null;

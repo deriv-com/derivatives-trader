@@ -1,6 +1,6 @@
 import getToken from '../getToken';
 
-describe('getActiveAuthTokenIDFromLocalStorage', () => {
+describe('getToken', () => {
     beforeEach(() => {
         localStorage.clear();
 
