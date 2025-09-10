@@ -5,4 +5,5 @@ export { safeParse, getLocalStorage } from './getLocalStorage';
 export { default as getToken } from './getToken';
 export { default as Chat } from './chat';
 export * from './parse-url';
+export * from './logging';
 export { toMoment } from './moment';
