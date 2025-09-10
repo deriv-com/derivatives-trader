@@ -5,7 +5,6 @@ let mockProfitTableTransactionData: TTransaction;
 describe('formatProfitTableTransactions', () => {
     beforeEach(() => {
         mockProfitTableTransactionData = {
-            app_id: 11780,
             buy_price: 1,
             contract_id: 55113405821,
             contract_type: 'CALL',

@@ -2,10 +2,8 @@ import React from 'react';
 import { useLocation, withRouter } from 'react-router';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-
-import { useGrowthbookGetFeatureValue } from '@deriv/api';
 import { ThemedScrollbars } from '@deriv/components';
-import { CookieStorage, platforms, redirectToLogin, TRACKING_STATUS_KEY, WS } from '@deriv/shared';
+import { CookieStorage, redirectToLogin, TRACKING_STATUS_KEY, WS } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Analytics } from '@deriv-com/analytics';
 import { useDevice } from '@deriv-com/ui';
@@ -19,7 +17,6 @@ const AppContents = observer(({ children }) => {
     const [is_gtm_tracking, setIsGtmTracking] = React.useState(false);
     const {
         client,
-        common: { platform },
         gtm: { pushDataLayer },
         ui,
     } = useStore();
@@ -44,10 +41,6 @@ const AppContents = observer(({ children }) => {
 
     const scroll_ref = React.useRef(null);
     const child_ref = React.useRef(null);
-
-    const [isDuplicateLoginEnabled] = useGrowthbookGetFeatureValue({
-        featureFlag: 'duplicate-login',
-    });
 
     React.useEffect(() => {
         if (should_redirect_user_to_login && client.is_client_store_initialized) {
@@ -137,8 +130,7 @@ const AppContents = observer(({ children }) => {
                 'app-contents--is-mobile': isMobile,
                 'app-contents--is-route-modal': is_route_modal_on,
                 'app-contents--is-scrollable': is_cfd_page || is_cashier_visible,
-                'app-contents--is-hidden':
-                    (isDuplicateLoginEnabled && has_access_denied_error) || (platforms[platform] && !isMobile),
+                'app-contents--is-hidden': has_access_denied_error,
                 'app-contents--is-dtrader-v2': isMobile,
             })}
             ref={scroll_ref}

@@ -3,9 +3,7 @@ import React from 'react';
 import { routes } from '@deriv/shared';
 import { localize } from '@deriv-com/translations';
 import { LegacyReportsIcon, LegacyPositionIcon, LegacyProfitTableIcon, LegacyStatementIcon } from '@deriv/quill-icons';
-import Redirect from 'App/Containers/Redirect';
 import Endpoint from 'Modules/Endpoint';
-import CallbackPage from '../../Modules/Callback/CallbackPage.tsx';
 
 // Error Routes
 const Page404 = React.lazy(() => import(/* webpackChunkName: "404" */ 'Modules/Page404'));
@@ -53,11 +51,6 @@ const getModules = () => {
             component: Trader,
             getTitle: () => localize('Contract Details'),
         },
-        {
-            path: routes.callback_page,
-            component: CallbackPage,
-            getTitle: () => 'Callback',
-        },
     ];
 
     return modules;
@@ -67,8 +60,6 @@ const getModules = () => {
 // TODO: search tag: test-route-parent-info -> Enable test for getting route parent info when there are nested routes
 const initRoutesConfig = () => [
     { path: routes.endpoint, component: Endpoint, getTitle: () => 'Endpoint' }, // doesn't need localization as it's for internal use
-    { path: routes.redirect, component: Redirect, getTitle: () => localize('Redirect') },
-    { path: routes.callback_page, component: CallbackPage, getTitle: () => 'Callback' },
     ...getModules(),
 ];
 

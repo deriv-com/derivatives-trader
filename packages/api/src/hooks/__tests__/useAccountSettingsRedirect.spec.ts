@@ -8,7 +8,7 @@ const originalNodeEnv = process.env.NODE_ENV;
 // Mock the dependencies
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
-    getBrandUrl: jest.fn(() => 'https://staging-app.champion.trade/champion'),
+    getBrandUrl: jest.fn(() => 'https://staging-home.deriv.com'),
 }));
 
 describe('useAccountSettingsRedirect', () => {
@@ -36,7 +36,7 @@ describe('useAccountSettingsRedirect', () => {
         const { result } = renderHook(() => useAccountSettingsRedirect());
 
         const expectedUrl =
-            'https://staging-app.champion.trade/champion/accounts/redirect?action=redirect_to&redirect_to=home&account=demo';
+            'https://staging-home.deriv.com/accounts/redirect?action=redirect_to&redirect_to=home&account=demo';
 
         expect(result.current.redirect_url).toBe(expectedUrl);
         expect(result.current.mobile_redirect_url).toBe(expectedUrl);
@@ -46,7 +46,7 @@ describe('useAccountSettingsRedirect', () => {
         const { result } = renderHook(() => useAccountSettingsRedirect('account-limits'));
 
         const expectedUrl =
-            'https://staging-app.champion.trade/champion/accounts/redirect?action=redirect_to&redirect_to=account-limits&account=demo';
+            'https://staging-home.deriv.com/accounts/redirect?action=redirect_to&redirect_to=account-limits&account=demo';
 
         expect(result.current.redirect_url).toBe(expectedUrl);
         expect(result.current.mobile_redirect_url).toBe(expectedUrl);
@@ -64,7 +64,7 @@ describe('useAccountSettingsRedirect', () => {
         const { result } = renderHook(() => useAccountSettingsRedirect());
 
         const expectedUrl =
-            'https://staging-app.champion.trade/champion/accounts/redirect?action=redirect_to&redirect_to=home&account=BTC';
+            'https://staging-home.deriv.com/accounts/redirect?action=redirect_to&redirect_to=home&account=BTC';
 
         expect(result.current.redirect_url).toBe(expectedUrl);
         expect(result.current.mobile_redirect_url).toBe(expectedUrl);
@@ -77,7 +77,7 @@ describe('useAccountSettingsRedirect', () => {
 
         // Since getBrandUrl is mocked to return staging URL, the result will be the same
         const expectedUrl =
-            'https://staging-app.champion.trade/champion/accounts/redirect?action=redirect_to&redirect_to=home&account=demo';
+            'https://staging-home.deriv.com/accounts/redirect?action=redirect_to&redirect_to=home&account=demo';
 
         expect(result.current.redirect_url).toBe(expectedUrl);
         expect(result.current.mobile_redirect_url).toBe(expectedUrl);

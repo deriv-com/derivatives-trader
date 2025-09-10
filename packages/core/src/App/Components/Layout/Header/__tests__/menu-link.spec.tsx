@@ -3,7 +3,7 @@ import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { getStaticUrl, routes } from '@deriv/shared';
+import { getBrandUrl, routes } from '@deriv/shared';
 import { mockStore, StoreProvider } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
 import MenuLink from 'App/Components/Layout/Header/menu-link';
@@ -15,7 +15,7 @@ jest.mock('@deriv/components', () => ({
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
-    getStaticUrl: jest.fn(() => 'MockUrl'),
+    getBrandUrl: jest.fn(() => 'MockUrl'),
 }));
 
 jest.mock('@deriv-com/ui', () => ({
@@ -76,7 +76,7 @@ describe('MenuLink', () => {
     });
 
     it('should render with passing link_to', async () => {
-        (getStaticUrl as jest.Mock).mockReturnValue('');
+        (getBrandUrl as jest.Mock).mockReturnValue('');
         mock_props.link_to = 'MockLink';
 
         renderComponent();

@@ -31,7 +31,6 @@ jest.mock('Stores/useReportsStores', () => ({
                     action: 'Sell',
                     action_type: 'sell',
                     amount: '11.00',
-                    app_id: 2,
                     balance: '8,866.19',
                     date: '04 Jun 2024 01:47:16',
                     desc: "If you select 'Up', your total profit/loss will be the percentage increase in Volatility 100 Index, multiplied by 50, minus commissions.",
@@ -47,7 +46,6 @@ jest.mock('Stores/useReportsStores', () => ({
                     action: 'Buy',
                     action_type: 'buy',
                     amount: '-10.00',
-                    app_id: 36300,
                     balance: '8,845.35',
                     date: '31 May 2024 19:42:42',
                     desc: "If you select 'Up', your total profit/loss will be the percentage increase in Volatility 100 (1s) Index, multiplied by 100, minus commissions.",
@@ -90,7 +88,6 @@ jest.mock('@deriv/shared', () => ({
                     {
                         action_type: 'sell',
                         amount: 11,
-                        app_id: 2,
                         balance_after: 8866.19,
                         contract_id: 243990619668,
                         longcode:
@@ -105,7 +102,6 @@ jest.mock('@deriv/shared', () => ({
                     {
                         action_type: 'buy',
                         amount: -10,
-                        app_id: 36300,
                         balance_after: 8845.35,
                         contract_id: 244170956768,
                         longcode:
@@ -341,7 +337,6 @@ describe('getRowAction', () => {
         action: 'Buy',
         action_type: 'buy',
         amount: '-34.23',
-        app_id: 36300,
         date: '06 Jun 2024 07:47:12',
         refid: 488153867768,
         transaction_time: 1717660032,
@@ -351,7 +346,6 @@ describe('getRowAction', () => {
         action: 'Sell',
         action_type: 'sell',
         amount: '0.00',
-        app_id: 2,
         date: '06 Jun 2024 07:47:18',
         purchase_time: 1717660032,
         refid: 488153881108,
@@ -361,7 +355,6 @@ describe('getRowAction', () => {
         action: 'Deposit',
         action_type: 'deposit',
         amount: '10,000.00',
-        app_id: 36300,
         balance: '10,000.00',
         date: '06 Jun 2024 07:47:27',
         desc: 'Reset to default demo account balance.',
@@ -376,7 +369,6 @@ describe('getRowAction', () => {
         action: 'Withdrawal',
         action_type: 'withdrawal',
         amount: '750.00',
-        app_id: 36300,
         balance: '0.00',
         date: '06 Jun 2024 08:47:27',
         desc: 'Withdrawal message',

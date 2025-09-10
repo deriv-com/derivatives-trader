@@ -17,7 +17,6 @@ describe('formatStatementTransaction', () => {
         balance_after: 3000,
         longcode: 'test \n test \n test',
         contract_id: constant.id,
-        app_id: constant.id,
         shortcode: 'shortcode',
         purchase_time: 123456789,
     };
@@ -33,7 +32,6 @@ describe('formatStatementTransaction', () => {
         balance: '3,000.00',
         desc: 'test <br /> test <br /> test',
         id: constant.id,
-        app_id: constant.id,
         shortcode: 'shortcode',
         purchase_time: 123456789,
         transaction_time: 123456789,

@@ -1,22 +1,5 @@
-import { deriv_urls } from './constants';
-import { getPlatformFromUrl } from './helpers';
-import { getCurrentProductionDomain } from '../config/config';
 import { routes } from '../routes';
-
-type TOption = {
-    query_string?: string;
-    legacy?: boolean;
-    language?: string;
-};
-
-const default_domain = 'binary.com';
-const host_map = {
-    // the exceptions regarding updating the URLs
-    'bot.binary.com': 'www.binary.bot',
-    'developers.binary.com': 'developers.binary.com', // same, shouldn't change
-    'academy.binary.com': 'academy.binary.com',
-    'blog.binary.com': 'blog.binary.com',
-};
+import { getBrandUrl } from '../brand';
 
 let location_url: Location, default_language: string;
 
@@ -55,67 +38,6 @@ export const params = (href?: string | URL) => {
  */
 export const normalizePath = (path: string) => (path ? path.replace(/(^\/|\/$|[^a-zA-Z0-9-_./()#])/g, '') : '');
 
-export const urlFor = (
-    path: string,
-    options: TOption = {
-        query_string: undefined,
-        legacy: false,
-        language: undefined,
-    }
-) => {
-    const { legacy, language, query_string } = options;
-
-    if (legacy && /^bot$/.test(path)) {
-        return `https://${host_map['bot.binary.com']}`;
-    }
-
-    const lang = language?.toLowerCase?.() ?? default_language;
-    let domain = `https://${window.location.hostname}/`;
-    if (legacy) {
-        if (getPlatformFromUrl().is_staging_deriv_app) {
-            domain = domain.replace(/staging-app\.deriv\.com/, `staging.binary.com/${lang || 'en'}`);
-        } else if (getPlatformFromUrl().is_deriv_app) {
-            domain = domain.replace(/app\.deriv\.com/, `binary.com/${lang || 'en'}`);
-        } else {
-            domain = `https://binary.com/${lang || 'en'}/`;
-        }
-    }
-    const new_url = `${domain}${normalizePath(path) || 'home'}.html${query_string ? `?${query_string}` : ''}`;
-
-    if (lang && !legacy) {
-        return urlForLanguage(lang, new_url);
-    } else if (legacy) {
-        return legacyUrlForLanguage(lang, new_url);
-    }
-
-    return new_url;
-};
-
-export const urlForCurrentDomain = (href: string) => {
-    const current_domain = getCurrentProductionDomain();
-
-    if (!current_domain) {
-        return href; // don't change when domain is not supported
-    }
-
-    const url_object = new URL(href);
-    if (Object.keys(host_map).includes(url_object.hostname)) {
-        url_object.hostname = host_map[url_object.hostname as keyof typeof host_map];
-    } else if (url_object.hostname.match(default_domain)) {
-        // to keep all non-Binary links unchanged, we use default domain for all Binary links in the codebase (javascript and templates)
-        url_object.hostname = url_object.hostname.replace(
-            new RegExp(`\\.${default_domain}`, 'i'),
-            `.${current_domain}`
-        );
-    } else {
-        return href;
-    }
-
-    return url_object.href;
-};
-
-export const websiteUrl = () => `${location.protocol}//${location.hostname}/`;
-
 export const getUrlBase = (path = '') => {
     const l = window.location;
 
@@ -128,8 +50,6 @@ export const removeBranchName = (path = '') => {
     return path.replace(/^\/br_.*?\//, '/');
 };
 
-export const getHostMap = () => host_map;
-
 export const setUrlLanguage = (lang: string) => {
     default_language = lang;
 };
@@ -139,8 +59,8 @@ export const setUrlLanguage = (lang: string) => {
 /**
  * @deprecated Please use 'URLUtils.getDerivStaticURL' from '@deriv-com/utils' instead of this.
  */
-export const getStaticUrl = (path = '', is_document = false, is_eu_url = false) => {
-    const host = is_eu_url ? deriv_urls.DERIV_COM_PRODUCTION_EU : deriv_urls.DERIV_COM_PRODUCTION;
+export const getStaticUrl = (path = '', is_document = false) => {
+    const host = getBrandUrl();
     let lang = default_language?.toLowerCase();
 
     if (lang && lang !== 'en') {
@@ -152,20 +72,11 @@ export const getStaticUrl = (path = '', is_document = false, is_eu_url = false) 
     if (is_document) return `${host}/${normalizePath(path)}`;
 
     // Deriv.com supports languages separated by '-' not '_'
-    if (host === deriv_urls.DERIV_COM_PRODUCTION && lang.includes('_')) {
+    if (lang.includes('_')) {
         lang = lang.replace('_', '-');
     }
 
     return `${host}${lang}/${normalizePath(path)}`;
-};
-
-export const getHubSignupUrl = (redirect_url?: string) => {
-    const current_domain = process.env.NODE_ENV === 'production' ? deriv_urls.HUB_PRODUCTION : deriv_urls.HUB_STAGING;
-
-    const lang = `?lang=${default_language?.toLowerCase() || 'en'}`;
-    const redirect_param = redirect_url ? `&redirect_url=${encodeURIComponent(redirect_url)}` : '';
-
-    return `${current_domain}/signup${lang}${redirect_param}`;
 };
 
 export const getPath = (route_path: string, parameters = {}) =>
@@ -191,16 +102,4 @@ export const excludeParamsFromUrlQuery = (search_param: string, excluded_keys: s
     const search_params = new URLSearchParams(search_param);
     const filtered_queries = [...search_params].filter(([key]) => !excluded_keys.includes(key));
     return filtered_queries.length ? `?${new URLSearchParams(filtered_queries).toString()}` : '';
-};
-
-export const getDomainUrl = () => {
-    const hostname = window.location.hostname;
-
-    if (hostname.includes('.deriv.be')) {
-        return 'deriv.be';
-    }
-    if (hostname.includes('.deriv.me')) {
-        return 'deriv.me';
-    }
-    return 'deriv.com';
 };

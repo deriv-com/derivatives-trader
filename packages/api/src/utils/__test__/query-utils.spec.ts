@@ -31,7 +31,6 @@ describe('getQueryKeys()', () => {
     });
     it('it should return consistent ordered props even if props are passed in different order', () => {
         const input_payload1 = {
-            redirect_uri: 'https://test.example.com/redirect',
             homepage: 'https://test.example.com/',
             scopes: ['read', 'trade'],
             verification_uri: 'https://test.example.com/verify',
@@ -44,7 +43,6 @@ describe('getQueryKeys()', () => {
 
         const input_payload2 = {
             appstore: 'https://itunes.apple.com/test_app',
-            redirect_uri: 'https://test.example.com/redirect',
             homepage: 'https://test.example.com/',
             verification_uri: 'https://test.example.com/verify',
             github: 'https://github.com/test_org/app',
@@ -61,7 +59,6 @@ describe('getQueryKeys()', () => {
             googleplay: 'https://play.google.com/store/apps/details?id=test.app',
             homepage: 'https://test.example.com/',
             name: 'Test Application',
-            redirect_uri: 'https://test.example.com/redirect',
             scopes: ['read', 'trade'],
             verification_uri: 'https://test.example.com/verify',
         };

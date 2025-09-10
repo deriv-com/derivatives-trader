@@ -28,7 +28,7 @@ describe('ServiceErrorSheet', () => {
     const history = createMemoryHistory();
     beforeEach(() => {
         default_mock_store = mockStore({
-            client: { is_logged_in: true, has_wallet: false, is_virtual: false },
+            client: { is_logged_in: true, is_virtual: false },
             common: {
                 services_error: {
                     code: 'InsufficientBalance',

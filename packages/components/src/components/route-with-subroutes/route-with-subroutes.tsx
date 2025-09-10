@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, RedirectProps, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
-import { redirectToLogin, removeBranchName, routes as shared_routes, default_title } from '@deriv/shared';
+import { redirectToLogin, removeBranchName, routes as shared_routes, getBrandName } from '@deriv/shared';
 
 type TRoute = RouteProps & { default: boolean };
 
@@ -84,7 +84,7 @@ const RouteWithSubRoutes = ({
         }
 
         const title = getTitle?.() || '';
-        document.title = `${title} | ${default_title}`;
+        document.title = `${title} | ${getBrandName()}`;
 
         return result;
     };

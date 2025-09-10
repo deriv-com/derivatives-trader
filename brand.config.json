@@ -1,10 +1,18 @@
 {
     "brand_name": "Deriv",
-    "brand_domain": "https://deriv.com",
     "brand_logo": "BrandDerivLogoCoralIcon",
-    "brand_url": {
-        "staging": "https://staging-app.champion.trade/champion",
-        "production": "https://app.champion.trade/champion"
+    "brand_domain": "deriv.com",
+    "brand_hostname": {
+        "staging": "staging-home.deriv.com",
+        "production": "home.deriv.com"
+    },
+    "platform": {
+        "name": "Derivatives Trader",
+        "logo": "IcRebrandingDerivTrader",
+        "hostname": {
+            "staging": "staging-dtrader.deriv.com",
+            "production": "dtrader.deriv.com"
+        }
     },
     "colors": {
         "primary": "#ff444f",
@@ -22,9 +30,5 @@
         "auto_generate": true,
         "lighten_percentage": 10,
         "darken_percentage": 10
-    },
-    "platform": {
-        "name": "Derivatives Trader",
-        "icon": "IcRebrandingDerivTrader"
     }
 }

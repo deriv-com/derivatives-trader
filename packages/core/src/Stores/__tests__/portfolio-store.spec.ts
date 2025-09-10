@@ -8,7 +8,6 @@ let mockedPortfolioStore: PortfolioStore;
 const symbol = '1HZ100V';
 const contracts = [
     {
-        app_id: 24075,
         buy_price: 10,
         contract_id: 229749680508,
         contract_type: 'MULTUP',
@@ -24,7 +23,6 @@ const contracts = [
         transaction_id: 458367398868,
     },
     {
-        app_id: 16929,
         buy_price: 10,
         contract_id: 230152813328,
         contract_type: 'MULTDOWN',

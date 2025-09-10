@@ -1,11 +1,6 @@
 {
-    "cs_chat_livechat": true,
-    "cs_chat_whatsapp": true,
-    "hub_enabled_country_list": [],
-    "marketing_growthbook": true,
-    "passkeys": true,
-    "tracking_GTM": true,
+    "cs_chat_intercom": false,
+    "cs_chat_whatsapp": false,
     "tracking_datadog": true,
-    "tracking_hotjar": true,
     "tracking_rudderstack": true
 }

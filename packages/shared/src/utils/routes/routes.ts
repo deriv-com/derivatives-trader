@@ -3,7 +3,6 @@ export const routes = {
     index: '/',
     callback_page: '/callback',
     error404: '/404',
-    redirect: '/redirect',
     endpoint: '/endpoint',
 
     // Trading routes

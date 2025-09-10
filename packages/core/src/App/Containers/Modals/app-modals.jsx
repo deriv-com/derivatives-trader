@@ -4,10 +4,6 @@ import { useLocation } from 'react-router-dom';
 import { moduleLoader, SessionStore } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 
-import DerivRealAccountRequiredModal from 'App/Components/Elements/Modals/deriv-real-account-required-modal.jsx';
-
-import ReadyToDepositModal from './ready-to-deposit-modal';
-
 const UrlUnavailableModal = React.lazy(() =>
     moduleLoader(() => import(/* webpackChunkName: "url-unavailable-modal" */ '../UrlUnavailableModal'))
 );
@@ -18,8 +14,7 @@ const RedirectToLoginModal = React.lazy(() =>
 
 const AppModals = observer(() => {
     const { ui } = useStore();
-    const { is_deriv_account_needed_modal_visible, is_ready_to_deposit_modal_visible, isUrlUnavailableModalVisible } =
-        ui;
+    const { isUrlUnavailableModalVisible } = ui;
     const temp_session_signup_params = SessionStore.get('signup_query_param');
     const url_params = new URLSearchParams(useLocation().search || temp_session_signup_params);
     const url_action_param = url_params.get('action');
@@ -33,14 +28,8 @@ const AppModals = observer(() => {
             break;
     }
     if (!url_action_param) {
-        if (is_deriv_account_needed_modal_visible) {
-            ComponentToLoad = <DerivRealAccountRequiredModal />;
-        } else if (isUrlUnavailableModalVisible) {
+        if (isUrlUnavailableModalVisible) {
             ComponentToLoad = <UrlUnavailableModal />;
-        }
-
-        if (is_ready_to_deposit_modal_visible) {
-            ComponentToLoad = <ReadyToDepositModal />;
         }
     }
 

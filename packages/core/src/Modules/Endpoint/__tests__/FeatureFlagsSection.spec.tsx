@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { StoreProvider, mockStore } from '@deriv/stores';
 import { FeatureFlagsSection } from '../FeatureFlagsSection';
-import { website_domain } from '@deriv/shared';
 
 const FLAGS = {
     DUMMY_FLAG: 'dummy_flag',
@@ -86,22 +85,22 @@ describe('<FeatureFlagsSection/>', () => {
         expect(screen.getByRole('checkbox', { name: FLAGS.DUMMY_FLAG })).toBeChecked();
     });
 
-    it('should render dummy flag on binary.sx domain', () => {
-        location.hostname = 'test.binary.sx';
+    it('should render dummy flag on development domain', () => {
+        location.hostname = 'localhost';
         render(mockFeatureFlagsSection());
 
         expect(screen.getByRole('checkbox', { name: FLAGS.DUMMY_FLAG })).toBeInTheDocument();
     });
 
     it('should render dummy flag on staging', () => {
-        location.hostname = 'staging-app.deriv.com';
+        location.hostname = 'staging-dtrader.deriv.com';
         render(mockFeatureFlagsSection());
 
         expect(screen.getByRole('checkbox', { name: FLAGS.DUMMY_FLAG })).toBeInTheDocument();
     });
 
     it('should render none of the flags on production', () => {
-        location.hostname = website_domain;
+        location.hostname = 'dtrader.deriv.com';
         render(mockFeatureFlagsSection());
 
         expect(screen.queryByRole('checkbox', { name: FLAGS.DUMMY_FLAG })).not.toBeInTheDocument();

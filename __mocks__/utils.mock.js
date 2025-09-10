@@ -18,8 +18,6 @@ module.exports = {
 
     // Token functions
     getToken: jest.fn(() => 'mock_token'),
-    getTmbToken: jest.fn(() => Promise.resolve('mock_token')),
-    isTmbEnabled: jest.fn(() => Promise.resolve(true)),
 
     // Transaction functions
     groupTransactionsByDay: jest.fn(() => ({})),
