@@ -1,5 +1,5 @@
 import { EMPLOYMENT_VALUES } from '../constants';
-import { TEmploymentStatus } from '../types';
+import { TEmploymentStatus } from '../../types';
 import { TInitPreBuildDVRs, TOptions, getPreBuildDVRs } from './declarative-validation-rules';
 import fromEntries from 'object.fromentries';
 

@@ -17,7 +17,7 @@ import NetworkStatus, {
     // HelpCentre,
     RegulatoryInformation,
     ToggleFullScreen,
-    ToggleLanguageSettings,
+    // ToggleLanguageSettings,
     // ResponsibleTrading,
     ToggleSettings,
 } from 'App/Components/Layout/Footer';
@@ -41,10 +41,10 @@ const FooterExtensionRenderer = (footer_extension, idx) => {
 
 const TradingHubFooter = observer(() => {
     const { localize } = useTranslations();
-    const { client, common, ui, traders_hub } = useStore();
+    const { client, ui, traders_hub } = useStore();
     const { show_eu_related_content } = traders_hub;
     const { is_logged_in, is_eu, landing_company_shortcode, is_virtual } = client;
-    const { current_language } = common;
+    // const { current_language } = common;
     const {
         enableApp,
         footer_extensions,
@@ -52,10 +52,10 @@ const TradingHubFooter = observer(() => {
         is_app_disabled,
         is_route_modal_on,
         is_settings_modal_on,
-        is_language_settings_modal_on,
+        // is_language_settings_modal_on,
         disableApp,
         toggleSettingsModal,
-        toggleLanguageSettingsModal,
+        // toggleLanguageSettingsModal,
         is_dark_mode_on: is_dark_mode,
         setDarkMode,
     } = ui;
@@ -134,12 +134,13 @@ const TradingHubFooter = observer(() => {
                         showPopover={showPopover}
                     />
                 )}
-                <ToggleLanguageSettings
+                {/* Language switcher is hidden for MVP */}
+                {/* <ToggleLanguageSettings
                     is_settings_visible={is_language_settings_modal_on}
                     toggleSettings={toggleLanguageSettingsModal}
                     lang={current_language}
                     showPopover={showPopover}
-                />
+                /> */}
                 <ToggleFullScreen showPopover={showPopover} />
             </div>
         </footer>

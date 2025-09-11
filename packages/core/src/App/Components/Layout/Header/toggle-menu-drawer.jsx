@@ -49,7 +49,6 @@ const ToggleMenuDrawer = observer(() => {
     const should_show_regulatory_information = is_eu && show_eu_related_content && !is_virtual;
 
     const { data } = useRemoteConfig(true);
-    // eslint-disable-next-line no-unused-vars -- Variables kept for future LiveChat/WhatsApp restoration
     const { cs_chat_intercom, cs_chat_whatsapp } = data;
 
     const [is_open, setIsOpen] = React.useState(false);
@@ -241,7 +240,7 @@ const ToggleMenuDrawer = observer(() => {
                                 {/* {showHelpCentre()} */}
                                 {/* {showResponsibleTrading()} */}
                                 {/* {showRegulatoryInformation()} */}
-                                {/* {cs_chat_whatsapp && (
+                                {cs_chat_whatsapp && (
                                     <MobileDrawer.Item className='header__menu-mobile-whatsapp'>
                                         <WhatsApp onClick={toggleDrawer} />
                                     </MobileDrawer.Item>
@@ -250,8 +249,10 @@ const ToggleMenuDrawer = observer(() => {
                                     <MobileDrawer.Item className='header__menu-mobile-livechat'>
                                         <LiveChat />
                                     </MobileDrawer.Item>
-                                )} */}
+                                )}
                                 {/* {is_logged_in && (
+                                )}
+                                {is_logged_in && (
                                     <MobileDrawer.Item onClick={handleLogout}>
                                         <MenuLink icon={<LegacyLogout1pxIcon />} text={localize('Log out')} />
                                     </MobileDrawer.Item>

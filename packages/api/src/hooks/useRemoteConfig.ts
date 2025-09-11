@@ -5,10 +5,10 @@ import { ObjectUtils } from '@deriv-com/utils';
 import initData from '../remote_config.json';
 
 const remoteConfigQuery = async function () {
-    const REMOTE_CONFIG_URL =
-        process.env.NODE_ENV === 'production'
-            ? 'https://app-config-prod.firebaseio.com/remote_config/deriv-app.json'
-            : 'https://app-config-staging.firebaseio.com/remote_config/deriv-app.json';
+    const REMOTE_CONFIG_URL = process.env.REMOTE_CONFIG_URL || '';
+    if (REMOTE_CONFIG_URL === '') {
+        throw new Error('Remote Config URL is not set!');
+    }
     const response = await fetch(REMOTE_CONFIG_URL);
     if (!response.ok) {
         throw new Error('Remote Config Server is out of reach!');

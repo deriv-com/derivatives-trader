@@ -3,7 +3,7 @@ import moment from 'moment';
 /**
  * Function that converts a numerical epoch value into a Moment instance
  */
-export const epochToMoment = (epoch: number) => moment.unix(epoch).utc();
+const epochToMoment = (epoch: number) => moment.unix(epoch).utc();
 
 /**
  * Function that takes a primitive type and converts it into a Moment instance

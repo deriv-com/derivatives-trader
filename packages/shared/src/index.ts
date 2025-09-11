@@ -28,5 +28,4 @@ export * from './utils/string';
 export * from './utils/url';
 export * from './utils/validation';
 export * from './utils/validator';
-export * from './utils/types';
 export { default as cacheTrackEvents } from './utils/analytics/analytics';

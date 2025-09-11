@@ -7,14 +7,15 @@ import { Localize, useTranslations } from '@deriv-com/translations';
 
 const MenuTitle = observer(() => {
     const { localize } = useTranslations();
-    const { common, ui } = useStore();
-    const { current_language } = common;
-    const { is_mobile_language_menu_open, setMobileLanguageMenuOpen } = ui;
+    // const { common, ui } = useStore();
+    // const { current_language } = common;
+    // const { is_mobile_language_menu_open, setMobileLanguageMenuOpen } = ui;
 
     return (
         <React.Fragment>
             <div>{localize('Menu')}</div>
-            <div
+            {/* Language switcher is hidden for MVP */}
+            {/* <div
                 className='settings-language__language-button_wrapper'
                 onClick={() => {
                     if (!is_mobile_language_menu_open) {
@@ -30,7 +31,7 @@ const MenuTitle = observer(() => {
                         </Text>
                     </React.Fragment>
                 )}
-            </div>
+            </div> */}
         </React.Fragment>
     );
 });
