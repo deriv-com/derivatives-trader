@@ -40,10 +40,10 @@ const AccountActionsComponent = ({
     currency,
     is_logged_in,
     is_virtual,
-    onClickLogout,
+    // onClickLogout,
 }: TAccountActionsProps) => {
     const { isDesktop } = useDevice();
-    const isLogoutButtonVisible = isDesktop && is_logged_in;
+    // const isLogoutButtonVisible = isDesktop && is_logged_in;
     const formattedBalance = balance != null ? formatMoney(currency, balance, true) : undefined;
 
     const renderAccountInfo = () => (
@@ -66,7 +66,7 @@ const AccountActionsComponent = ({
     return (
         <React.Fragment>
             {renderAccountInfo()}
-            {isLogoutButtonVisible && <LogoutButton onClickLogout={onClickLogout} />}
+            {/* {isLogoutButtonVisible && <LogoutButton onClickLogout={onClickLogout} />} */}
         </React.Fragment>
     );
 };
