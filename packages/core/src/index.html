@@ -31,19 +31,20 @@
                 background-color: var(--color-surface-primary);
             }
         </style>
-        <!-- Start Long Tasks API script -->
-        <script type="text/javascript">
-            !(function () {
-                if ('PerformanceLongTaskTiming' in window) {
-                    var g = (window.__tti = { e: [] });
-                    g.o = new PerformanceObserver(function (l) {
-                        g.e = g.e.concat(l.getEntries());
-                    });
-                    g.o.observe({ entryTypes: ['longtask'] });
-                }
-            })();
+        <!-- Start GTM Script -->
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-KV9538TF');
         </script>
-        <!-- End Long Tasks API script -->
+        <!-- End GTM Script -->
         <!-- Start theme styles -->
         <script type="text/javascript">
             var ui_store = localStorage.getItem('ui_store');
@@ -77,26 +78,6 @@
         <!-- End Anti-Clickjack -->
 
         <noscript>Your browser does not support JavaScript!</noscript>
-
-        <!-- Start GTM Script -->
-        <script>
-            try {
-                var gtm_id = 'GTM-NF7884S';
-                (function (w, d, s, l, i) {
-                    w[l] = w[l] || [];
-                    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                    var f = d.getElementsByTagName(s)[0],
-                        j = d.createElement(s),
-                        dl = l != 'dataLayer' ? '&l=' + l : '';
-                    j.defer = true;
-                    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                    f.parentNode.insertBefore(j, f);
-                })(window, document, 'script', 'dataLayer', gtm_id);
-            } catch (err) {
-                console.log('Error inserting GTM script 1 ====>', err);
-            }
-        </script>
-        <!-- End GTM Script -->
 
         <!-- Start URL Handler -->
         <script type="text/javascript">
@@ -137,9 +118,8 @@
             })(window.location);
         </script>
         <!-- End URL Handler -->
-
         <!-- Start Cookies script -->
-        <script src="https://static.deriv.com/scripts/cookie.js" async></script>
+        <script src="https://cdn.jsdelivr.net/npm/@deriv-com/marketing-utils@2.0.7/dist/cookie.js" async></script>
         <!-- End Cookies script -->
 
         <meta
@@ -186,23 +166,13 @@
         <!-- Start GTM NoScript -->
         <noscript
             ><iframe
-                src="https://www.googletagmanager.com/ns.html?id=GTM-NF7884S"
+                src="https://www.googletagmanager.com/ns.html?id=GTM-KV9538TF"
                 height="0"
                 width="0"
                 style="display: none; visibility: hidden"
             ></iframe
         ></noscript>
         <!-- End GTM NoScript -->
-        <!-- Start GTM NoScript of GTM Test Environment -->
-        <noscript
-            ><iframe
-                src="https://www.googletagmanager.com/ns.html?id=GTM-TNX2ZKH"
-                height="0"
-                width="0"
-                style="display: none; visibility: hidden"
-            ></iframe
-        ></noscript>
-        <!-- End GTM NoScript of GTM Test Environment -->
 
         <!-- TODO: Display shell platform icon and text based on route -->
 
