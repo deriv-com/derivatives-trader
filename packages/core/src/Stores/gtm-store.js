@@ -1,9 +1,12 @@
 import * as Cookies from 'js-cookie';
 import { action, computed, makeObservable } from 'mobx';
-import { toMoment, epochToMoment, getPlatformHostname, getPlatformName } from '@deriv/shared';
+
+import { epochToMoment, getPlatformHostname, getPlatformName, toMoment } from '@deriv/shared';
 import { getInitialLanguage } from '@deriv-com/translations';
-import BinarySocket from '_common/base/socket_base';
+
 import BaseStore from './base-store';
+
+import BinarySocket from '_common/base/socket_base';
 
 export default class GTMStore extends BaseStore {
     is_gtm_applicable = window.location.hostname === getPlatformHostname();
@@ -14,14 +17,11 @@ export default class GTMStore extends BaseStore {
         makeObservable(this, {
             visitorId: computed,
             common_variables: computed,
-            accountSwitcherListener: action.bound,
             pushDataLayer: action.bound,
             pushTransactionData: action.bound,
             eventHandler: action.bound,
             setLoginFlag: action.bound,
         });
-
-        this.onSwitchAccount(this.accountSwitcherListener);
     }
 
     get visitorId() {
@@ -46,10 +46,6 @@ export default class GTMStore extends BaseStore {
             theme: this.root_store.ui.is_dark_mode_on ? 'dark' : 'light',
             platform: getPlatformName(),
         };
-    }
-
-    accountSwitcherListener() {
-        return new Promise(resolve => resolve(this.pushDataLayer({ event: 'account switch' })));
     }
 
     /**

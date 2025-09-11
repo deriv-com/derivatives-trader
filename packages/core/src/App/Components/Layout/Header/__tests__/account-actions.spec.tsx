@@ -66,32 +66,20 @@ jest.mock('../toggle-notifications.jsx', () => ({
 jest.mock('App/Components/Layout/Header/account-info.jsx', () => ({
     __esModule: true,
     default: ({
-        acc_switcher_disabled_message,
-        account_type,
         balance,
-        is_disabled,
-        is_eu,
         is_virtual,
         currency,
         is_dialog_on,
         toggleDialog,
     }: {
-        acc_switcher_disabled_message?: string;
-        account_type?: string;
         balance?: string | number;
-        is_disabled?: boolean;
-        is_eu?: boolean;
         is_virtual?: boolean;
         currency?: string;
         is_dialog_on?: boolean;
         toggleDialog?: () => void;
     }) => (
-        <div
-            data-testid='dt_account_info'
-            onClick={toggleDialog}
-            className={`${is_disabled ? 'disabled' : ''} ${is_virtual ? 'virtual' : ''}`}
-        >
-            Account Info: {account_type} {balance} {currency} {is_dialog_on ? 'open' : 'closed'}
+        <div data-testid='dt_account_info' onClick={toggleDialog} className={`${is_virtual ? 'virtual' : ''}`}>
+            Account Info: {balance} {currency} {is_dialog_on ? 'open' : 'closed'}
         </div>
     ),
 }));
@@ -102,32 +90,20 @@ jest.mock(
     () => ({
         __esModule: true,
         default: ({
-            acc_switcher_disabled_message,
-            account_type,
             balance,
-            is_disabled,
-            is_eu,
             is_virtual,
             currency,
             is_dialog_on,
             toggleDialog,
         }: {
-            acc_switcher_disabled_message?: string;
-            account_type?: string;
             balance?: string | number;
-            is_disabled?: boolean;
-            is_eu?: boolean;
             is_virtual?: boolean;
             currency?: string;
             is_dialog_on?: boolean;
             toggleDialog?: () => void;
         }) => (
-            <div
-                data-testid='dt_account_info'
-                onClick={toggleDialog}
-                className={`${is_disabled ? 'disabled' : ''} ${is_virtual ? 'virtual' : ''}`}
-            >
-                Account Info: {account_type} {balance} {currency} {is_dialog_on ? 'open' : 'closed'}
+            <div data-testid='dt_account_info' onClick={toggleDialog} className={`${is_virtual ? 'virtual' : ''}`}>
+                Account Info: {balance} {currency} {is_dialog_on ? 'open' : 'closed'}
             </div>
         ),
     }),
@@ -137,10 +113,8 @@ jest.mock(
 describe('AccountActions component', () => {
     // Default props
     const default_props = {
-        acc_switcher_disabled_message: 'Account switcher disabled',
         balance: 1000,
         currency: 'USD',
-        is_acc_switcher_disabled: false,
         is_logged_in: true,
         is_virtual: false,
         onClickLogout: jest.fn(),

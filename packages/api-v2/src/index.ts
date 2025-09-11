@@ -9,6 +9,7 @@ export { default as usePaginatedFetch } from './usePaginatedFetch';
 export { default as useSubscription } from './useSubscription';
 export { default as useRemoteConfig } from './hooks/useRemoteConfig';
 export { default as useWebsiteStatus } from './hooks/useWebsiteStatus';
+export { default as useTrackJS } from './hooks/useTrackJS';
 export * from './hooks';
 
 export {

@@ -1,10 +1,12 @@
 import debounce from 'lodash.debounce';
-import { action, computed, observable, makeObservable, override } from 'mobx';
+import { action, computed, makeObservable, observable, override } from 'mobx';
+
 import { filterDisabledPositions, toMoment, WS } from '@deriv/shared';
 
-import { formatStatementTransaction } from './Helpers/format-response';
-import getDateBoundaries from '../Profit/Helpers/format-request';
 import BaseStore from '../../base-store';
+import getDateBoundaries from '../Profit/Helpers/format-request';
+
+import { formatStatementTransaction } from './Helpers/format-response';
 
 const batch_size = 100; // request response limit
 const delay_on_scroll_time = 150; // fetch debounce delay on scroll
@@ -49,7 +51,6 @@ export default class StatementStore extends BaseStore {
             handleDateChange: action.bound,
             handleFilterChange: action.bound,
             handleScroll: action.bound,
-            accountSwitcherListener: action.bound,
             networkStatusChangeListener: action.bound,
             onMount: action.bound,
             onUnmount: override,
@@ -170,14 +171,6 @@ export default class StatementStore extends BaseStore {
         this.fetchOnScroll(left_to_scroll);
     }
 
-    accountSwitcherListener() {
-        return new Promise(resolve => {
-            this.clearTable();
-            this.clearDateFilter();
-            return resolve(this.fetchNextBatch());
-        });
-    }
-
     networkStatusChangeListener(is_online) {
         this.is_loading = this.is_loading || !is_online;
     }
@@ -190,7 +183,6 @@ export default class StatementStore extends BaseStore {
             WS.forgetAll.bind(null, 'proposal')
         );
         this.client_loginid = this.root_store.client.loginid;
-        this.onSwitchAccount(this.accountSwitcherListener);
         this.onNetworkStatusChange(this.networkStatusChangeListener);
         await WS.wait('authorize');
         this.fetchNextBatch(true);
@@ -199,7 +191,6 @@ export default class StatementStore extends BaseStore {
     /* DO NOT call clearDateFilter() upon unmounting the component, date filters should stay
     as we change tab or click on any contract for later references as discussed with UI/UX and QA */
     onUnmount() {
-        this.disposeSwitchAccount();
         WS.forgetAll('proposal');
     }
 }

@@ -19,22 +19,15 @@ const dialog_errors = ['GetProposalFailure', 'ContractValidationError'];
 const Contract = observer(({ match, history }: TContract) => {
     const { localize } = useTranslations();
     const { contract_replay } = useStore();
-    const {
-        removeErrorMessage,
-        error_message,
-        error_code,
-        has_error,
-        removeAccountSwitcherListener: onUnmount,
-        setAccountSwitcherListener: onMount,
-    } = contract_replay;
+    const { removeErrorMessage, error_message, error_code, has_error, onMount, onUnmount } = contract_replay;
     React.useEffect(() => {
-        onMount(+match.params.contract_id, history);
+        onMount(+match.params.contract_id);
 
         return () => {
             removeErrorMessage();
             onUnmount();
         };
-    }, [onMount, onUnmount, removeErrorMessage, history, match.params.contract_id]);
+    }, [onMount, onUnmount, removeErrorMessage, match.params.contract_id]);
 
     if (isNaN(Number(match.params.contract_id))) {
         return <Redirect to='/404' />;

@@ -64,7 +64,6 @@ export default class ContractTradeStore extends BaseStore {
             chart_type: observable,
             last_contract_override: observable,
             clearLastContractOverride: action.bound,
-            restorePreviousBarriersIfNeeded: action.bound,
             updateAccumulatorBarriersData: action.bound,
             updateChartType: action.bound,
             updateGranularity: action.bound,
@@ -72,7 +71,6 @@ export default class ContractTradeStore extends BaseStore {
             filtered_contracts: computed,
             addContract: action.bound,
             removeContract: action.bound,
-            accountSwitchListener: action.bound,
             onUnmount: override,
             prev_chart_type: observable,
             prev_granularity: observable,
@@ -86,18 +84,6 @@ export default class ContractTradeStore extends BaseStore {
         });
 
         this.root_store = root_store;
-        this.onSwitchAccount(this.accountSwitchListener);
-
-        // Add reaction to detect when account switching is complete
-        this.disposeAccountSwitchingComplete = reaction(
-            () => this.root_store.client.is_switching,
-            is_switching => {
-                if (!is_switching && this.is_barriers_loading) {
-                    // Account switching just completed
-                    this.restorePreviousBarriersIfNeeded();
-                }
-            }
-        );
 
         reaction(
             () => this.last_contract.contract_info,
@@ -202,7 +188,7 @@ export default class ContractTradeStore extends BaseStore {
             this.setBarriersLoadingState(false);
         }
 
-        if (current_spot && !this.root_store.client.is_switching) {
+        if (current_spot) {
             const ticks_history_prev_spot_time = prev_spot_time ?? this.accumulator_barriers_data.current_spot_time;
             // update current tick coming from ticks_history while skipping an update for duplicate data
             if (current_spot_time === ticks_history_prev_spot_time) return;
@@ -240,7 +226,7 @@ export default class ContractTradeStore extends BaseStore {
         const tick_update_timestamp = should_update_contract_barriers
             ? this.accumulator_contract_barriers_data.tick_update_timestamp
             : this.accumulator_barriers_data.tick_update_timestamp;
-        // If we're in the process of switching accounts or the document is hidden, update immediately without timeout
+        // If the document is hidden, update immediately without timeout
         if (document.hidden) {
             clearTimeout(this.accu_barriers_timeout_id);
             this.setNewAccumulatorBarriersData(delayed_barriers_data, should_update_contract_barriers);
@@ -465,47 +451,11 @@ export default class ContractTradeStore extends BaseStore {
         delete this.contracts_map[contract_id];
     }
 
-    accountSwitchListener() {
-        if (this.has_error) {
-            this.clearError();
-        }
-
-        // Store previous barrier values before clearing
-        this.previous_accumulator_barriers_data = { ...this.accumulator_barriers_data };
-        this.setBarriersLoadingState(true);
-        this.clearAccumulatorBarriersData(false, true);
-
-        runInAction(() => {
-            this.accumulator_barriers_data = {};
-            this.accumulator_contract_barriers_data = {};
-        });
-
-        return Promise.resolve();
-    }
-
     setBarriersLoadingState(is_loading) {
         this.is_barriers_loading = is_loading;
     }
 
-    restorePreviousBarriersIfNeeded() {
-        // If we have previous barrier data and current barriers are empty
-        if (
-            this.previous_accumulator_barriers_data.accumulators_high_barrier &&
-            !this.accumulator_barriers_data.accumulators_high_barrier
-        ) {
-            // Restore previous barrier data
-            this.setNewAccumulatorBarriersData(this.previous_accumulator_barriers_data);
-
-            // Set loading state to false
-            this.setBarriersLoadingState(false);
-        }
-    }
-
     onUnmount() {
-        this.disposeSwitchAccount();
-        if (this.disposeAccountSwitchingComplete) {
-            this.disposeAccountSwitchingComplete();
-        }
         // TODO: don't forget the tick history when switching to contract-replay-store
     }
 

@@ -46,7 +46,6 @@ export default class ProfitTableStore extends BaseStore {
             onMount: action.bound,
             onUnmount: override,
             totals: computed,
-            accountSwitcherListener: action.bound,
             clearTable: action.bound,
             clearDateFilter: action.bound,
             handleDateChange: action.bound,
@@ -127,7 +126,6 @@ export default class ProfitTableStore extends BaseStore {
     async onMount(shouldFilterContractTypes) {
         this.assertHasValidCache(this.client_loginid, this.clearDateFilter, WS.forgetAll.bind(null, 'proposal'));
         this.client_loginid = this.root_store.client.loginid;
-        this.onSwitchAccount(this.accountSwitcherListener);
         this.onNetworkStatusChange(this.networkStatusChangeListener);
         await WS.wait('authorize');
 
@@ -141,7 +139,6 @@ export default class ProfitTableStore extends BaseStore {
     /* DO NOT call clearDateFilter() upon unmounting the component, date filters should stay
     as we change tab or click on any contract for later references as discussed with UI/UX and QA */
     onUnmount() {
-        this.disposeSwitchAccount();
         WS.forgetAll('proposal');
     }
 
@@ -154,14 +151,6 @@ export default class ProfitTableStore extends BaseStore {
         return {
             profit_loss: profit_loss.toString(),
         };
-    }
-
-    accountSwitcherListener() {
-        return new Promise(resolve => {
-            this.clearTable();
-            this.clearDateFilter();
-            this.fetchNextBatch().then(resolve);
-        });
     }
 
     clearTable() {

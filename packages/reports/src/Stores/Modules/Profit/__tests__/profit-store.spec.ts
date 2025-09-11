@@ -311,12 +311,10 @@ describe('ProfitTableStore', () => {
         });
     });
     describe('onUnmount', () => {
-        it('should call disposeSwitchAccount and unsubscribe from proposal API', () => {
-            const spyDisposeSwitchAccount = jest.spyOn(mocked_profit_table_store, 'disposeSwitchAccount');
+        it('should unsubscribe from proposal API', () => {
             const spyWSForgetAll = jest.spyOn(WS, 'forgetAll');
             mocked_profit_table_store.onUnmount();
 
-            expect(spyDisposeSwitchAccount).toHaveBeenCalled();
             expect(spyWSForgetAll).toHaveBeenCalledWith('proposal');
         });
     });
@@ -327,19 +325,6 @@ describe('ProfitTableStore', () => {
             await waitFor(() => {
                 expect(mocked_profit_table_store.totals).toEqual({ profit_loss: '-2.09' });
             });
-        });
-    });
-    describe('accountSwitcherListener', () => {
-        it('should call clearTable, clearDateFilter & fetchNextBatch', () => {
-            const spyClearTable = jest.spyOn(mocked_profit_table_store, 'clearTable');
-            const spyClearDateFilter = jest.spyOn(mocked_profit_table_store, 'clearDateFilter');
-            const spyFetchNextBatch = jest.spyOn(mocked_profit_table_store, 'fetchNextBatch');
-
-            mocked_profit_table_store.accountSwitcherListener();
-
-            expect(spyClearTable).toHaveBeenCalled();
-            expect(spyClearDateFilter).toHaveBeenCalled();
-            expect(spyFetchNextBatch).toHaveBeenCalled();
         });
     });
     describe('clearTable', () => {

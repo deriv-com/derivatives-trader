@@ -10,10 +10,8 @@ import { LoginButtonV2 } from './login-button-v2';
 import 'Sass/app/_common/components/account-switcher.scss';
 
 type TAccountActionsProps = {
-    acc_switcher_disabled_message: string;
     balance: string | number | undefined;
     currency: string;
-    is_acc_switcher_disabled: boolean;
     is_logged_in: boolean;
     is_virtual: boolean;
     onClickLogout: () => void;
@@ -38,10 +36,8 @@ const LoggedOutView = () => (
 );
 
 const AccountActionsComponent = ({
-    acc_switcher_disabled_message,
     balance,
     currency,
-    is_acc_switcher_disabled,
     is_logged_in,
     is_virtual,
     onClickLogout,
@@ -53,10 +49,8 @@ const AccountActionsComponent = ({
     const renderAccountInfo = () => (
         <React.Suspense fallback={<div />}>
             <AccountInfo
-                acc_switcher_disabled_message={acc_switcher_disabled_message}
                 balance={formattedBalance}
                 currency={currency}
-                is_disabled={is_acc_switcher_disabled}
                 is_virtual={is_virtual}
                 {...(!isDesktop && {
                     is_mobile: true,

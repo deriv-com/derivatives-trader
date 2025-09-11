@@ -1,33 +1,14 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+
 import AccountInfo from '../account-info.jsx';
 
 describe('AccountInfo component', () => {
-    it('should show "disabled_message" when "is_disabled" property is "true"', async () => {
-        render(<AccountInfo is_disabled acc_switcher_disabled_message='Test disabled message' />);
-        const popover = screen.getByTestId('dt_popover_wrapper');
-        await userEvent.hover(popover);
-        const disabled_message = screen.getByText(/test disabled message/i);
-        expect(disabled_message).toBeInTheDocument();
-    });
-
-    it('should have "acc-info--is-disabled" class when "is_disabled" property is "true"', () => {
-        render(<AccountInfo is_disabled />);
-        const div_element = screen.getByTestId('dt_acc_info');
-        expect(div_element).toHaveClass('acc-info--is-disabled');
-    });
-
     it('should have "acc-info--is-virtual" class when "is_virtual" property is "true"', () => {
         render(<AccountInfo is_virtual />);
         const div_element = screen.getByTestId('dt_acc_info');
         expect(div_element).toHaveClass('acc-info--is-virtual');
-    });
-
-    it('should not have "acc-info--show" class when "is_dialog_on" property is "false"', () => {
-        render(<AccountInfo />);
-        const div_element = screen.getByTestId('dt_acc_info');
-        expect(div_element).not.toHaveClass('acc-info--show');
     });
 
     it('should render "AccountInfoIcon" with the proper className', () => {

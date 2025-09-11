@@ -179,17 +179,6 @@ describe('StatementStore', () => {
         expect(statement_store.fetchOnScroll).toHaveBeenCalledWith(1500);
     });
 
-    it('should perform certain action when accountSwitcherListener is called', async () => {
-        WS.statement.mockResolvedValue(response);
-        statement_store.shouldFetchNextBatch = jest.fn().mockReturnValue(true);
-
-        await statement_store.accountSwitcherListener();
-
-        expect(statement_store.is_loading).toBe(false);
-        expect(WS.statement).toHaveBeenCalled();
-        expect(statement_store.data.length).toBe(2);
-    });
-
     it('should change is_loading as per is_online status', () => {
         statement_store.is_loading = false;
 
@@ -209,10 +198,9 @@ describe('StatementStore', () => {
         expect(WS.wait).toHaveBeenCalledWith('authorize');
     });
 
-    it('should call disposeSwitchAccount and forget proposal calls on Unmount', () => {
+    it('should forget proposal calls on Unmount', () => {
         statement_store.onUnmount();
 
         expect(WS.forgetAll).toHaveBeenCalledWith('proposal');
-        expect(statement_store.switch_account_listener).toBeNull();
     });
 });

@@ -178,7 +178,6 @@ const mock = (): TStores & { is_mock: boolean } => {
                 decimal_places: 0,
             },
             loginid: '',
-            pre_switch_broadcast: false,
             residence: '',
             is_svg: false,
             is_p2p_available: false,
@@ -191,7 +190,6 @@ const mock = (): TStores & { is_mock: boolean } => {
                 maltainvest: false,
                 svg: false,
             },
-            switchAccount: jest.fn(),
             verification_code: {
                 payment_agent_withdraw: '',
                 payment_withdraw: '',
@@ -241,11 +239,7 @@ const mock = (): TStores & { is_mock: boolean } => {
             setIsClientStoreInitialized: jest.fn(),
             setLogout: jest.fn(),
             setP2pAdvertiserInfo: jest.fn(),
-            setPreSwitchAccount: jest.fn(),
             social_identity_provider: '',
-            switched: false,
-            switch_broadcast: false,
-            switchEndSignal: jest.fn(),
             isEligibleForMoreRealMt5: jest.fn(),
             isEligibleForMoreDemoMt5Svg: jest.fn(),
             updateMT5Status: jest.fn(),
@@ -363,14 +357,12 @@ const mock = (): TStores & { is_mock: boolean } => {
         ui: {
             advanced_duration_unit: 't',
             advanced_expiry_type: 'duration',
-            account_switcher_disabled_message: '',
             app_contents_scroll_ref: {
                 current: null,
             },
             current_focus: null,
             duration_t: 5,
             getDurationFromUnit: jest.fn(),
-            is_account_switcher_disabled: false,
             is_advanced_duration: false,
             is_history_tab_active: false,
             is_loading: false,
@@ -406,7 +398,6 @@ const mock = (): TStores & { is_mock: boolean } => {
             disableApp: jest.fn(),
             enableApp: jest.fn(),
             setCurrentFocus: jest.fn(),
-            toggleAccountsDialog: jest.fn(),
             toggleCashier: jest.fn(),
             setDarkMode: jest.fn(),
             setReportsTabIndex: jest.fn(),
@@ -471,7 +462,6 @@ const mock = (): TStores & { is_mock: boolean } => {
             setIsVerificationSubmitted: jest.fn(),
             populateFooterExtensions: jest.fn(),
             openAccountNeededModal: jest.fn(),
-            is_accounts_switcher_on: false,
             openTopUpModal: jest.fn(),
             toggleShouldShowRealAccountsList: jest.fn(),
             is_reset_trading_password_modal_visible: false,
@@ -534,7 +524,6 @@ const mock = (): TStores & { is_mock: boolean } => {
             removeNotificationMessage: jest.fn(),
             removeNotificationMessageByKey: jest.fn(),
             removeTradeNotifications: jest.fn(),
-            showAccountSwitchToRealNotification: jest.fn(),
             setShouldShowPopups: jest.fn(),
             toggleNotificationsModal: jest.fn(),
             trade_notifications: [],
@@ -564,7 +553,6 @@ const mock = (): TStores & { is_mock: boolean } => {
             setAddNotificationBannerCallback: jest.fn(),
         },
         contract_trade: {
-            accountSwitchListener: jest.fn(),
             accu_barriers_timeout_id: null,
             accumulator_barriers_data: {},
             accumulator_contract_barriers_data: {},
@@ -595,9 +583,6 @@ const mock = (): TStores & { is_mock: boolean } => {
             previous_accumulator_barriers_data: {},
             is_barriers_loading: false,
             setBarriersLoadingState(is_loading: boolean): void {
-                throw new Error('Function not implemented.');
-            },
-            restorePreviousBarriersIfNeeded(): void {
                 throw new Error('Function not implemented.');
             },
         },
@@ -730,7 +715,6 @@ const mock = (): TStores & { is_mock: boolean } => {
                 platform: 'DBot',
                 loggedIn: false,
             },
-            accountSwitcherListener: jest.fn(),
             pushDataLayer: jest.fn(),
             pushTransactionData: jest.fn(),
             eventHandler: jest.fn(),
@@ -770,8 +754,6 @@ const mock = (): TStores & { is_mock: boolean } => {
             onMount: jest.fn(),
             onUnmount: jest.fn(),
             removeErrorMessage: jest.fn(),
-            removeAccountSwitcherListener: jest.fn(),
-            setAccountSwitcherListener: jest.fn(),
         },
         chart_barrier_store: {} as TCoreStores['chart_barrier_store'],
         active_symbols: {

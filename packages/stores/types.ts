@@ -1,3 +1,4 @@
+import React from 'react';
 import type { RouteComponentProps } from 'react-router';
 import type { Moment } from 'moment';
 
@@ -16,7 +17,6 @@ import type {
 import { TContractInfo } from '@deriv/shared/src/utils/contract/contract-types';
 
 import type { FeatureFlagsStore } from './src/stores';
-import React from 'react';
 
 type TRoutes =
     | '/404'
@@ -310,7 +310,6 @@ type TUiStore = {
     advanced_duration_unit: string;
     advanced_expiry_type: string;
     addToast: (toast_config: TAddToastProps) => void;
-    account_switcher_disabled_message: string;
     app_contents_scroll_ref: React.MutableRefObject<null | HTMLDivElement>;
     current_focus: string | null;
     disableApp: () => void;
@@ -319,7 +318,6 @@ type TUiStore = {
     getDurationFromUnit: (unit: string) => number;
     has_real_account_signup_ended: boolean;
     header_extension: JSX.Element | null;
-    is_account_switcher_disabled: boolean;
     is_additional_kyc_info_modal_open: boolean;
     is_advanced_duration: boolean;
     is_history_tab_active: boolean;
@@ -397,7 +395,6 @@ type TUiStore = {
     setSubSectionIndex: (index: number) => void;
     shouldNavigateAfterChooseCrypto: (value: Omit<string, TRoutes> | TRoutes) => void;
     should_show_real_accounts_list?: boolean;
-    toggleAccountsDialog: (value?: boolean) => void;
     toggleCashier: () => void;
     toggleHistoryTab: (state_change?: boolean) => void;
     toggleLanguageSettingsModal: () => void;
@@ -428,7 +425,6 @@ type TUiStore = {
     closeSuccessTopUpModal: () => void;
     closeTopUpModal: () => void;
     openAccountNeededModal: () => void;
-    is_accounts_switcher_on: boolean;
     openTopUpModal: () => void;
     is_reset_trading_password_modal_visible: boolean;
     real_account_signup: RealAccountSignupSettings;
@@ -529,7 +525,6 @@ type TBarriers = Array<{
     updateColor: ({ barrier_color, shade_color }: { barrier_color?: string; shade_color?: string }) => void;
 }>;
 type TContractTradeStore = {
-    accountSwitchListener: () => Promise<void>;
     accu_barriers_timeout_id: NodeJS.Timeout | null;
     accumulator_barriers_data: Partial<TAccumulatorBarriersData>;
     accumulator_contract_barriers_data: Partial<TAccumulatorContractBarriersData>;
@@ -570,7 +565,6 @@ type TContractTradeStore = {
     removeContract: (data: { contract_id: string }) => void;
     savePreviousChartMode: (chart_type: string, granularity: number | null) => void;
     setBarriersLoadingState: (is_loading: boolean) => void;
-    restorePreviousBarriersIfNeeded: () => void;
     setNewAccumulatorBarriersData: (
         new_barriers_data: TAccumulatorBarriersData,
         should_update_contract_barriers?: boolean
@@ -622,7 +616,6 @@ type TNotificationStore = {
     removeNotificationMessage: ({ key, should_show_again }: { key: string; should_show_again?: boolean }) => void;
     removeNotificationMessageByKey: ({ key }: { key: string }) => void;
     removeTradeNotifications: (id?: string) => void;
-    showAccountSwitchToRealNotification: (loginid: string, currency: string) => void;
     setShouldShowPopups: (should_show_popups: boolean) => void;
     toggleNotificationsModal: () => void;
     trade_notifications: Array<{
@@ -722,8 +715,6 @@ type TContractReplay = {
     onMount: (contract_id?: number) => void;
     onUnmount: () => void;
     removeErrorMessage: () => void;
-    removeAccountSwitcherListener: () => void;
-    setAccountSwitcherListener: (contract_id: string | number, history: Array<string>) => void;
 };
 type TGtmStore = {
     is_gtm_applicable: boolean;
@@ -738,7 +729,6 @@ type TGtmStore = {
         theme: 'dark' | 'light';
         platform: 'DBot' | 'MT5' | 'DTrader' | 'undefined';
     }>;
-    accountSwitcherListener: () => Promise<Record<string, unknown>>;
     pushDataLayer: (data: Record<string, unknown>) => void;
     pushTransactionData: (response: Transaction, extra_data: Record<string, unknown>) => void;
     eventHandler: (get_settings: GetSettings) => void;

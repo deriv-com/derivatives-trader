@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useIntercom, useRemoteConfig } from '@deriv/api';
+import { useIntercom, useRemoteConfig, useTrackJS } from '@deriv/api';
 import { observer, useStore } from '@deriv/stores';
 import { ThemeProvider } from '@deriv-com/quill-ui';
 import { useTranslations } from '@deriv-com/translations';
@@ -19,12 +19,15 @@ import Routes from './Containers/Routes/routes.jsx';
 import Devtools from './Devtools';
 
 const AppContent: React.FC<{ passthrough: any }> = observer(({ passthrough }) => {
+    const { initTrackJS } = useTrackJS();
+
     const store = useStore();
-    const { is_client_store_initialized, current_account } = store.client;
+    const { current_account } = store.client;
     const { current_language } = store.common;
     const { is_dark_mode_on } = store.ui;
 
     const { switchLanguage } = useTranslations();
+
     const location = useLocation();
     const has_access_denied_error = location.search.includes('access_denied');
 
@@ -35,6 +38,11 @@ const AppContent: React.FC<{ passthrough: any }> = observer(({ passthrough }) =>
     useIntercom(token);
 
     const html = document.documentElement;
+
+    React.useEffect(() => {
+        const loginid = current_account?.loginid || undefined;
+        initTrackJS(loginid);
+    }, [initTrackJS, current_account?.loginid]);
 
     React.useEffect(() => {
         switchLanguage(current_language);
