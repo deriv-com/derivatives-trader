@@ -67,9 +67,6 @@ const BinarySocketGeneral = (() => {
                     authorizeAccount(response);
                 }
                 break;
-            case 'payout_currencies':
-                client_store.responsePayoutCurrencies(response?.payout_currencies);
-                break;
             case 'transaction':
                 gtm_store.pushTransactionData(response);
                 if (client_store && client_store.loginid) {
@@ -152,7 +149,6 @@ const BinarySocketGeneral = (() => {
     const authorizeAccount = response => {
         client_store.responseAuthorize(response);
         subscribeBalances(); // Single account balance
-        WS.storage.payoutCurrencies(); // Currency configs for trading
         client_store.setIsAuthorize(true); // Set auth state
         BinarySocket.sendBuffered(); // Send queued requests
     };

@@ -25,7 +25,6 @@ const SocketCache = (() => {
     // keys are msg_type
     // expire: how long to keep the value (in minutes)
     const config = {
-        payout_currencies: { expire: 120 },
         proposal_open_contract: { expire: 10 },
         contracts_for: { expire: 10 },
         trading_times: { expire: 120 },

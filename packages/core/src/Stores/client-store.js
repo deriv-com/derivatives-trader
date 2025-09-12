@@ -252,8 +252,9 @@ export default class ClientStore extends BaseStore {
     }
 
     responsePayoutCurrencies(response) {
-        const list = response?.payout_currencies || response;
-        this.currencies_list = buildCurrenciesList(Array.isArray(list) ? list : []);
+        // Since payout_currencies endpoint has been removed, use USD as fallback
+        const list = response?.payout_currencies || response || ['USD'];
+        this.currencies_list = buildCurrenciesList(Array.isArray(list) ? list : ['USD']);
         this.selectCurrency('');
     }
 
@@ -416,12 +417,8 @@ export default class ClientStore extends BaseStore {
 
         this.selectCurrency('');
 
-        if (this.is_logged_in) {
-            this.responsePayoutCurrencies(await WS.authorized.payoutCurrencies());
-        } else {
-            // For logged-out state, get payout currencies without authorization
-            this.responsePayoutCurrencies(await WS.payoutCurrencies());
-        }
+        // Since payout_currencies endpoint has been removed, use USD as default
+        this.responsePayoutCurrencies(['USD']);
 
         this.setIsLoggingIn(false);
         this.setInitialized(true);
@@ -567,8 +564,9 @@ export default class ClientStore extends BaseStore {
 
         Analytics.reset();
 
-        runInAction(async () => {
-            this.responsePayoutCurrencies(await WS.payoutCurrencies());
+        runInAction(() => {
+            // Since payout_currencies endpoint has been removed, use USD as default
+            this.responsePayoutCurrencies(['USD']);
         });
         this.root_store.notifications.removeAllNotificationMessages(true);
     }

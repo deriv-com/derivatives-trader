@@ -2608,10 +2608,6 @@ type TSocketEndpoints = {
         request: PaymentAgentWithdrawJustificationRequest;
         response: PaymentAgentWithdrawJustificationResponse;
     };
-    payout_currencies: {
-        request: PayoutCurrenciesRequest;
-        response: PayoutCurrenciesResponse;
-    };
     phone_number_challenge: {
         request: PhoneNumberChallengeRequest;
         response: PhoneNumberChallengeResponse;

@@ -2319,10 +2319,6 @@ type TSocketEndpoints = {
         request: PaymentAgentWithdrawJustificationRequest;
         response: PaymentAgentWithdrawJustificationResponse;
     };
-    payout_currencies: {
-        request: PayoutCurrenciesRequest;
-        response: PayoutCurrenciesResponse;
-    };
     ping: {
         request: PingRequest;
         response: PingResponse;
