@@ -53,7 +53,7 @@ const getSharedQueryClientContext = (): QueryClient => {
 };
 
 /**
- * Retrieves the WebSocket URL based on the current environment.
+ * Retrieves the WebSocket URL based on the account_type URL parameter.
  * @returns {string} The WebSocket URL.
  */
 const getWebSocketURL = () => {
@@ -123,8 +123,8 @@ const initializeDerivAPI = (onWSClose: () => void): DerivAPIBasic => {
 const queryClient = getSharedQueryClientContext();
 
 /**
- * Determines the WS environment based on the login ID and custom server URL.
- * @param {string | null | undefined} loginid - The login ID (can be a string, null, or undefined).
+ * Determines the WS environment based on the account_type URL parameter and custom server URL.
+ * @param {string | null | undefined} loginid - The login ID (can be a string, null, or undefined) - deprecated parameter.
  * @returns {string} Returns the WS environment: 'custom', 'real', or 'demo'.
  */
 /**
@@ -134,7 +134,14 @@ const getEnvironment = (loginid: string | null | undefined) => {
     const customServerURL = window.localStorage.getItem('config.server_url');
     if (customServerURL) return 'custom';
 
-    if (loginid && !/^(VRT|VRW)/.test(loginid)) return 'real';
+    // Use new account_type URL parameter logic instead of loginid
+    const search = window.location.search;
+    if (search) {
+        const params = new URLSearchParams(search);
+        const accountType = params.get('account_type');
+        if (accountType === 'real') return 'real';
+    }
+
     return 'demo';
 };
 

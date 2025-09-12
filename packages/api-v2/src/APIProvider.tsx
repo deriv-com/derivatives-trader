@@ -34,7 +34,7 @@ type APIContextData = {
 };
 
 /**
- * Retrieves the WebSocket URL based on the current environment.
+ * Retrieves the WebSocket URL based on the account_type URL parameter.
  * @returns {string} The WebSocket URL.
  */
 const getWebSocketURL = (endpoint: string) => {

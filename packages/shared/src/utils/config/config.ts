@@ -25,24 +25,33 @@ export const isProduction = () => {
     return supportedDomainsRegex.test(window.location.hostname) && productionRegex.test(window.location.hostname);
 };
 
+/**
+ * Parses the account_type parameter from the current URL
+ * @returns {string} 'real', 'demo', or 'demo' as default
+ */
+export const getAccountTypeFromUrl = (): string => {
+    const search = window.location.search;
+    const search_params = new URLSearchParams(search);
+    const accountType = search_params.get('account_type');
+
+    // Validate account type and return 'demo' as default for invalid values
+    if (accountType === 'real' || accountType === 'demo') {
+        return accountType;
+    }
+
+    // Default to demo when no account_type parameter or invalid value
+    return 'demo';
+};
+
 export const getSocketURL = () => {
     const local_storage_server_url = window.localStorage.getItem('config.server_url');
     if (local_storage_server_url) return local_storage_server_url;
 
-    let active_loginid_from_url;
-    const search = window.location.search;
-    if (search) {
-        const params = new URLSearchParams(document.location.search.substring(1));
-        active_loginid_from_url = params.get('acct1');
-    }
-    const local_storage_loginid =
-        window.sessionStorage.getItem('active_loginid') || window.localStorage.getItem('active_loginid');
-    const loginid = local_storage_loginid || active_loginid_from_url;
-    const is_real = loginid && !/^(VRT|VRW)/.test(loginid);
+    // Get account type from URL parameter
+    const accountType = getAccountTypeFromUrl();
 
-    // TODO: Change this to production server when going live
-    const server = is_real ? 'green' : 'blue';
-    const server_url = `${server}.derivws.com`;
+    // Map account type to new v2 endpoints
+    const server_url = accountType === 'real' ? 'realv2.derivws.com' : 'demov2.derivws.com';
 
     return server_url;
 };
