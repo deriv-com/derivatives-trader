@@ -1264,7 +1264,7 @@ type TPrivateSocketEndpoints = {
              */
             platform: 'mt5';
             /**
-             * Email verification code (received from a `verify_email` call, which must be done first)
+             * Email verification code (must be obtained through alternative verification methods)
              */
             verification_code: string;
             /**
@@ -2109,7 +2109,7 @@ type TPrivateSocketEndpoints = {
              */
             new_password: string;
             /**
-             * Email verification code (received from a `verify_email` call, which must be done first)
+             * Email verification code (must be obtained through alternative verification methods)
              */
             verification_code: string;
             /**
@@ -2969,14 +2969,6 @@ type TSocketEndpoints = {
     unsubscribe_email: {
         request: UnsubscribeEmailRequest;
         response: UnsubscribeEmailResponse;
-    };
-    verify_email_cellxpert: {
-        request: VerifyEmailCellxpertRequest;
-        response: VerifyEmailCellxpertResponse;
-    };
-    verify_email: {
-        request: VerifyEmailRequest;
-        response: VerifyEmailResponse;
     };
 } & TPrivateSocketEndpoints;
 

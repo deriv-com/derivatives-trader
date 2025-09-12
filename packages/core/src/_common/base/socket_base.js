@@ -231,8 +231,6 @@ const BinarySocketBase = (() => {
     const statement = (limit, offset, other_properties) =>
         deriv_api.send({ statement: 1, description: 1, limit, offset, ...other_properties });
 
-    const verifyEmail = (email, type, payload = {}) => deriv_api.send({ verify_email: email, type, ...payload });
-
     const tradingPlatformPasswordChange = payload =>
         deriv_api.send({
             trading_platform_password_change: 1,
@@ -433,7 +431,6 @@ const BinarySocketBase = (() => {
         getPhoneSettings,
         profitTable,
         statement,
-        verifyEmail,
         getTicksHistory,
         tradingPlatformPasswordChange,
         tradingPlatformPasswordReset,
