@@ -2770,10 +2770,6 @@ type TSocketEndpoints = {
         request: P2POrderDisputeRequest;
         response: P2POrderDisputeResponse;
     };
-    p2p_order_info: {
-        request: P2POrderInformationRequest;
-        response: P2POrderInformationResponse;
-    };
     p2p_order_list: {
         request: P2POrderListRequest;
         response: P2POrderListResponse;

@@ -15,13 +15,13 @@ jest.mock('../AuthProvider', () => ({
                     subscribe: async (onData: (response: unknown) => void) => {
                         const delay = (ms: number) => new Promise<never>(resolve => setTimeout(resolve, ms));
                         await delay(500);
-                        onData({ p2p_order_info: { status: 'pending' } });
+                        onData({ balance: { balance: 1000, currency: 'USD' } });
                         await delay(500);
-                        onData({ p2p_order_info: { status: 'buyer-confirmed' } });
+                        onData({ balance: { balance: 1500, currency: 'USD' } });
                         await delay(500);
-                        onData({ p2p_order_info: { status: 'disputed' } });
+                        onData({ balance: { balance: 2000, currency: 'USD' } });
                         await delay(500);
-                        onData({ p2p_order_info: { status: 'completed' } });
+                        onData({ balance: { balance: 2500, currency: 'USD' } });
                         return { unsubscribe: () => Promise.resolve() };
                     },
                 };
@@ -31,31 +31,31 @@ jest.mock('../AuthProvider', () => ({
 }));
 
 describe('useSubscription', () => {
-    test('should subscribe to p2p_order_info and get the order updates', async () => {
+    test('should subscribe to balance and get the balance updates', async () => {
         const wrapper = ({ children }: { children: JSX.Element }) => (
             <APIProvider>
                 <AuthProvider>{children}</AuthProvider>
             </APIProvider>
         );
 
-        const { result, waitForNextUpdate } = renderHook(() => useSubscription('p2p_order_info'), { wrapper });
+        const { result, waitForNextUpdate } = renderHook(() => useSubscription('balance'), { wrapper });
 
         expect(result.current.isLoading).toBe(false);
         expect(result.current.isIdle).toBe(false);
         expect(result.current.error).toBe(undefined);
-        expect(result.current.data?.p2p_order_info).toBe(undefined);
+        expect(result.current.data?.balance).toBe(undefined);
 
         act(() => {
-            result.current.subscribe({ payload: { id: '2' } });
+            result.current.subscribe({ payload: {} });
         });
 
         await waitForNextUpdate();
-        expect(result.current.data?.p2p_order_info).toStrictEqual({ status: 'pending' });
+        expect(result.current.data?.balance).toStrictEqual({ balance: 1000, currency: 'USD' });
         await waitForNextUpdate();
-        expect(result.current.data?.p2p_order_info).toStrictEqual({ status: 'buyer-confirmed' });
+        expect(result.current.data?.balance).toStrictEqual({ balance: 1500, currency: 'USD' });
         await waitForNextUpdate();
-        expect(result.current.data?.p2p_order_info).toStrictEqual({ status: 'disputed' });
+        expect(result.current.data?.balance).toStrictEqual({ balance: 2000, currency: 'USD' });
         await waitForNextUpdate();
-        expect(result.current.data?.p2p_order_info).toStrictEqual({ status: 'completed' });
+        expect(result.current.data?.balance).toStrictEqual({ balance: 2500, currency: 'USD' });
     });
 });
