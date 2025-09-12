@@ -40,7 +40,7 @@ inputs:
   #   description: 'Datadog session sample rate for logs'
   #   required: false
   REMOTE_CONFIG_URL:
-    description: 'Remote config backup URL'
+    description: 'Remote config URL'
     required: true
   # TRUSTPILOT_API_KEY:
   #   description: 'Trustpilot api key'
