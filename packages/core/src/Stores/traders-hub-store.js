@@ -56,39 +56,44 @@ export default class TradersHubStore extends BaseStore {
     }
 
     get content_flag() {
-        const { is_logged_in, landing_companies, residence, is_landing_company_loaded } = this.root_store.client;
-        if (is_landing_company_loaded) {
-            const { financial_company, gaming_company } = landing_companies;
+        const { is_logged_in, residence } = this.root_store.client;
 
-            //this is a conditional check for countries like Australia/Norway which fulfills one of these following conditions
-            const restricted_countries = financial_company?.shortcode === 'svg' || gaming_company?.shortcode === 'svg';
+        // Hardcoded landing companies for maximum permissiveness (ROW/SVG behavior)
+        const hardcoded_landing_companies = {
+            financial_company: { shortcode: 'svg' },
+            gaming_company: { shortcode: 'svg' },
+        };
 
-            if (!is_logged_in) return '';
-            if (!gaming_company?.shortcode && financial_company?.shortcode === 'maltainvest') {
-                if (this.is_demo) return ContentFlag.EU_DEMO;
-                return ContentFlag.EU_REAL;
-            } else if (
-                financial_company?.shortcode === 'maltainvest' &&
-                gaming_company?.shortcode === 'svg' &&
-                this.is_real
-            ) {
-                if (this.is_eu_user) return ContentFlag.LOW_RISK_CR_EU;
-                return ContentFlag.LOW_RISK_CR_NON_EU;
-            } else if (
-                ((financial_company?.shortcode === 'svg' && gaming_company?.shortcode === 'svg') ||
-                    restricted_countries) &&
-                this.is_real
-            ) {
-                return ContentFlag.HIGH_RISK_CR;
-            }
+        const { financial_company, gaming_company } = hardcoded_landing_companies;
 
-            // Default Check
-            if (isEuCountry(residence)) {
-                if (this.is_demo) return ContentFlag.EU_DEMO;
-                return ContentFlag.EU_REAL;
-            }
-            if (this.is_demo) return ContentFlag.CR_DEMO;
+        //this is a conditional check for countries like Australia/Norway which fulfills one of these following conditions
+        const restricted_countries = financial_company?.shortcode === 'svg' || gaming_company?.shortcode === 'svg';
+
+        if (!is_logged_in) return '';
+        if (!gaming_company?.shortcode && financial_company?.shortcode === 'maltainvest') {
+            if (this.is_demo) return ContentFlag.EU_DEMO;
+            return ContentFlag.EU_REAL;
+        } else if (
+            financial_company?.shortcode === 'maltainvest' &&
+            gaming_company?.shortcode === 'svg' &&
+            this.is_real
+        ) {
+            if (this.is_eu_user) return ContentFlag.LOW_RISK_CR_EU;
+            return ContentFlag.LOW_RISK_CR_NON_EU;
+        } else if (
+            ((financial_company?.shortcode === 'svg' && gaming_company?.shortcode === 'svg') || restricted_countries) &&
+            this.is_real
+        ) {
+            return ContentFlag.HIGH_RISK_CR;
         }
+
+        // Default Check
+        if (isEuCountry(residence)) {
+            if (this.is_demo) return ContentFlag.EU_DEMO;
+            return ContentFlag.EU_REAL;
+        }
+        if (this.is_demo) return ContentFlag.CR_DEMO;
+
         return this.is_eu_user ? ContentFlag.LOW_RISK_CR_EU : ContentFlag.LOW_RISK_CR_NON_EU;
     }
 

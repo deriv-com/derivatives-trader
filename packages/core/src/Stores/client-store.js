@@ -193,7 +193,8 @@ export default class ClientStore extends BaseStore {
     }
 
     get landing_company_shortcode() {
-        return this.current_account?.landing_company_shortcode || '';
+        // Default to 'svg' for ROW behavior (maximum permissiveness)
+        return this.current_account?.landing_company_shortcode || 'svg';
     }
 
     get is_cr_account() {
