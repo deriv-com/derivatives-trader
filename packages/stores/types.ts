@@ -402,7 +402,6 @@ type TUiStore = {
     toggleShouldShowRealAccountsList: (value: boolean) => void;
     toggleUrlUnavailableModal: (value: boolean) => void;
     removeToast: (key: string) => void;
-    is_ready_to_deposit_modal_visible: boolean;
     reports_route_tab_index: number;
     should_show_cancellation_warning: boolean;
     should_trigger_tour_guide: boolean;

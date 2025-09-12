@@ -72,7 +72,6 @@ export default class UIStore extends BaseStore {
     is_real_acc_signup_on = false;
     is_from_signup_account = false;
     real_account_signup_target = undefined;
-    deposit_real_account_signup_target = undefined;
     has_real_account_signup_ended = false;
 
     // verification modal
@@ -207,7 +206,6 @@ export default class UIStore extends BaseStore {
             app_contents_scroll_ref: observable,
             choose_crypto_currency_target: observable,
             current_focus: observable,
-            deposit_real_account_signup_target: observable,
             duration_d: observable,
             duration_h: observable,
             duration_m: observable,
@@ -552,7 +550,6 @@ export default class UIStore extends BaseStore {
     }
 
     resetRealAccountSignupTarget() {
-        this.deposit_real_account_signup_target = this.real_account_signup_target;
         this.real_account_signup_target = '';
     }
 

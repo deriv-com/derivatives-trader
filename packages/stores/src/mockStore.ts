@@ -190,7 +190,6 @@ const mock = (): TStores & { is_mock: boolean } => {
             toggleReports: jest.fn(),
             setSubSectionIndex: jest.fn(),
             sub_section_index: 0,
-            is_ready_to_deposit_modal_visible: false,
             is_real_acc_signup_on: false,
             is_need_real_account_for_cashier_modal_visible: false,
             is_verification_modal_visible: false,
