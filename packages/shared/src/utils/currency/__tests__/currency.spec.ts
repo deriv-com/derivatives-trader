@@ -1,19 +1,18 @@
 import * as CurrencyUtils from '../currency';
 import { TCurrenciesConfig } from '../currency';
 
-describe('CurrencyUtils', () => {
-    const currencies_config: TCurrenciesConfig = {
-        AUD: { fractional_digits: 2, type: 'fiat' },
-        EUR: { fractional_digits: 2, type: 'fiat' },
-        GBP: { fractional_digits: 2, type: 'fiat' },
-        USD: { fractional_digits: 2, type: 'fiat', transfer_between_accounts: { limits: { max: 2500, min: 1.0 } } },
-        BTC: { fractional_digits: 8, type: 'crypto' },
-    };
-    beforeEach(() => {
-        // Directly set the currencies_config for testing since setCurrencies was removed
-        (CurrencyUtils as any).currencies_config = currencies_config;
-    });
+const currencies_config: TCurrenciesConfig = {
+    AUD: { fractional_digits: 2, type: 'fiat' },
+    EUR: { fractional_digits: 2, type: 'fiat' },
+    GBP: { fractional_digits: 2, type: 'fiat' },
+    USD: { fractional_digits: 2, type: 'fiat', transfer_between_accounts: { limits: { max: 2500, min: 1.0 } } },
+    BTC: { fractional_digits: 8, type: 'crypto' },
+};
 
+// Mock getCurrencies at module level
+jest.spyOn(CurrencyUtils, 'getCurrencies').mockImplementation(() => currencies_config);
+
+describe('CurrencyUtils', () => {
     describe('.formatMoney()', () => {
         it('works as expected', () => {
             expect(CurrencyUtils.formatMoney('USD', '123.55')).toBe(`${CurrencyUtils.formatCurrency('USD')}123.55`);
