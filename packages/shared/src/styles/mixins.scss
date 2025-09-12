@@ -113,17 +113,17 @@
     @if $size {
         font-size: $size;
     }
-    @if $colour {
-        color: $colour;
+    @if $align {
+        text-align: $align;
     }
     @if $weight {
         font-weight: $weight;
     }
+    @if $colour {
+        color: $colour;
+    }
     @if $tt {
         text-transform: $tt;
-    }
-    @if $align {
-        text-align: $align;
     }
     @if $size == 1.6rem {
         line-height: map-get($map: $LINEHEIGHTS, $key: 'large');

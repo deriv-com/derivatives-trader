@@ -3,8 +3,8 @@
     "brand_logo": "BrandDerivLogoCoralIcon",
     "brand_domain": "deriv.com",
     "brand_hostname": {
-        "staging": "staging-home.deriv.com",
-        "production": "home.deriv.com"
+        "staging": "staging-home.deriv.com/dashboard",
+        "production": "home.deriv.com/dashboard"
     },
     "platform": {
         "name": "Derivatives Trader",

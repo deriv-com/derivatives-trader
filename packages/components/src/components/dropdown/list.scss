@@ -91,7 +91,7 @@
         &--selected .dc-list__item-text,
         &--selected .dc-list__item-symbol,
         &--selected .dc-list__item-tooltip {
-            @include typeface(--paragraph-left-bold-active);
+            @include typeface(--paragraph-left-bold-primary);
             line-height: 1.43;
             color: var(--color-text-primary);
             background: var(--color-interactive-active);

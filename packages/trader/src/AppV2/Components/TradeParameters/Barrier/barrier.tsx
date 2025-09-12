@@ -35,6 +35,41 @@ const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
     const { addSnackbar } = useSnackbar();
     const [barrier_error_shown, setBarrierErrorShown] = React.useState(false);
 
+    // Constants for localStorage keys to match barrier-input.tsx
+    const SPOT_BARRIER_KEY = 'deriv_spot_barrier_value';
+    const FIXED_BARRIER_KEY = 'deriv_fixed_barrier_value';
+
+    // Helper function to get stored value from localStorage
+    const getStoredBarrierValue = React.useCallback(() => {
+        try {
+            const spotValue = localStorage.getItem(SPOT_BARRIER_KEY);
+            const fixedValue = localStorage.getItem(FIXED_BARRIER_KEY);
+
+            // If barrier_1 contains +/-, it's a spot barrier
+            if (barrier_1.includes('+') || barrier_1.includes('-')) {
+                return spotValue ? `${barrier_1.charAt(0)}${spotValue}` : '';
+            }
+            return fixedValue || '';
+        } catch (e) {
+            return '';
+        }
+    }, [barrier_1, SPOT_BARRIER_KEY, FIXED_BARRIER_KEY]);
+
+    // Restore both store barrier_1 and v2_params_initial_values from localStorage on component mount
+    React.useEffect(() => {
+        // Only restore if v2_params_initial_values.barrier_1 is empty but we have stored values
+        if (!v2_params_initial_values.barrier_1) {
+            const storedValue = getStoredBarrierValue();
+            if (storedValue && storedValue !== barrier_1) {
+                // We have a manually edited value stored that differs from default
+                // Update the actual store value first using onChange
+                onChange({ target: { name: 'barrier_1', value: storedValue } });
+                // Then update v2_params_initial_values to show the correct display value
+                setV2ParamsInitialValues({ value: storedValue, name: 'barrier_1' });
+            }
+        }
+    }, [v2_params_initial_values.barrier_1, barrier_1, getStoredBarrierValue, setV2ParamsInitialValues, onChange]);
+
     const onClose = React.useCallback(
         (is_saved = false) => {
             if (is_open) {

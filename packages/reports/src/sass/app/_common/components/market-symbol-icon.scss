@@ -15,7 +15,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        @include typeface(--paragraph-left-bold-active);
+        @include typeface(--paragraph-left-bold-primary);
         color: var(--color-text-primary);
     }
     &-name {

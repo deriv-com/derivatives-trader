@@ -135,29 +135,6 @@ describe('AccountActions component', () => {
         expect(screen.getByTestId('dt_account_info')).toBeInTheDocument();
     });
 
-    it('should render logout button on desktop when logged in', () => {
-        render(<AccountActions {...default_props} />);
-
-        expect(screen.getByText('Log out')).toBeInTheDocument();
-    });
-
-    it('should not render logout button on mobile', () => {
-        (useDevice as jest.Mock).mockReturnValue({ isDesktop: false });
-
-        render(<AccountActions {...default_props} />);
-
-        expect(screen.queryByText('Log out')).not.toBeInTheDocument();
-    });
-
-    it('should call onClickLogout when logout button is clicked', async () => {
-        render(<AccountActions {...default_props} />);
-
-        const logout_button = screen.getByText('Log out');
-        await userEvent.click(logout_button);
-
-        expect(default_props.onClickLogout).toHaveBeenCalledTimes(1);
-    });
-
     it('should render AccountInfo with formatted balance', () => {
         render(<AccountActions {...default_props} balance={1234.56} currency='EUR' />);
 

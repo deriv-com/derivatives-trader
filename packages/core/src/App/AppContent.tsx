@@ -6,8 +6,6 @@ import { observer, useStore } from '@deriv/stores';
 import { ThemeProvider } from '@deriv-com/quill-ui';
 import { useTranslations } from '@deriv-com/translations';
 
-import initDatadog from '../Utils/Datadog';
-
 import ErrorBoundary from './Components/Elements/Errors/error-boundary.jsx';
 import LandscapeBlocker from './Components/Elements/LandscapeBlocker';
 import AppToastMessages from './Containers/app-toast-messages.jsx';
@@ -32,10 +30,10 @@ const AppContent: React.FC<{ passthrough: any }> = observer(({ passthrough }) =>
     const has_access_denied_error = location.search.includes('access_denied');
 
     const { data } = useRemoteConfig(true);
-    const { tracking_datadog } = data;
+    const { cs_chat_intercom } = data;
 
     const token = current_account?.session_token || null;
-    useIntercom(token);
+    useIntercom(cs_chat_intercom, token);
 
     const html = document.documentElement;
 
@@ -49,10 +47,6 @@ const AppContent: React.FC<{ passthrough: any }> = observer(({ passthrough }) =>
         html?.setAttribute('lang', current_language.toLowerCase());
         html?.setAttribute('dir', current_language.toLowerCase() === 'ar' ? 'rtl' : 'ltr');
     }, [current_language, switchLanguage, html]);
-
-    React.useEffect(() => {
-        initDatadog(tracking_datadog);
-    }, [tracking_datadog]);
 
     return (
         <ThemeProvider theme={is_dark_mode_on ? 'dark' : 'light'}>

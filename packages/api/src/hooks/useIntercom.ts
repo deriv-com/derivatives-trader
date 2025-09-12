@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useScript } from 'usehooks-ts';
 
-import useRemoteConfig from './useRemoteConfig';
-
-export const useIntercom = (token: string | null) => {
+export const useIntercom = (enabled: boolean, token: string | null) => {
+    // TODO: Update the intercom script URL with v2 when it's available
     const intercom_script = 'https://static.deriv.com/scripts/intercom/v1.0.1.js';
-    const { data: remoteConfig } = useRemoteConfig(true);
-    const enable_intercom = remoteConfig?.cs_chat_intercom ?? false;
-    const scriptStatus = useScript(enable_intercom ? intercom_script : null);
+    const scriptStatus = useScript(enabled ? intercom_script : null);
 
     useEffect(() => {
-        if (!enable_intercom || scriptStatus !== 'ready' || !window?.DerivInterCom) return;
+        if (!enabled || scriptStatus !== 'ready' || !window?.DerivInterCom) return;
 
         let intervalId: NodeJS.Timeout;
 
@@ -32,7 +29,7 @@ export const useIntercom = (token: string | null) => {
         return () => {
             clearInterval(intervalId);
         };
-    }, [enable_intercom, scriptStatus, token]);
+    }, [enabled, scriptStatus, token]);
 };
 
 export const useIsIntercomAvailable = () => {

@@ -73,7 +73,7 @@
         height: 3.2rem;
     }
     &__balance {
-        @include typeface(--title-center-bold-green, default);
+        @include typeface(--title-center-bold-success, default);
         line-height: 2.2rem;
         pointer-events: none;
         margin-right: 0.8rem;
@@ -382,7 +382,7 @@
 
             .acc-switcher {
                 &__id {
-                    @include typeface(--paragraph-left-bold-active);
+                    @include typeface(--paragraph-left-bold-primary);
 
                     &--virtual:before {
                         color: var(--color-text-primary);

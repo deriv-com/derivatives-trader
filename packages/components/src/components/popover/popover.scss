@@ -25,7 +25,7 @@
         }
     }
     &__bubble {
-        @include typeface(--small-center-normal-active, none);
+        @include typeface(--small-center-normal-primary, none);
         cursor: help;
         position: relative;
         padding: 0.8rem;

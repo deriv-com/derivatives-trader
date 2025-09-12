@@ -33,15 +33,15 @@ inputs:
   # GD_CLIENT_ID:
   #   description: 'Google drive client id'
   #   required: false
-  # RUDDERSTACK_KEY:
-  #   description: 'Rudderstack key'
-  #   required: false
+  RUDDERSTACK_KEY:
+    description: 'Rudderstack key'
+    required: false
   # DATADOG_SESSION_SAMPLE_RATE_LOGS:
   #   description: 'Datadog session sample rate for logs'
   #   required: false
-  # REMOTE_CONFIG_URL:
-  #   description: 'Remote config backup URL'
-  #   required: true
+  REMOTE_CONFIG_URL:
+    description: 'Remote config URL'
+    required: true
   # TRUSTPILOT_API_KEY:
   #   description: 'Trustpilot api key'
   #   required: false
@@ -61,9 +61,9 @@ runs:
       # GD_API_KEY: ${{ inputs.GD_API_KEY }}
       # GD_APP_ID: ${{ inputs.GD_APP_ID }}
       # GD_CLIENT_ID: ${{ inputs.GD_CLIENT_ID }}
-      # RUDDERSTACK_KEY: ${{ inputs.RUDDERSTACK_KEY }}
+      RUDDERSTACK_KEY: ${{ inputs.RUDDERSTACK_KEY }}
       REF_NAME: ${{ inputs.REF_NAME }}
-      # REMOTE_CONFIG_URL: ${{ inputs.REMOTE_CONFIG_URL }}
+      REMOTE_CONFIG_URL: ${{ inputs.REMOTE_CONFIG_URL }}
       # TRUSTPILOT_API_KEY: ${{ inputs.TRUSTPILOT_API_KEY }}
       R2_PROJECT_NAME: ${{ inputs.R2_PROJECT_NAME }}
       CROWDIN_BRANCH_NAME: ${{ inputs.CROWDIN_BRANCH_NAME }}

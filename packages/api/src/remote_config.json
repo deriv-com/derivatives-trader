@@ -1,6 +1,5 @@
 {
     "cs_chat_intercom": false,
     "cs_chat_whatsapp": false,
-    "tracking_datadog": true,
     "tracking_rudderstack": true
 }
