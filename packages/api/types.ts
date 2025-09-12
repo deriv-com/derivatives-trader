@@ -2906,10 +2906,6 @@ type TSocketEndpoints = {
         request: StatementRequest;
         response: StatementResponse;
     };
-    states_list: {
-        request: StatesListRequest;
-        response: StatesListResponse;
-    };
     ticks_history: {
         request: TicksHistoryRequest;
         response: TicksHistoryResponse;
