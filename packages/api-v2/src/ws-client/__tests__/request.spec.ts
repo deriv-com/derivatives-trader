@@ -15,7 +15,7 @@ describe('send function', () => {
     });
 
     test('should send request with correct req_id and name', async () => {
-        const name = 'website_status';
+        const name = 'time';
 
         const promise = request(mockWebSocket as unknown as WebSocket, name, {});
         mockWebSocket.respondFromServer(JSON.stringify({ req_id: 1 }));
@@ -26,19 +26,19 @@ describe('send function', () => {
     });
 
     test('should send request with correct payload', async () => {
-        const name = 'website_status';
-        const payload = { key: 'value' };
+        const name = 'time';
+        const payload = {};
 
         const promise = request(mockWebSocket as unknown as WebSocket, name, payload);
         mockWebSocket.respondFromServer(JSON.stringify({ req_id: 1 }));
 
         await promise;
 
-        expect(mockWebSocket.send).toHaveBeenCalledWith(JSON.stringify({ [name]: 1, ...payload, req_id: 1 }));
+        expect(mockWebSocket.send).toHaveBeenCalledWith(JSON.stringify({ [name]: 1, req_id: 1 }));
     });
 
     test('should yield the response from server', async () => {
-        const name = 'website_status';
+        const name = 'time';
         const mockData = { req_id: 1, result: 'success' };
 
         const promise = request(mockWebSocket as unknown as WebSocket, name, {});
@@ -49,7 +49,7 @@ describe('send function', () => {
     });
 
     test('should ignore responses from different reqSeqNumber', async () => {
-        const name = 'website_status';
+        const name = 'time';
         const wrongMockData = { req_id: 9999, result: 'wrong' };
         const correctMockData = { req_id: 1, result: 'correct' };
 
@@ -70,7 +70,7 @@ describe('send function', () => {
     });
 
     test('should reject the promise in case of timeout', async () => {
-        const name = 'website_status';
+        const name = 'time';
 
         jest.useFakeTimers();
 
@@ -82,7 +82,7 @@ describe('send function', () => {
     });
 
     test('any addEventListener call should have a matching removeEventListener when server response is proper', async () => {
-        const name = 'website_status';
+        const name = 'time';
 
         const promise = request(mockWebSocket as unknown as WebSocket, name, {});
         mockWebSocket.respondFromServer(JSON.stringify({ req_id: 1 }));
@@ -96,7 +96,7 @@ describe('send function', () => {
     });
 
     test('any addEventListener call should have a matching removeEventListener in case of timeout', async () => {
-        const name = 'website_status';
+        const name = 'time';
 
         jest.useFakeTimers();
 

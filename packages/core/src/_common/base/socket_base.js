@@ -88,8 +88,6 @@ const BinarySocketBase = (() => {
         deriv_api.onOpen().subscribe(() => {
             config.wsEvent('open');
 
-            wait('website_status');
-
             if (client_store.is_logged_in) {
                 const authorize_token = client_store.getToken();
                 deriv_api.authorize(authorize_token);
@@ -169,8 +167,6 @@ const BinarySocketBase = (() => {
     const subscribeTicksHistory = (request_object, cb) => subscribe(request_object, cb);
 
     const subscribeTransaction = cb => subscribe({ transaction: 1 }, cb);
-
-    const subscribeWebsiteStatus = cb => subscribe({ website_status: 1 }, cb);
 
     const getTicksHistory = request_object => deriv_api.send(request_object);
 
@@ -462,7 +458,6 @@ const BinarySocketBase = (() => {
         subscribeTicks,
         subscribeTicksHistory,
         subscribeTransaction,
-        subscribeWebsiteStatus,
         tncApproval,
         transferBetweenAccounts,
         fetchLoginHistory,

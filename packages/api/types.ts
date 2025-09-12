@@ -3042,10 +3042,6 @@ type TSocketEndpoints = {
         request: VerifyEmailRequest;
         response: VerifyEmailResponse;
     };
-    website_status: {
-        request: ServerStatusRequest;
-        response: ServerStatusResponse;
-    };
 } & TPrivateSocketEndpoints;
 
 export type TSocketEndpointNames = keyof TSocketEndpoints;

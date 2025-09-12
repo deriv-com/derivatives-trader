@@ -23,18 +23,9 @@ type TIsSymbolOpen = {
     exchange_is_open: 0 | 1;
 };
 
-export const showUnavailableLocationError = flow(function* (showError) {
-    const website_status = yield WS.wait('website_status');
-    const residence_list: TResidenceList = yield WS.residenceList();
-
-    const clients_country_code = website_status.website_status.clients_country;
-    const clients_country_text = (
-        residence_list.residence_list.find(obj_country => obj_country.value === clients_country_code) || {}
-    ).text;
-
-    const header = clients_country_text
-        ? localize('Sorry, this app is unavailable in {{clients_country}}.', { clients_country: clients_country_text })
-        : localize('Sorry, this app is unavailable in your current location.');
+export const showUnavailableLocationError = (showError: (error: any) => void) => {
+    // Simplified error message without country detection
+    const header = localize('Sorry, this app is unavailable in your current location.');
 
     showError({
         message: localize('If you have an account, log in to continue.'),
@@ -43,7 +34,7 @@ export const showUnavailableLocationError = flow(function* (showError) {
         redirectOnClick: () => redirectToLogin(),
         should_show_refresh: false,
     });
-});
+};
 
 export const isMarketClosed = (active_symbols: ActiveSymbols = [], symbol: string) => {
     if (!active_symbols.length) {

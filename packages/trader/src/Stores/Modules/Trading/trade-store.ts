@@ -882,8 +882,6 @@ export default class TradeStore extends BaseStore {
         this.initial_barriers = { barrier_1: this.barrier_1, barrier_2: this.barrier_2 };
         await when(() => !this.root_store.client.is_logging_in);
 
-        // waits for `website_status` in order to set `stake_default` for the selected currency
-        await WS.wait('website_status');
         await runInAction(async () => {
             await this.processNewValuesAsync(
                 {
@@ -1414,7 +1412,6 @@ export default class TradeStore extends BaseStore {
             }
         }
         // Sets the default value to Amount when Currency has changed from Fiat to Crypto and vice versa.
-        // The source of default values is the website_status response.
         if (should_forget_first) {
             this.forgetAllProposal();
             this.proposal_requests = {};

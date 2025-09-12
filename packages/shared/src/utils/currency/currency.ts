@@ -22,7 +22,7 @@ export type TCurrenciesConfig = {
     };
 };
 
-let currencies_config: TCurrenciesConfig = {};
+const currencies_config: TCurrenciesConfig = {};
 
 const fiat_currencies_display_order = ['USD', 'EUR', 'GBP', 'AUD'];
 const crypto_currencies_display_order = [
@@ -103,11 +103,7 @@ export const getDecimalPlaces = (currency = '') =>
         ? getPropertyValue(currencies_config, [currency, 'fractional_digits'])
         : calcDecimalPlaces(currency);
 
-export const setCurrencies = (website_status: { currencies_config: TCurrenciesConfig }) => {
-    currencies_config = website_status.currencies_config;
-};
-
-// (currency in crypto_config) is a back-up in case website_status doesn't include the currency config, in some cases where it's disabled
+// Uses crypto_config as fallback for currency detection
 export const isCryptocurrency = (currency: string) => {
     return /crypto/i.test(getPropertyValue(currencies_config, [currency, 'type'])) || currency in CryptoConfig.get();
 };
