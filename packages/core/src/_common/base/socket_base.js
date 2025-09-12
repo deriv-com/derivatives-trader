@@ -314,8 +314,6 @@ const BinarySocketBase = (() => {
 
     const forgetStream = id => deriv_api.forget(id);
 
-    const tncApproval = () => deriv_api.send({ tnc_approval: '1' });
-
     const contractUpdate = (contract_id, limit_order) =>
         deriv_api.send({
             contract_update: 1,
@@ -458,7 +456,6 @@ const BinarySocketBase = (() => {
         subscribeTicks,
         subscribeTicksHistory,
         subscribeTransaction,
-        tncApproval,
         transferBetweenAccounts,
         fetchLoginHistory,
         closeAndOpenNewConnection,

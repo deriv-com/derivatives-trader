@@ -2930,10 +2930,6 @@ type TSocketEndpoints = {
         request: TINValidationRequest;
         response: TINValidationResponse;
     };
-    tnc_approval: {
-        request: TermsAndConditionsApprovalRequest;
-        response: TermsAndConditionsApprovalResponse;
-    };
     topup_virtual: {
         request: TopUpVirtualMoneyAccountRequest;
         response: TopUpVirtualMoneyAccountResponse;

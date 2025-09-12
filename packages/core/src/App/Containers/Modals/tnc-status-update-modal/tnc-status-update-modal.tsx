@@ -13,9 +13,7 @@ const TncStatusUpdateModal = observer(() => {
     const { is_tnc_update_modal_open, toggleTncUpdateModal } = ui;
     const { isDesktop } = useDevice();
 
-    const onClick = async () => {
-        await WS.tncApproval();
-        WS.getSettings();
+    const onClick = () => {
         toggleTncUpdateModal(false);
     };
 

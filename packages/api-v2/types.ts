@@ -2642,10 +2642,6 @@ type TSocketEndpoints = {
         request: ServerTimeRequest;
         response: ServerTimeResponse;
     };
-    tnc_approval: {
-        request: TermsAndConditionsApprovalRequest;
-        response: TermsAndConditionsApprovalResponse;
-    };
     topup_virtual: {
         request: TopUpVirtualMoneyAccountRequest;
         response: TopUpVirtualMoneyAccountResponse;
