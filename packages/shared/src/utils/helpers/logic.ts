@@ -75,17 +75,6 @@ export const getBuyPrice = (contract_store: TContractStore) => {
     return contract_store.contract_info.buy_price;
 };
 
-/**
- * Checks if the server is currently down or updating.
- *
- * @param {WebsiteStatusResponse} response - The response object containing the status of the website.
- * @returns {boolean} True if the website status is 'down' or 'updating', false otherwise.
- */
-export const checkServerMaintenance = (website_status: WebsiteStatus | undefined | null) => {
-    const { site_status = '' } = website_status || {};
-    return site_status === 'down' || site_status === 'updating';
-};
-
 export const isContractSupportedAndStarted = (symbol: string, contract_info?: TContractInfo) => {
     if (!contract_info) return false;
 

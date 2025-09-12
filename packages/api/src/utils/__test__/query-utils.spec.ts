@@ -16,14 +16,14 @@ describe('getQueryKeys()', () => {
     });
     it('it should return ordered props', () => {
         const input_payload = {
-            exchange_rates: 1,
-            base_currency: 'USD',
+            active_symbols: 'brief',
+            product_type: 'basic',
             req_id: 1,
         };
 
         const expected_output = {
-            base_currency: 'USD',
-            exchange_rates: 1,
+            active_symbols: 'brief',
+            product_type: 'basic',
         };
 
         const [, output] = getQueryKeys('name', input_payload);

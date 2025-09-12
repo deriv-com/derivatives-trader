@@ -21,7 +21,7 @@ describe('SubscriptionsManager', () => {
 
     it('calls onData with initial data', async () => {
         const onData = jest.fn();
-        const subscriptionPromise = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData);
+        const subscriptionPromise = subscriptionsManager.subscribe('balance', {}, onData);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
@@ -33,7 +33,7 @@ describe('SubscriptionsManager', () => {
 
     it('calls onData with updated data', async () => {
         const onData = jest.fn();
-        const subscriptionPromise = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData);
+        const subscriptionPromise = subscriptionsManager.subscribe('balance', {}, onData);
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
@@ -58,13 +58,13 @@ describe('SubscriptionsManager', () => {
         // spy on Subscription constructor
         const SubscriptionSpy = jest.spyOn(Subscription.prototype, 'subscribe');
 
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData1);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
         await subscriptionPromise1;
 
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData2);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', {}, onData2);
         await subscriptionPromise2;
 
         expect(onData1).toBeCalledWith({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } });
@@ -79,8 +79,8 @@ describe('SubscriptionsManager', () => {
         const onData2 = jest.fn();
 
         // important - subscribe multiple times in parallel
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData1);
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData2);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', {}, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
@@ -103,8 +103,8 @@ describe('SubscriptionsManager', () => {
         const SubscriptionSpy = jest.spyOn(Subscription.prototype, 'subscribe');
 
         // important - subscribe multiple times in parallel
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData1);
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData2);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', {}, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
@@ -123,13 +123,13 @@ describe('SubscriptionsManager', () => {
         // spy on Subscription constructor
         const SubscriptionSpy = jest.spyOn(Subscription.prototype, 'subscribe');
 
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload1' }, onData1);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
         await subscriptionPromise1;
 
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload2' }, onData2);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' } as any, onData2);
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 2, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
@@ -143,7 +143,7 @@ describe('SubscriptionsManager', () => {
 
     it('yields unsubscribe function', async () => {
         const onData = jest.fn();
-        const subscriptionPromise = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData);
+        const subscriptionPromise = subscriptionsManager.subscribe('balance', {}, onData);
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
@@ -153,7 +153,7 @@ describe('SubscriptionsManager', () => {
 
     it('usubscribe removes specific listener and it does not receive udpates anymore', async () => {
         const onData = jest.fn();
-        const subscriptionPromise = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData);
+        const subscriptionPromise = subscriptionsManager.subscribe('balance', {}, onData);
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
@@ -183,8 +183,8 @@ describe('SubscriptionsManager', () => {
         const onData1 = jest.fn();
         const onData2 = jest.fn();
 
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData1);
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData2);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', {}, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
@@ -226,8 +226,8 @@ describe('SubscriptionsManager', () => {
         const onData1 = jest.fn();
         const onData2 = jest.fn();
 
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData1);
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData2);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', {}, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
@@ -251,8 +251,8 @@ describe('SubscriptionsManager', () => {
         const onData1 = jest.fn();
         const onData2 = jest.fn();
 
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData1);
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload' }, onData2);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', {}, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
@@ -279,13 +279,13 @@ describe('SubscriptionsManager', () => {
         const onData1 = jest.fn();
         const onData2 = jest.fn();
 
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload1' }, onData1);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
 
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload2' }, onData2);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' } as any, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 2, subscription: { id: 'SUBSCRIPTION_ID' } })
@@ -303,13 +303,13 @@ describe('SubscriptionsManager', () => {
         const onData1 = jest.fn();
         const onData2 = jest.fn();
 
-        const subscriptionPromise1 = subscriptionsManager.subscribe('website_status', { payload: 'payload1' }, onData1);
+        const subscriptionPromise1 = subscriptionsManager.subscribe('balance', {}, onData1);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
 
-        const subscriptionPromise2 = subscriptionsManager.subscribe('website_status', { payload: 'payload2' }, onData2);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' } as any, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 2, subscription: { id: 'SUBSCRIPTION_ID' } })

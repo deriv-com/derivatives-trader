@@ -63,7 +63,7 @@ export default class Subscription {
     async unsubscribe() {
         this.authorizedWs.removeEventListener('message', this.boundOnWsMessage);
         this.authorizedWs.removeEventListener('close', this.boundOnWsClose);
-        send(this.authorizedWs, 'forget', { forget: this.subscriptionId });
+        send(this.authorizedWs, 'forget' as any, { forget: this.subscriptionId } as any);
     }
 
     onWsClose() {
@@ -81,7 +81,7 @@ export default class Subscription {
             {
                 subscribe: 1,
                 ...this.payload,
-            }
+            } as any
         );
 
         // @ts-expect-error due to incorrect type defintion, to be fixed later

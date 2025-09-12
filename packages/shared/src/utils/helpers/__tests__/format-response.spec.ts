@@ -69,45 +69,7 @@ describe('format-response', () => {
         user_hash: 'mock_hash',
     };
 
-    const residence_list: ResidenceList = [
-        {
-            disabled: 'DISABLED',
-            identity: {
-                services: {
-                    idv: {
-                        documents_supported: {},
-                        has_visual_sample: 0,
-                        is_country_supported: 0,
-                    },
-                    onfido: {
-                        documents_supported: {
-                            driving_licence: {
-                                display_name: 'Driving Licence',
-                            },
-                            national_identity_card: {
-                                display_name: 'National Identity Card',
-                            },
-                            passport: {
-                                display_name: 'Passport',
-                            },
-                        },
-                        is_country_supported: 1,
-                    },
-                },
-            },
-            phone_idd: '65',
-            text: 'Singapore',
-            tin_format: [
-                '^[SsTtFfGg]\\d{7}[A-Za-z]$',
-                '^[A-Za-z]{9,10}$',
-                '^[Ff]0000\\d{6}$',
-                '^[Ff]\\d{9}$',
-                '^([Ss]|[Tt][4])\\d{9}$',
-                '^[Aa]\\d{9}$',
-            ],
-            value: 'sg',
-        },
-    ];
+    // residence_list endpoint has been removed - keeping this comment for test context
 
     it('should return an object with values in object passed as argument to formatPortfolioPosition', () => {
         expect(formatPortfolioPosition(portfolio_pos, mock_active_symbols)).toEqual({
@@ -123,8 +85,9 @@ describe('format-response', () => {
             contract_info: portfolio_pos,
         });
     });
-    it('should return true if residence is in the list of supported countries for onfido', () => {
-        expect(isVerificationServiceSupported(residence_list, get_settings, 'onfido')).toBeTruthy();
+    it('should return false since residence_list endpoint has been removed', () => {
+        // Since residence_list endpoint is no longer available, verification services are not supported
+        expect(isVerificationServiceSupported(null as never, get_settings, 'onfido')).toBeFalsy();
     });
 
     describe('filterDisabledPositions', () => {

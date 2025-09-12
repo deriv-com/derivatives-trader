@@ -2,10 +2,12 @@ import { isCryptocurrency, getCurrencyDisplayCode } from '@deriv/shared';
 import { localize } from '@deriv-com/translations';
 
 export const buildCurrenciesList = payout_currencies => {
+    // Since payout_currencies endpoint has been removed, use USD as fallback
+    const fallback_currencies = payout_currencies && payout_currencies.length > 0 ? payout_currencies : ['USD'];
     const fiat = [];
     const crypto = [];
 
-    payout_currencies.forEach(cur => {
+    fallback_currencies.forEach(cur => {
         const isCrypto = isCryptocurrency(cur);
         (isCrypto ? crypto : fiat).push({ text: getCurrencyDisplayCode(cur), value: cur, has_tooltip: isCrypto });
     });

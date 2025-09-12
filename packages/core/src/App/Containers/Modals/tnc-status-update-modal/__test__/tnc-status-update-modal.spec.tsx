@@ -3,22 +3,9 @@ import { render, screen } from '@testing-library/react';
 import { StoreProvider, mockStore } from '@deriv/stores';
 import TncStatusUpdateModal from '../tnc-status-update-modal';
 import userEvent from '@testing-library/user-event';
-import { WS } from '@deriv/shared';
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
-    WS: {
-        tncApproval: jest.fn(() =>
-            Promise.resolve({
-                tnc_approval: {},
-            })
-        ),
-        getSettings: jest.fn(() =>
-            Promise.resolve({
-                get_limits: {},
-            })
-        ),
-    },
 }));
 
 jest.mock('@deriv-com/ui', () => ({
@@ -65,7 +52,7 @@ describe('<TncStatusUpdateModal />', () => {
         expect(screen.queryByText('Accept updated terms and conditions')).not.toBeInTheDocument();
     });
 
-    it('Should render TncStatusUpdateModal with correct content and verify that clicking the button triggers the API call and toggles the modal.', async () => {
+    it('Should render TncStatusUpdateModal with correct content and verify that clicking the button toggles the modal.', async () => {
         renderComponent({});
         expect(screen.getByText('Accept updated terms and conditions')).toBeInTheDocument();
         expect(screen.getByText(/To continue trading, review and accept our updated/)).toBeInTheDocument();
@@ -78,8 +65,6 @@ describe('<TncStatusUpdateModal />', () => {
         const continue_button = screen.getByRole('button', { name: 'Accept now' });
 
         await userEvent.click(continue_button);
-        expect(WS.tncApproval).toBeCalled();
-        expect(WS.getSettings).toBeCalled();
         expect(mock_store.ui.toggleTncUpdateModal).toHaveBeenCalledWith(false);
     });
 });

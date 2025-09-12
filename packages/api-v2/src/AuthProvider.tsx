@@ -131,7 +131,11 @@ const AuthProvider = ({ loginIDKey, children, cookieTimeout, selectDefaultAccoun
             return {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 subscribe: (onData: (response: any) => void) => {
-                    return wsClient?.subscribe(name, payload, onData);
+                    return wsClient?.subscribe(
+                        name,
+                        payload as TSocketRequestPayload<TSocketSubscribableEndpointNames>['payload'],
+                        onData
+                    );
                 },
             };
         },
@@ -175,7 +179,7 @@ const AuthProvider = ({ loginIDKey, children, cookieTimeout, selectDefaultAccoun
     useEffect(() => {
         setOnReconnected(async () => {
             setIsAuthorized(false);
-            await mutateAsync({ payload: { authorize: getToken(loginid || '') ?? '' } });
+            await mutateAsync({ payload: { authorize: getToken(loginid || '') ?? '' } as any });
             setIsAuthorized(true);
         });
     }, [loginid]);
@@ -195,7 +199,7 @@ const AuthProvider = ({ loginIDKey, children, cookieTimeout, selectDefaultAccoun
                 setIsInitializing(true);
                 setIsFetching(true);
                 setIsAuthorized(false);
-                await mutateAsync({ payload: { authorize: token || '' } })
+                await mutateAsync({ payload: { authorize: token || '' } as any })
                     .then(res => {
                         setIsAuthorized(true);
                         processAuthorizeResponse(res);
@@ -245,7 +249,9 @@ const AuthProvider = ({ loginIDKey, children, cookieTimeout, selectDefaultAccoun
 
             setIsAuthorized(false);
             try {
-                const authorizeResponse = await mutateAsync({ payload: { authorize: getToken(newLoginId) ?? '' } });
+                const authorizeResponse = await mutateAsync({
+                    payload: { authorize: getToken(newLoginId) ?? '' } as any,
+                });
                 setIsAuthorized(true);
                 setLoginid(newLoginId);
                 processAuthorizeResponse(authorizeResponse);

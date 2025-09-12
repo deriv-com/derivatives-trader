@@ -12,7 +12,6 @@ import type {
     Portfolio1,
     ProposalOpenContract,
     Transaction,
-    WebsiteStatus,
 } from '@deriv/api-types';
 import { TContractInfo } from '@deriv/shared/src/utils/contract/contract-types';
 
@@ -203,7 +202,7 @@ export type TClientStore = {
     account_type: string;
     current_account: TCurrentAccount | null;
     setIsLoggingIn: (value: boolean) => void;
-    available_crypto_currencies: Array<WebsiteStatus['currencies_config'][string] & { value: string }>;
+    available_crypto_currencies: Array<{ value: string; type: string; name: string }>;
     available_onramp_currencies: Array<string>;
     balance?: string | number;
     clients_country: string;
@@ -227,7 +226,6 @@ export type TClientStore = {
     landing_company_shortcode: string;
     loginid?: string;
     residence: string;
-    website_status: WebsiteStatus;
     email: string;
     is_cr_account: boolean;
     is_mf_account: boolean;
@@ -256,8 +254,6 @@ export type TClientStore = {
     is_crypto: (currency?: string) => boolean;
     responseAuthorize: (response: any) => void;
     responsePayoutCurrencies: (response: any) => void;
-    setWebsiteStatus: (response: any) => void;
-    responseWebsiteStatus: (response: any) => void;
     init: () => Promise<boolean>;
 };
 
@@ -406,7 +402,6 @@ type TUiStore = {
     toggleShouldShowRealAccountsList: (value: boolean) => void;
     toggleUrlUnavailableModal: (value: boolean) => void;
     removeToast: (key: string) => void;
-    is_ready_to_deposit_modal_visible: boolean;
     reports_route_tab_index: number;
     should_show_cancellation_warning: boolean;
     should_trigger_tour_guide: boolean;

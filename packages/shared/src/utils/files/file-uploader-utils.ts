@@ -2,7 +2,15 @@ import { useMutation } from '@deriv/api';
 
 import { compressImg, convertToBase64, getFormatFromMIME, isImageType, TImage } from './image/image_utility';
 
-export type TSettings = Parameters<ReturnType<typeof useMutation<'document_upload'>>['mutate']>[0]['payload'];
+export type TSettings = {
+    document_type?: string;
+    document_id?: string;
+    expiration_date?: string;
+    lifetime_valid?: boolean;
+    page_type?: string;
+    proof_of_ownership?: any;
+    document_issuing_country?: string;
+};
 
 export type TFileObject = TSettings & {
     filename: File['name'];

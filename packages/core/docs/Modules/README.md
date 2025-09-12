@@ -2,12 +2,12 @@
 
 **In this document**
 
--   [Socket Base](#socket-base)
-    -   [One time requests](#one-time-requests)
-    -   [Subscriptions](#subscriptions)
-    -   [Cache](#cache)
-    -   [Storage](#storage)
-    -   [Authorized](#authorized)
+- [Socket Base](#socket-base)
+    - [One time requests](#one-time-requests)
+    - [Subscriptions](#subscriptions)
+    - [Cache](#cache)
+    - [Storage](#storage)
+    - [Authorized](#authorized)
 
 ## Socket Base
 
@@ -107,6 +107,4 @@ const buy_response = await WS.authorized.buy(buy_params);
 // if not found it'll make the payout currencies request
 // but all of this happens after the API is authorized
 // NOTE: This doesn't prevent somewhere else from requesting an unauthorized
-// payout currencies, and filling the storage with it, so use with caution
-const payout_currencies = WS.authorized.storage.payoutCurrencies();
 ```

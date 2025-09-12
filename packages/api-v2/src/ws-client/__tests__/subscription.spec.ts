@@ -24,7 +24,9 @@ describe('Subscription', () => {
         mockWs = mockWebSocketFactory();
 
         // Initialize BackendSubscription with mocked WebSocket
-        backendSubscription = new BackendSubscription(mockWs as unknown as WebSocket, ENDPOINT, { key: 'value' });
+        backendSubscription = new BackendSubscription(mockWs as unknown as WebSocket, ENDPOINT, {
+            key: 'value',
+        } as any);
     });
 
     afterEach(() => {

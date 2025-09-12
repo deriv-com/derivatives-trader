@@ -88,8 +88,6 @@ const BinarySocketBase = (() => {
         deriv_api.onOpen().subscribe(() => {
             config.wsEvent('open');
 
-            wait('website_status');
-
             if (client_store.is_logged_in) {
                 const authorize_token = client_store.getToken();
                 deriv_api.authorize(authorize_token);
@@ -170,8 +168,6 @@ const BinarySocketBase = (() => {
 
     const subscribeTransaction = cb => subscribe({ transaction: 1 }, cb);
 
-    const subscribeWebsiteStatus = cb => subscribe({ website_status: 1 }, cb);
-
     const getTicksHistory = request_object => deriv_api.send(request_object);
 
     const buyAndSubscribe = request => {
@@ -234,8 +230,6 @@ const BinarySocketBase = (() => {
 
     const statement = (limit, offset, other_properties) =>
         deriv_api.send({ statement: 1, description: 1, limit, offset, ...other_properties });
-
-    const verifyEmail = (email, type, payload = {}) => deriv_api.send({ verify_email: email, type, ...payload });
 
     const tradingPlatformPasswordChange = payload =>
         deriv_api.send({
@@ -318,8 +312,6 @@ const BinarySocketBase = (() => {
 
     const forgetStream = id => deriv_api.forget(id);
 
-    const tncApproval = () => deriv_api.send({ tnc_approval: '1' });
-
     const contractUpdate = (contract_id, limit_order) =>
         deriv_api.send({
             contract_update: 1,
@@ -345,12 +337,6 @@ const BinarySocketBase = (() => {
     const accountStatistics = () => deriv_api.send({ account_statistics: 1 });
 
     const tradingServers = platform => deriv_api.send({ platform, trading_servers: 1 });
-
-    const tradingPlatformAccountsList = platform =>
-        deriv_api.send({
-            trading_platform_accounts: 1,
-            platform,
-        });
 
     const tradingPlatformNewAccount = values =>
         deriv_api.send({
@@ -439,7 +425,6 @@ const BinarySocketBase = (() => {
         getPhoneSettings,
         profitTable,
         statement,
-        verifyEmail,
         getTicksHistory,
         tradingPlatformPasswordChange,
         tradingPlatformPasswordReset,
@@ -462,14 +447,11 @@ const BinarySocketBase = (() => {
         subscribeTicks,
         subscribeTicksHistory,
         subscribeTransaction,
-        subscribeWebsiteStatus,
-        tncApproval,
         transferBetweenAccounts,
         fetchLoginHistory,
         closeAndOpenNewConnection,
         accountStatistics,
         tradingServers,
-        tradingPlatformAccountsList,
         tradingPlatformNewAccount,
         triggerMt5DryRun,
         getServiceToken,

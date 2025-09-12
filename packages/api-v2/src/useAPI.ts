@@ -47,7 +47,11 @@ const useAPI = () => {
         } => {
             const subscribeHandler = (onData: (response: any) => void): { unsubscribe?: UnsubscribeFunction } => {
                 // Start the subscription and keep the promise.
-                const subscriptionPromise = wsClient?.subscribe(name, payload, onData);
+                const subscriptionPromise = wsClient?.subscribe(
+                    name,
+                    payload as TSocketRequestPayload<TSocketSubscribableEndpointNames>['payload'],
+                    onData
+                );
 
                 // Define unsubscribe function, which will be returned inside the object from subscribeHandler.
                 const unsubscribe: UnsubscribeFunction = async () => {

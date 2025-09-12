@@ -3,7 +3,7 @@ import { useLocation, withRouter } from 'react-router';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ThemedScrollbars } from '@deriv/components';
-import { CookieStorage, redirectToLogin, TRACKING_STATUS_KEY, WS } from '@deriv/shared';
+import { CookieStorage, redirectToLogin, TRACKING_STATUS_KEY } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Analytics } from '@deriv-com/analytics';
 import { useDevice } from '@deriv-com/ui';
@@ -24,8 +24,7 @@ const AppContents = observer(({ children }) => {
     const location = useLocation();
     const has_access_denied_error = location.search.includes('access_denied');
 
-    const { is_eu_country, is_logged_in, is_logging_in, should_redirect_user_to_login, setShouldRedirectToLogin } =
-        client;
+    const { is_logged_in, is_logging_in, should_redirect_user_to_login, setShouldRedirectToLogin } = client;
     const {
         is_app_disabled,
         is_cashier_visible,
@@ -73,20 +72,19 @@ const AppContents = observer(({ children }) => {
     }, [window.location.href]);
 
     React.useEffect(() => {
-        const allow_tracking = !is_eu_country || tracking_status === 'accepted';
+        const allow_tracking = tracking_status === 'accepted';
         if (allow_tracking && !is_gtm_tracking) {
             pushDataLayer({ event: 'allow_tracking' });
             setIsGtmTracking(true);
         }
-    }, [is_gtm_tracking, is_eu_country, pushDataLayer, tracking_status]);
+    }, [is_gtm_tracking, pushDataLayer, tracking_status]);
 
     React.useEffect(() => {
         if (!tracking_status && !is_logged_in && !is_logging_in) {
-            WS.wait('website_status').then(() => {
-                setShowCookieBanner(is_eu_country);
-            });
+            // Don't show cookie banner for now
+            setShowCookieBanner(false);
         }
-    }, [tracking_status, is_logged_in, is_eu_country, is_logging_in]);
+    }, [tracking_status, is_logged_in, is_logging_in]);
 
     React.useEffect(() => {
         // Gets the reference of the child element and scrolls it to the top

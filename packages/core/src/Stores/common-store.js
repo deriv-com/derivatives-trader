@@ -20,7 +20,6 @@ export default class CommonStore extends BaseStore {
             changeSelectedLanguage: action.bound,
             changing_language_timer_id: observable,
             current_language: observable,
-            deposit_url: observable,
             error: observable,
             has_error: observable,
             init: action.bound,
@@ -36,7 +35,6 @@ export default class CommonStore extends BaseStore {
             services_error: observable,
             setAppRouterHistory: action.bound,
             setAppstorePlatform: action.bound,
-            setDepositURL: action.bound,
             setError: action.bound,
             setInitialRouteHistoryItem: action.bound,
             setIsSocketOpened: action.bound,
@@ -58,7 +56,6 @@ export default class CommonStore extends BaseStore {
     app_routing_history = [];
     changing_language_timer_id = '';
     current_language = getInitialLanguage();
-    deposit_url = '';
     has_error = false;
     is_language_changing = false;
     is_network_online = false;
@@ -227,10 +224,6 @@ export default class CommonStore extends BaseStore {
             type: 'error',
             should_redirect,
         });
-    }
-
-    setDepositURL(deposit_url) {
-        this.deposit_url = deposit_url;
     }
 
     setWithdrawURL(withdraw_url) {

@@ -56,4 +56,11 @@ describe('buildCurrenciesList', () => {
             currency: 'AUD',
         });
     });
+
+    it('Returns USD when using fallback currency list', () => {
+        const currencies_list = buildCurrenciesList([]);
+        expect(getDefaultCurrency(currencies_list)).toEqual({
+            currency: 'USD',
+        });
+    });
 });

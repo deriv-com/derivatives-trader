@@ -2,7 +2,6 @@ import { action, computed, makeObservable, observable, reaction } from 'mobx';
 
 import { StaticUrl } from '@deriv/components';
 import {
-    checkServerMaintenance,
     extractInfoFromShortcode,
     getEndTime,
     getMarketName,
@@ -210,16 +209,11 @@ export default class NotificationStore extends BaseStore {
     }
 
     async handleClientNotifications() {
-        const { is_eu, is_logged_in, website_status } = this.root_store.client;
+        const { is_eu, is_logged_in } = this.root_store.client;
         const { current_language, selected_contract_type } = this.root_store.common;
 
-        const is_server_down = checkServerMaintenance(website_status);
-
-        if (website_status?.message?.length || is_server_down) {
-            this.addNotificationMessage(this.client_notifications.site_maintenance);
-        } else {
-            this.removeNotificationByKey({ key: this.client_notifications.site_maintenance });
-        }
+        // No longer checking server maintenance from website_status
+        // Site maintenance notifications will be handled through other means if needed
 
         if (!is_eu && isMultiplierContract(selected_contract_type) && current_language === 'EN' && is_logged_in) {
             this.addNotificationMessage(this.client_notifications.deriv_go);
