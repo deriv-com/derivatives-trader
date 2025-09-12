@@ -129,7 +129,7 @@ describe('SubscriptionsManager', () => {
         );
         await subscriptionPromise1;
 
-        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' }, onData2);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' } as any, onData2);
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 2, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
@@ -285,7 +285,7 @@ describe('SubscriptionsManager', () => {
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
 
-        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' }, onData2);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' } as any, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 2, subscription: { id: 'SUBSCRIPTION_ID' } })
@@ -309,7 +309,7 @@ describe('SubscriptionsManager', () => {
             JSON.stringify({ data: 'initial data', req_id: 1, subscription: { id: 'SUBSCRIPTION_ID' } })
         );
 
-        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' }, onData2);
+        const subscriptionPromise2 = subscriptionsManager.subscribe('balance', { account: 'test' } as any, onData2);
 
         mockWs.respondFromServer(
             JSON.stringify({ data: 'initial data', req_id: 2, subscription: { id: 'SUBSCRIPTION_ID' } })
