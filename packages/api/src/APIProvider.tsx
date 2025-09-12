@@ -1,8 +1,10 @@
-import React, { PropsWithChildren, createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, PropsWithChildren, useCallback, useContext, useEffect, useRef, useState } from 'react';
+
 // @ts-expect-error `@deriv/deriv-api` is not in TypeScript, Hence we ignore the TS error.
 import DerivAPIBasic from '@deriv/deriv-api/dist/DerivAPIBasic';
-import { getBrandName, getSocketURL, useWS } from '@deriv/shared';
+import { getAccountTypeFromUrl, getBrandName, getSocketURL, useWS } from '@deriv/shared';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import {
     TSocketEndpointNames,
     TSocketError,
@@ -10,6 +12,7 @@ import {
     TSocketResponseData,
     TSocketSubscribableEndpointNames,
 } from '../types';
+
 import { hashObject } from './utils';
 
 type TSendFunction = <T extends TSocketEndpointNames>(
@@ -124,25 +127,14 @@ const queryClient = getSharedQueryClientContext();
 
 /**
  * Determines the WS environment based on the account_type URL parameter and custom server URL.
- * @param {string | null | undefined} loginid - The login ID (can be a string, null, or undefined) - deprecated parameter.
  * @returns {string} Returns the WS environment: 'custom', 'real', or 'demo'.
  */
-/**
- * @deprecated Please use 'WebSocketUtils.getEnvironmentFromLoginid' from '@deriv-com/utils' instead of this.
- */
-const getEnvironment = (loginid: string | null | undefined) => {
+const getEnvironment = () => {
     const customServerURL = window.localStorage.getItem('config.server_url');
     if (customServerURL) return 'custom';
 
-    // Use new account_type URL parameter logic instead of loginid
-    const search = window.location.search;
-    if (search) {
-        const params = new URLSearchParams(search);
-        const accountType = params.get('account_type');
-        if (accountType === 'real') return 'real';
-    }
-
-    return 'demo';
+    // Use the new shared account type function
+    return getAccountTypeFromUrl();
 };
 
 type TAPIProviderProps = {
@@ -153,9 +145,7 @@ type TAPIProviderProps = {
 const APIProvider = ({ children, standalone = false }: PropsWithChildren<TAPIProviderProps>) => {
     const WS = useWS();
     const [reconnect, setReconnect] = useState(false);
-    const activeLoginid =
-        window.sessionStorage.getItem('active_loginid') || window.localStorage.getItem('active_loginid');
-    const [environment, setEnvironment] = useState(getEnvironment(activeLoginid));
+    const [environment, setEnvironment] = useState(getEnvironment());
     const standaloneDerivAPI = useRef(standalone ? initializeDerivAPI(() => setReconnect(true)) : null);
     const subscriptions = useRef<Record<string, DerivAPIBasic['subscribe']>>();
 
@@ -202,7 +192,7 @@ const APIProvider = ({ children, standalone = false }: PropsWithChildren<TAPIPro
     const switchEnvironment = useCallback(
         (loginid: string | null | undefined) => {
             if (!standalone) return;
-            const currentEnvironment = getEnvironment(loginid);
+            const currentEnvironment = getEnvironment();
             if (currentEnvironment !== 'custom' && currentEnvironment !== environment) {
                 setEnvironment(currentEnvironment);
             }
