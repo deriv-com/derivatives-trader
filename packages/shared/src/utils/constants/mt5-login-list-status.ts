@@ -1,5 +1,5 @@
 /**
- * this comes from mt5_login_list endpoint
+ * MT5 account status constants (originally from mt5_login_list endpoint - now removed)
  */
 export const MT5_ACCOUNT_STATUS = {
     FAILED: 'failed',
@@ -16,7 +16,7 @@ export const MT5_ACCOUNT_STATUS = {
 } as const;
 
 /**
- * this comes from trading_platform_status endpoint
+ * Trading platform status constants (originally from trading_platform_status endpoint)
  */
 export const TRADING_PLATFORM_STATUS = {
     ACTIVE: 'active',

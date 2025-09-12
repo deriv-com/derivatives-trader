@@ -1,4 +1,4 @@
-import { GetSettings, ProfitTable, ResidenceList, Statement } from '@deriv/api-types';
+import { GetSettings, ProfitTable, Statement } from '@deriv/api-types';
 import { getContractTypeFeatureFlag, STATUS_CODES, IDV_ERROR_STATUS, ONFIDO_ERROR_STATUS } from '../constants';
 import { getSymbolDisplayName, TActiveSymbols } from './active-symbols';
 import { getMarketInformation } from './market-underlying';
@@ -120,13 +120,11 @@ export const formatOnfidoError = (status_code: string, errors: Array<TOnfidoErro
 };
 
 export const isVerificationServiceSupported = (
-    residence_list: ResidenceList,
+    // NOTE: residence_list endpoint has been removed - this function now returns false
+    _residence_list: never,
     account_settings: GetSettings,
     service: 'idv' | 'onfido'
 ): boolean => {
-    const citizen = account_settings?.citizen || account_settings?.country_code;
-    if (!citizen) return false;
-    const citizen_data = residence_list.find(item => item.value === citizen);
-
-    return !!citizen_data?.identity?.services?.[service]?.is_country_supported;
+    // Since residence_list endpoint is no longer available, verification services are not supported
+    return false;
 };

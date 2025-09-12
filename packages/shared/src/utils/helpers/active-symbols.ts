@@ -8,17 +8,6 @@ import { getMarketNamesMap } from '../constants/contract';
 import { redirectToLogin } from '../login';
 import { LocalStore } from '../storage';
 
-type TResidenceList = {
-    residence_list: {
-        disabled?: string;
-        phone_idd?: null | string;
-        selected?: string;
-        text?: string;
-        tin_format?: string[];
-        value?: string;
-    }[];
-};
-
 type TIsSymbolOpen = {
     exchange_is_open: 0 | 1;
 };
