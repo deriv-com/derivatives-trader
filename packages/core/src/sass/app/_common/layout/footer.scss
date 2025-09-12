@@ -177,10 +177,10 @@
     padding: 2rem;
 
     p {
-        @include typeface(--paragraph-left-normal-prominent);
+        @include typeface(--paragraph-left-normal-primary);
     }
     &__link {
-        @include typeface(--paragraph-left-bold-prominent);
+        @include typeface(--paragraph-left-bold-primary);
         color: var(--brand-primary);
         text-decoration: none;
     }

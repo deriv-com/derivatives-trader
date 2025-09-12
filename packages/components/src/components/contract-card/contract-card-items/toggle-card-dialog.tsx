@@ -171,7 +171,7 @@ const ToggleCardDialog = ({
                     onClose={toggleDialogWrapper}
                     wrapper_classname='contract-update'
                 >
-                    <Div100vhContainer className='contract-update__wrapper' height_offset='40px'>
+                    <Div100vhContainer className='dc-mobile-dialog__contract-update-wrapper' height_offset='48px'>
                         <ContractUpdateForm
                             addToast={addToast}
                             contract={contract}

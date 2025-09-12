@@ -107,7 +107,7 @@ const MobileDialog = (props: React.PropsWithChildren<TMobileDialog>) => {
                         'dc-mobile-dialog__container--has-scroll': props.has_content_scroll,
                         'dc-mobile-dialog__container--has-info-banner': info_banner || learn_more_banner,
                     })}
-                    height_offset={props.content_height_offset || '8px'}
+                    height_offset={props.content_height_offset || '0'}
                 >
                     <ThemedScrollbars
                         is_bypassed={!info_banner && !learn_more_banner}

@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { LegacyExitTimeIcon, LegacyStartTimeIcon, LegacyResetIcon } from '@deriv/quill-icons';
-import { BARRIER_COLORS } from '@deriv/shared';
 
 const MarkerLine = ({ label, line_style, marker_config, status }) => {
     // TODO: Find a more elegant solution
@@ -12,8 +11,10 @@ const MarkerLine = ({ label, line_style, marker_config, status }) => {
         <div className={classNames('chart-marker-line__wrapper', `chart-marker-line--${line_style}`)}>
             {label === marker_config.LINE_END.content_config.label && (
                 <LegacyExitTimeIcon
-                    className='chart-marker-line__icon'
-                    fill={status === 'lost' ? BARRIER_COLORS.RED : BARRIER_COLORS.GREEN}
+                    className={classNames(
+                        'chart-marker-line__icon',
+                        status === 'lost' ? 'chart-marker-line__icon--danger' : 'chart-marker-line__icon--success'
+                    )}
                     iconSize='sm'
                 />
             )}

@@ -390,8 +390,12 @@ const ContractDetails = ({
                         id='dt_exit_time_label'
                         icon={
                             <LegacyExitTimeIcon
+                                className={
+                                    is_profit
+                                        ? 'contract-audit__exit-time--success'
+                                        : 'contract-audit__exit-time--danger'
+                                }
                                 iconSize='xs'
-                                fill={is_profit ? 'var(--color-status-success)' : 'var(--color-status-danger)'}
                             />
                         }
                         label={localize('Exit time')}

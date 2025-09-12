@@ -19,7 +19,7 @@
         cursor: pointer;
     }
     &__helper {
-        @include typeface(--small-left-light-grey);
+        @include typeface(--small-left-light-secondary);
     }
 }
 
@@ -142,7 +142,7 @@ button.dc-input-wrapper {
             color: var(--brand-white);
         }
         &:after {
-            @include typeface(--small-left-normal-active);
+            @include typeface(--small-left-normal-primary);
             content: 'L';
             transform: scaleX(-1) rotate(-40deg);
             position: absolute;

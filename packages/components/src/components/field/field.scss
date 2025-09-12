@@ -7,7 +7,7 @@
 
     &--error {
         padding-left: 1.1rem;
-        @include typeface(--small-left-normal-red);
+        @include typeface(--small-left-normal-danger);
         line-height: 1;
     }
     &--warn {

@@ -41,7 +41,7 @@
 
             // stylelint-disable-next-line
             span {
-                @include typeface(--paragraph-left-bold-active, unset);
+                @include typeface(--paragraph-left-bold-primary, unset);
                 color: var(--color-text-primary);
             }
         }
@@ -74,7 +74,7 @@
 
             // stylelint-disable-next-line
             span {
-                @include typeface(--paragraph-left-bold-active, unset);
+                @include typeface(--paragraph-left-bold-primary, unset);
                 color: var(--color-text-primary);
             }
         }

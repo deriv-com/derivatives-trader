@@ -8,7 +8,7 @@
     }
     &__item {
         display: flex;
-        @include typeface(--paragraph-left-normal-prominent);
+        @include typeface(--paragraph-left-normal-primary);
 
         cursor: pointer;
         color: var(--color-text-secondary);

@@ -20,14 +20,13 @@ $FONT_SIZES: (
 );
 
 $FONT_COLORS: (
-    'active' var(--color-text-primary),
-    'prominent' var(--color-text-primary),
+    'primary' var(--color-text-primary),
     'white' var(--color-text-white),
     'black' var(--color-text-black),
-    'grey' var(--color-text-secondary),
+    'secondary' var(--color-text-secondary),
     'disabled' var(--color-text-disabled),
-    'green' var(--color-text-success),
-    'red' var(--color-text-danger)
+    'success' var(--color-text-success),
+    'danger' var(--color-text-danger)
 );
 
 $FONT_WEIGHTS: ('bold' 700, 'semibold' 500, 'normal' 400, 'light' 300);
