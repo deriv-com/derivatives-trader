@@ -2334,10 +2334,6 @@ type TSocketEndpoints = {
         request: CryptocurrencyEstimationsRequest;
         response: CryptocurrencyEstimationsResponse;
     };
-    document_upload: {
-        request: DocumentUploadRequest;
-        response: DocumentUploadResponse;
-    };
     economic_calendar: {
         request: EconomicCalendarRequest;
         response: EconomicCalendarResponse;
