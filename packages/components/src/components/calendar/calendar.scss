@@ -66,7 +66,8 @@
                 height: 3.2rem;
 
                 &--other:not(.dc-calendar__cell--today):not(.dc-calendar__cell--active):not(
-                        .dc-calendar__cell--disabled) {
+                        .dc-calendar__cell--disabled
+                    ) {
                     color: var(--color-text-secondary);
                 }
             }
@@ -244,7 +245,6 @@
             width: 100%;
 
             &-icon {
-                margin-top: 0.1rem;
                 display: inherit;
             }
         }
