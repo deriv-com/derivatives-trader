@@ -1,14 +1,7 @@
-import { GetSettings, ResidenceList } from '@deriv/api-types';
-import {
-    filterDisabledPositions,
-    formatPortfolioPosition,
-    isVerificationServiceSupported,
-    formatIDVError,
-    formatOnfidoError,
-} from '../format-response';
+import { filterDisabledPositions, formatPortfolioPosition } from '../format-response';
 import { LocalStore } from '../../storage';
 import { CONTRACT_TYPES } from '../../contract';
-import { IDV_ERROR_STATUS, STATUS_CODES, getContractTypeFeatureFlag } from '../../constants';
+import { getContractTypeFeatureFlag } from '../../constants';
 
 jest.mock('../../constants', () => ({
     ...jest.requireActual('../../constants'),
@@ -34,43 +27,6 @@ describe('format-response', () => {
         transaction_id: 5678,
     };
 
-    const get_settings: GetSettings = {
-        account_opening_reason: '',
-        address_city: 'MUDGEERABA',
-        address_line_1: "29 Ross Street, .'",
-        address_line_2: ".'",
-        address_postcode: '111',
-        address_state: '',
-        allow_copiers: 0,
-        citizen: '',
-        client_tnc_status: 'Version 4.2.0 2020-08-07',
-        country: 'Singapore',
-        country_code: 'sg',
-        date_of_birth: 984960000,
-        email: 'mock@gmail.com',
-        email_consent: 1,
-        feature_flag: {
-            wallet: 0,
-        },
-        first_name: 'deriv',
-        has_secret_answer: 1,
-        immutable_fields: ['residence'],
-        is_authenticated_payment_agent: 0,
-        last_name: 'am',
-        non_pep_declaration: 1,
-        phone: '+651213456',
-        place_of_birth: null,
-        preferred_language: 'EN',
-        request_professional_status: 0,
-        residence: 'Singapore',
-        salutation: '',
-        tax_identification_number: null,
-        tax_residence: null,
-        user_hash: 'mock_hash',
-    };
-
-    // residence_list endpoint has been removed - keeping this comment for test context
-
     it('should return an object with values in object passed as argument to formatPortfolioPosition', () => {
         expect(formatPortfolioPosition(portfolio_pos, mock_active_symbols)).toEqual({
             details: 'test <br /> test <br /> test',
@@ -84,10 +40,6 @@ describe('format-response', () => {
             type: CONTRACT_TYPES.ASIAN.UP,
             contract_info: portfolio_pos,
         });
-    });
-    it('should return false since residence_list endpoint has been removed', () => {
-        // Since residence_list endpoint is no longer available, verification services are not supported
-        expect(isVerificationServiceSupported(null as never, get_settings, 'onfido')).toBeFalsy();
     });
 
     describe('filterDisabledPositions', () => {
@@ -114,86 +66,6 @@ describe('format-response', () => {
             };
             (LocalStore.getObject as jest.Mock).mockReturnValueOnce({ data: { rise_fall: true } });
             expect(filterDisabledPositions(transaction)).toBeTruthy();
-        });
-    });
-
-    describe('formatIDVError', () => {
-        it('should return null as error if no errors are present and status is NONE', () => {
-            expect(formatIDVError([], STATUS_CODES.NONE)).toBeNull();
-        });
-
-        it('should return null as error if no errors are present and status is NONE even for high risk client', () => {
-            expect(formatIDVError([], STATUS_CODES.NONE, true)).toBeNull();
-        });
-
-        it('should return null as error if no errors are present and status is VERIFIED', () => {
-            expect(formatIDVError([], STATUS_CODES.VERIFIED)).toBeNull();
-        });
-
-        it('should return HighRisk error code if no errors are present and status is VERIFIED', () => {
-            expect(formatIDVError([], STATUS_CODES.VERIFIED, true)).toBe(IDV_ERROR_STATUS.HighRisk.code);
-        });
-
-        it('should return Expired error code if status is Expired', () => {
-            expect(formatIDVError([], STATUS_CODES.EXPIRED)).toBe(IDV_ERROR_STATUS.Expired.code);
-        });
-
-        it('should return NameMismatch error code if errors array contains NameMismatch', () => {
-            expect(formatIDVError(['NameMismatch'], STATUS_CODES.REJECTED)).toBe(IDV_ERROR_STATUS.NameMismatch.code);
-        });
-
-        it('should return DobMismatch error code if errors array contains DobMismatch', () => {
-            expect(formatIDVError(['DobMismatch'], STATUS_CODES.REJECTED)).toBe(IDV_ERROR_STATUS.DobMismatch.code);
-        });
-
-        it('should return NameDobMismatch error code if errors array contains DobMismatch and NameMismatch', () => {
-            expect(formatIDVError(['DobMismatch', 'NameMismatch'], STATUS_CODES.REJECTED)).toBe(
-                IDV_ERROR_STATUS.NameDobMismatch.code
-            );
-        });
-
-        it('should return ReportNotAvailable error code if errors array contains DobMismatch or NameMismatchand and is_report_not_available  ', () => {
-            expect(formatIDVError(['DobMismatch', 'NameMismatch'], STATUS_CODES.REJECTED, undefined, true)).toBe(
-                IDV_ERROR_STATUS.ReportNotAvailable.code
-            );
-        });
-
-        it('should return DobMismatch error code if errors array contains DobMismatch and is_report_not_available is false', () => {
-            expect(formatIDVError(['DobMismatch'], STATUS_CODES.REJECTED, undefined, false)).toBe(
-                IDV_ERROR_STATUS.DobMismatch.code
-            );
-        });
-
-        it('should return Failed error code if errors array contains DobMismatch and Failed', () => {
-            expect(formatIDVError(['DobMismatch', 'Failed'], STATUS_CODES.REJECTED)).toBe(IDV_ERROR_STATUS.Failed.code);
-        });
-
-        it('should return Underage error code if errors array contains Underage', () => {
-            expect(formatIDVError(['Underage'], STATUS_CODES.REJECTED)).toBe(IDV_ERROR_STATUS.Underage.code);
-        });
-
-        it('should return first error code from the error of error codes if errors array exists', () => {
-            expect(formatIDVError(['Expired', 'Underage'], STATUS_CODES.EXPIRED)).toBe(IDV_ERROR_STATUS.Expired.code);
-        });
-    });
-
-    describe('formatOnfidoError', () => {
-        it('should return Expired error code along with the rest of error codes if status is Expired', () => {
-            expect(formatOnfidoError(STATUS_CODES.EXPIRED, ['SelfieRejected'])).toHaveLength(2);
-        });
-
-        it('should return the rest of error codes if status is not Expired', () => {
-            expect(
-                formatOnfidoError(STATUS_CODES.REJECTED, [
-                    'SelfieRejected',
-                    'ImageIntegrityImageQuality',
-                    'DataValidationExpiryDate',
-                ])
-            ).toHaveLength(3);
-        });
-
-        it('should return the rest of error codes if status is not Expired', () => {
-            expect(formatOnfidoError(STATUS_CODES.REJECTED, ['DuplicatedDocument'])).toHaveLength(1);
         });
     });
 });
