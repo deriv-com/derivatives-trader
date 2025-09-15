@@ -2,7 +2,7 @@ import moment from 'moment';
 import { isEmptyObject } from '../object';
 import { isAccumulatorContract, isOpen, isUserSold } from '../contract';
 import { TContractInfo, TContractStore } from '../contract/contract-types';
-import { TickSpotData, WebsiteStatus, AccountListResponse } from '@deriv/api-types';
+import { TickSpotData } from '@deriv/api-types';
 import { getSupportedContracts } from '../constants/contract';
 
 type TIsSoldBeforeStart = Required<Pick<TContractInfo, 'sell_time' | 'date_start'>>;
@@ -79,7 +79,7 @@ export const isContractSupportedAndStarted = (symbol: string, contract_info?: TC
     if (!contract_info) return false;
 
     // Backward compatibility: fallback to old field name
-    // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
+    // @ts-expect-error underlying_symbol is a new key added in API
     const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
 
     return (

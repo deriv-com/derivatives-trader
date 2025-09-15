@@ -9,13 +9,13 @@ import { isTabletOs, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 
-import LiveChat from 'App/Components/Elements/LiveChat';
+import LiveChat from 'App/Components/Elements/LiveChat/index.ts';
 import WhatsApp from 'App/Components/Elements/WhatsApp/index.ts';
 import NetworkStatus, {
     // AccountLimits as AccountLimitsFooter,
     EndpointNote,
     // HelpCentre,
-    RegulatoryInformation,
+    // RegulatoryInformation,
     ToggleFullScreen,
     // ToggleLanguageSettings,
     // ResponsibleTrading,
@@ -41,9 +41,9 @@ const FooterExtensionRenderer = (footer_extension, idx) => {
 
 const TradingHubFooter = observer(() => {
     const { localize } = useTranslations();
-    const { client, ui, traders_hub } = useStore();
-    const { show_eu_related_content } = traders_hub;
-    const { is_logged_in, is_eu, landing_company_shortcode, is_virtual } = client;
+    const { /*client, traders_hub,*/ ui } = useStore();
+    // const { show_eu_related_content } = traders_hub;
+    // const { is_logged_in, is_eu, landing_company_shortcode, is_virtual } = client;
     // const { current_language } = common;
     const {
         enableApp,
@@ -105,14 +105,14 @@ const TradingHubFooter = observer(() => {
                 {cs_chat_intercom && <LiveChat showPopover={showPopover} />}
                 {/* <ResponsibleTrading showPopover={showPopover} /> */}
                 {/* {is_logged_in && <AccountLimitsFooter showPopover={showPopover} />} */}
-                {is_logged_in && !is_virtual && (
+                {/* {is_logged_in && !is_virtual && (
                     <RegulatoryInformation
                         landing_company={landing_company_shortcode}
                         is_eu={is_eu}
                         show_eu_related_content={show_eu_related_content}
                         showPopover={showPopover}
                     />
-                )}
+                )} */}
                 <div className='footer__links--dark-mode'>
                     {showPopover ? (
                         <Popover alignment='top' message={localize('Change theme')} zIndex={9999}>

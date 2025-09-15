@@ -1,4 +1,3 @@
-import { isEuCountry } from '../location';
 import { routes } from '../routes';
 
 type TMessage = {

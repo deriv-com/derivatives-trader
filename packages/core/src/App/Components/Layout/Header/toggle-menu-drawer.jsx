@@ -251,8 +251,6 @@ const ToggleMenuDrawer = observer(() => {
                                     </MobileDrawer.Item>
                                 )}
                                 {/* {is_logged_in && (
-                                )}
-                                {is_logged_in && (
                                     <MobileDrawer.Item onClick={handleLogout}>
                                         <MenuLink icon={<LegacyLogout1pxIcon />} text={localize('Log out')} />
                                     </MobileDrawer.Item>
