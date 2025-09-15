@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { AccountActions } from '../account-actions';
 import { useLocation } from 'react-router-dom';
 import { formatMoney } from '@deriv/shared';
@@ -14,13 +13,6 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('@deriv/stores', () => ({
     useStore: jest.fn(),
-}));
-
-jest.mock('@deriv/api', () => ({
-    useAccountSettingsRedirect: jest.fn().mockReturnValue({
-        redirect_url: '/account/personal-details',
-        mobile_redirect_url: '/account',
-    }),
 }));
 
 jest.mock('@deriv/shared', () => ({
