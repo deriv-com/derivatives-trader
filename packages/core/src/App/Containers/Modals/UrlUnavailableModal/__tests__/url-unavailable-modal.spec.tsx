@@ -43,12 +43,12 @@ describe('<UrlUnavailableModal />', () => {
         expect(okButton).toBeInTheDocument();
         expect(okButton).toBeEnabled();
     });
-    it('should call toggleUrlUnavailableModal when OK button is clicked', () => {
+    it('should call toggleUrlUnavailableModal when OK button is clicked', async () => {
         const toggleUrlUnavailableModal = jest.fn();
         store.ui.toggleUrlUnavailableModal = toggleUrlUnavailableModal;
         renderComponent();
         const okButton = screen.getByRole('button', { name: okButtonName });
-        userEvent.click(okButton);
+        await userEvent.click(okButton);
         expect(toggleUrlUnavailableModal).toBeCalledTimes(1);
     });
     it('should not render the component if isUrlUnavailableModalVisible is false', () => {

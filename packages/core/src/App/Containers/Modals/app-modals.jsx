@@ -5,11 +5,11 @@ import { moduleLoader, SessionStore } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 
 const UrlUnavailableModal = React.lazy(() =>
-    moduleLoader(() => import(/* webpackChunkName: "url-unavailable-modal" */ '../UrlUnavailableModal'))
+    moduleLoader(() => import(/* webpackChunkName: "url-unavailable-modal" */ './UrlUnavailableModal'))
 );
 
 const RedirectToLoginModal = React.lazy(() =>
-    moduleLoader(() => import(/* webpackChunkName: "reset-password-modal" */ '../RedirectToLoginModal'))
+    moduleLoader(() => import(/* webpackChunkName: "reset-password-modal" */ './RedirectToLoginModal'))
 );
 
 const AppModals = observer(() => {
