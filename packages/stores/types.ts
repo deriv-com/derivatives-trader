@@ -7,7 +7,6 @@ import type {
     Authorize,
     ContractUpdate,
     ContractUpdateHistory,
-    GetSettings,
     LogOutResponse,
     Portfolio1,
     ProposalOpenContract,
@@ -726,8 +725,6 @@ type TGtmStore = {
     }>;
     pushDataLayer: (data: Record<string, unknown>) => void;
     pushTransactionData: (response: Transaction, extra_data: Record<string, unknown>) => void;
-    eventHandler: (get_settings: GetSettings) => void;
-    setLoginFlag: (event_name: string) => void;
 };
 
 /**

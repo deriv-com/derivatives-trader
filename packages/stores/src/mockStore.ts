@@ -433,8 +433,6 @@ const mock = (): TStores & { is_mock: boolean } => {
             },
             pushDataLayer: jest.fn(),
             pushTransactionData: jest.fn(),
-            eventHandler: jest.fn(),
-            setLoginFlag: jest.fn(),
         },
         contract_replay: {
             contract_store: {

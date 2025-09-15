@@ -818,7 +818,6 @@ export default class TradeStore extends BaseStore {
     }
 
     async setActiveSymbols() {
-        const is_logged_in = this.root_store.client.is_logged_in;
         const showError = this.root_store.common.showError;
 
         const { active_symbols, error } = await WS.authorized.activeSymbols();
@@ -829,7 +828,6 @@ export default class TradeStore extends BaseStore {
         }
 
         if (!active_symbols?.length) {
-            await WS.wait('get_settings');
             showUnavailableLocationError(showError);
         }
         await this.processNewValuesAsync({ active_symbols });

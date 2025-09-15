@@ -1,5 +1,3 @@
-import { EMPLOYMENT_VALUES } from '../constants';
-import { TEmploymentStatus } from '../../types';
 import { TInitPreBuildDVRs, TOptions, getPreBuildDVRs } from './declarative-validation-rules';
 
 type TConfig = {
@@ -23,12 +21,6 @@ export const getDefaultFields = (_landing_company: string, schema: TSchema | Rec
         output[field_name] = opts.default_value;
     });
     return output;
-};
-
-export const filterByLandingCompany = (_landing_company: string, schema: TSchema | Record<string, never>) => {
-    // Return all fields for maximum permissiveness (ROW/SVG behavior)
-    // This ensures all form fields are shown regardless of landing company
-    return schema;
 };
 
 /**
@@ -113,7 +105,3 @@ export const getValidationFunction = (rule: string) => {
     return (value: string, options: TOptions, values: Record<string, string | boolean>) =>
         !!func(value, options, values);
 };
-
-// Adding string as type because, employment_status can come from Personal details or Financial assessment.
-export const shouldHideOccupationField = (employment_status?: TEmploymentStatus | string) =>
-    EMPLOYMENT_VALUES.UNEMPLOYED === employment_status;

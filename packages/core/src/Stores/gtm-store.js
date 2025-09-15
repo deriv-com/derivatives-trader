@@ -1,4 +1,3 @@
-import * as Cookies from 'js-cookie';
 import { action, computed, makeObservable } from 'mobx';
 
 import { epochToMoment, getPlatformHostname, getPlatformName, toMoment } from '@deriv/shared';
@@ -19,8 +18,6 @@ export default class GTMStore extends BaseStore {
             common_variables: computed,
             pushDataLayer: action.bound,
             pushTransactionData: action.bound,
-            eventHandler: action.bound,
-            setLoginFlag: action.bound,
         });
     }
 
@@ -107,50 +104,6 @@ export default class GTMStore extends BaseStore {
             gtm_transactions.timestamp = gtm_transactions.timestamp || moment_now.unix();
 
             localStorage.setItem(storage_key, JSON.stringify(gtm_transactions));
-        }
-    }
-
-    eventHandler(get_settings) {
-        if (!this.is_gtm_applicable) return;
-
-        const login_event = localStorage.getItem('GTM_login');
-        const is_new_account = localStorage.getItem('GTM_new_account') === '1';
-
-        localStorage.removeItem('GTM_login');
-        localStorage.removeItem('GTM_new_account');
-
-        const affiliate_token = Cookies.getJSON('affiliate_tracking');
-        if (affiliate_token) {
-            this.pushDataLayer({ affiliate_token });
-        }
-
-        // Get current time (moment, set by server), else fallback to client time
-        const moment_now = toMoment();
-        const data = {
-            visitorId: this.visitorId,
-            account_type: this.root_store.client.account_type,
-            currency: this.root_store.client.currency,
-            country: get_settings.country,
-            country_abbrev: get_settings.country_code,
-            email: get_settings.email,
-            url: window.location.href,
-            today: moment_now.unix(),
-        };
-
-        if (is_new_account) {
-            data.event = 'new_account';
-            data.bom_date_joined = data.bom_today;
-        }
-
-        if (login_event) {
-            data.event = login_event;
-        }
-        this.pushDataLayer(data);
-    }
-
-    setLoginFlag(event_name) {
-        if (this.is_gtm_applicable && event_name) {
-            localStorage.setItem('GTM_login', event_name);
         }
     }
 }
