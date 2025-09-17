@@ -15,11 +15,11 @@ describe('AccumulatorsProfitLossTooltip', () => {
         alignment: 'right',
         className: 'profit-loss-tooltip',
         currency: 'USD',
-        current_spot: 6468.95,
+        current_spot: '6468.95',
         current_spot_time: 1666091856,
         high_barrier: '6469.10',
         is_sold: 0,
-        profit: 0.15,
+        profit: '0.15',
         should_show_profit_text: true,
     };
     const profit_text = 'Total profit/loss:';
@@ -37,14 +37,7 @@ describe('AccumulatorsProfitLossTooltip', () => {
     it('should render AccumulatorsProfitLossTooltip when contract is sold', () => {
         jest.useFakeTimers();
 
-        render(
-            <AccumulatorsProfitLossTooltip
-                {...props}
-                is_sold={1}
-                exit_tick={props.current_spot}
-                exit_tick_time={props.current_spot_time}
-            />
-        );
+        render(<AccumulatorsProfitLossTooltip {...props} is_sold={1} exit_spot_time={1666091856} />);
 
         const spot_el = screen.getByTestId('dt_accumulator_tooltip_spot');
         expect(spot_el).toBeInTheDocument();

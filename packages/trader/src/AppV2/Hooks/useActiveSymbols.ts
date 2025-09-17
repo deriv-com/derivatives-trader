@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { ActiveSymbols, ActiveSymbolsResponse } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { CONTRACT_TYPES, getContractTypesConfig, isTurbosContract, isVanillaContract } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { localize } from '@deriv-com/translations';
@@ -20,7 +20,9 @@ const useActiveSymbols = () => {
         is_turbos,
         setActiveSymbolsV2,
     } = useTraderStore();
-    const [activeSymbols, setActiveSymbols] = useState<ActiveSymbols | []>(symbols_from_store);
+    const [activeSymbols, setActiveSymbols] = useState<NonNullable<TActiveSymbolsResponse['active_symbols']> | []>(
+        symbols_from_store
+    );
 
     const getContractTypesList = () => {
         if (is_turbos) return [CONTRACT_TYPES.TURBOS.LONG, CONTRACT_TYPES.TURBOS.SHORT];
@@ -44,7 +46,7 @@ const useActiveSymbols = () => {
         return contract_type;
     };
 
-    const { data: response, error: queryError } = useDtraderQuery<ActiveSymbolsResponse>(
+    const { data: response, error: queryError } = useDtraderQuery<TActiveSymbolsResponse>(
         ['active_symbols', loginid ?? '', getContractType(), current_language],
         {
             active_symbols: 'brief',

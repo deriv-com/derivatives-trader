@@ -73,8 +73,7 @@ export const createMarkerResetTime = contract_info => {
 
 // -------------------- Spots --------------------
 export const createMarkerSpotEntry = contract_info => {
-    // Backward compatibility: fallback to entry_tick_time if entry_spot_time is not available
-    const entry_spot_time = contract_info.entry_spot_time ?? contract_info.entry_tick_time;
+    const entry_spot_time = contract_info.entry_spot_time;
     if (!entry_spot_time) return false;
 
     const entry_tick = contract_info.entry_spot ?? contract_info.entry_tick_display_value;
@@ -94,8 +93,7 @@ export const createMarkerSpotEntry = contract_info => {
 };
 
 export const createMarkerSpotExit = (contract_info, tick, idx) => {
-    // Backward compatibility: fallback to exit_tick_time if exit_spot_time is not available
-    const exit_spot_time = contract_info.exit_spot_time ?? contract_info.exit_tick_time;
+    const exit_spot_time = contract_info.exit_spot_time;
     if (!exit_spot_time) return false;
     const is_ticks_contract = isTicksContract(contract_info.contract_type);
 
@@ -105,7 +103,7 @@ export const createMarkerSpotExit = (contract_info, tick, idx) => {
         align_label = tick.align_label;
     }
 
-    const exit_tick = contract_info.exit_spot ?? contract_info.exit_tick_display_value;
+    const exit_tick = contract_info.exit_spot;
 
     const should_show_spot_exit_2 = is_ticks_contract && idx + 1 !== contract_info.selected_tick;
     const should_show_profit_label = isVanillaContract(contract_info.contract_type) && isDesktop();

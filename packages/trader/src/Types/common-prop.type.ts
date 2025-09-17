@@ -1,26 +1,26 @@
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 
-import { TSocketEndpointNames, TSocketResponse } from '@deriv/api/types';
 import {
-    ActiveSymbolsResponse,
-    BuyContractRequest,
-    BuyContractResponse,
-    ContractsForSymbolResponse,
-    ForgetAllResponse,
-    ForgetResponse,
-    PriceProposalOpenContractsRequest,
-    PriceProposalOpenContractsResponse,
-    PriceProposalRequest,
-    PriceProposalResponse,
-    ServerTimeResponse,
-    TicksHistoryResponse,
-    TicksStreamRequest,
-    TicksStreamResponse,
-    TradingTimesResponse,
-    UpdateContractHistoryResponse,
-    UpdateContractRequest,
-    UpdateContractResponse,
-} from '@deriv/api-types';
+    TActiveSymbolsResponse,
+    TBuyContractRequest,
+    TBuyContractResponse,
+    TContractsForSymbolResponse,
+    TForgetAllResponse,
+    TForgetResponse,
+    TPriceProposalOpenContractsRequest,
+    TPriceProposalOpenContractsResponse,
+    TPriceProposalRequest,
+    TPriceProposalResponse,
+    TServerTimeResponse,
+    TTicksHistoryResponse,
+    TTicksStreamRequest,
+    TTicksStreamResponse,
+    TTradingTimesResponse,
+    TUpdateContractHistoryResponse,
+    TUpdateContractRequest,
+    TUpdateContractResponse,
+} from '@deriv/api';
+import { TSocketEndpointNames, TSocketResponse } from '@deriv/api/types';
 import { buildBarriersConfig, buildDurationConfig, getContractTypesConfig } from '@deriv/shared';
 import { TCoreStores } from '@deriv/stores/types';
 
@@ -53,7 +53,7 @@ export type TBinaryRoutesProps = {
 export type TBuyRequest = {
     proposal_id: string;
     price: string | number;
-    passthrough?: BuyContractRequest['passthrough'];
+    passthrough?: TBuyContractRequest['passthrough'];
 };
 
 export type TServerError = {
@@ -102,44 +102,44 @@ export type TRouteConfig = TRoute & {
 export type TTradeStore = ReturnType<typeof useTraderStore>;
 
 type TWebSocketCall = {
-    activeSymbols: (mode?: 'string') => Promise<ActiveSymbolsResponse>;
+    activeSymbols: (mode?: 'string') => Promise<TActiveSymbolsResponse>;
     send?: (req?: Record<string, unknown>) => Promise<{ error?: TServerError & Record<string, unknown> }>;
     subscribeProposalOpenContract: (
-        contract_id: PriceProposalOpenContractsRequest['contract_id'],
-        callback: (response: PriceProposalOpenContractsResponse) => void
+        contract_id: TPriceProposalOpenContractsRequest['contract_id'],
+        callback: (response: TPriceProposalOpenContractsResponse) => void
     ) => void;
 };
 
 type TWebSocketSend = (req?: Record<string, unknown>) => Promise<{ error?: TServerError & Record<string, unknown> }>;
 
 export type TWebSocket = {
-    activeSymbols: (mode?: 'string') => Promise<ActiveSymbolsResponse>;
+    activeSymbols: (mode?: 'string') => Promise<TActiveSymbolsResponse>;
     authorized: TWebSocketCall;
-    buy: (req: TBuyRequest) => Promise<BuyContractResponse & { error?: TServerError }>;
+    buy: (req: TBuyRequest) => Promise<TBuyContractResponse & { error?: TServerError }>;
     contractUpdate: (
-        contract_id: UpdateContractRequest['contract_id'],
-        limit_order: UpdateContractRequest['limit_order']
-    ) => Promise<{ error?: TServerError } & UpdateContractResponse>;
-    contractUpdateHistory: (contract_id?: number) => Promise<UpdateContractHistoryResponse & { error?: TServerError }>;
-    forget: (id: string) => Promise<ForgetResponse>;
-    forgetAll: <T extends TSocketEndpointNames>(value: T) => Promise<ForgetAllResponse>;
+        contract_id: TUpdateContractRequest['contract_id'],
+        limit_order: TUpdateContractRequest['limit_order']
+    ) => Promise<{ error?: TServerError } & TUpdateContractResponse>;
+    contractUpdateHistory: (contract_id?: number) => Promise<TUpdateContractHistoryResponse & { error?: TServerError }>;
+    forget: (id: string) => Promise<TForgetResponse>;
+    forgetAll: <T extends TSocketEndpointNames>(value: T) => Promise<TForgetAllResponse>;
     forgetStream: (stream_id: string) => void;
     send?: TWebSocketSend;
     subscribeProposal: (
-        req: Partial<PriceProposalRequest>,
-        callback: (response: Promise<PriceProposalResponse & { error?: TServerError }>) => void
-    ) => Promise<PriceProposalResponse & { error?: TServerError }>;
-    subscribeTicks: (symbol: string, callback: (response: TicksStreamResponse) => void) => void;
+        req: Partial<TPriceProposalRequest>,
+        callback: (response: Promise<TPriceProposalResponse & { error?: TServerError }>) => void
+    ) => Promise<TPriceProposalResponse & { error?: TServerError }>;
+    subscribeTicks: (symbol: string, callback: (response: TTicksStreamResponse) => void) => void;
     subscribeTicksHistory: (
-        req: TicksStreamRequest,
-        callback: (response: TicksHistoryResponse | TicksStreamResponse) => void
-    ) => Promise<{ error?: TServerError } & (TicksHistoryResponse | TicksStreamResponse)>;
+        req: TTicksStreamRequest,
+        callback: (response: TTicksHistoryResponse | TTicksStreamResponse) => void
+    ) => Promise<{ error?: TServerError } & (TTicksHistoryResponse | TTicksStreamResponse)>;
     storage: {
-        contractsFor: (symbol: string) => Promise<ContractsForSymbolResponse>;
+        contractsFor: (symbol: string) => Promise<TContractsForSymbolResponse>;
         send?: TWebSocketSend;
     };
-    time: () => Promise<ServerTimeResponse>;
-    tradingTimes: (date: string) => Promise<TradingTimesResponse>;
+    time: () => Promise<TServerTimeResponse>;
+    tradingTimes: (date: string) => Promise<TTradingTimesResponse>;
     wait: <T extends TSocketEndpointNames>(value: T) => Promise<TSocketResponse<T>>;
 };
 

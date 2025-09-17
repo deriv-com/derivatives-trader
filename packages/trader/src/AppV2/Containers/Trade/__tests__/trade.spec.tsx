@@ -24,7 +24,7 @@ jest.mock('@deriv/api', () => ({
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
-    getSymbolDisplayName: jest.fn((symbols, symbol) => `${symbol} Display Name`),
+    getSymbolDisplayName: jest.fn(symbol => `${symbol} Display Name`),
     redirectToLogin: jest.fn(),
     redirectToSignUp: jest.fn(),
     getBrandUrl: jest.fn(() => 'https://deriv.com'),

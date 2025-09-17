@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { TradingTimesRequest, TradingTimesResponse } from '@deriv/api-types';
+import { TTradingTimesRequest, TTradingTimesResponse } from '@deriv/api';
 import { Text } from '@deriv/components';
 import { convertTimeFormat, isMarketClosed, toMoment, useIsMounted, WS } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
@@ -25,7 +25,7 @@ type TWhenMarketOpens = {
 // check market in coming 7 days
 const days_to_check_before_exit = 7;
 
-const getTradingTimes = async (target_time: TradingTimesRequest['trading_times']) => {
+const getTradingTimes = async (target_time: TTradingTimesRequest['trading_times']) => {
     const data = await WS.tradingTimes(target_time);
     if (data.error) {
         return { api_initial_load_error: data.error.message };
@@ -35,7 +35,7 @@ const getTradingTimes = async (target_time: TradingTimesRequest['trading_times']
 // eslint-disable-next-line consistent-return
 const getSymbol = (
     target_symbol: string,
-    trading_times: NonNullable<DeepRequired<TradingTimesResponse['trading_times']>>
+    trading_times: NonNullable<DeepRequired<TTradingTimesResponse['trading_times']>>
 ) => {
     let symbol;
     const { markets } = trading_times;
@@ -44,7 +44,7 @@ const getSymbol = (
         if (submarkets) {
             for (let j = 0; j < submarkets.length; j++) {
                 const { symbols } = submarkets[j];
-                symbol = symbols?.find(item => ((item as any).underlying_symbol || item.symbol) === target_symbol);
+                symbol = symbols?.find(item => item.symbol === target_symbol);
                 if (symbol !== undefined) return symbol;
             }
         }
@@ -76,11 +76,9 @@ const MarketCountdownTimer = observer(
         React.useEffect(() => {
             if (!is_main_page || (is_main_page && isMarketClosed(active_symbols, symbol))) {
                 setLoading(true);
-                // eslint-disable-next-line consistent-return
-                // @ts-expect-error there is no explicit return type because of if statements
-                const whenMarketOpens = async (days_offset: number, target_symbol: string) => {
+                const whenMarketOpens = async (days_offset: number, target_symbol: string): Promise<void> => {
                     // days_offset is 0 for today, 1 for tomorrow, etc.
-                    if (days_offset > days_to_check_before_exit) return {};
+                    if (days_offset > days_to_check_before_exit) return;
                     let remaining_time_to_open;
                     const target_date = toMoment(new Date()).add(days_offset, 'days');
                     const api_response = await getTradingTimes(target_date.format('YYYY-MM-DD'));

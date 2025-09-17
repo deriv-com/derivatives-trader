@@ -45,7 +45,7 @@ const ContractDetails = observer(() => {
     };
 
     const getSortedUpdateHistory = (history: TContractUpdateHistory) =>
-        history.sort((a, b) => Number(b?.order_date) - Number(a?.order_date));
+        history?.sort((a, b) => Number(b?.order_date) - Number(a?.order_date));
     const requestUpdatedHistory = React.useCallback((id?: number) => {
         if (!id) return;
         WS.contractUpdateHistory(id)
@@ -96,7 +96,7 @@ const ContractDetails = observer(() => {
                 <OrderDetails contract_info={contract_info} />
                 <PayoutInfo contract_info={contract_info} />
                 <EntryExitDetails contract_info={contract_info} />
-                {isTpHistoryVisible && update_history.length > 0 && (
+                {isTpHistoryVisible && update_history && update_history.length > 0 && (
                     <TakeProfitHistory history={update_history} currency={currency} is_multiplier={isMultiplier} />
                 )}
             </div>

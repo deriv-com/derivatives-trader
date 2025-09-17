@@ -19,7 +19,6 @@ type TContractsForResponse = {
             default_stake: number;
             sentiment: string;
             underlying_symbol?: string; // New field (symbol → underlying_symbol)
-            symbol?: string; // Legacy field for backward compatibility
             barrier?: string;
             barriers?: number;
             exchange_name?: string;

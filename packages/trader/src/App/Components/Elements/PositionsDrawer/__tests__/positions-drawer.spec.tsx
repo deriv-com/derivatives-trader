@@ -87,9 +87,9 @@ describe('<PositionsDrawer />', () => {
         mocked_store.portfolio.all_positions = [
             {
                 contract_info: mockContractInfo({
-                    underlying: '1HZ100V',
-                    contract_type: 'CALL',
-                    shortcode: 'CALL_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
+                    underlying_symbol: '1HZ100V',
+                    contract_type: CONTRACT_TYPES.VANILLA.CALL,
+                    shortcode: 'VANILLALONGCALL_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
                 }),
             },
         ] as TAllPositions;
@@ -104,7 +104,7 @@ describe('<PositionsDrawer />', () => {
         mocked_store.portfolio.all_positions = [
             {
                 contract_info: mockContractInfo({
-                    underlying: '1HZ100V',
+                    underlying_symbol: '1HZ100V',
                     contract_type: CONTRACT_TYPES.VANILLA.CALL,
                     shortcode: 'VANILLALONGCALL_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
                 }),
@@ -120,14 +120,14 @@ describe('<PositionsDrawer />', () => {
         mocked_store.portfolio.all_positions = [
             {
                 contract_info: mockContractInfo({
-                    underlying: '1HZ100V',
+                    underlying_symbol: '1HZ100V',
                     contract_type: CONTRACT_TYPES.TURBOS.LONG,
                     shortcode: 'TURBOSLONG_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
                 }),
             },
             {
                 contract_info: mockContractInfo({
-                    underlying: '1HZ100V',
+                    underlying_symbol: '1HZ100V',
                     contract_type: CONTRACT_TYPES.TURBOS.SHORT,
                     shortcode: 'TURBOSSHORT_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
                 }),
@@ -142,14 +142,14 @@ describe('<PositionsDrawer />', () => {
         mocked_store.portfolio.all_positions = [
             {
                 contract_info: mockContractInfo({
-                    underlying: '1HZ100V',
+                    underlying_symbol: '1HZ100V',
                     contract_type: CONTRACT_TYPES.VANILLA.CALL,
                     shortcode: 'VANILLALONGCALL_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
                 }),
             },
             {
                 contract_info: mockContractInfo({
-                    underlying: '1HZ100V',
+                    underlying_symbol: '1HZ100V',
                     contract_type: CONTRACT_TYPES.VANILLA.PUT,
                     shortcode: 'VANILLALONGPUT_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
                 }),
@@ -164,14 +164,14 @@ describe('<PositionsDrawer />', () => {
         mocked_store.portfolio.all_positions = [
             {
                 contract_info: mockContractInfo({
-                    underlying: '1HZ100V',
+                    underlying_symbol: '1HZ100V',
                     contract_type: CONTRACT_TYPES.VANILLA.CALL,
                     shortcode: 'VANILLALONGCALL_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
                 }),
             },
             {
                 contract_info: mockContractInfo({
-                    underlying: '1HZ100V',
+                    underlying_symbol: '1HZ100V',
                     contract_type: CONTRACT_TYPES.VANILLA.PUT,
                     shortcode: 'VANILLALONGPUT_1HZ100V_10.00_1699697112_1699697772_S0P_2.33136_1699697111',
                 }),
@@ -190,14 +190,14 @@ describe('<PositionsDrawer />', () => {
             mocked_store.portfolio.all_positions = [
                 {
                     contract_info: mockContractInfo({
-                        profit: 100,
+                        profit: '100',
                         currency: 'USD',
                     }),
                     profit_loss: 100,
                 },
                 {
                     contract_info: mockContractInfo({
-                        profit: 50,
+                        profit: '50',
                         currency: 'USD',
                     }),
                     profit_loss: 50,
@@ -216,14 +216,14 @@ describe('<PositionsDrawer />', () => {
             mocked_store.portfolio.all_positions = [
                 {
                     contract_info: mockContractInfo({
-                        profit: -75,
+                        profit: '-75',
                         currency: 'USD',
                     }),
                     profit_loss: -75,
                 },
                 {
                     contract_info: mockContractInfo({
-                        profit: -25,
+                        profit: '-25',
                         currency: 'USD',
                     }),
                     profit_loss: -25,
@@ -242,14 +242,14 @@ describe('<PositionsDrawer />', () => {
             mocked_store.portfolio.all_positions = [
                 {
                     contract_info: mockContractInfo({
-                        profit: 100,
+                        profit: '100',
                         currency: 'USD',
                     }),
                     profit_loss: 100,
                 },
                 {
                     contract_info: mockContractInfo({
-                        profit: -60,
+                        profit: '-60',
                         currency: 'USD',
                     }),
                     profit_loss: -60,
@@ -267,14 +267,14 @@ describe('<PositionsDrawer />', () => {
             mocked_store.portfolio.all_positions = [
                 {
                     contract_info: mockContractInfo({
-                        profit: 50,
+                        profit: '50',
                         currency: 'USD',
                     }),
                     profit_loss: 50,
                 },
                 {
                     contract_info: mockContractInfo({
-                        profit: -50,
+                        profit: '-50',
                         currency: 'USD',
                     }),
                     profit_loss: -50,
@@ -294,7 +294,7 @@ describe('<PositionsDrawer />', () => {
             mocked_store.portfolio.all_positions = [
                 {
                     contract_info: mockContractInfo({
-                        profit: 100,
+                        profit: '100',
                         currency: 'EUR',
                     }),
                     profit_loss: 100,
@@ -327,7 +327,7 @@ describe('<PositionsDrawer />', () => {
                 },
                 {
                     contract_info: mockContractInfo({
-                        profit: 50,
+                        profit: '50',
                         currency: 'USD',
                     }),
                     profit_loss: 50,

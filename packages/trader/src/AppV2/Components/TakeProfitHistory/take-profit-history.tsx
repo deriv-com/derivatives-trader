@@ -36,7 +36,7 @@ const TakeProfitHistory = ({ history = [], currency, is_multiplier }: TContractH
 
     if (!history.length) return null;
 
-    const pages_config = (history as THistory).reduce(
+    const pages_config = (history as THistory)?.reduce(
         (result: THistory[], _item: (typeof history)[0], index: number) => {
             if (!(index % items_per_page)) {
                 result.push(history.slice(index, index + items_per_page));
@@ -46,39 +46,43 @@ const TakeProfitHistory = ({ history = [], currency, is_multiplier }: TContractH
         []
     );
 
-    const pages = pages_config.map((array, index) => ({
-        id: index,
-        component: (
-            <React.Fragment>
-                {array.map((item, index) => (
-                    <div key={`take-profit-history-${index}`} className='take-profit-history__table-row'>
-                        <div
-                            className={clsx('take-profit-history__table-cell', 'take-profit-history__table-cell--left')}
-                        >
-                            <CaptionText color='quill-typography__color--subtle' size='sm'>
-                                {formatDate(item.order_date, 'DD MMM YYYY')}
-                            </CaptionText>
-                            <CaptionText color='quill-typography__color--subtle'>
-                                {formatTime(Number(item.order_date))}
-                            </CaptionText>
-                        </div>
-                        <div className='take-profit-history__table-cell'>
-                            <Text size='sm' color='quill-typography__color--subtle'>
-                                {item.display_name}
-                            </Text>
-                            <Text size='sm'>
-                                {Math.abs(Number(item.order_amount)) === 0 ? (
-                                    <Localize i18n_default_text='Cancelled' />
-                                ) : (
-                                    `${formatMoney(String(currency), String(item.order_amount), true)} ${currency}`
+    const pages =
+        pages_config?.map((array, index) => ({
+            id: index,
+            component: (
+                <React.Fragment>
+                    {array?.map((item, index) => (
+                        <div key={`take-profit-history-${index}`} className='take-profit-history__table-row'>
+                            <div
+                                className={clsx(
+                                    'take-profit-history__table-cell',
+                                    'take-profit-history__table-cell--left'
                                 )}
-                            </Text>
+                            >
+                                <CaptionText color='quill-typography__color--subtle' size='sm'>
+                                    {formatDate(item.order_date, 'DD MMM YYYY')}
+                                </CaptionText>
+                                <CaptionText color='quill-typography__color--subtle'>
+                                    {formatTime(Number(item.order_date))}
+                                </CaptionText>
+                            </div>
+                            <div className='take-profit-history__table-cell'>
+                                <Text size='sm' color='quill-typography__color--subtle'>
+                                    {item.display_name}
+                                </Text>
+                                <Text size='sm'>
+                                    {Math.abs(Number(item.order_amount)) === 0 ? (
+                                        <Localize i18n_default_text='Cancelled' />
+                                    ) : (
+                                        `${formatMoney(String(currency), String(item.order_amount), true)} ${currency}`
+                                    )}
+                                </Text>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </React.Fragment>
-        ),
-    }));
+                    ))}
+                </React.Fragment>
+            ),
+        })) || [];
 
     return (
         <CardWrapper title={getHistoryTitle()} className='take-profit-history'>

@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { usePrevious } from '@deriv/components';
 import { CaptionText, Tab, Text } from '@deriv-com/quill-ui';
-
 import { MarketGroup } from 'AppV2/Utils/symbol-categories-utils';
-
 import FavoriteSymbols from '../FavoriteSymbols';
 import MarketCategoryItem from '../MarketCategoryItem';
+
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
 
 type TMarketCategory = {
     category: MarketGroup;
@@ -47,13 +46,10 @@ const MarketCategory = ({ category, selectedSymbol, setSelectedSymbol, setIsOpen
                                 <div className='market-category-items'>
                                     {submarket.items.map((item: ActiveSymbols[0]) => (
                                         <MarketCategoryItem
-                                            key={(item as any).underlying_symbol || item.symbol}
+                                            key={item.underlying_symbol}
                                             ref={
-                                                ((item as any).underlying_symbol || item.symbol) === selectedSymbol
-                                                    ? el =>
-                                                          (itemRefs.current[
-                                                              (item as any).underlying_symbol || item.symbol
-                                                          ] = el)
+                                                item.underlying_symbol === selectedSymbol
+                                                    ? el => (itemRefs.current[item.underlying_symbol!] = el)
                                                     : undefined
                                             }
                                             item={item}
