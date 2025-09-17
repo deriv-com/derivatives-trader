@@ -278,8 +278,6 @@ type TransactionsStreamResponse = Omit<BaseTransactionsStreamResponse, 'transact
     };
 };
 
-type TPrivateSocketEndpoints = Record<string, never>;
-
 type TSocketEndpoints = {
     active_symbols: {
         request: ActiveSymbolsRequest;
@@ -373,7 +371,7 @@ type TSocketEndpoints = {
         request: TransactionsStreamRequest;
         response: TransactionsStreamResponse;
     };
-} & TPrivateSocketEndpoints;
+};
 
 export type TSocketEndpointNames = keyof TSocketEndpoints;
 
