@@ -2,7 +2,15 @@ import { useMutation } from '@deriv/api';
 
 import { compressImg, convertToBase64, getFormatFromMIME, isImageType, TImage } from './image/image_utility';
 
-export type TSettings = Parameters<ReturnType<typeof useMutation<'document_upload'>>['mutate']>[0]['payload'];
+export type TSettings = {
+    document_type?: string;
+    document_id?: string;
+    expiration_date?: string;
+    lifetime_valid?: boolean;
+    page_type?: string;
+    proof_of_ownership?: any;
+    document_issuing_country?: string;
+};
 
 export type TFileObject = TSettings & {
     filename: File['name'];
@@ -92,10 +100,6 @@ export const readFiles = (
     return Promise.all(promises);
 };
 
-export const max_document_size = 8388608;
-
-export const supported_filetypes = 'image/png, image/jpeg, image/jpg, image/gif, application/pdf';
-
 export const UPLOAD_FILE_TYPE = Object.freeze({
     amlglobalcheck: 'amlglobalcheck',
     bankstatement: 'bankstatement',
@@ -117,6 +121,3 @@ export const PAGE_TYPE = Object.freeze({
     front: 'front',
     photo: 'photo',
 });
-
-export const getSupportedFiles = (filename: string) =>
-    /^.*\.(png|PNG|jpg|JPG|jpeg|JPEG|gif|GIF|pdf|PDF)$/.test(filename);

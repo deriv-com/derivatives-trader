@@ -3,9 +3,8 @@ import { action, computed, makeObservable, observable, reaction, runInAction, wh
 import moment from 'moment';
 
 import {
-    deriv_urls,
     filterUrlQuery,
-    getAppId,
+    getBrandDomain,
     isCryptocurrency,
     isMobile,
     LocalStore,
@@ -13,7 +12,6 @@ import {
     removeCookies,
     routes,
     SessionStore,
-    setCurrencies,
     urlForLanguage,
 } from '@deriv/shared';
 import { getInitialLanguage, localize } from '@deriv-com/translations';
@@ -28,7 +26,7 @@ import { buildCurrenciesList } from './Modules/Trading/Helpers/currency';
 import BaseStore from './base-store';
 
 import BinarySocket from '_common/base/socket_base';
-import { getRegion, isEuCountry, isMultipliersOnly, isOptionsBlocked } from '_common/utility';
+import { getRegion, isMultipliersOnly, isOptionsBlocked } from '_common/utility';
 
 const LANGUAGE_KEY = 'i18n_language';
 const storage_key = 'current_account';
@@ -51,7 +49,6 @@ export default class ClientStore extends BaseStore {
 
     currencies_list = {};
     selected_currency = '';
-    website_status = {};
 
     has_cookie_account = false;
 
@@ -73,7 +70,6 @@ export default class ClientStore extends BaseStore {
             is_client_store_initialized: observable,
             has_logged_out: observable,
             should_redirect_user_to_login: observable,
-            website_status: observable,
             has_cookie_account: observable,
             is_new_session: observable,
 
@@ -90,21 +86,17 @@ export default class ClientStore extends BaseStore {
 
             is_cr_account: computed,
             is_mf_account: computed,
-            clients_country: computed,
-            is_eu_country: computed,
             is_options_blocked: computed,
             is_multipliers_only: computed,
 
             has_active_real_account: computed,
             has_any_real_account: computed,
-            has_wallet: computed,
             is_single_currency: computed,
 
             setPreferredLanguage: action.bound,
             setCookieAccount: action.bound,
             responsePayoutCurrencies: action.bound,
             responseAuthorize: action.bound,
-            setWebsiteStatus: action.bound,
             setLoginId: action.bound,
             setIsAuthorize: action.bound,
             setIsLoggingIn: action.bound,
@@ -119,7 +111,6 @@ export default class ClientStore extends BaseStore {
             setShouldRedirectToLogin: action.bound,
             getToken: action.bound,
             init: action.bound,
-            responseWebsiteStatus: action.bound,
             resetVirtualBalance: action.bound,
             authenticateV2: action.bound,
             storeSessionToken: action.bound,
@@ -152,10 +143,6 @@ export default class ClientStore extends BaseStore {
 
     get has_any_real_account() {
         return !this.is_virtual;
-    }
-
-    get has_wallet() {
-        return false; // Simplified for trading app
     }
 
     get currency() {
@@ -206,7 +193,8 @@ export default class ClientStore extends BaseStore {
     }
 
     get landing_company_shortcode() {
-        return this.current_account?.landing_company_shortcode || '';
+        // Default to 'svg' for ROW behavior (maximum permissiveness)
+        return this.current_account?.landing_company_shortcode || 'svg';
     }
 
     get is_cr_account() {
@@ -215,16 +203,6 @@ export default class ClientStore extends BaseStore {
 
     get is_mf_account() {
         return this.loginid?.startsWith('MF');
-    }
-
-    get clients_country() {
-        return this.website_status?.clients_country;
-    }
-
-    get is_eu_country() {
-        const country = this.website_status.clients_country;
-        if (country) return isEuCountry(country);
-        return false;
     }
 
     get is_options_blocked() {
@@ -249,9 +227,7 @@ export default class ClientStore extends BaseStore {
     };
 
     setCookieAccount() {
-        const domain = /deriv\.(com|me|be)/.test(window.location.hostname)
-            ? deriv_urls.DERIV_HOST_NAME
-            : window.location.hostname;
+        const domain = /deriv\.(com)/.test(window.location.hostname) ? getBrandDomain() : window.location.hostname;
 
         const { loginid, landing_company_shortcode, currency, preferred_language, user_id } = this;
         const email = this.email;
@@ -277,8 +253,9 @@ export default class ClientStore extends BaseStore {
     }
 
     responsePayoutCurrencies(response) {
-        const list = response?.payout_currencies || response;
-        this.currencies_list = buildCurrenciesList(Array.isArray(list) ? list : []);
+        // Since payout_currencies endpoint has been removed, use USD as fallback
+        const list = response?.payout_currencies || response || ['USD'];
+        this.currencies_list = buildCurrenciesList(Array.isArray(list) ? list : ['USD']);
         this.selectCurrency('');
     }
 
@@ -308,31 +285,6 @@ export default class ClientStore extends BaseStore {
 
         // Store current account
         localStorage.setItem(storage_key, JSON.stringify(this.current_account));
-    }
-
-    setWebsiteStatus(response) {
-        this.website_status = response.website_status;
-        this.responseWebsiteStatus(response);
-        setCurrencies(this.website_status);
-
-        // TODO: remove the below lines after full smartcharts v2 launch.
-        const domain = /deriv\.(com|me)/.test(window.location.hostname)
-            ? deriv_urls.DERIV_HOST_NAME
-            : window.location.hostname;
-        const { clients_country } = this.website_status;
-
-        const options = {
-            domain,
-            expires: 7,
-        };
-
-        try {
-            const cookie = Cookies.get('website_status') ? JSON.parse(Cookies.get('website_status')) : {};
-            cookie.clients_country = clients_country;
-            Cookies.set('website_status', cookie, options);
-        } catch (e) {
-            Cookies.set('website_status', { clients_country }, options);
-        }
     }
 
     async resetVirtualBalance() {
@@ -466,15 +418,8 @@ export default class ClientStore extends BaseStore {
 
         this.selectCurrency('');
 
-        if (this.is_logged_in) {
-            this.responsePayoutCurrencies(await WS.authorized.payoutCurrencies());
-        } else {
-            // For logged-out state, get payout currencies without authorization
-            this.responsePayoutCurrencies(await WS.payoutCurrencies());
-        }
-
-        // Simplified initialization - no account settings needed for trading
-        this.responseWebsiteStatus(await WS.wait('website_status'));
+        // Since payout_currencies endpoint has been removed, use USD as default
+        this.responsePayoutCurrencies(['USD']);
 
         this.setIsLoggingIn(false);
         this.setInitialized(true);
@@ -505,10 +450,6 @@ export default class ClientStore extends BaseStore {
         return true;
     }
 
-    responseWebsiteStatus(response) {
-        this.website_status = response.website_status;
-    }
-
     setLoginId(loginid) {
         this.loginid = loginid;
     }
@@ -537,7 +478,6 @@ export default class ClientStore extends BaseStore {
             loggedIn: login_status,
             account_type: broker === 'null' ? 'unlogged' : broker,
             residence_country,
-            app_id: String(getAppId()),
             device_type: isMobile() ? 'mobile' : 'desktop',
             language: getInitialLanguage(),
             device_language: navigator?.language || 'en-EN',
@@ -625,8 +565,9 @@ export default class ClientStore extends BaseStore {
 
         Analytics.reset();
 
-        runInAction(async () => {
-            this.responsePayoutCurrencies(await WS.payoutCurrencies());
+        runInAction(() => {
+            // Since payout_currencies endpoint has been removed, use USD as default
+            this.responsePayoutCurrencies(['USD']);
         });
         this.root_store.notifications.removeAllNotificationMessages(true);
     }

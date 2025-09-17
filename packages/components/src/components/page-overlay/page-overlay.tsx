@@ -3,7 +3,6 @@ import React, { MouseEventHandler } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 import { LegacyClose2pxIcon, LegacyArrowLeft2pxIcon } from '@deriv/quill-icons';
-import { platforms } from '@deriv/shared';
 
 type TPageOverlay = {
     header?: React.ReactNode;

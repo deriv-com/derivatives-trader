@@ -1,14 +1,12 @@
 import React from 'react';
-
-import { useAccountSettingsRedirect } from '@deriv/api';
 import { Popover } from '@deriv/components';
 import { LegacyAccountLimitsIcon } from '@deriv/quill-icons';
 import { observer } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 
 export const AccountLimits = observer(({ showPopover }) => {
-    // Use the useAccountSettingsRedirect hook with 'account-limits' as the redirect_to value
-    const { redirect_url } = useAccountSettingsRedirect('account-limits');
+    // TODO: Update the redirect_url when the account limits page is available
+    const redirect_url = '/';
     const { localize } = useTranslations();
 
     return (

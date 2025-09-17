@@ -1,4 +1,3 @@
-import { isEuCountry } from '../location';
 import { routes } from '../routes';
 
 type TMessage = {
@@ -41,11 +40,4 @@ export const showDigitalOptionsUnavailableError = (
         should_clear_error_on_click,
         should_redirect,
     });
-};
-
-export const isEuResidenceWithOnlyVRTC = (accounts: TAccounts[]) => {
-    return (
-        accounts?.length === 1 &&
-        accounts.every(acc => isEuCountry(acc.residence ?? '') && acc.landing_company_shortcode === 'virtual')
-    );
 };

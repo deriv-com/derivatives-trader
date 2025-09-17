@@ -1,11 +1,8 @@
 const DerivAPIBasic = require('@deriv/deriv-api/dist/DerivAPIBasic');
-const getAppId = require('@deriv/shared').getAppId;
 const getSocketURL = require('@deriv/shared').getSocketURL;
 const cloneObject = require('@deriv/shared').cloneObject;
-const getPropertyValue = require('@deriv/shared').getPropertyValue;
 const State = require('@deriv/shared').State;
-const { getInitialLanguage } = require('@deriv-com/translations');
-const website_name = require('@deriv/shared').website_name;
+const getBrandName = require('@deriv/shared').getBrandName;
 const SocketCache = require('./socket_cache');
 const APIMiddleware = require('./api_middleware');
 
@@ -18,7 +15,6 @@ const BinarySocketBase = (() => {
     let deriv_api, binary_socket, client_store;
 
     let config = {};
-    let wrong_app_id = 0;
     let is_disconnect_called = false;
     let is_connected_before = false;
     let is_switching_socket = false;
@@ -29,11 +25,12 @@ const BinarySocketBase = (() => {
         is_down: false,
     };
 
-    const getSocketUrl = (language, is_mock_server = false) => {
+    const getSocketUrl = (is_mock_server = false) => {
         if (is_mock_server) {
             return 'ws://127.0.0.1:42069';
         }
-        return `wss://${getSocketURL()}/websockets/v3?app_id=${getAppId()}&l=${language}&brand=${website_name.toLowerCase()}`;
+        // TODO remove hardcoded app_id in future
+        return `wss://${getSocketURL()}/websockets/v3?app_id=16929&brand=${getBrandName().toLowerCase()}`;
     };
 
     const isReady = () => hasReadyState(1);
@@ -46,10 +43,10 @@ const BinarySocketBase = (() => {
         binary_socket.close();
     };
 
-    const closeAndOpenNewConnection = (language = getInitialLanguage(), session_id = '') => {
+    const closeAndOpenNewConnection = (session_id = '') => {
         close();
         is_switching_socket = true;
-        openNewConnection(language, session_id);
+        openNewConnection(session_id);
     };
 
     const hasReadyState = (...states) => binary_socket && states.some(s => binary_socket.readyState === s);
@@ -71,17 +68,15 @@ const BinarySocketBase = (() => {
               };
     };
 
-    const openNewConnection = (language = getInitialLanguage()) => {
+    const openNewConnection = () => {
         const mock_server_config = getMockServerConfig();
         const session_id = mock_server_config?.session_id || '';
-
-        if (wrong_app_id === getAppId()) return;
 
         if (!is_switching_socket) config.wsEvent('init');
 
         if (isClose()) {
             is_disconnect_called = false;
-            binary_socket = new WebSocket(getSocketUrl(language, session_id));
+            binary_socket = new WebSocket(getSocketUrl(session_id));
 
             deriv_api = new DerivAPIBasic({
                 connection: binary_socket,
@@ -92,8 +87,6 @@ const BinarySocketBase = (() => {
 
         deriv_api.onOpen().subscribe(() => {
             config.wsEvent('open');
-
-            wait('website_status');
 
             if (client_store.is_logged_in) {
                 const authorize_token = client_store.getToken();
@@ -119,10 +112,6 @@ const BinarySocketBase = (() => {
 
             config.wsEvent('message');
 
-            if (getPropertyValue(response, ['error', 'code']) === 'InvalidAppID') {
-                wrong_app_id = getAppId();
-            }
-
             if (typeof config.onMessage === 'function') {
                 config.onMessage(response);
             }
@@ -135,7 +124,7 @@ const BinarySocketBase = (() => {
                 is_switching_socket = false;
             }
 
-            if (wrong_app_id !== getAppId() && typeof config.onDisconnect === 'function' && !is_disconnect_called) {
+            if (typeof config.onDisconnect === 'function' && !is_disconnect_called) {
                 config.onDisconnect();
                 is_disconnect_called = true;
             }
@@ -178,8 +167,6 @@ const BinarySocketBase = (() => {
     const subscribeTicksHistory = (request_object, cb) => subscribe(request_object, cb);
 
     const subscribeTransaction = cb => subscribe({ transaction: 1 }, cb);
-
-    const subscribeWebsiteStatus = cb => subscribe({ website_status: 1 }, cb);
 
     const getTicksHistory = request_object => deriv_api.send(request_object);
 
@@ -243,8 +230,6 @@ const BinarySocketBase = (() => {
 
     const statement = (limit, offset, other_properties) =>
         deriv_api.send({ statement: 1, description: 1, limit, offset, ...other_properties });
-
-    const verifyEmail = (email, type, payload = {}) => deriv_api.send({ verify_email: email, type, ...payload });
 
     const tradingPlatformPasswordChange = payload =>
         deriv_api.send({
@@ -327,8 +312,6 @@ const BinarySocketBase = (() => {
 
     const forgetStream = id => deriv_api.forget(id);
 
-    const tncApproval = () => deriv_api.send({ tnc_approval: '1' });
-
     const contractUpdate = (contract_id, limit_order) =>
         deriv_api.send({
             contract_update: 1,
@@ -354,12 +337,6 @@ const BinarySocketBase = (() => {
     const accountStatistics = () => deriv_api.send({ account_statistics: 1 });
 
     const tradingServers = platform => deriv_api.send({ platform, trading_servers: 1 });
-
-    const tradingPlatformAccountsList = platform =>
-        deriv_api.send({
-            trading_platform_accounts: 1,
-            platform,
-        });
 
     const tradingPlatformNewAccount = values =>
         deriv_api.send({
@@ -397,21 +374,6 @@ const BinarySocketBase = (() => {
         });
 
     const changeEmail = api_request => deriv_api.send(api_request);
-
-    const getWalletMigrationState = () =>
-        deriv_api.send({
-            wallet_migration: 'state',
-        });
-
-    const startWalletMigration = () =>
-        deriv_api.send({
-            wallet_migration: 'start',
-        });
-
-    const resetWalletMigration = () =>
-        deriv_api.send({
-            wallet_migration: 'reset',
-        });
 
     return {
         init,
@@ -463,7 +425,6 @@ const BinarySocketBase = (() => {
         getPhoneSettings,
         profitTable,
         statement,
-        verifyEmail,
         getTicksHistory,
         tradingPlatformPasswordChange,
         tradingPlatformPasswordReset,
@@ -486,22 +447,16 @@ const BinarySocketBase = (() => {
         subscribeTicks,
         subscribeTicksHistory,
         subscribeTransaction,
-        subscribeWebsiteStatus,
-        tncApproval,
         transferBetweenAccounts,
         fetchLoginHistory,
         closeAndOpenNewConnection,
         accountStatistics,
         tradingServers,
-        tradingPlatformAccountsList,
         tradingPlatformNewAccount,
         triggerMt5DryRun,
         getServiceToken,
         getSessionToken,
         changeEmail,
-        getWalletMigrationState,
-        startWalletMigration,
-        resetWalletMigration,
     };
 })();
 

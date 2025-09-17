@@ -1,5 +1,4 @@
 import { localize } from '@deriv-com/translations';
-import { getPropertyValue } from '@deriv/shared';
 
 export const getClientAccountType = loginid => {
     let account_type;
@@ -41,24 +40,26 @@ export const getAvailableAccount = market_type => {
     return 'financial';
 };
 
-export const getLandingCompanyValue = ({ loginid, landing_company, isAccountOfType }) => {
-    const key = 'changeable_fields';
-    let landing_company_object;
+export const getLandingCompanyValue = () => {
+    // Hardcoded changeable_fields for maximum permissiveness (ROW/SVG behavior)
+    // This shows all possible fields that users can change
+    const hardcoded_changeable_fields = [
+        'first_name',
+        'last_name',
+        'date_of_birth',
+        'citizen',
+        'place_of_birth',
+        'phone',
+        'address_line_1',
+        'address_line_2',
+        'address_city',
+        'address_state',
+        'address_postcode',
+        'tax_residence',
+        'tax_identification_number',
+        'account_opening_reason',
+        'salutation',
+    ];
 
-    if (loginid.financial || isAccountOfType('financial')) {
-        landing_company_object = getPropertyValue(landing_company, 'financial_company');
-    } else if (loginid.real || isAccountOfType('real')) {
-        landing_company_object = getPropertyValue(landing_company, 'gaming_company');
-
-        // handle accounts that don't have gaming company
-        if (!landing_company_object) {
-            landing_company_object = getPropertyValue(landing_company, 'financial_company');
-        }
-    } else {
-        const financial_company = (getPropertyValue(landing_company, 'financial_company') || {})[key] || [];
-        const gaming_company = (getPropertyValue(landing_company, 'gaming_company') || {})[key] || [];
-        landing_company_object = financial_company.concat(gaming_company);
-        return landing_company_object;
-    }
-    return (landing_company_object || {})[key];
+    return hardcoded_changeable_fields;
 };

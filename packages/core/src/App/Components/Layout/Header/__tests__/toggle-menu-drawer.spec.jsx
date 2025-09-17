@@ -34,6 +34,9 @@ describe('<ToggleMenuDrawer />', () => {
                                 },
                             },
                         },
+                        traders_hub: {
+                            show_eu_related_content: false,
+                        },
                     })}
                 >
                     <ToggleMenuDrawer />

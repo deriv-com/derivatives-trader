@@ -1,5 +1,5 @@
 import { Popover, Text } from '@deriv/components';
-import { useIsIntercomAvailable, useIsLiveChatWidgetAvailable } from '@deriv/api';
+import { useIsIntercomAvailable } from '@deriv/api';
 import { observer } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
 import { Chat } from '@deriv/utils';
@@ -9,25 +9,11 @@ import { LegacyLiveChatOutlineIcon } from '@deriv/quill-icons';
 const LiveChat = observer(({ showPopover }: { showPopover?: boolean }) => {
     const { isDesktop } = useDevice();
 
-    const { is_livechat_available } = useIsLiveChatWidgetAvailable();
-
     const icAvailable = useIsIntercomAvailable();
 
-    const isNeitherChatNorLiveChatAvailable = !is_livechat_available && !icAvailable;
-
-    if (isNeitherChatNorLiveChatAvailable) {
+    if (!icAvailable) {
         return null;
     }
-
-    // Quick fix for making sure livechat won't popup if feature flag is late to enable.
-    // We will add a refactor after this
-    setInterval(() => {
-        if (icAvailable) {
-            if (window.LiveChatWidget && typeof window.LiveChatWidget.call === 'function') {
-                window.LiveChatWidget.call('destroy');
-            }
-        }
-    }, 10);
 
     const liveChatClickHandler = () => {
         Chat.open();

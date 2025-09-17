@@ -9,15 +9,15 @@ import { isTabletOs, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 
-import LiveChat from 'App/Components/Elements/LiveChat';
+import LiveChat from 'App/Components/Elements/LiveChat/index.ts';
 import WhatsApp from 'App/Components/Elements/WhatsApp/index.ts';
 import NetworkStatus, {
     // AccountLimits as AccountLimitsFooter,
     EndpointNote,
     // HelpCentre,
-    RegulatoryInformation,
+    // RegulatoryInformation,
     ToggleFullScreen,
-    ToggleLanguageSettings,
+    // ToggleLanguageSettings,
     // ResponsibleTrading,
     ToggleSettings,
 } from 'App/Components/Layout/Footer';
@@ -41,10 +41,10 @@ const FooterExtensionRenderer = (footer_extension, idx) => {
 
 const TradingHubFooter = observer(() => {
     const { localize } = useTranslations();
-    const { client, common, ui, traders_hub } = useStore();
-    const { show_eu_related_content } = traders_hub;
-    const { has_wallet, is_logged_in, is_eu, landing_company_shortcode, is_virtual } = client;
-    const { current_language } = common;
+    const { /*client, traders_hub,*/ ui } = useStore();
+    // const { show_eu_related_content } = traders_hub;
+    // const { is_logged_in, is_eu, landing_company_shortcode, is_virtual } = client;
+    // const { current_language } = common;
     const {
         enableApp,
         footer_extensions,
@@ -52,10 +52,10 @@ const TradingHubFooter = observer(() => {
         is_app_disabled,
         is_route_modal_on,
         is_settings_modal_on,
-        is_language_settings_modal_on,
+        // is_language_settings_modal_on,
         disableApp,
         toggleSettingsModal,
-        toggleLanguageSettingsModal,
+        // toggleLanguageSettingsModal,
         is_dark_mode_on: is_dark_mode,
         setDarkMode,
     } = ui;
@@ -73,7 +73,7 @@ const TradingHubFooter = observer(() => {
 
     const location = window.location.pathname;
     const { data } = useRemoteConfig(true);
-    const { cs_chat_livechat, cs_chat_whatsapp } = data;
+    const { cs_chat_intercom, cs_chat_whatsapp } = data;
 
     const showPopover = !isTabletOs;
 
@@ -102,28 +102,26 @@ const TradingHubFooter = observer(() => {
             <div className='footer__links'>
                 {footer_extensions_right.map(FooterExtensionRenderer)}
                 {cs_chat_whatsapp && <WhatsApp showPopover={showPopover} />}
-                {cs_chat_livechat && <LiveChat showPopover={showPopover} />}
+                {cs_chat_intercom && <LiveChat showPopover={showPopover} />}
                 {/* <ResponsibleTrading showPopover={showPopover} /> */}
                 {/* {is_logged_in && <AccountLimitsFooter showPopover={showPopover} />} */}
-                {is_logged_in && !is_virtual && (
+                {/* {is_logged_in && !is_virtual && (
                     <RegulatoryInformation
                         landing_company={landing_company_shortcode}
                         is_eu={is_eu}
                         show_eu_related_content={show_eu_related_content}
                         showPopover={showPopover}
                     />
-                )}
-                {!has_wallet && (
-                    <div className='footer__links--dark-mode'>
-                        {showPopover ? (
-                            <Popover alignment='top' message={localize('Change theme')} zIndex={9999}>
-                                {modeIcon}
-                            </Popover>
-                        ) : (
-                            modeIcon
-                        )}
-                    </div>
-                )}
+                )} */}
+                <div className='footer__links--dark-mode'>
+                    {showPopover ? (
+                        <Popover alignment='top' message={localize('Change theme')} zIndex={9999}>
+                            {modeIcon}
+                        </Popover>
+                    ) : (
+                        modeIcon
+                    )}
+                </div>
                 <FooterIconSeparator />
                 {/* <HelpCentre showPopover={showPopover} /> */}
                 {location === routes.index && (
@@ -136,12 +134,13 @@ const TradingHubFooter = observer(() => {
                         showPopover={showPopover}
                     />
                 )}
-                <ToggleLanguageSettings
+                {/* Language switcher is hidden for MVP */}
+                {/* <ToggleLanguageSettings
                     is_settings_visible={is_language_settings_modal_on}
                     toggleSettings={toggleLanguageSettingsModal}
                     lang={current_language}
                     showPopover={showPopover}
-                />
+                /> */}
                 <ToggleFullScreen showPopover={showPopover} />
             </div>
         </footer>

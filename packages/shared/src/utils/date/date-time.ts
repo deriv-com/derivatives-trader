@@ -51,10 +51,6 @@ export const toMoment = (value?: moment.MomentInput): moment.Moment => {
 };
 
 export const toLocalFormat = (time: moment.MomentInput) => moment.utc(time).local().format('YYYY-MM-DD HH:mm:ss Z');
-export const getLongDate = (time: number): string => {
-    //need to divide to 1000 as timestamp coming from BE is in ms
-    return moment.unix(time / 1000).format('MMMM Do, YYYY');
-};
 
 /**
  * Set specified time on moment object
@@ -105,10 +101,6 @@ export const daysFromTodayTo = (date?: string | moment.Moment) => {
  * @param  {String} date   the date to calculate number of days since
  * @return {Number} an integer of the number of days
  */
-export const daysSince = (date: string) => {
-    const diff = toMoment().startOf('day').diff(toMoment(date).startOf('day'), 'days');
-    return !date ? '' : diff;
-};
 
 /**
  * return the number of months between two specified dates
@@ -134,9 +126,6 @@ export const getDateFromNow = (
 };
 
 /** returns the DD MM YYYY format */
-export const getDateFromTimestamp = (timestamp: number) => {
-    return moment.unix(timestamp).format('DD MM YYYY');
-};
 
 /**
  * return formatted duration `2 days 01:23:59`
@@ -184,7 +173,6 @@ export const isMinuteValid = (time_str: string) => isTimeValid(time_str) && /^[0
  * return true if the date is typeof string and a valid moment date, else return false
  * @param {String|moment} date date
  */
-export const isDateValid = (date: moment.MomentInput) => moment(date, 'DD MMM YYYY').isValid();
 
 /**
  * add the specified number of days to the given date
@@ -199,7 +187,6 @@ export const addDays = (date: string | moment.Moment, num_of_days: number) =>
  * @param {String} date        date
  * @param {Number} num_of_weeks number of days to add
  */
-export const addWeeks = (date: string, num_of_weeks: number) => toMoment(date).clone().add(num_of_weeks, 'week');
 
 /**
  * add the specified number of months to the given date

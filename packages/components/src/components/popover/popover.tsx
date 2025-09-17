@@ -240,8 +240,8 @@ const Popover = ({
                                     {icon === 'dot' && (
                                         <StandaloneCircleFillIcon
                                             className={icon_class_name}
-                                            width={4}
-                                            height={4}
+                                            width={7}
+                                            height={6}
                                             fill='var(--color-status-danger)'
                                         />
                                     )}

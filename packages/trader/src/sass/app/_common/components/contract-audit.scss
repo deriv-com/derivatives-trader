@@ -153,4 +153,12 @@ $HEIGHT: calc(100vh - 34em);
             }
         }
     }
+    &__exit-time {
+        &--success rect {
+            fill: var(--color-text-success);
+        }
+        &--danger rect {
+            fill: var(--color-text-danger);
+        }
+    }
 }

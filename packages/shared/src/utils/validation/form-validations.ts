@@ -1,7 +1,4 @@
-import { EMPLOYMENT_VALUES } from '../constants';
-import { TEmploymentStatus } from '../types';
 import { TInitPreBuildDVRs, TOptions, getPreBuildDVRs } from './declarative-validation-rules';
-import fromEntries from 'object.fromentries';
 
 type TConfig = {
     default_value: string | boolean | number;
@@ -17,16 +14,14 @@ export type TSchema = { [key: string]: TConfig };
  * @param {string} landing_company
  * @param {object} schema
  */
-export const getDefaultFields = (landing_company: string, schema: TSchema | Record<string, never>) => {
+export const getDefaultFields = (_landing_company: string, schema: TSchema | Record<string, never>) => {
     const output: { [key: string]: string | number | boolean } = {};
-    Object.entries(filterByLandingCompany(landing_company, schema)).forEach(([field_name, opts]) => {
+    // Show all fields for maximum permissiveness (ROW/SVG behavior)
+    Object.entries(schema).forEach(([field_name, opts]) => {
         output[field_name] = opts.default_value;
     });
     return output;
 };
-
-export const filterByLandingCompany = (landing_company: string, schema: TSchema | Record<string, never>) =>
-    fromEntries(Object.entries(schema).filter(([, opts]) => opts.supported_in.includes(landing_company)));
 
 /**
  * Generate validation function for the landing_company
@@ -34,8 +29,9 @@ export const filterByLandingCompany = (landing_company: string, schema: TSchema 
  * @param schema
  * @return {function(*=): {}}
  */
-export const generateValidationFunction = (landing_company: string, schema: TSchema) => {
-    const rules_schema = landing_company ? filterByLandingCompany(landing_company, schema) : schema;
+export const generateValidationFunction = (_landing_company: string, schema: TSchema) => {
+    // Use full schema for maximum permissiveness (ROW/SVG behavior)
+    const rules_schema = schema;
     const rules: { [key: string]: TConfig['rules'] } = {};
     Object.entries(rules_schema).forEach(([key, opts]) => {
         rules[key] = opts.rules;
@@ -109,7 +105,3 @@ export const getValidationFunction = (rule: string) => {
     return (value: string, options: TOptions, values: Record<string, string | boolean>) =>
         !!func(value, options, values);
 };
-
-// Adding string as type because, employment_status can come from Personal details or Financial assessment.
-export const shouldHideOccupationField = (employment_status?: TEmploymentStatus | string) =>
-    EMPLOYMENT_VALUES.UNEMPLOYED === employment_status;

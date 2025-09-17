@@ -38,16 +38,15 @@
         }
     }
     &__content {
-        margin-top: 0.4rem;
+        margin-top: 4.8rem;
         box-sizing: border-box;
         position: relative;
-        padding-top: 3.6rem;
         z-index: 1;
         background: var(--color-surface-primary);
         transition: all 0.2s ease-out;
 
         &--is-full-height {
-            height: calc(100% - 0.4rem);
+            height: 100%;
         }
         > div {
             height: 100%;

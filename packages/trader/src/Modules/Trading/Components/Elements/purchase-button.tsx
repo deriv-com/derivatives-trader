@@ -54,7 +54,7 @@ const ButtonTextWrapper = ({ should_fade, is_loading, type, is_high_low }: TButt
 
 const IconComponentWrapper = ({ type }: { type: string }) => (
     <div className='btn-purchase__icon_wrapper'>
-        <IconTradeTypes type={type} className='btn-purchase__icon' color='var(--color-text-white)' iconSize='sm' />
+        <IconTradeTypes type={type} className='btn-purchase__icon' iconSize='sm' />
     </div>
 );
 

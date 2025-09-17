@@ -93,7 +93,6 @@ describe('getStatementTableColumnsTemplate', () => {
     it('should render cell content correctly', () => {
         const mockRow = {
             transaction_id: '12345',
-            app_id: 'test_app',
             action: 'buy',
         };
 

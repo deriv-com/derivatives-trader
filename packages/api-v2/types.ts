@@ -587,55 +587,6 @@ type TPrivateSocketEndpoints = {
             [k: string]: unknown;
         };
     };
-    cashier_withdrawal_cancel: {
-        request: {
-            /**
-             * Must be `1`
-             */
-            cashier_withdrawal_cancel: 1;
-            /**
-             * The unique identifier for the transaction.
-             */
-            id: string;
-            /**
-             * [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field. Maximum size is 3500 bytes.
-             */
-            passthrough?: {
-                [k: string]: unknown;
-            };
-            /**
-             * [Optional] Used to map request to response.
-             */
-            req_id?: number;
-        };
-        response: {
-            cashier_withdrawal_cancel?: {
-                /**
-                 * The unique identifier for the transaction.
-                 */
-                id: string;
-                /**
-                 * The status code of the cancellation.
-                 */
-                status_code: 'CANCELLED';
-            };
-            /**
-             * Echo of the request made.
-             */
-            echo_req: {
-                [k: string]: unknown;
-            };
-            /**
-             * Action name of the request made.
-             */
-            msg_type: 'cashier_withdrawal_cancel';
-            /**
-             * Optional field sent in request to map to response, present only when request contains `req_id`.
-             */
-            req_id?: number;
-            [k: string]: unknown;
-        };
-    };
     get_account_types: {
         request: {
             /**
@@ -1331,7 +1282,7 @@ type TPrivateSocketEndpoints = {
              */
             platform: 'mt5';
             /**
-             * Email verification code (received from a `verify_email` call, which must be done first)
+             * Email verification code (must be obtained through alternative verification methods)
              */
             verification_code: string;
             /**
@@ -1694,216 +1645,6 @@ type TPrivateSocketEndpoints = {
             [k: string]: unknown;
         };
     };
-    trading_platform_accounts: {
-        request: {
-            /**
-             * Must be `1`
-             */
-            trading_platform_accounts: 1;
-            /**
-             * Trading platform name
-             */
-            platform: 'dxtrade' | 'mt5' | 'ctrader';
-            /**
-             * [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field.
-             */
-            passthrough?: {
-                [k: string]: unknown;
-            };
-            /**
-             * [Optional] Used to map request to response.
-             */
-            req_id?: number;
-        };
-        response: {
-            /**
-             * Array containing Trading account objects.
-             */
-            trading_platform_accounts?: {
-                /**
-                 * ID of Trading account.
-                 */
-                account_id?: string;
-                /**
-                 * Account type.
-                 */
-                account_type?: 'demo' | 'real';
-                /**
-                 * Balance of the Trading account.
-                 */
-                balance?: null | number;
-                /**
-                 * Residence of the MT5 account.
-                 */
-                country?: string;
-                /**
-                 * Currency of the Trading account.
-                 */
-                currency?: string;
-                /**
-                 * Account balance, formatted to appropriate decimal places.
-                 */
-                display_balance?: null | string;
-                /**
-                 * Email address of the MT5 account.
-                 */
-                email?: string;
-                /**
-                 * Account enabled status
-                 */
-                enabled?: number;
-                /**
-                 * Error in MT5 account details.
-                 */
-                error?: {
-                    /**
-                     * Error code string.
-                     */
-                    code?: string;
-                    /**
-                     * Extra information about the error.
-                     */
-                    details?: {
-                        /**
-                         * MT5 account type.
-                         */
-                        account_type?: string;
-                        /**
-                         * MT5 account login ID.
-                         */
-                        login?: string;
-                        /**
-                         * Trade server name of the MT5 account.
-                         */
-                        server?: string;
-                        /**
-                         * Trade server information.
-                         */
-                        server_info?: {
-                            /**
-                             * The environment. E.g. Deriv-Server.
-                             */
-                            environment?: 'Deriv-Demo' | 'Deriv-Server' | 'Deriv-Server-02';
-                            /**
-                             * Geographical location of the server.
-                             */
-                            geolocation?: {
-                                /**
-                                 * Internal server grouping.
-                                 */
-                                group?: string;
-                                /**
-                                 * Sever location.
-                                 */
-                                location?: string;
-                                /**
-                                 * Sever region.
-                                 */
-                                region?: string;
-                                /**
-                                 * Sever sequence.
-                                 */
-                                sequence?: number;
-                            };
-                            /**
-                             * Server id.
-                             */
-                            id?: string;
-                        };
-                    };
-                    /**
-                     * Error message.
-                     */
-                    message_to_client?: string;
-                };
-                /**
-                 * Group type of the MT5 account, e.g. `demo\svg_financial`
-                 */
-                group?: string;
-                /**
-                 * Landing company shortcode of the Trading account.
-                 */
-                landing_company_short?: 'bvi' | 'labuan' | 'malta' | 'maltainvest' | 'svg' | 'vanuatu' | 'seychelles';
-                /**
-                 * Leverage of the MT5 account (1 to 1000).
-                 */
-                leverage?: number;
-                /**
-                 * Login name used to log in into Trading platform
-                 */
-                login?: string;
-                /**
-                 * Market type
-                 */
-                market_type?: 'financial' | 'synthetic' | 'all';
-                /**
-                 * Name of the owner of the MT5 account.
-                 */
-                name?: string;
-                /**
-                 * Name of trading platform.
-                 */
-                platform?: 'dxtrade' | 'mt5' | 'ctrader';
-                /**
-                 * Trade server name of the MT5 account.
-                 */
-                server?: string;
-                /**
-                 * Trade server information.
-                 */
-                server_info?: {
-                    /**
-                     * The environment. E.g. Deriv-Server.
-                     */
-                    environment?: 'Deriv-Demo' | 'Deriv-Server' | 'Deriv-Server-02';
-                    /**
-                     * Geographical location of the server.
-                     */
-                    geolocation?: {
-                        /**
-                         * Internal server grouping.
-                         */
-                        group?: string;
-                        /**
-                         * Sever location.
-                         */
-                        location?: string;
-                        /**
-                         * Sever region.
-                         */
-                        region?: string;
-                        /**
-                         * Sever sequence.
-                         */
-                        sequence?: number;
-                    };
-                    /**
-                     * Server id.
-                     */
-                    id?: string;
-                };
-                /**
-                 * Sub account type
-                 */
-                sub_account_type?: 'financial' | 'financial_stp';
-            }[];
-            /**
-             * Echo of the request made.
-             */
-            echo_req: {
-                [k: string]: unknown;
-            };
-            /**
-             * Action name of the request made.
-             */
-            msg_type: 'trading_platform_accounts';
-            /**
-             * Optional field sent in request to map to response, present only when request contains `req_id`.
-             */
-            req_id?: number;
-            [k: string]: unknown;
-        };
-    };
     account_closure: {
         request: {
             /**
@@ -1999,174 +1740,6 @@ type TPrivateSocketEndpoints = {
         req_id?: number;
         [k: string]: unknown;
     };
-    notification_event: {
-        request: {
-            /**
-             * Must be `1`
-             */
-            notification_event: 1;
-            /**
-             * Event arguments.
-             */
-            args?: {
-                /**
-                 * (Optional- for `poi_documents_uploaded` only) An array of onfido document ids intended to be included in the poi check.
-                 */
-                documents?: string[];
-            };
-            /**
-             * The category or nature of the event.
-             */
-            category: 'authentication';
-            /**
-             * The name of the event.
-             */
-            event: 'poi_documents_uploaded';
-            /**
-             * [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field. Maximum size is 3500 bytes.
-             */
-            passthrough?: {
-                [k: string]: unknown;
-            };
-            /**
-             * [Optional] Used to map request to response.
-             */
-            req_id?: number;
-            [k: string]: unknown;
-        };
-        response: {
-            /**
-             * `1`: all actions finished successfully, `0`: at least one or more actions failed.
-             */
-            notification_event: 0 | 1;
-            /**
-             * Echo of the request made.
-             */
-            echo_req: {
-                [k: string]: unknown;
-            };
-            /**
-             * Action name of the request made.
-             */
-            msg_type: 'notification_event';
-            /**
-             * [Optional] Used to map request to response.
-             */
-            req_id?: number;
-        };
-    };
-    trading_platform_deposit: {
-        request: {
-            /**
-             * Must be `1`
-             */
-            trading_platform_deposit: 1;
-            /**
-             * Amount to deposit (in the currency of from_wallet).
-             */
-            amount?: number;
-            /**
-             * Wallet account to transfer money from.
-             */
-            from_account?: string;
-            /**
-             * Name of trading platform.
-             */
-            platform: 'dxtrade' | 'derivez' | 'ctrader';
-            /**
-             * Trading account login to deposit money to.
-             */
-            to_account: string;
-            /**
-             * [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field. Maximum size is 3500 bytes.
-             */
-            passthrough?: {
-                [k: string]: unknown;
-            };
-            /**
-             * [Optional] Used to map request to response.
-             */
-            req_id?: number;
-        };
-        response: {
-            trading_platform_deposit?:
-                | {
-                      /**
-                       * The reference number for the related deposit to the trading account
-                       */
-                      transaction_id?: number;
-                      [k: string]: unknown;
-                  }
-                | 1;
-        };
-        /**
-         * Echo of the request made.
-         */
-        echo_req: {
-            [k: string]: unknown;
-        };
-        /**
-         * Action name of the request made.
-         */
-        msg_type: 'trading_platform_deposit';
-        /**
-         * Optional field sent in request to map to response, present only when request contains `req_id`.
-         */
-        req_id?: number;
-        [k: string]: unknown;
-    };
-    mt5_deposit: {
-        request: {
-            /**
-             * Must be `1`
-             */
-            mt5_deposit: 1;
-            /**
-             * Amount to deposit (in the currency of from_binary); min = $1 or an equivalent amount, max = $20000 or an equivalent amount
-             */
-            amount?: number;
-            /**
-             * Binary account loginid to transfer money from
-             */
-            from_binary?: string;
-            /**
-             * MT5 account login to deposit money to
-             */
-            to_mt5: string;
-            /**
-             * [Optional] Used to pass data through the websocket, which may be retrieved via the `echo_req` output field. Maximum size is 3500 bytes.
-             */
-            passthrough?: {
-                [k: string]: unknown;
-            };
-            /**
-             * [Optional] Used to map request to response.
-             */
-            req_id?: number;
-        };
-        response: {
-            mt5_deposit?: number;
-            /**
-             * Withdrawal reference ID of Binary account
-             */
-            binary_transaction_id?: number;
-        };
-        /**
-         * Echo of the request made.
-         */
-        echo_req: {
-            [k: string]: unknown;
-        };
-        /**
-         * Action name of the request made.
-         */
-        msg_type: 'mt5_deposit';
-        /**
-         * Optional field sent in request to map to response, present only when request contains `req_id`.
-         */
-        req_id?: number;
-        [k: string]: unknown;
-    };
     kyc_auth_status: {
         request: {
             /**
@@ -2240,18 +1813,6 @@ type TWhiteLabelLinks = {
     };
 };
 
-type TExtendedMT5AccounListType = NonNullable<MT5AccountsListResponse['mt5_login_list']>[number] & {
-    white_label_links: TWhiteLabelLinks['white_label_links'];
-    /**
-     * Product Type
-     */
-    product?: 'zero_spread' | 'swap_free' | 'standard' | 'financial';
-};
-
-type MT5AccountListResponse = {
-    mt5_login_list?: TExtendedMT5AccounListType[];
-};
-
 type TExtendTransferAccount = NonNullable<TransferBetweenAccountsResponse['accounts']>[number] & {
     /**
      * Product Type
@@ -2271,12 +1832,7 @@ type TradingPlatformStatusRequest = {
 
 type TradingPlatformStatusResponse = {
     trading_platform_status: {
-        platform: Exclude<
-            NonNullable<
-                TSocketEndpoints['trading_platform_accounts']['response']['trading_platform_accounts']
-            >[0]['platform'],
-            undefined
-        >;
+        platform: 'dxtrade' | 'mt5' | 'ctrader';
         status: 'active' | 'maintenance' | 'unavailable';
     }[];
 };
@@ -2390,17 +1946,9 @@ type TSocketEndpoints = {
         request: CryptocurrencyEstimationsRequest;
         response: CryptocurrencyEstimationsResponse;
     };
-    document_upload: {
-        request: DocumentUploadRequest;
-        response: DocumentUploadResponse;
-    };
     economic_calendar: {
         request: EconomicCalendarRequest;
         response: EconomicCalendarResponse;
-    };
-    exchange_rates: {
-        request: ExchangeRatesRequest;
-        response: ExchangeRatesResponse;
     };
     forget_all: {
         request: ForgetAllRequest;
@@ -2438,14 +1986,6 @@ type TSocketEndpoints = {
         request: LandingCompanyDetailsRequest;
         response: LandingCompanyDetailsResponse;
     };
-    landing_company: {
-        // TODO: Fix typings of this endpoint, because landing_company payload should be a string instead of LandingCompany interface
-        request: Omit<LandingCompanyRequest, 'landing_company'> & {
-            /** Client's 2-letter country code (obtained from `residence_list` call). */
-            landing_company: string;
-        };
-        response: LandingCompanyResponse;
-    };
     login_history: {
         request: LoginHistoryRequest;
         response: LoginHistoryResponse;
@@ -2454,17 +1994,9 @@ type TSocketEndpoints = {
         request: LogOutRequest;
         response: LogOutResponse;
     };
-    mt5_deposit: {
-        request: MT5DepositRequest;
-        response: MT5DepositResponse;
-    };
     mt5_get_settings: {
         request: MT5GetSettingRequest;
         response: MT5GetSettingResponse;
-    };
-    mt5_login_list: {
-        request: MT5AccountsListRequest;
-        response: MT5AccountListResponse;
     };
     mt5_new_account: {
         request: MT5NewAccountRequest;
@@ -2481,10 +2013,6 @@ type TSocketEndpoints = {
     mt5_password_reset: {
         request: MT5PasswordResetRequest;
         response: MT5PasswordResetResponse;
-    };
-    mt5_withdrawal: {
-        request: MT5WithdrawalRequest;
-        response: MT5WithdrawalResponse;
     };
     new_account_maltainvest: {
         request: NewRealMoneyAccountDerivInvestmentEuropeLtdRequest;
@@ -2570,10 +2098,6 @@ type TSocketEndpoints = {
         request: P2POrderDisputeRequest;
         response: P2POrderDisputeResponse;
     };
-    p2p_order_info: {
-        request: P2POrderInformationRequest;
-        response: P2POrderInformationResponse;
-    };
     p2p_order_list: {
         request: P2POrderListRequest;
         response: P2POrderListResponse;
@@ -2618,10 +2142,6 @@ type TSocketEndpoints = {
         request: PaymentAgentWithdrawJustificationRequest;
         response: PaymentAgentWithdrawJustificationResponse;
     };
-    payout_currencies: {
-        request: PayoutCurrenciesRequest;
-        response: PayoutCurrenciesResponse;
-    };
     ping: {
         request: PingRequest;
         response: PingResponse;
@@ -2645,10 +2165,6 @@ type TSocketEndpoints = {
     reality_check: {
         request: RealityCheckRequest;
         response: RealityCheckResponse;
-    };
-    residence_list: {
-        request: CountriesListRequest;
-        response: CountriesListResponse;
     };
     revoke_oauth_app: {
         request: RevokeOauthApplicationRequest;
@@ -2686,10 +2202,6 @@ type TSocketEndpoints = {
         request: StatementRequest;
         response: StatementResponse;
     };
-    states_list: {
-        request: StatesListRequest;
-        response: StatesListResponse;
-    };
     ticks_history: {
         request: TicksHistoryRequest;
         response: TicksHistoryResponse;
@@ -2701,10 +2213,6 @@ type TSocketEndpoints = {
     time: {
         request: ServerTimeRequest;
         response: ServerTimeResponse;
-    };
-    tnc_approval: {
-        request: TermsAndConditionsApprovalRequest;
-        response: TermsAndConditionsApprovalResponse;
     };
     topup_virtual: {
         request: TopUpVirtualMoneyAccountRequest;
@@ -2746,25 +2254,11 @@ type TSocketEndpoints = {
         request: UnsubscribeEmailRequest;
         response: UnsubscribeEmailResponse;
     };
-    verify_email_cellxpert: {
-        request: VerifyEmailCellxpertRequest;
-        response: VerifyEmailCellxpertResponse;
-    };
-    verify_email: {
-        request: VerifyEmailRequest;
-        response: VerifyEmailResponse;
-    };
-    website_status: {
-        request: ServerStatusRequest;
-        response: ServerStatusResponse;
-    };
 } & TPrivateSocketEndpoints;
 
 export type TSocketEndpointNames = keyof TSocketEndpoints;
 
-export type TSocketSubscribableEndpointNames =
-    | KeysMatching<TSocketEndpoints, { request: { subscribe?: number } }>
-    | 'exchange_rates';
+export type TSocketSubscribableEndpointNames = KeysMatching<TSocketEndpoints, { request: { subscribe?: number } }>;
 
 export type TSocketResponse<T extends TSocketEndpointNames> = TSocketEndpoints[T]['response'];
 
@@ -2821,18 +2315,19 @@ export type TSocketPaginatateableRequestCleaned<T extends TSocketPaginateableEnd
 };
 
 export type TSocketRequestPayload<
-    T extends TSocketEndpointNames | TSocketPaginateableEndpointNames = TSocketEndpointNames
-> = Partial<TSocketRequestCleaned<T>> extends TSocketRequestCleaned<T>
-    ? {
-          payload?: T extends TSocketPaginateableEndpointNames
-              ? TSocketPaginatateableRequestCleaned<T>
-              : TSocketRequestCleaned<T>;
-      }
-    : {
-          payload: T extends TSocketPaginateableEndpointNames
-              ? TSocketPaginatateableRequestCleaned<T>
-              : TSocketRequestCleaned<T>;
-      };
+    T extends TSocketEndpointNames | TSocketPaginateableEndpointNames = TSocketEndpointNames,
+> =
+    Partial<TSocketRequestCleaned<T>> extends TSocketRequestCleaned<T>
+        ? {
+              payload?: T extends TSocketPaginateableEndpointNames
+                  ? TSocketPaginatateableRequestCleaned<T>
+                  : TSocketRequestCleaned<T>;
+          }
+        : {
+              payload: T extends TSocketPaginateableEndpointNames
+                  ? TSocketPaginatateableRequestCleaned<T>
+                  : TSocketRequestCleaned<T>;
+          };
 
 export type TSocketRequestQueryOptions<T extends TSocketEndpointNames> = Parameters<
     typeof useQuery<TSocketResponseData<T>, TSocketError<T>>
@@ -2849,7 +2344,7 @@ export type TSocketRequestMutationOptions<T extends TSocketEndpointNames> = Para
 type TSocketRequestWithOptions<
     T extends TSocketEndpointNames,
     O extends boolean = false,
-    OT extends 'useQuery' | 'useInfiniteQuery' = 'useQuery'
+    OT extends 'useQuery' | 'useInfiniteQuery' = 'useQuery',
 > = Omit<
     TSocketRequestPayload<T> & {
         options?: OT extends 'useQuery' ? TSocketRequestQueryOptions<T> : TSocketRequestInfiniteQueryOptions<T>;
@@ -2864,18 +2359,19 @@ type TNever<T> = T extends Record<string, never> ? never : T;
 type TSocketRequestProps<
     T extends TSocketEndpointNames,
     O extends boolean = false,
-    OT extends 'useQuery' | 'useInfiniteQuery' = 'useQuery'
+    OT extends 'useQuery' | 'useInfiniteQuery' = 'useQuery',
 > = TNever<TSocketRequestWithOptions<T, O, OT>>;
 
 export type TSocketAcceptableProps<
     T extends TSocketEndpointNames,
     O extends boolean = false,
-    OT extends 'useQuery' | 'useInfiniteQuery' = 'useQuery'
-> = TSocketRequestProps<T, O, OT> extends never
-    ? [undefined?]
-    : Partial<TSocketRequestProps<T, O, OT>> extends TSocketRequestProps<T, O, OT>
-    ? [TSocketRequestProps<T, O, OT>?]
-    : [TSocketRequestProps<T, O, OT>];
+    OT extends 'useQuery' | 'useInfiniteQuery' = 'useQuery',
+> =
+    TSocketRequestProps<T, O, OT> extends never
+        ? [undefined?]
+        : Partial<TSocketRequestProps<T, O, OT>> extends TSocketRequestProps<T, O, OT>
+          ? [TSocketRequestProps<T, O, OT>?]
+          : [TSocketRequestProps<T, O, OT>];
 
 export type TSocketPaginateableEndpointNames = KeysMatching<
     TSocketEndpoints,

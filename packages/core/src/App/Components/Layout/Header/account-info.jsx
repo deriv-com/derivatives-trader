@@ -10,7 +10,7 @@ import { useDevice } from '@deriv-com/ui';
 import AccountInfoIcon from './account-info-icon';
 import AccountInfoWrapper from './account-info-wrapper';
 
-const AccountInfo = ({ acc_switcher_disabled_message, balance, currency, is_virtual, is_disabled, is_mobile }) => {
+const AccountInfo = ({ balance, currency, is_virtual, is_mobile }) => {
     const { localize } = useTranslations();
     const currency_lower = currency?.toLowerCase();
     const { isDesktop } = useDevice();
@@ -18,17 +18,12 @@ const AccountInfo = ({ acc_switcher_disabled_message, balance, currency, is_virt
     return (
         <div className='acc-info__wrapper'>
             {isDesktop && <div className='acc-info__separator' />}
-            <AccountInfoWrapper
-                is_disabled={is_disabled}
-                disabled_message={acc_switcher_disabled_message}
-                is_mobile={is_mobile}
-            >
+            <AccountInfoWrapper is_mobile={is_mobile}>
                 <div
                     data-testid='dt_acc_info'
                     id='dt_core_account-info_acc-info'
                     className={classNames('acc-info', {
                         'acc-info--is-virtual': is_virtual,
-                        'acc-info--is-disabled': is_disabled,
                     })}
                 >
                     <span className='acc-info__id'>
@@ -71,13 +66,10 @@ const AccountInfo = ({ acc_switcher_disabled_message, balance, currency, is_virt
 };
 
 AccountInfo.propTypes = {
-    acc_switcher_disabled_message: PropTypes.string,
     balance: PropTypes.string,
     currency: PropTypes.string,
-    is_disabled: PropTypes.bool,
     is_virtual: PropTypes.bool,
     is_mobile: PropTypes.bool,
-    loginid: PropTypes.string,
 };
 
 export default AccountInfo;

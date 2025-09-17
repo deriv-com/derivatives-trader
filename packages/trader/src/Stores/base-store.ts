@@ -424,8 +424,6 @@ export default class BaseStore {
         this.real_account_signup_ended_listener = listener;
     }
 
-    // Removed account switching dispose methods - not needed for trading-only app
-
     disposeLogout() {
         if (typeof this.logoutDisposer === 'function') {
             this.logoutDisposer();

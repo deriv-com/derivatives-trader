@@ -1,45 +1,80 @@
 import { logError } from '../logging';
-import { datadogRum } from '@datadog/browser-rum';
+import { TrackJS } from 'trackjs';
 
-jest.mock('@datadog/browser-rum', () => ({
-    datadogRum: {
-        addError: jest.fn(),
+jest.mock('trackjs', () => ({
+    TrackJS: {
+        isInstalled: jest.fn(),
+        track: jest.fn(),
+        console: {
+            log: jest.fn(),
+        },
     },
 }));
 
 describe('logError', () => {
+    const mockTrackJS = TrackJS as jest.Mocked<typeof TrackJS>;
+
     beforeEach(() => {
         jest.clearAllMocks();
-        (window as any).TrackJS = undefined;
-        (window as any).DD_RUM = undefined;
+        mockTrackJS.isInstalled.mockReturnValue(true);
     });
 
-    it('should log to TrackJS and datadog when available', () => {
-        const trackSpy = jest.fn();
-        (window as any).TrackJS = { track: trackSpy };
-        (datadogRum.addError as jest.Mock).mockImplementation(() => {});
+    it('should track error and log context when TrackJS is installed', () => {
+        const testMessage = 'test error message';
+        const testData = { foo: 'bar', userId: '123' };
 
-        logError('test message', { foo: 'bar' });
+        logError(testMessage, testData);
 
-        expect(trackSpy).toHaveBeenCalledWith({ message: 'test message', foo: 'bar' });
-        expect(datadogRum.addError).toHaveBeenCalledWith('test message', { extra: { foo: 'bar' } });
+        expect(mockTrackJS.isInstalled).toHaveBeenCalled();
+        expect(mockTrackJS.track).toHaveBeenCalledWith(new Error(testMessage));
+        expect(mockTrackJS.console.log).toHaveBeenCalledWith('logError called:', {
+            message: testMessage,
+            ...testData,
+        });
     });
 
-    it('should fallback to window.DD_RUM when datadogRum is unavailable', () => {
-        const ddRumAddError = jest.fn();
-        // @ts-ignore - modify mocked module
-        datadogRum.addError = undefined;
-        (window as any).DD_RUM = { addError: ddRumAddError };
+    it('should handle empty data object', () => {
+        const testMessage = 'test error without data';
 
-        logError('another message');
+        logError(testMessage);
 
-        expect(ddRumAddError).toHaveBeenCalledWith('another message', { extra: {} });
+        expect(mockTrackJS.track).toHaveBeenCalledWith(new Error(testMessage));
+        expect(mockTrackJS.console.log).toHaveBeenCalledWith('logError called:', {
+            message: testMessage,
+        });
     });
 
-    it('should not throw if no logging clients are available', () => {
-        // @ts-ignore - modify mocked module
-        datadogRum.addError = undefined;
+    it('should not track when TrackJS is not installed', () => {
+        mockTrackJS.isInstalled.mockReturnValue(false);
 
-        expect(() => logError('no clients')).not.toThrow();
+        logError('test message');
+
+        expect(mockTrackJS.isInstalled).toHaveBeenCalled();
+        expect(mockTrackJS.track).not.toHaveBeenCalled();
+        expect(mockTrackJS.console.log).not.toHaveBeenCalled();
+    });
+
+    it('should handle TrackJS errors gracefully', () => {
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+        mockTrackJS.track.mockImplementation(() => {
+            throw new Error('TrackJS error');
+        });
+
+        expect(() => logError('test message')).not.toThrow();
+        expect(consoleSpy).toHaveBeenCalledWith('Failed to log error with TrackJS:', expect.any(Error));
+
+        consoleSpy.mockRestore();
+    });
+
+    it('should handle TrackJS.console.log errors gracefully', () => {
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+        (mockTrackJS.console.log as jest.Mock).mockImplementation(() => {
+            throw new Error('TrackJS console error');
+        });
+
+        expect(() => logError('test message')).not.toThrow();
+        expect(consoleSpy).toHaveBeenCalledWith('Failed to log error with TrackJS:', expect.any(Error));
+
+        consoleSpy.mockRestore();
     });
 });

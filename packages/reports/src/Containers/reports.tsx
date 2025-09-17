@@ -1,6 +1,5 @@
 import React from 'react';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
-
+import { RouteComponentProps } from 'react-router-dom';
 import { Div100vhContainer, FadeWrapper, Loading, PageOverlay, SelectNative, VerticalTab } from '@deriv/components';
 import { getSelectedRoute } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
@@ -23,7 +22,7 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     const { client, common, ui } = useStore();
 
     const { is_logged_in, is_logging_in } = client;
-    const { is_from_derivgo, routeBackInApp } = common;
+    const { routeBackInApp } = common;
     const { is_reports_visible, setReportsTabIndex, toggleReports } = ui;
     const { isDesktop } = useDevice();
 
@@ -72,7 +71,7 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     return (
         <FadeWrapper is_visible={is_reports_visible} className='reports-page-wrapper' keyname='reports-page-wrapper'>
             <div className='reports'>
-                <PageOverlay header={localize('Reports')} onClickClose={onClickClose} is_from_app={is_from_derivgo}>
+                <PageOverlay header={localize('Reports')} onClickClose={onClickClose}>
                     {isDesktop ? (
                         <VerticalTab
                             is_floating

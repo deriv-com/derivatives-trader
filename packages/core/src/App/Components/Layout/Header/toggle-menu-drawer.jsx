@@ -2,24 +2,21 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { /* useOauth2, */ useRemoteConfig } from '@deriv/api';
+import { useRemoteConfig } from '@deriv/api';
 import { Div100vhContainer, MobileDrawer, ToggleSwitch } from '@deriv/components';
 import {
     LegacyChartsIcon,
     LegacyChevronRight1pxIcon,
     LegacyHelpCentreIcon,
     LegacyHomeNewIcon,
-    LegacyLogout1pxIcon,
+    // LegacyLogout1pxIcon,
     LegacyMenuHamburger1pxIcon,
     LegacyRegulatoryInformationIcon,
     LegacyResponsibleTradingIcon,
     LegacyTheme1pxIcon,
 } from '@deriv/quill-icons';
-// eslint-disable-next-line no-unused-vars -- getDomainUrl kept for future handleTradershubRedirect restoration
 import { getBrandHomeUrl, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-// eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of Analytics functionality
-import { Analytics } from '@deriv-com/analytics';
 import { useTranslations } from '@deriv-com/translations';
 
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of LiveChat functionality
@@ -44,7 +41,7 @@ const ToggleMenuDrawer = observer(() => {
         setDarkMode: toggleTheme,
         setMobileLanguageMenuOpen,
     } = ui;
-    const { is_logged_in, is_virtual, logout: logoutClient, is_eu } = client;
+    const { is_logged_in, is_virtual, /*logout: logoutClient,*/ is_eu } = client;
     const { show_eu_related_content } = traders_hub;
 
     const { pathname: route } = useLocation();
@@ -52,8 +49,7 @@ const ToggleMenuDrawer = observer(() => {
     const should_show_regulatory_information = is_eu && show_eu_related_content && !is_virtual;
 
     const { data } = useRemoteConfig(true);
-    // eslint-disable-next-line no-unused-vars -- Variables kept for future LiveChat/WhatsApp restoration
-    const { cs_chat_livechat, cs_chat_whatsapp } = data;
+    const { cs_chat_intercom, cs_chat_whatsapp } = data;
 
     const [is_open, setIsOpen] = React.useState(false);
     const [transitionExit, setTransitionExit] = React.useState(false);
@@ -86,12 +82,10 @@ const ToggleMenuDrawer = observer(() => {
     }, [setIsSubmenuExpanded, is_open, is_mobile_language_menu_open, setMobileLanguageMenuOpen]);
 
     // Simple logout handler that closes drawer and calls logout
-    const handleLogout = React.useCallback(async () => {
-        toggleDrawer();
-        await logoutClient();
-    }, [logoutClient, toggleDrawer]);
-
-    // const { oAuthLogout } = useOauth2({ handleLogout });
+    // const handleLogout = React.useCallback(async () => {
+    //     toggleDrawer();
+    //     await logoutClient();
+    // }, [logoutClient, toggleDrawer]);
 
     const renderSubMenuFromConfig = routePath => {
         const routes_config = getRoutesConfig();
@@ -246,21 +240,21 @@ const ToggleMenuDrawer = observer(() => {
                                 {/* {showHelpCentre()} */}
                                 {/* {showResponsibleTrading()} */}
                                 {/* {showRegulatoryInformation()} */}
-                                {/* {cs_chat_whatsapp && (
+                                {cs_chat_whatsapp && (
                                     <MobileDrawer.Item className='header__menu-mobile-whatsapp'>
                                         <WhatsApp onClick={toggleDrawer} />
                                     </MobileDrawer.Item>
                                 )}
-                                {cs_chat_livechat && (
+                                {cs_chat_intercom && (
                                     <MobileDrawer.Item className='header__menu-mobile-livechat'>
                                         <LiveChat />
                                     </MobileDrawer.Item>
-                                )} */}
-                                {is_logged_in && (
+                                )}
+                                {/* {is_logged_in && (
                                     <MobileDrawer.Item onClick={handleLogout}>
                                         <MenuLink icon={<LegacyLogout1pxIcon />} text={localize('Log out')} />
                                     </MobileDrawer.Item>
-                                )}
+                                )} */}
                             </MobileDrawer.Body>
                             <MobileDrawer.Footer className={is_logged_in ? 'dc-mobile-drawer__footer--servertime' : ''}>
                                 <ServerTime is_mobile />

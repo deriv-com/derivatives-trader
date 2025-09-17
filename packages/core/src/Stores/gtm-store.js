@@ -1,13 +1,14 @@
-import * as Cookies from 'js-cookie';
 import { action, computed, makeObservable } from 'mobx';
-import { getAppId, toMoment, epochToMoment } from '@deriv/shared';
+
+import { epochToMoment, getPlatformHostname, getPlatformName, toMoment } from '@deriv/shared';
 import { getInitialLanguage } from '@deriv-com/translations';
-import BinarySocket from '_common/base/socket_base';
+
 import BaseStore from './base-store';
 
+import BinarySocket from '_common/base/socket_base';
+
 export default class GTMStore extends BaseStore {
-    is_gtm_applicable =
-        window.location.hostname === 'deriv-app.binary.sx' || /^(16303|16929|19111|19112)$/.test(getAppId());
+    is_gtm_applicable = window.location.hostname === getPlatformHostname();
 
     constructor(root_store) {
         super({ root_store });
@@ -15,14 +16,9 @@ export default class GTMStore extends BaseStore {
         makeObservable(this, {
             visitorId: computed,
             common_variables: computed,
-            accountSwitcherListener: action.bound,
             pushDataLayer: action.bound,
             pushTransactionData: action.bound,
-            eventHandler: action.bound,
-            setLoginFlag: action.bound,
         });
-
-        this.onSwitchAccount(this.accountSwitcherListener);
     }
 
     get visitorId() {
@@ -35,21 +31,6 @@ export default class GTMStore extends BaseStore {
      * @returns {object}
      */
     get common_variables() {
-        const platform = () => {
-            const url = new URL(window.location.href);
-            const domain = url.hostname;
-
-            // TODO: [app-link-refactor] - Remove backwards compatibility for `deriv.app`
-            if (
-                /^(deriv-app\.binary.sx|app\.deriv\.com|staging-app\.deriv\.com|deriv.app|staging.deriv.app|localhost.binary.sx)$/.test(
-                    domain
-                )
-            ) {
-                return 'DTrader';
-            }
-            return 'undefined';
-        };
-
         return {
             language: getInitialLanguage(),
             ...(this.root_store.client.is_logged_in && {
@@ -60,12 +41,8 @@ export default class GTMStore extends BaseStore {
             }),
             loggedIn: this.root_store.client.is_logged_in,
             theme: this.root_store.ui.is_dark_mode_on ? 'dark' : 'light',
-            platform: platform(),
+            platform: getPlatformName(),
         };
-    }
-
-    accountSwitcherListener() {
-        return new Promise(resolve => resolve(this.pushDataLayer({ event: 'account switch' })));
     }
 
     /**
@@ -127,50 +104,6 @@ export default class GTMStore extends BaseStore {
             gtm_transactions.timestamp = gtm_transactions.timestamp || moment_now.unix();
 
             localStorage.setItem(storage_key, JSON.stringify(gtm_transactions));
-        }
-    }
-
-    eventHandler(get_settings) {
-        if (!this.is_gtm_applicable) return;
-
-        const login_event = localStorage.getItem('GTM_login');
-        const is_new_account = localStorage.getItem('GTM_new_account') === '1';
-
-        localStorage.removeItem('GTM_login');
-        localStorage.removeItem('GTM_new_account');
-
-        const affiliate_token = Cookies.getJSON('affiliate_tracking');
-        if (affiliate_token) {
-            this.pushDataLayer({ affiliate_token });
-        }
-
-        // Get current time (moment, set by server), else fallback to client time
-        const moment_now = toMoment();
-        const data = {
-            visitorId: this.visitorId,
-            account_type: this.root_store.client.account_type,
-            currency: this.root_store.client.currency,
-            country: get_settings.country,
-            country_abbrev: get_settings.country_code,
-            email: get_settings.email,
-            url: window.location.href,
-            today: moment_now.unix(),
-        };
-
-        if (is_new_account) {
-            data.event = 'new_account';
-            data.bom_date_joined = data.bom_today;
-        }
-
-        if (login_event) {
-            data.event = login_event;
-        }
-        this.pushDataLayer(data);
-    }
-
-    setLoginFlag(event_name) {
-        if (this.is_gtm_applicable && event_name) {
-            localStorage.setItem('GTM_login', event_name);
         }
     }
 }

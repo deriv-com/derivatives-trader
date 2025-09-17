@@ -52,7 +52,7 @@ export default class WSClient {
         if (!this.ws) {
             return Promise.reject(new Error('WS is not set'));
         }
-        return request(this.ws, name, payload).then((response: TSocketResponse<TSocketEndpointNames>) => {
+        return request(this.ws, name, payload as any).then((response: TSocketResponse<T>) => {
             if ('msg_type' in response && response.msg_type === 'authorize') {
                 this.onWebsocketAuthorized();
             }

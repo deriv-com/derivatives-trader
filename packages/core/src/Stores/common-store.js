@@ -1,17 +1,7 @@
 import * as SocketCache from '_common/base/socket_cache';
-import { action, computed, makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { getAllowedLanguages, getInitialLanguage } from '@deriv-com/translations';
-import {
-    UNSUPPORTED_LANGUAGES,
-    getAppId,
-    getUrlSmartTrader,
-    initMoment,
-    setLocale,
-    isMobile,
-    platforms,
-    routes,
-    toMoment,
-} from '@deriv/shared';
+import { UNSUPPORTED_LANGUAGES, initMoment, setLocale, isMobile, routes, toMoment } from '@deriv/shared';
 import BaseStore from './base-store';
 import BinarySocket from '_common/base/socket_base';
 import ServerTime from '_common/base/server_time';
@@ -24,19 +14,15 @@ export default class CommonStore extends BaseStore {
         makeObservable(this, {
             addRouteHistoryItem: action.bound,
             allowed_languages: observable,
-            app_id: observable,
             app_router: observable,
             app_routing_history: observable,
             changeCurrentLanguage: action.bound,
             changeSelectedLanguage: action.bound,
             changing_language_timer_id: observable,
-            checkAppId: action.bound,
             current_language: observable,
-            deposit_url: observable,
             error: observable,
             has_error: observable,
             init: action.bound,
-            is_from_derivgo: computed,
             is_language_changing: observable,
             is_network_online: observable,
             is_socket_opened: observable,
@@ -49,7 +35,6 @@ export default class CommonStore extends BaseStore {
             services_error: observable,
             setAppRouterHistory: action.bound,
             setAppstorePlatform: action.bound,
-            setDepositURL: action.bound,
             setError: action.bound,
             setInitialRouteHistoryItem: action.bound,
             setIsSocketOpened: action.bound,
@@ -67,12 +52,10 @@ export default class CommonStore extends BaseStore {
     }
 
     allowed_languages = Object.keys(getAllowedLanguages(UNSUPPORTED_LANGUAGES));
-    app_id = undefined;
     app_router = { history: null };
     app_routing_history = [];
     changing_language_timer_id = '';
     current_language = getInitialLanguage();
-    deposit_url = '';
     has_error = false;
     is_language_changing = false;
     is_network_online = false;
@@ -95,13 +78,6 @@ export default class CommonStore extends BaseStore {
 
     init() {
         this.setPlatform();
-    }
-
-    checkAppId() {
-        if (this.app_id && this.app_id !== getAppId()) {
-            BinarySocket.closeAndOpenNewConnection();
-        }
-        this.app_id = getAppId();
     }
 
     changeCurrentLanguage(new_language) {
@@ -163,10 +139,6 @@ export default class CommonStore extends BaseStore {
         }
     }
 
-    get is_from_derivgo() {
-        return platforms[this.platform]?.platform_name === platforms.derivgo.platform_name;
-    }
-
     setInitialRouteHistoryItem(location) {
         if (window.location.href.indexOf('?ext_platform_url=') !== -1) {
             const ext_url = decodeURI(new URL(window.location.href).searchParams.get('ext_platform_url'));
@@ -175,11 +147,7 @@ export default class CommonStore extends BaseStore {
                 url: ext_url,
                 should_redirect: true,
             });
-            if (ext_url?.indexOf(getUrlSmartTrader()) === 0) {
-                this.addRouteHistoryItem({ pathname: ext_url, action: 'PUSH', is_external: true });
-            } else {
-                this.addRouteHistoryItem({ ...location, action: 'PUSH' });
-            }
+            this.addRouteHistoryItem({ ...location, action: 'PUSH' });
 
             window.history.replaceState({}, document.title, window.location.pathname);
         } else {
@@ -256,10 +224,6 @@ export default class CommonStore extends BaseStore {
             type: 'error',
             should_redirect,
         });
-    }
-
-    setDepositURL(deposit_url) {
-        this.deposit_url = deposit_url;
     }
 
     setWithdrawURL(withdraw_url) {

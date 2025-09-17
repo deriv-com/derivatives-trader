@@ -30,8 +30,8 @@ import {
     TRADE_TYPES,
     WS,
 } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
+import { localize } from '@deriv-com/translations';
 
 import BaseStore from './base-store';
 
@@ -537,11 +537,6 @@ export default class PortfolioStore extends BaseStore {
         this.root_store.contract_trade.removeContract({ contract_id });
     }
 
-    async accountSwitcherListener() {
-        await this.initializePortfolio();
-        return Promise.resolve();
-    }
-
     onHoverPosition(is_over, position, underlying) {
         // Backward compatibility: fallback to old field name
         const position_underlying = position.contract_info.underlying_symbol || position.contract_info.underlying;
@@ -557,11 +552,6 @@ export default class PortfolioStore extends BaseStore {
         this.updateTradeStore(is_over, position);
     }
 
-    preSwitchAccountListener() {
-        this.clearTable();
-        return Promise.resolve();
-    }
-
     logoutListener() {
         this.clearTable();
         return Promise.resolve();
@@ -572,8 +562,6 @@ export default class PortfolioStore extends BaseStore {
     }
 
     onMount() {
-        this.onPreSwitchAccount(this.preSwitchAccountListener);
-        this.onSwitchAccount(this.accountSwitcherListener);
         this.onNetworkStatusChange(this.networkStatusChangeListener);
         this.onLogout(this.logoutListener);
         if (this.positions.length === 0 && !this.has_subscribed_to_poc_and_transaction) {
@@ -597,8 +585,6 @@ export default class PortfolioStore extends BaseStore {
         const is_reports_path = /^\/reports/.test(window.location.pathname);
         if (!is_reports_path) {
             this.clearTable();
-            this.disposePreSwitchAccount();
-            this.disposeSwitchAccount();
             this.disposeLogout();
         }
     }

@@ -407,7 +407,7 @@
             }
         }
         &__body {
-            @include typeface(--small-left-bold-black);
+            @include typeface(--small-left-bold-primary);
             display: flex;
             align-self: flex-start;
             line-height: 1.5;

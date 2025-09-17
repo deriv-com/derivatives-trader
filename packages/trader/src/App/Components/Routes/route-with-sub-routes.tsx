@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, RouteComponentProps } from 'react-router-dom';
 
-import { default_title, isEmptyObject, redirectToLogin, removeBranchName, routes } from '@deriv/shared';
+import { isEmptyObject, getBrandName, redirectToLogin, removeBranchName, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 
 import Page404 from 'Modules/Page404';
@@ -54,7 +54,7 @@ const RouteWithSubRoutes = observer((route: TRouteWithSubRoutesProps) => {
         }
 
         const title = route.getTitle?.() ?? '';
-        document.title = `${title} | ${default_title}`;
+        document.title = `${title} | ${getBrandName()}`;
 
         return result;
     };

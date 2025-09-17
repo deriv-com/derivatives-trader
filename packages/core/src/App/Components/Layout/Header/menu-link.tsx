@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Text } from '@deriv/components';
-import { getStaticUrl, routes } from '@deriv/shared';
+import { getBrandUrl, routes } from '@deriv/shared';
 import { observer } from '@deriv/stores';
 import { isExternalLink } from '@deriv/utils';
 import { useTranslations } from '@deriv-com/translations';
@@ -35,7 +35,7 @@ const MenuLink = observer(
     }: Partial<TMenuLink>) => {
         const { localize } = useTranslations();
         const is_trade_text = text === localize('Trade');
-        const deriv_static_url = getStaticUrl(link_to);
+        const deriv_static_url = `${getBrandUrl()}/${link_to}`;
         const is_external_link = deriv_static_url && isExternalLink(link_to);
 
         const renderIcon = (IconComponent: React.ReactElement, className: string) => {

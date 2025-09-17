@@ -33,7 +33,7 @@ jest.mock('@deriv/shared', () => ({
     isEmptyObject: (obj: Record<string, any>) => Object.keys(obj).length === 0,
     routes: { index: '/index', is_logged_in: '/login' },
     removeBranchName: jest.fn(pathname => pathname.replace('/index', '')),
-    default_title: 'Default Title',
+    getBrandName: jest.fn(() => 'Default Title'),
 }));
 
 beforeEach(() => jest.clearAllMocks());

@@ -1,13 +1,13 @@
 import React from 'react';
-import { getBrandWebsiteName } from '@deriv/shared';
+import { getBrandDomain } from '@deriv/shared';
 import { BrandDerivLogoCoralIcon } from '@deriv/quill-icons';
 
 const BrandShortLogo = () => {
-    const brandWebsiteName = getBrandWebsiteName();
+    const brandDomain = getBrandDomain();
 
     return (
         <div className='header__menu-left-logo'>
-            <a href={brandWebsiteName} target='_blank' rel='noopener noreferrer'>
+            <a href={`https://${brandDomain}`} target='_blank' rel='noopener noreferrer'>
                 <BrandDerivLogoCoralIcon width={24} height={24} />
             </a>
         </div>

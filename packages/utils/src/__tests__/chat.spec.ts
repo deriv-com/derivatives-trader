@@ -1,58 +1,196 @@
 import Chat from '../chat';
-import getFeatureFlag from '../getFeatureFlag';
 
-jest.mock('../getFeatureFlag');
+// Mock window.Intercom and window.DerivInterCom before importing
+const mockIntercom = jest.fn();
+const mockDerivInterCom = {
+    initialize: jest.fn(),
+};
 
-describe('Chat Utility', () => {
+describe('Chat utility', () => {
     beforeEach(() => {
         jest.clearAllMocks();
 
-        (window as any).fcWidget = {
-            open: jest.fn(),
-            close: jest.fn(),
-        };
-        (window as any).LiveChatWidget = {
-            call: jest.fn(),
-        };
-    });
-
-    describe('open method', () => {
-        it('should call fcWidget.open when Freshchat is enabled', async () => {
-            (getFeatureFlag as jest.Mock).mockResolvedValueOnce(true);
-
-            await Chat.open();
-
-            expect(window.fcWidget.open).toHaveBeenCalled();
-            expect(window.LiveChatWidget.call).not.toHaveBeenCalled();
+        // Setup window mocks
+        Object.defineProperty(window, 'Intercom', {
+            value: mockIntercom,
+            writable: true,
+            configurable: true,
         });
 
-        it('should call LiveChatWidget.call with "maximize" when Freshchat is disabled', async () => {
-            (getFeatureFlag as jest.Mock).mockResolvedValueOnce(false);
-
-            await Chat.open();
-
-            expect(window.fcWidget.open).not.toHaveBeenCalled();
-            expect(window.LiveChatWidget.call).toHaveBeenCalledWith('maximize');
+        Object.defineProperty(window, 'DerivInterCom', {
+            value: mockDerivInterCom,
+            writable: true,
+            configurable: true,
         });
     });
 
-    describe('close method', () => {
-        it('should call fcWidget.close when Freshchat is enabled', async () => {
-            (getFeatureFlag as jest.Mock).mockResolvedValueOnce(true);
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
 
-            await Chat.close();
+    describe('open', () => {
+        it('should call window.Intercom("show") when Intercom is available', () => {
+            Chat.open();
 
-            expect(window.fcWidget.close).toHaveBeenCalled();
-            expect(window.LiveChatWidget.call).not.toHaveBeenCalled();
+            expect(mockIntercom).toHaveBeenCalledWith('show');
         });
 
-        it('should call LiveChatWidget.call with "minimize" when Freshchat is disabled', async () => {
-            (getFeatureFlag as jest.Mock).mockResolvedValueOnce(false);
+        it('should not call window.Intercom when window.Intercom is undefined', () => {
+            delete window.Intercom;
 
-            await Chat.close();
+            Chat.open();
 
-            expect(window.fcWidget.close).not.toHaveBeenCalled();
-            expect(window.LiveChatWidget.call).toHaveBeenCalledWith('hide');
+            expect(mockIntercom).not.toHaveBeenCalled();
+        });
+
+        it('should not throw error when window is undefined', () => {
+            const originalWindow = global.window;
+            // @ts-expect-error - Testing edge case
+            delete global.window;
+
+            expect(() => Chat.open()).not.toThrow();
+
+            // Restore window
+            global.window = originalWindow;
+        });
+    });
+
+    describe('clear', () => {
+        it('should call Intercom shutdown and DerivInterCom initialize when both are available', () => {
+            Chat.clear();
+
+            expect(mockIntercom).toHaveBeenCalledWith('shutdown');
+            expect(mockDerivInterCom.initialize).toHaveBeenCalledWith({
+                hideLauncher: true,
+                token: null,
+            });
+        });
+
+        it('should call Intercom shutdown but not DerivInterCom when DerivInterCom is undefined', () => {
+            // @ts-expect-error - Testing runtime scenario
+            delete window.DerivInterCom;
+
+            Chat.clear();
+
+            expect(mockIntercom).toHaveBeenCalledWith('shutdown');
+            expect(mockDerivInterCom.initialize).not.toHaveBeenCalled();
+        });
+
+        it('should not call any methods when window.Intercom is undefined', () => {
+            delete window.Intercom;
+
+            Chat.clear();
+
+            expect(mockIntercom).not.toHaveBeenCalled();
+            expect(mockDerivInterCom.initialize).not.toHaveBeenCalled();
+        });
+
+        it('should not throw error when window is undefined', () => {
+            const originalWindow = global.window;
+            // @ts-expect-error - Testing edge case
+            delete global.window;
+
+            expect(() => Chat.clear()).not.toThrow();
+
+            // Restore window
+            global.window = originalWindow;
+        });
+    });
+
+    describe('close', () => {
+        it('should call window.Intercom("hide") when Intercom is available', () => {
+            Chat.close();
+
+            expect(mockIntercom).toHaveBeenCalledWith('hide');
+        });
+
+        it('should not call window.Intercom when window.Intercom is undefined', () => {
+            delete window.Intercom;
+
+            Chat.close();
+
+            expect(mockIntercom).not.toHaveBeenCalled();
+        });
+
+        it('should not throw error when window is undefined', () => {
+            const originalWindow = global.window;
+            // @ts-expect-error - Testing edge case
+            delete global.window;
+
+            expect(() => Chat.close()).not.toThrow();
+
+            // Restore window
+            global.window = originalWindow;
+        });
+    });
+
+    describe('Integration tests', () => {
+        it('should handle complete chat lifecycle correctly', () => {
+            // Test opening chat
+            Chat.open();
+            expect(mockIntercom).toHaveBeenCalledWith('show');
+
+            // Test closing chat
+            Chat.close();
+            expect(mockIntercom).toHaveBeenCalledWith('hide');
+
+            // Test clearing chat
+            Chat.clear();
+            expect(mockIntercom).toHaveBeenCalledWith('shutdown');
+            expect(mockDerivInterCom.initialize).toHaveBeenCalledWith({
+                hideLauncher: true,
+                token: null,
+            });
+
+            expect(mockIntercom).toHaveBeenCalledTimes(3);
+        });
+
+        it('should handle missing Intercom gracefully across all methods', () => {
+            delete window.Intercom;
+
+            Chat.open();
+            Chat.close();
+            Chat.clear();
+
+            expect(mockIntercom).not.toHaveBeenCalled();
+            expect(mockDerivInterCom.initialize).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('Error handling and edge cases', () => {
+        it('should handle undefined window object gracefully', () => {
+            const originalWindow = global.window;
+            // @ts-expect-error - Testing edge case
+            delete global.window;
+
+            // These should not throw errors even when window is undefined
+            expect(() => {
+                Chat.open();
+                Chat.close();
+                Chat.clear();
+            }).not.toThrow();
+
+            // Restore window
+            global.window = originalWindow;
+
+            // Verify no methods were called since window was undefined
+            expect(mockIntercom).not.toHaveBeenCalled();
+            expect(mockDerivInterCom.initialize).not.toHaveBeenCalled();
+        });
+
+        it('should handle concurrent method calls correctly', () => {
+            // Since methods are now synchronous, we can call them directly
+            Chat.open();
+            Chat.close();
+            Chat.clear();
+
+            expect(mockIntercom).toHaveBeenCalledWith('show');
+            expect(mockIntercom).toHaveBeenCalledWith('hide');
+            expect(mockIntercom).toHaveBeenCalledWith('shutdown');
+            expect(mockDerivInterCom.initialize).toHaveBeenCalledWith({
+                hideLauncher: true,
+                token: null,
+            });
         });
     });
 });

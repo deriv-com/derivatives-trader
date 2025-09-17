@@ -2,7 +2,6 @@ import React from 'react';
 import * as Helpers from '../helpers';
 import { routes } from '@deriv/shared';
 import getRoutesConfig from '../../../Constants/routes-config';
-import Redirect from '../../../Containers/Redirect/redirect';
 
 describe('Helpers', () => {
     describe('normalizePath', () => {
@@ -20,11 +19,6 @@ describe('Helpers', () => {
     describe('findRouteByPath', () => {
         it('should return undefined when path is not in routes_config', () => {
             expect(Helpers.findRouteByPath('invalidRoute', getRoutesConfig())).toBeUndefined();
-        });
-        it('should return route_info when path is in routes_config and is not nested', () => {
-            const comp = Helpers.findRouteByPath(routes.redirect, getRoutesConfig());
-            expect(comp?.path).toEqual(routes.redirect);
-            expect(comp?.component).toEqual(Redirect);
         });
     });
 

@@ -77,13 +77,19 @@
     &__button {
         margin-top: 0.8rem;
 
+        @include mobile-or-tablet-screen {
+            display: flex;
+            align-items: end;
+        }
+
         .dc-btn {
             width: 100%;
 
-            @include mobile {
+            @include mobile-or-tablet-screen {
                 flex: 1;
                 height: 4rem;
-                margin: 0 1.6rem;
+                margin: 0.8rem;
+                width: -webkit-fill-available;
             }
         }
     }
@@ -92,7 +98,6 @@
         flex: 1;
         @include mobile-or-tablet-screen {
             grid-template-rows: auto auto 1fr;
-            margin: 0 0 1.6rem;
 
             &--no-stop-loss {
                 grid-template-rows: auto 1fr;
@@ -107,7 +112,6 @@
         }
     }
     &__total-profit {
-        height: 3.6rem;
         padding: 1.6rem;
         border-bottom: 1px solid var(--color-interactive-disabled);
         color: var(--color-text-secondary);
@@ -153,4 +157,9 @@
         max-width: 568px;
         margin: 0 auto;
     }
+}
+
+.dc-mobile-dialog__contract-update-wrapper {
+    display: grid;
+    grid-template-rows: auto 1fr;
 }

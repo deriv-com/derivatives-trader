@@ -7,7 +7,7 @@ export const formatStatementTransaction = (
     currency: string,
     active_symbols: ActiveSymbols = []
 ) => {
-    const { action_type, app_id, contract_id, longcode, purchase_time, withdrawal_details } = transaction;
+    const { action_type, contract_id, longcode, purchase_time, withdrawal_details } = transaction;
     const format_string = 'DD MMM YYYY HH:mm:ss';
     const transaction_time = toMoment(transaction.transaction_time).format(format_string);
     const payout = transaction.payout ?? NaN;
@@ -29,7 +29,6 @@ export const formatStatementTransaction = (
         balance: isNaN(balance) ? '-' : formatMoney(currency, balance, should_exclude_currency),
         desc: longcode?.replace(/\n/g, '<br />'),
         id: contract_id,
-        app_id,
         shortcode,
         action_type,
         purchase_time,

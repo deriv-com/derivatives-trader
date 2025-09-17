@@ -52,14 +52,13 @@ import {
     routes,
     setLimitOrderBarriers,
     setTradeURLParams,
-    showDigitalOptionsUnavailableError,
     showUnavailableLocationError,
     TRADE_TYPES,
     WS,
 } from '@deriv/shared';
-import { localize } from '@deriv-com/translations';
 import { safeParse } from '@deriv/utils';
 import type { TEvents } from '@deriv-com/analytics';
+import { localize } from '@deriv-com/translations';
 
 import { isDigitContractType, isDigitTradeType } from 'Modules/Trading/Helpers/digits';
 import { getMultiplierValidationRules, getValidationRules } from 'Stores/Modules/Trading/Constants/validation-rules';
@@ -495,7 +494,7 @@ export default class TradeStore extends BaseStore {
             open_payout_wheelpicker: observable,
             togglePayoutWheelPicker: action.bound,
             v2_params_initial_values: observable,
-            accountSwitcherListener: action.bound,
+            languageChangeListener: action.bound,
             barrier_pipsize: computed,
             barriers_flattened: computed,
             changeDurationValidationRules: action.bound,
@@ -688,6 +687,7 @@ export default class TradeStore extends BaseStore {
                 if (!this.amount) {
                     this.validateAllProperties();
                 }
+                this.languageChangeListener();
             }
         );
         reaction(
@@ -818,7 +818,6 @@ export default class TradeStore extends BaseStore {
     }
 
     async setActiveSymbols() {
-        const is_logged_in = this.root_store.client.is_logged_in;
         const showError = this.root_store.common.showError;
 
         const { active_symbols, error } = await WS.authorized.activeSymbols();
@@ -829,7 +828,6 @@ export default class TradeStore extends BaseStore {
         }
 
         if (!active_symbols?.length) {
-            await WS.wait('get_settings');
             showUnavailableLocationError(showError);
         }
         await this.processNewValuesAsync({ active_symbols });
@@ -882,8 +880,6 @@ export default class TradeStore extends BaseStore {
         this.initial_barriers = { barrier_1: this.barrier_1, barrier_2: this.barrier_2 };
         await when(() => !this.root_store.client.is_logging_in);
 
-        // waits for `website_status` in order to set `stake_default` for the selected currency
-        await WS.wait('website_status');
         await runInAction(async () => {
             await this.processNewValuesAsync(
                 {
@@ -1414,7 +1410,6 @@ export default class TradeStore extends BaseStore {
             }
         }
         // Sets the default value to Amount when Currency has changed from Fiat to Crypto and vice versa.
-        // The source of default values is the website_status response.
         if (should_forget_first) {
             this.forgetAllProposal();
             this.proposal_requests = {};
@@ -1855,19 +1850,14 @@ export default class TradeStore extends BaseStore {
         }
     }
 
-    async accountSwitcherListener() {
-        if (this.root_store.common.is_language_changing) {
-            await this.loadActiveSymbols(false, false);
-            this.root_store.common.is_language_changing = false;
-        } else {
-            await this.loadActiveSymbols(true, false);
-        }
+    async languageChangeListener() {
+        await this.loadActiveSymbols(false, false);
 
         this.resetErrorServices();
         await this.setContractTypes();
         runInAction(async () => {
-            if (!this.is_dtrader_v2) {
-                this.processNewValuesAsync(
+            if (!this.is_dtrader_v2 && !this.is_accumulator) {
+                await this.processNewValuesAsync(
                     { currency: this.root_store.client.currency || this.root_store.client.default_currency },
                     true,
                     { currency: this.currency },

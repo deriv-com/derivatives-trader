@@ -1,5 +1,5 @@
 import { action, observable, makeObservable, override, when } from 'mobx';
-import { routes, isEmptyObject, WS, contractCancelled, contractSold } from '@deriv/shared';
+import { isEmptyObject, WS, contractCancelled, contractSold } from '@deriv/shared';
 import { Money } from '@deriv/components';
 import { Analytics } from '@deriv-com/analytics';
 import { localize } from '@deriv-com/translations';
@@ -291,24 +291,5 @@ export default class ContractReplayStore extends BaseStore {
         this.has_error = false;
     }
 
-    setAccountSwitcherListener = (contract_id, history) => {
-        this.onSwitchAccount(() => this.accountSwitcherListener(contract_id, history));
-    };
-
-    accountSwitcherListener = (contract_id, history) => {
-        // if contract had an error on the previous account
-        // try fetching it again for the new account
-        // in case it belongs to this account
-        if (this.has_error) {
-            this.removeErrorMessage();
-            this.onMount(contract_id);
-        } else if (!this.root_store.common.is_language_changing) {
-            history.push(routes.reports);
-        }
-        return Promise.resolve();
-    };
-
-    removeAccountSwitcherListener = () => {
-        this.disposeSwitchAccount();
-    };
+    // Removed account switching methods - not needed for trading-only app
 }
