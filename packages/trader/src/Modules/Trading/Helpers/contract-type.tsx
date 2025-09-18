@@ -1,16 +1,18 @@
 import React from 'react';
 
-import { ActiveSymbols } from '@deriv/api-types';
-import { unsupported_contract_types_list } from '@deriv/shared';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import {
-    LegacyTradeTypeAllIcon,
     LegacyAccumulatorIcon,
-    LegacyTradeTypeOptionsIcon,
+    LegacyTradeTypeAllIcon,
     LegacyTradeTypeMultipliersIcon,
+    LegacyTradeTypeOptionsIcon,
     LegacyTurboIcon,
 } from '@deriv/quill-icons';
+import { unsupported_contract_types_list } from '@deriv/shared';
 
 import { TContractCategory, TContractType, TList } from '../Components/Form/ContractType/types';
+
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
 
 type TContractTypesList = {
     [key: string]: {
@@ -24,7 +26,10 @@ type TItem = {
 };
 
 export const isMajorPairsSymbol = (checked_symbol: string, active_symbols: ActiveSymbols) =>
-    active_symbols.some(({ submarket, symbol }) => /major_pairs/i.test(submarket) && checked_symbol === symbol);
+    active_symbols.some(
+        ({ submarket, underlying_symbol }) =>
+            /major_pairs/i.test(submarket || '') && checked_symbol === underlying_symbol
+    );
 
 export const ordered_trade_categories = [
     'Accumulators',

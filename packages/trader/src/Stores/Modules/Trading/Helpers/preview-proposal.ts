@@ -1,20 +1,24 @@
 import debounce from 'lodash.debounce';
 
-import { PriceProposalRequest, PriceProposalResponse } from '@deriv/api-types';
+import { TPriceProposalRequest } from '@deriv/api';
 import { isEmptyObject, WS } from '@deriv/shared';
 
 import { TTradeStore } from 'Types';
 
-import { ProposalResponse } from '../trade-store';
+import { TProposalResponse } from '../trade-store';
 
 import { createProposalRequests } from './proposal';
 
+// Use the same TResponse type as in trade-store.ts for consistency
 type TResponse<Req, Res extends { [key: string]: unknown }, K extends string> = Res & {
     echo_req: Req;
     error?: {
         code: string;
         message: string;
-        details?: Res[K] & { field: string };
+        details?: Res[K] & { field: string; payout_per_point_choices?: number[] };
+    };
+    subscription?: {
+        id: string;
     };
 };
 
@@ -28,7 +32,7 @@ export const previewProposal = (
     const requests = createProposalRequests(new_store as Parameters<typeof createProposalRequests>[0]);
     const subscription_map: { [key: string]: boolean } = {};
 
-    const onResponse = (response: TResponse<PriceProposalRequest, ProposalResponse, 'proposal'>) => {
+    const onResponse = (response: TResponse<TPriceProposalRequest, TProposalResponse, 'proposal'>) => {
         if (!should_show_error && (response.error || !response.subscription)) return;
 
         if (response.subscription) {

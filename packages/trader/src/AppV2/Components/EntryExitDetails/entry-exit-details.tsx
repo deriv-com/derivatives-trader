@@ -45,28 +45,13 @@ const getDateTimeFromEpoch = (epoch: number | string | undefined | null) => {
 };
 
 const EntryExitDetails = ({ contract_info }: { contract_info: TContractInfo }) => {
-    const {
-        //@ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
-        entry_spot_time,
-        entry_tick_time,
-        entry_spot_display_value,
-        entry_spot,
-        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
-        exit_spot_time,
-        exit_tick_time,
-        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
-        exit_spot,
-        date_start,
-        exit_tick_display_value,
-        exit_tick,
-    } = contract_info;
+    const { date_start, entry_spot_time, entry_spot, exit_spot_time, exit_spot } = contract_info;
 
-    // Backward compatibility: fallback to old field names
-    const actual_entry_spot = entry_spot ?? entry_spot_display_value;
-    const actual_exit_spot = exit_spot ?? exit_tick;
-    const actual_exit_spot_display_value = exit_spot ?? exit_tick_display_value;
-    const actual_entry_spot_time = entry_spot_time ?? entry_tick_time;
-    const actual_exit_spot_time = exit_spot_time ?? exit_tick_time;
+    const actual_entry_spot = entry_spot;
+    const actual_exit_spot = exit_spot;
+    const actual_exit_spot_display_value = exit_spot;
+    const actual_entry_spot_time = entry_spot_time;
+    const actual_exit_spot_time = exit_spot_time;
 
     const dateTimes = useMemo(
         () => ({

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { ProposalOpenContract } from '@deriv/api-types';
+import { TPriceProposalOpenContractsResponse } from '@deriv/api';
 import { Text } from '@deriv/components';
 import { addComma, formatMoney, getCurrencyDisplayCode, isMobile } from '@deriv/shared';
 
@@ -9,7 +9,10 @@ import { FastMarker } from 'Modules/SmartChart';
 
 import { TRef } from './accumulators-profit-loss-tooltip';
 
-type TAccumulatorsProfitLossText = Pick<ProposalOpenContract, 'current_spot' | 'current_spot_time' | 'currency'> & {
+type TAccumulatorsProfitLossText = Pick<
+    NonNullable<TPriceProposalOpenContractsResponse['proposal_open_contract']>,
+    'current_spot' | 'current_spot_time' | 'currency'
+> & {
     className?: string;
     profit_value: number;
     should_show_profit_percentage?: boolean;

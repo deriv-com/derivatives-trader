@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
-import { TickSpotData } from '@deriv/api-types';
+import { TTicksStreamResponse } from '@deriv/api';
 import { Skeleton, usePrevious } from '@deriv/components';
 import { isContractElapsed } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
@@ -29,16 +29,12 @@ const CurrentSpot = observer(() => {
         display_status,
         is_digit_contract,
         is_ended,
-    } = (last_contract.contract_info?.entry_spot ?? last_contract.contract_info?.entry_tick) || !prev_contract
-        ? last_contract
-        : prev_contract;
+    } = last_contract.contract_info?.entry_spot || !prev_contract ? last_contract : prev_contract;
     const { tick_data, symbol } = useTraderStore();
     //
     const { contract_id, date_start, contract_type, tick_stream } = contract_info;
-    const entry_spot = contract_info.entry_spot ?? contract_info.entry_tick;
-    // Backward compatibility: fallback to old field name
-    //@ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update
-    const underlying = contract_info.underlying_symbol || contract_info.underlying;
+    const entry_spot = contract_info.entry_spot;
+    const underlying = contract_info.underlying_symbol;
     const prev_contract_id = usePrevious(contract_id);
     const last_contract_ticks = last_contract.contract_info?.tick_stream?.length;
     const prev_last_contract_ticks = usePrevious(last_contract_ticks);
@@ -60,7 +56,7 @@ const CurrentSpot = observer(() => {
                 pip_size: tick_display_value?.split('.')[1].length,
                 quote: latest_stream_tick,
                 current_tick: tick_stream.length,
-            } as TickSpotData;
+            } as any;
         }
     }
     const current_tick = tick && 'current_tick' in tick ? (tick.current_tick as number) : null;
@@ -107,9 +103,7 @@ const CurrentSpot = observer(() => {
 
     React.useEffect(() => {
         const has_multiple_contracts =
-            prev_contract?.contract_info &&
-            !is_prev_contract_elapsed &&
-            (last_contract.contract_info?.entry_spot ?? last_contract.contract_info?.entry_tick);
+            prev_contract?.contract_info && !is_prev_contract_elapsed && last_contract.contract_info?.entry_spot;
         const is_next_contract_opened = prev_contract_id && contract_id && prev_contract_id !== contract_id;
         if (has_multiple_contracts && is_next_contract_opened) {
             setShouldEnterFromTop(true);

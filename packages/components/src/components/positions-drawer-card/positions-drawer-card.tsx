@@ -76,7 +76,6 @@ const PositionsDrawerCard = ({
     const is_multiplier = isMultiplierContract(contract_info?.contract_type || '');
     const is_turbos = isTurbosContract(contract_info?.contract_type);
     const is_vanilla = isVanillaContract(contract_info?.contract_type);
-    // @ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update
     const is_crypto = isCryptoContract(contract_info?.underlying_symbol || '');
     const has_progress_slider = !is_multiplier || (is_crypto && is_multiplier);
     const end_time = getEndTime(contract_info as TContractInfo);
@@ -157,7 +156,6 @@ const PositionsDrawerCard = ({
         </React.Fragment>
     );
     const effective_underlying =
-        // @ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update
         contract_info?.underlying_symbol || getUnderlyingFromShortcode(contract_info?.shortcode);
 
     const contract_card_body = is_link_disabled ? (

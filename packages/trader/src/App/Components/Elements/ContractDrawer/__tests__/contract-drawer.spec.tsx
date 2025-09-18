@@ -1,13 +1,11 @@
 import React from 'react';
 import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
-
 import { toMoment } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
 import TraderProviders from '../../../../../trader-providers';
 import ContractDrawer from '../contract-drawer';
 
@@ -103,7 +101,6 @@ describe('<ContractDrawer />', () => {
     it('should render component with Contract Drawer card and Contract Audit', () => {
         mocked_props.contract_info = {
             currency: 'USD',
-            exit_tick_display_value: '2021.56',
             is_sold: 1,
             status: null,
             is_expired: 1,

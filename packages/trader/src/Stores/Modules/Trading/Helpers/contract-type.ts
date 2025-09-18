@@ -1,4 +1,4 @@
-import { ContractsFor, ContractsForSymbolResponse, TradingTimes, TradingTimesResponse } from '@deriv/api-types';
+import { TContractsForSymbolResponse, TTradingTimesRequest, TTradingTimesResponse } from '@deriv/api';
 import {
     buildBarriersConfig,
     buildDurationConfig,
@@ -13,7 +13,6 @@ import {
     getUnitMap,
     hasIntradayDurationUnit,
     isTimeValid,
-    minDate,
     toMoment,
     TRADE_TYPES,
     TTradeTypesCategories,
@@ -78,7 +77,7 @@ export const ContractType = (() => {
     const trading_times: { [key: string]: Record<string, TTimes> } = {};
 
     const buildContractTypesConfig = (symbol: string): Promise<void> =>
-        WS.contractsFor(symbol).then((r: Required<ContractsForSymbolResponse>) => {
+        WS.contractsFor(symbol).then((r: Required<TContractsForSymbolResponse>) => {
             const has_contracts = getPropertyValue(r, ['contracts_for']);
             if (!has_contracts) return;
             const contract_categories = getContractCategoriesConfig();
@@ -177,7 +176,7 @@ export const ContractType = (() => {
         });
 
     const buildTradeTypesConfig = (
-        contract: ContractsFor['available'][number],
+        contract: NonNullable<TContractsForSymbolResponse['contracts_for']>['available'][number],
         trade_types: { [key: string]: string } = {}
     ) => {
         // contract_display property has been removed from the API
@@ -458,8 +457,10 @@ export const ContractType = (() => {
             return [];
         }
         if (!(date in trading_events)) {
-            const trading_times_response: TradingTimesResponse = await WS.tradingTimes(date);
-            const trading_times_data = trading_times_response.trading_times as TradingTimes;
+            const trading_times_response: TTradingTimesResponse = await WS.tradingTimes(date);
+            const trading_times_data = trading_times_response.trading_times as NonNullable<
+                TTradingTimesResponse['trading_times']
+            >;
             if (getPropertyValue(trading_times_response, ['trading_times', 'markets'])) {
                 for (let i = 0; i < trading_times_data.markets.length; i++) {
                     const submarkets = trading_times_data.markets[i].submarkets;
@@ -489,8 +490,8 @@ export const ContractType = (() => {
     const getTradingDays = async (date: string, underlying: string | null = null) => {
         if (!date || !underlying) return null;
 
-        const response: TradingTimesResponse = await WS.tradingTimes(date);
-        const trading_times = response.trading_times as TradingTimes;
+        const response: TTradingTimesResponse = await WS.tradingTimes(date);
+        const trading_times = response.trading_times as NonNullable<TTradingTimesResponse['trading_times']>;
 
         if (!getPropertyValue(response, ['trading_times', 'markets'])) return null;
 
@@ -516,8 +517,10 @@ export const ContractType = (() => {
         }
 
         if (!(date in trading_times)) {
-            const trading_times_response: TradingTimesResponse = await WS.tradingTimes(date);
-            const trading_times_data = trading_times_response.trading_times as TradingTimes;
+            const trading_times_response: TTradingTimesResponse = await WS.tradingTimes(date);
+            const trading_times_data = trading_times_response.trading_times as NonNullable<
+                TTradingTimesResponse['trading_times']
+            >;
             if (getPropertyValue(trading_times_response, ['trading_times', 'markets'])) {
                 for (let i = 0; i < trading_times_data.markets.length; i++) {
                     const submarkets = trading_times_data.markets[i].submarkets;

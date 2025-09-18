@@ -16,10 +16,8 @@ import {
 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
-
 import { PositionsCardLoader } from 'App/Components/Elements/ContentLoader';
 import ContractAudit from 'App/Components/Elements/ContractAudit';
-
 import ContractDrawerCard from './contract-drawer-card';
 import { SwipeableContractAudit } from './swipeable-components';
 
@@ -65,12 +63,7 @@ const ContractDrawer = observer(
         const { common, ui } = useStore();
         const { current_language, is_language_changing, server_time } = common;
         const { is_history_tab_active } = ui;
-        const {
-            currency,
-            // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
-            exit_spot,
-            exit_tick_display_value,
-        } = contract_info;
+        const { currency, exit_spot } = contract_info;
         const contract_drawer_ref = React.useRef<HTMLDivElement>(null);
         const contract_drawer_card_ref = React.useRef<HTMLDivElement>(null);
         const [should_show_contract_audit, setShouldShowContractAudit] = React.useState(false);
@@ -83,7 +76,7 @@ const ContractDrawer = observer(
                 contract_update_history={contract_update_history}
                 duration_unit={getDurationUnitText(getDurationPeriod(contract_info)) ?? ''}
                 duration={getDurationTime(contract_info)}
-                exit_spot={exit_spot ?? exit_tick_display_value}
+                exit_spot={exit_spot}
                 is_accumulator={is_accumulator}
                 is_dark_theme={is_dark_theme}
                 is_history_tab_active={is_history_tab_active}
