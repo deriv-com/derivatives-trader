@@ -1,5 +1,3 @@
-<!-- [AI] -->
-
 # SmartChart Adapter Migration: Milestone Tracker
 
 Purpose
@@ -324,5 +322,3 @@ RACI (example)
 - Accountable: Tech Lead
 - Consulted: QA, Platform (for assets path)
 - Informed: Release, PM
-
-<!-- [/AI] -->
