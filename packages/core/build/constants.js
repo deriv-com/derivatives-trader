@@ -137,6 +137,7 @@ const plugins = ({ base, is_test_env }) => {
             'process.env.RUDDERSTACK_KEY': JSON.stringify(process.env.RUDDERSTACK_KEY),
             'process.env.REMOTE_CONFIG_URL': JSON.stringify(process.env.REMOTE_CONFIG_URL),
             'process.env.R2_PROJECT_NAME': JSON.stringify(process.env.R2_PROJECT_NAME),
+            'process.env.TRACKJS_TOKEN': JSON.stringify(process.env.TRACKJS_TOKEN),
             'process.env.CROWDIN_BRANCH_NAME': JSON.stringify(process.env.CROWDIN_BRANCH_NAME),
             'process.env.CROWDIN_URL': JSON.stringify('https://translations.deriv.com'),
         }),
