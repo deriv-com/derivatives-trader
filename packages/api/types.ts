@@ -236,25 +236,29 @@ type PortfolioResponse = Omit<BasePortfolioResponse, 'portfolio'> & {
 
 type BalanceRequest = Omit<BaseBalanceRequest, 'accounts' | 'loginid'>;
 
-type BalanceResponse = Omit<BaseBalanceResponse, 'accounts' | 'loginid' | 'total'>;
+type BalanceResponse = Omit<BaseBalanceResponse, 'balance'> & {
+    balance?: Omit<NonNullable<BaseBalanceResponse['balance']>, 'accounts' | 'loginid' | 'total'>;
+};
 
 type AuthorizeRequest = Omit<BaseAuthorizeRequest, 'add_to_login_history' | 'tokens'>;
 
-type AuthorizeResponse = Omit<
-    BaseAuthorizeResponse,
-    | 'account_list'
-    | 'country'
-    | 'email'
-    | 'fullname'
-    | 'landing_company_name'
-    | 'landing_company_fullname'
-    | 'linked_to'
-    | 'local_currencies'
-    | 'preferred_language'
-    | 'scopes'
-    | 'upgradeable_landing_companies'
-    | 'user_id'
->;
+type AuthorizeResponse = Omit<BaseAuthorizeResponse, 'authorize'> & {
+    authorize?: Omit<
+        NonNullable<BaseAuthorizeResponse['authorize']>,
+        | 'account_list'
+        | 'country'
+        | 'email'
+        | 'fullname'
+        | 'landing_company_name'
+        | 'landing_company_fullname'
+        | 'linked_to'
+        | 'local_currencies'
+        | 'preferred_language'
+        | 'scopes'
+        | 'upgradeable_landing_companies'
+        | 'user_id'
+    >;
+};
 
 type CancelAContractRequest = Omit<BaseCancelAContractRequest, 'loginid'>;
 
