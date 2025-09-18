@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { getUrlBase, moduleLoader } from '@deriv/shared';
 
 let module;
 
 const init = () => {
     module = moduleLoader(() => {
-        return import(/* webpackChunkName: "smart_chart" */ '@deriv-com/derivatives-charts');
+        return import(/* webpackChunkName: "smart_chart_champion" */ '@deriv-com/smartcharts-champion');
     });
 
     module.then(({ setSmartChartsPublicPath }) => {
