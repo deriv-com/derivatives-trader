@@ -34,7 +34,9 @@ const App = ({ root_store }) => {
     React.useEffect(() => {
         sessionStorage.removeItem('redirect_url');
         const loadSmartchartsStyles = () => {
-            import('@deriv-com/derivatives-charts/dist/smartcharts.css');
+            // [AI]
+            import('@deriv-com/smartcharts-champion/dist/smartcharts.css');
+            // [/AI]
         };
 
         // TODO: [translation-to-shared]: add translation implemnentation in shared

@@ -8,19 +8,27 @@ const gitRevisionPlugin = new GitRevisionPlugin();
 const copyConfig = base => {
     const patterns = [
         {
-            from: path.resolve(__dirname, '../../../node_modules/@deriv-com/derivatives-charts/dist'),
+            // [AI]
+            from: path.resolve(__dirname, '../../../node_modules/@deriv-com/smartcharts-champion/dist'),
+            // [/AI]
             to: 'js/smartcharts/',
         },
         {
-            from: path.resolve(__dirname, '../../../node_modules/@deriv-com/derivatives-charts/dist/chart/assets'),
+            // [AI]
+            from: path.resolve(__dirname, '../../../node_modules/@deriv-com/smartcharts-champion/dist/assets'),
+            // [/AI]
             to: 'assets',
         },
         {
-            from: path.resolve(__dirname, '../../../node_modules/@deriv-com/derivatives-charts/dist/chart/assets'),
+            // [AI]
+            from: path.resolve(__dirname, '../../../node_modules/@deriv-com/smartcharts-champion/dist/assets'),
+            // [/AI]
             to: 'contract/assets',
         },
         {
-            from: path.resolve(__dirname, '../../../node_modules/@deriv-com/derivatives-charts/dist/chart/assets'),
+            // [AI]
+            from: path.resolve(__dirname, '../../../node_modules/@deriv-com/smartcharts-champion/dist/assets'),
+            // [/AI]
             to: 'bot/assets',
         },
         {
