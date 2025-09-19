@@ -204,7 +204,7 @@ const APIProvider = ({ children, standalone = false }: PropsWithChildren<TAPIPro
         let interval_id: ReturnType<typeof setInterval>;
 
         if (standalone) {
-            interval_id = setInterval(() => standaloneDerivAPI.current?.send({ ping: 1 }), 10000);
+            interval_id = setInterval(() => standaloneDerivAPI.current?.send({ time: 1 }), 30000);
         }
 
         return () => clearInterval(interval_id);

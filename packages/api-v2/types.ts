@@ -2142,10 +2142,6 @@ type TSocketEndpoints = {
         request: PaymentAgentWithdrawJustificationRequest;
         response: PaymentAgentWithdrawJustificationResponse;
     };
-    ping: {
-        request: PingRequest;
-        response: PingResponse;
-    };
     portfolio: {
         request: PortfolioRequest;
         response: PortfolioResponse;

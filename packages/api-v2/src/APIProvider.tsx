@@ -193,9 +193,9 @@ const APIProvider = ({ children, platform }: PropsWithChildren<TAPIProviderProps
     useEffect(() => {
         const interval_id: ReturnType<typeof setInterval> = setInterval(() => {
             if (wsClientRef.current && wsClientRef.current?.ws?.readyState == 1) {
-                wsClientRef.current.request('ping');
+                wsClientRef.current.request('time');
             }
-        }, 10000);
+        }, 30000);
         return () => clearInterval(interval_id);
     }, []);
 
