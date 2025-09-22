@@ -243,37 +243,3 @@ export function createTransport(config: { debug?: boolean; timeout?: number } = 
         },
     };
 }
-
-/**
- * Utility function to check if WS is available
- */
-export function isWSAvailable(): boolean {
-    try {
-        return !!(WS && WS.storage && typeof WS.storage.send === 'function');
-    } catch {
-        return false;
-    }
-}
-
-/**
- * Utility function to wait for WS to be ready
- */
-export function waitForWS(timeout: number = 10000): Promise<void> {
-    return new Promise((resolve, reject) => {
-        if (isWSAvailable()) {
-            resolve();
-            return;
-        }
-
-        const startTime = Date.now();
-        const checkInterval = setInterval(() => {
-            if (isWSAvailable()) {
-                clearInterval(checkInterval);
-                resolve();
-            } else if (Date.now() - startTime > timeout) {
-                clearInterval(checkInterval);
-                reject(new Error(`WS not available after ${timeout}ms`));
-            }
-        }, 100);
-    });
-}
