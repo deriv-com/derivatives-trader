@@ -399,17 +399,18 @@ export function buildSmartChartsChampionAdapter(
  */
 export function createSmartChartsChampionAdapter(config: AdapterConfig = {}): SmartchartsChampionAdapter {
     const transport = createTransport({ debug: config.debug });
+    const service = createServices({ debug: config.debug });
 
     // Create services that use optimized transformations
     const services: TServices = {
         async getActiveSymbols() {
-            const activeSymbolsData = await createServices({ debug: config.debug }).getActiveSymbols();
+            const activeSymbolsData = await service.getActiveSymbols();
             return activeSymbolsData;
         },
 
         async getTradingTimes() {
             // Always use the optimized function that leverages existing caching
-            const tradingTimesData = await createServices({ debug: config.debug }).getTradingTimes();
+            const tradingTimesData = await service.getTradingTimes();
             return tradingTimesData;
         },
     };

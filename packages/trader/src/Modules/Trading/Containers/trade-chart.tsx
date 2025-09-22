@@ -6,7 +6,12 @@ import { observer, useStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
 
 import { SmartChart } from 'Modules/SmartChart';
-import { createSmartChartsChampionAdapter, TGetQuotes } from 'Modules/SmartChart/Adapters';
+import {
+    createSmartChartsChampionAdapter,
+    TGetQuotes,
+    TSubscribeQuotes,
+    TUnsubscribeQuotes,
+} from 'Modules/SmartChart/Adapters';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 import AccumulatorsChartElements from '../../SmartChart/Components/Markers/accumulators-chart-elements';
@@ -168,6 +173,37 @@ const TradeChart = observer((props: TTradeChartProps) => {
         };
     };
 
+    const subscribeQuotes: TSubscribeQuotes = (params, callback) => {
+        if (!smartChartsAdapter) {
+            return () => {};
+        }
+
+        return smartChartsAdapter.subscribeQuotes(
+            {
+                symbol: params.symbol,
+                granularity: params.granularity as any,
+            },
+            quote => {
+                callback(quote);
+            }
+        );
+    };
+
+    const unsubscribeQuotes: TUnsubscribeQuotes = request => {
+        if (smartChartsAdapter) {
+            // If we have request details, use the adapter's unsubscribe method
+            if (request?.symbol && typeof request.granularity !== 'undefined') {
+                smartChartsAdapter.unsubscribeQuotes({
+                    symbol: request.symbol,
+                    granularity: request.granularity as any,
+                });
+            } else {
+                // Fallback: unsubscribe all via transport
+                smartChartsAdapter.transport.unsubscribeAll('ticks');
+            }
+        }
+    };
+
     const barriers: ChartBarrierStore[] = main_barrier ? [main_barrier, ...extra_barriers] : extra_barriers;
 
     // max ticks to display for mobile view for tick chart
@@ -177,37 +213,34 @@ const TradeChart = observer((props: TTradeChartProps) => {
 
     return (
         <SmartChart
+            id='trade'
             ref={ref}
             barriers={barriers}
-            contracts_array={markers_array}
-            bottomWidgets={(is_accumulator || show_digits_stats) && !isMobile ? bottomWidgets : props.bottomWidgets}
-            crosshair={isMobile ? 0 : undefined}
-            crosshairTooltipLeftAllow={560}
             showLastDigitStats={show_digits_stats}
             chartControlsWidgets={null}
-            chartStatusListener={(v: boolean) => setChartStatus(!v, true)}
+            stateChangeListener={chartStateChange}
+            enabledChartFooter={false}
+            toolbarWidget={() => {
+                return <ToolbarWidgets updateChartType={updateChartType} updateGranularity={updateGranularity} />;
+            }}
             chartType={chart_type}
             chartData={chartData}
-            getQuotes={getQuotes}
-            subscribeQuotes={smartChartsAdapter.subscribeQuotes}
-            unsubscribeQuotes={smartChartsAdapter.unsubscribeQuotes}
-            getChartData={smartChartsAdapter.getChartData}
-            enabledNavigationWidget={!isMobile}
-            enabledChartFooter={false}
-            id='trade'
             isMobile={isMobile}
-            maxTick={isMobile ? max_ticks : undefined}
+            getQuotes={getQuotes}
+            subscribeQuotes={subscribeQuotes}
+            unsubscribeQuotes={unsubscribeQuotes}
             granularity={show_digits_stats || is_accumulator ? 0 : granularity}
+            bottomWidgets={(is_accumulator || show_digits_stats) && !isMobile ? bottomWidgets : props.bottomWidgets}
+            contracts_array={markers_array}
+            chartStatusListener={(v: boolean) => setChartStatus(false, true)}
+            enabledNavigationWidget={!isMobile}
+            maxTick={isMobile ? max_ticks : undefined}
             settings={settings}
             allowTickChartTypeOnly={show_digits_stats || is_accumulator}
-            stateChangeListener={chartStateChange}
             symbol={symbol}
             topWidgets={is_trade_enabled ? topWidgets : null}
             isConnectionOpened={is_socket_opened}
             clearChart={false}
-            toolbarWidget={() => {
-                return <ToolbarWidgets updateChartType={updateChartType} updateGranularity={updateGranularity} />;
-            }}
             importedLayout={chart_layout}
             onExportLayout={exportLayout}
             shouldFetchTradingTimes={false}
@@ -232,7 +265,6 @@ const TradeChart = observer((props: TTradeChartProps) => {
                 />
             )}
         </SmartChart>
-        // <>Chart here</>
     );
 });
 export default TradeChart;
