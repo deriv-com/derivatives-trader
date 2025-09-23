@@ -75,9 +75,9 @@ const Trade = observer(() => {
 
     const symbols = React.useMemo(
         () =>
-            active_symbols.map(({ symbol: underlying }) => ({
-                text: getSymbolDisplayName(active_symbols, underlying),
-                value: underlying,
+            active_symbols.map(({ underlying_symbol: underlying }) => ({
+                text: getSymbolDisplayName(underlying || ''),
+                value: underlying || '',
             })),
         [active_symbols]
     );

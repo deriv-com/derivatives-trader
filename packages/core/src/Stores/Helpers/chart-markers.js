@@ -95,8 +95,7 @@ export const createTickMarkers = (contract_info, is_delayed_markers_update) => {
 
     if (is_accu_contract_closed) {
         const { tick_stream: ticks } = contract_info || {};
-        // Backward compatibility: fallback to old field name
-        const exit_spot_time = contract_info.exit_spot_time ?? contract_info.exit_tick_time;
+        const exit_spot_time = contract_info.exit_spot_time;
         if (exit_spot_time && tick_stream.every(({ epoch }) => epoch !== exit_spot_time)) {
             // sometimes exit_tick is present in tick_stream but missing from audit_details
             tick_stream.push(ticks[ticks.length - 1]);
@@ -106,9 +105,8 @@ export const createTickMarkers = (contract_info, is_delayed_markers_update) => {
     }
 
     tick_stream.forEach((tick, idx) => {
-        // Backward compatibility: fallback to old field names
-        const entry_spot_time = contract_info.entry_spot_time ?? contract_info.entry_tick_time;
-        const exit_spot_time = contract_info.exit_spot_time ?? contract_info.exit_tick_time;
+        const entry_spot_time = contract_info.entry_spot_time;
+        const exit_spot_time = contract_info.exit_spot_time;
 
         const isEntrySpot = _tick => +_tick.epoch === entry_spot_time;
         const is_entry_spot = +tick.epoch !== exit_spot_time && (is_accumulator ? isEntrySpot(tick) : idx === 0);
@@ -296,8 +294,6 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         tick_stream,
         date_start,
         date_expiry,
-        entry_tick,
-        exit_tick,
         entry_spot_time: entry_spot_time_field,
         exit_spot_time: exit_spot_time_field,
         contract_type,
@@ -311,9 +307,8 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         is_sold,
     } = contract_info;
 
-    // Backward compatibility: use new property names with fallback to old ones
-    const entry_spot = contract_info.entry_spot ?? entry_tick;
-    const exit_spot = contract_info.exit_spot ?? exit_tick;
+    const entry_spot = contract_info.entry_spot;
+    const exit_spot = contract_info.exit_spot;
     const is_accumulator_contract = isAccumulatorContract(contract_type);
     const is_digit_contract = isDigitContract(contract_type);
     const is_tick_contract = tick_count > 0;
@@ -322,9 +317,8 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
     const is_touch_contract = isTouchContract(contract_type);
     const is_turbos = isTurbosContract(contract_type);
 
-    // Backward compatibility: fallback to old field names
-    const entry_spot_time = entry_spot_time_field ?? contract_info.entry_tick_time;
-    const exit_spot_time = exit_spot_time_field ?? contract_info.exit_tick_time;
+    const entry_spot_time = entry_spot_time_field;
+    const exit_spot_time = exit_spot_time_field;
 
     const end_time = is_tick_contract ? exit_spot_time : getEndTime(contract_info) || date_expiry;
 

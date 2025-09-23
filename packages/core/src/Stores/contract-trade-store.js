@@ -294,8 +294,7 @@ export default class ContractTradeStore extends BaseStore {
         }
         return this.contracts
             .filter(c => {
-                // Backward compatibility: fallback to old field name
-                const contract_underlying = c.contract_info.underlying_symbol || c.contract_info.underlying;
+                const contract_underlying = c.contract_info.underlying_symbol;
                 return contract_underlying === underlying;
             })
             .filter(c => {
@@ -365,9 +364,8 @@ export default class ContractTradeStore extends BaseStore {
 
         const { current_spot_time, entry_spot_time, exit_spot_time } = this.last_contract.contract_info || {};
 
-        // Backward compatibility: fallback to old field names
-        const entry_time = entry_spot_time || this.last_contract.contract_info?.entry_tick_time;
-        const exit_time = exit_spot_time || this.last_contract.contract_info?.exit_tick_time;
+        const entry_time = entry_spot_time;
+        const exit_time = exit_spot_time;
 
         const should_show_poc_barriers =
             (entry_time && entry_time !== current_spot_time) || (exit_time && current_spot_time <= exit_time);

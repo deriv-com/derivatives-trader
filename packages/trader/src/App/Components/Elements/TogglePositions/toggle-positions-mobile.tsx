@@ -94,6 +94,7 @@ const TogglePositionsMobile = observer(
                                 currency={currency}
                                 togglePositions={togglePositionsDrawer}
                                 {...portfolio_position}
+                                contract_update={portfolio_position.contract_update || {}}
                             />
                         </CSSTransition>
                     ))}

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Collapsible, ContractCard, useHover } from '@deriv/components';
 import {
     getCardLabels,
@@ -14,9 +13,6 @@ import {
 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
-
-import { useTraderStore } from 'Stores/useTraderStores';
-
 import MarketClosedContractOverlay from './market-closed-contract-overlay';
 import { SwipeableContractDrawer } from './swipeable-components';
 
@@ -68,7 +64,6 @@ const ContractDrawerCard = observer(
         toggleContractAuditDrawer,
     }: TContractDrawerCardProps) => {
         const { ui, contract_trade } = useStore();
-        const { active_symbols } = useTraderStore();
         const {
             addToast,
             current_focus,
@@ -83,13 +78,8 @@ const ContractDrawerCard = observer(
 
         const { profit, validation_error } = contract_info;
         const is_sold = !!getEndTime(contract_info);
-        const display_name = getSymbolDisplayName(
-            active_symbols,
-            getMarketInformation(contract_info.shortcode || '').underlying
-        );
-        // Backward compatibility: fallback to old field name
-        // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
-        const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+        const display_name = getSymbolDisplayName(getMarketInformation(contract_info.shortcode || '').underlying);
+        const contract_underlying = contract_info.underlying_symbol;
         const is_crypto = isCryptoContract(contract_underlying);
         const has_progress_slider = !is_multiplier || (is_crypto && is_multiplier);
 

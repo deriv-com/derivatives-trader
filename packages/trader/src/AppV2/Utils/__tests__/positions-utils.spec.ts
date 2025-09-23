@@ -29,10 +29,8 @@ const mockedActivePositions = [
             date_start: 1716220562,
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.6,
-            entry_spot_display_value: '682.60',
             entry_tick: 682.6,
             entry_tick_display_value: '682.60',
-            entry_tick_time: 1716220563,
             expiry_time: 1716221100,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -93,10 +91,8 @@ const mockedActivePositions = [
             date_start: 1716220583,
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.23,
-            entry_spot_display_value: '682.23',
             entry_tick: 682.23,
             entry_tick_display_value: '682.23',
-            entry_tick_time: 1716220584,
             expiry_time: 4869849599,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -172,10 +168,8 @@ const mockedActivePositions = [
             date_start: 1716220710,
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.58,
-            entry_spot_display_value: '682.58',
             entry_tick: 682.58,
             entry_tick_display_value: '682.58',
-            entry_tick_time: 1716220711,
             expiry_time: 1747785599,
             growth_rate: 0.01,
             high_barrier: '683.046',
@@ -273,23 +267,24 @@ const mockedActivePositions = [
     },
     {
         contract_info: {
-            buy_price: 10,
+            buy_price: '10',
             contract_id: 243585717228,
             contract_type: 'TURBOSLONG',
-            duration_type: 'minutes',
             longcode:
                 'You will receive a payout at expiry if the spot price never breaches the barrier. The payout is equal to the payout per point multiplied by the distance between the final price and the barrier.',
-            payout: 0,
-            purchase_time: '27 May 2024 09:41:00',
-            sell_price: 0,
-            sell_time: '27 May 2024 09:43:36',
+            payout: '0',
+            profit: '-10.00',
+            purchase_time: 1716802860,
+            sell_price: '0',
+            sell_time: 1716804216,
             shortcode: 'TURBOSLONG_1HZ100V_10.00_1716802860_1716804660_S-237P_3.971435_1716802860',
             transaction_id: 485824148848,
             underlying_symbol: '1HZ100V',
-            profit_loss: '-10.00',
-            display_name: '',
-            purchase_time_unix: 1716802860,
         },
+        display_name: 'Turbo Long',
+        indicative: 0,
+        reference: 485824148848,
+        profit_loss: -10.0,
     },
 ] as TPortfolioPosition[];
 
@@ -351,11 +346,60 @@ describe('getProfit', () => {
         expect(getProfit(mockedActivePositions[2].contract_info)).toEqual(0.84);
         expect(getProfit(mockedActivePositions[3].contract_info)).toEqual('-10.00');
     });
+
+    it('should handle closed positions with profit_loss as string with commas', () => {
+        const closedPosition = {
+            profit_loss: '1,234.56',
+        } as any;
+        expect(getProfit(closedPosition)).toEqual('1234.56');
+    });
+
+    it('should handle open positions without profit_loss property', () => {
+        const openPosition = {
+            contract_type: 'CALL',
+            profit: 5.25,
+        } as any;
+        expect(getProfit(openPosition)).toEqual(5.25);
+    });
+
+    it('should handle multiplier contracts using getTotalProfit', () => {
+        const multiplierPosition = {
+            contract_type: 'MULTUP',
+            bid_price: 10.5,
+            buy_price: 10,
+        } as any;
+        // getTotalProfit returns bid_price - buy_price for multipliers
+        expect(getProfit(multiplierPosition)).toEqual(0.5);
+    });
+
+    it('should return undefined when no profit data is available', () => {
+        const emptyPosition = {
+            contract_type: 'CALL',
+        } as any;
+        expect(getProfit(emptyPosition)).toBeUndefined();
+    });
 });
 
 describe('getTotalPositionsProfit', () => {
     it('should return correct total profit, based on all positions', () => {
+        // Calculate expected total: -2.62 + (-0.49) + 0.84 + (-10) = -12.27
         expect(getTotalPositionsProfit(mockedActivePositions)).toEqual(-12.27);
+    });
+
+    it('should handle empty positions array', () => {
+        expect(getTotalPositionsProfit([])).toEqual(0);
+    });
+
+    it('should handle positions with string profit_loss values', () => {
+        const positions = [
+            {
+                contract_info: { profit_loss: '5.50' },
+            },
+            {
+                contract_info: { profit_loss: '-2.25' },
+            },
+        ] as any;
+        expect(getTotalPositionsProfit(positions)).toEqual(3.25);
     });
 });
 
@@ -375,7 +419,6 @@ describe('setPositionURLParams', () => {
         Object.defineProperty(window, 'location', {
             value: originalWindowLocation,
         });
-        location.search = '';
     });
 
     const spyHistoryReplaceState = jest.spyOn(window.history, 'replaceState');

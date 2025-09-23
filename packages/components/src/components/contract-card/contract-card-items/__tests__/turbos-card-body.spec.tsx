@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { getCardLabels, mockContractInfo } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
-import { mockContractInfo, getCardLabels } from '@deriv/shared';
+
 import TurbosCardBody from '../turbos-card-body';
 
 const contract_info = mockContractInfo({
     contract_id: 1,
-    bid_price: 1044.02,
-    buy_price: 1044.0,
-    profit: 50,
+    bid_price: '1044.02',
+    buy_price: '1044.0',
+    profit: '50',
     barrier: '10904.803',
-    entry_spot_display_value: '1046.800',
-    sell_price: 1046.8,
+    sell_price: '1046.8',
+    entry_spot: '1046.8',
 });
 
 describe('TurbosCardBody', () => {
@@ -53,7 +55,7 @@ describe('TurbosCardBody', () => {
 
         const entry_spot_header = screen.getByText(getCardLabels().ENTRY_SPOT);
         expect(entry_spot_header).toBeInTheDocument();
-        const entry_spot_amount = screen.getByText('1,046.800');
+        const entry_spot_amount = screen.getByText('1,046.8');
         expect(entry_spot_amount).toBeInTheDocument();
 
         const barrier_header = screen.getByText(getCardLabels().BARRIER);
@@ -73,7 +75,7 @@ describe('TurbosCardBody', () => {
     });
     it('should render Total profit/loss even if profit === 0', () => {
         const new_mocked_props = { ...mock_props };
-        new_mocked_props.contract_info.profit = 0;
+        new_mocked_props.contract_info.profit = '0';
         render(<TurbosCardBody {...new_mocked_props} />);
 
         expect(screen.getByText(getCardLabels().TOTAL_PROFIT_LOSS)).toBeInTheDocument();

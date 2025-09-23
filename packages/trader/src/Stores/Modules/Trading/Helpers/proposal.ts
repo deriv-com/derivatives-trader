@@ -1,4 +1,4 @@
-import { PriceProposalResponse, Proposal } from '@deriv/api-types';
+import { TPriceProposalResponse } from '@deriv/api';
 import {
     convertToUnix,
     getDecimalPlaces,
@@ -10,8 +10,9 @@ import {
     TRADE_TYPES,
 } from '@deriv/shared';
 
-import { isRiseFallContractType } from './allow-equals';
 import { TError, TTradeStore } from 'Types';
+
+import { isRiseFallContractType } from './allow-equals';
 
 type TObjContractBasis = {
     text: string;
@@ -59,7 +60,7 @@ type TValidationParams =
       }
     | undefined;
 
-export type ExpandedProposal = Proposal & TValidationParams;
+export type ExpandedProposal = NonNullable<TPriceProposalResponse['proposal']> & TValidationParams;
 
 const isVisible = (elem: HTMLElement) => !(!elem || (elem.offsetWidth === 0 && elem.offsetHeight === 0));
 
@@ -69,7 +70,7 @@ const map_error_field: { [key: string]: string } = {
     date_expiry: 'expiry_date',
 };
 
-export const getProposalErrorField = (response: PriceProposalResponse) => {
+export const getProposalErrorField = (response: TPriceProposalResponse) => {
     const error_field: string = getPropertyValue(response, ['error', 'details', 'field']);
     if (!error_field) {
         return null;
@@ -81,7 +82,7 @@ export const getProposalErrorField = (response: PriceProposalResponse) => {
 
 export const getProposalInfo = (
     store: TTradeStore,
-    response: PriceProposalResponse & TError,
+    response: TPriceProposalResponse & TError,
     obj_prev_contract_basis?: TObjContractBasis
 ) => {
     const proposal: ExpandedProposal = response.proposal || ({} as ExpandedProposal);

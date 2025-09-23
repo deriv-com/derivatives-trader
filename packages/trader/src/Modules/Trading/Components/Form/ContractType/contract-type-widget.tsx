@@ -6,16 +6,13 @@ import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES } from '@der
 import { observer, useStore } from '@deriv/stores';
 import { Analytics } from '@deriv-com/analytics';
 import { Localize, useTranslations } from '@deriv-com/translations';
-
 import { useTraderStore } from 'Stores/useTraderStores';
-
 import {
     findContractCategory,
     getCategoriesSortedByKey,
     getContractTypeCategoryIcons,
     getContractTypes,
 } from '../../../Helpers/contract-type';
-
 import ContractType from './contract-type';
 import { TContractCategory, TContractType, TList } from './types';
 
@@ -36,7 +33,6 @@ type TContractTypeWidget = {
 const ContractTypeWidget = observer(
     ({ name, value, list, onChange, languageChanged, unavailable_trade_types_list = [] }: TContractTypeWidget) => {
         const {
-            active_symbols: { active_symbols },
             ui: { is_mobile },
         } = useStore();
         const { localize } = useTranslations();
@@ -303,7 +299,7 @@ const ContractTypeWidget = observer(
                     <Localize
                         i18n_default_text='Some trade types are unavailable for {{symbol}}.'
                         values={{
-                            symbol: getSymbolDisplayName([], symbol),
+                            symbol: getSymbolDisplayName(symbol),
                         }}
                         shouldUnescape
                     />

@@ -75,14 +75,8 @@ const ContractDetails = ({
         date_start,
         display_number_of_contracts,
         entry_spot,
-        entry_spot_display_value,
-        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
         entry_spot_time,
-        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
         exit_spot: exit_spot_value,
-        exit_tick,
-        exit_tick_display_value,
-        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
         exit_spot_time,
         high_barrier,
         is_sold,
@@ -95,17 +89,14 @@ const ContractDetails = ({
         transaction_ids: { buy, sell } = {},
         reset_barrier,
         reset_time,
-        // @ts-expect-error underlying_symbol exists in runtime but not in type definition
         underlying_symbol,
-        underlying,
     } = contract_info;
     const { isMobile } = useDevice();
     const { localize } = useTranslations();
 
-    // Backward compatibility: fallback to old field names
-    const actual_entry_spot = entry_spot ?? entry_spot_display_value;
-    const actual_exit_spot = exit_spot_value ?? exit_tick;
-    const actual_exit_spot_display_value = exit_spot_value ?? exit_tick_display_value;
+    const actual_entry_spot = entry_spot;
+    const actual_exit_spot = exit_spot_value;
+    const actual_exit_spot_display_value = exit_spot_value;
 
     const is_profit = Number(profit) >= 0;
     const cancellation_price = getCancellationPrice(contract_info);
@@ -162,7 +153,7 @@ const ContractDetails = ({
         contract_type === CONTRACT_TYPES.LB_PUT ? INDICATIVE_HIGH : INDICATIVE_LOW
     );
 
-    const vanilla_payout_text = isVanillaFxContract(contract_type, underlying_symbol ?? underlying)
+    const vanilla_payout_text = isVanillaFxContract(contract_type, underlying_symbol)
         ? getLocalizedBasis().payout_per_pip
         : getLocalizedBasis().payout_per_point;
 
@@ -228,7 +219,7 @@ const ContractDetails = ({
                                     label={getBarrierLabel(contract_info)}
                                     value={
                                         (isResetContract(contract_type)
-                                            ? addComma(entry_spot_display_value)
+                                            ? addComma(actual_entry_spot?.toString() || '')
                                             : getBarrierValue(contract_info)) || ' - '
                                     }
                                 />

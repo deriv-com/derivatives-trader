@@ -1,4 +1,4 @@
-import { TradingTimesResponse } from '@deriv/api-types';
+import { TTradingTimesResponse } from '@deriv/api';
 
 import { calculateTimeLeft, getSymbol } from '../closed-market-message-utils';
 
@@ -83,7 +83,7 @@ describe('getSymbol', () => {
                 ],
             },
         ],
-    } as unknown as NonNullable<DeepRequired<TradingTimesResponse['trading_times']>>;
+    } as NonNullable<DeepRequired<TTradingTimesResponse['trading_times']>>;
 
     it('should return the correct symbol when the target symbol exists', () => {
         const target_symbol = 'GBPUSD';
@@ -115,7 +115,7 @@ describe('getSymbol', () => {
                     ],
                 },
             ],
-        } as unknown as NonNullable<DeepRequired<TradingTimesResponse['trading_times']>>;
+        } as NonNullable<DeepRequired<TTradingTimesResponse['trading_times']>>;
 
         const target_symbol = 'GBPUSD';
         const result = getSymbol(target_symbol, modified_trading_times);

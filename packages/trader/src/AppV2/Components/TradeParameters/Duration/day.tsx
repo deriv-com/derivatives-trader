@@ -13,7 +13,7 @@ import {
     getProposalRequestObject,
 } from 'AppV2/Utils/trade-params-utils';
 import { getBoundaries } from 'Stores/Modules/Trading/Helpers/end-time';
-import { ProposalResponse } from 'Stores/Modules/Trading/trade-store';
+import { TProposalResponse } from 'Stores/Modules/Trading/trade-store';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 import DaysDatepicker from './datepicker';
@@ -91,7 +91,7 @@ const DayInput = ({
         trade_type: Object.keys(trade_types)[0],
     });
 
-    const { data: response } = useDtraderQuery<ProposalResponse>(
+    const { data: response } = useDtraderQuery<TProposalResponse>(
         ['proposal', JSON.stringify(day), JSON.stringify(payout_per_point), JSON.stringify(barrier_value)],
         {
             ...proposal_req,
