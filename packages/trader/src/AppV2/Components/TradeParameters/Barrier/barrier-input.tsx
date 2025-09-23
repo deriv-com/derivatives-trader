@@ -34,10 +34,26 @@ const BarrierInput = observer(
             tick_data,
             setV2ParamsInitialValues,
             v2_params_initial_values,
+            symbol,
+            active_symbols,
         } = useTraderStore();
-        const [option, setOption] = React.useState(0);
         const [should_show_error, setShouldShowError] = React.useState(false);
         const { localize } = useTranslations();
+
+        // Draft state for staging changes until save
+        interface DraftState {
+            value: string;
+            type: number;
+            spotValue: string;
+            fixedValue: string;
+        }
+
+        const [draftState, setDraftState] = React.useState<DraftState>({
+            value: '',
+            type: 0,
+            spotValue: '',
+            fixedValue: '',
+        });
 
         // Constants for localStorage keys
         const SPOT_BARRIER_KEY = 'deriv_spot_barrier_value';
@@ -87,20 +103,84 @@ const BarrierInput = observer(
         const { pip_size } = tick_data ?? {};
         const barrier_ref = React.useRef<HTMLInputElement | null>(null);
         const show_hidden_error = validation_errors?.barrier_1.length > 0 && (barrier_1 || should_show_error);
+        const [previous_symbol, setPreviousSymbol] = React.useState(symbol);
 
+        // Helper function to determine barrier support for current symbol
+        const getSymbolBarrierSupport = React.useCallback((): 'relative' | 'absolute' => {
+            if (!symbol || !active_symbols.length) return 'absolute';
+
+            const symbol_info = active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);
+
+            if (!symbol_info) return 'absolute';
+
+            const market = symbol_info.market;
+            const symbol_type = (symbol_info as any).symbol_type;
+
+            // Forex symbols only support absolute barriers
+            if (market === 'forex' || symbol_type === 'forex') {
+                return 'absolute';
+            }
+
+            // Most other markets support relative barriers
+            return 'relative';
+        }, [symbol, active_symbols]);
+
+        // Effect to handle symbol changes and reset barrier type if needed
+        React.useEffect(() => {
+            if (symbol && previous_symbol && symbol !== previous_symbol) {
+                const barrier_support = getSymbolBarrierSupport();
+
+                // If switching to forex (absolute only), force fixed barrier option
+                if (barrier_support === 'absolute') {
+                    setDraftState(prev => ({ ...prev, type: 2 })); // Fixed barrier
+                    // Clear stored barrier type to prevent conflicts
+                    try {
+                        localStorage.removeItem(BARRIER_TYPE_KEY);
+                        localStorage.removeItem(SPOT_BARRIER_KEY);
+                    } catch {
+                        // Ignore localStorage errors
+                    }
+
+                    // Set a default barrier value if current barrier is empty or relative
+                    if (!barrier_1 || barrier_1.includes('+') || barrier_1.includes('-')) {
+                        const current_spot = tick_data?.quote;
+                        const default_barrier = current_spot ? (current_spot + 0.0001).toFixed(5) : '1.0000';
+                        onChange({ target: { name: 'barrier_1', value: default_barrier } });
+                        setV2ParamsInitialValues({ name: 'barrier_1', value: default_barrier });
+                        setFixedBarrierValue(default_barrier);
+                    }
+                }
+
+                setPreviousSymbol(symbol);
+            }
+        }, [
+            symbol,
+            previous_symbol,
+            getSymbolBarrierSupport,
+            barrier_1,
+            tick_data,
+            onChange,
+            setV2ParamsInitialValues,
+        ]);
+
+        // Initialize draft state when modal opens
         React.useEffect(() => {
             const initialValue = v2_params_initial_values?.barrier_1;
             const savedBarrierValue = String(initialValue || barrier_1);
             const storedBarrierType = getStoredBarrierType();
+            const barrier_support = getSymbolBarrierSupport();
 
             setInitialBarrierValue(savedBarrierValue);
             setV2ParamsInitialValues({ name: 'barrier_1', value: savedBarrierValue });
 
-            // Prioritize stored barrier type over value-based detection
+            // Determine barrier option based on symbol support and stored values
             let determinedOption: number;
 
-            if (storedBarrierType !== null && storedBarrierType >= 0 && storedBarrierType <= 2) {
-                // Use stored barrier type if available and valid
+            // For forex symbols, force fixed barrier regardless of stored values
+            if (barrier_support === 'absolute') {
+                determinedOption = 2; // Fixed barrier
+            } else if (storedBarrierType !== null && storedBarrierType >= 0 && storedBarrierType <= 2) {
+                // Use stored barrier type if available and valid for non-forex symbols
                 determinedOption = storedBarrierType;
             } else if (savedBarrierValue.includes('-')) {
                 determinedOption = 1; // Below spot
@@ -110,12 +190,14 @@ const BarrierInput = observer(
                 determinedOption = 2; // Fixed barrier
             }
 
-            setOption(determinedOption);
+            // Initialize draft state with current values
+            let spotValue = '';
+            let fixedValue = '';
 
-            // Initialize the appropriate barrier value based on the determined option
             if (determinedOption === 0 || determinedOption === 1) {
                 // Above/Below spot
                 const valueWithoutSign = savedBarrierValue.replace(/^[+-]/, '');
+                spotValue = valueWithoutSign;
                 setSpotBarrierValue(valueWithoutSign);
                 // Store in localStorage if not already there
                 if (!spot_barrier_value) {
@@ -123,6 +205,7 @@ const BarrierInput = observer(
                 }
             } else {
                 // Fixed barrier
+                fixedValue = savedBarrierValue;
                 setFixedBarrierValue(savedBarrierValue);
                 // Store in localStorage if not already there
                 if (!fixed_barrier_value) {
@@ -130,12 +213,21 @@ const BarrierInput = observer(
                 }
             }
 
-            // Store the determined barrier type for future use
-            storeBarrierType(determinedOption);
+            // Initialize draft state with all values
+            setDraftState({
+                value: savedBarrierValue,
+                type: determinedOption,
+                spotValue: spotValue || getStoredValue(SPOT_BARRIER_KEY),
+                fixedValue: fixedValue || getStoredValue(FIXED_BARRIER_KEY),
+            });
 
-            onChange({ target: { name: 'barrier_1', value: savedBarrierValue } });
+            // Store the determined barrier type for future use (only for non-forex)
+            if (barrier_support !== 'absolute') {
+                storeBarrierType(determinedOption);
+            }
+
             // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, []);
+        }, [getSymbolBarrierSupport]);
 
         React.useEffect(() => {
             const barrier_element = barrier_ref.current;
@@ -158,35 +250,27 @@ const BarrierInput = observer(
         }, [is_focused]);
 
         const handleChipSelect = (index: number) => {
-            const previousOption = option; // Store the previous option before updating
-            setOption(index);
-            let newValue = '';
+            const previousOption = draftState.type; // Store the previous option before updating
 
-            // Save current value to the appropriate state variable and localStorage
+            // Save current value to the appropriate draft state variable
             if (previousOption === 0 || previousOption === 1) {
-                // Coming from Above/Below spot, save to spot_barrier_value
-                const valueWithoutSign = barrier_1.replace(/^[+-]/, '');
-                setSpotBarrierValue(valueWithoutSign);
-                // Store in localStorage
-                storeValue(SPOT_BARRIER_KEY, valueWithoutSign);
+                // Coming from Above/Below spot, save to spotValue
+                const valueWithoutSign = draftState.value.replace(/^[+-]/, '');
+                setDraftState(prev => ({ ...prev, spotValue: valueWithoutSign }));
             } else if (previousOption === 2) {
-                // Coming from Fixed barrier, save to fixed_barrier_value
-                setFixedBarrierValue(barrier_1);
-                // Store in localStorage
-                storeValue(FIXED_BARRIER_KEY, barrier_1);
+                // Coming from Fixed barrier, save to fixedValue
+                setDraftState(prev => ({ ...prev, fixedValue: draftState.value }));
             }
 
-            // Store the new barrier type selection
-            storeBarrierType(index);
-
-            // Restore the appropriate value based on the tab we're switching to
+            // Determine the new value based on the tab we're switching to
+            let newValue = '';
             if (index === 0 || index === 1) {
                 // Switching to Above/Below spot
-                const valueToUse = spot_barrier_value || '';
+                const valueToUse = draftState.spotValue || '';
                 newValue = index === 0 ? `+${valueToUse}` : `-${valueToUse}`;
             } else if (index === 2) {
                 // Switching to Fixed barrier
-                newValue = fixed_barrier_value || '';
+                newValue = draftState.fixedValue || '';
             }
 
             if ((newValue.startsWith('+') || newValue.startsWith('-')) && newValue.charAt(1) === '.') {
@@ -195,43 +279,37 @@ const BarrierInput = observer(
                 newValue = `0${newValue}`;
             }
 
-            onChange({ target: { name: 'barrier_1', value: newValue } });
+            // Update draft state with new type and value
+            setDraftState(prev => ({ ...prev, type: index, value: newValue }));
         };
 
         const handleOnChange = (e: { target: { name: string; value: string } }) => {
             let value = e.target.value;
-            if (option === 0) value = `+${value}`;
-            if (option === 1) value = `-${value}`;
+            if (draftState.type === 0) value = `+${value}`;
+            if (draftState.type === 1) value = `-${value}`;
 
-            // Update the appropriate state variable based on the current tab
-            if (option === 0 || option === 1) {
+            // Update the appropriate draft state variable based on the current tab
+            if (draftState.type === 0 || draftState.type === 1) {
                 // Above/Below spot - store without sign
                 const valueWithoutSign = value.replace(/^[+-]/, '');
-                setSpotBarrierValue(valueWithoutSign);
-                // Store in localStorage
-                storeValue(SPOT_BARRIER_KEY, valueWithoutSign);
-            } else if (option === 2) {
+                setDraftState(prev => ({ ...prev, value, spotValue: valueWithoutSign }));
+            } else if (draftState.type === 2) {
                 // Fixed barrier
-                setFixedBarrierValue(value);
-                // Store in localStorage
-                storeValue(FIXED_BARRIER_KEY, value);
+                setDraftState(prev => ({ ...prev, value, fixedValue: value }));
             }
-
-            onChange({ target: { name: 'barrier_1', value } });
-            setV2ParamsInitialValues({ name: 'barrier_1', value });
         };
 
         return (
             <>
                 <ActionSheet.Content>
                     <div className='barrier-params'>
-                        {!isDays && (
+                        {!isDays && getSymbolBarrierSupport() === 'relative' && (
                             <div className='barrier-params__chips'>
                                 {chips_options.map((item, index) => (
                                     <Chip.Selectable
                                         key={index}
                                         onClick={() => handleChipSelect(index)}
-                                        selected={index == option}
+                                        selected={index == draftState.type}
                                     >
                                         <Text size='sm'>{item.name}</Text>
                                     </Chip.Selectable>
@@ -240,13 +318,13 @@ const BarrierInput = observer(
                         )}
 
                         <div>
-                            {option === 2 || isDays ? (
+                            {draftState.type === 2 || isDays ? (
                                 <TextField
                                     customType='commaRemoval'
                                     name='barrier_1'
                                     noStatusIcon
                                     status={show_hidden_error ? 'error' : 'neutral'}
-                                    value={barrier_1}
+                                    value={draftState.value}
                                     allowDecimals
                                     decimals={pip_size}
                                     allowSign={false}
@@ -265,9 +343,9 @@ const BarrierInput = observer(
                                     customType='commaRemoval'
                                     name='barrier_1'
                                     noStatusIcon
-                                    addonLabel={option == 0 ? '+' : '-'}
+                                    addonLabel={draftState.type == 0 ? '+' : '-'}
                                     decimals={pip_size}
-                                    value={barrier_1.replace(/[+-]/g, '')}
+                                    value={draftState.value.replace(/[+-]/g, '')}
                                     allowDecimals
                                     inputMode='decimal'
                                     allowSign={false}
@@ -299,23 +377,21 @@ const BarrierInput = observer(
                         content: <Localize i18n_default_text='Save' />,
                         onAction: () => {
                             if (validation_errors.barrier_1.length === 0) {
-                                // Save the current values to localStorage before closing
-                                if (option === 0 || option === 1) {
-                                    const valueWithoutSign = barrier_1.replace(/^[+-]/, '');
-                                    storeValue(SPOT_BARRIER_KEY, valueWithoutSign);
-                                } else if (option === 2) {
-                                    storeValue(FIXED_BARRIER_KEY, barrier_1);
+                                // Apply draft changes to store
+                                onChange({ target: { name: 'barrier_1', value: draftState.value } });
+                                setV2ParamsInitialValues({ name: 'barrier_1', value: draftState.value });
+
+                                // Save the current values to localStorage
+                                if (draftState.type === 0 || draftState.type === 1) {
+                                    storeValue(SPOT_BARRIER_KEY, draftState.spotValue);
+                                } else if (draftState.type === 2) {
+                                    storeValue(FIXED_BARRIER_KEY, draftState.fixedValue);
                                 }
 
                                 // Save the current barrier type selection
-                                storeBarrierType(option);
+                                storeBarrierType(draftState.type);
 
                                 onClose(true);
-
-                                // This is a workaround to re-trigger any validation errors that were hidden behind the action sheet
-                                handleOnChange({
-                                    target: { name: 'barrier_1', value: barrier_1.replace(/[+-]/g, '') },
-                                });
                             } else {
                                 setShouldShowError(true);
                             }

@@ -49,6 +49,23 @@ describe('BarrierInput', () => {
                 validation_errors: { barrier_1: [] },
                 duration: 10,
                 proposal_info: { CALL: { id: '123', message: 'test_message', has_error: true, spot: 12345 } },
+                symbol: '1HZ100V', // Synthetic symbol to show barrier chips
+                active_symbols: [
+                    {
+                        symbol: '1HZ100V',
+                        display_name: 'Volatility 100 (1s) Index',
+                        market: 'synthetic_index',
+                        symbol_type: 'synthetic_index',
+                        exchange_is_open: 1,
+                    },
+                    {
+                        symbol: 'EURUSD',
+                        display_name: 'EUR/USD',
+                        market: 'forex',
+                        symbol_type: 'forex',
+                        exchange_is_open: 1,
+                    },
+                ],
             },
         },
     };
@@ -92,13 +109,18 @@ describe('BarrierInput', () => {
         const belowSpotChip = screen.getByText('Below spot');
         const fixedPriceChip = screen.getByText('Fixed barrier');
 
+        // With staging pattern, onChange should not be called during chip selection
         await userEvent.click(belowSpotChip);
-        expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '-10' } });
+        expect(onChange).not.toHaveBeenCalled();
 
         await userEvent.click(fixedPriceChip);
-        expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '' } });
+        expect(onChange).not.toHaveBeenCalled();
 
         await userEvent.click(aboveSpotChip);
+        expect(onChange).not.toHaveBeenCalled();
+
+        // onChange should only be called when Save is clicked
+        await userEvent.click(screen.getByText(/Save/));
         expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '+10' } });
     });
 
@@ -106,12 +128,17 @@ describe('BarrierInput', () => {
         mockBarrierInput(mockStore(default_trade_store));
         const input = screen.getByPlaceholderText('Distance to spot');
 
+        // With staging pattern, onChange should not be called during input change
         fireEvent.change(input, { target: { value: '20' } });
-        expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '+20' } });
+        expect(onChange).not.toHaveBeenCalled();
 
         const belowSpotChip = screen.getByText('Below spot');
         await userEvent.click(belowSpotChip);
         fireEvent.change(input, { target: { value: '15' } });
+        expect(onChange).not.toHaveBeenCalled();
+
+        // onChange should only be called when Save is clicked
+        await userEvent.click(screen.getByText(/Save/));
         expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '-15' } });
     });
 
@@ -155,6 +182,11 @@ describe('BarrierInput', () => {
         const aboveSpotChip = screen.getByText('Above spot');
         await userEvent.click(aboveSpotChip);
 
+        // With staging pattern, onChange should not be called during chip selection
+        expect(onChange).not.toHaveBeenCalled();
+
+        // onChange should only be called when Save is clicked
+        await userEvent.click(screen.getByText(/Save/));
         expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '+10' } });
     });
 
@@ -165,6 +197,11 @@ describe('BarrierInput', () => {
         const belowSpotChip = screen.getByText('Below spot');
         await userEvent.click(belowSpotChip);
 
+        // With staging pattern, onChange should not be called during chip selection
+        expect(onChange).not.toHaveBeenCalled();
+
+        // onChange should only be called when Save is clicked
+        await userEvent.click(screen.getByText(/Save/));
         expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '-0.6' } });
     });
 
@@ -175,6 +212,11 @@ describe('BarrierInput', () => {
         const fixedPriceChip = screen.getByText('Fixed barrier');
         await userEvent.click(fixedPriceChip);
 
+        // With staging pattern, onChange should not be called during chip selection
+        expect(onChange).not.toHaveBeenCalled();
+
+        // onChange should only be called when Save is clicked
+        await userEvent.click(screen.getByText(/Save/));
         expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '' } });
     });
 
@@ -185,6 +227,11 @@ describe('BarrierInput', () => {
         const aboveSpotChip = screen.getByText('Above spot');
         await userEvent.click(aboveSpotChip);
 
+        // With staging pattern, onChange should not be called during chip selection
+        expect(onChange).not.toHaveBeenCalled();
+
+        // onChange should only be called when Save is clicked
+        await userEvent.click(screen.getByText(/Save/));
         expect(onChange).toHaveBeenLastCalledWith({ target: { name: 'barrier_1', value: '+' } });
     });
 
@@ -203,12 +250,17 @@ describe('BarrierInput', () => {
         expect(screen.getAllByRole('button')[2]).toHaveAttribute('data-state', 'selected');
     });
 
-    it('stores barrier type in localStorage when chip is selected', async () => {
+    it('stores barrier type in localStorage when chip is selected and saved', async () => {
         mockBarrierInput(mockStore(default_trade_store));
 
         const fixedBarrierChip = screen.getByText('Fixed barrier');
         await userEvent.click(fixedBarrierChip);
 
+        // With staging pattern, localStorage should not be updated during chip selection
+        expect(localStorageMock.setItem).not.toHaveBeenCalledWith('deriv_barrier_type_selection', '2');
+
+        // localStorage should only be updated when Save is clicked
+        await userEvent.click(screen.getByText(/Save/));
         expect(localStorageMock.setItem).toHaveBeenCalledWith('deriv_barrier_type_selection', '2');
     });
 });
