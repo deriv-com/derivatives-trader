@@ -62,7 +62,7 @@ const NetworkMonitorBase = (() => {
             if (isOnline() && BinarySocket.hasReadyState(2, 3)) {
                 BinarySocket.openNewConnection();
             } else {
-                BinarySocket.send({ ping: 1 }); // get stable status sooner
+                BinarySocket.send({ time: 1 }); // get stable status sooner
             }
         }, timeout);
     }

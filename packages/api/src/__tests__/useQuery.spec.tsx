@@ -8,9 +8,9 @@ jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
     useWS: () => ({
         send: jest.fn(() =>
-            Promise.resolve<TSocketResponse<'ping'>>({
-                msg_type: 'ping',
-                ping: 'pong',
+            Promise.resolve<TSocketResponse<'time'>>({
+                msg_type: 'time',
+                time: 123456789,
                 echo_req: {},
             })
         ),
@@ -19,13 +19,13 @@ jest.mock('@deriv/shared', () => ({
 }));
 
 describe('useQuery', () => {
-    test('should call ping and get pong in response', async () => {
+    test('should call time and get response', async () => {
         const wrapper = ({ children }: { children: JSX.Element }) => <APIProvider>{children}</APIProvider>;
 
-        const { result, waitFor } = renderHook(() => useQuery('ping'), { wrapper });
+        const { result, waitFor } = renderHook(() => useQuery('time'), { wrapper });
 
         await waitFor(() => result.current.isSuccess, { timeout: 10000 });
 
-        expect(result.current.data?.ping).toEqual('pong');
+        expect(result.current.data?.time).toEqual(123456789);
     });
 });

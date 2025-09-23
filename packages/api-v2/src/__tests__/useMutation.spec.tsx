@@ -6,23 +6,23 @@ import AuthProvider from '../AuthProvider';
 import useMutation from '../useMutation';
 
 jest.mock('../useAPI', () => () => ({
-    send: async () => ({ ping: 'pong' }) as TSocketResponse<'ping'>,
+    send: async () => ({ time: 123456789 }) as TSocketResponse<'time'>,
 }));
 
 describe('useMutation', () => {
-    test('should call ping and get pong in response', async () => {
+    test('should call time and get response', async () => {
         const wrapper = ({ children }: { children: JSX.Element }) => (
             <APIProvider>
                 <AuthProvider>{children}</AuthProvider>
             </APIProvider>
         );
 
-        const { result, waitFor } = renderHook(() => useMutation('ping'), { wrapper });
+        const { result, waitFor } = renderHook(() => useMutation('time'), { wrapper });
 
         result.current.mutate();
 
         await waitFor(() => result.current.isSuccess, { timeout: 10000 });
 
-        expect(result.current.data?.ping).toEqual('pong');
+        expect(result.current.data?.time).toEqual(123456789);
     });
 });
