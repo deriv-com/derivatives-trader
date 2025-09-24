@@ -51,7 +51,10 @@ export const getSocketURL = () => {
     const accountType = getAccountTypeFromUrl();
 
     // Map account type to new v2 endpoints
-    const server_url = accountType === 'real' ? 'realv2.derivws.com' : 'demov2.derivws.com';
+    // const server_url = accountType === 'real' ? 'realv2.derivws.com' : 'demov2.derivws.com';
+
+    // Use qa197 for testing purposes
+    const server_url = 'qa197.deriv.dev';
 
     return server_url;
 };
