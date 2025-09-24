@@ -66,6 +66,17 @@ describe('BarrierInput', () => {
                         exchange_is_open: 1,
                     },
                 ],
+                // Mock implementation of getSymbolBarrierSupport method
+                getSymbolBarrierSupport: jest.fn((symbol: string) => {
+                    if (!symbol) return 'absolute';
+
+                    // Return 'relative' for synthetic symbols, 'absolute' for forex
+                    if (symbol === '1HZ100V' || symbol.includes('HZ')) return 'relative';
+                    if (symbol === 'EURUSD' || symbol.includes('USD')) return 'absolute';
+
+                    // Default to absolute for unknown symbols
+                    return 'absolute';
+                }),
             },
         },
     };
