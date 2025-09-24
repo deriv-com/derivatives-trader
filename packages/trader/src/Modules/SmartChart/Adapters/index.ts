@@ -160,8 +160,8 @@ const transformations = {
     /**
      * Transform active symbols data to ActiveSymbols format
      */
-    toActiveSymbols(activeSymbolsData: any[]): ActiveSymbols[] {
-        const symbols: ActiveSymbols[] = [];
+    toActiveSymbols(activeSymbolsData: any[]): ActiveSymbols {
+        const symbols: ActiveSymbols = [];
 
         if (!Array.isArray(activeSymbolsData)) {
             return symbols;
@@ -344,7 +344,7 @@ export function buildSmartChartsChampionAdapter(
          * Get chart reference data (symbols and trading times)
          * Uses optimized transformations that work with existing store data
          */
-        async getChartData(): Promise<{ activeSymbols: ActiveSymbols[]; tradingTimes: TradingTimesMap }> {
+        async getChartData(): Promise<{ activeSymbols: ActiveSymbols; tradingTimes: TradingTimesMap }> {
             logger.info('Fetching chart reference data using optimized transformations');
 
             try {

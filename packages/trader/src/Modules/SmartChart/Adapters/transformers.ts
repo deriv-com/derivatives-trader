@@ -3,14 +3,6 @@
  * Transforms existing Deriv data structures to SmartCharts Champion format
  */
 
-export interface TradingTimesMap {
-    [symbol: string]: {
-        isOpen: boolean;
-        openTime: string;
-        closeTime: string;
-    };
-}
-
 /**
  * Maps active symbols market codes to trading times market names
  */
@@ -176,38 +168,6 @@ export function enrichActiveSymbols(active_symbols: any[], trading_times: any) {
     }
 }
 
-/**
- * Transform trading times data to SmartCharts Champion format
- * Uses existing trading times data from ContractType.getTradingTimes
- */
-export function transformTradingTimesToChampion(
-    tradingTimesData: Record<string, { open: string[]; close: string[] }>
-): TradingTimesMap {
-    const tradingTimesMap: TradingTimesMap = {};
-
-    Object.keys(tradingTimesData).forEach(symbol => {
-        const times = tradingTimesData[symbol];
-
-        if (times && times.open && times.close) {
-            const openTimes = times.open;
-            const closeTimes = times.close;
-
-            // Determine if market is open
-            // If open/close times are '--', market is closed all day
-            const isClosedAllDay = openTimes[0] === '--' || closeTimes[0] === '--';
-            const isOpen = !isClosedAllDay;
-
-            tradingTimesMap[symbol] = {
-                isOpen,
-                openTime: openTimes[0] || '--',
-                closeTime: closeTimes[0] || '--',
-            };
-        }
-    });
-
-    return tradingTimesMap;
-}
-
 // Market and Submarket Mappings
 export const MARKET_MAPPINGS = {
     MARKET_DISPLAY_NAMES: new Map([
@@ -265,78 +225,4 @@ export const MARKET_MAPPINGS = {
         ['stock_indices', 'Stock Indices'],
         ['indices', 'Indices'],
     ]),
-};
-
-// Market Dropdown Options
-export const MARKET_OPTIONS = [
-    ['Derived', 'synthetic_index'],
-    ['Forex', 'forex'],
-    ['Stock Indices', 'indices'],
-    ['Commodities', 'commodities'],
-    ['Cryptocurrencies', 'cryptocurrency'],
-];
-
-// Submarket Options by Market
-export const SUBMARKET_OPTIONS = {
-    synthetic_index: [
-        ['Continuous Indices', 'random_index'],
-        ['Daily Reset Indices', 'random_daily'],
-        ['Crash/Boom', 'crash_index'],
-        ['Jump Indices', 'jump_index'],
-        ['Step Indices', 'step_index'],
-    ],
-    forex: [
-        ['Major Pairs', 'major_pairs'],
-        ['Minor Pairs', 'minor_pairs'],
-        ['Exotic Pairs', 'exotic_pairs'],
-        ['Smart FX', 'smart_fx'],
-    ],
-    indices: [
-        ['Asian Indices', 'asian_indices'],
-        ['American Indices', 'american_indices'],
-        ['European Indices', 'european_indices'],
-        ['OTC Indices', 'otc_index'],
-    ],
-    commodities: [
-        ['Metals', 'metals'],
-        ['Energy', 'energy'],
-    ],
-    cryptocurrency: [
-        ['Crypto Index', 'crypto_index'],
-        ['Non-Stable Coins', 'non_stable_coin'],
-        ['Stable Coins', 'stable_coin'],
-    ],
-};
-
-// Symbol Options by Submarket
-export const SYMBOL_OPTIONS = {
-    random_index: [
-        ['Volatility 10 Index', '1HZ10V'],
-        ['Volatility 25 Index', '1HZ25V'],
-        ['Volatility 50 Index', '1HZ50V'],
-        ['Volatility 75 Index', '1HZ75V'],
-        ['Volatility 100 Index', '1HZ100V'],
-    ],
-    major_pairs: [
-        ['EUR/USD', 'frxEURUSD'],
-        ['GBP/USD', 'frxGBPUSD'],
-        ['USD/JPY', 'frxUSDJPY'],
-        ['USD/CHF', 'frxUSDCHF'],
-        ['AUD/USD', 'frxAUDUSD'],
-    ],
-    crash_index: [
-        ['Crash 300 Index', 'CRASH300'],
-        ['Crash 500 Index', 'CRASH500'],
-        ['Crash 1000 Index', 'CRASH1000'],
-        ['Boom 300 Index', 'BOOM300'],
-        ['Boom 500 Index', 'BOOM500'],
-        ['Boom 1000 Index', 'BOOM1000'],
-    ],
-    otc_index: [
-        ['Wall Street 30', 'OTC_DJI'],
-        ['US 500', 'OTC_SPX'],
-        ['US Tech 100', 'OTC_NDX'],
-        ['UK 100', 'OTC_FTSE'],
-        ['Germany 40', 'OTC_GDAXI'],
-    ],
 };

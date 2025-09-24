@@ -27,7 +27,14 @@ const BarrierInput = observer(
         isDays: boolean;
         onClose: (val: boolean) => void;
     }) => {
-        const { barrier_1, onChange, validation_errors, tick_data, setV2ParamsInitialValues } = useTraderStore();
+        const {
+            barrier_1,
+            onChange,
+            validation_errors,
+            tick_data,
+            setV2ParamsInitialValues,
+            v2_params_initial_values,
+        } = useTraderStore();
         const [option, setOption] = React.useState(0);
         const [should_show_error, setShouldShowError] = React.useState(false);
         const [previous_value, setPreviousValue] = React.useState(barrier_1);
@@ -64,21 +71,24 @@ const BarrierInput = observer(
         const show_hidden_error = validation_errors?.barrier_1.length > 0 && (barrier_1 || should_show_error);
 
         React.useEffect(() => {
-            setInitialBarrierValue(barrier_1);
-            setV2ParamsInitialValues({ name: 'barrier_1', value: barrier_1 });
+            const initialValue = v2_params_initial_values?.barrier_1;
+            const savedBarrierValue = String(initialValue || barrier_1);
 
-            // Initialize the appropriate barrier value based on the initial barrier_1
-            if (barrier_1.includes('-')) {
+            setInitialBarrierValue(savedBarrierValue);
+            setV2ParamsInitialValues({ name: 'barrier_1', value: savedBarrierValue });
+
+            // Initialize the appropriate barrier value based on the initial value (prioritizing saved value)
+            if (savedBarrierValue.includes('-')) {
                 setOption(1);
-                const valueWithoutSign = barrier_1.replace(/^[+-]/, '');
+                const valueWithoutSign = savedBarrierValue.replace(/^[+-]/, '');
                 setSpotBarrierValue(valueWithoutSign);
                 // Store in localStorage if not already there
                 if (!spot_barrier_value) {
                     storeValue(SPOT_BARRIER_KEY, valueWithoutSign);
                 }
-            } else if (barrier_1.includes('+')) {
+            } else if (savedBarrierValue.includes('+')) {
                 setOption(0);
-                const valueWithoutSign = barrier_1.replace(/^[+-]/, '');
+                const valueWithoutSign = savedBarrierValue.replace(/^[+-]/, '');
                 setSpotBarrierValue(valueWithoutSign);
                 // Store in localStorage if not already there
                 if (!spot_barrier_value) {
@@ -86,14 +96,14 @@ const BarrierInput = observer(
                 }
             } else {
                 setOption(2);
-                setFixedBarrierValue(barrier_1);
+                setFixedBarrierValue(savedBarrierValue);
                 // Store in localStorage if not already there
                 if (!fixed_barrier_value) {
-                    storeValue(FIXED_BARRIER_KEY, barrier_1);
+                    storeValue(FIXED_BARRIER_KEY, savedBarrierValue);
                 }
             }
 
-            onChange({ target: { name: 'barrier_1', value: barrier_1 } });
+            onChange({ target: { name: 'barrier_1', value: savedBarrierValue } });
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, []);
 

@@ -22,6 +22,7 @@ export interface TQuote {
     prevClose?: number; // Previous close price
 }
 
+// Function type for getting quotes (used by trade-chart components)
 export type TGetQuotes = (params: {
     symbol: string;
     granularity: number; // 0 for ticks, >0 for candles in seconds
@@ -31,6 +32,7 @@ export type TGetQuotes = (params: {
     style?: string; // 'ticks' or 'candles' (optional)
 }) => Promise<TGetQuotesResponse>;
 
+// Response from TGetQuotes function
 export interface TGetQuotesResponse {
     candles?: Array<{
         open: number;
@@ -95,10 +97,8 @@ export interface ActiveSymbol {
     delay_amount?: number;
 }
 
-// Active symbols collection
-export interface ActiveSymbols {
-    [symbol: string]: ActiveSymbol;
-}
+// Active symbols collection (array of symbols)
+export type ActiveSymbols = ActiveSymbol[];
 
 // Trading times structure
 export interface TradingTimesMap {
@@ -111,7 +111,7 @@ export interface TradingTimesMap {
 
 // Chart data response
 export interface ChartDataResponse {
-    activeSymbols: ActiveSymbols[];
+    activeSymbols: ActiveSymbols;
     tradingTimes: TradingTimesMap;
 }
 
@@ -166,33 +166,10 @@ export interface SubscriptionInfo {
     realSubscriptionId?: string | null;
 }
 
-// Performance monitoring interface
-export interface PerformanceMetrics {
-    avg: number;
-    min: number;
-    max: number;
-    count: number;
-}
-
 // Logger interface
 export interface ILogger {
     info: (message: string, data?: any) => void;
     error: (message: string, error?: any) => void;
     warn: (message: string, data?: any) => void;
     debug: (message: string, data?: any) => void;
-}
-
-// Error types
-export enum AdapterErrorType {
-    TRANSPORT_ERROR = 'TRANSPORT_ERROR',
-    SERVICES_ERROR = 'SERVICES_ERROR',
-    TRANSFORMATION_ERROR = 'TRANSFORMATION_ERROR',
-    SUBSCRIPTION_ERROR = 'SUBSCRIPTION_ERROR',
-    VALIDATION_ERROR = 'VALIDATION_ERROR',
-}
-
-export interface AdapterError extends Error {
-    type: AdapterErrorType;
-    originalError?: any;
-    context?: any;
 }

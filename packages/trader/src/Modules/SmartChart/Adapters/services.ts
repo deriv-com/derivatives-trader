@@ -146,37 +146,3 @@ export function createServices(config: { debug?: boolean } = {}): TServices {
         },
     };
 }
-
-/**
- * Utility function to check if services are available
- */
-export function areServicesAvailable(): boolean {
-    try {
-        return !!(WS && WS.activeSymbols && WS.tradingTimes);
-    } catch {
-        return false;
-    }
-}
-
-/**
- * Utility function to wait for services to be ready
- */
-export function waitForServices(timeout: number = 10000): Promise<void> {
-    return new Promise((resolve, reject) => {
-        if (areServicesAvailable()) {
-            resolve();
-            return;
-        }
-
-        const startTime = Date.now();
-        const checkInterval = setInterval(() => {
-            if (areServicesAvailable()) {
-                clearInterval(checkInterval);
-                resolve();
-            } else if (Date.now() - startTime > timeout) {
-                clearInterval(checkInterval);
-                reject(new Error(`Services not available after ${timeout}ms`));
-            }
-        }, 100);
-    });
-}

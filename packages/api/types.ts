@@ -2443,10 +2443,6 @@ type TSocketEndpoints = {
         request: PhoneNumberVerifyRequest;
         response: PhoneNumberVerifyResponse;
     };
-    ping: {
-        request: PingRequest;
-        response: PingResponse;
-    };
     portfolio: {
         request: PortfolioRequest;
         response: PortfolioResponse;
