@@ -2356,7 +2356,7 @@ export default class TradeStore extends BaseStore {
      * @param symbol - The symbol to check
      * @returns 'relative' for synthetic indices, 'absolute' for forex markets
      */
-    private getSymbolBarrierSupport(symbol: string): BarrierSupportType {
+    public getSymbolBarrierSupport(symbol: string): BarrierSupportType {
         if (!symbol || !this.active_symbols.length) return 'absolute';
 
         const symbol_info = this.active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);

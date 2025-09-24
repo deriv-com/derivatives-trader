@@ -110,18 +110,28 @@ describe('TradeStore - Barrier Reset on Symbol Change', () => {
 
     describe('getSymbolBarrierSupport', () => {
         it('should return "absolute" for forex symbols', () => {
-            const result = (trade_store as any).getSymbolBarrierSupport('EURUSD');
+            const result = trade_store.getSymbolBarrierSupport('EURUSD');
             expect(result).toBe('absolute');
         });
 
         it('should return "relative" for synthetic symbols', () => {
-            const result = (trade_store as any).getSymbolBarrierSupport('1HZ100V');
+            const result = trade_store.getSymbolBarrierSupport('1HZ100V');
             expect(result).toBe('relative');
         });
 
         it('should return "absolute" for unknown symbols', () => {
-            const result = (trade_store as any).getSymbolBarrierSupport('UNKNOWN');
+            const result = trade_store.getSymbolBarrierSupport('UNKNOWN');
             expect(result).toBe('absolute');
+        });
+
+        it('should be accessible as public method for component usage', () => {
+            // Test that the method is now public and accessible from components
+            expect(typeof trade_store.getSymbolBarrierSupport).toBe('function');
+
+            // Test that it works correctly when called from external components
+            expect(trade_store.getSymbolBarrierSupport('EURUSD')).toBe('absolute');
+            expect(trade_store.getSymbolBarrierSupport('1HZ100V')).toBe('relative');
+            expect(trade_store.getSymbolBarrierSupport('')).toBe('absolute');
         });
     });
 

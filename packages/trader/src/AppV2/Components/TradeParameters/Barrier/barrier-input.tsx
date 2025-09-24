@@ -36,6 +36,7 @@ const BarrierInput = observer(
             v2_params_initial_values,
             symbol,
             active_symbols,
+            getSymbolBarrierSupport,
         } = useTraderStore();
         const [should_show_error, setShouldShowError] = React.useState(false);
         const { localize } = useTranslations();
@@ -105,30 +106,15 @@ const BarrierInput = observer(
         const show_hidden_error = validation_errors?.barrier_1.length > 0 && (barrier_1 || should_show_error);
         const [previous_symbol, setPreviousSymbol] = React.useState(symbol);
 
-        // Helper function to determine barrier support for current symbol
-        const getSymbolBarrierSupport = React.useCallback((): 'relative' | 'absolute' => {
-            if (!symbol || !active_symbols.length) return 'absolute';
-
-            const symbol_info = active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);
-
-            if (!symbol_info) return 'absolute';
-
-            const market = symbol_info.market;
-            const symbol_type = (symbol_info as any).symbol_type;
-
-            // Forex symbols only support absolute barriers
-            if (market === 'forex' || symbol_type === 'forex') {
-                return 'absolute';
-            }
-
-            // Most other markets support relative barriers
-            return 'relative';
-        }, [symbol, active_symbols]);
+        // Use the centralized barrier support logic from trade store
+        const getBarrierSupport = React.useCallback(() => {
+            return getSymbolBarrierSupport(symbol);
+        }, [getSymbolBarrierSupport, symbol]);
 
         // Effect to handle symbol changes and reset barrier type if needed
         React.useEffect(() => {
             if (symbol && previous_symbol && symbol !== previous_symbol) {
-                const barrier_support = getSymbolBarrierSupport();
+                const barrier_support = getBarrierSupport();
 
                 // If switching to forex (absolute only), force fixed barrier option
                 if (barrier_support === 'absolute') {
@@ -168,7 +154,7 @@ const BarrierInput = observer(
             const initialValue = v2_params_initial_values?.barrier_1;
             const savedBarrierValue = String(initialValue || barrier_1);
             const storedBarrierType = getStoredBarrierType();
-            const barrier_support = getSymbolBarrierSupport();
+            const barrier_support = getBarrierSupport();
 
             setInitialBarrierValue(savedBarrierValue);
             setV2ParamsInitialValues({ name: 'barrier_1', value: savedBarrierValue });
@@ -227,7 +213,7 @@ const BarrierInput = observer(
             }
 
             // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [getSymbolBarrierSupport]);
+        }, [getBarrierSupport]);
 
         React.useEffect(() => {
             const barrier_element = barrier_ref.current;
@@ -303,7 +289,7 @@ const BarrierInput = observer(
             <>
                 <ActionSheet.Content>
                     <div className='barrier-params'>
-                        {!isDays && getSymbolBarrierSupport() === 'relative' && (
+                        {!isDays && getBarrierSupport() === 'relative' && (
                             <div className='barrier-params__chips'>
                                 {chips_options.map((item, index) => (
                                     <Chip.Selectable
