@@ -38,22 +38,36 @@ const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
     // Constants for localStorage keys to match barrier-input.tsx
     const SPOT_BARRIER_KEY = 'deriv_spot_barrier_value';
     const FIXED_BARRIER_KEY = 'deriv_fixed_barrier_value';
+    const BARRIER_TYPE_KEY = 'deriv_barrier_type_selection';
 
     // Helper function to get stored value from localStorage
     const getStoredBarrierValue = React.useCallback(() => {
         try {
             const spotValue = localStorage.getItem(SPOT_BARRIER_KEY);
             const fixedValue = localStorage.getItem(FIXED_BARRIER_KEY);
+            const storedBarrierType = localStorage.getItem(BARRIER_TYPE_KEY);
 
-            // If barrier_1 contains +/-, it's a spot barrier
+            // Prioritize stored barrier type over value-based detection
+            if (storedBarrierType !== null) {
+                const barrierType = parseInt(storedBarrierType);
+                if (barrierType === 0 || barrierType === 1) {
+                    // Above/Below spot
+                    return spotValue ? `${barrierType === 0 ? '+' : '-'}${spotValue}` : '';
+                } else if (barrierType === 2) {
+                    // Fixed barrier
+                    return fixedValue || '';
+                }
+            }
+
+            // Fall back to original logic for backward compatibility
             if (barrier_1.includes('+') || barrier_1.includes('-')) {
                 return spotValue ? `${barrier_1.charAt(0)}${spotValue}` : '';
             }
             return fixedValue || '';
-        } catch (e) {
+        } catch {
             return '';
         }
-    }, [barrier_1, SPOT_BARRIER_KEY, FIXED_BARRIER_KEY]);
+    }, [barrier_1, SPOT_BARRIER_KEY, FIXED_BARRIER_KEY, BARRIER_TYPE_KEY]);
 
     // Restore both store barrier_1 and v2_params_initial_values from localStorage on component mount
     React.useEffect(() => {

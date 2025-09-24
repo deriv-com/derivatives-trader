@@ -4,12 +4,12 @@ on:
     tags:
     - production_*
 env:
-  RELEASE_TYPE: Production
+  RELEASE_TYPE: production
 jobs:
   build_test_and_publish:
     name: Build, Test and Publish to Cloudflare Pages Production
     runs-on: ubuntu-latest
-    environment: Production
+    environment: production
     permissions:
       contents: read
       actions: write
