@@ -63,7 +63,6 @@ const ContractCardHeader = ({
         date_expiry,
         tick_count,
         tick_passed,
-        // @ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update
         underlying_symbol,
     } = contract_info;
 

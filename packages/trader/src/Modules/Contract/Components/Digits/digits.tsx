@@ -104,7 +104,7 @@ const DigitsWrapper = ({
             // dimension of a single digit widget including margin/padding (number)
             // i.e - 40px + 6px left and 6px right padding/margin = 52
             dimension={is_mobile ? 64 : 52}
-            has_entry_spot={!!(contract_info.entry_spot ?? contract_info.entry_tick)}
+            has_entry_spot={!!contract_info.entry_spot}
             barrier={!is_contract_elapsed && is_tick_ready ? Number(contract_info.barrier) : null}
             contract_type={!is_contract_elapsed && is_tick_ready ? contract_info.contract_type : ''}
             digits={digits_array}
@@ -148,7 +148,6 @@ const Digits = React.memo((props: TDigits) => {
 
     const getPopoverMessage = () => {
         // Backward compatibility: fallback to old field name
-        // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
         const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
         const underlying_name = is_trade_page ? underlying : contract_underlying;
         return (
@@ -168,14 +167,7 @@ const Digits = React.memo((props: TDigits) => {
         return (
             <div className='digits__container'>
                 <Bounce
-                    is_visible={
-                        !!(
-                            is_digit_contract &&
-                            status &&
-                            spot &&
-                            !!(contract_info.entry_spot ?? contract_info.entry_tick)
-                        )
-                    }
+                    is_visible={!!(is_digit_contract && status && spot && !!contract_info.entry_spot)}
                     className={classNames('digits__digit-spot', {
                         'digits__digit-spot--is-trading': is_trade_page,
                     })}

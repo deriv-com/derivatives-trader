@@ -41,8 +41,7 @@ describe('AccumulatorsProfitLossTooltip', () => {
             <AccumulatorsProfitLossTooltip
                 {...props}
                 is_sold={1}
-                exit_tick={props.current_spot}
-                exit_tick_time={props.current_spot_time}
+                {...{ exit_spot: props.current_spot, exit_spot_time: props.current_spot_time }}
             />
         );
 
