@@ -156,7 +156,7 @@ const ContractCard = ({
                     <div className={`${className}__details`}>
                         <IconTradeTypes
                             type={is_higher_lower ? `${contract_type}_barrier` : contract_type}
-                            iconSize='xs'
+                            iconSize='sm'
                         />
                         <div className='tag__wrapper'>
                             {show_risk_management_labels &&
