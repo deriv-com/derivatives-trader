@@ -84,6 +84,28 @@ type TBarriers = Array<
     }
 >;
 
+// Constants for barrier and duration defaults
+const BARRIER_DEFAULTS = {
+    /** Default offset added to current spot price for absolute barriers (e.g., forex) */
+    ABSOLUTE_BARRIER_OFFSET: 0.0001,
+    /** Default absolute barrier value when no spot price is available */
+    FALLBACK_ABSOLUTE_BARRIER: '1.0000',
+    /** Default relative barrier value for synthetic indices */
+    DEFAULT_RELATIVE_BARRIER: '+0.1',
+    /** Default decimal places for absolute barrier formatting */
+    ABSOLUTE_BARRIER_DECIMAL_PLACES: 5,
+} as const;
+
+const DURATION_DEFAULTS = {
+    /** Default duration in ticks for volatility markets */
+    DEFAULT_TICK_DURATION: 5,
+    /** Default duration in minutes for forex markets */
+    DEFAULT_MINUTE_DURATION: 5,
+} as const;
+
+type BarrierSupportType = 'relative' | 'absolute';
+type DurationSupportType = 'ticks' | 'endtime';
+
 export type ProposalResponse = PriceProposalResponse & {
     proposal: PriceProposalResponse['proposal'] & {
         payout_choices: string[];
@@ -2319,11 +2341,22 @@ export default class TradeStore extends BaseStore {
     }
 
     /**
+     * Clears barrier validation errors consistently across the application
+     * This method ensures validation errors are cleared when barriers are programmatically updated
+     */
+    private clearBarrierValidationErrors(): void {
+        if (this.is_dtrader_v2) {
+            this.validation_errors.barrier_1 = [];
+            this.validation_errors.barrier_2 = [];
+        }
+    }
+
+    /**
      * Helper function to determine if a symbol supports relative barriers (Above/Below spot)
      * @param symbol - The symbol to check
-     * @returns true if the symbol supports relative barriers, false if only absolute barriers
+     * @returns 'relative' for synthetic indices, 'absolute' for forex markets
      */
-    private getSymbolBarrierSupport(symbol: string): 'relative' | 'absolute' {
+    private getSymbolBarrierSupport(symbol: string): BarrierSupportType {
         if (!symbol || !this.active_symbols.length) return 'absolute';
 
         const symbol_info = this.active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);
@@ -2347,9 +2380,9 @@ export default class TradeStore extends BaseStore {
     /**
      * Helper function to determine if a symbol supports ticks or only endtime
      * @param symbol - The symbol to check
-     * @returns 'ticks' if symbol supports tick-based duration, 'endtime' if only endtime
+     * @returns 'ticks' for synthetic indices, 'endtime' for forex markets
      */
-    private getSymbolDurationSupport(symbol: string): 'ticks' | 'endtime' {
+    private getSymbolDurationSupport(symbol: string): DurationSupportType {
         if (!symbol || !this.active_symbols.length) return 'endtime';
 
         const symbol_info = this.active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);
@@ -2433,22 +2466,23 @@ export default class TradeStore extends BaseStore {
             // Reset barrier values if barrier support changed
             if (barrier_support_changed) {
                 // Clear barrier validation errors before updating values to prevent "required field" errors
-                if (this.is_dtrader_v2) {
-                    this.validation_errors.barrier_1 = [];
-                    this.validation_errors.barrier_2 = [];
-                }
+                this.clearBarrierValidationErrors();
 
                 if (new_barrier_support === 'absolute') {
                     // Switching to absolute barriers (e.g., forex)
                     // Get current spot price or use a reasonable default
                     const current_spot = this.tick_data?.quote;
-                    const default_barrier = current_spot ? (current_spot + 0.0001).toFixed(5) : '1.0000';
+                    const default_barrier = current_spot
+                        ? (current_spot + BARRIER_DEFAULTS.ABSOLUTE_BARRIER_OFFSET).toFixed(
+                              BARRIER_DEFAULTS.ABSOLUTE_BARRIER_DECIMAL_PLACES
+                          )
+                        : BARRIER_DEFAULTS.FALLBACK_ABSOLUTE_BARRIER;
                     reset_values.barrier_1 = default_barrier;
                     reset_values.barrier_2 = '';
                 } else {
                     // Switching to relative barriers (e.g., synthetics)
                     // Reset to default relative barrier
-                    reset_values.barrier_1 = '+0.1';
+                    reset_values.barrier_1 = BARRIER_DEFAULTS.DEFAULT_RELATIVE_BARRIER;
                     reset_values.barrier_2 = '';
                 }
             }
@@ -2459,14 +2493,14 @@ export default class TradeStore extends BaseStore {
                     // Switching to volatility markets - always default to ticks
                     reset_values.duration_unit = 't';
                     reset_values.expiry_type = 'duration';
-                    reset_values.duration = 5; // Default tick duration
+                    reset_values.duration = DURATION_DEFAULTS.DEFAULT_TICK_DURATION;
                     reset_values.expiry_date = null;
                     reset_values.expiry_time = null;
                 } else {
                     // Switching to forex markets - default to endtime
                     reset_values.duration_unit = 'm';
                     reset_values.expiry_type = 'endtime';
-                    reset_values.duration = 5; // Default minute duration
+                    reset_values.duration = DURATION_DEFAULTS.DEFAULT_MINUTE_DURATION;
                     // expiry_date and expiry_time will be set by the system
                 }
             }
