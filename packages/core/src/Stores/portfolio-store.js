@@ -456,9 +456,8 @@ export default class PortfolioStore extends BaseStore {
         this.positions[i].contract_info = contract_response;
         this.positions[i].duration = getDurationTime(contract_response);
         this.positions[i].duration_unit = getDurationUnitText(getDurationPeriod(contract_response));
-        // workaround if no exit_spot/exit_tick in proposal_open_contract, use latest spot
-        this.positions[i].exit_spot =
-            contract_response.exit_spot ?? contract_response.exit_tick ?? contract_response.current_spot;
+        // workaround if no exit_spot in proposal_open_contract, use latest spot
+        this.positions[i].exit_spot = contract_response.exit_spot ?? contract_response.current_spot;
         this.positions[i].is_valid_to_sell = isValidToSell(contract_response);
         this.positions[i].result = getDisplayStatus(contract_response);
         this.positions[i].profit_loss = +contract_response.profit;

@@ -216,6 +216,8 @@ describe('getDigitInfo', () => {
     });
     it('should return an empty object if tick_stream data is already in digits_info', () => {
         const contract_info = mockContractInfo({
+            entry_spot_time: 1544707342,
+            entry_spot: '123.99',
             current_spot_time: 10000000,
             current_spot: '456.99',
             exit_spot_time: 10000001,
@@ -593,6 +595,7 @@ describe('getContractStatus', () => {
             ContractUtils.getContractStatus({
                 contract_type: CONTRACT_TYPES.ACCUMULATOR,
                 profit: '100',
+                exit_spot_time: 10000001,
                 status: 'won',
             })
         ).toBe('won');

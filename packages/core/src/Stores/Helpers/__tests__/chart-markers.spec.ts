@@ -21,6 +21,7 @@ describe('createTickMarkers', () => {
                 { epoch: 10, tick: 1.239, tick_display_value: '1.239' },
             ],
             entry_spot_time: 1,
+            entry_spot: '1.2345',
             tick_count: 10,
         };
     });
@@ -74,6 +75,7 @@ describe('createTickMarkers', () => {
 
         contract_info.status = 'lost';
         contract_info.exit_spot_time = 10;
+        contract_info.exit_spot = '1.239';
         const result_for_closed_contract = createTickMarkers(contract_info);
         expect(result_for_closed_contract[result_for_closed_contract.length - 2].content_config.spot_className).toBe(
             `${previous_spot_classname}--preexit`
@@ -87,6 +89,7 @@ describe('createTickMarkers', () => {
 
         contract_info.status = 'lost';
         contract_info.exit_spot_time = 10;
+        contract_info.exit_spot = '1.239';
         const result_for_closed_contract = createTickMarkers(contract_info, true);
         expect(result_for_closed_contract[result_for_closed_contract.length - 2].content_config.spot_className).toBe(
             `${previous_spot_classname}--preexit`

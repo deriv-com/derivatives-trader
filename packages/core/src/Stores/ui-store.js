@@ -153,6 +153,7 @@ export default class UIStore extends BaseStore {
     is_switch_to_deriv_account_modal_visible = false;
     is_mt5_migration_modal_enabled = false;
     isUrlUnavailableModalVisible = false;
+    is_logout_success_modal_visible = false;
     sub_section_index = 0;
     field_ref_to_focus = null;
 
@@ -249,6 +250,7 @@ export default class UIStore extends BaseStore {
             is_verification_submitted: observable,
             is_tnc_update_modal_open: observable,
             isUrlUnavailableModalVisible: observable,
+            is_logout_success_modal_visible: observable,
             manage_real_account_tab_index: observable,
             modal_index: observable,
             notification_messages_ui: observable,
@@ -348,6 +350,7 @@ export default class UIStore extends BaseStore {
             field_ref_to_focus: observable,
             setFieldRefToFocus: action.bound,
             toggleTncUpdateModal: action.bound,
+            toggleLogoutSuccessModal: action.bound,
         });
 
         window.addEventListener('resize', this.handleResize);
@@ -792,5 +795,9 @@ export default class UIStore extends BaseStore {
 
     toggleTncUpdateModal(value) {
         this.is_tnc_update_modal_open = value;
+    }
+
+    toggleLogoutSuccessModal(value) {
+        this.is_logout_success_modal_visible = value;
     }
 }

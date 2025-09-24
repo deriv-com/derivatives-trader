@@ -333,6 +333,7 @@ type TUiStore = {
     is_services_error_visible: boolean;
     is_trading_assessment_for_existing_user_enabled: boolean;
     isUrlUnavailableModalVisible: boolean;
+    is_logout_success_modal_visible: boolean;
     onChangeUiStore: ({ name, value }: { name: string; value: unknown }) => void;
     openPositionsDrawer: () => void;
     notification_messages_ui: (props?: {
@@ -390,6 +391,7 @@ type TUiStore = {
     toggleServicesErrorModal: (is_visible: boolean) => void;
     toggleShouldShowRealAccountsList: (value: boolean) => void;
     toggleUrlUnavailableModal: (value: boolean) => void;
+    toggleLogoutSuccessModal: (value: boolean) => void;
     removeToast: (key: string) => void;
     reports_route_tab_index: number;
     should_show_cancellation_warning: boolean;

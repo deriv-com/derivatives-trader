@@ -14,11 +14,11 @@ jest.mock('@deriv/shared', () => ({
 }));
 
 const mock_contract_info: TContractInfo = mockContractInfo({
-    exit_spot_time: 1623441400,
-    date_start: 1622505600,
-    entry_spot: '100',
-    exit_spot: '150',
     entry_spot_time: 1622505600,
+    entry_spot: '100',
+    exit_spot_time: 1623441400,
+    exit_spot: '150',
+    date_start: 1622505600,
 });
 
 describe('EntryExitDetails component', () => {

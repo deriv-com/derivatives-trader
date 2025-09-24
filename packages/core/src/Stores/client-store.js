@@ -583,6 +583,9 @@ export default class ClientStore extends BaseStore {
         if (response?.logout === 1) {
             await this.cleanUp();
             this.setLogout(true);
+
+            // Show success modal after successful logout
+            this.root_store.ui.toggleLogoutSuccessModal(true);
         }
 
         return response;

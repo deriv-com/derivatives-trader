@@ -97,11 +97,11 @@ export const createTickMarkers = (contract_info, is_delayed_markers_update) => {
         const { tick_stream: ticks } = contract_info || {};
         const exit_spot_time = contract_info.exit_spot_time;
         if (exit_spot_time && tick_stream.every(({ epoch }) => epoch !== exit_spot_time)) {
-            // sometimes exit_tick is present in tick_stream but missing from audit_details
+            // sometimes exit_spot is present in tick_stream but missing from audit_details
             tick_stream.push(ticks[ticks.length - 1]);
         }
-        const exit_tick_count = tick_stream.findIndex(({ epoch }) => epoch === exit_spot_time) + 1;
-        tick_stream.length = exit_tick_count > 0 ? exit_tick_count : tick_stream.length;
+        const exit_spot_count = tick_stream.findIndex(({ epoch }) => epoch === exit_spot_time) + 1;
+        tick_stream.length = exit_spot_count > 0 ? exit_spot_count : tick_stream.length;
     }
 
     tick_stream.forEach((tick, idx) => {
@@ -294,6 +294,8 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         tick_stream,
         date_start,
         date_expiry,
+        entry_spot,
+        exit_spot,
         entry_spot_time: entry_spot_time_field,
         exit_spot_time: exit_spot_time_field,
         contract_type,
@@ -307,8 +309,6 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         is_sold,
     } = contract_info;
 
-    const entry_spot = contract_info.entry_spot;
-    const exit_spot = contract_info.exit_spot;
     const is_accumulator_contract = isAccumulatorContract(contract_type);
     const is_digit_contract = isDigitContract(contract_type);
     const is_tick_contract = tick_count > 0;

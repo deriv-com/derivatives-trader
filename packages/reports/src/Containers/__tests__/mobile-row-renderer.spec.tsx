@@ -88,6 +88,7 @@ describe('MobileRowRenderer', () => {
                 date_start: 1718802531,
                 display_name: 'Volatility 100 Index',
                 entry_spot: 1033.4,
+                entry_spot_time: 1718802532,
                 expiry_time: future_time,
                 id: 'dcbbe22b-e4d9-afa9-ce79-402fd3f11376',
                 is_expired: 0,

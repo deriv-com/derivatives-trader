@@ -84,18 +84,32 @@ const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
         }
     }, [v2_params_initial_values.barrier_1, barrier_1, getStoredBarrierValue, setV2ParamsInitialValues, onChange]);
 
+    // Sync v2_params_initial_values with barrier_1 when barrier_1 changes (e.g., from symbol reset)
+    React.useEffect(() => {
+        // If barrier_1 has a value but v2_params_initial_values.barrier_1 is empty, sync them
+        if (barrier_1 && !v2_params_initial_values.barrier_1) {
+            setV2ParamsInitialValues({ value: barrier_1, name: 'barrier_1' });
+        }
+        // If barrier_1 changes and is different from v2_params_initial_values.barrier_1, update display
+        // This handles cases where the store value was reset but the display value wasn't updated
+        else if (
+            barrier_1 &&
+            v2_params_initial_values.barrier_1 &&
+            barrier_1 !== String(v2_params_initial_values.barrier_1)
+        ) {
+            setV2ParamsInitialValues({ value: barrier_1, name: 'barrier_1' });
+        }
+    }, [barrier_1, v2_params_initial_values.barrier_1, setV2ParamsInitialValues]);
+
     const onClose = React.useCallback(
         (is_saved = false) => {
             if (is_open) {
-                if (!is_saved) {
-                    onChange({ target: { name: 'barrier_1', value: initialBarrierValue } });
-                }
                 setV2ParamsInitialValues({ value: '', name: 'barrier_1' });
                 setIsOpen(false);
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [initialBarrierValue, is_open]
+        [is_open]
     );
 
     React.useEffect(() => {

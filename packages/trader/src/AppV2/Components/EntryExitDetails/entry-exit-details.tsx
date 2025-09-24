@@ -45,7 +45,7 @@ const getDateTimeFromEpoch = (epoch: number | string | undefined | null) => {
 };
 
 const EntryExitDetails = ({ contract_info }: { contract_info: TContractInfo }) => {
-    const { date_start, entry_spot_time, entry_spot, exit_spot_time, exit_spot } = contract_info;
+    const { entry_spot_time, entry_spot, exit_spot_time, exit_spot, date_start } = contract_info;
 
     const actual_entry_spot = entry_spot;
     const actual_exit_spot = exit_spot;

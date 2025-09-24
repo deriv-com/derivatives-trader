@@ -310,7 +310,7 @@ export default class ContractTradeStore extends BaseStore {
                 const trade_type_is_supported = trade_types.indexOf(info.contract_type) !== -1;
                 // both high_low & rise_fall have the same contract_types in POC response
                 // entry_spot=barrier means it is rise_fall contract (blame the api)
-                const entry_value = info.entry_spot ?? info.entry_tick;
+                const entry_value = info.entry_spot;
                 if (trade_type_is_supported && is_call_put && ((info.barrier && entry_value) || info.shortcode)) {
                     if (`${+entry_value}` === `${+info.barrier}` && !isHighLow(info)) {
                         return trade_type === TRADE_TYPES.RISE_FALL || trade_type === TRADE_TYPES.RISE_FALL_EQUAL;

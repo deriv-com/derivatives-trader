@@ -37,7 +37,13 @@ describe('AccumulatorsProfitLossTooltip', () => {
     it('should render AccumulatorsProfitLossTooltip when contract is sold', () => {
         jest.useFakeTimers();
 
-        render(<AccumulatorsProfitLossTooltip {...props} is_sold={1} exit_spot_time={1666091856} />);
+        render(
+            <AccumulatorsProfitLossTooltip
+                {...props}
+                is_sold={1}
+                {...{ exit_spot: props.current_spot, exit_spot_time: props.current_spot_time }}
+            />
+        );
 
         const spot_el = screen.getByTestId('dt_accumulator_tooltip_spot');
         expect(spot_el).toBeInTheDocument();

@@ -59,6 +59,7 @@ const openPositions = [
             date_start: 1716220562,
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: '682.6',
+            entry_spot_time: 1716220563,
             expiry_time: mockedNow + 1000,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -117,6 +118,7 @@ const openPositions = [
             date_start: 1716220583,
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: '682.23',
+            entry_spot_time: 1716220584,
             expiry_time: mockedNow + 1000,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -195,6 +197,7 @@ const openPositions = [
             date_settlement: mockedNow + 1000,
             date_start: 1716220710,
             entry_spot: '682.58',
+            entry_spot_time: 1716220711,
             expiry_time: mockedNow + 1000,
             growth_rate: 0.01,
             high_barrier: '683.046',
@@ -289,7 +292,7 @@ const openPositions = [
         high_barrier: 683.046,
         low_barrier: 682.454,
     },
-] as TPortfolioPosition[];
+] as unknown as TPortfolioPosition[];
 
 const buttonLoaderId = 'dt_button_loader';
 const symbolName = 'Volatility 100 (1s) Index';

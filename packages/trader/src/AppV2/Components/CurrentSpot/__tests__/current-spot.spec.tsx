@@ -64,6 +64,7 @@ describe('CurrentSpot', () => {
         date_expiry: 1721636554,
         date_start: 1721636544,
         entry_spot: '389.32',
+        exit_spot_time: 1721636554,
         is_expired: 1,
         is_path_dependent: 0,
         is_sold: 1,

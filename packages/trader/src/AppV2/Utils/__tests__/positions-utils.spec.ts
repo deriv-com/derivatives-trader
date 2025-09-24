@@ -28,9 +28,8 @@ const mockedActivePositions = [
             date_settlement: 1716221100,
             date_start: 1716220562,
             display_name: 'Volatility 100 (1s) Index',
-            entry_spot: 682.6,
-            entry_tick: 682.6,
-            entry_tick_display_value: '682.60',
+            entry_spot: '682.60',
+            entry_spot_time: 1716220563,
             expiry_time: 1716221100,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -67,7 +66,6 @@ const mockedActivePositions = [
         is_valid_to_sell: true,
         status: 'profit',
         barrier: 682.6,
-        entry_spot: 682.6,
     },
     {
         contract_info: {
@@ -90,9 +88,8 @@ const mockedActivePositions = [
             date_settlement: 4869849600,
             date_start: 1716220583,
             display_name: 'Volatility 100 (1s) Index',
-            entry_spot: 682.23,
-            entry_tick: 682.23,
-            entry_tick_display_value: '682.23',
+            entry_spot: '682.23',
+            entry_spot_time: 1716220584,
             expiry_time: 4869849599,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -146,7 +143,6 @@ const mockedActivePositions = [
         profit_loss: -0.1,
         is_valid_to_sell: false,
         status: 'profit',
-        entry_spot: 682.23,
     },
     {
         contract_info: {
@@ -167,9 +163,8 @@ const mockedActivePositions = [
             date_settlement: 1747785600,
             date_start: 1716220710,
             display_name: 'Volatility 100 (1s) Index',
-            entry_spot: 682.58,
-            entry_tick: 682.58,
-            entry_tick_display_value: '682.58',
+            entry_spot: '682.58',
+            entry_spot_time: 1716220711,
             expiry_time: 1747785599,
             growth_rate: 0.01,
             high_barrier: '683.046',
@@ -261,7 +256,6 @@ const mockedActivePositions = [
         is_valid_to_sell: true,
         current_tick: 9,
         status: 'profit',
-        entry_spot: 682.58,
         high_barrier: 683.046,
         low_barrier: 682.454,
     },
@@ -286,7 +280,7 @@ const mockedActivePositions = [
         reference: 485824148848,
         profit_loss: -10.0,
     },
-] as TPortfolioPosition[];
+] as unknown as TPortfolioPosition[];
 
 describe('getFilteredContractTypes', () => {
     it('should return empty array if filters are empty or undefined', () => {
