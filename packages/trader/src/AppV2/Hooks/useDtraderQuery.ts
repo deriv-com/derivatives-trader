@@ -101,7 +101,7 @@ export const useDtraderQuery = <Response>(
     }, [enabled, key, data]);
 
     const refetch = useCallback(() => {
-        cache[key] = null;
+        delete cache[key];
         fetchData();
     }, [fetchData, key]);
 
@@ -110,5 +110,5 @@ export const useDtraderQuery = <Response>(
 
 export const invalidateDTraderCache = (keys: string | string[]) => {
     const key = getKey(keys);
-    cache[key] = null;
+    delete cache[key];
 };
