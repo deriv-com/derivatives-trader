@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
 import { useSnackbar } from '@deriv-com/quill-ui';
@@ -39,7 +39,16 @@ jest.mock('@deriv/shared', () => ({
 
 describe('<MarketCategoryItem />', () => {
     const mocked_props = {
-        item: { symbol: 'cryBTCUSD', display_name: 'Bitcoin', exchange_is_open: 1 } as ActiveSymbols[0],
+        item: {
+            underlying_symbol: 'cryBTCUSD',
+            display_name: 'Bitcoin',
+            exchange_is_open: 1,
+            display_order: 1,
+            is_trading_suspended: 0,
+            market: 'cryptocurrency',
+            subgroup: 'crypto',
+            submarket: 'crypto_index',
+        } as NonNullable<TActiveSymbolsResponse['active_symbols']>[0],
         selectedSymbol: 'cryBTCUSD',
         setSelectedSymbol: jest.fn(),
         setIsOpen: jest.fn(),
@@ -92,7 +101,16 @@ describe('<MarketCategoryItem />', () => {
     it('should render Closed tag when market is closed', () => {
         const changed_props = {
             ...mocked_props,
-            item: { symbol: 'cryBTCUSD', display_name: 'Bitcoin', exchange_is_open: 0 } as ActiveSymbols[0],
+            item: {
+                underlying_symbol: 'cryBTCUSD',
+                display_name: 'Bitcoin',
+                exchange_is_open: 0,
+                display_order: 1,
+                is_trading_suspended: 0,
+                market: 'cryptocurrency',
+                subgroup: 'crypto',
+                submarket: 'crypto_index',
+            } as NonNullable<TActiveSymbolsResponse['active_symbols']>[0],
         };
         render(MockMarketCategoryItem(mockStore(mocked_store), changed_props));
         expect(screen.getByText('CLOSED')).toBeInTheDocument();

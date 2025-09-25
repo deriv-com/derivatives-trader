@@ -4,7 +4,7 @@ describe('extractInfoFromShortcode', () => {
     it('should return an object with correct contract data extracted from shortcode', () => {
         expect(extractInfoFromShortcode('CALL_1HZ10V_19.54_1710485400F_1710486300_S0P_0')).toMatchObject({
             category: 'Call',
-            underlying: '1HZ10V',
+            underlying_symbol: '1HZ10V',
             multiplier: '',
             start_time: '1710485400F',
             payout_tick: '',
@@ -14,7 +14,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('CALL_R_10_19.54_1691443851_1691444751_S0P_0')).toMatchObject({
             category: 'Call',
-            underlying: 'R_10',
+            underlying_symbol: 'R_10',
             multiplier: '',
             start_time: '1691443851',
             payout_tick: '',
@@ -24,7 +24,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('MULTUP_STPRNG_10.00_100_1716797490_4870454399_0_0.00_N1')).toMatchObject({
             category: 'Multup',
-            underlying: 'STPRNG',
+            underlying_symbol: 'STPRNG',
             multiplier: '100',
             start_time: '1716797490',
             payout_tick: '',
@@ -34,7 +34,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('MULTUP_STPRNG2_10.00_100_1716797490_4870454399_0_0.00_N1')).toMatchObject({
             category: 'Multup',
-            underlying: 'STPRNG2',
+            underlying_symbol: 'STPRNG2',
             multiplier: '100',
             start_time: '1716797490',
             payout_tick: '',
@@ -44,7 +44,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('MULTUP_STPRNG5_10.00_100_1716797490_4870454399_0_0.00_N1')).toMatchObject({
             category: 'Multup',
-            underlying: 'STPRNG5',
+            underlying_symbol: 'STPRNG5',
             multiplier: '100',
             start_time: '1716797490',
             payout_tick: '',
@@ -54,7 +54,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('MULTUP_BOOM1000_100.00_100_1719905399_4873564799_0_0.00_N1')).toMatchObject({
             category: 'Multup',
-            underlying: 'BOOM1000',
+            underlying_symbol: 'BOOM1000',
             multiplier: '100',
             start_time: '1719905399',
             payout_tick: '',
@@ -64,7 +64,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('MULTUP_CRASH1000_100.00_100_1719905471_4873564799_0_0.00_N1')).toMatchObject({
             category: 'Multup',
-            underlying: 'CRASH1000',
+            underlying_symbol: 'CRASH1000',
             multiplier: '100',
             start_time: '1719905471',
             payout_tick: '',
@@ -74,7 +74,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('ACCU_1HZ100V_9.00_0_0.01_1_0.000433139675_1716220710')).toMatchObject({
             category: 'Accu',
-            underlying: '1HZ100V',
+            underlying_symbol: '1HZ100V',
             multiplier: '',
             start_time: '1716220710',
             payout_tick: '0',
@@ -84,7 +84,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('MULTUP_RB100_10.00_30_1748490183_4902163199_0_0.00_N1_0')).toMatchObject({
             category: 'Multup',
-            underlying: 'RB100',
+            underlying_symbol: 'RB100',
             multiplier: '30',
             start_time: '1748490183',
             payout_tick: '',
@@ -94,7 +94,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('MULTUP_RB200_20.00_50_1748490183_4902163199_0_0.00_N1_0')).toMatchObject({
             category: 'Multup',
-            underlying: 'RB200',
+            underlying_symbol: 'RB200',
             multiplier: '50',
             start_time: '1748490183',
             payout_tick: '',
@@ -104,7 +104,7 @@ describe('extractInfoFromShortcode', () => {
         });
         expect(extractInfoFromShortcode('MULTDOWN_RB100_15.00_40_1748490183_4902163199_0_0.00_N1_0')).toMatchObject({
             category: 'Multdown',
-            underlying: 'RB100',
+            underlying_symbol: 'RB100',
             multiplier: '40',
             start_time: '1748490183',
             payout_tick: '',

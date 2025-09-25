@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
-import { TickSpotData } from '@deriv/api-types';
+import { TTicksStreamResponse } from '@deriv/api';
 import { Skeleton, usePrevious } from '@deriv/components';
 import { isContractElapsed } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
@@ -34,8 +34,7 @@ const CurrentSpot = observer(() => {
     //
     const { contract_id, date_start, contract_type, tick_stream } = contract_info;
     const entry_spot = contract_info.entry_spot;
-    //@ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update
-    const underlying = contract_info.underlying_symbol || contract_info.underlying;
+    const underlying = contract_info.underlying_symbol;
     const prev_contract_id = usePrevious(contract_id);
     const last_contract_ticks = last_contract.contract_info?.tick_stream?.length;
     const prev_last_contract_ticks = usePrevious(last_contract_ticks);
@@ -57,7 +56,7 @@ const CurrentSpot = observer(() => {
                 pip_size: tick_display_value?.split('.')[1].length,
                 quote: latest_stream_tick,
                 current_tick: tick_stream.length,
-            } as TickSpotData;
+            } as any;
         }
     }
     const current_tick = tick && 'current_tick' in tick ? (tick.current_tick as number) : null;

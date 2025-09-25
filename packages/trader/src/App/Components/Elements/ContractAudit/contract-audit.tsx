@@ -3,9 +3,7 @@ import React from 'react';
 import { Tabs } from '@deriv/components';
 import { TContractInfo, TContractStore, WS } from '@deriv/shared';
 import { useTranslations } from '@deriv-com/translations';
-
 import { useTraderStore } from 'Stores/useTraderStores';
-
 import ContractDetails from './contract-details';
 import ContractHistory from './contract-history';
 
@@ -42,11 +40,11 @@ const ContractAudit = ({
     ...props
 }: TContractAudit) => {
     const { contract_id, currency } = props.contract_info;
-    const [update_history, setUpdateHistory] = React.useState<TContractUpdateHistory>([]);
+    const [update_history, setUpdateHistory] = React.useState<TContractUpdateHistory>([] as TContractUpdateHistory);
     const { localize } = useTranslations();
 
     const getSortedUpdateHistory = (history: TContractUpdateHistory) =>
-        history.sort((a, b) => Number(b?.order_date) - Number(a?.order_date));
+        history?.sort((a, b) => Number(b?.order_date) - Number(a?.order_date)) || [];
 
     const requestUpdatedHistory = React.useCallback((id?: number) => {
         if (!id) return;
@@ -58,7 +56,12 @@ const ContractAudit = ({
     }, []);
 
     React.useEffect(() => {
-        if (!!contract_update_history.length && contract_update_history.length > update_history.length)
+        if (
+            contract_update_history &&
+            update_history &&
+            !!contract_update_history.length &&
+            contract_update_history.length > update_history.length
+        )
             setUpdateHistory(getSortedUpdateHistory(contract_update_history));
     }, [contract_update_history, update_history]);
 

@@ -9,10 +9,10 @@ import ContractAuditItem from './contract-audit-item';
 
 type TContractHistory = {
     currency?: string;
-    history?: [] | TContractStore['contract_update_history'];
+    history?: TContractStore['contract_update_history'];
 };
-const ContractHistory = ({ currency, history = [] }: TContractHistory) => {
-    if (!history.length) {
+const ContractHistory = ({ currency, history }: TContractHistory) => {
+    if (!history?.length) {
         return (
             <div className='contract-audit__empty'>
                 <DerivLightEmptyCardboardBoxIcon width={48} height={48} fill='var(--color-text-secondary)' />
@@ -28,7 +28,7 @@ const ContractHistory = ({ currency, history = [] }: TContractHistory) => {
     return (
         <ThemedScrollbars is_bypassed={isMobile()}>
             <div className='contract-audit__tabs-content'>
-                {history.map((item, key) => (
+                {history?.map((item: any, key: number) => (
                     <ContractAuditItem
                         key={`${key}-${item.order_date}`}
                         id={`dt_history_label_${key}`}

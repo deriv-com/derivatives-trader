@@ -1,13 +1,12 @@
-import { formatMoney, toTitleCase, toMoment, getMarketInformation, getSymbolDisplayName } from '@deriv/shared';
+import { TStatementResponse } from '@deriv/api';
+import { formatMoney, getMarketInformation, getSymbolDisplayName, toMoment, toTitleCase } from '@deriv/shared';
 import { localize } from '@deriv-com/translations';
-import { ActiveSymbols, Statement } from '@deriv/api-types';
 
 export const formatStatementTransaction = (
-    transaction: NonNullable<Statement['transactions']>[number],
-    currency: string,
-    active_symbols: ActiveSymbols = []
+    transaction: NonNullable<NonNullable<TStatementResponse['statement']>['transactions']>[number],
+    currency: string
 ) => {
-    const { action_type, contract_id, longcode, purchase_time, withdrawal_details } = transaction;
+    const { action_type, contract_id, longcode, purchase_time } = transaction;
     const format_string = 'DD MMM YYYY HH:mm:ss';
     const transaction_time = toMoment(transaction.transaction_time).format(format_string);
     const payout = transaction.payout ?? NaN;
@@ -15,9 +14,7 @@ export const formatStatementTransaction = (
     const balance = transaction.balance_after ?? NaN;
     const should_exclude_currency = true;
     const shortcode = ['buy', 'sell'].includes(action_type ?? '') ? transaction.shortcode : null;
-    const display_name = shortcode
-        ? getSymbolDisplayName(active_symbols, getMarketInformation(shortcode).underlying)
-        : '';
+    const display_name = shortcode ? getSymbolDisplayName(getMarketInformation(shortcode).underlying) : '';
 
     return {
         action: localize(toTitleCase(action_type ?? '')), // 'Buy', 'Sell', 'Deposit', 'Withdrawal'
@@ -33,9 +30,5 @@ export const formatStatementTransaction = (
         action_type,
         purchase_time,
         transaction_time: transaction.transaction_time,
-        ...(withdrawal_details && {
-            withdrawal_details,
-            longcode,
-        }),
     };
 };

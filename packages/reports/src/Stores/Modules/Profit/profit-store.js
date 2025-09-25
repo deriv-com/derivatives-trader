@@ -93,13 +93,7 @@ export default class ProfitTableStore extends BaseStore {
         }
 
         const formatted_transactions = response.profit_table.transactions
-            .map(transaction =>
-                formatProfitTableTransactions(
-                    transaction,
-                    this.root_store.client.currency,
-                    this.root_store.active_symbols.active_symbols
-                )
-            )
+            .map(transaction => formatProfitTableTransactions(transaction, this.root_store.client.currency))
             .filter(filterDisabledPositions);
 
         this.data = [...this.data, ...formatted_transactions];

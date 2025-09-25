@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { getEndTime, isCryptoContract, isDesktop, isMobile, mockContractInfo, toMoment } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
@@ -8,15 +8,17 @@ import { render, screen } from '@testing-library/react';
 import TraderProviders from '../../../../../trader-providers';
 import ContractDrawerCard from '../contract-drawer-card';
 
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
+
 const mocked_props: React.ComponentProps<typeof ContractDrawerCard> = {
     contract_update: undefined,
     contract_info: {
         date_expiry: 1699709000,
-        profit: 8.78,
+        profit: '8.78',
         purchase_time: 1699708064,
         validation_error: 'This contract has been sold',
         shortcode: 'CALL_1HZ100V_19.54_1699708064_10T_S0P_0',
-        underlying: '1HZ100V',
+        underlying_symbol: '1HZ100V',
     },
     is_accumulator: false,
     is_collapsed: false,
@@ -38,7 +40,10 @@ const mocked_props: React.ComponentProps<typeof ContractDrawerCard> = {
 const default_mock_store = {
     modules: {
         trade: {
-            active_symbols: [{ symbol: '1HZ100V' }, { symbol: 'cryETHUSD' }] as ActiveSymbols,
+            active_symbols: [
+                { underlying_symbol: '1HZ100V', exchange_is_open: 1 },
+                { underlying_symbol: 'cryETHUSD', exchange_is_open: 1 },
+            ] as ActiveSymbols,
         },
     },
 };
@@ -110,7 +115,7 @@ describe('<ContractDrawerCard />', () => {
                 multiplier: 10,
                 purchase_time: 1718880285,
                 shortcode: `MULTUP_CRYETHUSD_34.23_10_1718880285_${future_time}_0_0.00_N1`,
-                underlying: 'cryETHUSD',
+                underlying_symbol: 'cryETHUSD',
             }),
             is_mobile: true,
             is_multiplier: true,

@@ -90,16 +90,18 @@ describe('TradeStore - Barrier Reset on Symbol Change', () => {
         trade_store.active_symbols = [
             {
                 symbol: 'EURUSD',
+                underlying_symbol: 'EURUSD',
                 display_name: 'EUR/USD',
                 market: 'forex',
-                symbol_type: 'forex',
+                underlying_symbol_type: 'forex',
                 exchange_is_open: 1,
             },
             {
                 symbol: '1HZ100V',
+                underlying_symbol: '1HZ100V',
                 display_name: 'Volatility 100 (1s) Index',
                 market: 'synthetic_index',
-                symbol_type: 'synthetic_index',
+                underlying_symbol_type: 'synthetic_index',
                 exchange_is_open: 1,
             },
         ] as any;
@@ -210,9 +212,10 @@ describe('TradeStore - Barrier Reset on Symbol Change', () => {
             // Add another synthetic symbol to active_symbols for this test
             trade_store.active_symbols.push({
                 symbol: '1HZ200V',
+                underlying_symbol: '1HZ200V',
                 display_name: 'Volatility 200 (1s) Index',
                 market: 'synthetic_index',
-                symbol_type: 'synthetic_index',
+                underlying_symbol_type: 'synthetic_index',
                 exchange_is_open: 1,
             } as any);
 

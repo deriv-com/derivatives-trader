@@ -32,9 +32,7 @@ const AccumulatorsChartElements = ({
     const accumulators_positions = all_positions.filter(({ contract_info }) => {
         if (!contract_info) return false;
 
-        // Backward compatibility: fallback to old field name
-        // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
-        const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+        const contract_underlying = contract_info.underlying_symbol;
 
         return symbol === contract_underlying && filterByContractType(contract_info, TRADE_TYPES.ACCUMULATOR);
     });

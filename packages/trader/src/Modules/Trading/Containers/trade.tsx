@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { TickSpotData } from '@deriv/api-types';
+import { TTicksStreamResponse } from '@deriv/api';
 import { Div100vhContainer, SwipeableWrapper } from '@deriv/components';
 import { isTabletOs, TRADE_TYPES } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
@@ -16,6 +16,8 @@ import FormLayout from '../Components/Form/form-layout';
 
 import { ChartTopWidgets, DigitsWidget } from './chart-widgets';
 import TradeChart from './trade-chart';
+
+type TickSpotData = NonNullable<TTicksStreamResponse['tick']>;
 
 export type TBottomWidgetsParams = {
     digits: number[];

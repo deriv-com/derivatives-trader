@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { CONTRACT_TYPES } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
-
 import AccumulatorsChartElements from '../accumulators-chart-elements';
 
 jest.mock('App/Components/Elements/PositionsDrawer/helpers/positions-helper', () => ({
@@ -16,23 +14,37 @@ describe('AccumulatorsChartElements', () => {
         all_positions: [
             {
                 contract_info: {
-                    underlying: 'test symbol',
+                    underlying_symbol: 'test symbol',
                     contract_type: CONTRACT_TYPES.ACCUMULATOR,
-                    entry_spot: 9454.1,
+                    entry_spot: '9454.1',
                     contract_id: 1,
                     shortcode: 'test',
-                    profit: 100,
+                    profit: '100',
                 },
+                indicative: 100,
+                reference: 1,
+                contract_update: {},
+                is_sell_requested: false,
+                is_valid_to_sell: true,
+                profit_loss: 100,
+                display_name: 'test',
             },
             {
                 contract_info: {
-                    underlying: 'test symbol',
+                    underlying_symbol: 'test symbol',
                     contract_type: CONTRACT_TYPES.ACCUMULATOR,
-                    entry_spot: 9467.78,
+                    entry_spot: '9467.78',
                     contract_id: 2,
                     shortcode: 'test',
-                    profit: 120,
+                    profit: '120',
                 },
+                indicative: 120,
+                reference: 2,
+                contract_update: {},
+                is_sell_requested: false,
+                is_valid_to_sell: true,
+                profit_loss: 120,
+                display_name: 'test',
             },
         ] as React.ComponentProps<typeof AccumulatorsChartElements>['all_positions'],
         current_spot: 9478.34,

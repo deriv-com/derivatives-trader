@@ -1,11 +1,8 @@
 import React from 'react';
-
 import { observer } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
 import { Text } from '@deriv-com/quill-ui';
-
 import { useGetSymbolSearchResults } from 'AppV2/Hooks/useGetSymbolSearchResults';
-
 import MarketCategoryItem from '../MarketCategoryItem';
 import SymbolNotFound from '../SymbolNotFound';
 
@@ -29,7 +26,7 @@ const SymbolSearchResults = observer(({ searchValue, setIsOpen, setSelectedSymbo
                 (searchResults.length > 0 ? (
                     searchResults.map(symbol => (
                         <MarketCategoryItem
-                            key={(symbol as any)?.underlying_symbol || symbol?.symbol}
+                            key={symbol?.underlying_symbol}
                             item={symbol}
                             selectedSymbol={''}
                             setSelectedSymbol={setSelectedSymbol}
