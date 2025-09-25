@@ -52,11 +52,16 @@ export const getPlatformLogo = () => {
 };
 
 export const getPlatformHostname = () => {
-    // Determine environment - use production if NODE_ENV is production, otherwise staging
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    // Return appropriate URL from brand config
-    return isProduction ? config_data.platform.hostname.production : config_data.platform.hostname.staging;
+    // Check specific NODE_ENV values
+    if (process.env.NODE_ENV === 'production') {
+        return config_data.platform.hostname.production;
+    } else if (process.env.NODE_ENV === 'staging') {
+        return config_data.platform.hostname.staging;
+    }
+    if (typeof window !== 'undefined') {
+        return window.location.host;
+    }
+    return config_data.platform.hostname.staging;
 };
 
 export const getProductionPlatformHostname = () => {

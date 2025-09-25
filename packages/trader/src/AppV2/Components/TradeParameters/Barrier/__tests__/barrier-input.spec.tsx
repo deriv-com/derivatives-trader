@@ -14,6 +14,33 @@ describe('BarrierInput', () => {
     const setInitialBarrierValue = jest.fn();
     const onChange = jest.fn();
     const onClose = jest.fn();
+
+    // Mock localStorage
+    const localStorageMock = {
+        getItem: jest.fn(),
+        setItem: jest.fn(),
+        removeItem: jest.fn(),
+        clear: jest.fn(),
+    };
+
+    beforeEach(() => {
+        // Clear all mocks before each test
+        jest.clearAllMocks();
+        // Reset localStorage mock to return null by default
+        localStorageMock.getItem.mockReturnValue(null);
+        localStorageMock.setItem.mockClear();
+        localStorageMock.removeItem.mockClear();
+        localStorageMock.clear.mockClear();
+
+        // Reset the default trade store
+        default_trade_store.modules.trade.barrier_1 = '+10';
+        default_trade_store.modules.trade.validation_errors.barrier_1 = [];
+
+        Object.defineProperty(window, 'localStorage', {
+            value: localStorageMock,
+            writable: true,
+        });
+    });
     const default_trade_store = {
         modules: {
             trade: {
@@ -158,6 +185,30 @@ describe('BarrierInput', () => {
         const aboveSpotChip = screen.getByText('Above spot');
         await userEvent.click(aboveSpotChip);
 
-        expect(onChange).toHaveBeenCalledWith({ target: { name: 'barrier_1', value: '+0.6' } });
+        expect(onChange).toHaveBeenLastCalledWith({ target: { name: 'barrier_1', value: '+' } });
+    });
+
+    it('restores barrier type from localStorage when available', () => {
+        // Mock localStorage to return stored barrier type for Fixed barrier
+        localStorageMock.getItem.mockImplementation(key => {
+            if (key === 'deriv_barrier_type_selection') return '2'; // Fixed barrier
+            if (key === 'deriv_fixed_barrier_value') return '999';
+            return null;
+        });
+
+        default_trade_store.modules.trade.barrier_1 = '999';
+        mockBarrierInput(mockStore(default_trade_store));
+
+        expect(setInitialBarrierValue).toHaveBeenCalledWith('999');
+        expect(screen.getAllByRole('button')[2]).toHaveAttribute('data-state', 'selected');
+    });
+
+    it('stores barrier type in localStorage when chip is selected', async () => {
+        mockBarrierInput(mockStore(default_trade_store));
+
+        const fixedBarrierChip = screen.getByText('Fixed barrier');
+        await userEvent.click(fixedBarrierChip);
+
+        expect(localStorageMock.setItem).toHaveBeenCalledWith('deriv_barrier_type_selection', '2');
     });
 });

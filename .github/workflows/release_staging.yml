@@ -8,7 +8,7 @@ jobs:
   build_test_and_publish:
     name: Build, Test and Publish to Cloudflare Staging
     runs-on: ubuntu-latest
-    environment: Staging
+    environment: staging
     permissions:
       contents: read
       actions: write
@@ -34,7 +34,6 @@ jobs:
         R2_PROJECT_NAME: ${{ vars.R2_PROJECT_NAME }}
         CROWDIN_BRANCH_NAME: ${{ vars.CROWDIN_BRANCH_NAME }}
         REMOTE_CONFIG_URL: ${{ vars.REMOTE_CONFIG_URL }}
-        TRACKJS_TOKEN: ${{ secrets.TRACKJS_TOKEN }}
         # TRUSTPILOT_API_KEY: ${{ secrets.TRUSTPILOT_API_KEY }}
     # - name: Run tests
     #   run: npm test

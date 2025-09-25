@@ -37,19 +37,19 @@ const BarrierInput = observer(
         } = useTraderStore();
         const [option, setOption] = React.useState(0);
         const [should_show_error, setShouldShowError] = React.useState(false);
-        const [previous_value, setPreviousValue] = React.useState(barrier_1);
         const { localize } = useTranslations();
 
         // Constants for localStorage keys
         const SPOT_BARRIER_KEY = 'deriv_spot_barrier_value';
         const FIXED_BARRIER_KEY = 'deriv_fixed_barrier_value';
+        const BARRIER_TYPE_KEY = 'deriv_barrier_type_selection';
 
         // Helper functions for localStorage
         const getStoredValue = (key: string) => {
             try {
                 const storedValue = localStorage.getItem(key);
                 return storedValue || '';
-            } catch (e) {
+            } catch {
                 return '';
             }
         };
@@ -57,7 +57,25 @@ const BarrierInput = observer(
         const storeValue = (key: string, value: string) => {
             try {
                 localStorage.setItem(key, value);
-            } catch (e) {
+            } catch {
+                // Ignore errors (e.g., localStorage not available)
+            }
+        };
+
+        // Helper functions for barrier type persistence
+        const getStoredBarrierType = () => {
+            try {
+                const storedType = localStorage.getItem(BARRIER_TYPE_KEY);
+                return storedType ? parseInt(storedType) : null;
+            } catch {
+                return null;
+            }
+        };
+
+        const storeBarrierType = (type: number) => {
+            try {
+                localStorage.setItem(BARRIER_TYPE_KEY, type.toString());
+            } catch {
                 // Ignore errors (e.g., localStorage not available)
             }
         };
@@ -73,21 +91,30 @@ const BarrierInput = observer(
         React.useEffect(() => {
             const initialValue = v2_params_initial_values?.barrier_1;
             const savedBarrierValue = String(initialValue || barrier_1);
+            const storedBarrierType = getStoredBarrierType();
 
             setInitialBarrierValue(savedBarrierValue);
             setV2ParamsInitialValues({ name: 'barrier_1', value: savedBarrierValue });
 
-            // Initialize the appropriate barrier value based on the initial value (prioritizing saved value)
-            if (savedBarrierValue.includes('-')) {
-                setOption(1);
-                const valueWithoutSign = savedBarrierValue.replace(/^[+-]/, '');
-                setSpotBarrierValue(valueWithoutSign);
-                // Store in localStorage if not already there
-                if (!spot_barrier_value) {
-                    storeValue(SPOT_BARRIER_KEY, valueWithoutSign);
-                }
+            // Prioritize stored barrier type over value-based detection
+            let determinedOption: number;
+
+            if (storedBarrierType !== null && storedBarrierType >= 0 && storedBarrierType <= 2) {
+                // Use stored barrier type if available and valid
+                determinedOption = storedBarrierType;
+            } else if (savedBarrierValue.includes('-')) {
+                determinedOption = 1; // Below spot
             } else if (savedBarrierValue.includes('+')) {
-                setOption(0);
+                determinedOption = 0; // Above spot
+            } else {
+                determinedOption = 2; // Fixed barrier
+            }
+
+            setOption(determinedOption);
+
+            // Initialize the appropriate barrier value based on the determined option
+            if (determinedOption === 0 || determinedOption === 1) {
+                // Above/Below spot
                 const valueWithoutSign = savedBarrierValue.replace(/^[+-]/, '');
                 setSpotBarrierValue(valueWithoutSign);
                 // Store in localStorage if not already there
@@ -95,13 +122,16 @@ const BarrierInput = observer(
                     storeValue(SPOT_BARRIER_KEY, valueWithoutSign);
                 }
             } else {
-                setOption(2);
+                // Fixed barrier
                 setFixedBarrierValue(savedBarrierValue);
                 // Store in localStorage if not already there
                 if (!fixed_barrier_value) {
                     storeValue(FIXED_BARRIER_KEY, savedBarrierValue);
                 }
             }
+
+            // Store the determined barrier type for future use
+            storeBarrierType(determinedOption);
 
             onChange({ target: { name: 'barrier_1', value: savedBarrierValue } });
             // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -146,6 +176,9 @@ const BarrierInput = observer(
                 storeValue(FIXED_BARRIER_KEY, barrier_1);
             }
 
+            // Store the new barrier type selection
+            storeBarrierType(index);
+
             // Restore the appropriate value based on the tab we're switching to
             if (index === 0 || index === 1) {
                 // Switching to Above/Below spot
@@ -162,7 +195,6 @@ const BarrierInput = observer(
                 newValue = `0${newValue}`;
             }
 
-            setPreviousValue(newValue);
             onChange({ target: { name: 'barrier_1', value: newValue } });
         };
 
@@ -187,7 +219,6 @@ const BarrierInput = observer(
 
             onChange({ target: { name: 'barrier_1', value } });
             setV2ParamsInitialValues({ name: 'barrier_1', value });
-            setPreviousValue(value);
         };
 
         return (
@@ -275,6 +306,9 @@ const BarrierInput = observer(
                                 } else if (option === 2) {
                                     storeValue(FIXED_BARRIER_KEY, barrier_1);
                                 }
+
+                                // Save the current barrier type selection
+                                storeBarrierType(option);
 
                                 onClose(true);
 

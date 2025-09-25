@@ -47,6 +47,13 @@ export interface TGetQuotesResponse {
     };
 }
 
+export type TSubscribeQuotes = (
+    params: { symbol: string; granularity: TGranularity },
+    callback: (quote: TQuote) => void
+) => () => void; // returns unsubscribe function
+
+export type TUnsubscribeQuotes = (request?: any, callback?: any) => void;
+
 // Request parameters for historical data
 export interface TGetQuotesRequest {
     symbol: string;

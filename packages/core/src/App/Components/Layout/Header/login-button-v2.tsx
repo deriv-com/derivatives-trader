@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '@deriv/components';
-import { getBrandLoginUrl } from '@deriv/shared';
+import { getBrandLoginUrl, getPlatformHostname } from '@deriv/shared';
 import { useTranslations } from '@deriv-com/translations';
 
 interface LoginButtonV2Props {
@@ -12,7 +12,12 @@ interface LoginButtonV2Props {
 const LoginButtonV2 = ({ className }: LoginButtonV2Props) => {
     const { localize } = useTranslations();
     const handleLogin = () => {
-        window.location.href = getBrandLoginUrl();
+        // Add redirect query parameter with platform hostname
+        const baseLoginUrl = getBrandLoginUrl();
+        const platformHostname = getPlatformHostname();
+        const loginUrlWithRedirect = `${baseLoginUrl}?redirect=${encodeURIComponent(platformHostname)}`;
+
+        window.location.href = loginUrlWithRedirect;
     };
 
     return (
