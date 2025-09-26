@@ -1,15 +1,19 @@
 import React from 'react';
-import { getBrandDomain } from '@deriv/shared';
+
 import { BrandDerivLogoCoralIcon } from '@deriv/quill-icons';
+import { getBrandUrl } from '@deriv/shared';
 
 const BrandShortLogo = () => {
-    const brandDomain = getBrandDomain();
+    const handleLogoClick = () => {
+        const brandUrl = getBrandUrl();
+        window.location.href = brandUrl;
+    };
 
     return (
         <div className='header__menu-left-logo'>
-            <a href={`https://${brandDomain}`} target='_blank' rel='noopener noreferrer'>
+            <div onClick={handleLogoClick} style={{ cursor: 'pointer' }} data-testid='brand-logo-clickable'>
                 <BrandDerivLogoCoralIcon width={24} height={24} />
-            </a>
+            </div>
         </div>
     );
 };

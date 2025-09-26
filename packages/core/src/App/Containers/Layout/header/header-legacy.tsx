@@ -11,7 +11,6 @@ import NewVersionNotification from 'App/Containers/new-version-notification';
 
 import BrandShortLogo from './brand-short-logo';
 import HeaderAccountActions from './header-account-actions';
-import HomeButton from './home-button';
 
 const HeaderLegacy = observer(() => {
     const { client, ui, notifications } = useStore();
@@ -44,7 +43,6 @@ const HeaderLegacy = observer(() => {
                         <React.Fragment>
                             <BrandShortLogo />
                             <div className='header__divider' />
-                            {is_logged_in && <HomeButton />}
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
