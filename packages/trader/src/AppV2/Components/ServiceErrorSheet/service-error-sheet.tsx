@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { getBrandUrl, isEmptyObject, redirectToLogin, redirectToSignUp } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Localize } from '@deriv-com/translations';
 import { ActionSheet } from '@deriv-com/quill-ui';
+import { Localize } from '@deriv-com/translations';
 
 import { checkIsServiceModalError, SERVICE_ERROR } from 'AppV2/Utils/layout-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -41,13 +41,8 @@ const ServiceErrorSheet = observer(() => {
                     onAction: () => {
                         resetServicesError();
                         if (!is_virtual) {
-                            const hubUrl = getBrandUrl();
-                            const url_query_string = window.location.search;
-                            const url_params = new URLSearchParams(url_query_string);
-                            const account_currency =
-                                window.sessionStorage.getItem('account') || url_params.get('account');
-
-                            window.location.href = `${hubUrl}/redirect?action=redirect_to&redirect_to=wallet${account_currency ? `&account=${account_currency}` : ''}`;
+                            const brandUrl = getBrandUrl();
+                            window.location.href = `${brandUrl}/deposit`;
                         } else {
                             onClose();
                         }
