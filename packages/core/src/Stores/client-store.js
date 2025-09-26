@@ -690,6 +690,9 @@ export default class ClientStore extends BaseStore {
     clearSessionToken() {
         // Clear session_token from localStorage
         localStorage.removeItem('session_token');
+
+        // Also clear session_token cookie if it exists
+        Cookies.remove('session_token');
     }
 
     removeTokenFromUrl() {
