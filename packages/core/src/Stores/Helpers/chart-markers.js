@@ -395,7 +395,7 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         high_barrier,
         low_barrier,
         // status,
-        profit,
+        // profit,
         is_sold,
     } = contract_info;
 
@@ -405,7 +405,7 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
     const is_accumulator_contract = isAccumulatorContract(contract_type);
     const is_digit_contract = isDigitContract(contract_type);
     const is_tick_contract = tick_count > 0;
-    const is_non_tick_contract = !is_tick_contract;
+    // const is_non_tick_contract = !is_tick_contract;
     // const is_high_low_contract = isHigherLowerContract(contract_type);
     // const is_touch_contract = isTouchContract(contract_type);
     // const is_turbos = isTurbosContract(contract_type);
@@ -527,9 +527,9 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
             is_vanilla: isVanillaContract(contract_type),
         }),*/
         props: {
-            isProfit: is_non_tick_contract || is_sold ? profit : false,
+            isProfit: true,
             isRunning: !contract_info?.is_expired,
-            contractMarkerLeftPadding: 500,
+            contractMarkerLeftPadding: 400,
         },
     };
 }
