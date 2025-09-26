@@ -562,6 +562,7 @@ export default class ClientStore extends BaseStore {
         sessionStorage.removeItem('active_loginid');
         localStorage.setItem('active_user_id', this.user_id);
         localStorage.setItem(storage_key, JSON.stringify(this.current_account));
+        this.clearSessionToken();
 
         Analytics.reset();
 
