@@ -8,14 +8,13 @@ import {
     LegacyChartsIcon,
     LegacyChevronRight1pxIcon,
     LegacyHelpCentreIcon,
-    LegacyHomeNewIcon,
     LegacyLogout1pxIcon,
     LegacyMenuHamburger1pxIcon,
     LegacyRegulatoryInformationIcon,
     LegacyResponsibleTradingIcon,
     LegacyTheme1pxIcon,
 } from '@deriv/quill-icons';
-import { getBrandHomeUrl, routes } from '@deriv/shared';
+import { routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 
@@ -194,19 +193,6 @@ const ToggleMenuDrawer = observer(() => {
                     <div className='header__menu-mobile-body-wrapper'>
                         <React.Fragment>
                             <MobileDrawer.Body>
-                                {is_logged_in && (
-                                    <MobileDrawer.Item>
-                                        <MenuLink
-                                            link_to={getBrandHomeUrl()}
-                                            icon={<LegacyHomeNewIcon />}
-                                            text={localize('Home')}
-                                            onClickLink={() => {
-                                                window.open(getBrandHomeUrl(), '_blank', 'noopener,noreferrer');
-                                                toggleDrawer();
-                                            }}
-                                        />
-                                    </MobileDrawer.Item>
-                                )}
                                 <MobileDrawer.Item>
                                     <MenuLink
                                         link_to={routes.index}
