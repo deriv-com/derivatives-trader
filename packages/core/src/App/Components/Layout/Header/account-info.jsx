@@ -10,13 +10,14 @@ import { useDevice } from '@deriv-com/ui';
 import AccountInfoIcon from './account-info-icon';
 import AccountInfoWrapper from './account-info-wrapper';
 
-const AccountInfo = ({ balance, currency, is_virtual, is_mobile }) => {
+const AccountInfo = ({ balance, currency, is_mobile }) => {
     const { localize } = useTranslations();
     const currency_lower = currency?.toLowerCase();
     const { isDesktop } = useDevice();
 
     const accountTypeFromUrl = getAccountTypeFromUrl();
     const accountTypeHeader = accountTypeFromUrl === 'real' ? localize('Real') : localize('Demo');
+    const isDemoAccount = accountTypeFromUrl === 'demo';
 
     return (
         <div className='acc-info__wrapper'>
@@ -26,15 +27,15 @@ const AccountInfo = ({ balance, currency, is_virtual, is_mobile }) => {
                     data-testid='dt_acc_info'
                     id='dt_core_account-info_acc-info'
                     className={classNames('acc-info', {
-                        'acc-info--is-virtual': is_virtual,
+                        'acc-info--is-demo': isDemoAccount,
                     })}
                 >
                     <span className='acc-info__id'>
                         {isDesktop ? (
-                            <AccountInfoIcon is_virtual={is_virtual} currency={currency_lower} />
+                            <AccountInfoIcon is_demo={isDemoAccount} currency={currency_lower} />
                         ) : (
-                            (is_virtual || currency) && (
-                                <AccountInfoIcon is_virtual={is_virtual} currency={currency_lower} />
+                            (isDemoAccount || currency) && (
+                                <AccountInfoIcon is_demo={isDemoAccount} currency={currency_lower} />
                             )
                         )}
                     </span>
@@ -49,7 +50,7 @@ const AccountInfo = ({ balance, currency, is_virtual, is_mobile }) => {
                                 <p
                                     data-testid='dt_balance'
                                     className={classNames('acc-info__balance', {
-                                        'acc-info__balance--no-currency': !currency && !is_virtual,
+                                        'acc-info__balance--no-currency': !currency && !isDemoAccount,
                                     })}
                                 >
                                     {!currency ? (
@@ -71,7 +72,6 @@ const AccountInfo = ({ balance, currency, is_virtual, is_mobile }) => {
 AccountInfo.propTypes = {
     balance: PropTypes.string,
     currency: PropTypes.string,
-    is_virtual: PropTypes.bool,
     is_mobile: PropTypes.bool,
 };
 
