@@ -26,7 +26,7 @@ const getStoredSymbols = () => {
     return null;
 };
 
-const storeSymbols = (symbols: ActiveSymbols) => {
+const storeSymbols = (symbols: NonNullable<TActiveSymbolsResponse['active_symbols']>) => {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ symbols, timestamp: Date.now() }));
     } catch {
