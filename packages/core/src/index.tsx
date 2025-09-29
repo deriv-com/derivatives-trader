@@ -23,7 +23,7 @@ const initApp = async () => {
     // The authentication will be handled by temp-auth.js and client-store.js
     const root_store = initStore(AppNotificationMessages);
 
-    const wrapper = document.getElementById('deriv_app');
+    const wrapper = document.getElementById('derivatives_trader');
     if (wrapper) {
         ReactDOM.render(<App root_store={root_store} />, wrapper);
     }

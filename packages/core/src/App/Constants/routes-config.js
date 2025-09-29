@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { LegacyPositionIcon, LegacyProfitTableIcon, LegacyReportsIcon, LegacyStatementIcon } from '@deriv/quill-icons';
 import { routes } from '@deriv/shared';
 import { localize } from '@deriv-com/translations';
-import { LegacyReportsIcon, LegacyPositionIcon, LegacyProfitTableIcon, LegacyStatementIcon } from '@deriv/quill-icons';
+
 import Endpoint from 'Modules/Endpoint';
 
 // Error Routes
@@ -19,6 +20,7 @@ const getModules = () => {
             component: Reports,
             getTitle: () => localize('Reports'),
             icon_component: <LegacyReportsIcon />,
+            protected: true,
             routes: [
                 {
                     path: routes.positions,
@@ -26,18 +28,21 @@ const getModules = () => {
                     getTitle: () => localize('Open positions'),
                     icon_component: <LegacyPositionIcon />,
                     default: true,
+                    protected: true,
                 },
                 {
                     path: routes.profit,
                     component: Reports,
                     getTitle: () => localize('Trade table'),
                     icon_component: <LegacyProfitTableIcon />,
+                    protected: true,
                 },
                 {
                     path: routes.statement,
                     component: Reports,
                     getTitle: () => localize('Statement'),
                     icon_component: <LegacyStatementIcon />,
+                    protected: true,
                 },
             ],
         },
@@ -45,11 +50,13 @@ const getModules = () => {
             path: routes.index,
             component: Trader,
             getTitle: () => localize('Trader'),
+            protected: false,
         },
         {
             path: routes.contract,
             component: Trader,
             getTitle: () => localize('Contract Details'),
+            protected: true,
         },
     ];
 

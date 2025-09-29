@@ -3,7 +3,7 @@ import React from 'react';
 import { usePrevious } from '@deriv/components';
 import { getDurationPeriod, getDurationUnitText, getEndTime, getPlatformRedirect } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { useDevice } from '@deriv-com/ui';
+import { Loader, useDevice } from '@deriv-com/ui';
 
 import { SmartChart } from 'Modules/SmartChart';
 import ChartMarker from 'Modules/SmartChart/Components/Markers/marker';
@@ -79,6 +79,8 @@ const ReplayChart = observer(
 
         const has_ended = !!getEndTime(contract_info);
         const is_dtrader_v2_enabled = isMobile; // V2 for mobile, V1 for desktop
+
+        if (!symbol) return <Loader />;
 
         return (
             <SmartChart

@@ -33,9 +33,9 @@ export const useDtraderQuery = <Response>(
 ): QueryResult<Response> => {
     const key = getKey(keys);
     const { enabled = true, timeout: _timeout = 30000 } = options;
-    const [data, setData] = useState<Response | null>(cache[key] || null);
+    const [data, setData] = useState<Response | null>(cache[key] ?? null);
     const [error, setError] = useState<TServerError | null>(null);
-    const [is_fetching, setIsFetching] = useState(!cache[key] && enabled);
+    const [is_fetching, setIsFetching] = useState(!(key in cache) && enabled);
     const is_mounted = useRef(false);
     const request_string = JSON.stringify(request);
 
@@ -80,6 +80,7 @@ export const useDtraderQuery = <Response>(
             .catch((err: TServerError | Error) => {
                 if (!is_mounted.current) return;
 
+                setData(null);
                 setError(err as TServerError);
                 setIsFetching(false);
             })
@@ -89,19 +90,19 @@ export const useDtraderQuery = <Response>(
     }, [key, request_string, wait_for_authorize, options?.timeout]);
 
     useEffect(() => {
-        if (enabled && !cache[key]) {
+        if (enabled && !(key in cache)) {
             fetchData();
         }
     }, [key, fetchData, enabled]);
 
     useEffect(() => {
         if (enabled && data !== cache[key]) {
-            setData(cache[key]);
+            setData(cache[key] ?? null);
         }
     }, [enabled, key, data]);
 
     const refetch = useCallback(() => {
-        cache[key] = null;
+        delete cache[key];
         fetchData();
     }, [fetchData, key]);
 
@@ -110,5 +111,5 @@ export const useDtraderQuery = <Response>(
 
 export const invalidateDTraderCache = (keys: string | string[]) => {
     const key = getKey(keys);
-    cache[key] = null;
+    delete cache[key];
 };

@@ -151,7 +151,7 @@ describe('useFetchProposalData', () => {
         );
 
         const { data, error } = result.current;
-        expect(data).toBe(undefined);
+        expect(data).toBe(null);
         expect(error).toBe(null);
     });
 });

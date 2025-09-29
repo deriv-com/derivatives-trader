@@ -1,119 +1,306 @@
-# `@deriv/core`
+# @deriv/core
 
-`core/dist` is the place where we build the main bundle at
+The main application package for Deriv's trading platform, serving as the central hub that orchestrates all other packages and provides the core functionality.
 
-**In this document**
+## Overview
 
--   [Other documents](#other-documents)
--   [Description](#description)
--   [How to work with this workspace](#how-to-work-with-this-workspace)
-    -   [Adding domain to your machine hosts config](#adding-domain-to-your-machine-hosts-config)
-    -   [Run this workspace](#run-this-workspace)
-    -   [Deploy to your gh-pages for the first time](#deploy-to-your-gh-pages-for-the-first-time)
-    -   [Deploy to the root of gh-pages](#deploy-to-the-root-of-gh-pages)
-    -   [Clean root and deploy to it](#clean-root-and-deploy-to-it)
-    -   [Deploy to test folder](#deploy-to-test-folder)
--   [Folder Structure](#folder-structure)
--   [Troubleshooting](#troubleshooting)
--   [Miscellaneous](#miscellaneous)
+The `@deriv/core` package is the primary application entry point for Deriv's trading platform. It acts as the main orchestrator that brings together all other packages (`@deriv/trader`, `@deriv/components`, `@deriv/shared`, `@deriv/reports`, etc.) into a cohesive trading application. This package contains the main application shell, routing, global state management, and core services.
 
-## Other documents
+## Key Features
 
--   [Modules docs](docs/Modules/README.md) - Contains implementation guides (i.e., scaffolding help, etc.)
+- **Application Shell**: Main React application structure and routing
+- **Global State Management**: MobX stores for application-wide state
+- **Module Integration**: Dynamic loading and coordination of feature modules
+- **Internationalization**: Multi-language support with `@deriv-com/translations`
+- **Theme System**: Dark/light theme support with `@deriv-com/quill-ui`
+- **Error Handling**: Comprehensive error boundaries and tracking
+- **Analytics Integration**: TrackJS integration for error tracking and analytics
 
-## Description
+## Architecture
 
-This workspace is the "app instance". It contains singleton services (such as the WS, and base/common stores), as well as singleton UI components.
+### Core Components
 
-## How to work with this workspace
+- **App Shell**: Main application container and layout (`AppContent.tsx`)
+- **Routing System**: React Router-based navigation with lazy loading
+- **Store Management**: MobX stores for global state management
+- **Module Integration**: Dynamic loading of trader and reports modules
+- **Service Layer**: API integrations and external service management
 
--   To preview your changes locally for the first time, run `npm start`:
-    -   It will run all tests, compile all CSS, and JS/JSX as well as watch for further `js/jsx/css` changes and rebuild on every change you make.
--   To preview your changes locally without any tests, run `npm run serve`
-    -   It will watch for js/jsx/css changes and rebuild on every change you make.
--   To run all tests, run `npm run test`
-
-### Run this workspace
-
-To run and work on this workspace you need to use `npm run serve core` command.
-
-### Deploy to your gh-pages for the first time
-
-1.  Register your application [here](https://developers.binary.com/applications/). This will give you the ability to redirect back to your Github pages after login. Use `https://YOUR_GITHUB_USERNAME.github.io/deriv-app/` for the Redirect URL and `https://YOUR_GITHUB_USERNAME.github.io/deriv-app/en/redirect` for the Verification URL. If you're using a custom domain, replace the Github URLs above with your domain and remove the `deriv-app` base path.
-
-2.  In `src/config.js`: Insert the `Application ID` of your registered application in `user_app_id`.
-
-    -   **NOTE:** To avoid accidentally committing personal changes to this file, use `git update-index --assume-unchanged src/javascript/config.js`
-
-3.  Set `NODE_ENV` to `development` with `export NODE_ENV=development`
-
-4.  Run `npm run deploy:clean`
-
-### Deploy to the root of gh-pages
-
-This will overwrite modified files and only clear the content of `js` folder before pushing changes. It will leave other folders as they are.
+### Application Structure
 
 ```
-npm run deploy
+src/
+├── App/                    # Main application components
+│   ├── Components/         # Global UI components
+│   │   ├── Elements/       # Core UI elements
+│   │   └── Layout/         # Layout components
+│   ├── Constants/          # Application constants
+│   │   └── routes-config.js # Route configuration
+│   └── Containers/         # Container components
+│       ├── Layout/         # Layout containers
+│       ├── Modals/         # Modal components
+│       └── Routes/         # Route containers
+├── Assets/                 # Static assets
+├── Constants/              # Global constants
+├── Modules/                # Feature modules
+├── Services/               # External service integrations
+├── Stores/                 # MobX stores
+│   ├── client-store.js     # Client/user state
+│   ├── common-store.js     # Common application state
+│   ├── ui-store.js         # UI state management
+│   ├── portfolio-store.js  # Portfolio management
+│   └── notification-store.js # Notifications
+├── Utils/                  # Utility functions
+└── sass/                   # Global styles
 ```
 
-### Clean root and deploy to it
+## Development
 
-This removes all files and folders and deploys your `dist` folder to the root.
+### Installation
 
-```sh
-npm run deploy:clean
+This package is part of the Deriv monorepo and is installed automatically when you install the project dependencies.
+
+```bash
+npm run bootstrap
 ```
 
-### Deploy to test folder
+### Running the Application
 
-This will add all your changes to the test folder specified.
-Please ensure it is prefixed with `br_`.
+Start the development server:
 
-```
-npm run deploy:folder "br_my_test_folder"
-```
-
-## Folder Structure
-
-```
-build
-    ├── ...
-    ├── webpack-config-test.js
-docs
-    ├── Modules
-    |   |── README.md
-src
-    ├── _common
-    ├── App
-    |   |── Components
-    |   |── Constants
-    |   |── Containers
-    ├── Assets
-    ├── Constants
-    ├── Modules
-    ├── public
-    ├── root_files
-    ├── sass
-    ├── Services
-    ├── Stores
-    ├── templates
-    ├── Utils
-    |   |── Language
-    |   |── pwa
-    |   |── Validator
-    |   |   |──...
-    |   |   |── validator.js
+```bash
+npm run serve core
 ```
 
-## Troubleshooting
+This will:
 
--   **Icon missing:** If the icons are missing, you only need to build this workspace. You can do this by running the build command from the root directory (`/deriv-app`):
+- Start the webpack dev server on `https://localhost:8443`
+- Enable hot reloading for development
+- Watch for file changes and rebuild automatically
 
-```
+### Building the Package
+
+```bash
 npm run build
 ```
 
-## Miscellaneous
+### Testing
 
--   In Webstorm, right-click on `src`, hover over `Mark directory as`, and click `Resource root` to enable import alias resolution.
+Run ESLint:
+
+```bash
+npm run test:eslint
+```
+
+Run all tests from the root:
+
+```bash
+npm test packages/core
+```
+
+## Routing
+
+The application uses React Router with the following main routes:
+
+- **`/`** - Trading home page (handled by `@deriv/trader`)
+- **`/reports`** - Trading reports (handled by `@deriv/reports`)
+    - `/reports/positions` - Open positions (default)
+    - `/reports/profit` - Trade table
+    - `/reports/statement` - Statement
+- **`/contract`** - Contract details page (handled by `@deriv/trader`)
+
+### Route Configuration
+
+Routes are configured in `src/App/Constants/routes-config.js` with:
+
+- Lazy loading of route components for performance
+- Dynamic module loading
+- Icon and title configuration for navigation
+- Nested route support for reports section
+
+```javascript
+// Example route configuration
+{
+    path: routes.reports,
+    component: Reports,
+    getTitle: () => localize('Reports'),
+    icon_component: <LegacyReportsIcon />,
+    routes: [
+        {
+            path: routes.positions,
+            component: Reports,
+            getTitle: () => localize('Open positions'),
+            default: true,
+        },
+        // ... other nested routes
+    ],
+}
+```
+
+## State Management
+
+The application uses MobX for state management with the following key stores:
+
+### Core Stores
+
+- **Client Store** (`client-store.js`): User authentication, account management, and session handling
+- **Common Store** (`common-store.js`): Shared application state, language, and server time
+- **UI Store** (`ui-store.js`): UI state, theme preferences, and modal management
+- **Portfolio Store** (`portfolio-store.js`): Trading portfolio and positions management
+- **Notification Store** (`notification-store.js`): Application notifications and messages
+- **Contract Store** (`contract-store.js`): Contract-related state management
+- **Active Symbols Store** (`active-symbols-store.js`): Trading symbols and market data
+
+### Store Usage
+
+```javascript
+// Example store usage with observer
+import { observer, useStore } from '@deriv/stores';
+
+const MyComponent = observer(() => {
+    const { client, ui, common } = useStore();
+
+    return (
+        <div>
+            {client.is_logged_in && <p>Welcome, {client.loginid}</p>}
+            <p>Current language: {common.current_language}</p>
+            <p>Theme: {ui.is_dark_mode_on ? 'Dark' : 'Light'}</p>
+        </div>
+    );
+});
+```
+
+## Module Integration
+
+The core package dynamically loads feature modules:
+
+### Trader Module
+
+```javascript
+const Trader = React.lazy(() => import('@deriv/trader'));
+```
+
+### Reports Module
+
+```javascript
+const Reports = React.lazy(() => import('@deriv/reports'));
+```
+
+These modules are loaded on-demand to optimize initial bundle size and improve performance.
+
+## Services and Integrations
+
+### API Integration
+
+- Uses `@deriv/api` for API client functionality
+- WebSocket connections managed through shared services
+
+### Theme Integration
+
+```javascript
+import { ThemeProvider } from '@deriv-com/quill-ui';
+
+// Theme provider wraps the entire application
+<ThemeProvider theme={is_dark_mode_on ? 'dark' : 'light'}>{/* Application content */}</ThemeProvider>;
+```
+
+## Build Configuration
+
+### Webpack Configuration
+
+The build process uses a sophisticated webpack configuration (`build/webpack.config.js`) with:
+
+- **Code Splitting**: Automatic chunk splitting for optimal loading
+- **Hot Reloading**: Development server with hot module replacement
+- **Asset Optimization**: Minification and compression for production
+- **Source Maps**: Development and production source map generation
+- **HTTPS Development**: Secure development server on port 8443
+
+### Performance Optimizations
+
+- Bundle splitting with size limits (max 2.5MB chunks)
+- Vendor code separation
+- Lazy loading of route components
+- Asset caching strategies
+
+### Environment Configuration
+
+The application supports different deployment environments through build-time configuration:
+
+- Development: Local development with hot reloading
+- Staging: Pre-production testing environment
+- Production: Live production deployment
+
+## Error Handling
+
+### Error Boundaries
+
+The application implements comprehensive error boundaries:
+
+```javascript
+<ErrorBoundary root_store={store}>
+    <AppContents>
+        <Routes />
+    </AppContents>
+</ErrorBoundary>
+```
+
+### Error Tracking
+
+- TrackJS integration for error monitoring
+
+## Development Guidelines
+
+### Adding New Features
+
+1. **Create Components**: Add new components in appropriate directories
+2. **Update Routing**: Modify `routes-config.js` for new routes
+3. **State Management**: Update or create MobX stores as needed
+4. **Testing**: Add unit tests and integration tests
+5. **Documentation**: Update relevant documentation
+
+### Code Standards
+
+- Use TypeScript for new components where possible
+- Follow ESLint configuration rules
+- Implement proper error boundaries
+- Use MobX observer pattern for reactive components
+- Add proper accessibility attributes
+
+### Performance Considerations
+
+- Use React.lazy for code splitting
+- Implement proper loading states
+- Optimize bundle sizes
+- Use memoization for expensive computations
+
+## Troubleshooting
+
+### Common Issues
+
+**Icons Missing**
+
+```bash
+npm run build:all
+```
+
+## Contributing
+
+When contributing to this package:
+
+1. Follow the established architecture patterns
+2. Update relevant documentation
+3. Add proper error handling and loading states
+4. Ensure responsive design compatibility
+5. Test across supported browsers
+6. Follow the coding standards and ESLint rules
+7. Update tests and add new ones as needed
+
+## Related Documentation
+
+- [Modules Documentation](docs/Modules/README.md) - Implementation guides and scaffolding help
+- [API Documentation](../api/README.md) - API client usage
+- [Components Documentation](../components/README.md) - UI component library
+- [Shared Utilities](../shared/README.md) - Shared utilities and helpers
+- [Trader Module](../trader/README.md) - Trading interface documentation
+- [Reports Module](../reports/README.md) - Trade reports documentation

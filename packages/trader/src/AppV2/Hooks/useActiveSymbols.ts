@@ -9,6 +9,31 @@ import { useTraderStore } from 'Stores/useTraderStores';
 
 import { useDtraderQuery } from './useDtraderQuery';
 
+// LocalStorage persistence for navigation
+const STORAGE_KEY = 'dtrader_v2_active_symbols';
+const EXPIRY_TIME = 5 * 60 * 1000; // 5 minutes
+
+const getStoredSymbols = () => {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            const { symbols, timestamp } = JSON.parse(stored);
+            if (Date.now() - timestamp < EXPIRY_TIME) return symbols;
+        }
+    } catch {
+        // Ignore localStorage errors (e.g., quota exceeded, disabled)
+    }
+    return null;
+};
+
+const storeSymbols = (symbols: ActiveSymbols) => {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ symbols, timestamp: Date.now() }));
+    } catch {
+        // Ignore localStorage errors (e.g., quota exceeded, disabled)
+    }
+};
+
 const useActiveSymbols = () => {
     const { client, common } = useStore();
     const { loginid } = client;
@@ -18,10 +43,14 @@ const useActiveSymbols = () => {
         contract_type,
         is_vanilla,
         is_turbos,
+        has_symbols_for_v2,
         setActiveSymbolsV2,
     } = useTraderStore();
     const [activeSymbols, setActiveSymbols] = useState<NonNullable<TActiveSymbolsResponse['active_symbols']> | []>(
-        symbols_from_store
+        () => {
+            const stored = getStoredSymbols();
+            return stored?.length ? stored : symbols_from_store || [];
+        }
     );
 
     const getContractTypesList = () => {
@@ -64,40 +93,38 @@ const useActiveSymbols = () => {
         }
     }, [queryError, showError]);
 
-    useEffect(
-        () => {
-            const process = async () => {
-                if (!response) return;
-
-                const { active_symbols = [], error } = response;
-
-                if (error) {
-                    // Fallback: try to use existing symbols from store if available
-                    if (symbols_from_store?.length) {
-                        setActiveSymbols(symbols_from_store);
-                        setActiveSymbolsV2(symbols_from_store);
-                    } else {
-                        showError({ message: localize('Trading is unavailable at this time.') });
-                        setActiveSymbols([]);
-                    }
-                } else if (!active_symbols?.length) {
-                    // Fallback: try to use existing symbols from store if available
-                    if (symbols_from_store?.length) {
-                        setActiveSymbols(symbols_from_store);
-                        setActiveSymbolsV2(symbols_from_store);
-                    } else {
-                        setActiveSymbols([]);
-                    }
-                } else {
-                    setActiveSymbols(active_symbols);
-                    setActiveSymbolsV2(active_symbols);
-                }
-            };
-            process();
-        },
+    // Use store symbols when available and valid, but only for unchanged contract types
+    useEffect(() => {
+        if (has_symbols_for_v2 && symbols_from_store?.length && !response) {
+            setActiveSymbols(symbols_from_store);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [response]
-    );
+    }, [has_symbols_for_v2, response]);
+
+    useEffect(() => {
+        if (!response) return;
+
+        const { active_symbols = [], error } = response;
+
+        if (error || !active_symbols?.length) {
+            // Fallback to stored or store symbols
+            const stored = getStoredSymbols();
+            const fallback = stored?.length ? stored : symbols_from_store;
+            if (fallback?.length) {
+                setActiveSymbols(fallback);
+                setActiveSymbolsV2(fallback);
+            } else {
+                showError({ message: localize('Trading is unavailable at this time.') });
+                setActiveSymbols([]);
+            }
+        } else {
+            // Success: store and update
+            storeSymbols(active_symbols);
+            setActiveSymbols(active_symbols);
+            setActiveSymbolsV2(active_symbols);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [response]);
 
     return { activeSymbols };
 };

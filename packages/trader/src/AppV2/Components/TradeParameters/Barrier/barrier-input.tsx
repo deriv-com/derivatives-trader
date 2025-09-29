@@ -27,6 +27,7 @@ const BarrierInput = observer(
         isDays: boolean;
         onClose: (val: boolean) => void;
     }) => {
+        const trade_store = useTraderStore();
         const {
             barrier_1,
             onChange,
@@ -35,9 +36,7 @@ const BarrierInput = observer(
             setV2ParamsInitialValues,
             v2_params_initial_values,
             symbol,
-            active_symbols,
-            getSymbolBarrierSupport,
-        } = useTraderStore();
+        } = trade_store;
         const [should_show_error, setShouldShowError] = React.useState(false);
         const { localize } = useTranslations();
 
@@ -108,8 +107,8 @@ const BarrierInput = observer(
 
         // Use the centralized barrier support logic from trade store
         const getBarrierSupport = React.useCallback(() => {
-            return getSymbolBarrierSupport(symbol);
-        }, [getSymbolBarrierSupport, symbol]);
+            return trade_store.getSymbolBarrierSupport(symbol);
+        }, [trade_store, symbol]);
 
         // Effect to handle symbol changes and reset barrier type if needed
         React.useEffect(() => {
@@ -139,15 +138,7 @@ const BarrierInput = observer(
 
                 setPreviousSymbol(symbol);
             }
-        }, [
-            symbol,
-            previous_symbol,
-            getSymbolBarrierSupport,
-            barrier_1,
-            tick_data,
-            onChange,
-            setV2ParamsInitialValues,
-        ]);
+        }, [symbol, previous_symbol, trade_store, barrier_1, tick_data, onChange, setV2ParamsInitialValues]);
 
         // Initialize draft state when modal opens
         React.useEffect(() => {

@@ -11,7 +11,7 @@
     /** disabling pull to refresh on iOS / Android browsers */
     /* postcss-bem-linter: ignore */
     body,
-    .deriv-app,
+    .derivatives-trader,
     .modal-root,
     .dc-mobile-drawer__overlay {
         /* Break the flow */
@@ -46,7 +46,7 @@
         /* Sending body at the bottom of the stack */
         z-index: 1;
     }
-    .deriv-app {
+    .derivatives-trader {
         /* Making the wrapper stack above the body */
         overscroll-behavior: none;
         z-index: 2;
