@@ -40,13 +40,10 @@ const RouteWithSubRoutes = observer(route => {
             const default_subroute = route.routes ? route.routes.find(r => r.default) : {};
             const has_default_subroute = !isEmptyObject(default_subroute);
 
-            // Check if route is protected and user is not authorized
-            const is_unauthorized_protected_route = route.protected && !is_logged_in && !is_logging_in;
-
             let content;
             if (is_valid_route) {
                 content = <route.component {...props} routes={route.routes} passthrough={route.passthrough} />;
-            } else if (is_unauthorized_protected_route) {
+            } else if (route.protected) {
                 content = <Redirect to={routes.index} />;
             } else {
                 content = <Page404 />;
