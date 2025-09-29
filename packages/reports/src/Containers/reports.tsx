@@ -105,7 +105,10 @@ const Reports = observer(({ history, location, routes }: TReports) => {
             icon: route.icon_component,
             label: route.getTitle(),
             value: route.component,
-            path: redirectUrlRef.current
+            // Keep path clean for React Router - don't include query parameters
+            path: route.path,
+            // Store the full path with query params for navigation purposes
+            fullPath: redirectUrlRef.current
                 ? `${route.path}?redirect=${encodeURIComponent(redirectUrlRef.current)}`
                 : route.path,
         }));
