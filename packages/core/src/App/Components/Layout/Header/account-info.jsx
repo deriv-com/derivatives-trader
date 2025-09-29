@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { Text } from '@deriv/components';
-import { getAccountTypeFromUrl, getCurrencyDisplayCode } from '@deriv/shared';
+import { getAccountType, getCurrencyDisplayCode } from '@deriv/shared';
 import { Localize, useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
@@ -15,9 +15,9 @@ const AccountInfo = ({ balance, currency, is_mobile }) => {
     const currency_lower = currency?.toLowerCase();
     const { isDesktop } = useDevice();
 
-    const accountTypeFromUrl = getAccountTypeFromUrl();
-    const accountTypeHeader = accountTypeFromUrl === 'real' ? localize('Real') : localize('Demo');
-    const isDemoAccount = accountTypeFromUrl === 'demo';
+    const accountType = getAccountType();
+    const accountTypeHeader = accountType === 'real' ? localize('Real') : localize('Demo');
+    const isDemoAccount = accountType === 'demo';
 
     return (
         <div className='acc-info__wrapper'>

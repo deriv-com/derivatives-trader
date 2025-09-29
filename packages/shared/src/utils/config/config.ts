@@ -26,17 +26,24 @@ export const isProduction = () => {
 };
 
 /**
- * Parses the account_type parameter from the current URL
+ * Gets account_type with priority: URL parameter > localStorage > default 'demo'
  * @returns {string} 'real', 'demo', or 'demo' as default
  */
-export const getAccountTypeFromUrl = (): string => {
+export const getAccountType = (): string => {
     const search = window.location.search;
     const search_params = new URLSearchParams(search);
-    const accountType = search_params.get('account_type');
+    const accountTypeFromUrl = search_params.get('account_type');
 
-    // Validate account type and return 'demo' as default for invalid values
-    if (accountType === 'real' || accountType === 'demo') {
-        return accountType;
+    // First priority: URL parameter
+    if (accountTypeFromUrl === 'real' || accountTypeFromUrl === 'demo') {
+        window.localStorage.setItem('account_type', accountTypeFromUrl);
+        return accountTypeFromUrl;
+    }
+
+    // Second priority: localStorage
+    const storedAccountType = window.localStorage.getItem('account_type');
+    if (storedAccountType === 'real' || storedAccountType === 'demo') {
+        return storedAccountType;
     }
 
     // Default to demo when no account_type parameter or invalid value
@@ -47,8 +54,8 @@ export const getSocketURL = () => {
     const local_storage_server_url = window.localStorage.getItem('config.server_url');
     if (local_storage_server_url) return local_storage_server_url;
 
-    // Get account type from URL parameter
-    const accountType = getAccountTypeFromUrl();
+    // Get account type
+    const accountType = getAccountType();
 
     // Map account type to new v2 endpoints
     const server_url = accountType === 'real' ? 'realv2.derivws.com' : 'demov2.derivws.com';
