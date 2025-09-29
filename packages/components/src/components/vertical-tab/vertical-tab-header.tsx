@@ -6,6 +6,16 @@ import { getKebabCase } from '@deriv/shared';
 
 import Counter from '../counter';
 
+// Custom hook to safely use location in both routed and non-routed contexts
+const useSafeLocation = () => {
+    try {
+        return useLocation();
+    } catch {
+        // Return a default location object when not in Router context
+        return { search: '' };
+    }
+};
+
 export type THeaderIcon = {
     icon: React.ReactElement;
     is_active: boolean;
@@ -67,7 +77,7 @@ const VerticalTabHeader = ({
     selected,
     selectedKey = 'label',
 }: React.PropsWithChildren<TVerticalTabHeader>) => {
-    const location = useLocation();
+    const location = useSafeLocation();
     const label = item.label || item.title || item.getTitle?.() || '';
     const is_active = selected && selected[selectedKey as keyof TItem] === item[selectedKey as keyof TItem];
     const handleClick = () => onChange(item);
