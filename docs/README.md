@@ -2,9 +2,8 @@
 
 > A modern platform for derivatives trading with a modular, component-based architecture.
 
-![Prerequisite](https://img.shields.io/badge/node-18.x-blue.svg)
+![Prerequisite](https://img.shields.io/badge/node-20.x-blue.svg)
 ![Prerequisite](https://img.shields.io/badge/npm-9.x-blue.svg)
-[![Coverage Status](https://coveralls.io/repos/github/deriv-com/deriv-app/badge.svg?branch=master)](https://coveralls.io/github/deriv-com/deriv-app?branch=master)
 
 ## Table of Contents
 
@@ -30,7 +29,7 @@
 
 Before working with this repository, ensure you have the following installed:
 
-- **Node.js 18.x**
+- **Node.js 20.x**
 - **npm 9.x**
 - **git** (for contribution)
 
@@ -43,8 +42,8 @@ Before working with this repository, ensure you have the following installed:
 2. **Clone the repository**
 
     ```sh
-    git clone git@github.com:deriv-com/deriv-app.git
-    cd deriv-app
+    git clone git@github.com:deriv-com/derivatives-trader.git
+    cd derivatives-trader
     ```
 
 3. **Install dependencies**
@@ -65,19 +64,17 @@ This project uses a monorepo structure managed with npm workspaces. All individu
 
 ### Packages
 
-| Package        | Description                     | Documentation                                                                                                           |
-| -------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `Api`          | API client for backend services | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/api/README.md)          |
-| `Api-v2`       | Next generation API client      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/api-v2/README.md)       |
-| `Components`   | Shared UI component library     | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/components/README.md)   |
-| `Core`         | Core application framework      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/core/README.md)         |
-| `Hooks`        | Shared React hooks              | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/hooks/README.md)        |
-| `Reports`      | Transaction and trading reports | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/reports/README.md)      |
-| `Shared`       | Shared utilities and helpers    | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/shared/README.md)       |
-| `Stores`       | State management stores         | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/stores/README.md)       |
-| `Trader`       | Trading platform interface      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/trader/README.md)       |
-| `Translations` | Localization and translations   | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/translations/README.md) |
-| `Utils`        | Utility functions               | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/utils/README.md)        |
+| Package      | Description                     | Documentation                                                                                                            |
+| ------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `Api`        | API client for backend services | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/api/README.md)        |
+| `Api-v2`     | Next generation API client      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/api-v2/README.md)     |
+| `Components` | Shared UI component library     | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/components/README.md) |
+| `Core`       | Core application framework      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/core/README.md)       |
+| `Reports`    | Transaction and trading reports | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/reports/README.md)    |
+| `Shared`     | Shared utilities and helpers    | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/shared/README.md)     |
+| `Stores`     | State management stores         | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/stores/README.md)     |
+| `Trader`     | Trading platform interface      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/trader/README.md)     |
+| `Utils`      | Utility functions               | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/utils/README.md)      |
 
 ## Development Workflow
 
@@ -109,17 +106,13 @@ npm run serve core
 
 ```sh
 # Terminal 1 - Start the package you're working on
-npm run serve api
+npm run serve trader
 
 # Terminal 2 - Start the core
 npm run serve core
 ```
 
-**Specifying a page to open:**
-
-```sh
-npm run serve core --open=trader
-```
+**Note:** The serve command runs the specified package's development server.
 
 ### Common Development Tasks
 
@@ -143,75 +136,49 @@ npm run bootstrap:dev
 
 ## Building and Testing
 
-All packages support these common scripts:
+Available scripts from the root directory:
 
-| Command            | Description                                   |
-| ------------------ | --------------------------------------------- |
-| `start`            | Runs tests, builds, and starts the dev server |
-| `serve`            | Builds and starts the dev server              |
-| `build:one <pkg>`  | Builds a single package                       |
-| `build:all`        | Builds all packages                           |
-| `test`             | Runs eslint, stylelint and jest tests         |
-| `test:jest`        | Runs only jest tests                          |
-| `test:qa`          | Runs e2e tests                                |
-| `test:performance` | Runs performance tests                        |
+| Command           | Description                                    |
+| ----------------- | ---------------------------------------------- |
+| `serve <pkg>`     | Builds and starts the dev server for a package |
+| `build:all`       | Builds all packages                            |
+| `test`            | Runs eslint, stylelint and jest tests          |
+| `test:jest`       | Runs only jest tests                           |
+| `test:eslint-all` | Runs eslint tests for all packages             |
+| `test:stylelint`  | Runs stylelint tests                           |
 
 Examples:
 
 ```sh
-# Build a specific package
-npm run build:one api
+# Start development server for a package
+npm run serve trader
 
-# Run tests for a specific package
-npm run test:jest trader
+# Build all packages
+npm run build:all
+
+# Run all tests
+npm run test
 ```
 
 ## Deployment
 
-### Test Deployments
+#### Preview Deployment
 
-#### Automatic Deployment (Recommended)
-
-When creating a PR, Vercel automatically generates a preview link.
-
-#### Manual Deployment
-
-For manual deployments using GitHub Pages:
-
-```sh
-# Deploy to root of gh-pages branch
-npm run deploy
-
-# Clean and deploy to root
-npm run deploy:clean
-
-# Deploy to a subfolder
-npm run deploy:folder br_test_folder
-```
+When creating a PR, Cloudflare automatically generates a preview link.
 
 ### Release Process
 
-There are three types of releases:
+There are two types of releases:
 
 1. **Staging Release**
 
-    ```sh
-    git tag staging_v20230723 -m 'release staging'
-    git push origin staging_v20230723
-    ```
+    Staging releases happen automatically when a PR is merged to the master branch.
 
 2. **Production Release**
 
     ```sh
     git tag production_v20230723 -m 'release production'
     git push origin production_v20230723
-    ```
-
-3. **NPM Package Release**
-    ```sh
-    # First, ensure you have membership to @deriv npm organization
-    # Bump package versions as needed
-    npm run publish:p2p
     ```
 
 ## Troubleshooting
@@ -245,22 +212,18 @@ There are three types of releases:
     cd packages/trader && npm ci
     ```
 
-4. **Node Sass issues**
+4. **Sass compilation issues**
 
     ```sh
     # Try these in order:
-    npm rebuild node-sass --workspaces
-
-    # If that doesn't work:
     npm cache clean --force
     npm run clean
     npm run bootstrap
+    npm run build:all
     ```
 
 ## Additional Documentation
 
-- [Stylesheet Guidelines](docs/Stylesheet/README.md) - CSS/SASS code style
-- [JavaScript Guidelines](docs/JavaScript/README.md) - JS/JSX code style
-- [TypeScript Guidelines](docs/Typescript/README.md) - TS/TSX code style
-- [Git Workflow](docs/git/README.md) - Git practices and processes
-- [Dependency Management](docs/Dependencies/README.md) - Working with dependencies
+- [Stylesheet Guidelines](../docs/Stylesheet/README.md) - CSS/SASS code style
+- [JavaScript Guidelines](../docs/JavaScript/README.md) - JS/JSX code style
+- [Git Workflow](../docs/git/README.md) - Git practices and processes

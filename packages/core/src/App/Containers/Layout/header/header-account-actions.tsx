@@ -6,7 +6,7 @@ import { AccountActions } from 'App/Components/Layout/Header';
 
 const HeaderAccountActions = observer(() => {
     const { client } = useStore();
-    const { balance, currency, is_logged_in, is_virtual, logout } = client;
+    const { balance, currency, is_logged_in, logout } = client;
 
     const handleLogout = () => {
         logout();
@@ -18,7 +18,6 @@ const HeaderAccountActions = observer(() => {
                 balance={balance}
                 currency={currency}
                 is_logged_in={is_logged_in}
-                is_virtual={is_virtual}
                 onClickLogout={handleLogout}
             />
         </div>

@@ -7,15 +7,12 @@
     "scripts": {
         "start": "npm run test && npm run serve",
         "serve": "f() { echo \"Serving...\" && ../../node_modules/.bin/webpack serve --config \"./build/webpack.config.js\" --env open $1;}; f",
-        "build": "f () { webpack --config \"./build/webpack.config.js\" --env base=$1 --env IS_CRYPTO_APP=${IS_CRYPTO_APP:-false};}; f",
-        "test:eslint": "eslint \"./src/**/*.?(js|jsx|ts|tsx)\"",
-        "deploy": "npm run build && gh-pages -d dist --remove=\"js\"",
-        "deploy:clean": "npm run build && gh-pages -d dist",
-        "deploy:folder": "f () { npm run build -- $1 && gh-pages -d dist -e $1 ;}; f"
+        "build": "f () { webpack --config \"./build/webpack.config.js\" --env base=$1;}; f",
+        "test:eslint": "eslint \"./src/**/*.?(js|jsx|ts|tsx)\""
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/deriv-com/deriv-app.git"
+        "url": "https://github.com/deriv-com/derivatives-trader.git"
     },
     "keywords": [
         "deriv"
@@ -23,12 +20,12 @@
     "author": "Deriv",
     "license": "Apache-2.0",
     "bugs": {
-        "url": "https://github.com/deriv-com/deriv-app/issues"
+        "url": "https://github.com/deriv-com/derivatives-trader/issues"
     },
     "engines": {
         "node": "20.x"
     },
-    "homepage": "https://github.com/deriv-com/deriv-app",
+    "homepage": "https://github.com/deriv-com/derivatives-trader",
     "devDependencies": {
         "@babel/eslint-parser": "^7.25.1",
         "@babel/plugin-transform-private-property-in-object": "^7.12.1",

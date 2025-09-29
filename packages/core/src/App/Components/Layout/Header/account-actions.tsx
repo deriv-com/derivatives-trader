@@ -13,7 +13,6 @@ type TAccountActionsProps = {
     balance: string | number | undefined;
     currency: string;
     is_logged_in: boolean;
-    is_virtual: boolean;
     onClickLogout: () => void;
 };
 
@@ -35,13 +34,7 @@ const LoggedOutView = () => (
     </>
 );
 
-const AccountActionsComponent = ({
-    balance,
-    currency,
-    is_logged_in,
-    is_virtual,
-    onClickLogout,
-}: TAccountActionsProps) => {
+const AccountActionsComponent = ({ balance, currency, is_logged_in, onClickLogout }: TAccountActionsProps) => {
     const { isDesktop } = useDevice();
     const isLogoutButtonVisible = isDesktop && is_logged_in;
     const formattedBalance = balance != null ? formatMoney(currency, balance, true) : undefined;
@@ -51,7 +44,6 @@ const AccountActionsComponent = ({
             <AccountInfo
                 balance={formattedBalance}
                 currency={currency}
-                is_virtual={is_virtual}
                 {...(!isDesktop && {
                     is_mobile: true,
                 })}

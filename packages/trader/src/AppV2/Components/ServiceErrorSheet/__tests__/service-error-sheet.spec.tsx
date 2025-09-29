@@ -20,7 +20,12 @@ jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
     redirectToLogin: jest.fn(),
     redirectToSignUp: jest.fn(),
+    getBrandUrl: jest.fn(() => 'https://home.deriv.com/dashboard'),
 }));
+
+// Mock window.location.href
+delete (window as any).location;
+window.location = { href: '' } as any;
 
 describe('ServiceErrorSheet', () => {
     let default_mock_store: ReturnType<typeof mockStore>;
@@ -38,6 +43,8 @@ describe('ServiceErrorSheet', () => {
                 resetServicesError: jest.fn(),
             },
         });
+        // Reset window.location.href before each test
+        window.location.href = '';
     });
 
     const mockTrade = () => {
@@ -78,5 +85,31 @@ describe('ServiceErrorSheet', () => {
         const { container } = render(mockTrade());
 
         expect(container).toBeEmptyDOMElement();
+    });
+
+    it('should redirect to brand deposit page when "Deposit now" is clicked for real accounts', async () => {
+        render(mockTrade());
+
+        expect(screen.getByText('Insufficient balance')).toBeInTheDocument();
+
+        const depositButton = screen.getByText('Deposit now');
+        await userEvent.click(depositButton);
+
+        expect(fileUtils.getBrandUrl).toHaveBeenCalled();
+        expect(window.location.href).toBe('https://home.deriv.com/dashboard/deposit');
+        expect(default_mock_store.common.resetServicesError).toHaveBeenCalled();
+    });
+
+    it('should not redirect for virtual accounts when "Deposit now" is clicked', async () => {
+        default_mock_store.client.is_virtual = true;
+        render(mockTrade());
+
+        expect(screen.getByText('Insufficient balance')).toBeInTheDocument();
+
+        const depositButton = screen.getByText('Deposit now');
+        await userEvent.click(depositButton);
+
+        expect(window.location.href).toBe('');
+        expect(default_mock_store.common.resetServicesError).toHaveBeenCalled();
     });
 });

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Button, Modal } from '@deriv/components';
-import { ActionSheet, Text } from '@deriv-com/quill-ui';
-import { Localize } from '@deriv-com/translations';
+
 import { observer, useStore } from '@deriv/stores';
-import './logout-success-modal.scss';
+import { ActionSheet, Modal, Text } from '@deriv-com/quill-ui';
+import { Localize } from '@deriv-com/translations';
 
 const LogoutSuccessModal = observer(() => {
     const { ui } = useStore();
@@ -25,28 +24,21 @@ const LogoutSuccessModal = observer(() => {
     if (is_mobile) {
         return (
             <ActionSheet.Root
-                className='logout-success-modal logout-success-modal--mobile'
                 isOpen={is_logout_success_modal_visible}
                 onClose={onClose}
                 expandable={false}
                 position='left'
             >
                 <ActionSheet.Portal showHandlebar shouldCloseOnDrag>
-                    <div className='logout-success-modal__body logout-success-modal__body--mobile'>
-                        <div className='logout-success-modal__content logout-success-modal__content--mobile'>
-                            <Text size='lg' className='logout-success-modal__title logout-success-modal__title--mobile'>
-                                {sharedContent.title}
-                            </Text>
-                            <Text
-                                size='sm'
-                                className='logout-success-modal__message logout-success-modal__message--mobile'
-                            >
-                                {sharedContent.message}
-                            </Text>
+                    <ActionSheet.Content>
+                        <Text size='lg' bold>
+                            {sharedContent.title}
+                        </Text>
+                        <div style={{ marginTop: '16px' }}>
+                            <Text size='sm'>{sharedContent.message}</Text>
                         </div>
-                    </div>
+                    </ActionSheet.Content>
                     <ActionSheet.Footer
-                        className='logout-success-modal__footer logout-success-modal__footer--mobile'
                         alignment='vertical'
                         primaryButtonColor='coral'
                         primaryAction={{
@@ -62,31 +54,16 @@ const LogoutSuccessModal = observer(() => {
     // Desktop Modal
     return (
         <Modal
-            small
-            has_close_icon
-            is_open={is_logout_success_modal_visible}
-            title={sharedContent.title}
+            isOpened={is_logout_success_modal_visible}
             toggleModal={onClose}
-            className='logout-success-modal logout-success-modal--desktop'
-            should_close_on_click_outside
-            width='440px'
+            primaryButtonLabel={sharedContent.buttonText}
+            shouldCloseOnPrimaryButtonClick
+            buttonColor='coral'
         >
-            <Modal.Body className='logout-success-modal__body logout-success-modal__body--desktop'>
-                <div className='logout-success-modal__message logout-success-modal__message--desktop'>
-                    {sharedContent.message}
-                </div>
+            <Modal.Header title={sharedContent.title} />
+            <Modal.Body>
+                <Text size='sm'>{sharedContent.message}</Text>
             </Modal.Body>
-            <Modal.Footer className='logout-success-modal__footer logout-success-modal__footer--desktop'>
-                <Button
-                    has_effect
-                    onClick={onClose}
-                    primary
-                    large
-                    className='logout-success-modal__button logout-success-modal__button--desktop'
-                >
-                    {sharedContent.buttonText}
-                </Button>
-            </Modal.Footer>
         </Modal>
     );
 });
