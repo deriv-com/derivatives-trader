@@ -1,18 +1,18 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from '@deriv-com/translations';
 
 const useIsRtl = () => {
-    const { i18n } = useTranslation();
+    const { currentLang } = useTranslations();
 
     const checkRtl = React.useCallback(() => {
-        return i18n.dir(i18n.language?.toLowerCase()) === 'rtl';
-    }, [i18n]);
+        return currentLang?.toLowerCase() === 'ar';
+    }, [currentLang]);
 
     const [is_rtl, setIsRtl] = React.useState<boolean>(() => checkRtl());
 
     React.useEffect(() => {
         setIsRtl(checkRtl());
-    }, [checkRtl, i18n.language]);
+    }, [checkRtl, currentLang]);
 
     return is_rtl;
 };

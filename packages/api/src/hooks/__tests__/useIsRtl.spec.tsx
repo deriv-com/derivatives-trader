@@ -1,30 +1,36 @@
 import { renderHook } from '@testing-library/react-hooks';
 import useIsRtl from '../useIsRtl';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from '@deriv-com/translations';
 
-jest.mock('react-i18next', () => ({
-    ...jest.requireActual('react-i18next'),
-    useTranslation: jest.fn(),
+jest.mock('@deriv-com/translations', () => ({
+    ...jest.requireActual('@deriv-com/translations'),
+    useTranslations: jest.fn(),
 }));
 
-const mock_response = {
-    i18n: {
-        dir: jest.fn().mockImplementation(lang => (lang === 'ar' ? 'rtl' : 'ltr')),
-        language: 'en',
-    },
-};
+const mockUseTranslations = useTranslations as jest.MockedFunction<typeof useTranslations>;
 
 describe('useIsRtl', () => {
     it('should return false when language is not RTL', () => {
-        (useTranslation as jest.Mock).mockReturnValue(mock_response);
+        mockUseTranslations.mockReturnValue({
+            currentLang: 'EN',
+            localize: jest.fn(),
+            ready: true,
+            instance: {} as any,
+            switchLanguage: jest.fn(),
+        });
         const { result } = renderHook(() => useIsRtl());
 
         expect(result.current).toBe(false);
     });
 
     it('should return true when language is RTL', () => {
-        mock_response.i18n.language = 'ar';
-        (useTranslation as jest.Mock).mockReturnValue(mock_response);
+        mockUseTranslations.mockReturnValue({
+            currentLang: 'AR',
+            localize: jest.fn(),
+            ready: true,
+            instance: {} as any,
+            switchLanguage: jest.fn(),
+        });
         const { result } = renderHook(() => useIsRtl());
 
         expect(result.current).toBe(true);
