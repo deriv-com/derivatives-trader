@@ -37,6 +37,14 @@ export const getAccountType = (): string => {
     // First priority: URL parameter
     if (accountTypeFromUrl === 'real' || accountTypeFromUrl === 'demo') {
         window.localStorage.setItem('account_type', accountTypeFromUrl);
+
+        // Remove account_type from URL after processing
+        const url = new URL(window.location.href);
+        if (url.searchParams.has('account_type')) {
+            url.searchParams.delete('account_type');
+            window.history.replaceState({}, document.title, url.toString());
+        }
+
         return accountTypeFromUrl;
     }
 
