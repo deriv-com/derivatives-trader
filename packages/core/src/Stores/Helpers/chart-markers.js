@@ -5,14 +5,10 @@ import {
     isAccumulatorContract,
     isAccumulatorContractOpen,
     isDigitContract,
-    // isHigherLowerContract,
     isMultiplierContract,
     isOpen,
     isSmartTraderContract,
     isTicksContract,
-    // isTouchContract,
-    // isTurbosContract,
-    // isVanillaContract,
     unique,
 } from '@deriv/shared';
 import { localize } from '@deriv-com/translations';
@@ -373,7 +369,14 @@ export const getTickStreamMarkers = (contract_info, barrier_price) => {
     return markers;
 };
 
-export function calculateMarker(contract_info, is_dark_theme, is_last_contract) {
+// eslint-disable-next-line no-unused-vars
+export function calculateMarker(
+    contract_info,
+    is_dark_theme,
+    is_last_contract,
+    is_mobile = false,
+    is_resize_desktop = false
+) {
     if (!contract_info || isMultiplierContract(contract_info.contract_type)) {
         return null;
     }
@@ -383,7 +386,6 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         date_start,
         date_expiry,
         entry_tick,
-        // exit_tick,
         entry_spot_time: entry_spot_time_field,
         exit_spot_time: exit_spot_time_field,
         contract_type,
@@ -392,21 +394,13 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         barrier,
         high_barrier,
         low_barrier,
-        // status,
-        // profit,
-        is_sold,
     } = contract_info;
 
     // Backward compatibility: use new property names with fallback to old ones
     const entry_spot = contract_info.entry_spot ?? entry_tick;
-    // const exit_spot = contract_info.exit_spot ?? exit_tick;
     const is_accumulator_contract = isAccumulatorContract(contract_type);
     const is_digit_contract = isDigitContract(contract_type);
     const is_tick_contract = tick_count > 0;
-    // const is_non_tick_contract = !is_tick_contract;
-    // const is_high_low_contract = isHigherLowerContract(contract_type);
-    // const is_touch_contract = isTouchContract(contract_type);
-    // const is_turbos = isTurbosContract(contract_type);
 
     const entry_spot_time = entry_spot_time_field;
     const exit_spot_time = exit_spot_time_field;
@@ -437,34 +431,7 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
 
     const price = barrier_price || 0;
 
-    if (is_last_contract && !is_sold) {
-        // markers.push({
-        //     epoch: date_start,
-        //     quote: is_digit_contract ? undefined : price,
-        //     type: 'contractMarker',
-        //     text: `${localize('Start')}\n${localize('Time')}`,
-        //     direction: getMarkerDirection(contract_type),
-        // });
-    }
-
-    if (date_start && entry_spot) {
-        /* const color = is_non_tick_contract ? getColor({ status: 'open', profit }) : undefined;
-        markers.push({
-            epoch: date_start,
-            quote: is_digit_contract ? undefined : price,
-            type: 'start',
-            text: getStartText(contract_info),
-            color,
-        }); */
-    }
-
     if (entry_spot) {
-        /* markers.push({
-            epoch: entry_spot_time,
-            quote: price,
-            type: 'entry',
-        }); */
-
         markers.push({
             epoch: date_start,
             quote: is_digit_contract ? undefined : price,
@@ -473,13 +440,11 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
             direction: getMarkerDirection(contract_type),
         });
 
-        // if (is_high_low_contract || is_touch_contract || is_turbos) {
         markers.push({
             epoch: entry_spot_time,
             quote: entry_spot,
             type: 'entryTick',
         });
-        // }
     }
 
     if (end_time) {
@@ -490,13 +455,7 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         });
     }
 
-    /* if (exit_spot) {
-        markers.push({
-            epoch: exit_spot_time,
-            quote: +exit_spot,
-            type: 'exit',
-        }); 
-    } else */ if (tick_stream?.length > 0) {
+    if (tick_stream?.length > 0) {
         markers.push(...getTickStreamMarkers(contract_info, barrier_price));
     }
 
@@ -520,21 +479,19 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         }
     }
 
-    // console.log('contract_info', contract_info);
+    let contractMarkerLeftPadding = is_mobile ? 10 : 80;
+
+    if (is_resize_desktop && !is_mobile) {
+        contractMarkerLeftPadding = 330;
+    }
 
     return {
         type: getMarkerContractType(contract_info),
         markers,
-        /*color: getColor({
-            status,
-            profit: is_non_tick_contract || is_sold ? profit : undefined,
-            is_dark_theme,
-            is_vanilla: isVanillaContract(contract_type),
-        }),*/
         props: {
             isProfit: true,
             isRunning: !contract_info?.is_expired,
-            contractMarkerLeftPadding: 50,
+            contractMarkerLeftPadding,
         },
     };
 }
