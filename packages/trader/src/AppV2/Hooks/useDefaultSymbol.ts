@@ -40,7 +40,7 @@ const useDefaultSymbol = () => {
 
             if (is_initailization || has_symbol_changed) {
                 await onChange({ target: { name: 'symbol', value: new_symbol } });
-                processContractsForV2();
+                await processContractsForV2();
             }
             setTradeURLParams({ symbol: new_symbol });
         },
