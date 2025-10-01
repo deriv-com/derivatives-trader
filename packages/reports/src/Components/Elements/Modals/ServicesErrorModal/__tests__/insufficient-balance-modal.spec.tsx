@@ -1,11 +1,23 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import InsufficientBalanceModal from '../insufficient-balance-modal';
-import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { StoreProvider, mockStore } from '@deriv/stores';
+import { createBrowserHistory } from 'history';
+
 import { routes } from '@deriv/shared';
+import { mockStore, StoreProvider } from '@deriv/stores';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import InsufficientBalanceModal from '../insufficient-balance-modal';
+
+// Mock getBrandUrl function
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    getBrandUrl: jest.fn(() => 'https://home.deriv.com/dashboard'),
+}));
+
+// Mock window.location.href
+delete (window as any).location;
+window.location = { href: '' } as any;
 
 type TModal = React.FC<{
     children: React.ReactNode;
@@ -92,5 +104,17 @@ describe('<InsufficientBalanceModal />', () => {
         mocked_props.is_visible = false;
         const { container } = render(<InsufficientBalanceModal {...mocked_props} />, { wrapper });
         expect(container).toBeEmptyDOMElement();
+    });
+
+    it('should redirect to brand deposit page when "Deposit now" is clicked for real accounts', async () => {
+        mocked_props.is_virtual = false;
+        mocked_props.is_visible = true;
+
+        render(<InsufficientBalanceModal {...mocked_props} />, { wrapper });
+        const button = screen.getByText(/deposit now/i);
+
+        await userEvent.click(button);
+
+        expect(window.location.href).toBe('https://home.deriv.com/dashboard/deposit');
     });
 });

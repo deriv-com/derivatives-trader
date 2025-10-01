@@ -2,7 +2,7 @@ import React, { createContext, PropsWithChildren, useCallback, useContext, useEf
 
 // @ts-expect-error `@deriv/deriv-api` is not in TypeScript, Hence we ignore the TS error.
 import DerivAPIBasic from '@deriv/deriv-api/dist/DerivAPIBasic';
-import { getAccountTypeFromUrl, getBrandName, getSocketURL, useWS } from '@deriv/shared';
+import { getAccountType, getBrandName, getSocketURL, useWS } from '@deriv/shared';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import {
@@ -134,7 +134,7 @@ const getEnvironment = () => {
     if (customServerURL) return 'custom';
 
     // Use the new shared account type function
-    return getAccountTypeFromUrl();
+    return getAccountType();
 };
 
 type TAPIProviderProps = {

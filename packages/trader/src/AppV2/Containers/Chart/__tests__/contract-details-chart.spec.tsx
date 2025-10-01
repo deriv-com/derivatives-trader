@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router } from 'react-router';
+import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import { mockStore } from '@deriv/stores';
@@ -12,15 +12,38 @@ jest.mock('Modules/SmartChart', () => ({
     SmartChart: () => <div>Mocked Chart</div>,
 }));
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: jest.fn(() => ({
-        pathname: '/',
+        pathname: '/contract/12345',
     })),
     withRouter: jest.fn(children => <div>{children}</div>),
+}));
+jest.mock('AppV2/Hooks/useContractDetails', () => ({
+    __esModule: true,
+    default: () => ({
+        contract_info: {
+            contract_id: 12345,
+            contract_type: 'CALL',
+            underlying: 'R_50',
+        },
+        contract: {},
+        is_loading: false,
+    }),
 }));
 
 describe('Contract Replay Chart', () => {
     it('should render the chart correctly', () => {
-        const store = mockStore({});
+        const store = mockStore({
+            contract_replay: {
+                contract_store: {
+                    contract_info: {
+                        contract_id: 12345,
+                        contract_type: 'CALL',
+                        underlying: 'R_50',
+                    },
+                },
+            },
+        });
         const history = createBrowserHistory();
 
         render(

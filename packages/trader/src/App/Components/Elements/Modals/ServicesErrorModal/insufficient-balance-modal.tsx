@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { Button, Modal } from '@deriv/components';
+import { getBrandUrl } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 
@@ -34,7 +35,13 @@ const InsufficientBalanceModal = observer(
                         has_effect
                         text={is_virtual ? localize('OK') : localize('Deposit now')}
                         onClick={() => {
-                            toggleModal();
+                            if (!is_virtual) {
+                                // Redirect to the brand deposit page
+                                const brandUrl = getBrandUrl();
+                                window.location.href = `${brandUrl}/deposit`;
+                            } else {
+                                toggleModal();
+                            }
                         }}
                         primary
                     />
