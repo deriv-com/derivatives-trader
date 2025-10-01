@@ -2,17 +2,20 @@ import React from 'react';
 import { useTranslations } from '@deriv-com/translations';
 
 const useIsRtl = () => {
-    const { currentLang } = useTranslations();
+    const { currentLang, instance } = useTranslations();
 
     const checkRtl = React.useCallback(() => {
-        return currentLang?.toLowerCase() === 'ar';
-    }, [currentLang]);
+        if (instance && typeof instance.dir === 'function') {
+            return instance.dir(currentLang?.toLowerCase()) === 'rtl';
+        }
+        return false;
+    }, [currentLang, instance]);
 
     const [is_rtl, setIsRtl] = React.useState<boolean>(() => checkRtl());
 
     React.useEffect(() => {
         setIsRtl(checkRtl());
-    }, [checkRtl, currentLang]);
+    }, [checkRtl]);
 
     return is_rtl;
 };
