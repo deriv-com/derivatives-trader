@@ -29,7 +29,7 @@ const ToolbarWidgets = ({ position, updateChartType, updateGranularity }: TToolb
                     onGranularity={updateGranularity}
                 />
             )}
-            {is_real_desktop_device && !isMobile && <DrawTools portalNodeId='modal_root' />}
+            <DrawTools portalNodeId='modal_root' />
             {is_real_desktop_device && !isMobile && <Share portalNodeId='modal_root' />}
         </ToolbarWidget>
     );

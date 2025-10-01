@@ -216,11 +216,11 @@ describe('getDigitInfo', () => {
     });
     it('should return an empty object if tick_stream data is already in digits_info', () => {
         const contract_info = mockContractInfo({
-            entry_tick_time: 1544707342,
-            entry_tick: 123.99,
+            entry_spot_time: 1544707342,
+            entry_spot: 123.99,
             current_spot_time: 10000000,
             current_spot: 456.99,
-            exit_tick_time: 10000001,
+            exit_spot_time: 10000001,
             contract_type: CONTRACT_TYPES.MATCH_DIFF.MATCH,
             barrier: '9',
             tick_stream: [
@@ -348,14 +348,14 @@ describe('isAccumulatorContractOpen', () => {
         });
         expect(ContractUtils.isAccumulatorContractOpen(contract_info)).toEqual(false);
     });
-    it('should return false if exit_tick_time is present', () => {
+    it('should return false if exit_spot_time is present', () => {
         const contract_info = mockContractInfo({
             contract_type: CONTRACT_TYPES.ACCUMULATOR,
             current_spot: 1232.44,
             high_barrier: '1232.555',
             low_barrier: '1232.333',
             status: 'open',
-            exit_tick_time: 10000001,
+            exit_spot_time: 10000001,
         });
         expect(ContractUtils.isAccumulatorContractOpen(contract_info)).toEqual(false);
     });
@@ -366,7 +366,7 @@ describe('isOpen', () => {
         expect(
             ContractUtils.isOpen({
                 contract_type: CONTRACT_TYPES.CALL,
-                exit_tick_time: undefined,
+                exit_spot_time: undefined,
                 profit: undefined,
                 status: 'open',
             })
@@ -376,7 +376,7 @@ describe('isOpen', () => {
         expect(
             ContractUtils.isOpen({
                 contract_type: CONTRACT_TYPES.CALL,
-                exit_tick_time: 1608098748,
+                exit_spot_time: 1608098748,
                 profit: 10,
                 status: 'won',
             })
@@ -386,7 +386,7 @@ describe('isOpen', () => {
         expect(
             ContractUtils.isOpen({
                 contract_type: CONTRACT_TYPES.ACCUMULATOR,
-                exit_tick_time: 1608098748,
+                exit_spot_time: 1608098748,
                 profit: -10,
                 status: 'open',
             })
@@ -396,7 +396,7 @@ describe('isOpen', () => {
         expect(
             ContractUtils.isOpen({
                 contract_type: CONTRACT_TYPES.ACCUMULATOR,
-                exit_tick_time: 1608098748,
+                exit_spot_time: 1608098748,
                 profit: 10,
                 status: 'open',
             })
@@ -541,13 +541,13 @@ describe('getAccuBarriersForContractDetails', () => {
         });
         expect(ContractUtils.getAccuBarriersForContractDetails(contract_info)).toEqual(previous_spot_barriers);
     });
-    it('should return an object { accu_high_barrier: high_barrier, accu_low_barrier: low_barrier } if exit_tick_time is present', () => {
+    it('should return an object { accu_high_barrier: high_barrier, accu_low_barrier: low_barrier } if exit_spot_time is present', () => {
         const contract_info = mockContractInfo({
             ...mocked_contract_info,
             current_spot: 1232.555,
             current_spot_high_barrier: '1232.777',
             current_spot_low_barrier: '1232.333',
-            exit_tick_time: 10000001,
+            exit_spot_time: 10000001,
         });
         expect(ContractUtils.getAccuBarriersForContractDetails(contract_info)).toEqual(previous_spot_barriers);
     });
@@ -565,13 +565,13 @@ describe('getContractStatus', () => {
         expect(
             ContractUtils.getContractStatus({
                 contract_type: CONTRACT_TYPES.CALL,
-                exit_tick_time: 0,
+                exit_spot_time: 0,
                 profit: 100,
                 status: 'lost',
             })
         ).toBe('lost');
     });
-    it('should return "open" for accumulator contracts without exit_tick_time and with open status', () => {
+    it('should return "open" for accumulator contracts without exit_spot_time and with open status', () => {
         expect(
             ContractUtils.getContractStatus({
                 contract_type: CONTRACT_TYPES.ACCUMULATOR,
@@ -580,11 +580,11 @@ describe('getContractStatus', () => {
             })
         ).toBe('open');
     });
-    it('should return "lost" for accumulator contracts with profit less than 0 and exit_tick_time present', () => {
+    it('should return "lost" for accumulator contracts with profit less than 0 and exit_spot_time present', () => {
         expect(
             ContractUtils.getContractStatus({
                 contract_type: CONTRACT_TYPES.ACCUMULATOR,
-                exit_tick_time: 10000001,
+                exit_spot_time: 10000001,
                 profit: -100,
                 status: 'open',
             })
@@ -594,7 +594,7 @@ describe('getContractStatus', () => {
         expect(
             ContractUtils.getContractStatus({
                 contract_type: CONTRACT_TYPES.ACCUMULATOR,
-                exit_tick_time: 10000001,
+                exit_spot_time: 10000001,
                 profit: 100,
                 status: 'won',
             })

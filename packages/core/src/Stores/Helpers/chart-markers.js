@@ -97,20 +97,18 @@ export const createTickMarkers = (contract_info, is_delayed_markers_update) => {
 
     if (is_accu_contract_closed) {
         const { tick_stream: ticks } = contract_info || {};
-        // Backward compatibility: fallback to old field name
-        const exit_spot_time = contract_info.exit_spot_time ?? contract_info.exit_tick_time;
+        const exit_spot_time = contract_info.exit_spot_time;
         if (exit_spot_time && tick_stream.every(({ epoch }) => epoch !== exit_spot_time)) {
-            // sometimes exit_tick is present in tick_stream but missing from audit_details
+            // sometimes exit_spot is present in tick_stream but missing from audit_details
             tick_stream.push(ticks[ticks.length - 1]);
         }
-        const exit_tick_count = tick_stream.findIndex(({ epoch }) => epoch === exit_spot_time) + 1;
-        tick_stream.length = exit_tick_count > 0 ? exit_tick_count : tick_stream.length;
+        const exit_spot_count = tick_stream.findIndex(({ epoch }) => epoch === exit_spot_time) + 1;
+        tick_stream.length = exit_spot_count > 0 ? exit_spot_count : tick_stream.length;
     }
 
     tick_stream.forEach((tick, idx) => {
-        // Backward compatibility: fallback to old field names
-        const entry_spot_time = contract_info.entry_spot_time ?? contract_info.entry_tick_time;
-        const exit_spot_time = contract_info.exit_spot_time ?? contract_info.exit_tick_time;
+        const entry_spot_time = contract_info.entry_spot_time;
+        const exit_spot_time = contract_info.exit_spot_time;
 
         const isEntrySpot = _tick => +_tick.epoch === entry_spot_time;
         const is_entry_spot = +tick.epoch !== exit_spot_time && (is_accumulator ? isEntrySpot(tick) : idx === 0);
@@ -410,9 +408,8 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
     // const is_touch_contract = isTouchContract(contract_type);
     // const is_turbos = isTurbosContract(contract_type);
 
-    // Backward compatibility: fallback to old field names
-    const entry_spot_time = entry_spot_time_field ?? contract_info.entry_tick_time;
-    const exit_spot_time = exit_spot_time_field ?? contract_info.exit_tick_time;
+    const entry_spot_time = entry_spot_time_field;
+    const exit_spot_time = exit_spot_time_field;
 
     const end_time = is_tick_contract ? exit_spot_time : getEndTime(contract_info) || date_expiry;
 
@@ -441,13 +438,13 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
     const price = barrier_price || 0;
 
     if (is_last_contract && !is_sold) {
-        markers.push({
-            epoch: date_start,
-            quote: is_digit_contract ? undefined : price,
-            type: 'contractMarker',
-            text: `${localize('Start')}\n${localize('Time')}`,
-            direction: getMarkerDirection(contract_type),
-        });
+        // markers.push({
+        //     epoch: date_start,
+        //     quote: is_digit_contract ? undefined : price,
+        //     type: 'contractMarker',
+        //     text: `${localize('Start')}\n${localize('Time')}`,
+        //     direction: getMarkerDirection(contract_type),
+        // });
     }
 
     if (date_start && entry_spot) {
@@ -467,6 +464,14 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
             quote: price,
             type: 'entry',
         }); */
+
+        markers.push({
+            epoch: date_start,
+            quote: is_digit_contract ? undefined : price,
+            type: 'contractMarker',
+            text: `${localize('Start')}\n${localize('Time')}`,
+            direction: getMarkerDirection(contract_type),
+        });
 
         // if (is_high_low_contract || is_touch_contract || is_turbos) {
         markers.push({
@@ -529,7 +534,7 @@ export function calculateMarker(contract_info, is_dark_theme, is_last_contract) 
         props: {
             isProfit: true,
             isRunning: !contract_info?.is_expired,
-            contractMarkerLeftPadding: 400,
+            contractMarkerLeftPadding: 50,
         },
     };
 }

@@ -14,8 +14,8 @@ import {
     SessionStore,
     urlForLanguage,
 } from '@deriv/shared';
-import { getInitialLanguage, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
+import { getInitialLanguage, localize } from '@deriv-com/translations';
 import { CountryUtils } from '@deriv-com/utils';
 
 import { requestLogout, WS } from 'Services';
@@ -583,6 +583,9 @@ export default class ClientStore extends BaseStore {
         if (response?.logout === 1) {
             await this.cleanUp();
             this.setLogout(true);
+
+            // Show success modal after successful logout
+            this.root_store.ui.toggleLogoutSuccessModal(true);
         }
 
         return response;
@@ -667,11 +670,29 @@ export default class ClientStore extends BaseStore {
     }
 
     getStoredSessionToken() {
-        return localStorage.getItem('session_token');
+        // First check localStorage for session_token
+        const localStorageSessionToken = localStorage.getItem('session_token');
+        if (localStorageSessionToken) {
+            return localStorageSessionToken;
+        }
+
+        // Fall back to session_token cookie (with .deriv.com domain) if no localStorage value found
+        const cookieSessionToken = Cookies.get('session_token');
+        if (cookieSessionToken) {
+            // Store the cookie session_token in localStorage for future use
+            localStorage.setItem('session_token', cookieSessionToken);
+            return cookieSessionToken;
+        }
+
+        return null;
     }
 
     clearSessionToken() {
+        // Clear session_token from localStorage
         localStorage.removeItem('session_token');
+
+        // Also clear session_token cookie if it exists
+        Cookies.remove('session_token');
     }
 
     removeTokenFromUrl() {

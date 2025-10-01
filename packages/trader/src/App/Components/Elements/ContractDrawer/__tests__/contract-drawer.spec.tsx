@@ -103,7 +103,7 @@ describe('<ContractDrawer />', () => {
     it('should render component with Contract Drawer card and Contract Audit', () => {
         mocked_props.contract_info = {
             currency: 'USD',
-            exit_tick_display_value: '2021.56',
+            exit_spot: '2021.56',
             is_sold: 1,
             status: null,
             is_expired: 1,

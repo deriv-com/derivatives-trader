@@ -107,8 +107,7 @@ export const TRADE_TYPES = {
 } as const;
 export const getContractStatus = (contract_info: TContractInfo) => {
     // Backward compatibility: handle both old and new field names
-    // @ts-expect-error - exit_spot_time exists in runtime but not in type definition
-    const exit_spot_time = contract_info.exit_spot_time || contract_info.exit_tick_time;
+    const exit_spot_time = contract_info.exit_spot_time;
     const { contract_type, profit, status } = contract_info;
 
     const closed_contract_status = profit && profit < 0 && exit_spot_time ? 'lost' : 'won';

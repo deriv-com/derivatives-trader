@@ -20,6 +20,11 @@ export type TContractStore = {
 export type TContractInfo = ProposalOpenContract &
     Portfolio1 & {
         contract_update?: ContractUpdate;
+        // Additional properties that exist in runtime API but are missing from outdated API types
+        entry_spot_time?: number;
+        exit_spot_time?: number;
+        exit_spot?: number | string;
+        underlying_symbol?: string;
     };
 
 export type TTickItem = {

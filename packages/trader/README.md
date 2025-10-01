@@ -1,52 +1,137 @@
-# DTrader
+# @deriv/trader
 
-This repository contains the static HTML, Javascript, CSS, and images content of the [DTrader](http://app.deriv.com/dtrader) website.
+A comprehensive trading platform application providing both desktop and mobile-optimized interfaces for derivatives trading.
 
-## Style Guide
+## Overview
 
--   [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript/blob/master/README.md) is partially being followed in our dtrader code base.
+The `@deriv/trader` package is the main trading application for Deriv's derivatives platform. It provides a complete trading experience with real-time market data, advanced charting, contract management, and portfolio tracking. The package features a dual-architecture approach with V1 (desktop-focused) and V2 (mobile-first) interfaces, supporting multiple contract types including Multipliers, Accumulators, Turbos, and Vanilla Options.
 
-### Naming Conventions
+## Key Features
 
-<a id="naming-conventions-variables"></a>
-**[Variables:](#naming-conventions-variables)** Variables should be lowercase words separated by `_` (snake_case) .
+- **Dual Interface Architecture**: V1 for desktop users, V2 for mobile-optimized experience
+- **Real-time Trading**: Live market data, real-time proposals, and instant trade execution
+- **Advanced Charting**: Integration with SmartCharts for technical analysis
+- **Contract Management**: Support for multiple contract types with specialized interfaces
+- **Portfolio Management**: Real-time position tracking and P&L monitoring
+- **Risk Management**: Stop Loss, Take Profit, and Deal Cancellation features
+- **Mobile-First V2**: Swipeable interfaces, touch-optimized controls, and responsive design
+- **State Management**: MobX-based reactive state management with persistence
+- **Analytics Integration**: Comprehensive tracking and user behavior analytics
 
-```JavaScript
-const field_name = '...';
+## Architecture
+
+### V1 (Desktop Interface)
+
+- **Traditional Layout**: Sidebar trading form with full-screen chart
+- **Advanced Features**: Complex trading parameters and professional tools
+- **Chart Integration**: Full SmartCharts integration with technical indicators
+- **Multi-window Support**: Positions drawer and modal management
+
+### V2 (Mobile Interface)
+
+- **Mobile-First Design**: Touch-optimized swipeable interfaces
+- **Simplified UX**: Streamlined trading flow for mobile users
+- **Bottom Navigation**: Easy thumb-reach navigation patterns
+- **Gesture Support**: Swipe actions for contract management
+- **Responsive Components**: Adaptive layouts for different screen sizes
+
+## Usage/Development
+
+### Installation
+
+This package is part of the derivatives-trader monorepo:
+
+```bash
+npm run bootstrap
 ```
 
-<a id="naming-conventions-constant-contents"></a>
-**[Constant(Static) contents:](#naming-conventions-constant-contents)** Constant(Static) contents(numbers or strings) should be `UPPER_SNAKE_CASE`. UPPER CASE and separated by `_`.
+### Development Server
 
-```JavaScript
-const MY_STATIC_CONTENT = '...';
+```bash
+npm run serve trader
 ```
 
-<a id="naming-conventions-functions"></a>
-**[Functions:](#naming-conventions-functions)** Functions should be camelCase. This is to easily distinguish between variables and functions.
+### Building
 
-```JavaScript
-const myFunction = () => { ... };
+```bash
+npm run build
 ```
 
-<a id="naming-conventions-modules"></a>
-**[Modules:](#naming-conventions-modules)** Module names and classes should be PascalCase.
+### Testing
 
-```JavaScript
-const MyModule = (() => { ... })();
+```bash
+npm run test:eslint
 ```
 
-<a id="naming-conventions-javascript-elements"></a>
-**[JavaScript elements:](#naming-conventions-javascript-elements)** JavaScript elements start with `el_` for a similar effect.
+## State Management
 
-```JavaScript
-const el_test = document.getElementById('test');
+### TradeStore (MobX)
+
+- **Reactive State**: Observable trading parameters
+- **Proposal Management**: Real-time proposal subscriptions
+- **Validation System**: Comprehensive form validation
+- **Persistence**: LocalStorage and SessionStorage integration
+
+### Key Store Features
+
+- **Symbol Management**: Active symbols and market status
+- **Contract Configuration**: Dynamic contract type handling
+- **Barrier Calculations**: Automatic barrier adjustments
+- **Duration Handling**: Flexible duration and expiry management
+- **Risk Parameters**: Stop loss, take profit, and cancellation logic
+
+## Components Architecture
+
+### V1 Components
+
+```
+App/
+├── Components/          # Reusable UI components
+├── Containers/          # Container components with business logic
+└── Modules/
+    ├── Trading/         # Main trading interface
+    ├── SmartChart/      # Chart integration
+    └── Contract/        # Contract-specific components
 ```
 
-<a id="naming-conventions-boolean"></a>
-**[Boolean:](#naming-conventions-boolean)** Those variables which store a boolean value, should start with `is_`, `has_`, ...
+### V2 Components
 
-```JavaScript
-const is_updated = true;
-const has_crypto = false;
 ```
+AppV2/
+├── Components/          # Mobile-optimized components
+│   ├── ContractCard/    # Swipeable contract cards
+│   ├── CurrentSpot/     # Real-time price display
+│   └── MarketCategory/  # Market selection interface
+├── Containers/          # V2 container components
+│   ├── Trade/           # Mobile trading interface
+│   ├── Positions/       # Portfolio management
+│   └── ContractDetails/ # Contract detail views
+└── Routes/              # V2 routing configuration
+```
+
+## Development Guidelines
+
+### Code Organization
+
+- **Separation of Concerns**: Maintain clear separation between V1 and V2 architectures
+- **Mobile-First Approach**: Consider mobile experience in all development decisions
+- **Component Reusability**: Create reusable components that work across both interfaces
+- **State Management**: Use MobX patterns consistently throughout the application
+
+### Performance Standards
+
+- **Code Splitting**: Implement lazy loading for optimal performance
+- **Bundle Optimization**: Keep bundle sizes minimal with proper splitting
+- **State Efficiency**: Use selective observation to minimize re-renders
+- **API Optimization**: Implement debounced proposals and efficient data fetching
+
+## Contributing
+
+When contributing to this package:
+
+1. **Follow Architecture Patterns**: Maintain separation between V1 and V2 interfaces
+2. **Mobile-First Development**: Consider mobile experience in all changes
+3. **State Management**: Use MobX patterns consistently with proper observables and actions
+4. **Performance Considerations**: Consider bundle size and runtime performance impact
+5. **Comprehensive Testing**: Add tests for trading logic, state management, and UI interactions
+6. **Documentation**: Update documentation for new features and architectural changes

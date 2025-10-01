@@ -69,33 +69,56 @@ const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
         }
     }, [barrier_1, SPOT_BARRIER_KEY, FIXED_BARRIER_KEY, BARRIER_TYPE_KEY]);
 
-    // Restore both store barrier_1 and v2_params_initial_values from localStorage on component mount
+    // Restore barrier value from localStorage on component mount
     React.useEffect(() => {
-        // Only restore if v2_params_initial_values.barrier_1 is empty but we have stored values
-        if (!v2_params_initial_values.barrier_1) {
-            const storedValue = getStoredBarrierValue();
-            if (storedValue && storedValue !== barrier_1) {
-                // We have a manually edited value stored that differs from default
-                // Update the actual store value first using onChange
+        const storedValue = getStoredBarrierValue();
+        if (storedValue) {
+            // Always prioritize localStorage value over current store value
+            // Update the store value if it's different from localStorage
+            if (storedValue !== barrier_1) {
                 onChange({ target: { name: 'barrier_1', value: storedValue } });
-                // Then update v2_params_initial_values to show the correct display value
+            }
+            // Update display value if it's different from localStorage
+            if (storedValue !== String(v2_params_initial_values.barrier_1)) {
                 setV2ParamsInitialValues({ value: storedValue, name: 'barrier_1' });
             }
+        } else if (barrier_1 && !v2_params_initial_values.barrier_1) {
+            // If no stored value but barrier_1 exists, sync display
+            setV2ParamsInitialValues({ value: barrier_1, name: 'barrier_1' });
         }
-    }, [v2_params_initial_values.barrier_1, barrier_1, getStoredBarrierValue, setV2ParamsInitialValues, onChange]);
+    }, []);
+
+    // Sync v2_params_initial_values with barrier_1 when barrier_1 changes (e.g., from symbol reset or modal save)
+    // BUT only if there's no localStorage value that should take precedence
+    React.useEffect(() => {
+        const storedValue = getStoredBarrierValue();
+
+        // If barrier_1 has a value but v2_params_initial_values.barrier_1 is empty, sync them
+        // Only if there's no stored value that should override
+        if (barrier_1 && !v2_params_initial_values.barrier_1 && !storedValue) {
+            setV2ParamsInitialValues({ value: barrier_1, name: 'barrier_1' });
+        }
+        // If barrier_1 changes and is different from v2_params_initial_values.barrier_1, update display
+        // This handles cases where the store value was updated (like from modal save)
+        // BUT only if the new barrier_1 value matches what we have in localStorage (meaning it was a legitimate update)
+        // OR if there's no localStorage value at all
+        else if (
+            barrier_1 &&
+            v2_params_initial_values.barrier_1 &&
+            barrier_1 !== String(v2_params_initial_values.barrier_1) &&
+            (!storedValue || storedValue === barrier_1)
+        ) {
+            setV2ParamsInitialValues({ value: barrier_1, name: 'barrier_1' });
+        }
+    }, [barrier_1, v2_params_initial_values.barrier_1, setV2ParamsInitialValues, getStoredBarrierValue]);
 
     const onClose = React.useCallback(
         (is_saved = false) => {
             if (is_open) {
-                if (!is_saved) {
-                    onChange({ target: { name: 'barrier_1', value: initialBarrierValue } });
-                }
-                setV2ParamsInitialValues({ value: '', name: 'barrier_1' });
                 setIsOpen(false);
             }
         },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [initialBarrierValue, is_open]
+        [is_open]
     );
 
     React.useEffect(() => {

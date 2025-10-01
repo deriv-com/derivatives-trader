@@ -62,20 +62,10 @@ const initializeConnection = (endpoint: string, onWSClose: () => void, onOpen?: 
     return connection;
 };
 
-/**
- * TODO: standlone no longer exists, as its always standalone,
- * but I do not want to remove it from all packages withint this PR, so needs to be cleaned up in subsequent PRs
- */
-type TAPIProviderProps = {
-    /** If set to true, the APIProvider will instantiate it's own socket connection. */
-    standalone?: boolean;
-    platform?: string;
-};
-
 type SubscribeReturnType = ReturnType<TSubscribeFunction>; // This captures the entire return type of TSubscribeFunction
 type UnwrappedSubscription = Awaited<SubscribeReturnType>;
 
-const APIProvider = ({ children, platform }: PropsWithChildren<TAPIProviderProps>) => {
+const APIProvider = ({ children }: PropsWithChildren) => {
     const [reconnect, setReconnect] = useState(false);
     const connectionRef = useRef<WebSocket>();
     const subscriptionsRef = useRef<Record<string, UnwrappedSubscription['subscription']>>();

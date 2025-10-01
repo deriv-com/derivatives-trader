@@ -30,7 +30,6 @@ export const isUserCancelled = (contract_info: TContractInfo) => contract_info.s
 export const getEndTime = (contract_info: TContractInfo) => {
     const {
         contract_type,
-        // @ts-expect-error - exit_spot_time exists in runtime but not in type definition
         exit_spot_time,
         date_expiry,
         is_expired,
@@ -79,7 +78,6 @@ export const isContractSupportedAndStarted = (symbol: string, contract_info?: TC
     if (!contract_info) return false;
 
     // Backward compatibility: fallback to old field name
-    // @ts-expect-error underlying_symbol is a new key added in API
     const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
 
     return (

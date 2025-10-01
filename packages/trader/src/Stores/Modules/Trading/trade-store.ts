@@ -84,6 +84,28 @@ type TBarriers = Array<
     }
 >;
 
+// Constants for barrier and duration defaults
+const BARRIER_DEFAULTS = {
+    /** Default offset added to current spot price for absolute barriers (e.g., forex) */
+    ABSOLUTE_BARRIER_OFFSET: 0.0001,
+    /** Default absolute barrier value when no spot price is available */
+    FALLBACK_ABSOLUTE_BARRIER: '1.0000',
+    /** Default relative barrier value for synthetic indices */
+    DEFAULT_RELATIVE_BARRIER: '+0.1',
+    /** Default decimal places for absolute barrier formatting */
+    ABSOLUTE_BARRIER_DECIMAL_PLACES: 5,
+} as const;
+
+const DURATION_DEFAULTS = {
+    /** Default duration in ticks for volatility markets */
+    DEFAULT_TICK_DURATION: 5,
+    /** Default duration in minutes for forex markets */
+    DEFAULT_MINUTE_DURATION: 5,
+} as const;
+
+type BarrierSupportType = 'relative' | 'absolute';
+type DurationSupportType = 'ticks' | 'endtime';
+
 export type ProposalResponse = PriceProposalResponse & {
     proposal: PriceProposalResponse['proposal'] & {
         payout_choices: string[];
@@ -563,6 +585,7 @@ export default class TradeStore extends BaseStore {
             updateStore: action.bound,
             updateSymbol: action.bound,
             setPayoutPerPoint: action.bound,
+            handleTradeParamsResetOnSymbolChange: action.bound,
         });
 
         when(
@@ -1355,6 +1378,12 @@ export default class TradeStore extends BaseStore {
                     new_state.start_date = parseInt(new_state.start_date);
                 }
 
+                // Clear barrier validation errors when barriers are programmatically updated (V2 only)
+                if (this.is_dtrader_v2 && (key === 'barrier_1' || key === 'barrier_2')) {
+                    this.validation_errors.barrier_1 = [];
+                    this.validation_errors.barrier_2 = [];
+                }
+
                 this[key as 'currency'] = new_state[key as keyof TradeStore] as TradeStore['currency'];
 
                 // validation is done in mobx intercept (base_store.js)
@@ -1431,11 +1460,29 @@ export default class TradeStore extends BaseStore {
 
         if (Object.keys(obj_new_values).includes('symbol')) {
             this.setPreviousSymbol(this.symbol);
+
+            // Clear barrier validation errors immediately when symbol change starts (V2 only)
+            if (this.is_dtrader_v2) {
+                this.validation_errors.barrier_1 = [];
+                this.validation_errors.barrier_2 = [];
+            }
+
             await Symbol.onChangeSymbolAsync(obj_new_values.symbol ?? '');
 
             const symbol_to_check = obj_new_values.symbol ?? '';
             if (symbol_to_check && symbol_to_check.trim() !== '') {
                 this.setMarketStatus(isMarketClosed(this.active_symbols, symbol_to_check));
+
+                // Handle trade parameters reset when switching between symbols with different support (V2 only)
+                if (this.is_dtrader_v2 && this.symbol && this.symbol !== symbol_to_check) {
+                    const trade_params_reset_values = this.handleTradeParamsResetOnSymbolChange(
+                        this.symbol,
+                        symbol_to_check
+                    );
+                    if (trade_params_reset_values) {
+                        Object.assign(obj_new_values, trade_params_reset_values);
+                    }
+                }
             } else {
                 // Reset market status to false when no symbol is available
                 this.setMarketStatus(false);
@@ -1495,6 +1542,16 @@ export default class TradeStore extends BaseStore {
             if (/\b(contract_type|currency)\b/.test(Object.keys(new_state) as unknown as string)) {
                 this.validateAllProperties();
             }
+
+            // Clear barrier validation errors after processing symbol changes (V2 only)
+            if (this.is_dtrader_v2 && Object.keys(obj_new_values).includes('symbol')) {
+                // Use setTimeout to ensure this runs after all synchronous validation
+                setTimeout(() => {
+                    this.validation_errors.barrier_1 = [];
+                    this.validation_errors.barrier_2 = [];
+                }, 0);
+            }
+
             this.debouncedProposal();
         }
     }
@@ -2281,5 +2338,176 @@ export default class TradeStore extends BaseStore {
 
     setTradeTypeTab(label = '') {
         this.trade_type_tab = label;
+    }
+
+    /**
+     * Clears barrier validation errors consistently across the application
+     * This method ensures validation errors are cleared when barriers are programmatically updated
+     */
+    private clearBarrierValidationErrors(): void {
+        if (this.is_dtrader_v2) {
+            this.validation_errors.barrier_1 = [];
+            this.validation_errors.barrier_2 = [];
+        }
+    }
+
+    /**
+     * Helper function to determine if a symbol supports relative barriers (Above/Below spot)
+     * @param symbol - The symbol to check
+     * @returns 'relative' for synthetic indices, 'absolute' for forex markets
+     */
+    public getSymbolBarrierSupport(symbol: string): BarrierSupportType {
+        if (!symbol || !this.active_symbols.length) return 'absolute';
+
+        const symbol_info = this.active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);
+
+        if (!symbol_info) return 'absolute';
+
+        // Forex symbols typically only support absolute barriers
+        // Synthetic indices typically support relative barriers
+        const market = symbol_info.market;
+        const symbol_type = (symbol_info as any).symbol_type;
+
+        // Forex markets only support absolute barriers
+        if (market === 'forex' || symbol_type === 'forex') {
+            return 'absolute';
+        }
+
+        // Most other markets (synthetic_index, etc.) support relative barriers
+        return 'relative';
+    }
+
+    /**
+     * Helper function to determine if a symbol supports ticks or only endtime
+     * @param symbol - The symbol to check
+     * @returns 'ticks' for synthetic indices, 'endtime' for forex markets
+     */
+    private getSymbolDurationSupport(symbol: string): DurationSupportType {
+        if (!symbol || !this.active_symbols.length) return 'endtime';
+
+        const symbol_info = this.active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);
+
+        if (!symbol_info) return 'endtime';
+
+        // Forex symbols typically only support endtime (no tick-based contracts)
+        // Synthetic indices typically support ticks
+        const market = symbol_info.market;
+        const symbol_type = (symbol_info as any).symbol_type;
+
+        // Forex markets only support endtime
+        if (market === 'forex' || symbol_type === 'forex') {
+            return 'endtime';
+        }
+
+        // Most other markets (synthetic_index, etc.) support ticks
+        return 'ticks';
+    }
+
+    /**
+     * Handles trade parameters reset when switching between symbols with different support
+     * This includes both barrier and duration resets for V2 only
+     * @param old_symbol - The previous symbol
+     * @param new_symbol - The new symbol being switched to
+     * @returns Object with trade parameters to reset, or null if no reset needed
+     */
+    handleTradeParamsResetOnSymbolChange(old_symbol: string, new_symbol: string): Partial<TradeStore> | null {
+        if (!old_symbol || !new_symbol || old_symbol === new_symbol) return null;
+
+        const old_barrier_support = this.getSymbolBarrierSupport(old_symbol);
+        const new_barrier_support = this.getSymbolBarrierSupport(new_symbol);
+        const old_duration_support = this.getSymbolDurationSupport(old_symbol);
+        const new_duration_support = this.getSymbolDurationSupport(new_symbol);
+
+        const barrier_support_changed = old_barrier_support !== new_barrier_support;
+        const duration_support_changed = old_duration_support !== new_duration_support;
+
+        // Only reset if switching between different support types
+        if (barrier_support_changed || duration_support_changed) {
+            // Clear ALL localStorage values related to barriers and duration
+            try {
+                // Barrier-related localStorage keys
+                localStorage.removeItem('deriv_spot_barrier_value');
+                localStorage.removeItem('deriv_fixed_barrier_value');
+                localStorage.removeItem('deriv_barrier_type_selection');
+                localStorage.removeItem('deriv_barrier_1');
+                localStorage.removeItem('deriv_barrier_2');
+
+                // Duration-related localStorage keys
+                localStorage.removeItem('deriv_duration');
+                localStorage.removeItem('deriv_duration_unit');
+                localStorage.removeItem('deriv_expiry_type');
+                localStorage.removeItem('deriv_expiry_date');
+                localStorage.removeItem('deriv_expiry_time');
+
+                // V2-specific localStorage keys
+                localStorage.removeItem('deriv_v2_params_initial_values');
+            } catch (error) {
+                // Ignore localStorage errors
+            }
+
+            // Clear v2_params_initial_values to reset the UI
+            this.clearV2ParamsInitialValues();
+
+            // Reset UI store duration units when switching markets
+            if (duration_support_changed) {
+                if (new_duration_support === 'ticks') {
+                    // Switching to volatility markets - default to ticks
+                    this.root_store.ui.advanced_duration_unit = 't';
+                    this.root_store.ui.simple_duration_unit = 't';
+                } else {
+                    // Switching to forex markets - default to minutes for endtime
+                    this.root_store.ui.advanced_duration_unit = 'm';
+                    this.root_store.ui.simple_duration_unit = 'm';
+                }
+            }
+
+            const reset_values: Partial<TradeStore> = {};
+
+            // Reset barrier values if barrier support changed
+            if (barrier_support_changed) {
+                // Clear barrier validation errors before updating values to prevent "required field" errors
+                this.clearBarrierValidationErrors();
+
+                if (new_barrier_support === 'absolute') {
+                    // Switching to absolute barriers (e.g., forex)
+                    // Get current spot price or use a reasonable default
+                    const current_spot = this.tick_data?.quote;
+                    const default_barrier = current_spot
+                        ? (current_spot + BARRIER_DEFAULTS.ABSOLUTE_BARRIER_OFFSET).toFixed(
+                              BARRIER_DEFAULTS.ABSOLUTE_BARRIER_DECIMAL_PLACES
+                          )
+                        : BARRIER_DEFAULTS.FALLBACK_ABSOLUTE_BARRIER;
+                    reset_values.barrier_1 = default_barrier;
+                    reset_values.barrier_2 = '';
+                } else {
+                    // Switching to relative barriers (e.g., synthetics)
+                    // Reset to default relative barrier
+                    reset_values.barrier_1 = BARRIER_DEFAULTS.DEFAULT_RELATIVE_BARRIER;
+                    reset_values.barrier_2 = '';
+                }
+            }
+
+            // Reset duration values if duration support changed
+            if (duration_support_changed) {
+                if (new_duration_support === 'ticks') {
+                    // Switching to volatility markets - always default to ticks
+                    reset_values.duration_unit = 't';
+                    reset_values.expiry_type = 'duration';
+                    reset_values.duration = DURATION_DEFAULTS.DEFAULT_TICK_DURATION;
+                    reset_values.expiry_date = null;
+                    reset_values.expiry_time = null;
+                } else {
+                    // Switching to forex markets - default to endtime
+                    reset_values.duration_unit = 'm';
+                    reset_values.expiry_type = 'endtime';
+                    reset_values.duration = DURATION_DEFAULTS.DEFAULT_MINUTE_DURATION;
+                    // expiry_date and expiry_time will be set by the system
+                }
+            }
+
+            return Object.keys(reset_values).length > 0 ? reset_values : null;
+        }
+
+        return null;
     }
 }

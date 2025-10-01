@@ -1,8 +1,8 @@
 # @deriv/api-v2
 
-A comprehensive WebSocket API client package for Deriv applications.
+A comprehensive WebSocket API client package for Deriv applications, providing advanced real-time data management and authentication capabilities.
 
-## Architecture Overview
+## Overview
 
 The `@deriv/api-v2` package provides a React-based WebSocket API client for Deriv applications. It leverages React Context API, TanStack Query (React Query), and custom React hooks to facilitate efficient data fetching, state management, and real-time communication with Deriv's WebSocket API.
 
@@ -108,11 +108,13 @@ The package integrates with TanStack Query (React Query) to provide:
 
 ## Domain-Specific Hooks
 
-The package provides numerous domain-specific hooks for common API operations:
+The package provides several domain-specific hooks for common API operations:
 
-- Authentication (e.g., `useAuthorize`)
-- Financial operations (e.g., `useBalance`)
-- Configuration (e.g., `useRemoteConfig`, `useWebsiteStatus`)
+- **Authentication**: `useAuthorize` - Handle user authentication and authorization
+- **Financial Operations**: `useBalance` - Fetch and manage account balance data
+- **Configuration**: `useRemoteConfig` - Access remote configuration settings
+- **System Information**: `useServerTime` - Get server time information
+- **Analytics**: `useTrackJS` - Error tracking and analytics integration
 
 ## Usage Examples
 
@@ -131,6 +133,8 @@ const App = () => {
     );
 };
 ```
+
+The `APIProvider` automatically handles WebSocket connection management, language switching, and reconnection logic without requiring any configuration props.
 
 ### Using Queries
 
@@ -170,17 +174,67 @@ import { useSubscription } from '@deriv/api-v2';
 import { useEffect } from 'react';
 
 const TickStream = ({ symbol }) => {
-    const { subscribe, unsubscribe, data, isLoading } = useSubscription('ticks');
+    const { subscribe, unsubscribe, data, isLoading, isSubscribed, isIdle, error } = useSubscription('ticks');
 
     useEffect(() => {
         subscribe({ payload: { ticks: symbol } });
         return () => unsubscribe();
-    }, [symbol]);
+    }, [symbol, subscribe, unsubscribe]);
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return <div>Connecting...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+    if (isIdle) return <div>Connection idle...</div>;
 
-    return <div>Latest tick: {data?.tick?.quote}</div>;
+    return (
+        <div>
+            <p>Status: {isSubscribed ? 'Connected' : 'Disconnected'}</p>
+            <p>Latest tick: {data?.tick?.quote}</p>
+        </div>
+    );
 };
+```
+
+**useSubscription Parameters:**
+
+- `name`: The subscribable API endpoint name
+- `idle_time`: Optional timeout in milliseconds (default: 5000ms)
+
+**useSubscription Returns:**
+
+- `subscribe(options)`: Function to start subscription
+- `unsubscribe()`: Function to stop subscription
+- `data`: Latest received data
+- `isLoading`: Loading state
+- `isSubscribed`: Subscription status
+- `isIdle`: Whether subscription is idle
+- `error`: Error object if any
+
+## Development
+
+### Installation
+
+This package is part of the Deriv monorepo and is installed automatically when you install the project dependencies.
+
+```bash
+npm run bootstrap
+```
+
+### Running Tests
+
+```bash
+npm test packages/api-v2
+```
+
+### Type Checking
+
+TypeScript compilation is handled automatically during the build process. The package uses TypeScript 5.0.0 with strict type checking enabled.
+
+### Building
+
+The API-v2 package is built as part of the monorepo build process:
+
+```bash
+npm run build:all
 ```
 
 ## Architecture Decisions
@@ -194,3 +248,13 @@ const TickStream = ({ symbol }) => {
 4. **Domain-Specific Hooks**: The package provides numerous domain-specific hooks that encapsulate common API operations, reducing boilerplate code and ensuring consistent implementation.
 
 5. **TypeScript Integration**: The package leverages TypeScript for type safety, providing autocomplete, type checking, and improved developer experience.
+
+## Contributing
+
+When contributing to this package:
+
+1. Ensure all new hooks follow the established patterns
+2. Add comprehensive TypeScript types
+3. Include unit tests for new functionality
+4. Update this README with new features
+5. Follow the existing code style and conventions

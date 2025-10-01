@@ -108,7 +108,7 @@ const cacheTrackEvents = {
             const signup_device = Cookies.get('signup_device');
 
             if (Analytics !== undefined && typeof Analytics?.pageView === 'function' && cacheTrackEvents.isReady()) {
-                Analytics?.pageView(window.location.href, 'Deriv-App', {
+                Analytics?.pageView(window.location.href, 'Derivatives-Trader', {
                     loggedIn,
                     signup_device: signup_device || 'none',
                 });

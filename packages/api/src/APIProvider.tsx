@@ -105,7 +105,7 @@ export const getActiveWebsocket = () => {
 
 /**
  * Initializes a DerivAPI instance for the global window. This enables a standalone connection
- * without causing race conditions with deriv-app core stores.
+ * without causing race conditions with derivatives-trader core stores.
  * @returns {DerivAPIBasic} The initialized DerivAPI instance.
  */
 const initializeDerivAPI = (onWSClose: () => void): DerivAPIBasic => {
