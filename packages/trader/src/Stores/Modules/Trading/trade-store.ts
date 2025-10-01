@@ -858,10 +858,10 @@ export default class TradeStore extends BaseStore {
 
     async processContractsForV2() {
         const contract_categories = ContractType.getContractCategories();
-        this.processNewValuesAsync({
+        await this.processNewValuesAsync({
             ...(contract_categories as Pick<TradeStore, 'contract_types_list'>),
         });
-        this.processNewValuesAsync(ContractType.getContractValues(this));
+        await this.processNewValuesAsync(ContractType.getContractValues(this));
     }
 
     async setContractTypes() {
