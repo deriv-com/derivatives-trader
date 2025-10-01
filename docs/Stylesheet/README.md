@@ -2,34 +2,34 @@
 
 **In this document:**
 
--   [General Guidelines](#general-guidelines)
-    -   [Naming Conventions](#naming-conventions)
-    -   [Units](#units)
-    -   [Absolute and relative units](#absolute-and-relative-units)
-    -   [Converts px to em values](#converts-px-to-em-values)
--   [Typography](#typography)
--   [Theme](#theme)
--   [SVG](#svg)
--   [Commenting](#commenting)
+- [General Guidelines](#general-guidelines)
+    - [Naming Conventions](#naming-conventions)
+    - [Units](#units)
+    - [Absolute and relative units](#absolute-and-relative-units)
+    - [Converts px to em values](#converts-px-to-em-values)
+- [Typography](#typography)
+- [Theme](#theme)
+- [SVG](#svg)
+- [Commenting](#commenting)
 
 ## General Guidelines
 
 In order to improve the clarity, quality, and development time it is worth considering the following principles whenever possible:
 
--   [Keep Sass Simple](https://www.sitepoint.com/keep-sass-simple/), which means [KISS (Keep It Simple, Stupid)](https://en.wikipedia.org/wiki/KISS_principle) may override [DRY (Don't Repeat Yourself)](https://en.wikipedia.org/wiki/Don't_repeat_yourself) in some cases
--   [Single responsibility selectors](https://en.bem.info/methodology/css/#single-responsibility-principle)
+- [Keep Sass Simple](https://www.sitepoint.com/keep-sass-simple/), which means [KISS (Keep It Simple, Stupid)](https://en.wikipedia.org/wiki/KISS_principle) may override [DRY (Don't Repeat Yourself)](https://en.wikipedia.org/wiki/Don't_repeat_yourself) in some cases
+- [Single responsibility selectors](https://en.bem.info/methodology/css/#single-responsibility-principle)
 
 ---
 
 ## Style Guide
 
--   [Airbnb CSS / Sass Styleguide](https://github.com/airbnb/css/blob/master/README.md) is partially being followed in our code base.
+- [Airbnb CSS / Sass Styleguide](https://github.com/airbnb/css/blob/master/README.md) is partially being followed in our code base.
 
--   [CSS with BEM](https://en.bem.info/methodology/css/) is partially being followed in our code base.
+- [CSS with BEM](https://en.bem.info/methodology/css/) is partially being followed in our code base.
 
--   Most styling issues will be caught by [stylelint](https://github.com/stylelint/stylelint/blob/master/README.md), so before pushing your changes remember to run `grunt stylelint` to catch and fix any issues that it finds.
+- Most styling issues will be caught by [stylelint](https://github.com/stylelint/stylelint/blob/master/README.md), so before pushing your changes remember to run `npm run test:stylelint` to catch and fix any issues that it finds.
 
--   Check below for the rules that are not caught by styling but should be followed.
+- Check below for the rules that are not caught by styling but should be followed.
 
 ### Naming Conventions
 
@@ -46,19 +46,32 @@ In order to improve the clarity, quality, and development time it is worth consi
 Remember to follow the [Single responsibility principle](https://en.bem.info/methodology/css/#single-responsibility-principle).
 
 <a id="naming-conventions-variables"></a>
-**[Variables:](#naming-conventions-variables)** Sass variables should be in uppercase and have a meaningful prefix.
+**[Variables:](#naming-conventions-variables)** The project uses an automated color generation system based on `brand.config.json`. Colors are generated using semantic naming conventions:
 
 ```scss
-$COLOR_RED: #e31c4b;
+// Auto-generated from brand.config.json
+$color-primary: #ff444f;
+$color-secondary: #85acb0;
+$color-success: #4bb4b3;
+$color-danger: #ec3f3f;
 
-// Light theme
-$COLOR_LIGHT_BLACK_1: rgba(0, 0, 0, 0.8);
-
-// Dark theme
-$COLOR_DARK_BLUE_1: #0b0e18;
+// Auto-generated variants
+$color-primary-light: #ff6b6b;
+$color-primary-dark: #e63946;
 ```
 
-Keep all common variables in the [constants.scss](https://github.com/deriv-com/deriv-app/blob/master/src/sass/app/_common/base/constants.scss) file.
+**Modern Color System:**
+
+- Colors are defined in `brand.config.json` and auto-generated using `npm run generate:colors`
+- Use CSS custom properties for theme-aware colors: `var(--color-text-primary)`
+- Semantic tokens provide meaning: `var(--color-status-success)`, `var(--color-trade-buy)`
+- Component tokens for specific UI elements: `var(--color-button-primary-bg)`
+
+**DO NOT** manually edit generated color files. Instead:
+
+1. Update colors in `brand.config.json`
+2. Run `npm run generate:colors` to regenerate all color tokens
+3. Use the generated CSS custom properties in your styles
 
 ---
 
@@ -69,7 +82,7 @@ Keep all common variables in the [constants.scss](https://github.com/deriv-com/d
 
 #### Absolute and relative units
 
--   `em` is typically used in padding and margin to maintain the vertical rhythm. If a user resizes the text, the `em` unit will be scaled proportionately. `em` size is always relative to the font-size of the element.
+- `em` is typically used in padding and margin to maintain the vertical rhythm. If a user resizes the text, the `em` unit will be scaled proportionately. `em` size is always relative to the font-size of the element.
 
 ```scss
 // For example: `span` with font-size of 14px and padding of 8px.
@@ -80,55 +93,93 @@ span {
 }
 ```
 
--   `px` is used to define a fixed value such as for `box-shadow`, `border-radius`, and `border-width`.
+- `px` is used to define a fixed value such as for `box-shadow`, `border-radius`, and `border-width`.
 
-#### Converts px to em values
+#### Modern Unit Usage
 
-1. Since the base font-size is set to be `10px = 1rem`, convert `px` to `em` by dividing the `px` value by 10.
+Use `rem` for most sizing as it's relative to the root font-size and provides consistent scaling across the application:
 
 ```scss
-.balloon {
-    padding: 1.6em; // 16px;
+.component {
+    font-size: 1.4rem; // 14px equivalent
+    padding: 1.6rem; // 16px equivalent
+    margin: 0.8rem; // 8px equivalent
 }
 ```
 
-2. Or use the `@toEm($property, $px-to-be-converted, $font-size)` mixin. This is particularly helpful when you want to convert the padding/margin `px` values of an element that also has a `font-size`.
+For component-specific spacing that should scale with the component's font-size, use `em`:
 
 ```scss
-// Converts padding 10px into `em` value
-p {
-    font-size: 1.4em;
-    @include toEm(padding, 10px, 1.4em); // font-size in em
+.button {
+    font-size: 1.4rem;
+    padding: 0.5em 1em; // Scales with button font-size
 }
 ```
-
-3. Or any online converter tool.
 
 ---
 
 ## Typography
 
-Refer to `Text` component for in components package.
+Use the `Text` component from `@deriv/components` for consistent typography across the platform:
+
+```jsx
+import { Text } from '@deriv/components';
+
+<Text size='sm' weight='bold' color='prominent'>
+    Your text content
+</Text>;
+```
+
+For typography standards:
+
+- Follow the design system typography scale
+- Use semantic text components when available
+- Ensure proper contrast ratios for accessibility
+- Test typography in both light and dark themes
 
 ## Theme
 
-Themes scopes and variables are in `themes.scss` file.
-We have light and dark themes. For colors use these variables listed in both`.theme--light` and `.dark--themes`.
-Make sure the design looks good on both themes.
+The project uses CSS custom properties for theming with automatic generation from `brand.config.json`. Themes are managed through CSS classes:
+
+```scss
+.theme--light {
+    // Light theme variables
+    --color-text-primary: var(--brand-black);
+    --color-surface-primary: var(--brand-white);
+}
+
+.theme--dark {
+    // Dark theme variables
+    --color-text-primary: var(--brand-white);
+    --color-surface-primary: var(--brand-black);
+}
+```
+
+**Theme Best Practices:**
+
+- Use semantic color tokens: `var(--color-text-primary)`, `var(--color-surface-primary)`
+- Test all components in both light and dark themes
+- Use `var(--color-status-success)` for semantic states
+- Leverage component tokens: `var(--color-button-primary-bg)`
+- Colors automatically adapt when theme class changes on root element
 
 ## SVG
 
-<a id="svg-template-versus-sass"></a>
-**[Template versus Sass:](#svg-template-versus-sass)** Add `SVG`s as components if you need to add classes to modify them in different themes. Otherwise you may import them in Sass, or you may import the `SVG` directly to a `Component` from `src/images`:
+Use icons from `@deriv/quill-icons` for consistent iconography across the platform:
 
-```JavaScript
-import SomeIconSvg from 'Assets/SvgComponents/folder_name/some_icon.svg';
+```jsx
+import { LabelPairedChevronDownMdRegularIcon } from '@deriv/quill-icons';
 
-<SomeIconSvg width='15px' height='15px' />
+<LabelPairedChevronDownMdRegularIcon />;
 ```
 
-<a id="svg-theme"></a>
-**[Theme:](#svg-theme)** Use declared classes such as `color1-fill` to handle colouring of SVGs between different themes instead of adding extra Sass for each new image. If the existing classes don't cover what you need, create more [here](https://github.com/deriv-com/deriv-app/blob/master/src/sass/app/_common/inline_icons.scss#L1-L10).
+**SVG Best Practices:**
+
+- Always use `@deriv/quill-icons` library for all iconography needs
+- Avoid custom SVGs to maintain design system consistency
+- Icons automatically adapt to theme changes
+- Follow the Quill design system icon naming conventions
+- Ensure proper accessibility with appropriate ARIA labels when needed
 
 ---
 

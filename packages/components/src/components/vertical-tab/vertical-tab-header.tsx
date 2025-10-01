@@ -1,8 +1,20 @@
 import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
-import { NavLink } from 'react-router-dom';
+
 import { getKebabCase } from '@deriv/shared';
+
 import Counter from '../counter';
+
+// Custom hook to safely use location in both routed and non-routed contexts
+const useSafeLocation = () => {
+    try {
+        return useLocation();
+    } catch {
+        // Return a default location object when not in Router context
+        return { search: '' };
+    }
+};
 
 export type THeaderIcon = {
     icon: React.ReactElement;
@@ -65,6 +77,7 @@ const VerticalTabHeader = ({
     selected,
     selectedKey = 'label',
 }: React.PropsWithChildren<TVerticalTabHeader>) => {
+    const location = useSafeLocation();
     const label = item.label || item.title || item.getTitle?.() || '';
     const is_active = selected && selected[selectedKey as keyof TItem] === item[selectedKey as keyof TItem];
     const handleClick = () => onChange(item);
@@ -73,12 +86,18 @@ const VerticalTabHeader = ({
     const is_hidden = !!item.is_hidden;
     const count = item.count || 0;
 
+    // Preserve query parameters when navigating between tabs
+    const getNavigationPath = () => {
+        if (!item.path) return '';
+        return location.search ? `${item.path}${location.search}` : item.path;
+    };
+
     if (is_hidden) return null;
 
     return is_routed ? (
         <NavLink
             id={id}
-            to={item.path}
+            to={getNavigationPath()}
             onClick={handleClick}
             className={classNames('dc-vertical-tab__header', {
                 'dc-vertical-tab__header--disabled': is_disabled,

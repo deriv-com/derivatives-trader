@@ -13,7 +13,7 @@ import {
 } from '@deriv/quill-icons';
 
 type TAccountInfoIcon = {
-    is_virtual?: boolean;
+    is_demo?: boolean;
     currency?: string;
 };
 
@@ -26,18 +26,18 @@ const currencyIconMap: { [key: string]: React.ComponentType<any> } = {
     eth: CurrencyEthIcon,
     ltc: CurrencyLtcIcon,
     ust: CurrencyUsdtIcon,
-    virtual: CurrencyDemoIcon,
+    demo: CurrencyDemoIcon,
     Unknown: CurrencyNoneIcon,
 };
 
-const AccountInfoIcon = ({ is_virtual, currency }: TAccountInfoIcon) => {
-    const currencyKey = is_virtual ? 'virtual' : (currency ?? 'Unknown');
+const AccountInfoIcon = ({ is_demo, currency }: TAccountInfoIcon) => {
+    const currencyKey = is_demo ? 'demo' : (currency ?? 'Unknown');
     const IconComponent = currencyIconMap[currencyKey] || CurrencyNoneIcon;
 
     return (
         <IconComponent
             data-testid='dt_icon'
-            className={`acc-info__id-icon acc-info__id-icon--${is_virtual ? 'virtual' : currency}`}
+            className={`acc-info__id-icon acc-info__id-icon--${is_demo ? 'demo' : currency}`}
             iconSize='sm'
         />
     );

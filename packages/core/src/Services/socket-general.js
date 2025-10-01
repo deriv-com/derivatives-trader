@@ -69,13 +69,6 @@ const BinarySocketGeneral = (() => {
                 break;
             case 'transaction':
                 gtm_store.pushTransactionData(response);
-                if (client_store && client_store.loginid) {
-                    WS.authorized.balance().then(balance_response => {
-                        if (!balance_response.error) {
-                            ResponseHandlers.balanceActiveAccount(balance_response);
-                        }
-                    });
-                }
                 break;
             // no default
         }
@@ -91,15 +84,13 @@ const BinarySocketGeneral = (() => {
         switch (error_code) {
             case 'WrongResponse':
                 if (msg_type === 'balance') {
-                    WS.forgetAll('balance').then(subscribeBalances);
+                    WS.forgetAll('balance').then(subscribeBalance);
                 }
                 break;
             case 'RateLimit':
-                if (msg_type !== 'cashier_password') {
-                    common_store.setError(true, {
-                        message: localize('You have reached the rate limit of requests per second. Please try later.'),
-                    });
-                }
+                common_store.setError(true, {
+                    message: localize('You have reached the rate limit of requests per second. Please try later.'),
+                });
                 break;
             case 'InvalidAppID':
                 common_store.setError(true, { message: response.error.message });
@@ -111,12 +102,10 @@ const BinarySocketGeneral = (() => {
                 if (msg_type === 'buy') {
                     return;
                 }
-
-                // For V2, check if we have a valid session token before logout
-                const hasSessionToken = !!localStorage.getItem('session_token');
-                if (hasSessionToken) {
-                    return;
-                }
+                client_store.logout();
+                break;
+            }
+            case 'InvalidToken': {
                 client_store.logout();
                 break;
             }
@@ -137,18 +126,13 @@ const BinarySocketGeneral = (() => {
         };
     };
 
-    const subscribeBalances = () => {
-        if (client_store.current_account?.loginid) {
-            WS.subscribeBalanceActiveAccount(
-                ResponseHandlers.balanceActiveAccount,
-                client_store.current_account.loginid
-            );
-        }
+    const subscribeBalance = () => {
+        WS.subscribeBalance(ResponseHandlers.balanceActiveAccount);
     };
 
     const authorizeAccount = response => {
         client_store.responseAuthorize(response);
-        subscribeBalances(); // Single account balance
+        subscribeBalance(); // Single account balance
         client_store.setIsAuthorize(true); // Set auth state
         BinarySocket.sendBuffered(); // Send queued requests
     };

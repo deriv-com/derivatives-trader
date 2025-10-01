@@ -39,7 +39,7 @@ const TopWidgets = ({
             onChange={onSymbolChange}
             searchInputClassName='data-hj-whitelist'
             isNestedList={is_mobile}
-            portalNodeId={is_mobile ? 'deriv_app' : undefined}
+            portalNodeId={is_mobile ? 'derivatives_trader' : undefined}
         />
     );
 

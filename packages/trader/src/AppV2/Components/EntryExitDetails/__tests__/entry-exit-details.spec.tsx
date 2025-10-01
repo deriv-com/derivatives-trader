@@ -14,13 +14,11 @@ jest.mock('@deriv/shared', () => ({
 }));
 
 const mock_contract_info: TContractInfo = mockContractInfo({
-    entry_tick_time: 1622505600,
-    entry_spot_display_value: '100',
-    //@ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
+    entry_spot_time: 1622505600,
+    entry_spot: 100,
     exit_spot_time: 1623441400,
-    exit_tick_time: 1623441400, // Backward compatibility
+    exit_spot: 150,
     date_start: 1622505600,
-    exit_tick_display_value: '150',
 });
 
 describe('EntryExitDetails component', () => {

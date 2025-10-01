@@ -21,15 +21,16 @@ The derivatives trader application is a React-based front-end project implemente
 
 The codebase is organized into multiple packages:
 
-- **api/api-v2**: API client libraries for communicating with backend services, with v2 likely representing an improved implementation
+- **api**: API client library for communicating with backend services
+- **api-v2**: Improved API client implementation (likely newer version)
 - **components**: Reusable UI components library with a comprehensive set of common UI elements
 - **trader**: Main trading application implementing the core business functionality
 - **stores**: Central state management with observable stores
 - **shared**: Common utilities, constants, and helpers shared across packages
-- **translations**: Internationalization support using i18n
 - **utils**: Utility functions for common operations
 - **reports**: Reporting and analysis functionality
 - **core**: Core business logic and domain models
+- **translations**: Internationalization package (currently appears to be empty or under development)
 
 ### Module Structure
 
@@ -39,6 +40,7 @@ The main trader package is organized into modules:
 - **Contract**: Contract details and management for viewing and managing active positions
 - **SmartChart**: Chart visualization components for technical analysis
 - **App/AppV2**: Main application shells with different implementations
+- **Page404**: Error page handling for invalid routes
 
 ### Inter-Package Dependencies
 
@@ -263,15 +265,17 @@ The application implements multi-layered error handling:
 The application uses a sophisticated build system to support the monorepo structure:
 
 - **npm workspaces**: Manages the monorepo packages and their interdependencies
-- **Webpack**: Handles code bundling, splitting, and optimization
-- **Babel**: Transpiles modern JavaScript features for browser compatibility
-- **TypeScript**: Provides static typing and compile-time checks
-- **Jest**: Testing framework configuration for unit and integration tests
+- **Node.js 20.x**: Required engine version specified in package.json
+- **Webpack**: Handles code bundling, splitting, and optimization (configuration varies per package)
+- **Babel**: Transpiles modern JavaScript features with comprehensive plugin support including decorators, class properties, and optional chaining
+- **TypeScript**: Provides static typing and compile-time checks across all packages
+- **Jest**: Testing framework with jsdom environment and shared base configuration
 - **PostCSS**: Processes CSS with plugins like autoprefixer
-- **ESLint**: Static code analysis for code quality
+- **ESLint**: Static code analysis using @deriv-com/eslint-config-deriv for consistent code quality
 - **Prettier**: Code formatting enforcement
+- **Stylelint**: CSS/SCSS linting with BEM pattern enforcement
 
-The build process includes optimizations for production builds, development mode with hot reloading, and specialized builds for different environments. Code splitting is implemented through webpack chunking, enabling efficient loading of application parts. The system also includes custom ESLint rules for project-specific code quality enforcement.
+The build process includes optimizations for production builds, development mode with hot reloading, and specialized builds for different environments. Code splitting is implemented through webpack chunking and React.lazy, enabling efficient loading of application parts. The system includes custom ESLint rules and comprehensive Babel configuration for modern JavaScript features.
 
 ## Testing Architecture
 
@@ -279,17 +283,19 @@ The testing architecture supports multiple testing levels:
 
 - **Unit Tests**: Component and utility function tests in **tests** directories
 - **Integration Tests**: Store and service interaction tests
-- **Mock System**: Custom mock implementations for external dependencies
+- **Mock System**: Custom mock implementations for external dependencies (styleMock.js, fileMock.js, translation.mock.js)
 - **Test Utilities**: Shared testing helpers and fixtures
+- **Base Configuration**: Shared jest.config.base.js for universal test settings
 
 The code structure supports testability through:
 
 - Dependency injection for services and stores
 - Component isolation with clear props interfaces
 - Mock implementations of external services
-- Test configuration for different packages
+- Per-package test configuration extending the base configuration
+- jsdom test environment for React component testing
 
-Test files are typically co-located with the code they test, following a "**tests**" directory pattern or "[filename].test.ts" naming convention. The testing approach emphasizes isolation of components and services, with mock implementations for external dependencies. Jest is used as the primary testing framework, with React Testing Library for component testing.
+Test files are co-located with the code they test, following a "**tests**" directory pattern or "[filename].(test|spec).(js|jsx|tsx|ts)" naming convention. The testing approach emphasizes isolation of components and services, with comprehensive mock implementations for CSS/SCSS imports, images, and external dependencies. Jest is used as the primary testing framework, with @testing-library/react for component testing.
 
 ## Styling Architecture
 
@@ -305,12 +311,14 @@ The application uses a mixed styling approach:
 
 The application implements internationalization (i18n) through:
 
-- Dedicated translations package with language resources
+- Translation functionality integrated into the build system (via external @deriv-com/translations)
 - Translation function (localize) for string externalization
 - Language selection and persistence
 - RTL (Right-to-Left) layout support for appropriate languages
 - Number and date formatting based on locale
 - Dynamic loading of language resources
+
+Note: The translations package in the monorepo appears to be empty or under development, with translations likely managed through external packages like @deriv-com/translations.
 
 This approach enables the application to support multiple languages while maintaining a single codebase. Translations are managed as external resources, allowing for updates without code changes.
 

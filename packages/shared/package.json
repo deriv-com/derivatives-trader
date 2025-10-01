@@ -4,12 +4,12 @@
     "description": "deriv shared",
     "author": "Deriv",
     "license": "Apache-2.0",
-    "homepage": "https://github.com/deriv-com/deriv-app#readme",
+    "homepage": "https://github.com/deriv-com/derivatives-trader#readme",
     "main": "src/index.ts",
     "private": true,
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/deriv-com/deriv-app.git"
+        "url": "git+https://github.com/deriv-com/derivatives-trader.git"
     },
     "engines": {
         "node": "20.x"
@@ -18,15 +18,10 @@
         "start": "echo \"No start specified\"",
         "serve": "echo \"No serve specified\"",
         "build": "echo \"No build specified\"",
-        "deploy": "echo \"No deploy specified\"",
-        "deploy:clean": "echo \"No deploy:clean specified\"",
-        "deploy:folder": "echo \"No deploy:folder specified\"",
-        "deploy:staging": "echo \"No deploy:staging specified\"",
-        "deploy:production": "echo \"No deploy:production specified\"",
         "test:eslint": "eslint \"./src/**/*.?(js|jsx|ts|tsx)\""
     },
     "bugs": {
-        "url": "https://github.com/deriv-com/deriv-app/issues"
+        "url": "https://github.com/deriv-com/derivatives-trader/issues"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.25.1",

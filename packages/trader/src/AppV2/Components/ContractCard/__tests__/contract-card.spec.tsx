@@ -61,9 +61,7 @@ const openPositions = [
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.6,
             entry_spot_display_value: '682.60',
-            entry_tick: 682.6,
-            entry_tick_display_value: '682.60',
-            entry_tick_time: 1716220563,
+            entry_spot_time: 1716220563,
             expiry_time: mockedNow + 1000,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -125,9 +123,7 @@ const openPositions = [
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.23,
             entry_spot_display_value: '682.23',
-            entry_tick: 682.23,
-            entry_tick_display_value: '682.23',
-            entry_tick_time: 1716220584,
+            entry_spot_time: 1716220584,
             expiry_time: mockedNow + 1000,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -210,9 +206,7 @@ const openPositions = [
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.58,
             entry_spot_display_value: '682.58',
-            entry_tick: 682.58,
-            entry_tick_display_value: '682.58',
-            entry_tick_time: 1716220711,
+            entry_spot_time: 1716220711,
             expiry_time: mockedNow + 1000,
             growth_rate: 0.01,
             high_barrier: '683.046',
@@ -308,7 +302,7 @@ const openPositions = [
         high_barrier: 683.046,
         low_barrier: 682.454,
     },
-] as TPortfolioPosition[];
+] as unknown as TPortfolioPosition[];
 
 const buttonLoaderId = 'dt_button_loader';
 const symbolName = 'Volatility 100 (1s) Index';

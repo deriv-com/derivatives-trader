@@ -76,13 +76,8 @@ const ContractDetails = ({
         display_number_of_contracts,
         entry_spot,
         entry_spot_display_value,
-        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
         entry_spot_time,
-        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
         exit_spot: exit_spot_value,
-        exit_tick,
-        exit_tick_display_value,
-        // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
         exit_spot_time,
         high_barrier,
         is_sold,
@@ -95,7 +90,6 @@ const ContractDetails = ({
         transaction_ids: { buy, sell } = {},
         reset_barrier,
         reset_time,
-        // @ts-expect-error underlying_symbol exists in runtime but not in type definition
         underlying_symbol,
         underlying,
     } = contract_info;
@@ -104,8 +98,8 @@ const ContractDetails = ({
 
     // Backward compatibility: fallback to old field names
     const actual_entry_spot = entry_spot ?? entry_spot_display_value;
-    const actual_exit_spot = exit_spot_value ?? exit_tick;
-    const actual_exit_spot_display_value = exit_spot_value ?? exit_tick_display_value;
+    const actual_exit_spot = exit_spot_value;
+    const actual_exit_spot_display_value = exit_spot_value;
 
     const is_profit = Number(profit) >= 0;
     const cancellation_price = getCancellationPrice(contract_info);

@@ -13,7 +13,7 @@ function endChat() {
 
 const doLogout = response => {
     if (response.logout !== 1) return undefined;
-    removeCookies('affiliate_token', 'affiliate_tracking', 'onfido_token', 'gclid', 'utm_data');
+    removeCookies('affiliate_token', 'affiliate_tracking', 'onfido_token', 'gclid', 'utm_data', 'session_token');
     localStorage.removeItem('closed_toast_notifications');
     localStorage.removeItem('config.account1');
     localStorage.removeItem('config.tokens');

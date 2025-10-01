@@ -104,9 +104,8 @@ describe('PositionsContent', () => {
                             display_name: 'Volatility 100 (1s) Index',
                             entry_spot: 782.35,
                             entry_spot_display_value: '782.35',
-                            entry_tick: 782.35,
-                            entry_tick_display_value: '782.35',
-                            entry_tick_time: 1716877414,
+                            //@ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
+                            entry_spot_time: 1716877414,
                             expiry_time: 4870540799,
                             id: '3f168dfb-c3c3-5cb2-e636-e7b6e25a7c56',
                             is_expired: 0,
@@ -179,9 +178,8 @@ describe('PositionsContent', () => {
                             display_number_of_contracts: '3.692058',
                             entry_spot: 824.24,
                             entry_spot_display_value: '824.24',
-                            entry_tick: 824.24,
-                            entry_tick_display_value: '824.24',
-                            entry_tick_time: 1716891504,
+                            //@ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
+                            entry_spot_time: 1716891504,
                             expiry_time: 1716891900,
                             id: '631c07ee-ff93-a6e0-3e14-7917581b8b1b',
                             is_expired: 0,
