@@ -41,8 +41,6 @@ jest.mock('../header-account-actions', () =>
     jest.fn(() => <div data-testid='dt_header_account_actions'>Header Account Actions</div>)
 );
 
-jest.mock('../home-button', () => jest.fn(() => <div data-testid='dt_home_button'>Home Button</div>));
-
 describe('HeaderLegacy', () => {
     const history = createBrowserHistory();
 
@@ -111,22 +109,10 @@ describe('HeaderLegacy', () => {
             (useDevice as jest.Mock).mockReturnValue({ isDesktop: true });
         });
 
-        it('should render Home button when logged in', () => {
+        it('should not render ToggleMenuDrawer on desktop', () => {
             renderComponent();
 
-            expect(screen.getByTestId('dt_home_button')).toBeInTheDocument();
             expect(screen.queryByTestId('dt_toggle_menu_drawer')).not.toBeInTheDocument();
-        });
-
-        it('should not render Home button when not logged in', () => {
-            renderComponent({
-                client: {
-                    ...default_mock_store.client,
-                    is_logged_in: false,
-                },
-            });
-
-            expect(screen.queryByTestId('dt_home_button')).not.toBeInTheDocument();
         });
     });
 
@@ -139,7 +125,6 @@ describe('HeaderLegacy', () => {
             renderComponent();
 
             expect(screen.getByTestId('dt_toggle_menu_drawer')).toBeInTheDocument();
-            expect(screen.queryByTestId('dt_home_button')).not.toBeInTheDocument();
         });
 
         it('should render header extension when logged in and extension exists', () => {

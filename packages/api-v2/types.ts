@@ -2170,10 +2170,6 @@ type TSocketEndpoints = {
         request: SellContractsMultipleAccountsRequest;
         response: SellContractsMultipleAccountsResponse;
     };
-    sell_expired: {
-        request: SellExpiredContractsRequest;
-        response: SellExpiredContractsResponse;
-    };
     sell: {
         request: SellContractRequest;
         response: SellContractResponse;

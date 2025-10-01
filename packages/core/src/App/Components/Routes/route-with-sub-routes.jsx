@@ -1,11 +1,24 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { removeBranchName, routes, isEmptyObject, getBrandName } from '@deriv/shared';
+
+import { getBrandName, isEmptyObject, removeBranchName, routes } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+
 import Page404 from 'Modules/Page404';
-import { observer } from '@deriv/stores';
 
 const RouteWithSubRoutes = observer(route => {
+    const { client } = useStore();
+    const { is_logged_in, is_logging_in } = client;
+
     const validateRoute = () => {
+        // Check if route requires authentication
+        if (route.protected) {
+            // If route is protected but user is not logged in and not logging in, deny access
+            if (!is_logged_in && !is_logging_in) {
+                return false;
+            }
+        }
+
         return true;
     };
 
@@ -27,14 +40,19 @@ const RouteWithSubRoutes = observer(route => {
             const default_subroute = route.routes ? route.routes.find(r => r.default) : {};
             const has_default_subroute = !isEmptyObject(default_subroute);
 
+            let content;
+            if (is_valid_route) {
+                content = <route.component {...props} routes={route.routes} passthrough={route.passthrough} />;
+            } else if (route.protected) {
+                content = <Redirect to={routes.index} />;
+            } else {
+                content = <Page404 />;
+            }
+
             result = (
                 <React.Fragment>
                     {has_default_subroute && pathname === route.path && <Redirect to={default_subroute.path} />}
-                    {is_valid_route ? (
-                        <route.component {...props} routes={route.routes} passthrough={route.passthrough} />
-                    ) : (
-                        <Page404 />
-                    )}
+                    {content}
                 </React.Fragment>
             );
         }

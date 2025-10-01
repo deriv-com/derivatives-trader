@@ -60,18 +60,16 @@ jest.mock('App/Components/Layout/Header/account-info.jsx', () => ({
     __esModule: true,
     default: ({
         balance,
-        is_virtual,
         currency,
         is_dialog_on,
         toggleDialog,
     }: {
         balance?: string | number;
-        is_virtual?: boolean;
         currency?: string;
         is_dialog_on?: boolean;
         toggleDialog?: () => void;
     }) => (
-        <div data-testid='dt_account_info' onClick={toggleDialog} className={`${is_virtual ? 'virtual' : ''}`}>
+        <div data-testid='dt_account_info' onClick={toggleDialog}>
             Account Info: {balance} {currency} {is_dialog_on ? 'open' : 'closed'}
         </div>
     ),
@@ -84,18 +82,16 @@ jest.mock(
         __esModule: true,
         default: ({
             balance,
-            is_virtual,
             currency,
             is_dialog_on,
             toggleDialog,
         }: {
             balance?: string | number;
-            is_virtual?: boolean;
             currency?: string;
             is_dialog_on?: boolean;
             toggleDialog?: () => void;
         }) => (
-            <div data-testid='dt_account_info' onClick={toggleDialog} className={`${is_virtual ? 'virtual' : ''}`}>
+            <div data-testid='dt_account_info' onClick={toggleDialog}>
                 Account Info: {balance} {currency} {is_dialog_on ? 'open' : 'closed'}
             </div>
         ),
@@ -109,7 +105,6 @@ describe('AccountActions component', () => {
         balance: 1000,
         currency: 'USD',
         is_logged_in: true,
-        is_virtual: false,
         onClickLogout: jest.fn(),
     };
 

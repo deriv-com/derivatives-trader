@@ -30,9 +30,7 @@ const mockedActivePositions = [
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.6,
             entry_spot_display_value: '682.60',
-            entry_tick: 682.6,
-            entry_tick_display_value: '682.60',
-            entry_tick_time: 1716220563,
+            entry_spot_time: 1716220563,
             expiry_time: 1716221100,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -94,9 +92,7 @@ const mockedActivePositions = [
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.23,
             entry_spot_display_value: '682.23',
-            entry_tick: 682.23,
-            entry_tick_display_value: '682.23',
-            entry_tick_time: 1716220584,
+            entry_spot_time: 1716220584,
             expiry_time: 4869849599,
             id: '917d1b48-305b-a2f4-5b9c-7fb1f2c6c145',
             is_expired: 0,
@@ -173,9 +169,7 @@ const mockedActivePositions = [
             display_name: 'Volatility 100 (1s) Index',
             entry_spot: 682.58,
             entry_spot_display_value: '682.58',
-            entry_tick: 682.58,
-            entry_tick_display_value: '682.58',
-            entry_tick_time: 1716220711,
+            entry_spot_time: 1716220711,
             expiry_time: 1747785599,
             growth_rate: 0.01,
             high_barrier: '683.046',
@@ -291,7 +285,7 @@ const mockedActivePositions = [
             purchase_time_unix: 1716802860,
         },
     },
-] as TPortfolioPosition[];
+] as unknown as TPortfolioPosition[];
 
 describe('getFilteredContractTypes', () => {
     it('should return empty array if filters are empty or undefined', () => {

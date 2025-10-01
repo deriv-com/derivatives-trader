@@ -217,9 +217,6 @@ const useContractsFor = () => {
 
                 const new_contract_type = getNewContractType(trade_types);
                 processNewContractType(new_contract_type);
-
-                // Process contracts for V2 when data is available
-                processContractsForV2();
             } else if (symbol && !error) {
                 // Fallback: Set basic trade types if API fails but we have a valid symbol
                 const fallbackTradeTypes = [

@@ -21,7 +21,7 @@ import TradeNotifications from './trade-notifications';
 import 'Sass/app/_common/components/app-notification-message.scss';
 
 const Portal = ({ children }) =>
-    isMobile() ? ReactDOM.createPortal(children, document.getElementById('deriv_app')) : children;
+    isMobile() ? ReactDOM.createPortal(children, document.getElementById('derivatives_trader')) : children;
 
 const NotificationsContent = ({
     is_notification_loaded,

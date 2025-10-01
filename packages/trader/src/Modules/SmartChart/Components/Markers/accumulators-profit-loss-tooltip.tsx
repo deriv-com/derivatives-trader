@@ -32,10 +32,8 @@ const AccumulatorsProfitLossTooltip = ({
     currency,
     // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
     exit_spot,
-    exit_tick,
     // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
     exit_spot_time,
-    exit_tick_time,
     high_barrier,
     is_sold,
     profit,
@@ -43,9 +41,8 @@ const AccumulatorsProfitLossTooltip = ({
     should_show_profit_text,
     is_mobile,
 }: TAccumulatorsProfitLossTooltip) => {
-    // Backward compatibility: fallback to old field names
-    const actual_exit_spot_time = exit_spot_time ?? exit_tick_time;
-    const actual_exit_spot = exit_spot ?? exit_tick;
+    const actual_exit_spot_time = exit_spot_time;
+    const actual_exit_spot = exit_spot;
     const [is_tooltip_open, setIsTooltipOpen] = React.useState(false);
     const won = Number(profit) >= 0;
     const tooltip_timeout = React.useRef<ReturnType<typeof setTimeout>>();

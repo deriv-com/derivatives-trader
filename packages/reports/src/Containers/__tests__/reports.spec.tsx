@@ -1,13 +1,15 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
-import { History, createMemoryHistory } from 'history';
-import Reports from '../reports';
-import { Analytics } from '@deriv-com/analytics';
-import { StoreProvider, mockStore } from '@deriv/stores';
+import { createMemoryHistory, History } from 'history';
+
+import { mockStore, StoreProvider } from '@deriv/stores';
 import { TStores } from '@deriv/stores/types';
-import userEvent from '@testing-library/user-event';
+import { Analytics } from '@deriv-com/analytics';
 import { useDevice } from '@deriv-com/ui';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import Reports from '../reports';
 
 jest.mock('@deriv-com/analytics', () => ({
     Analytics: {
@@ -25,6 +27,10 @@ jest.mock('@deriv/shared', () => ({
         return routes.find((route: { path: string }) => route.path === pathname) || routes[0];
     }),
 }));
+
+// Mock window.location.href for redirect tests
+delete (window as any).location;
+window.location = { href: '', search: '' } as any;
 
 const mockSelectNative = jest.fn();
 const mockVerticalTab = jest.fn();
@@ -252,5 +258,77 @@ describe('Reports', () => {
                 ]),
             })
         );
+    });
+
+    describe('Redirect functionality', () => {
+        beforeEach(() => {
+            // Reset window.location before each test
+            window.location.href = '';
+            window.location.search = '';
+        });
+
+        test('redirects to external URL when redirect parameter is present and close button is clicked', async () => {
+            const history = createMemoryHistory({
+                initialEntries: ['/?redirect=derivatives-bot.deriv.com'],
+            });
+
+            renderReports(store, history);
+            await userEvent.click(screen.getByTestId(onCloseClick));
+
+            expect(window.location.href).toBe('https://derivatives-bot.deriv.com');
+        });
+
+        test('redirects to encoded URL when redirect parameter is encoded', async () => {
+            const history = createMemoryHistory({
+                initialEntries: ['/?redirect=derivatives-bot.deriv.com%2Fbot'],
+            });
+
+            renderReports(store, history);
+            await userEvent.click(screen.getByTestId(onCloseClick));
+
+            expect(window.location.href).toBe('https://derivatives-bot.deriv.com/bot');
+        });
+
+        test('calls routeBackInApp when no redirect parameter is present', async () => {
+            const mockRouteBackInApp = jest.fn();
+            store = mockStore({
+                ...mock,
+                common: {
+                    ...mock.common,
+                    routeBackInApp: mockRouteBackInApp,
+                },
+            });
+            const history = createMemoryHistory({
+                initialEntries: ['/'],
+            });
+
+            renderReports(store, history);
+            await userEvent.click(screen.getByTestId(onCloseClick));
+
+            expect(mockRouteBackInApp).toHaveBeenCalled();
+            expect(window.location.href).toBe('');
+        });
+
+        test('captures redirect parameter on component mount', () => {
+            const history = createMemoryHistory({
+                initialEntries: ['/?redirect=derivatives-bot.deriv.com'],
+            });
+
+            renderReports(store, history);
+
+            // The component should render without errors when redirect parameter is present
+            expect(screen.getByTestId(onCloseClick)).toBeInTheDocument();
+        });
+
+        test('handles navigation without redirect parameter', () => {
+            const history = createMemoryHistory({
+                initialEntries: ['/'],
+            });
+
+            renderReports(store, history);
+
+            // The component should render normally without redirect parameter
+            expect(screen.getByTestId(onCloseClick)).toBeInTheDocument();
+        });
     });
 });

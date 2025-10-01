@@ -47,10 +47,10 @@ const ContractCardDialog = React.forwardRef(
                 </div>
             </CSSTransition>
         );
-        const deriv_app_element = document.getElementById('deriv_app');
+        const derivatives_trader_element = document.getElementById('derivatives_trader');
         return ReactDOM.createPortal(
             dialog, // use portal to render dialog above ThemedScrollbars container
-            deriv_app_element || document.body
+            derivatives_trader_element || document.body
         );
     }
 );

@@ -29,14 +29,11 @@ const CurrentSpot = observer(() => {
         display_status,
         is_digit_contract,
         is_ended,
-    } = (last_contract.contract_info?.entry_spot ?? last_contract.contract_info?.entry_tick) || !prev_contract
-        ? last_contract
-        : prev_contract;
+    } = last_contract.contract_info?.entry_spot || !prev_contract ? last_contract : prev_contract;
     const { tick_data, symbol } = useTraderStore();
     //
     const { contract_id, date_start, contract_type, tick_stream } = contract_info;
-    const entry_spot = contract_info.entry_spot ?? contract_info.entry_tick;
-    // Backward compatibility: fallback to old field name
+    const entry_spot = contract_info.entry_spot;
     //@ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update
     const underlying = contract_info.underlying_symbol || contract_info.underlying;
     const prev_contract_id = usePrevious(contract_id);
@@ -107,9 +104,7 @@ const CurrentSpot = observer(() => {
 
     React.useEffect(() => {
         const has_multiple_contracts =
-            prev_contract?.contract_info &&
-            !is_prev_contract_elapsed &&
-            (last_contract.contract_info?.entry_spot ?? last_contract.contract_info?.entry_tick);
+            prev_contract?.contract_info && !is_prev_contract_elapsed && last_contract.contract_info?.entry_spot;
         const is_next_contract_opened = prev_contract_id && contract_id && prev_contract_id !== contract_id;
         if (has_multiple_contracts && is_next_contract_opened) {
             setShouldEnterFromTop(true);
