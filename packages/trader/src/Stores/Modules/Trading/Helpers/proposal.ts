@@ -184,6 +184,11 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
 
     // TODO: Fix mobile duration param intermittently showing invalid duration error
     const getDurationParams = () => {
+        // ACCUMULATOR and MULTIPLIER contracts don't use duration parameters
+        if (store.contract_type === TRADE_TYPES.ACCUMULATOR || store.contract_type === TRADE_TYPES.MULTIPLIER) {
+            return {};
+        }
+
         if (store.expiry_type === 'duration') {
             // Ensure we have valid duration and duration_unit values
             const duration = parseInt(store.duration.toString()) || 5; // Default to 5 if invalid
@@ -200,7 +205,7 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
             return obj_expiry;
         }
 
-        // Fallback to duration mode with safe defaults if expiry_type is invalid
+        // For contracts that need duration but don't have valid expiry_type, provide safe defaults
         return {
             duration: 5,
             duration_unit: 'm',
