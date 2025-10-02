@@ -186,6 +186,7 @@ const TradeChart = observer(() => {
     if (!symbol || !active_symbols.length || !chartData || !chartData.tradingTimes) return null;
     return (
         <SmartChart
+            drawingToolFloatingMenuPosition={isMobile ? { x: 100, y: 100 } : { x: 200, y: 200 }}
             ref={ref}
             barriers={barriers}
             contracts_array={markers_array}

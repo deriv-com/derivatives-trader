@@ -28,6 +28,7 @@ const initApp = async () => {
 
     const wrapper = document.getElementById('derivatives_trader');
     if (wrapper) {
+        // eslint-disable-next-line react/no-deprecated
         ReactDOM.render(<App root_store={root_store} />, wrapper);
     }
 };
