@@ -6,6 +6,12 @@ import { observer, useStore } from '@deriv/stores';
 import { Loader, useDevice } from '@deriv-com/ui';
 
 import { SmartChart } from 'Modules/SmartChart';
+import {
+    createSmartChartsChampionAdapter,
+    TGetQuotes,
+    TSubscribeQuotes,
+    TUnsubscribeQuotes,
+} from 'Modules/SmartChart/Adapters';
 import ChartMarker from 'Modules/SmartChart/Components/Markers/marker';
 import ResetContractChartElements from 'Modules/SmartChart/Components/Markers/reset-contract-chart-elements';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -60,6 +66,37 @@ const ReplayChart = observer(
         const all_ticks = audit_details ? audit_details.all_ticks : [];
         const { wsForget, wsSubscribe, wsSendRequest, wsForgetStream } = trade;
 
+        // Initialize SmartCharts Champion Adapter with store data for better performance
+        const smartChartsAdapter = React.useMemo(() => {
+            return createSmartChartsChampionAdapter({
+                debug: false,
+            });
+        }, []);
+
+        // Transform active symbols and fetch trading times for SmartCharts Champion format
+        const [chartData, setChartData] = React.useState<{
+            activeSymbols: any;
+            tradingTimes?: Record<string, { isOpen: boolean; openTime: string; closeTime: string }>;
+        }>({ activeSymbols: [] });
+
+        // Fetch chart data including trading times
+        React.useEffect(() => {
+            const fetchChartData = async () => {
+                try {
+                    const data = await smartChartsAdapter.getChartData();
+                    setChartData({
+                        activeSymbols: data.activeSymbols,
+                        tradingTimes: data.tradingTimes,
+                    });
+                } catch (error) {
+                    // eslint-disable-next-line no-console
+                    console.error('Error fetching chart data:', error);
+                }
+            };
+
+            fetchChartData();
+        }, [smartChartsAdapter]);
+
         const isBottomWidgetVisible = () => {
             return !isMobile && is_digit_contract;
         };
@@ -82,7 +119,74 @@ const ReplayChart = observer(
         const has_ended = !!getEndTime(contract_info);
         const is_dtrader_v2_enabled = isMobile; // V2 for mobile, V1 for desktop
 
-        if (!symbol) return <Loader />;
+        // Create wrapper functions for SmartCharts Champion API
+        const getQuotes: TGetQuotes = async params => {
+            if (!smartChartsAdapter) {
+                throw new Error('Adapter not initialized');
+            }
+
+            const result = await smartChartsAdapter.getQuotes({
+                symbol: params.symbol,
+                granularity: params.granularity as any,
+                count: params.count,
+                start: params.start,
+                end: params.end,
+            });
+
+            // Transform adapter result to SmartCharts Champion format
+            if (params.granularity === 0) {
+                // For ticks, return history format
+                return {
+                    history: {
+                        prices: result.quotes.map(q => q.Close),
+                        times: result.quotes.map(q => parseInt(q.Date)),
+                    },
+                };
+            }
+            // For candles, return candles format
+            return {
+                candles: result.quotes.map(q => ({
+                    open: q.Open || q.Close,
+                    high: q.High || q.Close,
+                    low: q.Low || q.Close,
+                    close: q.Close,
+                    epoch: parseInt(q.Date),
+                })),
+            };
+        };
+
+        const subscribeQuotes: TSubscribeQuotes = (params, callback) => {
+            if (!smartChartsAdapter) {
+                return () => {};
+            }
+
+            return smartChartsAdapter.subscribeQuotes(
+                {
+                    symbol: params.symbol,
+                    granularity: params.granularity as any,
+                },
+                quote => {
+                    callback(quote);
+                }
+            );
+        };
+
+        const unsubscribeQuotes: TUnsubscribeQuotes = request => {
+            if (smartChartsAdapter) {
+                // If we have request details, use the adapter's unsubscribe method
+                if (request?.symbol && typeof request.granularity !== 'undefined') {
+                    smartChartsAdapter.unsubscribeQuotes({
+                        symbol: request.symbol,
+                        granularity: request.granularity as any,
+                    });
+                } else {
+                    // Fallback: unsubscribe all via transport
+                    smartChartsAdapter.transport.unsubscribeAll('ticks');
+                }
+            }
+        };
+
+        if (!symbol || !chartData || !chartData.tradingTimes) return <Loader />;
 
         return (
             <SmartChart
@@ -97,12 +201,12 @@ const ReplayChart = observer(
                 enabledNavigationWidget={!isMobile}
                 enabledChartFooter={false}
                 granularity={granularity}
-                requestAPI={wsSendRequest}
-                requestForget={wsForget}
-                requestForgetStream={wsForgetStream}
+                getQuotes={getQuotes}
+                chartData={chartData}
+                subscribeQuotes={subscribeQuotes}
+                unsubscribeQuotes={unsubscribeQuotes}
                 crosshair={isMobile ? 0 : undefined}
                 maxTick={isMobile ? 8 : undefined}
-                requestSubscribe={wsSubscribe}
                 settings={settings}
                 startEpoch={start_epoch}
                 scrollToEpoch={scroll_to_epoch}
