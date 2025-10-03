@@ -66,9 +66,7 @@ const Purchase = observer(({ is_market_closed }: { is_market_closed?: boolean })
     const is_proposal_empty = isEmptyObject(proposal_info);
     const active_accu_contract = is_accumulator
         ? all_positions.find(({ contract_info, type }) => {
-              // Backward compatibility: fallback to old field name
-              // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
-              const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+              const contract_underlying = contract_info.underlying_symbol;
               return isAccumulatorContract(type) && contract_underlying === symbol && !contract_info.is_sold;
           })
         : undefined;
@@ -145,7 +143,7 @@ const Purchase = observer(({ is_market_closed }: { is_market_closed?: boolean })
                     onClick={onClickSellButton}
                     contract_info={active_accu_contract?.contract_info}
                     is_sell_requested={active_accu_contract?.is_sell_requested}
-                    current_stake={indicative}
+                    current_stake={Number(indicative)}
                     currency={currency}
                     key={type}
                 />

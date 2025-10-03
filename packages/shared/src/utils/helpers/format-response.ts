@@ -1,16 +1,18 @@
-import { ProfitTable, Statement } from '@deriv/api-types';
+import { TProfitTableResponse, TStatementResponse } from '@deriv/api';
+
 import { getContractTypeFeatureFlag } from '../constants';
-import { getSymbolDisplayName, TActiveSymbols } from './active-symbols';
-import { getMarketInformation } from './market-underlying';
 import { TContractInfo } from '../contract';
-import { LocalStore } from '../storage';
 import { extractInfoFromShortcode, isHighLow } from '../shortcode';
+import { LocalStore } from '../storage';
+
+import { getSymbolDisplayName } from './active-symbols';
+import { getMarketInformation } from './market-underlying';
 
 export const filterDisabledPositions = (
     position:
         | TContractInfo
-        | NonNullable<Statement['transactions']>[number]
-        | NonNullable<ProfitTable['transactions']>[number]
+        | NonNullable<NonNullable<TStatementResponse['statement']>['transactions']>[number]
+        | NonNullable<NonNullable<TProfitTableResponse['profit_table']>['transactions']>[number]
 ) => {
     const { contract_type, shortcode } = position as TContractInfo;
     const type = contract_type ?? extractInfoFromShortcode(shortcode ?? '').category?.toUpperCase() ?? '';
@@ -19,17 +21,10 @@ export const filterDisabledPositions = (
     );
 };
 
-export const formatPortfolioPosition = (
-    portfolio_pos: TContractInfo,
-    active_symbols: TActiveSymbols = [],
-    indicative?: number
-) => {
+export const formatPortfolioPosition = (portfolio_pos: TContractInfo, indicative?: number) => {
     const purchase = portfolio_pos.buy_price;
     const payout = portfolio_pos.payout;
-    const display_name = getSymbolDisplayName(
-        active_symbols,
-        getMarketInformation(portfolio_pos.shortcode || '').underlying
-    );
+    const display_name = getSymbolDisplayName(getMarketInformation(portfolio_pos.shortcode || '').underlying);
     const transaction_id =
         portfolio_pos.transaction_id || (portfolio_pos.transaction_ids && portfolio_pos.transaction_ids.buy);
 

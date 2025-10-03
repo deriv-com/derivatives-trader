@@ -5,12 +5,9 @@ import clsx from 'clsx';
 
 import { IconTradeTypes, Money, RemainingTime } from '@deriv/components';
 import {
-    formatDate,
-    formatTime,
     getCardLabels,
     getCurrentTick,
     getMarketName,
-    getStartTime,
     getTradeTypeName,
     isCryptoContract,
     isEnded,
@@ -18,7 +15,6 @@ import {
     isValidToCancel,
     isValidToSell,
     TContractInfo,
-    toMoment,
 } from '@deriv/shared';
 import { isHigherLowerContractInfo } from '@deriv/shared/src/utils/helpers/market-underlying';
 import { CaptionText, Tag, Text } from '@deriv-com/quill-ui';
@@ -68,7 +64,7 @@ const ContractCard = ({
     const [isClosing, setIsClosing] = React.useState(false);
     const [isCanceling, setIsCanceling] = React.useState(false);
     const [shouldShowButtons, setShouldShowButtons] = React.useState(false);
-    const { buy_price, contract_type, display_name, purchase_time, sell_time, shortcode, limit_order } =
+    const { buy_price, contract_type, purchase_time, sell_time, shortcode, limit_order } =
         contractInfo as TContractInfo;
     const { take_profit, stop_loss } = limit_order ?? { take_profit: {}, stop_loss: {} };
     const is_higher_lower = isHigherLowerContractInfo({
@@ -84,9 +80,9 @@ const ContractCard = ({
     const tradeTypeName = `${contract_main_title} ${getTradeTypeName(contract_type ?? '', {
         isHighLow: is_higher_lower,
     })}`.trim();
-    const symbol = (contractInfo as any).underlying_symbol || (contractInfo as any).symbol;
-    const symbolName = symbol ? getMarketName(symbol) : display_name;
-    const is_crypto = isCryptoContract((contractInfo as TContractInfo).underlying);
+    const symbol = contractInfo.underlying_symbol || '';
+    const symbolName = getMarketName(symbol);
+    const is_crypto = isCryptoContract((contractInfo as TContractInfo).underlying_symbol);
     const isMultiplier = isMultiplierContract(contract_type);
     const isSold = !!sell_time || isEnded(contractInfo as TContractInfo);
     const totalProfit = getProfit(contractInfo);

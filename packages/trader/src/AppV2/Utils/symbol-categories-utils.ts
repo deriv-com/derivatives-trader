@@ -1,7 +1,8 @@
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { localize } from '@deriv-com/translations';
-
 import sortSymbols from './sort-symbols-utils';
+
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
 
 // Helper function to get market display name
 const getMarketDisplayName = (market: string) => {

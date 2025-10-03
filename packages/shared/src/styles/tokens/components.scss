@@ -59,7 +59,7 @@
         --color-nav-item-hover: var(--color-interactive-hover);
 
         // Modal/Dialog Colors
-        --color-modal-bg: var(--color-surface-overlay);
+        --color-modal-bg: var(--color-surface-primary);
         --color-modal-backdrop: #{transparentize($color-black, 0.72)};
         --color-modal-border: var(--color-interactive-default);
 
@@ -153,7 +153,7 @@
         --color-nav-item-hover: var(--color-interactive-hover);
 
         // Modal/Dialog Colors
-        --color-modal-bg: var(--color-surface-overlay);
+        --color-modal-bg: var(--color-surface-primary);
         --color-modal-backdrop: #{transparentize($color-black, 0.4)};
         --color-modal-border: var(--color-interactive-default);
 

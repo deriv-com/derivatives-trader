@@ -1,9 +1,14 @@
-import { ContractUpdate, ContractUpdateHistory, Portfolio1, ProposalOpenContract } from '@deriv/api-types';
+import {
+    TPortfolioResponse,
+    TPriceProposalOpenContractsResponse,
+    TUpdateContractHistoryResponse,
+    TUpdateContractResponse,
+} from '@deriv/api';
 
 export type TContractStore = {
     clearContractUpdateConfigValues: () => void;
     contract_info: TContractInfo;
-    contract_update_history: ContractUpdateHistory;
+    contract_update_history: TUpdateContractHistoryResponse['contract_update_history'];
     contract_update_take_profit: number | string;
     contract_update_stop_loss: number | string;
     digits_info: TDigitsInfo;
@@ -17,14 +22,12 @@ export type TContractStore = {
     validation_errors: { contract_update_stop_loss: string[]; contract_update_take_profit: string[] };
 };
 
-export type TContractInfo = ProposalOpenContract &
-    Portfolio1 & {
-        contract_update?: ContractUpdate;
-        // Additional properties that exist in runtime API but are missing from outdated API types
-        entry_spot_time?: number;
-        exit_spot_time?: number;
-        exit_spot?: number | string;
-        underlying_symbol?: string;
+export type TContractInfo = NonNullable<TPriceProposalOpenContractsResponse['proposal_open_contract']> &
+    Omit<NonNullable<NonNullable<TPortfolioResponse['portfolio']>['contracts']>[0], 'buy_price' | 'payout'> & {
+        contract_update?: TUpdateContractResponse['contract_update'];
+        // Override conflicting properties to use the Proposal contract types
+        buy_price?: NonNullable<TPriceProposalOpenContractsResponse['proposal_open_contract']>['buy_price'];
+        payout?: NonNullable<TPriceProposalOpenContractsResponse['proposal_open_contract']>['payout'];
     };
 
 export type TTickItem = {

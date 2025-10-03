@@ -24,22 +24,22 @@ describe('<PopulateHeader />', () => {
                     all_positions: [
                         {
                             contract_info: {
-                                underlying: 'test symbol',
+                                underlying_symbol: 'test symbol',
                                 contract_type: CONTRACT_TYPES.ACCUMULATOR,
-                                entry_spot: 9454.1,
+                                entry_spot: '9454.1',
                                 contract_id: 1,
                                 shortcode: 'test',
-                                profit: 100,
+                                profit: '100',
                             },
                         },
                         {
                             contract_info: {
-                                underlying: 'test symbol',
+                                underlying_symbol: 'test symbol',
                                 contract_type: CONTRACT_TYPES.ACCUMULATOR,
-                                entry_spot: 9467.78,
+                                entry_spot: '9467.78',
                                 contract_id: 2,
                                 shortcode: 'test',
-                                profit: 120,
+                                profit: '120',
                             },
                         },
                     ],

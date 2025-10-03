@@ -32,8 +32,8 @@ const MultiplierOptions = observer(({ toggleModal }: TMultiplierOptions) => {
             ) {
                 setCommission(proposal.commission);
                 proposal.limit_order?.stop_out && setStopOut(proposal.limit_order.stop_out?.order_amount);
-            } else if (subscription?.id) {
-                WS.forget(subscription.id);
+            } else if ((subscription as { id: string })?.id) {
+                WS.forget((subscription as { id: string }).id);
             }
         };
         const dispose = requestPreviewProposal(trade_store, onProposalResponse, { amount });

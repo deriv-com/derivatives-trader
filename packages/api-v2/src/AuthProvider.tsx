@@ -1,10 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-
 import { getAccountsFromLocalStorage, getActiveLoginIDFromLocalStorage, getToken } from '@deriv/utils';
 import { AppIDConstants } from '@deriv-com/utils';
-
 import { TSocketRequestPayload, TSocketResponseData, TSocketSubscribableEndpointNames } from '../types';
-
 import { useAPIContext } from './APIProvider';
 import { API_ERROR_CODES } from './constants';
 import useAPI from './useAPI';
@@ -151,15 +148,10 @@ const AuthProvider = ({ loginIDKey, children, cookieTimeout, selectDefaultAccoun
 
             setLoginid(activeLoginID);
 
-            const accountList = authorizeResponse.authorize?.account_list;
-            if (!accountList) return;
-
-            const activeAccount = accountList.find(acc => acc.loginid === activeLoginID);
-            if (!activeAccount) return;
-
             localStorage.setItem(loginIDKey ?? 'active_loginid', activeLoginID);
             sessionStorage.setItem(loginIDKey ?? 'active_loginid', activeLoginID);
-            const isDemo = activeAccount.is_virtual;
+
+            const isDemo = authorizeResponse.authorize?.is_virtual === 1;
             const shouldCreateNewWSConnection =
                 (isDemo && wsClient?.endpoint === AppIDConstants.environments.real) ||
                 (!isDemo && wsClient?.endpoint === AppIDConstants.environments.demo);

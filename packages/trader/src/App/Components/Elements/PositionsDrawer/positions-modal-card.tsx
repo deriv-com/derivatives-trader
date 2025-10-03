@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { ArrowIndicator, ContractCard, CurrencyBadge, Money, ProgressSliderMobile, Text } from '@deriv/components';
 import {
     addComma,
@@ -18,11 +17,8 @@ import {
     isVanillaContract,
 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-
 import { PositionsCardLoader } from 'App/Components/Elements/ContentLoader';
 import { BinaryLink } from 'App/Components/Routes';
-import { useTraderStore } from 'Stores/useTraderStores';
-
 import PositionsResultMobile from './positions-result-mobile';
 
 type TPortfolioStore = ReturnType<typeof useStore>['portfolio'];
@@ -62,7 +58,6 @@ const PositionsModalCard = observer(
         togglePositions,
     }: TPositionsModalCard) => {
         const { ui, common, contract_trade } = useStore();
-        const { active_symbols } = useTraderStore();
         const { server_time } = common;
         const { getContractById } = contract_trade;
         const {
@@ -86,19 +81,16 @@ const PositionsModalCard = observer(
             contract_type,
             date_expiry,
             date_start,
-            entry_spot_display_value,
             entry_spot,
             is_sold,
             profit,
             sell_price,
             shortcode,
             tick_count,
-            // @ts-expect-error TContractInfo has an invalid type, this will be fixed in a future update
             underlying_symbol,
         } = contract_info;
 
-        // Backward compatibility: fallback to old field name
-        const actual_entry_spot = entry_spot ?? entry_spot_display_value;
+        const actual_entry_spot = entry_spot;
         const { STAKE, CONTRACT_VALUE, ENTRY_SPOT, STRIKE, TOTAL_PROFIT_LOSS } = getCardLabels();
         const is_multiplier = isMultiplierContract(contract_type);
         const is_accumulator = isAccumulatorContract(contract_type);
@@ -109,7 +101,7 @@ const PositionsModalCard = observer(
         const has_ended = !!getEndTime(contract_info);
         const fallback_result = profit_loss >= 0 ? 'won' : 'lost';
 
-        const display_name = getSymbolDisplayName(active_symbols, getMarketInformation(shortcode || '').underlying);
+        const display_name = getSymbolDisplayName(getMarketInformation(shortcode || '').underlying);
 
         const contract_vanilla_el = (
             <React.Fragment>
@@ -120,7 +112,7 @@ const PositionsModalCard = observer(
                     getContractTypeDisplay={getContractTypeDisplay}
                     has_progress_slider={!is_mobile && has_progress_slider}
                     is_mobile={is_mobile}
-                    is_sell_requested={is_sell_requested}
+                    is_sell_requested={!!is_sell_requested}
                     onClickSell={onClickSell}
                     server_time={server_time as moment.Moment}
                 />
@@ -205,7 +197,7 @@ const PositionsModalCard = observer(
                     contract_info={contract_info}
                     getCardLabels={getCardLabels}
                     is_multiplier={is_multiplier}
-                    is_sell_requested={is_sell_requested}
+                    is_sell_requested={!!is_sell_requested}
                     onClickCancel={onClickCancel}
                     onClickSell={onClickSell}
                     server_time={server_time as moment.Moment}
@@ -221,7 +213,7 @@ const PositionsModalCard = observer(
                 getContractTypeDisplay={getContractTypeDisplay}
                 has_progress_slider={(!is_mobile && has_progress_slider) || is_accumulator}
                 is_mobile={is_mobile}
-                is_sell_requested={is_sell_requested}
+                is_sell_requested={!!is_sell_requested}
                 onClickSell={onClickSell}
                 server_time={server_time as moment.Moment}
             />
@@ -256,7 +248,7 @@ const PositionsModalCard = observer(
                 contract_info={contract_info}
                 getCardLabels={getCardLabels}
                 is_multiplier={is_multiplier}
-                is_sell_requested={is_sell_requested}
+                is_sell_requested={!!is_sell_requested}
                 onClickCancel={onClickCancel}
                 onClickSell={onClickSell}
                 server_time={server_time as moment.Moment}
