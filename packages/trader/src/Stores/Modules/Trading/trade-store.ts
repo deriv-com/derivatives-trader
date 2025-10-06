@@ -1365,6 +1365,21 @@ export default class TradeStore extends BaseStore {
      * @return {Object} returns the object having only those values that are updated
      */
     updateStore(new_state: Partial<TradeStore>) {
+        // Protective logic: Prevent clearing barriers for markets that need them
+        if (new_state.barrier_1 === '' && this.barrier_1 && this.barrier_1 !== '') {
+            // Check if current symbol/contract requires barriers
+            const requiresBarriers =
+                this.symbol &&
+                this.active_symbols &&
+                !isDigitTradeType(this.contract_type) &&
+                !isAccumulatorContract(this.contract_type);
+
+            if (requiresBarriers) {
+                // Don't clear the barrier - remove it from new_state
+                delete new_state.barrier_1;
+            }
+        }
+
         Object.keys(cloneObject(new_state) || {}).forEach(key => {
             if (key === 'root_store' || ['validation_rules', 'validation_errors', 'currency'].indexOf(key) > -1) return;
             if (JSON.stringify(this[key as keyof this]) === JSON.stringify(new_state[key as keyof TradeStore])) {
@@ -1525,6 +1540,7 @@ export default class TradeStore extends BaseStore {
             // To prevent infinite loop when changing from advanced end_time to digit type contract
             if (obj_new_values.contract_type && this.root_store.ui.is_advanced_duration) {
                 if (isDigitTradeType(obj_new_values.contract_type)) {
+                    // Only clear barriers for digit contracts - they don't use barriers
                     this.barrier_1 = '';
                     this.barrier_2 = '';
                     this.expiry_type = 'duration';
@@ -2444,9 +2460,6 @@ export default class TradeStore extends BaseStore {
             } catch (error) {
                 // Ignore localStorage errors
             }
-
-            // Clear v2_params_initial_values to reset the UI
-            this.clearV2ParamsInitialValues();
 
             // Reset UI store duration units when switching markets
             if (duration_support_changed) {

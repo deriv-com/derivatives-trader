@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
 import { Text } from '@deriv/components';
 import { LegacyReportsIcon } from '@deriv/quill-icons';
 import { routes } from '@deriv/shared';
@@ -40,14 +38,14 @@ const ReportTab = () => {
 };
 
 const MenuLinks = observer(({ is_traders_hub_routes = false }) => {
-    const { i18n } = useTranslation();
+    const { currentLang } = useTranslations();
     const { client } = useStore();
     const { is_logged_in } = client;
 
     if (!is_logged_in) return <></>;
 
     return (
-        <div key={`menu-links__${i18n.language}`} className='header__menu-links'>
+        <div key={`menu-links__${currentLang}`} className='header__menu-links'>
             {!is_traders_hub_routes && <ReportTab />}
         </div>
     );
