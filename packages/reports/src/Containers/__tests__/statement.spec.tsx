@@ -279,7 +279,7 @@ describe('Statement', () => {
         });
         rerender(mockedStatement());
         expect(Analytics.trackEvent).toHaveBeenCalledWith(
-            'ce_reports_form',
+            'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'filter_transaction_type',
                 form_name: 'default',
@@ -300,7 +300,7 @@ describe('Statement', () => {
         });
         rerender(mockedStatement());
         expect(Analytics.trackEvent).toHaveBeenCalledWith(
-            'ce_reports_form',
+            'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'filter_dates',
                 form_name: 'default',

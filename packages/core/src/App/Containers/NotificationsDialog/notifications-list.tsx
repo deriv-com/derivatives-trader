@@ -52,10 +52,11 @@ const NotificationsList = observer(() => {
     };
 
     const onActionTrackEvent = (key: string) => {
-        Analytics.trackEvent('ce_notification_form', {
+        Analytics.trackEvent('ce_notification_form_v2', {
             action: 'click_cta',
-            form_name: 'ce_notification_form',
-            notification_key: key,
+            account_type: 'real',
+            device_type: 'desktop',
+            platform: 'DTrader',
         });
     };
     const filtered_notifications = notifications_array.filter(item => !item.only_toast_message);

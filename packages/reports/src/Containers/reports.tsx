@@ -40,21 +40,13 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     }, []); // Only run on mount
 
     React.useEffect(() => {
-        Analytics.trackEvent('ce_reports_form', {
+        Analytics.trackEvent('ce_reports_form_v2', {
             action: 'open',
-            form_name: 'default',
-            subform_name: history.location.pathname.split('/')[2],
-            form_source: 'deriv_trader',
+                account_type: 'real',
+                device_type: 'desktop',
+                platform: 'DTrader',
         });
         toggleReports(true);
-        return () => {
-            toggleReports(false);
-            Analytics.trackEvent('ce_reports_form', {
-                action: 'close',
-                form_name: 'default',
-                subform_name: location.pathname.split('/')[2],
-            });
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

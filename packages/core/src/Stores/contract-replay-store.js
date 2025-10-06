@@ -271,10 +271,11 @@ export default class ContractReplayStore extends BaseStore {
                 contractSold(this.root_store.client.currency, response.sell.sold_for, Money)
             );
 
-            Analytics.trackEvent('ce_reports_form', {
+            Analytics.trackEvent('ce_reports_form_v2', {
                 action: 'close_contract',
-                form_name: 'default',
-                subform_name: 'contract_details_form',
+                account_type: 'real',
+                device_type: 'desktop',
+                platform: 'DTrader',
             });
         }
     }

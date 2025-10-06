@@ -78,11 +78,11 @@ const ContractTypeWidget = observer(
         }, [handleClickOutside]);
 
         React.useEffect(() => {
-            if (typeof is_dialog_open === 'boolean') {
-                Analytics.trackEvent('ce_trade_types_form', {
-                    action: is_dialog_open ? 'open' : 'close',
-                    form_source: 'contract_set_up_form',
-                    form_name: 'default',
+            if (typeof is_dialog_open === 'boolean' && is_dialog_open) {
+                Analytics.trackEvent('ce_trade_types_form_v2', {
+                    action: 'open',
+                    account_type: 'real',
+                    device_type: 'desktop',
                 });
             }
         }, [is_dialog_open]);
@@ -122,23 +122,12 @@ const ContractTypeWidget = observer(
                 onChange({ target: { name, value: clicked_item.value } });
 
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                if ((window as any).hj) (window as any).hj('event', `selected_${clicked_item.value}_contract_type`);
-                if (subform_name === 'trade_type') {
-                    Analytics.trackEvent('ce_trade_types_form', {
-                        action: 'choose_trade_type',
-                        subform_name,
-                        tab_name: selected_category,
-                        trade_type_name: getCategoryName(clicked_item),
-                        form_name: 'default',
-                    });
-                } else {
-                    Analytics.trackEvent('ce_trade_types_form', {
-                        action: 'choose_trade_type',
-                        subform_name,
-                        trade_type_name: getCategoryName(clicked_item),
-                        form_name: 'default',
-                    });
-                }
+                Analytics.trackEvent('ce_trade_types_form_v2', {
+                    action: 'choose_trade_type',
+                    account_type: 'real',
+                    device_type: 'desktop',
+                    trade_type_name: getCategoryName(clicked_item),
+                });
             }
         };
 
@@ -146,19 +135,20 @@ const ContractTypeWidget = observer(
             setInfoDialogVisibility(!is_info_dialog_open);
             setItem(clicked_item);
 
-            Analytics.trackEvent('ce_trade_types_form', {
+            Analytics.trackEvent('ce_trade_types_form_v2', {
                 action: 'info_open',
-                tab_name: selected_category,
+                account_type: 'real',
+                device_type: 'desktop',
                 trade_type_name: getCategoryName(clicked_item),
             });
         };
 
         const onSearchBlur = () => {
             if (search_query) {
-                Analytics.trackEvent('ce_trade_types_form', {
-                    action: 'search',
-                    search_string: search_query,
-                });
+                // Analytics.trackEvent('ce_trade_types_form_v2', {
+                //     action: 'search',
+                //     search_string: search_query,
+                // });
             }
         };
 
@@ -182,9 +172,10 @@ const ContractTypeWidget = observer(
             setDialogVisibility(true);
             setInfoDialogVisibility(true);
             setItem(item || { value });
-            Analytics.trackEvent('ce_trade_types_form', {
+            Analytics.trackEvent('ce_trade_types_form_v2', {
                 action: 'info_open',
-                tab_name: selected_category,
+                account_type: 'real',
+                device_type: 'desktop',
                 trade_type_name: getCategoryName(item || { value }),
             });
             setHideBackButton(true);

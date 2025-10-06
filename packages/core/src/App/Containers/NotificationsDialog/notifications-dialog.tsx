@@ -35,10 +35,11 @@ const NotificationsDialog = observer(() => {
     };
 
     const clearNotifications = () => {
-        Analytics.trackEvent('ce_notification_form', {
+        Analytics.trackEvent('ce_notification_form_v2', {
             action: 'clear_all',
-            form_name: 'ce_notification_form',
-            notification_num: notifications_array.length,
+            account_type: 'real',
+            device_type: 'desktop',
+            platform: 'DTrader',
         });
 
         notifications_array.forEach(({ key, should_show_again }) => {

@@ -79,18 +79,11 @@ const Info = observer(({ handleSelect, item, selected_value, list, info_banner }
     const should_show_dropdown = Number(contract_types?.length) > 1;
 
     React.useEffect(() => {
-        return () => {
-            Analytics.trackEvent('ce_trade_types_form', {
-                action: 'info_close',
-            });
-        };
-    }, []);
-
-    React.useEffect(() => {
         if (has_toggle_buttons) {
-            Analytics.trackEvent('ce_trade_types_form', {
+            Analytics.trackEvent('ce_trade_types_form_v2', {
                 action: 'info_switcher',
-                info_switcher_mode: selected_tab,
+                account_type: 'real',
+                device_type: 'desktop',
                 trade_type_name: contract_types?.find(item => item.value === selected_contract_type)?.text,
             });
         }

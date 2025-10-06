@@ -417,10 +417,11 @@ export default class PortfolioStore extends BaseStore {
                 );
             }
 
-            Analytics.trackEvent('ce_reports_form', {
+            Analytics.trackEvent('ce_reports_form_v2', {
                 action: 'close_contract',
-                form_name: 'default',
-                subform_name: 'open_positions_form',
+                account_type: 'real',
+                device_type: 'desktop',
+                platform: 'DTrader',
             });
         }
     }

@@ -169,10 +169,11 @@ const ContractDetails = ({
     };
 
     React.useEffect(() => {
-        Analytics.trackEvent('ce_reports_form', {
+        Analytics.trackEvent('ce_reports_form_v2', {
             action: 'open_contract_details',
-            form_name: 'default',
-            form_source: 'deriv_trader',
+            account_type: 'real',
+            device_type: 'desktop',
+            platform: 'DTrader',
         });
     }, []);
 

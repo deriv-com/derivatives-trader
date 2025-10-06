@@ -2,12 +2,12 @@ import type { TEvents } from '@deriv-com/analytics';
 
 export type TPayload = {
     data: Omit<
-        Partial<TEvents['ce_chart_types_form'] & TEvents['ce_market_types_form'] & TEvents['ce_indicators_types_form']>,
+        Partial<TEvents['ce_chart_types_form_v2'] & TEvents['ce_market_types_form_v2'] & TEvents['ce_indicators_types_form']>,
         'action'
     > & {
         action: string;
     };
-    event_type: 'ce_chart_types_form' | 'ce_market_types_form' | 'ce_indicators_types_form';
+    event_type: 'ce_chart_types_form_v2' | 'ce_market_types_form_v2' | 'ce_indicators_types_form';
 };
 
 type TStateChangeOption = {
@@ -69,7 +69,7 @@ export const SUBFORM_NAME = {
 
 const getChartTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, option: TStateChangeOption = {}) => {
     const { chart_type_name = '', time_interval_name } = option;
-    const chart_event_type = 'ce_chart_types_form';
+    const chart_event_type = 'ce_chart_types_form_v2';
     const payload: TPayload = {
         data: {
             action: '',
@@ -165,7 +165,7 @@ const getIndicatorTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, opti
 
 const getMarketTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, option: TStateChangeOption = {}) => {
     const { is_favorite, symbol_category: tab_market_name = '', search_string, symbol: market_type_name = '' } = option;
-    const market_event_type = 'ce_market_types_form';
+    const market_event_type = 'ce_market_types_form_v2';
     const favorites_action = is_favorite ? ACTION.ADD_TO_FAVORITES : ACTION.DELETE_FROM_FAVORITES;
     const payload = {
         event_type: market_event_type,

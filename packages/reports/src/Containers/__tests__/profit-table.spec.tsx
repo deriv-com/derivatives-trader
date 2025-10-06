@@ -272,7 +272,7 @@ describe('Profit Table', () => {
         });
         renderProfitTable();
         expect(Analytics.trackEvent).toHaveBeenCalledWith(
-            'ce_reports_form',
+            'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'choose_report_type',
                 start_date_filter: formatDate('31/01/2024', 'DD/MM/YYYY', false),

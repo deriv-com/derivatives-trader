@@ -167,12 +167,12 @@ describe('Reports', () => {
         );
 
         expect(Analytics.trackEvent).toHaveBeenCalledWith(
-            'ce_reports_form',
+            'ce_reports_form_v2',
             expect.objectContaining({ action: 'open' })
         );
         unmount();
         expect(Analytics.trackEvent).toHaveBeenCalledWith(
-            'ce_reports_form',
+            'ce_reports_form_v2',
             expect.objectContaining({ action: 'close' })
         );
     });

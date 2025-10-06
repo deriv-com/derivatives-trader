@@ -464,11 +464,14 @@ export default class NotificationStore extends BaseStore {
     }
 
     toggleNotificationsModal() {
-        Analytics.trackEvent('ce_notification_form', {
-            action: this.is_notifications_visible ? 'close' : 'open',
-            form_name: 'ce_notification_form',
-            notification_num: this.notifications.length,
-        });
+        if (!this.is_notifications_visible) {
+            Analytics.trackEvent('ce_notification_form_v2', {
+                action: 'open',
+                account_type: 'real',
+                device_type: 'desktop',
+                platform: 'DTrader',
+            });
+        }
 
         this.is_notifications_visible = !this.is_notifications_visible;
     }
