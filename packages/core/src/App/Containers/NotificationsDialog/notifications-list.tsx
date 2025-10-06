@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Button, Text } from '@deriv/components';
-import { isEmptyObject, toTitleCase } from '@deriv/shared';
+import { isEmptyObject, toTitleCase, getAnalyticsData } from '@deriv/shared';
 import { icon_types } from 'App/Components/Elements/NotificationMessage/constants';
 import { observer, useStore } from '@deriv/stores';
 import { Analytics } from '@deriv-com/analytics';
@@ -13,7 +13,7 @@ type TActionProps = ReturnType<typeof useStore>['notifications']['notifications'
 type TNotificationMessage = ReturnType<typeof useStore>['notifications']['notifications'][0];
 
 const NotificationsList = observer(() => {
-    const { notifications } = useStore();
+    const { notifications, client } = useStore();
     const { notifications: notifications_array, toggleNotificationsModal } = notifications;
     const history = useHistory();
 
@@ -52,10 +52,12 @@ const NotificationsList = observer(() => {
     };
 
     const onActionTrackEvent = (key: string) => {
+        const analyticsData = getAnalyticsData(client);
+
         Analytics.trackEvent('ce_notification_form_v2', {
             action: 'click_cta',
-            account_type: 'real',
-            device_type: 'desktop',
+            account_type: analyticsData.account_type,
+            device_type: analyticsData.device_type,
             platform: 'DTrader',
         });
     };

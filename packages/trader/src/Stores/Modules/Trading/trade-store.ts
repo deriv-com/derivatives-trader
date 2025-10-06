@@ -1271,7 +1271,12 @@ export default class TradeStore extends BaseStore {
                             // draw the start time line and show longcode then mount contract
                             // this.root_store.modules.contract_trade.drawContractStartTime(start_time, longcode, contract_id);
                             if (!is_dtrader_v2) {
-                                sendDtraderPurchaseToAnalytics(contract_type, this.symbol, contract_id);
+                                sendDtraderPurchaseToAnalytics(
+                                    contract_type,
+                                    this.symbol,
+                                    contract_id,
+                                    this.root_store.client
+                                );
                             }
 
                             if (!isMobile) {

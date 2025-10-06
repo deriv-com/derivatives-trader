@@ -1,4 +1,4 @@
-import { cacheTrackEvents } from '@deriv/shared';
+import { cacheTrackEvents, getAnalyticsData } from '@deriv/shared';
 import { Analytics } from '@deriv-com/analytics';
 import contract from 'Modules/Contract/Containers/contract';
 
@@ -83,18 +83,25 @@ export const sendDtraderV2PurchaseToAnalytics = (trade_name: string, market_name
     ]);
 };
 
-export const sendDtraderPurchaseToAnalytics = (trade_name: string, market_name: string, contract_id: number) => {
+export const sendDtraderPurchaseToAnalytics = (
+    trade_name: string,
+    market_name: string,
+    contract_id: number,
+    client?: { is_logged_in: boolean; is_virtual: boolean }
+) => {
+    const analyticsData = getAnalyticsData(client);
+
     cacheTrackEvents.loadEvent([
         {
             event: {
                 name: 'ce_contracts_set_up_form_v2',
                 properties: {
                     action: 'run_contract',
-                    trade_type_name,
-                    market_type_name,
+                    trade_type_name: trade_name,
+                    market_type_name: market_name,
                     contract_id,
-                    account_type: 'real',
-                    device_type: 'desktop',
+                    account_type: analyticsData.account_type,
+                    device_type: analyticsData.device_type,
                     contract_type: '',
                 },
             },

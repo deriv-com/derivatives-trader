@@ -10,6 +10,7 @@ import {
     filterDisabledPositions,
     formatMoney,
     formatPortfolioPosition,
+    getAnalyticsData,
     getContractPath,
     getCurrentTick,
     getDisplayStatus,
@@ -417,10 +418,12 @@ export default class PortfolioStore extends BaseStore {
                 );
             }
 
+            const analyticsData = getAnalyticsData(this.root_store.client);
+
             Analytics.trackEvent('ce_reports_form_v2', {
                 action: 'close_contract',
-                account_type: 'real',
-                device_type: 'desktop',
+                account_type: analyticsData.account_type,
+                device_type: analyticsData.device_type,
                 platform: 'DTrader',
             });
         }

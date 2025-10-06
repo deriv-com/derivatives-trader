@@ -16,6 +16,7 @@ import {
     unique,
     getPlatformName,
     getBrandUrl,
+    getAnalyticsData,
 } from '@deriv/shared';
 import { Localize, localize } from '@deriv-com/translations';
 import { Analytics } from '@deriv-com/analytics';
@@ -465,10 +466,12 @@ export default class NotificationStore extends BaseStore {
 
     toggleNotificationsModal() {
         if (!this.is_notifications_visible) {
+            const analyticsData = getAnalyticsData(this.root_store.client);
+
             Analytics.trackEvent('ce_notification_form_v2', {
                 action: 'open',
-                account_type: 'real',
-                device_type: 'desktop',
+                account_type: analyticsData.account_type,
+                device_type: analyticsData.device_type,
                 platform: 'DTrader',
             });
         }

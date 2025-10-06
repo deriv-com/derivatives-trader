@@ -1,6 +1,7 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { MobileDialog, useOnClickOutside } from '@deriv/components';
+import { getAnalyticsData } from '@deriv/shared';
 import { Analytics } from '@deriv-com/analytics';
 import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
@@ -8,7 +9,7 @@ import { useDevice } from '@deriv-com/ui';
 import NotificationListWrapper from './notification-list-wrapper';
 
 const NotificationsDialog = observer(() => {
-    const { notifications } = useStore();
+    const { notifications, client } = useStore();
     const {
         is_notifications_visible,
         notifications: notifications_array,
@@ -35,10 +36,12 @@ const NotificationsDialog = observer(() => {
     };
 
     const clearNotifications = () => {
+        const analyticsData = getAnalyticsData(client);
+
         Analytics.trackEvent('ce_notification_form_v2', {
             action: 'clear_all',
-            account_type: 'real',
-            device_type: 'desktop',
+            account_type: analyticsData.account_type,
+            device_type: analyticsData.device_type,
             platform: 'DTrader',
         });
 

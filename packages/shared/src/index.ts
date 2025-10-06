@@ -29,3 +29,4 @@ export * from './utils/url';
 export * from './utils/validation';
 export * from './utils/validator';
 export { default as cacheTrackEvents } from './utils/analytics/analytics';
+export * from './utils/analytics/analytics-utils';

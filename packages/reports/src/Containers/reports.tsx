@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { Div100vhContainer, FadeWrapper, Loading, PageOverlay, SelectNative, VerticalTab } from '@deriv/components';
-import { getSelectedRoute } from '@deriv/shared';
+import { getSelectedRoute, getAnalyticsData } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Analytics } from '@deriv-com/analytics';
 import { useTranslations } from '@deriv-com/translations';
@@ -40,11 +40,13 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     }, []); // Only run on mount
 
     React.useEffect(() => {
+        const analyticsData = getAnalyticsData(client);
+
         Analytics.trackEvent('ce_reports_form_v2', {
             action: 'open',
-                account_type: 'real',
-                device_type: 'desktop',
-                platform: 'DTrader',
+            account_type: analyticsData.account_type,
+            device_type: analyticsData.device_type,
+            platform: 'DTrader',
         });
         toggleReports(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
