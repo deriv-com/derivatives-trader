@@ -1,4 +1,5 @@
 import { isMobile } from '../screen';
+import { Analytics } from '@deriv-com/analytics';
 
 type ClientStore = {
     is_logged_in: boolean;
@@ -14,12 +15,12 @@ export const getAnalyticsAccountType = (client?: ClientStore): 'Demo' | 'Real' |
     if (!client || !client.is_logged_in) {
         return 'unlogged';
     }
-
+    
     // Virtual/demo accounts
     if (client.is_virtual) {
         return 'Demo';
     }
-
+    
     // Real money accounts (logged in but not virtual)
     return 'Real';
 };
@@ -41,3 +42,25 @@ export const getAnalyticsData = (client?: ClientStore) => ({
     account_type: getAnalyticsAccountType(client),
     device_type: getAnalyticsDeviceType(),
 });
+
+/**
+ * Centralized function to track analytics events with automatic injection of common properties
+ * @param eventName - The name of the analytics event
+ * @param client - The client store object with is_logged_in and is_virtual properties
+ * @param customProperties - Custom properties specific to the event
+ * @returns void
+ */
+export const trackAnalyticsEvent = (
+    eventName: string,
+    client?: ClientStore,
+    customProperties: Record<string, any> = {}
+) => {
+    const commonData = getAnalyticsData(client);
+    
+    const eventProperties = {
+        ...commonData,
+        ...customProperties,
+    };
+    
+    Analytics.trackEvent(eventName, eventProperties);
+};

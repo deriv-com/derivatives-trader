@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Button, Text } from '@deriv/components';
-import { isEmptyObject, toTitleCase, getAnalyticsData } from '@deriv/shared';
+import { isEmptyObject, toTitleCase, trackAnalyticsEvent } from '@deriv/shared';
 import { icon_types } from 'App/Components/Elements/NotificationMessage/constants';
 import { observer, useStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import { BinaryLink } from 'App/Components/Routes';
 import { useHistory } from 'react-router-dom';
 import EmptyNotification from 'App/Components/Elements/Notifications/empty-notification';
@@ -52,12 +51,8 @@ const NotificationsList = observer(() => {
     };
 
     const onActionTrackEvent = (key: string) => {
-        const analyticsData = getAnalyticsData(client);
-
-        Analytics.trackEvent('ce_notification_form_v2', {
+        trackAnalyticsEvent('ce_notification_form_v2', client, {
             action: 'click_cta',
-            account_type: analyticsData.account_type,
-            device_type: analyticsData.device_type,
             platform: 'DTrader',
         });
     };

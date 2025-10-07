@@ -2,9 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { Div100vhContainer, FadeWrapper, Loading, PageOverlay, SelectNative, VerticalTab } from '@deriv/components';
-import { getSelectedRoute, getAnalyticsData } from '@deriv/shared';
+import { getSelectedRoute, trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
@@ -40,12 +39,8 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     }, []); // Only run on mount
 
     React.useEffect(() => {
-        const analyticsData = getAnalyticsData(client);
-
-        Analytics.trackEvent('ce_reports_form_v2', {
+        trackAnalyticsEvent('ce_reports_form_v2', client, {
             action: 'open',
-            account_type: analyticsData.account_type,
-            device_type: analyticsData.device_type,
             platform: 'DTrader',
         });
         toggleReports(true);

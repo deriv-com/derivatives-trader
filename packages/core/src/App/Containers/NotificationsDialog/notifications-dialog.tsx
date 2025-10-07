@@ -1,8 +1,7 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { MobileDialog, useOnClickOutside } from '@deriv/components';
-import { getAnalyticsData } from '@deriv/shared';
-import { Analytics } from '@deriv-com/analytics';
+import { trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
@@ -36,12 +35,8 @@ const NotificationsDialog = observer(() => {
     };
 
     const clearNotifications = () => {
-        const analyticsData = getAnalyticsData(client);
-
-        Analytics.trackEvent('ce_notification_form_v2', {
+        trackAnalyticsEvent('ce_notification_form_v2', client, {
             action: 'clear_all',
-            account_type: analyticsData.account_type,
-            device_type: analyticsData.device_type,
             platform: 'DTrader',
         });
 

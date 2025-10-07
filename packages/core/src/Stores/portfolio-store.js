@@ -10,7 +10,7 @@ import {
     filterDisabledPositions,
     formatMoney,
     formatPortfolioPosition,
-    getAnalyticsData,
+    trackAnalyticsEvent,
     getContractPath,
     getCurrentTick,
     getDisplayStatus,
@@ -31,7 +31,6 @@ import {
     TRADE_TYPES,
     WS,
 } from '@deriv/shared';
-import { Analytics } from '@deriv-com/analytics';
 import { localize } from '@deriv-com/translations';
 
 import BaseStore from './base-store';
@@ -418,12 +417,8 @@ export default class PortfolioStore extends BaseStore {
                 );
             }
 
-            const analyticsData = getAnalyticsData(this.root_store.client);
-
-            Analytics.trackEvent('ce_reports_form_v2', {
+            trackAnalyticsEvent('ce_reports_form_v2', this.root_store.client, {
                 action: 'close_contract',
-                account_type: analyticsData.account_type,
-                device_type: analyticsData.device_type,
                 platform: 'DTrader',
             });
         }
