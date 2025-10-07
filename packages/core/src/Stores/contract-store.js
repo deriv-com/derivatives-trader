@@ -1,33 +1,35 @@
-import { action, extendObservable, observable, makeObservable, runInAction } from 'mobx';
+import { action, extendObservable, makeObservable, observable, runInAction } from 'mobx';
+
 import {
+    BARRIER_COLORS,
+    BARRIER_LINE_STYLES,
     ChartBarrierStore,
+    DEFAULT_SHADES,
+    getAccuBarriersDefaultTimeout,
+    getAccuBarriersForContractDetails,
+    getContractStatus,
+    getContractUpdateConfig,
+    getContractValidationRules,
+    getDigitInfo,
+    getDisplayStatus,
+    getEndTime,
+    getLimitOrder,
     isAccumulatorContract,
+    isBarrierSupported,
     isDigitContract,
     isEnded,
     isEqualObject,
     isMultiplierContract,
+    isOpen,
     isResetContract,
     isSmartTraderContract,
-    isOpen,
     isTurbosContract,
-    getDigitInfo,
-    getDisplayStatus,
-    getLimitOrder,
-    WS,
-    getContractUpdateConfig,
-    getContractValidationRules,
-    BARRIER_LINE_STYLES,
-    DEFAULT_SHADES,
-    isBarrierSupported,
-    getAccuBarriersDefaultTimeout,
-    getAccuBarriersForContractDetails,
-    getEndTime,
-    BARRIER_COLORS,
-    getContractStatus,
     setLimitOrderBarriers,
+    WS,
 } from '@deriv/shared';
+
+import { calculateMarker, createChartMarkers, getAccumulatorMarkers } from './Helpers/chart-markers';
 import { getChartConfig } from './Helpers/logic';
-import { createChartMarkers, calculateMarker, getAccumulatorMarkers } from './Helpers/chart-markers';
 import BaseStore from './base-store';
 
 export default class ContractStore extends BaseStore {
@@ -124,7 +126,13 @@ export default class ContractStore extends BaseStore {
         // TODO: don't update the barriers & markers if they are not changed
         this.updateBarriersArray(contract_info, this.root_store.ui.is_dark_mode_on);
         this.markers_array = createChartMarkers(this.contract_info);
-        this.marker = calculateMarker(this.contract_info, this.root_store.ui.is_dark_mode_on, is_last_contract);
+        this.marker = calculateMarker(
+            this.contract_info,
+            this.root_store.ui.is_dark_mode_on,
+            is_last_contract,
+            this.root_store.ui.is_mobile,
+            this.root_store.ui.is_positions_drawer_on
+        );
         this.contract_config = getChartConfig(this.contract_info);
         this.display_status = getDisplayStatus(this.contract_info);
         this.is_ended = isEnded(this.contract_info);
