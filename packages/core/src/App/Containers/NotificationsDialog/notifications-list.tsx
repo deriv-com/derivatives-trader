@@ -51,7 +51,7 @@ const NotificationsList = observer(() => {
     };
 
     const onActionTrackEvent = (key: string) => {
-        trackAnalyticsEvent('ce_notification_form_v2', client, {
+        trackAnalyticsEvent('ce_notification_form_v2', {
             action: 'click_cta',
             platform: 'DTrader',
         });

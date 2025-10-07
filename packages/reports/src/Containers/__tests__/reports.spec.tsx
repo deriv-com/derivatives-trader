@@ -4,18 +4,12 @@ import { createMemoryHistory, History } from 'history';
 
 import { mockStore, StoreProvider } from '@deriv/stores';
 import { TStores } from '@deriv/stores/types';
-import { Analytics } from '@deriv-com/analytics';
 import { useDevice } from '@deriv-com/ui';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Reports from '../reports';
 
-jest.mock('@deriv-com/analytics', () => ({
-    Analytics: {
-        trackEvent: jest.fn(),
-    },
-}));
 
 jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(),
@@ -26,6 +20,7 @@ jest.mock('@deriv/shared', () => ({
     getSelectedRoute: jest.fn(({ routes, pathname }) => {
         return routes.find((route: { path: string }) => route.path === pathname) || routes[0];
     }),
+    trackAnalyticsEvent: jest.fn(),
 }));
 
 // Mock window.location.href for redirect tests
@@ -166,12 +161,12 @@ describe('Reports', () => {
             </StoreProvider>
         );
 
-        expect(Analytics.trackEvent).toHaveBeenCalledWith(
+        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({ action: 'open' })
         );
         unmount();
-        expect(Analytics.trackEvent).toHaveBeenCalledWith(
+        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({ action: 'close' })
         );

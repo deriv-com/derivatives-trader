@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Analytics } from '@deriv-com/analytics';
 import { MemoryRouter } from 'react-router-dom';
 import { TCoreStores } from '@deriv/stores/types';
 import { formatDate } from '@deriv/shared';
@@ -11,11 +10,6 @@ import { useReportsStore } from 'Stores/useReportsStores';
 import Statement, { getRowAction } from '../statement';
 import ReportsProviders from '../../reports-providers';
 
-jest.mock('@deriv-com/analytics', () => ({
-    Analytics: {
-        trackEvent: jest.fn(),
-    },
-}));
 
 jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(() => ({ isDesktop: true })),
@@ -78,6 +72,7 @@ jest.mock('Stores/useReportsStores', () => ({
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
+    trackAnalyticsEvent: jest.fn(),
     isMobile: jest.fn(() => false),
     WS: {
         forgetAll: jest.fn(),
@@ -278,7 +273,7 @@ describe('Statement', () => {
             },
         });
         rerender(mockedStatement());
-        expect(Analytics.trackEvent).toHaveBeenCalledWith(
+        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'filter_transaction_type',
@@ -299,7 +294,7 @@ describe('Statement', () => {
             },
         });
         rerender(mockedStatement());
-        expect(Analytics.trackEvent).toHaveBeenCalledWith(
+        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'filter_dates',

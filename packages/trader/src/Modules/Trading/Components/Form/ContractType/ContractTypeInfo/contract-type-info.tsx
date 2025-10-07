@@ -2,9 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Button, ButtonToggle, Dropdown, ThemedScrollbars } from '@deriv/components';
-import { clickAndKeyEventHandler, TRADE_TYPES } from '@deriv/shared';
+import { clickAndKeyEventHandler, TRADE_TYPES, trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import { useTranslations } from '@deriv-com/translations';
 
 import TradeCategories from 'Assets/Trading/Categories/trade-categories';
@@ -80,10 +79,8 @@ const Info = observer(({ handleSelect, item, selected_value, list, info_banner }
 
     React.useEffect(() => {
         if (has_toggle_buttons) {
-            Analytics.trackEvent('ce_trade_types_form_v2', {
+            trackAnalyticsEvent('ce_trade_types_form_v2', {
                 action: 'info_switcher',
-                account_type: 'real',
-                device_type: 'desktop',
                 trade_type_name: contract_types?.find(item => item.value === selected_contract_type)?.text,
             });
         }

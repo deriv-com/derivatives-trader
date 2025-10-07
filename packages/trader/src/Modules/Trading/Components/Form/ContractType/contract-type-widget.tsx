@@ -2,9 +2,8 @@ import React from 'react';
 
 import { InlineMessage, Text } from '@deriv/components';
 import { LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
-import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES } from '@deriv/shared';
+import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES, trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import { Localize, useTranslations } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -79,10 +78,8 @@ const ContractTypeWidget = observer(
 
         React.useEffect(() => {
             if (typeof is_dialog_open === 'boolean' && is_dialog_open) {
-                Analytics.trackEvent('ce_trade_types_form_v2', {
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
                     action: 'open',
-                    account_type: 'real',
-                    device_type: 'desktop',
                 });
             }
         }, [is_dialog_open]);
@@ -121,11 +118,8 @@ const ContractTypeWidget = observer(
 
                 onChange({ target: { name, value: clicked_item.value } });
 
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                Analytics.trackEvent('ce_trade_types_form_v2', {
-                    action: 'choose_trade_type',
-                    account_type: 'real',
-                    device_type: 'desktop',
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                    action: 'select_trade_type',
                     trade_type_name: getCategoryName(clicked_item),
                 });
             }
@@ -135,17 +129,15 @@ const ContractTypeWidget = observer(
             setInfoDialogVisibility(!is_info_dialog_open);
             setItem(clicked_item);
 
-            Analytics.trackEvent('ce_trade_types_form_v2', {
+            trackAnalyticsEvent('ce_trade_types_form_v2', {
                 action: 'info_open',
-                account_type: 'real',
-                device_type: 'desktop',
                 trade_type_name: getCategoryName(clicked_item),
             });
         };
 
         const onSearchBlur = () => {
             if (search_query) {
-                // Analytics.trackEvent('ce_trade_types_form_v2', {
+                // trackAnalyticsEvent('ce_trade_types_form_v2', {
                 //     action: 'search',
                 //     search_string: search_query,
                 // });
@@ -172,10 +164,8 @@ const ContractTypeWidget = observer(
             setDialogVisibility(true);
             setInfoDialogVisibility(true);
             setItem(item || { value });
-            Analytics.trackEvent('ce_trade_types_form_v2', {
+            trackAnalyticsEvent('ce_trade_types_form_v2', {
                 action: 'info_open',
-                account_type: 'real',
-                device_type: 'desktop',
                 trade_type_name: getCategoryName(item || { value }),
             });
             setHideBackButton(true);

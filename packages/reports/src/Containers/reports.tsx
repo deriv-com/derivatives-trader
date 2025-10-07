@@ -39,7 +39,7 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     }, []); // Only run on mount
 
     React.useEffect(() => {
-        trackAnalyticsEvent('ce_reports_form_v2', client, {
+        trackAnalyticsEvent('ce_reports_form_v2', {
             action: 'open',
             platform: 'DTrader',
         });

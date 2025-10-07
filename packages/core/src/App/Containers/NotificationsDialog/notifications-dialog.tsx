@@ -35,7 +35,7 @@ const NotificationsDialog = observer(() => {
     };
 
     const clearNotifications = () => {
-        trackAnalyticsEvent('ce_notification_form_v2', client, {
+        trackAnalyticsEvent('ce_notification_form_v2', {
             action: 'clear_all',
             platform: 'DTrader',
         });

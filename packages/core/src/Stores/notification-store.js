@@ -465,7 +465,7 @@ export default class NotificationStore extends BaseStore {
 
     toggleNotificationsModal() {
         if (!this.is_notifications_visible) {
-            trackAnalyticsEvent('ce_notification_form_v2', this.root_store.client, {
+            trackAnalyticsEvent('ce_notification_form_v2', {
                 action: 'open',
                 platform: 'DTrader',
             });

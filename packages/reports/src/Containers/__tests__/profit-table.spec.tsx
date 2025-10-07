@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ProfitTable, { getRowAction } from '../profit-table';
 import { mockStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import ReportsProviders from '../../reports-providers';
 import { useReportsStore } from 'Stores/useReportsStores';
 import { extractInfoFromShortcode, formatDate, getUnsupportedContracts } from '@deriv/shared';
@@ -52,11 +51,6 @@ const mockData = [
     },
 ];
 
-jest.mock('@deriv-com/analytics', () => ({
-    Analytics: {
-        trackEvent: jest.fn(),
-    },
-}));
 
 jest.mock('Stores/useReportsStores', () => ({
     ...jest.requireActual('Stores/useReportsStores'),
@@ -103,6 +97,7 @@ jest.mock('@deriv/components', () => ({
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
+    trackAnalyticsEvent: jest.fn(),
     WS: {
         forgetAll: jest.fn(),
         wait: jest.fn(),
@@ -271,7 +266,7 @@ describe('Profit Table', () => {
             },
         });
         renderProfitTable();
-        expect(Analytics.trackEvent).toHaveBeenCalledWith(
+        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'choose_report_type',
