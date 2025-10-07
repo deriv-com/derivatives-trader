@@ -77,12 +77,13 @@ const ContractTypeWidget = observer(
         }, [handleClickOutside]);
 
         React.useEffect(() => {
-            if (typeof is_dialog_open === 'boolean' && is_dialog_open) {
+            // Only track 'open' event when dialog is opened manually, not via "Learn more"
+            if (typeof is_dialog_open === 'boolean' && is_dialog_open && !is_info_dialog_open) {
                 trackAnalyticsEvent('ce_trade_types_form_v2', {
                     action: 'open',
                 });
             }
-        }, [is_dialog_open]);
+        }, [is_dialog_open, is_info_dialog_open]);
 
         React.useEffect(() => {
             if (contract_type) {

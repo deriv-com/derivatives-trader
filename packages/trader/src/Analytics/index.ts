@@ -1,4 +1,4 @@
-import { cacheTrackEvents, trackAnalyticsEvent } from '@deriv/shared';
+import { cacheTrackEvents, trackAnalyticsEvent, getMarketName, getTradeTypeName } from '@deriv/shared';
 import contract from 'Modules/Contract/Containers/contract';
 
 export const sendDtraderV2OpenToAnalytics = () => {
@@ -88,13 +88,18 @@ export const sendDtraderPurchaseToAnalytics = (
     contract_id: number,
     client?: { is_logged_in: boolean; is_virtual: boolean }
 ) => {
+    // Convert raw technical values to user-friendly display names
+    const trade_type_name = getTradeTypeName(trade_name, { showMainTitle: true }) || trade_name;
+    const market_type_name = getMarketName(market_name) || market_name;
+    const contract_type = getTradeTypeName(trade_name) || '';
+
     if (client) {
         trackAnalyticsEvent('ce_contracts_set_up_form_v2', client, {
             action: 'run_contract',
-            trade_type_name: trade_name,
-            market_type_name: market_name,
+            trade_type_name,
+            market_type_name,
             contract_id,
-            contract_type: '',
+            contract_type,
         });
     } else {
         // Fallback for when client is not provided
@@ -104,10 +109,10 @@ export const sendDtraderPurchaseToAnalytics = (
                     name: 'ce_contracts_set_up_form_v2',
                     properties: {
                         action: 'run_contract',
-                        trade_type_name: trade_name,
-                        market_type_name: market_name,
+                        trade_type_name,
+                        market_type_name,
                         contract_id,
-                        contract_type: '',
+                        contract_type,
                     },
                 },
             },
