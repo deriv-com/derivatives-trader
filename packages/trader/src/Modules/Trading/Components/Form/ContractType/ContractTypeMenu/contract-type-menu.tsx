@@ -40,7 +40,6 @@ const Dialog = ({
     onBackButtonClick,
     onCategoryClick,
     onChangeInput,
-    onSearchBlur,
     onClose,
     selected,
     show_loading,
