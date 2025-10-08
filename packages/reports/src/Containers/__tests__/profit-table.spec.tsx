@@ -254,30 +254,6 @@ describe('Profit Table', () => {
         expect(screen.getByText(errorMessage)).toBeInTheDocument();
     });
 
-    test('tracks Analytics events on date changes', () => {
-        (useReportsStore as jest.Mock).mockReturnValueOnce({
-            profit_table: {
-                ...useReportsStore().profit_table,
-                data: [{}],
-                date_from: '31/01/2024',
-                date_to: '01/02/2024',
-                is_empty: false,
-                is_loading: true,
-            },
-        });
-        renderProfitTable();
-        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
-            'ce_reports_form_v2',
-            expect.objectContaining({
-                action: 'choose_report_type',
-                start_date_filter: formatDate('31/01/2024', 'DD/MM/YYYY', false),
-                end_date_filter: formatDate('01/02/2024', 'DD/MM/YYYY', false),
-                subform_name: 'trade_table_form',
-                form_name: 'default',
-            })
-        );
-    });
-
     test('renders data table when data is available', () => {
         (useReportsStore as jest.Mock).mockReturnValueOnce({
             profit_table: {

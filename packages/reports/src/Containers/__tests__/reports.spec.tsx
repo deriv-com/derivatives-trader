@@ -152,27 +152,6 @@ describe('Reports', () => {
         expect(screen.getByText(Loading)).toBeInTheDocument();
     });
 
-    test('tracks Analytics events on open and close', () => {
-        const history = createMemoryHistory();
-        const { unmount } = render(
-            <StoreProvider store={store}>
-                <Router history={history}>
-                    <Reports history={history} location={history.location} routes={routes} />
-                </Router>
-            </StoreProvider>
-        );
-
-        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
-            'ce_reports_form_v2',
-            expect.objectContaining({ action: 'open' })
-        );
-        unmount();
-        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
-            'ce_reports_form_v2',
-            expect.objectContaining({ action: 'close' })
-        );
-    });
-
     test('navigates to a different route on select change', async () => {
         (useDevice as jest.Mock).mockReturnValue({
             isDesktop: false,

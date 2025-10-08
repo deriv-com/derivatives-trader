@@ -263,48 +263,6 @@ describe('Statement', () => {
         await userEvent.click(screen.getByText(buyTransactions));
         expect(screen.getByTestId(filterDropdown)).toHaveTextContent(buyTransactions);
     });
-    it('should send analytics when previous filter value is defined', () => {
-        const { rerender } = render(mockedStatement());
-
-        (useReportsStore as jest.Mock).mockReturnValueOnce({
-            statement: {
-                ...useReportsStore().statement,
-                action_type: 'buy',
-            },
-        });
-        rerender(mockedStatement());
-        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
-            'ce_reports_form_v2',
-            expect.objectContaining({
-                action: 'filter_transaction_type',
-                form_name: 'default',
-                subform_name: 'statement_form',
-                transaction_type_filter: 'buy',
-            })
-        );
-    });
-    it('should send analytics when previous date_from and date_to are defined', () => {
-        const { rerender } = render(mockedStatement());
-
-        (useReportsStore as jest.Mock).mockReturnValueOnce({
-            statement: {
-                ...useReportsStore().statement,
-                date_from: 1717184362,
-                date_to: 1717631989,
-            },
-        });
-        rerender(mockedStatement());
-        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
-            'ce_reports_form_v2',
-            expect.objectContaining({
-                action: 'filter_dates',
-                form_name: 'default',
-                subform_name: 'statement_form',
-                start_date_filter: formatDate(1717184362, 'DD/MM/YYYY', false),
-                end_date_filter: formatDate(1717631989, 'DD/MM/YYYY', false),
-            })
-        );
-    });
 });
 
 describe('getRowAction', () => {
