@@ -9,13 +9,8 @@ import userEvent from '@testing-library/user-event';
 import { getTerm } from 'AppV2/Utils/contract-description-utils';
 import { AVAILABLE_CONTRACTS, CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
 
-import { sendOpenGuideToAnalytics } from '../../../../Analytics';
 import TraderProviders from '../../../../trader-providers';
 import Guide from '../guide';
-
-jest.mock('../../../../Analytics', () => ({
-    sendOpenGuideToAnalytics: jest.fn(),
-}));
 
 const trade_types = 'Trade types';
 
@@ -129,7 +124,6 @@ describe('Guide', () => {
 
         expect(screen.queryByText(trade_types)).not.toBeInTheDocument();
         expect(screen.getByText(CONTRACT_LIST.RISE_FALL)).toBeInTheDocument();
-        expect(sendOpenGuideToAnalytics).toHaveBeenCalledWith(TRADE_TYPES.RISE_FALL, 'main_trade_page');
 
         AVAILABLE_CONTRACTS.forEach(({ id }) =>
             id === CONTRACT_LIST.RISE_FALL

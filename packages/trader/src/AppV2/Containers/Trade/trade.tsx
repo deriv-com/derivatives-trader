@@ -24,7 +24,7 @@ import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { isDigitTradeType } from 'Modules/Trading/Helpers/digits';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { sendSelectedTradeTypeToAnalytics } from '../../../Analytics';
+import { trackAnalyticsEvent, getTradeTypeName } from '@deriv/shared';
 import { TradeChart } from '../Chart';
 
 import TradeTypes from './trade-types';
@@ -33,10 +33,11 @@ const Trade = observer(() => {
     const [is_minimized_params_visible, setIsMinimizedParamsVisible] = React.useState(false);
     const chart_ref = React.useRef<HTMLDivElement>(null);
     const {
-        client: { is_logged_in },
+        client,
         common: { current_language, network_status },
         ui: { is_dark_mode_on },
     } = useStore();
+    const { is_logged_in } = client;
     const {
         active_symbols,
         contract_type,
@@ -95,7 +96,10 @@ const Trade = observer(() => {
                     value,
                 },
             });
-            sendSelectedTradeTypeToAnalytics(value || '', subform_name, symbol, trade_type_count);
+            trackAnalyticsEvent('ce_trade_types_form_v2', {
+                action: 'select_trade_type',
+                trade_type_name: getTradeTypeName(value || '', { showMainTitle: true }) || value || '',
+            });
         },
         [trade_types, onChange, symbol]
     );

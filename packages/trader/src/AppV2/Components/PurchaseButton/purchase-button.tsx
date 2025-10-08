@@ -9,10 +9,13 @@ import {
     getCardLabelsV2,
     getContractTypeDisplay,
     getIndicativePrice,
+    getMarketName,
+    getTradeTypeName,
     hasContractEntered,
     isAccumulatorContract,
     isOpen,
     isValidToSell,
+    trackAnalyticsEvent,
 } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { Button, useNotifications, useSnackbar } from '@deriv-com/quill-ui';
@@ -23,7 +26,6 @@ import { getTradeTypeTabsList } from 'AppV2/Utils/trade-params-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { sendDtraderV2PurchaseToAnalytics } from '../../../Analytics';
 
 import PurchaseButtonContent from './purchase-button-content';
 
@@ -42,9 +44,10 @@ const PurchaseButton = observer(() => {
     const { addSnackbar } = useSnackbar();
     const {
         portfolio: { all_positions, onClickSell, open_accu_contract, active_positions },
-        client: { is_logged_in },
+        client,
         common: { services_error },
     } = useStore();
+    const { is_logged_in } = client;
     const {
         basis,
         basis_list,
@@ -126,7 +129,19 @@ const PurchaseButton = observer(() => {
     };
 
     const addNotificationBannerCallback = (params: Parameters<typeof addBanner>[0], contract_id: number) => {
-        sendDtraderV2PurchaseToAnalytics(contract_type, symbol, contract_id);
+        // Track run_contract analytics event directly
+        const trade_type_name = getTradeTypeName(contract_type, { showMainTitle: true }) || contract_type;
+        const market_type_name = getMarketName(symbol) || symbol;
+        const contract_type_display = getTradeTypeName(contract_type) || '';
+
+        trackAnalyticsEvent('ce_contracts_set_up_form_v2', {
+            action: 'run_contract',
+            trade_type_name,
+            market_type_name,
+            contract_id,
+            contract_type: contract_type_display,
+        });
+
         return addBanner({
             icon: (
                 <StandaloneStopwatchRegularIcon

@@ -77,11 +77,6 @@ jest.mock('../../Chart', () => ({
 }));
 jest.mock('../trade-types', () => jest.fn(() => <div data-testid='trade-types'>TradeTypes</div>));
 
-// Mock analytics
-jest.mock('../../../../Analytics', () => ({
-    sendSelectedTradeTypeToAnalytics: jest.fn(),
-}));
-
 // Mock layout utils
 jest.mock('AppV2/Utils/layout-utils', () => ({
     getChartHeight: jest.fn(() => 400),

@@ -9,7 +9,6 @@ import initStore from 'App/init-store';
 import ModulesProvider from 'Stores/Providers/modules-providers';
 import type { TWebSocket } from 'Types';
 
-import { sendDtraderV2OpenToAnalytics } from '../Analytics';
 import TraderProviders from '../trader-providers';
 
 import ServicesErrorSnackbar from './Components/ServicesErrorSnackbar';
@@ -46,12 +45,6 @@ const App = ({ passthrough }: Apptypes) => {
         return () => dtrader_links_clone?.forEach(link => head.removeChild(link));
     }, []);
 
-    React.useEffect(() => {
-        if (window.location.pathname === routes.index) {
-            sendDtraderV2OpenToAnalytics();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [window.location.pathname]);
 
     return (
         <TraderProviders store={root_store}>

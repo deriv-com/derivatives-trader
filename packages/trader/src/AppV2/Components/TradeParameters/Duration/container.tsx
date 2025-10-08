@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { observer } from '@deriv/stores';
+import { trackAnalyticsEvent } from '@deriv/shared';
 import { Localize } from '@deriv-com/translations';
 import { ActionSheet } from '@deriv-com/quill-ui';
 
@@ -62,6 +63,9 @@ const DurationActionSheetContainer = observer(
                     expiry_time: null,
                     expiry_type: 'duration',
                 });
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                    action: 'customizing_trades',
+                });
             } else if (unit === DURATION_UNIT.DAYS) {
                 const difference_in_time = new Date(unsaved_expiry_date_v2).getTime() - new Date().getTime();
                 const difference_in_days = Math.ceil(difference_in_time / (1000 * 3600 * 24));
@@ -79,6 +83,9 @@ const DurationActionSheetContainer = observer(
                         expiry_time: null,
                         expiry_type: 'duration',
                     });
+                    trackAnalyticsEvent('ce_trade_types_form_v2', {
+                        action: 'customizing_trades',
+                    });
                 }
             } else {
                 setEndTime('');
@@ -88,6 +95,9 @@ const DurationActionSheetContainer = observer(
                     duration: Number(selected_time),
                     expiry_time: null,
                     expiry_type: 'duration',
+                });
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                    action: 'customizing_trades',
                 });
             }
         };
