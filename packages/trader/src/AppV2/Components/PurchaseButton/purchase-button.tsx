@@ -128,11 +128,11 @@ const PurchaseButton = observer(() => {
         return button_index ? 'sell' : 'purchase';
     };
 
-    const addNotificationBannerCallback = (params: Parameters<typeof addBanner>[0], contract_id: number) => {
+    const addNotificationBannerCallback = (params: Parameters<typeof addBanner>[0], contract_id: number, specific_contract_type: string) => {
         // Track run_contract analytics event directly
         const trade_type_name = getTradeTypeName(contract_type, { showMainTitle: true }) || contract_type;
         const market_type_name = getMarketName(symbol) || symbol;
-        const contract_type_display = getTradeTypeName(contract_type) || '';
+        const contract_type_display = getTradeTypeName(specific_contract_type) || '';
 
         trackAnalyticsEvent('ce_contracts_set_up_form_v2', {
             action: 'run_contract',
@@ -253,7 +253,9 @@ const PurchaseButton = observer(() => {
                                     disabled={is_disabled && !is_loading}
                                     onClick={() => {
                                         setLoadingButtonIndex(index);
-                                        onPurchaseV2(trade_type, isMobile, addNotificationBannerCallback);
+                                        onPurchaseV2(trade_type, isMobile, (params, contract_id) =>
+                                            addNotificationBannerCallback(params, contract_id, trade_type)
+                                        );
                                     }}
                                 >
                                     {!is_loading && (
