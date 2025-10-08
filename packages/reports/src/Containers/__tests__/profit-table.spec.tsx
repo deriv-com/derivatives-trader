@@ -5,7 +5,7 @@ import ProfitTable, { getRowAction } from '../profit-table';
 import { mockStore } from '@deriv/stores';
 import ReportsProviders from '../../reports-providers';
 import { useReportsStore } from 'Stores/useReportsStores';
-import { extractInfoFromShortcode, formatDate, getUnsupportedContracts } from '@deriv/shared';
+import { extractInfoFromShortcode, formatDate, getUnsupportedContracts, trackAnalyticsEvent } from '@deriv/shared';
 import { useDevice } from '@deriv-com/ui';
 
 const mockData = [
@@ -266,7 +266,7 @@ describe('Profit Table', () => {
             },
         });
         renderProfitTable();
-        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
+        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'choose_report_type',

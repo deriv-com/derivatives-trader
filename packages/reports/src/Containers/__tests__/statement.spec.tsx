@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { TCoreStores } from '@deriv/stores/types';
-import { formatDate } from '@deriv/shared';
+import { formatDate, trackAnalyticsEvent } from '@deriv/shared';
 import { useDevice } from '@deriv-com/ui';
 import { mockStore } from '@deriv/stores';
 import { useReportsStore } from 'Stores/useReportsStores';
@@ -273,7 +273,7 @@ describe('Statement', () => {
             },
         });
         rerender(mockedStatement());
-        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
+        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'filter_transaction_type',
@@ -294,7 +294,7 @@ describe('Statement', () => {
             },
         });
         rerender(mockedStatement());
-        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
+        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({
                 action: 'filter_dates',

@@ -97,6 +97,6 @@ export const trackAnalyticsEvent = (
         ...properties,
     };
     
-    // @ts-ignore - Analytics library types not updated yet
+    // @ts-expect-error - Analytics library types not updated yet
     Analytics.trackEvent(eventName, eventProperties);
 };

@@ -7,6 +7,7 @@ import { TStores } from '@deriv/stores/types';
 import { useDevice } from '@deriv-com/ui';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { trackAnalyticsEvent } from '@deriv/shared';
 
 import Reports from '../reports';
 
@@ -161,12 +162,12 @@ describe('Reports', () => {
             </StoreProvider>
         );
 
-        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
+        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({ action: 'open' })
         );
         unmount();
-        expect(require('@deriv/shared').trackAnalyticsEvent).toHaveBeenCalledWith(
+        expect(trackAnalyticsEvent).toHaveBeenCalledWith(
             'ce_reports_form_v2',
             expect.objectContaining({ action: 'close' })
         );
