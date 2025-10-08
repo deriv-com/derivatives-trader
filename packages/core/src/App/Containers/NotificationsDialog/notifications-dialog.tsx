@@ -8,7 +8,7 @@ import { useDevice } from '@deriv-com/ui';
 import NotificationListWrapper from './notification-list-wrapper';
 
 const NotificationsDialog = observer(() => {
-    const { notifications, client } = useStore();
+    const { notifications } = useStore();
     const {
         is_notifications_visible,
         notifications: notifications_array,
