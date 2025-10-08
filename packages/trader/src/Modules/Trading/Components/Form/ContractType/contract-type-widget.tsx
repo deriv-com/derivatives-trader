@@ -136,15 +136,6 @@ const ContractTypeWidget = observer(
             });
         };
 
-        const onSearchBlur = () => {
-            if (search_query) {
-                // trackAnalyticsEvent('ce_trade_types_form_v2', {
-                //     action: 'search',
-                //     search_string: search_query,
-                // });
-            }
-        };
-
         const onWidgetClick = () => {
             setDialogVisibility(!is_dialog_open);
             animation_timeout.current = setTimeout(() => {
@@ -319,7 +310,6 @@ const ContractTypeWidget = observer(
                         categories={list_with_category()}
                         selected={selected_category || list_with_category()[0]?.key}
                         onBackButtonClick={onBackButtonClick}
-                        onSearchBlur={onSearchBlur}
                         onClose={onClose}
                         onChangeInput={onChangeInput}
                         onCategoryClick={handleCategoryClick}

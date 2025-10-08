@@ -23,7 +23,6 @@ type TDialog = {
     onBackButtonClick?: () => void;
     onCategoryClick?: (e: React.ComponentProps<typeof VerticalTab.Headers>['selected']) => void;
     onChangeInput?: (e: string) => void;
-    onSearchBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement | null>;
     onClose?: () => void;
     show_loading?: boolean;
     learn_more_banner?: React.ReactNode;
@@ -90,7 +89,6 @@ const Dialog = ({
             ref={input_ref}
             onChange={onChangeInputValue}
             onClickClearInput={onClickClearInput}
-            onBlur={onSearchBlur}
             value={input_value}
         />
     );

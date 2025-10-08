@@ -27,7 +27,6 @@ export type TInputProps = {
     max_characters?: number;
     maxLength?: number;
     name?: string;
-    onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     onMouseDown?: React.MouseEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     onMouseUp?: React.MouseEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -159,7 +158,6 @@ const Input = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TInputPro
                                     'dc-input__field--placeholder-visible': !label && placeholder,
                                 })}
                                 onFocus={props.onFocus}
-                                onBlur={props.onBlur}
                                 onChange={props.onChange}
                                 onKeyDown={props.onKeyDown}
                                 onMouseDown={props.onMouseDown}

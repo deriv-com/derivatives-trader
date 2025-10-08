@@ -12,7 +12,7 @@ type TActionProps = ReturnType<typeof useStore>['notifications']['notifications'
 type TNotificationMessage = ReturnType<typeof useStore>['notifications']['notifications'][0];
 
 const NotificationsList = observer(() => {
-    const { notifications, client } = useStore();
+    const { notifications } = useStore();
     const { notifications: notifications_array, toggleNotificationsModal } = notifications;
     const history = useHistory();
 
