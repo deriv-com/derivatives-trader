@@ -38,7 +38,7 @@ import type {
     TicksStreamRequest,
     TicksStreamResponse,
     TradingTimesRequest,
-    TradingTimesResponse,
+    TradingTimesResponse as BaseTradingTimesResponse,
     TransactionsStreamRequest as BaseTransactionsStreamRequest,
     TransactionsStreamResponse as BaseTransactionsStreamResponse,
     UpdateContractHistoryRequest as BaseUpdateContractHistoryRequest,
@@ -99,7 +99,18 @@ type ContractsForSymbolResponse = Omit<BaseContractsForSymbolResponse, 'contract
         | 'trading_periods'
         | 'start_type'
         | 'barrier_category'
-    >;
+        | 'available'
+    > & {
+        available: Array<
+            Omit<
+                NonNullable<NonNullable<BaseContractsForSymbolResponse['contracts_for']>['available']>[0],
+                'symbol'
+            > & {
+                underlying_symbol?: string;
+                default_stake?: number;
+            }
+        >;
+    };
 };
 
 type PriceProposalRequest = Omit<
@@ -266,6 +277,44 @@ type CancelAContractResponse = BaseCancelAContractResponse;
 
 type TransactionsStreamRequest = Omit<BaseTransactionsStreamRequest, 'loginid'>;
 
+type TradingTimesResponse = Omit<BaseTradingTimesResponse, 'trading_times' | 'echo_req'> & {
+    echo_req: {
+        trading_times?: string;
+        [k: string]: unknown;
+    };
+    trading_times?: Omit<NonNullable<BaseTradingTimesResponse['trading_times']>, 'markets'> & {
+        markets: Array<
+            Omit<NonNullable<NonNullable<BaseTradingTimesResponse['trading_times']>['markets']>[0], 'submarkets'> & {
+                submarkets?: Array<
+                    Omit<
+                        NonNullable<
+                            NonNullable<
+                                NonNullable<BaseTradingTimesResponse['trading_times']>['markets']
+                            >[0]['submarkets']
+                        >[0],
+                        'symbols'
+                    > & {
+                        symbols?: Array<
+                            Omit<
+                                NonNullable<
+                                    NonNullable<
+                                        NonNullable<
+                                            NonNullable<BaseTradingTimesResponse['trading_times']>['markets']
+                                        >[0]['submarkets']
+                                    >[0]['symbols']
+                                >[0],
+                                'symbol'
+                            > & {
+                                underlying_symbol: string;
+                            }
+                        >;
+                    }
+                >;
+            }
+        >;
+    };
+};
+
 type TransactionsStreamResponse = Omit<BaseTransactionsStreamResponse, 'transaction'> & {
     transaction?: Omit<
         NonNullable<BaseTransactionsStreamResponse['transaction']>,
@@ -396,6 +445,10 @@ export type TSocketError<T extends TSocketEndpointNames> = {
     error: {
         code: string;
         message: string;
+        details?: {
+            field?: string;
+            [key: string]: unknown;
+        };
     };
     /**
      * Action name of the request made.

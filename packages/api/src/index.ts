@@ -22,6 +22,8 @@ export {
 
 // Export types from types.ts
 export type {
+    TSocketError,
+    TSocketResponseData,
     TActiveSymbolsRequest,
     TActiveSymbolsResponse,
     TAuthorizeRequest,
