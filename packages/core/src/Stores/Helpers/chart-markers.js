@@ -431,28 +431,68 @@ export function calculateMarker(
 
     const price = barrier_price || 0;
 
-    if (entry_spot) {
-        markers.push({
-            epoch: date_start,
-            quote: is_digit_contract ? undefined : price,
-            type: 'contractMarker',
-            text: `${localize('Start')}\n${localize('Time')}`,
-            direction: getMarkerDirection(contract_type),
-        });
+    const is_contract_finished = contract_info.is_sold || contract_info.is_expired;
 
-        markers.push({
-            epoch: entry_spot_time,
-            quote: entry_spot,
-            type: 'entryTick',
-        });
-    }
+    if (is_contract_finished) {
+        // Add profit and loss label marker when contract is finished (sold or expired)
+        const exit_spot = contract_info.exit_spot;
+        if (exit_spot_time && exit_spot) {
+            markers.push({
+                epoch: exit_spot_time,
+                quote: exit_spot,
+                type: 'profitAndLossLabel',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
+    } else {
+        if (date_start && entry_spot) {
+            markers.push({
+                epoch: date_start,
+                quote: price,
+                type: 'startTimeCollapsed',
+                direction: getMarkerDirection(contract_type),
+            });
+        } else if (date_start && !entry_spot) {
+            markers.push({
+                epoch: date_start,
+                quote: price,
+                type: 'startTime',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
 
-    if (end_time) {
-        markers.push({
-            epoch: end_time,
-            quote: price,
-            type: 'end',
-        });
+        if (entry_spot) {
+            markers.push({
+                epoch: date_start,
+                quote: is_digit_contract ? undefined : price,
+                type: 'contractMarker',
+                text: `${localize('Start')}\n${localize('Time')}`,
+                direction: getMarkerDirection(contract_type),
+            });
+
+            markers.push({
+                epoch: entry_spot_time,
+                quote: entry_spot,
+                type: 'entryTick',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
+
+        if (end_time && entry_spot) {
+            markers.push({
+                epoch: end_time,
+                quote: price,
+                type: 'exitTimeCollapsed',
+                direction: getMarkerDirection(contract_type),
+            });
+        } else if (end_time && !entry_spot) {
+            markers.push({
+                epoch: end_time,
+                quote: price,
+                type: 'exitTime',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
     }
 
     if (tick_stream?.length > 0) {
@@ -485,15 +525,40 @@ export function calculateMarker(
         contractMarkerLeftPadding = 330;
     }
 
-    return {
+    // Helper to normalize profit value to a number or null
+    const getNumericProfit = profit => {
+        if (profit === undefined || profit === null) return null;
+        const profit_num = Number(profit);
+        return isNaN(profit_num) ? null : profit_num;
+    };
+
+    // Calculate dynamic profit/loss text
+    const getProfitAndLossText = () => {
+        const { profit, currency } = contract_info;
+        const profit_num = getNumericProfit(profit);
+        if (profit_num === null) return null;
+
+        const decimal_places = getDecimalPlaces(currency);
+        const sign = profit_num > 0 ? '+' : '';
+
+        return `${sign}${profit_num.toFixed(decimal_places)} ${currency}`;
+    };
+
+    const profit_num = getNumericProfit(contract_info.profit);
+
+    const result = {
         type: getMarkerContractType(contract_info),
         markers,
         props: {
-            isProfit: true,
+            isProfit: profit_num !== null ? profit_num > 0 : true,
             isRunning: !contract_info?.is_expired,
             contractMarkerLeftPadding,
         },
+        direction: getMarkerDirection(contract_type),
+        profitAndLossText: getProfitAndLossText(),
     };
+
+    return result;
 }
 
 function getAccumulatorBarrierMarkers({
