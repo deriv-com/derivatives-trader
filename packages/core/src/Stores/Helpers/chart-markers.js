@@ -539,7 +539,7 @@ export function calculateMarker(
         if (profit_num === null) return null;
 
         const decimal_places = getDecimalPlaces(currency);
-        const sign = profit_num < 0 ? '' : profit_num > 0 ? '+' : '';
+        const sign = profit_num > 0 ? '+' : '';
 
         return `${sign}${profit_num.toFixed(decimal_places)} ${currency}`;
     };
