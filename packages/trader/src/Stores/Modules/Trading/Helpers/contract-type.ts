@@ -550,14 +550,9 @@ export const ContractType = (() => {
         expiry_type: string | null
     ) => {
         if (duration_units_list) {
-            // If there are intraday duration units (m, h, etc.), default to 'duration' expiry type
-            // This ensures forex and other markets with minute/hour durations don't default to 'endtime'
-            const has_intraday_units = hasIntradayDurationUnit(duration_units_list);
-
             if (
                 (!expiry_type && duration_units_list.length > 0) ||
-                (duration_units_list.length === 1 && duration_units_list[0].value === 't') ||
-                (has_intraday_units && !expiry_type)
+                (duration_units_list.length === 1 && duration_units_list[0].value === 't')
             ) {
                 return { expiry_type: 'duration' };
             }
