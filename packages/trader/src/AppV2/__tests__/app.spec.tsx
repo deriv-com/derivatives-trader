@@ -59,9 +59,6 @@ jest.mock('../Routes/router', () => {
     return MockRouter;
 });
 
-jest.mock('../../Analytics', () => ({
-    sendTradeTypesFormV2OpenAnalytics: jest.fn(),
-}));
 
 const mockRootStore = mockStore({
     common: {
