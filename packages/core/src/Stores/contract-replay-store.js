@@ -1,7 +1,6 @@
 import { action, observable, makeObservable, override, when } from 'mobx';
-import { isEmptyObject, WS, contractCancelled, contractSold } from '@deriv/shared';
+import { isEmptyObject, WS, contractCancelled, contractSold, trackAnalyticsEvent } from '@deriv/shared';
 import { Money } from '@deriv/components';
-import { Analytics } from '@deriv-com/analytics';
 import { localize } from '@deriv-com/translations';
 import ContractStore from './contract-store';
 import BaseStore from './base-store';
@@ -271,10 +270,9 @@ export default class ContractReplayStore extends BaseStore {
                 contractSold(this.root_store.client.currency, response.sell.sold_for, Money)
             );
 
-            Analytics.trackEvent('ce_reports_form', {
+            trackAnalyticsEvent('ce_reports_form_v2', {
                 action: 'close_contract',
-                form_name: 'default',
-                subform_name: 'contract_details_form',
+                platform: 'DTrader',
             });
         }
     }

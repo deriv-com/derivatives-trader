@@ -68,33 +68,6 @@ const ProfitTable = observer(({ component_icon }: TProfitTable) => {
     const prev_date_to = usePrevious(date_to);
     const { isDesktop } = useDevice();
 
-    React.useEffect(() => {
-        onMount();
-        Analytics.trackEvent('ce_reports_form', {
-            action: 'choose_report_type',
-            form_name: 'default',
-            subform_name: 'trade_table_form',
-            start_date_filter: formatDate(date_from, 'DD/MM/YYYY', false),
-            end_date_filter: formatDate(date_to, 'DD/MM/YYYY', false),
-        });
-        return () => {
-            onUnmount();
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    React.useEffect(() => {
-        if (prev_date_from !== undefined && prev_date_to !== undefined) {
-            Analytics.trackEvent('ce_reports_form', {
-                action: 'filter_dates',
-                form_name: 'default',
-                subform_name: 'trade_table_form',
-                start_date_filter: formatDate(date_from, 'DD/MM/YYYY', false),
-                end_date_filter: formatDate(date_to, 'DD/MM/YYYY', false),
-            });
-        }
-    }, [date_to, date_from]);
-
     if (error) return <p>{error}</p>;
 
     const filter_component = <CompositeCalendar onChange={handleDateChange} from={date_from} to={date_to} />;

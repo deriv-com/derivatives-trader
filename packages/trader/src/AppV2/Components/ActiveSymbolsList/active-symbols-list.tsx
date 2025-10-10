@@ -5,7 +5,6 @@ import { ActionSheet, Tab } from '@deriv-com/quill-ui';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { sendMarketTypeToAnalytics } from '../../../Analytics';
 import MarketCategories from '../MarketCategories';
 import SymbolSearchResults from '../SymbolSearchResults';
 import SymbolsSearchField from '../SymbolsSearchField';
@@ -56,7 +55,6 @@ const ActiveSymbolsList = observer(({ isOpen, setIsOpen }: TActiveSymbolsList) =
                                 setSearchValue={setSearchValue}
                                 setIsOpen={setIsOpen}
                                 setSelectedSymbol={(symbol: string) => {
-                                    sendMarketTypeToAnalytics(symbol, contract_type);
                                     setSelectedSymbol(symbol);
                                 }}
                             />
@@ -64,7 +62,6 @@ const ActiveSymbolsList = observer(({ isOpen, setIsOpen }: TActiveSymbolsList) =
                             <MarketCategories
                                 selectedSymbol={selectedSymbol}
                                 setSelectedSymbol={(symbol: string) => {
-                                    sendMarketTypeToAnalytics(symbol, contract_type);
                                     setSelectedSymbol(symbol);
                                 }}
                                 setIsOpen={setIsOpen}

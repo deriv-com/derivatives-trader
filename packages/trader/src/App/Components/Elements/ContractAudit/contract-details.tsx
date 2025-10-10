@@ -41,8 +41,8 @@ import {
     TContractInfo,
     toGMTFormat,
 } from '@deriv/shared';
-import { Analytics } from '@deriv-com/analytics';
 import { Localize, useTranslations } from '@deriv-com/translations';
+import { trackAnalyticsEvent } from '@deriv/shared';
 import { useDevice } from '@deriv-com/ui';
 
 import { getBarrierLabel, getBarrierValue, isDigitType } from 'App/Components/Elements/PositionsDrawer/helpers';
@@ -169,10 +169,9 @@ const ContractDetails = ({
     };
 
     React.useEffect(() => {
-        Analytics.trackEvent('ce_reports_form', {
+        trackAnalyticsEvent('ce_reports_form_v2', {
             action: 'open_contract_details',
-            form_name: 'default',
-            form_source: 'deriv_trader',
+            platform: 'DTrader',
         });
     }, []);
 

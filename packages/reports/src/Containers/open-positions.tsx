@@ -326,30 +326,6 @@ const OpenPositions = observer(({ component_icon, ...props }: TOpenPositions) =>
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [previous_active_positions, active_positions, active_positions_filtered.length]);
 
-    React.useEffect(() => {
-        if (prev_contract_type_value) {
-            Analytics.trackEvent('ce_reports_form', {
-                action: 'filter_trade_type',
-                form_name: 'default',
-                subform_name: 'open_positions_form',
-                trade_type_filter: contract_type_value,
-            });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [contract_type_value]);
-
-    React.useEffect(() => {
-        if (prev_accumulator_rate) {
-            Analytics.trackEvent('ce_reports_form', {
-                action: 'filter_growth_rate',
-                form_name: 'default',
-                subform_name: 'open_positions_form',
-                growth_type_filter: accumulator_rate,
-            });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [accumulator_rate]);
-
     // Handle contract type selection
     const handleContractTypeChange = (value: string) => {
         setContractTypeValue(value);

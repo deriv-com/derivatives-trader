@@ -152,44 +152,12 @@ const Statement = observer(({ component_icon }: TStatement) => {
 
     React.useEffect(() => {
         onMount();
-        Analytics.trackEvent('ce_reports_form', {
-            action: 'choose_report_type',
-            form_name: 'default',
-            subform_name: 'statement_form',
-            transaction_type_filter: action_type,
-            start_date_filter: formatDate(date_from, 'DD/MM/YYYY', false),
-            end_date_filter: formatDate(date_to, 'DD/MM/YYYY', false),
-        });
+
         return () => {
             onUnmount();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    React.useEffect(() => {
-        if (prev_action_type) {
-            Analytics.trackEvent('ce_reports_form', {
-                action: 'filter_transaction_type',
-                form_name: 'default',
-                subform_name: 'statement_form',
-                transaction_type_filter: action_type,
-            });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [action_type]);
-
-    React.useEffect(() => {
-        if (prev_date_from !== undefined && prev_date_to !== undefined) {
-            Analytics.trackEvent('ce_reports_form', {
-                action: 'filter_dates',
-                form_name: 'default',
-                subform_name: 'statement_form',
-                start_date_filter: formatDate(date_from, 'DD/MM/YYYY', false),
-                end_date_filter: formatDate(date_to, 'DD/MM/YYYY', false),
-            });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [date_to, date_from]);
 
     if (error) return <p>{error}</p>;
 

@@ -6,13 +6,12 @@ import { useTranslations } from '@deriv-com/translations';
 
 type TSearchInput = {
     onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | null>;
-    onBlur: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement | null> | undefined;
     onClickClearInput: () => void;
     value: string;
 };
 
 const SearchInput = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TSearchInput>(
-    ({ onChange, onClickClearInput, onBlur, value }, ref) => {
+    ({ onChange, onClickClearInput, value }, ref) => {
         const { localize } = useTranslations();
         return (
             <Input
@@ -25,7 +24,6 @@ const SearchInput = React.forwardRef<HTMLInputElement & HTMLTextAreaElement, TSe
                 placeholder={localize('Search')}
                 type='text'
                 onChange={onChange}
-                onBlur={onBlur}
                 value={value}
             />
         );

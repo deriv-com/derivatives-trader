@@ -13,7 +13,7 @@ import { checkContractTypePrefix } from 'AppV2/Utils/contract-type';
 import { getTradeTypesList, sortCategoriesInTradeTypeOrder } from 'AppV2/Utils/trade-types-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { sendOpenGuideToAnalytics } from '../../../Analytics';
+import { trackAnalyticsEvent, getTradeTypeName } from '@deriv/shared';
 import Guide from '../../Components/Guide';
 
 import TradeTypesContent from './trade-types-content';
@@ -120,6 +120,9 @@ const TradeTypes = ({ contract_type, onTradeTypeSelect, trade_types, is_dark_mod
     };
 
     const handleCustomizeTradeTypes = () => {
+        trackAnalyticsEvent('ce_trade_types_form_v2', {
+            action: 'customizing_trades',
+        });
         setIsEditing(true);
     };
 
@@ -199,6 +202,9 @@ const TradeTypes = ({ contract_type, onTradeTypeSelect, trade_types, is_dark_mod
     };
 
     const handleOpenActionSheet = () => {
+        trackAnalyticsEvent('ce_trade_types_form_v2', {
+            action: 'open',
+        });
         setTradeTypes();
         setIsOpen(true);
     };
@@ -307,7 +313,10 @@ const TradeTypes = ({ contract_type, onTradeTypeSelect, trade_types, is_dark_mod
                             pages={action_sheet_content}
                             title={<Localize i18n_default_text='Trade types' />}
                             next_icon={LabelPairedPresentationScreenSmRegularIcon}
-                            onNextButtonClick={() => sendOpenGuideToAnalytics(contract_type, 'trade_type_page')}
+                            onNextButtonClick={() => trackAnalyticsEvent('ce_trade_types_form_v2', {
+                                action: 'info_open',
+                                trade_type_name: getTradeTypeName(contract_type, { showMainTitle: true }) || contract_type,
+                            })}
                         />
                     )}
                 </ActionSheet.Portal>
