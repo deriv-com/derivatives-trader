@@ -48,7 +48,10 @@ jest.mock('@deriv/shared', () => ({
                         submarkets: [
                             {
                                 symbols: [
-                                    { symbol: 'WLDAUD', times: { open: ['08:00:00.153'], close: ['22:00:00.123'] } },
+                                    {
+                                        underlying_symbol: 'WLDAUD',
+                                        times: { open: ['08:00:00.153'], close: ['22:00:00.123'] },
+                                    },
                                 ],
                             },
                         ],

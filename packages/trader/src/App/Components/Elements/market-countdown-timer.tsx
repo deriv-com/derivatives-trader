@@ -44,7 +44,7 @@ const getSymbol = (
         if (submarkets) {
             for (let j = 0; j < submarkets.length; j++) {
                 const { symbols } = submarkets[j];
-                symbol = symbols?.find(item => item.symbol === target_symbol);
+                symbol = symbols?.find(item => item.underlying_symbol === target_symbol);
                 if (symbol !== undefined) return symbol;
             }
         }
