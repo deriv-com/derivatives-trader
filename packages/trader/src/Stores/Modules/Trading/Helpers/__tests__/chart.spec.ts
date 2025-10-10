@@ -128,16 +128,8 @@ describe('getChartAnalyticsData', () => {
             getChartAnalyticsData(STATE_TYPES.INDICATORS_MODAL_TOGGLE, {
                 is_open: false,
             })
-        ).toEqual({
-            data: { action: ACTION.CLOSE },
-            event_type: indicators_event_type,
-        });
-        expect(getChartAnalyticsData(STATE_TYPES.INDICATORS_MODAL_TOGGLE)).toEqual({
-            data: {
-                action: ACTION.CLOSE,
-            },
-            event_type: indicators_event_type,
-        });
+        ).toEqual({});
+        expect(getChartAnalyticsData(STATE_TYPES.INDICATORS_MODAL_TOGGLE)).toEqual({});
     });
     it('should return correct object with data and event_type for STATE_TYPES.INDICATOR_ADDED', () => {
         expect(

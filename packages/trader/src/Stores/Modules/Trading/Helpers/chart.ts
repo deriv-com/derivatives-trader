@@ -149,9 +149,14 @@ const getIndicatorTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, opti
             };
             break;
         case STATE_TYPES.INDICATORS_MODAL_TOGGLE:
-            payload.data = {
-                action: open_close_action,
-            };
+            // Only send analytics event for "open" action, skip "close" action
+            if (is_open) {
+                payload.data = {
+                    action: ACTION.OPEN,
+                };
+            } else {
+                return {}; // Skip sending event for close action
+            }
             break;
         case STATE_TYPES.INDICATORS_CLEAR_ALL:
             payload.data = {
