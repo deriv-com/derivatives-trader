@@ -92,7 +92,7 @@ describe('ServiceErrorSheet', () => {
 
         expect(screen.getByText('Insufficient balance')).toBeInTheDocument();
 
-        const depositButton = screen.getByText('transfer now');
+        const depositButton = screen.getByText(/transfer now/i);
         await userEvent.click(depositButton);
 
         expect(fileUtils.getBrandUrl).toHaveBeenCalled();
@@ -108,7 +108,7 @@ describe('ServiceErrorSheet', () => {
 
         expect(screen.getByText('Insufficient balance')).toBeInTheDocument();
 
-        const depositButton = screen.getByText('transfer now');
+        const depositButton = screen.getByText(/transfer now/i);
         await userEvent.click(depositButton);
 
         expect(window.location.href).toBe('');
