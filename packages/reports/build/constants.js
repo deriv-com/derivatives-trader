@@ -7,6 +7,7 @@ const path = require('path');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const { cssConfig, stylelintConfig } = require('./config');
 const {
@@ -126,7 +127,17 @@ const plugins = (base, is_test_env) => [
     ...(is_test_env
         ? [new StylelintPlugin(stylelintConfig())]
         : [
-              // ...(!IS_RELEASE ? [ new BundleAnalyzerPlugin({ analyzerMode: 'static' }) ] : []),
+              ...(process.env.ANALYZE_BUNDLE
+                  ? [
+                        new BundleAnalyzerPlugin({
+                            analyzerMode: 'static',
+                            reportFilename: path.resolve(__dirname, '../bundle-report.html'),
+                            openAnalyzer: false,
+                            generateStatsFile: true,
+                            statsFilename: path.resolve(__dirname, '../bundle-stats.json'),
+                        }),
+                    ]
+                  : []),
           ]),
 ];
 

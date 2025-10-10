@@ -670,18 +670,18 @@ export default class ClientStore extends BaseStore {
     }
 
     getStoredSessionToken() {
-        // First check localStorage for session_token
-        const localStorageSessionToken = localStorage.getItem('session_token');
-        if (localStorageSessionToken) {
-            return localStorageSessionToken;
-        }
-
-        // Fall back to session_token cookie (with .deriv.com domain) if no localStorage value found
+        // First check cookie for session_token
         const cookieSessionToken = Cookies.get('session_token');
         if (cookieSessionToken) {
             // Store the cookie session_token in localStorage for future use
             localStorage.setItem('session_token', cookieSessionToken);
             return cookieSessionToken;
+        }
+
+        // Fall back to localStorage if no cookie value found
+        const localStorageSessionToken = localStorage.getItem('session_token');
+        if (localStorageSessionToken) {
+            return localStorageSessionToken;
         }
 
         return null;

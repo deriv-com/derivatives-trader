@@ -526,6 +526,8 @@ describe('getProposalRequestObject', () => {
             contract_type: TRADE_TYPES.TURBOS.LONG,
             currency: 'USD',
             underlying_symbol: '1HZ100V',
+            duration: 5,
+            duration_unit: 'm',
             payout_per_point: 5,
             limit_order: { take_profit: 5 },
         });
@@ -542,6 +544,8 @@ describe('getProposalRequestObject', () => {
             contract_type: TRADE_TYPES.TURBOS.LONG,
             currency: 'USD',
             underlying_symbol: '1HZ100V',
+            duration: 5,
+            duration_unit: 'm',
             payout_per_point: 5,
             limit_order: undefined,
         });

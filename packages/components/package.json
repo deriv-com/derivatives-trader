@@ -11,6 +11,8 @@
         "start": "rimraf lib && npm run test && npm run serve",
         "serve": "rimraf lib && cross-env BUILD_MODE='serve' webpack --mode=production --progress --watch",
         "build": "rimraf lib && webpack --mode=production --progress",
+        "build:analyze": "rimraf lib && cross-env ANALYZE_BUNDLE=true webpack --mode=production --progress",
+        "analyze:bundle": "npm run build:analyze && echo \"Bundle analysis complete! Check bundle-report.html and bundle-stats.json\"",
         "test": "echo \"No tests specified\"",
         "test:eslint": "eslint \"./src/**/*.?(js|jsx)\""
     },
@@ -40,9 +42,10 @@
         "eslint-plugin-react": "^7.22.0",
         "eslint-plugin-react-hooks": "^4.2.0",
         "lint-staged": "^11.2.6",
+        "resolve-url-loader": "^5.0.0",
         "sass": "^1.62.1",
         "sass-loader": "^12.6.0",
-        "sass-resources-loader": "^2.1.1",
+        "sass-resources-loader": "^2.2.5",
         "style-loader": "^1.2.1",
         "typescript": "^5.0.0",
         "webpack": "^5.81.0",
@@ -50,11 +53,11 @@
     },
     "dependencies": {
         "@cloudflare/stream-react": "^1.9.1",
+        "@deriv-com/translations": "1.3.9",
         "@deriv-com/ui": "1.36.4",
         "@deriv/api": "^1.0.0",
         "@deriv/shared": "^1.0.0",
         "@deriv/stores": "^1.0.0",
-        "@deriv-com/translations": "1.3.9",
         "@types/react-virtualized": "^9.21.21",
         "classnames": "^2.2.6",
         "clsx": "^2.1.1",
@@ -76,7 +79,6 @@
         "react-tiny-popover": "^7.0.1",
         "react-transition-group": "4.4.2",
         "react-virtualized": "^9.22.5",
-        "resolve-url-loader": "5.0.0",
         "usehooks-ts": "^2.7.0"
     }
 }

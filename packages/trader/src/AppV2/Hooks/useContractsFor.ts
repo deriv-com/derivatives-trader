@@ -32,15 +32,8 @@ const useContractsFor = () => {
     const [contract_types_list, setContractTypesList] = React.useState<TContractTypesList | []>([]);
 
     const [trade_types, setTradeTypes] = React.useState<TContractType[]>([]);
-    const {
-        contract_type,
-        onChange,
-        setContractTypesListV2,
-        setDefaultStake,
-        processContractsForV2,
-        symbol,
-        active_symbols,
-    } = useTraderStore();
+    const { contract_type, onChange, setContractTypesListV2, setDefaultStake, symbol, active_symbols } =
+        useTraderStore();
     const { client } = useStore();
     const { loginid } = client;
 

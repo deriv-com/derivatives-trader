@@ -8,6 +8,8 @@
         "start": "npm run test && npm run serve",
         "serve": "f() { echo \"Serving...\" && ../../node_modules/.bin/webpack serve --config \"./build/webpack.config.js\" --env open $1;}; f",
         "build": "f () { webpack --config \"./build/webpack.config.js\" --env base=$1;}; f",
+        "build:analyze": "ANALYZE_BUNDLE=true webpack --config \"./build/webpack.config.js\" --mode=production",
+        "analyze:bundle": "npm run build:analyze && echo \"Bundle analysis complete! Check bundle-report.html and bundle-stats.json\"",
         "test:eslint": "eslint \"./src/**/*.?(js|jsx|ts|tsx)\""
     },
     "repository": {

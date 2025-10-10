@@ -107,5 +107,18 @@ module.exports = {
                 '@typescript-eslint/no-explicit-any': 'warn',
             },
         },
+        {
+            files: ['scripts/**/*.js'],
+            env: {
+                node: true,
+                es6: true,
+            },
+            rules: {
+                'no-console': 'off', // Allow console.log in CLI scripts
+                'prefer-template': 'off', // Allow string concatenation
+                'no-restricted-syntax': 'off', // Allow for...of loops
+                'import/no-extraneous-dependencies': 'off', // Allow dev dependencies in scripts
+            },
+        },
     ],
 };

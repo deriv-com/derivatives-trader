@@ -182,6 +182,36 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
         obj_expiry.date_expiry = convertToUnix(expiry_date.unix(), store.expiry_time);
     }
 
+    // TODO: Fix mobile duration param intermittently showing invalid duration error
+    const getDurationParams = () => {
+        // ACCUMULATOR and MULTIPLIER contracts don't use duration parameters
+        if (store.contract_type === TRADE_TYPES.ACCUMULATOR || store.contract_type === TRADE_TYPES.MULTIPLIER) {
+            return {};
+        }
+
+        if (store.expiry_type === 'duration') {
+            // Ensure we have valid duration and duration_unit values
+            const duration = parseInt(store.duration.toString()) || 5; // Default to 5 if invalid
+            const duration_unit = store.duration_unit || 'm'; // Default to minutes if not set
+
+            return {
+                duration,
+                duration_unit,
+            };
+        }
+
+        // For endtime, ensure we have a valid date_expiry
+        if (store.expiry_type === 'endtime' && obj_expiry.date_expiry) {
+            return obj_expiry;
+        }
+
+        // For contracts that need duration but don't have valid expiry_type, provide safe defaults
+        return {
+            duration: 5,
+            duration_unit: 'm',
+        };
+    };
+
     if (store.contract_type === TRADE_TYPES.MULTIPLIER) {
         setProposalMultiplier(store, obj_multiplier);
     }
@@ -203,12 +233,7 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
         currency: store.currency,
         underlying_symbol: store.symbol,
         ...(store.start_date && store.start_time && { date_start: convertToUnix(store.start_date, store.start_time) }),
-        ...(store.expiry_type === 'duration'
-            ? {
-                  duration: parseInt(store.duration.toString()),
-                  duration_unit: store.duration_unit,
-              }
-            : obj_expiry),
+        ...getDurationParams(),
         ...((store.barrier_count > 0 || store.form_components.indexOf('last_digit') !== -1) &&
             !isAccumulatorContract(type_of_contract) &&
             !isTurbosContract(type_of_contract) &&
