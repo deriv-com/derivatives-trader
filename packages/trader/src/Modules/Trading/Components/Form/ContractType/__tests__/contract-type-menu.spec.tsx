@@ -1,19 +1,19 @@
 import React from 'react';
 
-import { ActiveSymbols } from '@deriv/api-types';
-import { TRADE_TYPES } from '@deriv/shared';
-import { mockStore } from '@deriv/stores';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import {
+    LegacyAccumulatorIcon,
     LegacyTradeTypeAllIcon,
+    LegacyTradeTypeDigitsIcon,
+    LegacyTradeTypeHighLowIcon,
     LegacyTradeTypeMultipliersIcon,
     LegacyTradeTypeOptionsIcon,
     LegacyTradeTypeUpsDownsIcon,
-    LegacyTradeTypeHighLowIcon,
-    LegacyTradeTypeDigitsIcon,
     LegacyVanillaIcon,
-    LegacyAccumulatorIcon,
 } from '@deriv/quill-icons';
+import { TRADE_TYPES } from '@deriv/shared';
+import { mockStore } from '@deriv/stores';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import TraderProviders from '../../../../../../trader-providers';
 import ContractTypeWidget from '../contract-type-widget';
@@ -42,7 +42,7 @@ const mock_connect_props = {
                 submarket_display_name: 'Continuous Indices',
                 symbol: 'R_100',
                 symbol_type: 'stockindex',
-            } as ActiveSymbols[0],
+            } as NonNullable<TActiveSymbolsResponse['active_symbols']>[0],
         ],
     },
     ui: { is_mobile: false },

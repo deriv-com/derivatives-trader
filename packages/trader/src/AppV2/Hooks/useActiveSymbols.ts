@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { ActiveSymbols, ActiveSymbolsResponse } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { CONTRACT_TYPES, getContractTypesConfig, isTurbosContract, isVanillaContract } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { localize } from '@deriv-com/translations';
@@ -26,7 +26,7 @@ const getStoredSymbols = () => {
     return null;
 };
 
-const storeSymbols = (symbols: ActiveSymbols) => {
+const storeSymbols = (symbols: NonNullable<TActiveSymbolsResponse['active_symbols']>) => {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ symbols, timestamp: Date.now() }));
     } catch {
@@ -46,11 +46,12 @@ const useActiveSymbols = () => {
         has_symbols_for_v2,
         setActiveSymbolsV2,
     } = useTraderStore();
-
-    const [activeSymbols, setActiveSymbols] = useState<ActiveSymbols | []>(() => {
-        const stored = getStoredSymbols();
-        return stored?.length ? stored : symbols_from_store || [];
-    });
+    const [activeSymbols, setActiveSymbols] = useState<NonNullable<TActiveSymbolsResponse['active_symbols']> | []>(
+        () => {
+            const stored = getStoredSymbols();
+            return stored?.length ? stored : symbols_from_store || [];
+        }
+    );
 
     const getContractTypesList = () => {
         if (is_turbos) return [CONTRACT_TYPES.TURBOS.LONG, CONTRACT_TYPES.TURBOS.SHORT];
@@ -74,7 +75,7 @@ const useActiveSymbols = () => {
         return contract_type;
     };
 
-    const { data: response, error: queryError } = useDtraderQuery<ActiveSymbolsResponse>(
+    const { data: response, error: queryError } = useDtraderQuery<TActiveSymbolsResponse>(
         ['active_symbols', loginid ?? '', getContractType(), current_language],
         {
             active_symbols: 'brief',

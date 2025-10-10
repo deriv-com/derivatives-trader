@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import { TradingTimesRequest } from '@deriv/api-types';
+import { TTradingTimesRequest } from '@deriv/api';
 import { isMarketClosed, toMoment, useIsMounted, WS } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
@@ -22,7 +22,7 @@ type TWhenMarketOpens = {
 
 const days_to_check_before_exit = 7;
 
-const getTradingTimes = async (target_time: TradingTimesRequest['trading_times']) => {
+const getTradingTimes = async (target_time: TTradingTimesRequest['trading_times']) => {
     const data = await WS.tradingTimes(target_time);
     if (data.error) {
         return { api_initial_load_error: data.error.message };

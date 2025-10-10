@@ -1,9 +1,10 @@
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
+
 import { TTextValueStrings, TTradeTypesCategories } from '../constants/contract';
 import { routes } from '../routes';
 
 type TGetTradeURLParamsArgs = {
-    active_symbols?: ActiveSymbols;
+    active_symbols?: NonNullable<TActiveSymbolsResponse['active_symbols']>;
     contract_types_list?: TTradeTypesCategories;
 };
 
@@ -62,7 +63,7 @@ export const getTradeURLParams = ({ active_symbols = [], contract_types_list = {
         const validInterval = tradeURLParamsConfig.interval.find(item => item.text === interval);
         const validChartType = tradeURLParamsConfig.chartType.find(item => item.text === chart_type);
         const chartTypeParam = Number(validInterval?.value) === 0 ? 'line' : validChartType?.value;
-        const isSymbolValid = active_symbols.some(item => ((item as any).underlying_symbol || item.symbol) === symbol);
+        const isSymbolValid = active_symbols.some(item => item.underlying_symbol === symbol);
         const contractList = Object.keys(contract_types_list).reduce<string[]>((acc, key) => {
             const categories: TTradeTypesCategories['Ups & Downs']['categories'] =
                 contract_types_list[key]?.categories || [];

@@ -41,7 +41,7 @@ describe('<ReplayChart>', () => {
                 getContractsArray: () => [],
                 markers_array: [],
                 contract_info: {
-                    underlying: 'R_50',
+                    underlying_symbol: 'R_50',
                     audit_details: { all_ticks: [] },
                     barrier_count: 1,
                     contract_id: 12345,

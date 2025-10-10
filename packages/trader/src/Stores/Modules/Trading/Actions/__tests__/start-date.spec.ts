@@ -119,7 +119,7 @@ jest.mock('@deriv/shared', () => {
                                                     },
                                                 ],
                                                 name: 'AUD/JPY',
-                                                symbol: 'frxAUDJPY',
+                                                underlying_symbol: 'frxAUDJPY',
                                                 times: {
                                                     close: ['23:59:59'],
                                                     open: ['00:00:00'],
@@ -130,7 +130,7 @@ jest.mock('@deriv/shared', () => {
                                             {
                                                 events: [],
                                                 name: 'Volatility 10 Index',
-                                                symbol: 'R_10',
+                                                underlying_symbol: 'R_10',
                                                 times: {
                                                     close: ['23:59:59'],
                                                     open: ['00:00:00'],

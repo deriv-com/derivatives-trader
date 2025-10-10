@@ -1,8 +1,6 @@
 import React from 'react';
-
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { render, screen } from '@testing-library/react';
-
 import MarketCategory from '../market-category';
 
 jest.mock('AppV2/Components/MarketCategoryItem', () =>
@@ -24,26 +22,26 @@ describe('<MarketCategory />', () => {
                             submarket_display_name: 'Major Pairs',
                             items: [
                                 {
-                                    symbol: 'frxAUDUSD',
-                                    display_name: 'AUD/USD',
+                                    underlying_symbol: 'frxAUDUSD',
+                                    underlying_symbol_type: 'forex',
+                                    pip_size: 0.0001,
                                     market: 'forex',
-                                    market_display_name: 'Forex',
                                     subgroup: 'none',
-                                    subgroup_display_name: 'None',
                                     submarket: 'major_pairs',
-                                    submarket_display_name: 'Major Pairs',
+                                    exchange_is_open: 1,
+                                    display_order: 1,
                                 },
                                 {
-                                    symbol: 'frxUSDCAD',
-                                    display_name: 'USD/CAD',
+                                    underlying_symbol: 'frxUSDCAD',
+                                    underlying_symbol_type: 'forex',
+                                    pip_size: 0.0001,
                                     market: 'forex',
-                                    market_display_name: 'Forex',
                                     subgroup: 'none',
-                                    subgroup_display_name: 'None',
                                     submarket: 'major_pairs',
-                                    submarket_display_name: 'Major Pairs',
+                                    exchange_is_open: 1,
+                                    display_order: 2,
                                 },
-                            ] as ActiveSymbols,
+                            ] as NonNullable<TActiveSymbolsResponse['active_symbols']>,
                         },
                     },
                 },

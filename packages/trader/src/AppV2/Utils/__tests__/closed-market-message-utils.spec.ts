@@ -1,4 +1,4 @@
-import { TradingTimesResponse } from '@deriv/api-types';
+import { TTradingTimesResponse } from '@deriv/api';
 
 import { calculateTimeLeft, getSymbol } from '../closed-market-message-utils';
 
@@ -63,13 +63,13 @@ describe('getSymbol', () => {
                     {
                         name: 'Major Pairs',
                         symbols: [
-                            { symbol: 'EURUSD', name: 'EUR/USD' },
-                            { symbol: 'USDJPY', name: 'USD/JPY' },
+                            { underlying_symbol: 'EURUSD', name: 'EUR/USD' },
+                            { underlying_symbol: 'USDJPY', name: 'USD/JPY' },
                         ],
                     },
                     {
                         name: 'Minor Pairs',
-                        symbols: [{ symbol: 'GBPUSD', name: 'GBP/USD' }],
+                        symbols: [{ underlying_symbol: 'GBPUSD', name: 'GBP/USD' }],
                     },
                 ],
             },
@@ -78,17 +78,17 @@ describe('getSymbol', () => {
                 submarkets: [
                     {
                         name: 'Metals',
-                        symbols: [{ symbol: 'XAUUSD', name: 'Gold/USD' }],
+                        symbols: [{ underlying_symbol: 'XAUUSD', name: 'Gold/USD' }],
                     },
                 ],
             },
         ],
-    } as unknown as NonNullable<DeepRequired<TradingTimesResponse['trading_times']>>;
+    } as NonNullable<DeepRequired<TTradingTimesResponse['trading_times']>>;
 
     it('should return the correct symbol when the target symbol exists', () => {
         const target_symbol = 'GBPUSD';
         const result = getSymbol(target_symbol, trading_times);
-        expect(result).toEqual({ symbol: 'GBPUSD', name: 'GBP/USD' });
+        expect(result).toEqual({ underlying_symbol: 'GBPUSD', name: 'GBP/USD' });
     });
     it('should return undefined when the target symbol does not exist', () => {
         const target_symbol = 'NZDUSD';
@@ -98,7 +98,7 @@ describe('getSymbol', () => {
     it('should return the correct symbol when multiple symbols exist in different submarkets', () => {
         const target_symbol = 'XAUUSD';
         const result = getSymbol(target_symbol, trading_times);
-        expect(result).toEqual({ symbol: 'XAUUSD', name: 'Gold/USD' });
+        expect(result).toEqual({ underlying_symbol: 'XAUUSD', name: 'Gold/USD' });
     });
     it('should return the first matching symbol when the target symbol exists in multiple submarkets', () => {
         const modified_trading_times = {
@@ -110,15 +110,15 @@ describe('getSymbol', () => {
                     submarkets: [
                         {
                             name: 'BTC',
-                            symbols: [{ symbol: 'GBPUSD', name: 'GBP/USD Duplicate' }],
+                            symbols: [{ underlying_symbol: 'GBPUSD', name: 'GBP/USD Duplicate' }],
                         },
                     ],
                 },
             ],
-        } as unknown as NonNullable<DeepRequired<TradingTimesResponse['trading_times']>>;
+        } as NonNullable<DeepRequired<TTradingTimesResponse['trading_times']>>;
 
         const target_symbol = 'GBPUSD';
         const result = getSymbol(target_symbol, modified_trading_times);
-        expect(result).toEqual({ symbol: 'GBPUSD', name: 'GBP/USD' });
+        expect(result).toEqual({ underlying_symbol: 'GBPUSD', name: 'GBP/USD' });
     });
 });

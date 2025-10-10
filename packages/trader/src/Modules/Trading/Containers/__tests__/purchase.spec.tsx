@@ -66,7 +66,10 @@ describe('<Purchase />', () => {
             ...default_mock_store,
             portfolio: {
                 active_positions: [
-                    { contract_info: mockContractInfo({ underlying: 'test_symbol' }), type: TRADE_TYPES.ACCUMULATOR },
+                    {
+                        contract_info: mockContractInfo({ underlying_symbol: 'test_symbol' }),
+                        type: TRADE_TYPES.ACCUMULATOR,
+                    },
                 ],
             },
         };

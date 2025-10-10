@@ -93,7 +93,7 @@ describe('market-underlying', () => {
             expect(underlying).toBe('JD100');
 
             // Test the complete flow with getSymbolDisplayName
-            const displayName = getSymbolDisplayName([], underlying);
+            const displayName = getSymbolDisplayName(underlying);
             expect(displayName).toBe('Jump 100 Index');
         });
 
@@ -110,7 +110,7 @@ describe('market-underlying', () => {
 
             testCases.forEach(({ shortcode, expected }) => {
                 const { underlying } = getMarketInformation(shortcode);
-                const displayName = getSymbolDisplayName([], underlying);
+                const displayName = getSymbolDisplayName(underlying);
                 expect(displayName).toBe(expected);
             });
         });

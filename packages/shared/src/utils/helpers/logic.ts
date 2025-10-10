@@ -1,11 +1,13 @@
 import moment from 'moment';
-import { isEmptyObject } from '../object';
+
+import { TTicksStreamResponse } from '@deriv/api';
+
+import { getSupportedContracts } from '../constants/contract';
 import { isAccumulatorContract, isOpen, isUserSold } from '../contract';
 import { TContractInfo, TContractStore } from '../contract/contract-types';
-import { TickSpotData } from '@deriv/api-types';
-import { getSupportedContracts } from '../constants/contract';
+import { isEmptyObject } from '../object';
 
-type TIsSoldBeforeStart = Required<Pick<TContractInfo, 'sell_time' | 'date_start'>>;
+type TickSpotData = NonNullable<TTicksStreamResponse['tick']>;
 
 export const isContractElapsed = (contract_info: TContractInfo, tick?: null | TickSpotData) => {
     if (isEmptyObject(tick) || isEmptyObject(contract_info)) return false;
@@ -77,8 +79,7 @@ export const getBuyPrice = (contract_store: TContractStore) => {
 export const isContractSupportedAndStarted = (symbol: string, contract_info?: TContractInfo) => {
     if (!contract_info) return false;
 
-    // Backward compatibility: fallback to old field name
-    const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+    const contract_underlying = contract_info.underlying_symbol;
 
     return (
         symbol === contract_underlying &&

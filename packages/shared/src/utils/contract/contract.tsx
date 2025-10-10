@@ -106,11 +106,10 @@ export const TRADE_TYPES = {
     },
 } as const;
 export const getContractStatus = (contract_info: TContractInfo) => {
-    // Backward compatibility: handle both old and new field names
     const exit_spot_time = contract_info.exit_spot_time;
     const { contract_type, profit, status } = contract_info;
 
-    const closed_contract_status = profit && profit < 0 && exit_spot_time ? 'lost' : 'won';
+    const closed_contract_status = profit && Number(profit) < 0 && exit_spot_time ? 'lost' : 'won';
     const is_accumulator = isAccumulatorContract(contract_type);
 
     let result;
@@ -123,7 +122,12 @@ export const getContractStatus = (contract_info: TContractInfo) => {
     return result;
 };
 
-export const getFinalPrice = (contract_info: TContractInfo) => contract_info.sell_price || contract_info.bid_price;
+export const getFinalPrice = (contract_info: TContractInfo) => {
+    if (contract_info.sell_price && contract_info.sell_price !== '0') {
+        return contract_info.sell_price;
+    }
+    return contract_info.bid_price;
+};
 
 export const getIndicativePrice = (contract_info: TContractInfo) =>
     getFinalPrice(contract_info) && isEnded(contract_info)

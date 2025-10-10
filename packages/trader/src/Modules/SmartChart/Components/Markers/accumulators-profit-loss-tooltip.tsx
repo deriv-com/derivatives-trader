@@ -30,9 +30,7 @@ const AccumulatorsProfitLossTooltip = ({
     current_spot,
     current_spot_time,
     currency,
-    // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
     exit_spot,
-    // @ts-expect-error contract_info is not typed correctly this will not be an issue after the types are fixed
     exit_spot_time,
     high_barrier,
     is_sold,
@@ -101,7 +99,7 @@ const AccumulatorsProfitLossTooltip = ({
                 currency={currency}
                 current_spot={current_spot}
                 current_spot_time={current_spot_time}
-                profit_value={should_show_profit_percentage ? profit_percentage : profit}
+                profit_value={should_show_profit_percentage ? profit_percentage : Number(profit)}
                 should_show_profit_percentage={should_show_profit_percentage}
             />
         );

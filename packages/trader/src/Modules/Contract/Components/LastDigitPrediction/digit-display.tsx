@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { ProposalOpenContract } from '@deriv/api-types';
+import { TPriceProposalOpenContractsResponse } from '@deriv/api';
 import { DesktopWrapper } from '@deriv/components';
 import { isMobile } from '@deriv/shared';
 
@@ -24,7 +24,7 @@ type TDigitDisplay = Pick<React.ComponentProps<typeof DigitSpot>, 'is_lost' | 'i
             spot: string | null;
         };
         selected_digit?: number;
-        status: ProposalOpenContract['status'];
+        status: NonNullable<TPriceProposalOpenContractsResponse['proposal_open_contract']>['status'];
         stats?: number | null;
         value: number;
         onLastDigitSpot?: (value: {

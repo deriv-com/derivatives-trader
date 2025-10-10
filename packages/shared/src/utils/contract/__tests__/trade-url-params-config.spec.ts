@@ -1,7 +1,8 @@
-import { ActiveSymbols } from '@deriv/api-types';
-import { getTradeURLParams, setTradeURLParams } from '../trade-url-params-config';
-import { TRADE_TYPES } from '../contract';
+import { TActiveSymbolsResponse } from '@deriv/api';
+
 import { routes } from '../../routes';
+import { TRADE_TYPES } from '../contract';
+import { getTradeURLParams, setTradeURLParams } from '../trade-url-params-config';
 
 // Mock window.location and window.history
 const mockLocation = {
@@ -17,16 +18,20 @@ const mockHistory = {
 describe('getTradeURLParams', () => {
     const mockActiveSymbols = [
         {
-            symbol: 'R_100',
             underlying_symbol: 'R_100',
-            display_name: 'Volatility 100 Index',
+            display_order: 1,
+            exchange_is_open: 1,
+            market: 'synthetic_index',
+            submarket: 'random_index',
         },
         {
-            symbol: 'frxEURUSD',
             underlying_symbol: 'frxEURUSD',
-            display_name: 'EUR/USD',
+            display_order: 2,
+            exchange_is_open: 1,
+            market: 'forex',
+            submarket: 'major_pairs',
         },
-    ] as ActiveSymbols;
+    ] as NonNullable<TActiveSymbolsResponse['active_symbols']>;
 
     const mockContractTypesList = {
         Accumulators: {
