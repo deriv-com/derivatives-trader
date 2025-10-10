@@ -13,7 +13,7 @@ import ServiceErrorDescription from './service-error-description';
 const ServiceErrorSheet = observer(() => {
     const [is_open, setIsOpen] = useState(false);
     const { common, client } = useStore();
-    const { is_virtual } = client;
+    const { is_virtual, currency } = client;
     const { services_error, resetServicesError } = common;
     const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();
 
@@ -37,12 +37,12 @@ const ServiceErrorSheet = observer(() => {
         if (is_insufficient_balance) {
             return {
                 primaryAction: {
-                    content: <Localize i18n_default_text='Deposit now' />,
+                    content: <Localize i18n_default_text='Transfer now' />,
                     onAction: () => {
                         resetServicesError();
                         if (!is_virtual) {
                             const brandUrl = getBrandUrl();
-                            window.location.href = `${brandUrl}/deposit`;
+                            window.location.href = `${brandUrl}/transfer?acc=options&curr=${currency}&from=home&source=options`;
                         } else {
                             onClose();
                         }

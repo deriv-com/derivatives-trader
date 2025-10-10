@@ -68,6 +68,9 @@ describe('<InsufficientBalanceModal />', () => {
             ui: {
                 is_mobile: false,
             },
+            client: {
+                currency: 'USD',
+            },
         });
     });
 
@@ -94,10 +97,10 @@ describe('<InsufficientBalanceModal />', () => {
         expect(mocked_props.toggleModal).toHaveBeenCalled();
     });
     // TODO: Remove if this test is not needed
-    it('button text should be "Deposit now" if is_virtual is false', async () => {
+    it('button text should be "Transfer now" if is_virtual is false', async () => {
         mocked_props.is_virtual = false;
         render(<InsufficientBalanceModal {...mocked_props} />, { wrapper });
-        const button = screen.getByText(/deposit now/i);
+        const button = screen.getByText(/transfer now/i);
         expect(button).toBeInTheDocument();
     });
     it('should return null when is_visible is false', () => {
@@ -106,15 +109,17 @@ describe('<InsufficientBalanceModal />', () => {
         expect(container).toBeEmptyDOMElement();
     });
 
-    it('should redirect to brand deposit page when "Deposit now" is clicked for real accounts', async () => {
+    it('should redirect to brand deposit page when "Transfer now" is clicked for real accounts', async () => {
         mocked_props.is_virtual = false;
         mocked_props.is_visible = true;
 
         render(<InsufficientBalanceModal {...mocked_props} />, { wrapper });
-        const button = screen.getByText(/deposit now/i);
+        const button = screen.getByText(/transfer now/i);
 
         await userEvent.click(button);
 
-        expect(window.location.href).toBe('https://home.deriv.com/dashboard/deposit');
+        expect(window.location.href).toBe(
+            'https://home.deriv.com/dashboard/transfer?acc=options&curr=USD&from=home&source=options'
+        );
     });
 });
