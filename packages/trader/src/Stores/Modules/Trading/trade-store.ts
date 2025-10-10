@@ -18,7 +18,6 @@ import {
 } from '@deriv/api-types';
 import {
     BARRIER_COLORS,
-    cacheTrackEvents,
     ChartBarrierStore,
     cloneObject,
     CONTRACT_TYPES,
@@ -31,9 +30,11 @@ import {
     getContractPath,
     getContractSubtype,
     getCurrencyDisplayCode,
+    getMarketName,
     getMinPayout,
     getPropertyValue,
     getTradeNotificationMessage,
+    getTradeTypeName,
     getTradeURLParams,
     hasBarrier,
     isAccumulatorContract,
@@ -53,6 +54,7 @@ import {
     setLimitOrderBarriers,
     setTradeURLParams,
     showUnavailableLocationError,
+    trackAnalyticsEvent,
     TRADE_TYPES,
     WS,
 } from '@deriv/shared';
@@ -65,7 +67,6 @@ import { getMultiplierValidationRules, getValidationRules } from 'Stores/Modules
 import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
 import { TContractTypesList, TRootStore, TTextValueNumber, TTextValueStrings } from 'Types';
 
-import { sendDtraderPurchaseToAnalytics } from '../../../Analytics';
 import BaseStore from '../../base-store';
 
 import { processPurchase } from './Actions/purchase';
@@ -1271,12 +1272,21 @@ export default class TradeStore extends BaseStore {
                             // draw the start time line and show longcode then mount contract
                             // this.root_store.modules.contract_trade.drawContractStartTime(start_time, longcode, contract_id);
                             if (!is_dtrader_v2) {
-                                sendDtraderPurchaseToAnalytics(
-                                    contract_type,
-                                    this.symbol,
+                                // Convert raw technical values to user-friendly display names
+                                // For trade_type_name, we need the general trade type (like 'touch' -> 'Touch/No Touch')
+                                const general_trade_type = this.contract_type; // This is the general trade type like 'touch', 'rise_fall', etc.
+                                const trade_type_name = getTradeTypeName(general_trade_type, { showMainTitle: true }) || general_trade_type;
+                                const market_type_name = getMarketName(this.symbol) || this.symbol;
+                                // For contract_type, we use the specific contract type (like 'ONETOUCH' -> 'Touch')
+                                const contract_type_display = getTradeTypeName(contract_type) || '';
+
+                                trackAnalyticsEvent('ce_contracts_set_up_form_v2', {
+                                    action: 'run_contract',
+                                    trade_type_name,
+                                    market_type_name,
                                     contract_id,
-                                    this.root_store.client
-                                );
+                                    contract_type: contract_type_display,
+                                });
                             }
 
                             if (!isMobile) {
@@ -2199,18 +2209,11 @@ export default class TradeStore extends BaseStore {
         }
         const { data, event_type } = getChartAnalyticsData(state as keyof typeof STATE_TYPES, option) as TPayload;
         if (data) {
-            cacheTrackEvents.loadEvent([
-                {
-                    event: {
-                        name: event_type,
-                        properties: {
-                            ...data,
-                            action: data.action as TEvents['ce_indicators_types_form']['action'],
-                            form_name: 'default',
-                        },
-                    },
-                },
-            ]);
+            trackAnalyticsEvent(event_type, {
+                ...data,
+                action: data.action,
+                platform: 'DTrader',
+            });
         }
     }
 

@@ -3,12 +3,12 @@ import type { TEvents } from '@deriv-com/analytics';
 export type TPayload = {
     data: Omit<
         // @ts-expect-error - Analytics library types not updated yet for these event types
-        Partial<TEvents['ce_chart_types_form_v2'] & TEvents['ce_market_types_form_v2'] & TEvents['ce_indicators_types_form']>,
+        Partial<TEvents['ce_chart_types_form_v2'] & TEvents['ce_market_types_form_v2'] & TEvents['ce_indicators_types_form_v2']>,
         'action'
     > & {
         action: string;
     };
-    event_type: 'ce_chart_types_form_v2' | 'ce_market_types_form_v2' | 'ce_indicators_types_form';
+    event_type: 'ce_chart_types_form_v2' | 'ce_market_types_form_v2' | 'ce_indicators_types_form_v2';
 };
 
 type TStateChangeOption = {
@@ -95,7 +95,7 @@ const getChartTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, option: 
 
 const getIndicatorTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, option: TStateChangeOption = {}) => {
     const { indicator_type_name = '', indicators_category_name = '', is_info_open, is_open, search_string } = option;
-    const indicators_event_type = 'ce_indicators_types_form';
+    const indicators_event_type = 'ce_indicators_types_form_v2';
     const indicators_subform = is_info_open ? SUBFORM_NAME.INDICATORS_INFO : SUBFORM_NAME.INDICATORS_TYPE;
     const info_open_close_action = is_info_open ? ACTION.INFO_OPEN : ACTION.INFO_CLOSE;
     const open_close_action = is_open ? ACTION.OPEN : ACTION.CLOSE;

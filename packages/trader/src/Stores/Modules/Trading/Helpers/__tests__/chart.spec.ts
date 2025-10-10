@@ -17,7 +17,7 @@ describe('getChartAnalyticsData', () => {
     const tab_market_name = mocked_data.symbol_category;
     const chart_event_type = 'ce_chart_types_form_v2';
     const market_event_type = 'ce_market_types_form_v2';
-    const indicators_event_type = 'ce_indicators_types_form';
+    const indicators_event_type = 'ce_indicators_types_form_v2';
     it('should return empty object if args are empty', () => {
         expect(getChartAnalyticsData('' as keyof typeof STATE_TYPES)).toEqual({});
     });
