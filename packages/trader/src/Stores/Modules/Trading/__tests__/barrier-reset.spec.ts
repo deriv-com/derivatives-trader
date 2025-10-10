@@ -162,7 +162,9 @@ describe('TradeStore - Barrier Reset on Symbol Change', () => {
                 barrier_2: '',
                 duration: 5,
                 duration_unit: 'm',
-                expiry_type: 'endtime',
+                expiry_type: 'duration',
+                expiry_date: null,
+                expiry_time: null,
             });
 
             // Should clear localStorage
@@ -183,7 +185,9 @@ describe('TradeStore - Barrier Reset on Symbol Change', () => {
                 barrier_2: '',
                 duration: 5,
                 duration_unit: 'm',
-                expiry_type: 'endtime',
+                expiry_type: 'duration',
+                expiry_date: null,
+                expiry_time: null,
             });
         });
 

@@ -2510,11 +2510,12 @@ export default class TradeStore extends BaseStore {
                     reset_values.expiry_date = null;
                     reset_values.expiry_time = null;
                 } else {
-                    // Switching to forex markets - default to endtime
+                    // Switching to forex markets - default to duration (minutes)
                     reset_values.duration_unit = 'm';
-                    reset_values.expiry_type = 'endtime';
+                    reset_values.expiry_type = 'duration';
                     reset_values.duration = DURATION_DEFAULTS.DEFAULT_MINUTE_DURATION;
-                    // expiry_date and expiry_time will be set by the system
+                    reset_values.expiry_date = null;
+                    reset_values.expiry_time = null;
                 }
             }
 
