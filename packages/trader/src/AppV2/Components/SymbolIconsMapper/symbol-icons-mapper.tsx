@@ -9,7 +9,7 @@ type TSymbolIconsMapper = {
 const SymbolIconsMapper = ({ symbol }: TSymbolIconsMapper) => {
     const iconSize = 'md';
 
-    const IconComponent = marketIcons[symbol as keyof typeof marketIcons];
+    const IconComponent = marketIcons[symbol.toLowerCase() as keyof typeof marketIcons];
     return IconComponent ? <IconComponent iconSize={iconSize} /> : null;
 };
 
