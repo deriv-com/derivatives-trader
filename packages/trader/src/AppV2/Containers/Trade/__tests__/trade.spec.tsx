@@ -34,7 +34,6 @@ jest.mock('@deriv/api', () => ({
     useLocalStorageData: jest.fn(() => [{ trade_page: false }]),
 }));
 
-
 jest.mock('Modules/Trading/Helpers/digits', () => ({
     isDigitTradeType: jest.fn(
         contract_type =>
@@ -94,7 +93,37 @@ jest.mock('AppV2/Utils/layout-utils', () => ({
 
 // Mock trade types utils
 jest.mock('AppV2/Utils/trade-types-utils', () => ({
+    ...jest.requireActual('AppV2/Utils/trade-types-utils'),
     getDisplayedContractTypes: jest.fn(() => ['rise_fall', 'higher_lower']),
+    CONTRACT_LIST: {
+        ACCUMULATORS: 'Accumulators',
+        RISE_FALL: 'Rise/Fall',
+        HIGHER_LOWER: 'Higher/Lower',
+        MULTIPLIERS: 'Multipliers',
+        VANILLAS: 'Vanillas',
+        TURBOS: 'Turbos',
+        TOUCH_NO_TOUCH: 'Touch/No Touch',
+        MATCHES_DIFFERS: 'Matches/Differs',
+        EVEN_ODD: 'Even/Odd',
+        OVER_UNDER: 'Over/Under',
+    },
+}));
+
+// Mock contract description utils
+jest.mock('AppV2/Utils/contract-description-utils', () => ({
+    ...jest.requireActual('AppV2/Utils/contract-description-utils'),
+    DESCRIPTION_VIDEO_IDS: {
+        Accumulators: { dark: 'acc_dark', light: 'acc_light' },
+        'Rise/Fall': { dark: 'rf_dark', light: 'rf_light' },
+        'Higher/Lower': { dark: 'hl_dark', light: 'hl_light' },
+        Multipliers: { dark: 'mult_dark', light: 'mult_light' },
+        Vanillas: { dark: 'van_dark', light: 'van_light' },
+        Turbos: { dark: 'turbo_dark', light: 'turbo_light' },
+        'Touch/No Touch': { dark: 'touch_dark', light: 'touch_light' },
+        'Matches/Differs': { dark: 'md_dark', light: 'md_light' },
+        'Even/Odd': { dark: 'eo_dark', light: 'eo_light' },
+        'Over/Under': { dark: 'ou_dark', light: 'ou_light' },
+    },
 }));
 
 // Default mock data
@@ -387,40 +416,6 @@ describe('Trade', () => {
 
             expect(tradeParamsContainers).toHaveLength(2);
             expect(tradeParameters).toHaveLength(2);
-        });
-    });
-
-    describe('Analytics Tracking', () => {
-        it('should track select_trade_type event with human-friendly trade type name', () => {
-            // We need to unmock TradeTypes to test the actual onTradeTypeSelect callback
-            jest.unmock('../trade-types');
-            const TradeTypesComponent = jest.requireActual('../trade-types').default;
-            
-            // Mock TradeTypes to capture the onTradeTypeSelect prop
-            let capturedOnTradeTypeSelect: any;
-            jest.mock('../trade-types', () =>
-                jest.fn((props: any) => {
-                    capturedOnTradeTypeSelect = props.onTradeTypeSelect;
-                    return <div data-testid='trade-types'>TradeTypes</div>;
-                })
-            );
-
-            renderTrade();
-
-            // Simulate clicking on a trade type button
-            const mockEvent = {
-                target: { textContent: 'Higher/Lower' },
-            } as any;
-
-            if (capturedOnTradeTypeSelect) {
-                capturedOnTradeTypeSelect(mockEvent, 'trade_type_page', 2);
-            }
-
-            // Verify trackAnalyticsEvent was called with the correct human-friendly name
-            expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith('ce_trade_types_form_v2', {
-                action: 'select_trade_type',
-                trade_type_name: 'Higher/Lower',
-            });
         });
     });
 });

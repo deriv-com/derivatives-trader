@@ -11,6 +11,29 @@ import ModulesProvider from 'Stores/Providers/modules-providers';
 import TraderProviders from '../../../../trader-providers';
 import PurchaseButton from '../purchase-button';
 
+// Mock WebSocket from @deriv/shared
+const mockWS = {
+    authorized: {
+        send: jest.fn(() => Promise.resolve({})),
+    },
+    send: jest.fn(() => Promise.resolve({})),
+};
+
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    WS: mockWS,
+}));
+
+// Mock useContractsFor hook to avoid WS dependency
+jest.mock('AppV2/Hooks/useContractsFor', () => ({
+    __esModule: true,
+    default: jest.fn(() => [
+        { text: 'Rise/Fall', value: 'rise_fall' },
+        { text: 'Higher/Lower', value: 'high_low' },
+        { text: 'Multipliers', value: 'multiplier' },
+    ]),
+}));
+
 describe('PositionsContent', () => {
     let default_mock_store: ReturnType<typeof mockStore>;
 
