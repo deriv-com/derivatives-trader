@@ -117,17 +117,34 @@ export const getExpiryType = (store: any) => {
     const server_time = store.root_store.common.server_time;
 
     const duration_is_day = expiry_type === 'duration' && duration_unit === 'd';
+    const duration_is_endtime = expiry_type === 'endtime';
+
     const expiry_is_after_today =
         expiry_type === 'endtime' &&
-        ((toMoment(expiry_date) as unknown as moment.Moment).isAfter(
+        (toMoment(expiry_date) as unknown as moment.Moment).isAfter(
             toMoment(server_time) as unknown as moment.MomentInput,
             'day'
-        ) ||
-            !hasIntradayDurationUnit(duration_units_list));
+        );
 
-    let contract_expiry_type = 'daily';
-    if (!duration_is_day && !expiry_is_after_today) {
-        contract_expiry_type = duration_unit === 't' ? 'tick' : 'intraday';
+    const expiry_is_today =
+        expiry_type === 'endtime' &&
+        (toMoment(expiry_date) as unknown as moment.Moment).isSame(
+            toMoment(server_time) as unknown as moment.MomentInput,
+            'day'
+        );
+
+    let contract_expiry_type = '';
+
+    if (duration_is_day) {
+        contract_expiry_type = 'daily';
+    } else if (expiry_is_after_today || (duration_is_endtime && !hasIntradayDurationUnit(duration_units_list))) {
+        contract_expiry_type = 'daily';
+    } else if (expiry_is_today && hasIntradayDurationUnit(duration_units_list)) {
+        contract_expiry_type = 'intraday';
+    } else if (duration_unit === 't') {
+        contract_expiry_type = 'tick';
+    } else if (duration_unit === 'm' || duration_unit === 'h' || duration_unit === 's') {
+        contract_expiry_type = 'intraday';
     }
 
     return contract_expiry_type;

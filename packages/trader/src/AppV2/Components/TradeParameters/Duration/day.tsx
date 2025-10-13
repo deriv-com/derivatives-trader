@@ -55,12 +55,15 @@ const DayInput = ({
     const [day, setDay] = useState<number | null>(null);
     const { server_time } = common;
     const {
+        amount,
         barrier_1,
         contract_type,
         duration_min_max,
+        duration_unit,
         duration_units_list,
         duration,
         expiry_date,
+        expiry_type,
         is_turbos,
         market_close_times,
         market_open_times,
@@ -73,13 +76,27 @@ const DayInput = ({
     const trade_store = useTraderStore();
     const { addSnackbar } = useSnackbar();
 
+    // Calculate date_expiry epoch when expiry_type is endtime
+    const getDateExpiryEpoch = () => {
+        if (expiry_type !== 'endtime' || !unsaved_expiry_date_v2) return undefined;
+
+        const time_to_use = end_time || expiry_time_input || '23:59:59';
+        const date_string = `${unsaved_expiry_date_v2}T${time_to_use}Z`; // Z for GMT/UTC
+        return Math.floor(new Date(date_string).getTime() / 1000);
+    };
+
     const new_values = {
-        duration_unit: 'd',
-        duration: day || duration,
-        expiry_type: 'duration',
+        ...(expiry_type !== 'endtime' && {
+            duration_unit,
+            duration: day || duration,
+        }),
+        ...(expiry_type === 'endtime' && {
+            date_expiry: getDateExpiryEpoch(),
+        }),
+        expiry_type,
         contract_type,
         basis: 'stake',
-        amount: '5',
+        amount,
         symbol,
         ...(payout_per_point && { payout_per_point }),
         ...(barrier_value && { barrier: barrier_value }),
@@ -95,7 +112,6 @@ const DayInput = ({
         ['proposal', JSON.stringify(day), JSON.stringify(payout_per_point), JSON.stringify(barrier_value)],
         {
             ...proposal_req,
-            symbol,
             ...(barrier_1 && !is_turbos && !barrier_value ? { barrier: Math.round(tick_data?.quote as number) } : {}),
         },
         {
@@ -168,11 +184,13 @@ const DayInput = ({
         day: 'numeric',
         month: 'short',
         year: 'numeric',
+        timeZone: 'GMT',
     });
     const formatted_current_date = new Date().toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
+        timeZone: 'GMT',
     });
 
     React.useEffect(() => {
@@ -327,6 +345,7 @@ const DayInput = ({
                                         day: 'numeric',
                                         month: 'short',
                                         year: 'numeric',
+                                        timeZone: 'GMT',
                                     });
 
                                     if (end_date !== formatted_current_date) {

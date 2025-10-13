@@ -63,29 +63,28 @@ const DurationActionSheetContainer = observer(
                     expiry_type: 'duration',
                 });
             } else if (unit === DURATION_UNIT.DAYS) {
-                const difference_in_time = new Date(unsaved_expiry_date_v2).getTime() - new Date().getTime();
-                const difference_in_days = Math.ceil(difference_in_time / (1000 * 3600 * 24));
                 setSelectedHour([]);
+
+                const updates: Record<string, any> = {
+                    expiry_type: 'endtime',
+                    expiry_date: unsaved_expiry_date_v2,
+                };
+
                 if (end_time) {
-                    onChangeMultiple({
-                        expiry_time: end_time,
-                        expiry_type: 'endtime',
-                    });
+                    updates.expiry_time = end_time;
                 } else {
                     setEndTime('');
-                    onChangeMultiple({
-                        duration_unit: DURATION_UNIT.DAYS,
-                        duration: Number(difference_in_days),
-                        expiry_time: null,
-                        expiry_type: 'duration',
-                    });
+                    updates.expiry_time = expiry_time_input;
                 }
+
+                onChangeMultiple(updates);
             } else {
                 setEndTime('');
                 setSelectedHour([]);
                 onChangeMultiple({
                     duration_unit: unit,
                     duration: Number(selected_time),
+                    expiry_date: null,
                     expiry_time: null,
                     expiry_type: 'duration',
                 });
