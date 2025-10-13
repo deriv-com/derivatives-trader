@@ -432,14 +432,47 @@ export function calculateMarker(
     const price = barrier_price || 0;
 
     const is_contract_finished = contract_info.is_sold || contract_info.is_expired;
+    const exit_spot = contract_info.exit_spot;
 
     if (is_contract_finished) {
-        // Add profit and loss label marker when contract is finished (sold or expired)
-        const exit_spot = contract_info.exit_spot;
+        if (entry_spot) {
+            markers.push({
+                epoch: entry_spot_time,
+                quote: entry_spot,
+                type: 'entrySpot',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
+
+        if (date_start) {
+            markers.push({
+                epoch: date_start,
+                quote: price,
+                type: 'startTimeCollapsed',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
+        if (end_time) {
+            markers.push({
+                epoch: end_time,
+                quote: price,
+                type: 'exitTimeCollapsed',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
+
         if (exit_spot_time && exit_spot) {
             markers.push({
                 epoch: exit_spot_time,
                 quote: exit_spot,
+                type: 'exitSpot',
+                direction: getMarkerDirection(contract_type),
+            });
+
+            //Add profit and loss label marker when contract is finished (sold or expired)
+            markers.push({
+                epoch: exit_spot_time,
+                quote: price,
                 type: 'profitAndLossLabel',
                 direction: getMarkerDirection(contract_type),
             });
@@ -463,17 +496,25 @@ export function calculateMarker(
 
         if (entry_spot) {
             markers.push({
+                epoch: entry_spot_time,
+                quote: entry_spot,
+                type: 'entrySpot',
+                direction: getMarkerDirection(contract_type),
+            });
+            markers.push({
                 epoch: date_start,
                 quote: is_digit_contract ? undefined : price,
                 type: 'contractMarker',
                 text: `${localize('Start')}\n${localize('Time')}`,
                 direction: getMarkerDirection(contract_type),
             });
+        }
 
+        if (exit_spot) {
             markers.push({
-                epoch: entry_spot_time,
-                quote: entry_spot,
-                type: 'entryTick',
+                epoch: exit_spot_time,
+                quote: exit_spot,
+                type: 'exitSpot',
                 direction: getMarkerDirection(contract_type),
             });
         }
@@ -556,8 +597,8 @@ export function calculateMarker(
         },
         direction: getMarkerDirection(contract_type),
         profitAndLossText: getProfitAndLossText(),
+        currentEpoch: contract_info.current_spot_time,
     };
-
     return result;
 }
 
