@@ -29,6 +29,7 @@ import {
     getCardLabelsV2,
     getContractPath,
     getContractSubtype,
+    getContractTypesConfig,
     getCurrencyDisplayCode,
     getMarketName,
     getMinPayout,
@@ -1273,9 +1274,9 @@ export default class TradeStore extends BaseStore {
                             // this.root_store.modules.contract_trade.drawContractStartTime(start_time, longcode, contract_id);
                             if (!is_dtrader_v2) {
                                 // Convert raw technical values to user-friendly display names
-                                // For trade_type_name, we need the general trade type (like 'touch' -> 'Touch/No Touch')
-                                const general_trade_type = this.contract_type; // This is the general trade type like 'touch', 'rise_fall', etc.
-                                const trade_type_name = getTradeTypeName(general_trade_type, { showMainTitle: true }) || general_trade_type;
+                                // For trade_type_name, use the title from getContractTypesConfig which has human-friendly names
+                                const contract_types_config = getContractTypesConfig(this.symbol);
+                                const trade_type_name = contract_types_config[this.contract_type]?.title || this.contract_type;
                                 const market_type_name = getMarketName(this.symbol) || this.symbol;
                                 // For contract_type, we use the specific contract type (like 'ONETOUCH' -> 'Touch')
                                 const contract_type_display = getTradeTypeName(contract_type) || '';

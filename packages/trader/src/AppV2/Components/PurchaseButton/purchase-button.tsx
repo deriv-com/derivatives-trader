@@ -21,6 +21,7 @@ import { useStore } from '@deriv/stores';
 import { Button, useNotifications, useSnackbar } from '@deriv-com/quill-ui';
 import { useDevice } from '@deriv-com/ui';
 
+import useContractsFor from 'AppV2/Hooks/useContractsFor';
 import { checkIsServiceModalError } from 'AppV2/Utils/layout-utils';
 import { getTradeTypeTabsList } from 'AppV2/Utils/trade-params-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
@@ -48,6 +49,7 @@ const PurchaseButton = observer(() => {
         common: { services_error },
     } = useStore();
     const { is_logged_in } = client;
+    const { trade_types: trade_types_list } = useContractsFor();
     const {
         basis,
         basis_list,
@@ -130,7 +132,8 @@ const PurchaseButton = observer(() => {
 
     const addNotificationBannerCallback = (params: Parameters<typeof addBanner>[0], contract_id: number, specific_contract_type: string) => {
         // Track run_contract analytics event directly
-        const trade_type_name = getTradeTypeName(contract_type, { showMainTitle: true }) || contract_type;
+        const selected_trade_type = trade_types_list.find(({ value }) => value === contract_type);
+        const trade_type_name = selected_trade_type?.text || contract_type;
         const market_type_name = getMarketName(symbol) || symbol;
         const contract_type_display = getTradeTypeName(specific_contract_type) || '';
 

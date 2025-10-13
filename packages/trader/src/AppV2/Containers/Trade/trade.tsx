@@ -24,7 +24,7 @@ import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { isDigitTradeType } from 'Modules/Trading/Helpers/digits';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { trackAnalyticsEvent, getTradeTypeName } from '@deriv/shared';
+import { trackAnalyticsEvent } from '@deriv/shared';
 import { TradeChart } from '../Chart';
 
 import TradeTypes from './trade-types';
@@ -89,16 +89,16 @@ const Trade = observer(() => {
             subform_name: string,
             trade_type_count: number
         ) => {
-            const value = trade_types.find(({ text }) => text === (e.target as HTMLButtonElement).textContent)?.value;
+            const selected_trade_type = trade_types.find(({ text }) => text === (e.target as HTMLButtonElement).textContent);
             onChange({
                 target: {
                     name: 'contract_type',
-                    value,
+                    value: selected_trade_type?.value,
                 },
             });
             trackAnalyticsEvent('ce_trade_types_form_v2', {
                 action: 'select_trade_type',
-                trade_type_name: getTradeTypeName(value || '', { showMainTitle: true }) || value || '',
+                trade_type_name: selected_trade_type?.text || '',
             });
         },
         [trade_types, onChange, symbol]

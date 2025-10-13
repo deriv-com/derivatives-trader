@@ -10,6 +10,18 @@ import ModulesProvider from 'Stores/Providers/modules-providers';
 import TraderProviders from '../../../../trader-providers';
 import Trade from '../trade';
 
+// Mock trackAnalyticsEvent
+const mockTrackAnalyticsEvent = jest.fn();
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    getSymbolDisplayName: jest.fn((symbols, symbol) => `${symbol} Display Name`),
+    redirectToLogin: jest.fn(),
+    redirectToSignUp: jest.fn(),
+    getBrandUrl: jest.fn(() => 'https://deriv.com'),
+    isEmptyObject: jest.fn(obj => !obj || Object.keys(obj).length === 0),
+    trackAnalyticsEvent: (...args: any[]) => mockTrackAnalyticsEvent(...args),
+}));
+
 // Mock all external dependencies
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
@@ -22,14 +34,6 @@ jest.mock('@deriv/api', () => ({
     useLocalStorageData: jest.fn(() => [{ trade_page: false }]),
 }));
 
-jest.mock('@deriv/shared', () => ({
-    ...jest.requireActual('@deriv/shared'),
-    getSymbolDisplayName: jest.fn((symbols, symbol) => `${symbol} Display Name`),
-    redirectToLogin: jest.fn(),
-    redirectToSignUp: jest.fn(),
-    getBrandUrl: jest.fn(() => 'https://deriv.com'),
-    isEmptyObject: jest.fn(obj => !obj || Object.keys(obj).length === 0),
-}));
 
 jest.mock('Modules/Trading/Helpers/digits', () => ({
     isDigitTradeType: jest.fn(
@@ -383,6 +387,40 @@ describe('Trade', () => {
 
             expect(tradeParamsContainers).toHaveLength(2);
             expect(tradeParameters).toHaveLength(2);
+        });
+    });
+
+    describe('Analytics Tracking', () => {
+        it('should track select_trade_type event with human-friendly trade type name', () => {
+            // We need to unmock TradeTypes to test the actual onTradeTypeSelect callback
+            jest.unmock('../trade-types');
+            const TradeTypesComponent = jest.requireActual('../trade-types').default;
+            
+            // Mock TradeTypes to capture the onTradeTypeSelect prop
+            let capturedOnTradeTypeSelect: any;
+            jest.mock('../trade-types', () =>
+                jest.fn((props: any) => {
+                    capturedOnTradeTypeSelect = props.onTradeTypeSelect;
+                    return <div data-testid='trade-types'>TradeTypes</div>;
+                })
+            );
+
+            renderTrade();
+
+            // Simulate clicking on a trade type button
+            const mockEvent = {
+                target: { textContent: 'Higher/Lower' },
+            } as any;
+
+            if (capturedOnTradeTypeSelect) {
+                capturedOnTradeTypeSelect(mockEvent, 'trade_type_page', 2);
+            }
+
+            // Verify trackAnalyticsEvent was called with the correct human-friendly name
+            expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith('ce_trade_types_form_v2', {
+                action: 'select_trade_type',
+                trade_type_name: 'Higher/Lower',
+            });
         });
     });
 });

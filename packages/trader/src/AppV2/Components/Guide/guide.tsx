@@ -9,7 +9,7 @@ import useContractsFor from 'AppV2/Hooks/useContractsFor';
 import { AVAILABLE_CONTRACTS, CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { trackAnalyticsEvent, getTradeTypeName } from '@deriv/shared';
+import { trackAnalyticsEvent } from '@deriv/shared';
 
 import GuideDefinitionModal from './guide-definition-modal';
 import GuideDescriptionModal from './guide-description-modal';
@@ -84,7 +84,7 @@ const Guide = observer(
                         onClick={() => {
                             trackAnalyticsEvent('ce_trade_types_form_v2', {
                                 action: 'info_open',
-                                trade_type_name: getTradeTypeName(contract_type, { showMainTitle: true }) || contract_type,
+                                trade_type_name: contract_type_title || contract_type,
                             });
                             setIsDescriptionOpened(true);
                         }}
@@ -106,7 +106,7 @@ const Guide = observer(
                         const selected_trade_type = ordered_contract_list.find(item => item.id === id);
                         trackAnalyticsEvent('ce_trade_types_form_v2', {
                             action: 'info_switcher',
-                            trade_type_name: (getTradeTypeName(selected_trade_type?.for?.[0] ?? '', { showMainTitle: true }) || selected_trade_type?.for?.[0]) ?? '',
+                            trade_type_name: selected_trade_type?.id ?? '',
                         });
                         onChipSelect(id);
                     }}

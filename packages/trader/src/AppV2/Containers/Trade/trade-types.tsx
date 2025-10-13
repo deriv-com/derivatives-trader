@@ -13,7 +13,7 @@ import { checkContractTypePrefix } from 'AppV2/Utils/contract-type';
 import { getTradeTypesList, sortCategoriesInTradeTypeOrder } from 'AppV2/Utils/trade-types-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { trackAnalyticsEvent, getTradeTypeName } from '@deriv/shared';
+import { trackAnalyticsEvent } from '@deriv/shared';
 import Guide from '../../Components/Guide';
 
 import TradeTypesContent from './trade-types-content';
@@ -313,10 +313,13 @@ const TradeTypes = ({ contract_type, onTradeTypeSelect, trade_types, is_dark_mod
                             pages={action_sheet_content}
                             title={<Localize i18n_default_text='Trade types' />}
                             next_icon={LabelPairedPresentationScreenSmRegularIcon}
-                            onNextButtonClick={() => trackAnalyticsEvent('ce_trade_types_form_v2', {
-                                action: 'info_open',
-                                trade_type_name: getTradeTypeName(contract_type, { showMainTitle: true }) || contract_type,
-                            })}
+                            onNextButtonClick={() => {
+                                const selected_trade_type = trade_types.find(({ value }) => value === contract_type);
+                                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                                    action: 'info_open',
+                                    trade_type_name: selected_trade_type?.text || contract_type,
+                                });
+                            }}
                         />
                     )}
                 </ActionSheet.Portal>
