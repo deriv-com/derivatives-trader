@@ -45,9 +45,7 @@ const DurationActionSheetContainer = observer(
             if (unit === DURATION_UNIT.HOURS) {
                 // For hours: selected_duration is [hours, minutes]
                 const minutes = selected_duration[0] * 60 + selected_duration[1];
-                const hour = Math.floor(minutes / 60);
-                const min = minutes % 60;
-                setSelectedDuration([hour, min]);
+                setSelectedDuration([]);
                 setSelectedExpiryTime('');
                 onChangeMultiple({
                     duration_unit: DURATION_UNIT.MINUTES,

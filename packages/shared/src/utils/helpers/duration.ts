@@ -120,12 +120,9 @@ export const getExpiryType = (store: any) => {
     const duration_is_endtime = expiry_type === 'endtime';
 
     const expiry_is_after_today =
-        expiry_type === 'endtime' &&
-        (toMoment(expiry_date) as moment.Moment).isAfter(toMoment(server_time) as moment.MomentInput, 'day');
+        expiry_type === 'endtime' && toMoment(expiry_date).isAfter(toMoment(server_time), 'day');
 
-    const expiry_is_today =
-        expiry_type === 'endtime' &&
-        (toMoment(expiry_date) as moment.Moment).isSame(toMoment(server_time) as moment.MomentInput, 'day');
+    const expiry_is_today = expiry_type === 'endtime' && toMoment(expiry_date).isSame(toMoment(server_time), 'day');
 
     let contract_expiry_type = '';
 
