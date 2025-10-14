@@ -82,9 +82,26 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
 
     useEffect(() => {
         if (duration_unit == 'd') {
-            const newDate = new Date();
-            newDate.setDate(newDate.getDate() + duration);
-            setEndDate(newDate);
+            // When duration_unit changes to 'd', always set to +1 day from today
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            setEndDate(tomorrow);
+
+            const formatted_date = tomorrow.toISOString().split('T')[0];
+            setSavedExpiryDateV2(formatted_date);
+
+            // Reset duration to 1 day and set end time
+            const end_time_value = '23:59:59';
+            setExpiryTimeString(end_time_value);
+            setEndTime(end_time_value);
+
+            // Update the store with the new values
+            onChangeMultiple({
+                duration: 1,
+                duration_unit: 'd',
+                expiry_time: end_time_value,
+                expiry_type: 'endtime',
+            });
         }
     }, [duration_unit]);
 
