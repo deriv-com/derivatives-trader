@@ -501,6 +501,7 @@ export function calculateMarker(
                 direction: getMarkerDirection(contract_type),
             });
         }
+
         if (exit_spot) {
             markers.push({
                 epoch: exit_spot_time,
