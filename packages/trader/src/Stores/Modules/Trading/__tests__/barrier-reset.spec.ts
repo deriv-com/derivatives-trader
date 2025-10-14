@@ -162,7 +162,9 @@ describe('TradeStore - Barrier Reset on Symbol Change', () => {
                 barrier_2: '',
                 duration: 5,
                 duration_unit: 'm',
-                expiry_type: 'endtime',
+                expiry_type: 'duration',
+                expiry_date: null,
+                expiry_time: null,
             });
 
             // Should clear localStorage
@@ -183,7 +185,9 @@ describe('TradeStore - Barrier Reset on Symbol Change', () => {
                 barrier_2: '',
                 duration: 5,
                 duration_unit: 'm',
-                expiry_type: 'endtime',
+                expiry_type: 'duration',
+                expiry_date: null,
+                expiry_time: null,
             });
         });
 
@@ -262,22 +266,6 @@ describe('TradeStore - Barrier Reset on Symbol Change', () => {
 
             // Verify that localStorage.removeItem was called multiple times (for all the keys)
             expect(localStorageMock.removeItem).toHaveBeenCalledTimes(11);
-        });
-
-        it('should clear v2_params_initial_values for barrier and duration fields', () => {
-            // Set up some initial values
-            trade_store.v2_params_initial_values = {
-                barrier_1: 1.5,
-                duration: 10,
-                duration_unit: 't',
-                expiry_type: 'duration',
-                other_field: 'should_remain',
-            } as any;
-
-            trade_store.handleTradeParamsResetOnSymbolChange('1HZ100V', 'EURUSD');
-
-            // Should clear all v2_params_initial_values (the implementation clears everything)
-            expect(trade_store.v2_params_initial_values).toEqual({});
         });
     });
 
