@@ -100,28 +100,24 @@ describe('DurationActionSheetContainer', () => {
         mocked_store: TCoreStores,
         unit = 'm',
         setUnit = jest.fn(),
-        selected_hour = [0, 0],
-        setSelectedHour = jest.fn(),
-        saved_expiry_date_v2 = new Date().toISOString().slice(0, 10),
-        setSavedExpiryDateV2 = jest.fn(),
-        end_time = '',
-        setEndTime = jest.fn()
+        selected_expiry_time = '',
+        selected_expiry_date = '',
+        setSelectedExpiryTime = jest.fn(),
+        setSavedExpiryTime = jest.fn(),
+        setSelectedExpiryDate = jest.fn(),
+        setSavedExpiryDate = jest.fn()
     ) => {
         render(
             <TraderProviders store={mocked_store}>
                 <DurationActionSheetContainer
-                    selected_hour={selected_hour}
-                    setSelectedHour={setSelectedHour}
                     unit={unit}
                     setUnit={setUnit}
-                    saved_expiry_date_v2={saved_expiry_date_v2}
-                    setSavedExpiryDateV2={setSavedExpiryDateV2}
-                    end_time={end_time}
-                    setEndTime={setEndTime}
-                    expiry_time_string='24th Aug 2024'
-                    setExpiryTimeString={() => jest.fn()}
-                    unsaved_expiry_date_v2={''}
-                    setUnsavedExpiryDateV2={() => jest.fn()}
+                    selected_expiry_time={selected_expiry_time}
+                    selected_expiry_date={selected_expiry_date}
+                    setSelectedExpiryTime={setSelectedExpiryTime}
+                    setSavedExpiryTime={setSavedExpiryTime}
+                    setSelectedExpiryDate={setSelectedExpiryDate}
+                    setSavedExpiryDate={setSavedExpiryDate}
                 />
             </TraderProviders>
         );
@@ -135,7 +131,7 @@ describe('DurationActionSheetContainer', () => {
 
     it('should select duration in hours if duration is more than 59 minutes', async () => {
         default_trade_store.modules.trade.duration = 130;
-        renderDurationContainer(default_trade_store, 'h', jest.fn(), [2, 10]);
+        renderDurationContainer(default_trade_store, 'h');
 
         const duration_chip = screen.getByText('1 h');
         await userEvent.click(duration_chip);
@@ -143,16 +139,15 @@ describe('DurationActionSheetContainer', () => {
         expect(default_trade_store.modules.trade.onChangeMultiple).not.toHaveBeenCalled();
     });
 
-    it('should call onChangeMultiple with correct data with hours', async () => {
-        default_trade_store.modules.trade.duration = 130;
-        renderDurationContainer(default_trade_store, 'm', jest.fn(), [2, 10], jest.fn());
+    it('should call onChangeMultiple with correct data with minutes', async () => {
+        default_trade_store.modules.trade.duration = 30;
+        renderDurationContainer(default_trade_store, 'm');
 
         await userEvent.click(screen.getByText('Save'));
 
         expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
             duration_unit: 'm',
-            duration: 1,
-            expiry_time: null,
+            duration: 30,
             expiry_type: 'duration',
         });
     });
@@ -167,7 +162,6 @@ describe('DurationActionSheetContainer', () => {
         expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
             duration_unit: 't',
             duration: 5,
-            expiry_time: null,
             expiry_type: 'duration',
         });
     });
@@ -191,7 +185,6 @@ describe('DurationActionSheetContainer', () => {
         expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
             duration_unit: 's',
             duration: 20,
-            expiry_time: null,
             expiry_type: 'duration',
         });
     });
@@ -205,8 +198,7 @@ describe('DurationActionSheetContainer', () => {
 
         expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
             duration_unit: 'm',
-            duration: 60,
-            expiry_time: null,
+            duration: 240,
             expiry_type: 'duration',
         });
     });
@@ -218,16 +210,17 @@ describe('DurationActionSheetContainer', () => {
             default_trade_store,
             'd',
             jest.fn(),
-            [0, 0],
-            jest.fn(),
+            '11:35',
             new Date().toISOString().slice(0, 10),
             jest.fn(),
-            '11:35',
+            jest.fn(),
+            jest.fn(),
             jest.fn()
         );
         await userEvent.click(screen.getByText('Save'));
 
         expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
+            expiry_date: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T11:35Z$/),
             expiry_time: '11:35',
             expiry_type: 'endtime',
         });
