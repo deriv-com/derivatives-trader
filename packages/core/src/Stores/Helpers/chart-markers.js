@@ -218,8 +218,6 @@ export const getMarkerContractType = contract_info => {
 
     if (isAccumulatorContract(contract_type)) {
         return 'AccumulatorContract';
-    } else if (isDigitContract(contract_type)) {
-        return 'DigitContract';
     }
 
     return tick_count > 0 ? 'TickContract' : 'NonTickContract';
@@ -254,6 +252,9 @@ export const getMarkerDirection = contract_type => {
         'ONETOUCH',
         'CALLSPREAD',
         'CALL_BARRIER',
+        'DIGITOVER',
+        'DIGITMATCH',
+        'DIGITEVEN',
     ];
 
     // DOWN direction contracts
@@ -273,6 +274,9 @@ export const getMarkerDirection = contract_type => {
         'NOTOUCH',
         'PUTSPREAD',
         'PUT_BARRIER',
+        'DIGITODD',
+        'DIGITUNDER',
+        'DIGITDIFF',
     ];
 
     // Check for exact matches first
@@ -331,27 +335,12 @@ export const getStartText = contract_info => {
 };
 
 export const getTickStreamMarkers = (contract_info, barrier_price) => {
-    function getTicks() {
-        if (is_accumulator_contract) {
-            return [];
-        } else if (is_digit_contract) {
-            return [undefined, ...tick_stream.slice(-1)];
-        }
-        return tick_stream;
-    }
-
     const { contract_type, tick_stream } = contract_info;
     const is_digit_contract = isDigitContract(contract_type);
     const is_accumulator_contract = isAccumulatorContract(contract_type);
 
     const last_tick = tick_stream.length > 1 ? tick_stream[tick_stream.length - 1] : null;
-    const [, ...ticks] = getTicks();
-
-    const markers = ticks.map(t => ({
-        epoch: t.epoch,
-        quote: t.tick,
-        type: 'tick',
-    }));
+    const markers = [];
 
     if (!is_digit_contract && !is_accumulator_contract && last_tick) {
         markers.push({
@@ -377,7 +366,7 @@ export function calculateMarker(
     is_mobile = false,
     is_resize_desktop = false
 ) {
-    if (!contract_info || isMultiplierContract(contract_info.contract_type)) {
+    if (!contract_info) {
         return null;
     }
     const {
@@ -400,15 +389,19 @@ export function calculateMarker(
     const entry_spot = contract_info.entry_spot ?? entry_tick;
     const is_accumulator_contract = isAccumulatorContract(contract_type);
     const is_digit_contract = isDigitContract(contract_type);
+    const is_multiplier_contract = isMultiplierContract(contract_type);
     const is_tick_contract = tick_count > 0;
 
     const entry_spot_time = entry_spot_time_field;
     const exit_spot_time = exit_spot_time_field;
 
-    const end_time = is_tick_contract ? exit_spot_time : getEndTime(contract_info) || date_expiry;
+    let end_time = is_tick_contract ? date_expiry : getEndTime(contract_info) || date_expiry;
+    if (is_accumulator_contract || is_multiplier_contract) {
+        end_time = exit_spot_time;
+    }
 
     let barrier_price;
-    if (is_digit_contract || is_accumulator_contract) {
+    if (is_digit_contract || is_accumulator_contract || is_multiplier_contract) {
         barrier_price = +entry_spot;
     } else if (+barrier_count === 1 && barrier) {
         barrier_price = +barrier;
@@ -432,14 +425,46 @@ export function calculateMarker(
     const price = barrier_price || 0;
 
     const is_contract_finished = contract_info.is_sold || contract_info.is_expired;
+    const exit_spot = contract_info.exit_spot;
 
     if (is_contract_finished) {
-        // Add profit and loss label marker when contract is finished (sold or expired)
-        const exit_spot = contract_info.exit_spot;
+        if (entry_spot) {
+            markers.push({
+                epoch: entry_spot_time,
+                quote: entry_spot,
+                type: 'entrySpot',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
+
+        if (date_start) {
+            markers.push({
+                epoch: date_start,
+                quote: price,
+                type: 'startTimeCollapsed',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
+        if (end_time) {
+            markers.push({
+                epoch: end_time,
+                quote: price,
+                type: 'exitTimeCollapsed',
+                direction: getMarkerDirection(contract_type),
+            });
+        }
         if (exit_spot_time && exit_spot) {
             markers.push({
                 epoch: exit_spot_time,
                 quote: exit_spot,
+                type: 'exitSpot',
+                direction: getMarkerDirection(contract_type),
+            });
+
+            //Add profit and loss label marker when contract is finished (sold or expired)
+            markers.push({
+                epoch: exit_spot_time,
+                quote: price,
                 type: 'profitAndLossLabel',
                 direction: getMarkerDirection(contract_type),
             });
@@ -463,17 +488,24 @@ export function calculateMarker(
 
         if (entry_spot) {
             markers.push({
+                epoch: entry_spot_time,
+                quote: entry_spot,
+                type: 'entrySpot',
+                direction: getMarkerDirection(contract_type),
+            });
+            markers.push({
                 epoch: date_start,
-                quote: is_digit_contract ? undefined : price,
+                quote: price,
                 type: 'contractMarker',
                 text: `${localize('Start')}\n${localize('Time')}`,
                 direction: getMarkerDirection(contract_type),
             });
-
+        }
+        if (exit_spot) {
             markers.push({
-                epoch: entry_spot_time,
-                quote: entry_spot,
-                type: 'entryTick',
+                epoch: exit_spot_time,
+                quote: exit_spot,
+                type: 'exitSpot',
                 direction: getMarkerDirection(contract_type),
             });
         }
@@ -553,13 +585,63 @@ export function calculateMarker(
             isProfit: profit_num !== null ? profit_num > 0 : true,
             isRunning: !contract_info?.is_expired,
             contractMarkerLeftPadding,
+            markerLabel: getContractTypeLabel(contract_info),
         },
         direction: getMarkerDirection(contract_type),
         profitAndLossText: getProfitAndLossText(),
+        currentEpoch: contract_info.current_spot_time,
     };
-
     return result;
 }
+
+/**
+ * Returns the first letter of the contract label based on contract type
+ * Touch contracts are categorized as Touch/No Touch
+ * @param {object} contract_info - The contract information object
+ * @returns {string} - The first letter of the label, or null if no match
+ */
+export const getContractTypeLabel = contract_info => {
+    if (!contract_info || typeof contract_info !== 'object') {
+        return null;
+    }
+
+    const { contract_type } = contract_info;
+    if (!contract_type || typeof contract_type !== 'string') {
+        return null;
+    }
+    const type = contract_type.toUpperCase();
+
+    // Touch contracts - Touch/No Touch category
+    const touchContracts = {
+        ONETOUCH: 'T', // Touch
+        NOTOUCH: 'NT', // No Touch
+    };
+
+    // Digit contracts
+    const digitContracts = {
+        DIGITEVEN: 'E', // Even
+        DIGITODD: 'O', // Odd
+        DIGITMATCH: `${contract_info.barrier}`, // Matches
+        DIGITDIFF: `${contract_info.barrier}`, // Differs
+        DIGITOVER: `${contract_info.barrier}`, // Over
+        DIGITUNDER: `${contract_info.barrier}`, // Under
+    };
+
+    // Accumulator contracts
+    const accumulatorContracts = {
+        ACCU: `${contract_info.growth_rate * 100}%`, // Accumulators
+    };
+
+    // Combine all contract mappings
+    const allContracts = {
+        ...touchContracts,
+        ...digitContracts,
+        ...accumulatorContracts,
+    };
+
+    // Only return label if there's an exact match, otherwise return null
+    return allContracts[type] || null;
+};
 
 function getAccumulatorBarrierMarkers({
     contract_info,
