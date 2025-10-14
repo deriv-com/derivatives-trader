@@ -35,7 +35,15 @@ const DurationActionSheetContainer = observer(
         // Consolidated state for all duration units (t, s, m, h)
         // For t, s, m: [duration_value]
         // For h: [hours, minutes]
-        const [selected_duration, setSelectedDuration] = useState<number[]>([duration]);
+        const [selected_duration, setSelectedDuration] = useState<number[]>(() => {
+            if (unit === DURATION_UNIT.HOURS) {
+                // Initialize hours unit with [hours, minutes] format
+                const hours = Math.floor(duration / 60);
+                const minutes = duration % 60;
+                return [hours, minutes];
+            }
+            return [duration];
+        });
 
         const onAction = () => {
             // Save the selected values
@@ -45,7 +53,6 @@ const DurationActionSheetContainer = observer(
             if (unit === DURATION_UNIT.HOURS) {
                 // For hours: selected_duration is [hours, minutes]
                 const minutes = selected_duration[0] * 60 + selected_duration[1];
-                setSelectedDuration([]);
                 setSelectedExpiryTime('');
                 onChangeMultiple({
                     duration_unit: DURATION_UNIT.MINUTES,
@@ -53,7 +60,6 @@ const DurationActionSheetContainer = observer(
                     expiry_type: 'duration',
                 });
             } else if (unit === DURATION_UNIT.DAYS) {
-                setSelectedDuration([]);
                 onChangeMultiple({
                     expiry_date: `${selected_expiry_date}T${selected_expiry_time}Z`,
                     expiry_time: selected_expiry_time,
@@ -62,7 +68,6 @@ const DurationActionSheetContainer = observer(
             } else {
                 // For t, s, m: selected_duration is [duration_value]
                 setSelectedExpiryTime('');
-                setSelectedDuration([]);
                 onChangeMultiple({
                     duration_unit: unit,
                     duration: Number(selected_duration[0]),

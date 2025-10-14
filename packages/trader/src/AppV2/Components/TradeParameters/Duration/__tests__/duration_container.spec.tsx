@@ -190,7 +190,7 @@ describe('DurationActionSheetContainer', () => {
     });
 
     it('should call onChangeMultiple with correct data with hour', async () => {
-        default_trade_store.modules.trade.duration = 4;
+        default_trade_store.modules.trade.duration = 240;
 
         renderDurationContainer(default_trade_store, 'h');
         await userEvent.click(screen.getByText('4 h'));
