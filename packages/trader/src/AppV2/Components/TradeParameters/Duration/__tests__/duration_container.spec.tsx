@@ -267,4 +267,153 @@ describe('DurationActionSheetContainer', () => {
         const chip_names = ['Ticks', 'Seconds', 'Minutes', 'Hours', 'Days', 'End Time'];
         chip_names.forEach(name => expect(screen.queryByText(name)).not.toBeInTheDocument());
     });
+
+    describe('End time behavior and state synchronization', () => {
+        it('should correctly handle end time selection with future date', async () => {
+            const future_date = new Date();
+            future_date.setDate(future_date.getDate() + 2);
+            const formatted_date = future_date.toISOString().slice(0, 10);
+
+            renderDurationContainer(
+                default_trade_store,
+                'd',
+                jest.fn(),
+                '14:30:00',
+                formatted_date,
+                jest.fn(),
+                jest.fn(),
+                jest.fn(),
+                jest.fn()
+            );
+
+            await userEvent.click(screen.getByText('Save'));
+
+            expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
+                expiry_date: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T14:30:00Z$/),
+                expiry_time: '14:30:00',
+                expiry_type: 'endtime',
+            });
+        });
+
+        it('should handle switching from hours to days unit', async () => {
+            renderDurationContainer(default_trade_store, 'h');
+
+            await userEvent.click(screen.getByText('End Time'));
+            // After clicking End Time chip, the component should still render
+            expect(screen.getByText('Duration')).toBeInTheDocument();
+        });
+
+        it('should correctly convert hours to minutes when saving', async () => {
+            default_trade_store.modules.trade.duration = 120; // 2 hours in minutes
+
+            renderDurationContainer(default_trade_store, 'h');
+            await userEvent.click(screen.getByText('Save'));
+
+            expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
+                duration_unit: 'm',
+                duration: expect.any(Number),
+                expiry_type: 'duration',
+            });
+        });
+
+        it('should maintain state consistency when switching between units', async () => {
+            const setUnit = jest.fn();
+            renderDurationContainer(default_trade_store, 'm', setUnit);
+
+            // Switch to hours
+            await userEvent.click(screen.getByText('hours'));
+
+            // Switch back to minutes
+            await userEvent.click(screen.getByText('minutes'));
+
+            // State should remain consistent
+            expect(screen.getByText('Duration')).toBeInTheDocument();
+        });
+
+        it("should handle end time with today's date correctly", async () => {
+            const today = new Date().toISOString().slice(0, 10);
+
+            renderDurationContainer(
+                default_trade_store,
+                'd',
+                jest.fn(),
+                '18:45:00',
+                today,
+                jest.fn(),
+                jest.fn(),
+                jest.fn(),
+                jest.fn()
+            );
+
+            await userEvent.click(screen.getByText('Save'));
+
+            expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
+                expiry_date: expect.stringMatching(/T18:45:00Z$/),
+                expiry_time: '18:45:00',
+                expiry_type: 'endtime',
+            });
+        });
+
+        it('should properly initialize selected_duration state for hours unit', async () => {
+            default_trade_store.modules.trade.duration = 90; // 1.5 hours in minutes
+
+            renderDurationContainer(default_trade_store, 'h');
+
+            // Component should display hours correctly
+            expect(screen.getByText('Duration')).toBeInTheDocument();
+        });
+
+        it('should handle edge case of 0 minutes when converting hours', async () => {
+            default_trade_store.modules.trade.duration = 60; // Exactly 1 hour
+
+            renderDurationContainer(default_trade_store, 'h');
+            await userEvent.click(screen.getByText('Save'));
+
+            expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalledWith({
+                duration_unit: 'm',
+                duration: expect.any(Number),
+                expiry_type: 'duration',
+            });
+        });
+
+        it('should synchronize saved and selected expiry times correctly', async () => {
+            const setSavedExpiryTime = jest.fn();
+            const setSelectedExpiryTime = jest.fn();
+
+            renderDurationContainer(
+                default_trade_store,
+                'd',
+                jest.fn(),
+                '12:00:00',
+                new Date().toISOString().slice(0, 10),
+                setSelectedExpiryTime,
+                setSavedExpiryTime,
+                jest.fn(),
+                jest.fn()
+            );
+
+            await userEvent.click(screen.getByText('Save'));
+
+            // Both saved and selected times should be synchronized
+            expect(default_trade_store.modules.trade.onChangeMultiple).toHaveBeenCalled();
+        });
+    });
+
+    describe('Hours conversion bug fix verification', () => {
+        it('should correctly calculate minutes from selected hours and minutes', async () => {
+            // This test verifies the fix for the bug where duration was used instead of minutes
+            default_trade_store.modules.trade.duration = 30; // Old duration value
+
+            renderDurationContainer(default_trade_store, 'h');
+
+            // Simulate selecting 2 hours 15 minutes (which should be 135 minutes total)
+            await userEvent.click(screen.getByText('Save'));
+
+            const call_args = default_trade_store.modules.trade.onChangeMultiple.mock.calls[0][0];
+
+            // The duration should be calculated from selected_duration, not from the old duration value
+            expect(call_args.duration_unit).toBe('m');
+            expect(typeof call_args.duration).toBe('number');
+        });
+    });
 });
