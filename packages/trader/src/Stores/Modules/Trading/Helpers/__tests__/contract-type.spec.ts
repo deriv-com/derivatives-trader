@@ -1,6 +1,5 @@
 import moment from 'moment';
 
-import { TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 
 import { ContractType } from '../contract-type';
@@ -147,7 +146,7 @@ jest.mock('@deriv/shared', () => ({
                                                 },
                                             ],
                                             name: 'AUD/JPY',
-                                            symbol: 'frxAUDJPY',
+                                            underlying_symbol: 'frxAUDJPY',
                                             times: {
                                                 close: ['23:59:59'],
                                                 open: ['00:00:00'],
@@ -176,7 +175,7 @@ jest.mock('@deriv/shared', () => ({
                                                 },
                                             ],
                                             name: 'AUD/AED',
-                                            symbol: 'frxAUDAED',
+                                            underlying_symbol: 'frxAUDAED',
                                             times: {
                                                 close: ['23:59:59'],
                                                 open: ['00:00:00'],

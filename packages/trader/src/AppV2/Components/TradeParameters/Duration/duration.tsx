@@ -28,26 +28,23 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
         is_market_closed,
         onChangeMultiple,
         proposal_info,
-        saved_expiry_date_v2,
-        setSavedExpiryDateV2,
-        setUnsavedExpiryDateV2,
+        saved_expiry_date_v2: saved_expiry_date,
+        setSavedExpiryDateV2: setSavedExpiryDate,
+        setUnsavedExpiryDateV2: setSelectedExpiryDate,
         start_time,
         symbol,
         trade_type_tab,
         trade_types,
-        unsaved_expiry_date_v2,
+        unsaved_expiry_date_v2: selected_expiry_date,
         validation_errors,
     } = useTraderStore();
     const { addSnackbar } = useSnackbar();
     const { name_plural, name, name_singular } = getUnitMap()[duration_unit] ?? {};
     const duration_unit_text = (duration === 1 ? name_singular : name_plural) ?? name;
-    const [selected_hour, setSelectedHour] = useState<number[]>([]);
     const [is_open, setOpen] = useState(false);
-    const [expiry_time_string, setExpiryTimeString] = useState('');
-    const [expiry_date_string, setExpiryDateString] = useState('');
-    const [end_date, setEndDate] = useState<Date>(new Date());
-    const [end_time, setEndTime] = useState<string>('');
-    const [unit, setUnit] = useState(expiry_time ? 'd' : duration_unit);
+    const [saved_expiry_time, setSavedExpiryTime] = useState<string>('');
+    const [selected_expiry_time, setSelectedExpiryTime] = useState<string>('');
+    const [unit, setUnit] = useState(expiry_type === 'endtime' ? 'd' : duration_unit);
     const contract_type_object = getDisplayedContractTypes(trade_types, contract_type, trade_type_tab);
     const has_error =
         (proposal_info[contract_type_object[0]]?.has_error &&
@@ -59,34 +56,34 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
     const { server_time } = common;
     const { localize } = useTranslations();
 
+    // Initialize saved date/time from expiry_epoch or set defaults
     useEffect(() => {
-        if (expiry_epoch && duration_unit !== 'd' && !saved_expiry_date_v2) {
-            // Set expiry time to end of day
-            setExpiryTimeString('23:59:59');
+        if (!expiry_epoch) return;
 
-            // Get tomorrow's date
-            const tomorrow_date = getTomorrowDate(server_time);
-            setExpiryDateString(tomorrow_date);
-            setSavedExpiryDateV2(tomorrow_date);
-        }
-        if (expiry_epoch && duration_unit === 'd' && !expiry_time_string) {
-            setExpiryTimeString(
-                new Date((expiry_epoch as number) * 1000).toISOString().split('T')[1].substring(0, 8) || ''
-            );
+        const epoch_date = new Date((expiry_epoch as number) * 1000);
+        const date_string = epoch_date.toISOString().split('T')[0];
+        const time_string = epoch_date.toISOString().split('T')[1].substring(0, 8);
 
-            const new_date_string = new Date((expiry_epoch as number) * 1000).toISOString().split('T')[0];
-            setExpiryDateString(new Date((expiry_epoch as number) * 1000).toISOString().split('T')[0]);
-            setSavedExpiryDateV2(new_date_string);
-        }
-    }, [expiry_epoch]);
+        if (!saved_expiry_date) setSavedExpiryDate(date_string);
+        if (!saved_expiry_time) setSavedExpiryTime(time_string || '23:59:59');
+    }, [expiry_epoch, saved_expiry_date, saved_expiry_time]);
 
+    // When switching to days unit, set tomorrow as default
     useEffect(() => {
-        if (duration_unit == 'd') {
-            const newDate = new Date();
-            newDate.setDate(newDate.getDate() + duration);
-            setEndDate(newDate);
+        if (duration_unit === 'd' && !saved_expiry_date) {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const formatted_date = tomorrow.toISOString().split('T')[0];
+
+            setSavedExpiryDate(formatted_date);
+            setSavedExpiryTime('23:59:59');
+
+            onChangeMultiple({
+                expiry_date: `${formatted_date}T23:59:59Z`,
+                expiry_type: 'endtime',
+            });
         }
-    }, [duration_unit]);
+    }, [duration_unit, saved_expiry_date]);
 
     useEffect(() => {
         if (isInitialMount.current) {
@@ -107,9 +104,6 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
         // Only reset to smallest duration if persisted values are invalid
         if (!isPersistedDurationValid) {
             const result = getSmallestDuration(duration_min_max, duration_units_list);
-            if (result?.unit == 'd') {
-                setEndDate(new Date());
-            }
 
             const start_duration = setTimeout(() => {
                 onChangeMultiple({
@@ -120,29 +114,29 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
                 });
             }, 10);
 
-            const start_date = getDatePickerStartDate(duration_units_list, server_time, start_time, duration_min_max);
-            setEndDate(new Date(start_date));
-
             return () => clearTimeout(start_duration);
         }
-        // Persisted values are valid, just update the date picker if needed
-        if (duration_unit === 'd') {
-            setEndDate(new Date());
-        }
-        const start_date = getDatePickerStartDate(duration_units_list, server_time, start_time, duration_min_max);
-        setEndDate(new Date(start_date));
     }, [symbol, contract_type, duration_min_max, duration_units_list, duration, duration_unit]);
 
     const onClose = React.useCallback(() => setOpen(false), []);
 
     const getInputValues = () => {
-        const formatted_date = saved_expiry_date_v2
-            ? new Date(saved_expiry_date_v2).toLocaleDateString('en-GB', {
+        const formatted_date = saved_expiry_date
+            ? new Date(saved_expiry_date).toLocaleDateString('en-GB', {
                   day: 'numeric',
                   month: 'short',
                   year: 'numeric',
               })
             : '';
+
+        // Check if selected date is today
+        const formatted_current_date = new Date().toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+        });
+        const is_today = formatted_date === formatted_current_date;
+
         if (expiry_type == 'duration') {
             if (duration_unit === 'm' && duration > 59) {
                 const hours = Math.floor(duration / 60);
@@ -152,12 +146,20 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
                 if (!formatted_date) {
                     return '';
                 }
-                return `${localize('Ends on')} ${formatted_date}, ${expiry_time_string || '23:59:59'} GMT`;
+                // For today: show HH:mm, for future: show HH:mm:ss
+                const time_display = is_today
+                    ? saved_expiry_time.substring(0, 5) // HH:mm
+                    : saved_expiry_time; // HH:mm:ss
+                return `${localize('Ends on')} ${formatted_date}, ${time_display} GMT`;
             }
             return `${duration} ${duration_unit_text}`;
         }
         if (expiry_time) {
-            return `${localize('Ends on')} ${formatted_date} ${expiry_time} GMT`;
+            // For today: show HH:mm, for future: show HH:mm:ss
+            const time_display = is_today
+                ? expiry_time.substring(0, 5) // HH:mm
+                : `${expiry_time}`; // HH:mm:ss
+            return `${localize('Ends on')} ${formatted_date} ${time_display} GMT`;
         }
     };
 
@@ -180,29 +182,21 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [has_error, contract_type_object[0]]);
 
-    const handleHour = React.useCallback(() => {
-        if (expiry_time) {
-            setUnit('d');
-            setEndTime(expiry_time);
-        } else {
-            // eslint-disable-next-line no-lonely-if
-            if (duration_unit === 'm' && duration > 59) {
-                const hour = Math.floor(duration / 60);
-                const minutes = duration % 60;
+    useEffect(() => {
+        if (is_open) {
+            // Initialize selected values from saved values when opening
+            setSelectedExpiryDate(saved_expiry_date);
+            setSelectedExpiryTime(saved_expiry_time);
+
+            if (expiry_time) {
+                setUnit('d');
+            } else if (duration_unit === 'm' && duration > 59) {
                 setUnit('h');
-                setSelectedHour([hour, minutes]);
             } else {
-                setSelectedHour([]);
                 setUnit(duration_unit);
             }
         }
-    }, [duration, duration_unit, expiry_time]);
-
-    useEffect(() => {
-        if (is_open) {
-            handleHour();
-        }
-    }, [is_open]);
+    }, [is_open, saved_expiry_date, saved_expiry_time]);
 
     return (
         <>
@@ -227,18 +221,14 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
             >
                 <ActionSheet.Portal shouldCloseOnDrag>
                     <DurationActionSheetContainer
-                        selected_hour={selected_hour}
-                        setSelectedHour={setSelectedHour}
                         unit={unit}
                         setUnit={setUnit}
-                        expiry_time_string={expiry_time_string}
-                        setExpiryTimeString={setExpiryTimeString}
-                        end_time={end_time}
-                        setEndTime={setEndTime}
-                        saved_expiry_date_v2={saved_expiry_date_v2}
-                        setSavedExpiryDateV2={setSavedExpiryDateV2}
-                        unsaved_expiry_date_v2={unsaved_expiry_date_v2}
-                        setUnsavedExpiryDateV2={setUnsavedExpiryDateV2}
+                        selected_expiry_time={selected_expiry_time}
+                        selected_expiry_date={selected_expiry_date}
+                        setSelectedExpiryTime={setSelectedExpiryTime}
+                        setSavedExpiryTime={setSavedExpiryTime}
+                        setSelectedExpiryDate={setSelectedExpiryDate}
+                        setSavedExpiryDate={setSavedExpiryDate}
                     />
                 </ActionSheet.Portal>
             </ActionSheet.Root>

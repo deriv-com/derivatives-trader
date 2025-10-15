@@ -80,6 +80,24 @@ jest.mock('AppV2/Hooks/useContractsFor', () => ({
     })),
 }));
 
+jest.mock('AppV2/Hooks/useGuideContractTypes', () => ({
+    __esModule: true,
+    default: jest.fn(() => ({
+        trade_types: [
+            { text: 'Accumulators', value: 'accumulator' },
+            { text: 'Vanillas', value: 'vanillalongcall' },
+            { text: 'Turbos', value: 'turboslong' },
+            { text: 'Multipliers', value: 'multiplier' },
+            { text: 'Rise/Fall', value: 'rise_fall' },
+            { text: 'Higher/Lower', value: 'high_low' },
+            { text: 'Touch/No Touch', value: 'touch' },
+            { text: 'Matches/Differs', value: 'match_diff' },
+            { text: 'Even/Odd', value: 'even_odd' },
+            { text: 'Over/Under', value: 'over_under' },
+        ],
+    })),
+}));
+
 Loadable.preloadAll();
 
 describe('Guide', () => {
