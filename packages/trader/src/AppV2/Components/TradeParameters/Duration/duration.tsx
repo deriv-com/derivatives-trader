@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
-import { getTomorrowDate, getUnitMap, toMoment } from '@deriv/shared';
+import { getUnitMap } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { ActionSheet, TextField, useSnackbar } from '@deriv-com/quill-ui';
 import { Localize, useTranslations } from '@deriv-com/translations';
 
-import { getDatePickerStartDate, getSmallestDuration, isValidPersistedDuration } from 'AppV2/Utils/trade-params-utils';
+import { getSmallestDuration, isValidPersistedDuration } from 'AppV2/Utils/trade-params-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -31,7 +31,6 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
         saved_expiry_date_v2: saved_expiry_date,
         setSavedExpiryDateV2: setSavedExpiryDate,
         setUnsavedExpiryDateV2: setSelectedExpiryDate,
-        start_time,
         symbol,
         trade_type_tab,
         trade_types,
@@ -51,9 +50,8 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
             proposal_info[contract_type_object[0]]?.error_field === 'duration') ||
         validation_errors.duration.length > 0;
     const isInitialMount = useRef(true);
-    const { common, client } = useStore();
+    const { client } = useStore();
     const { is_logged_in } = client;
-    const { server_time } = common;
     const { localize } = useTranslations();
 
     // Initialize saved date/time from expiry_epoch or set defaults
@@ -64,9 +62,11 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
         const date_string = epoch_date.toISOString().split('T')[0];
         const time_string = epoch_date.toISOString().split('T')[1].substring(0, 8);
 
-        if (!saved_expiry_date) setSavedExpiryDate(date_string);
-        if (!saved_expiry_time) setSavedExpiryTime(time_string || '23:59:59');
-    }, [expiry_epoch, saved_expiry_date, saved_expiry_time]);
+        if (saved_expiry_date !== date_string) {
+            setSavedExpiryDate(date_string);
+            setSavedExpiryTime(time_string || '23:59:59');
+        }
+    }, [expiry_epoch, saved_expiry_date]);
 
     // When switching to days unit, set tomorrow as default
     useEffect(() => {
