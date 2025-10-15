@@ -772,5 +772,85 @@ describe('TradeStore', () => {
                 expect(tradeStore.is_synthetics_available).toBe(false);
             });
         });
+
+        describe('Stop Loss Reset Bug Prevention', () => {
+            describe('onChange with contract_type', () => {
+                it('should NOT reset stop_loss when clicking same contract type twice', () => {
+                    // Set up multiplier contract with stop loss
+                    tradeStore.contract_type = TRADE_TYPES.MULTIPLIER;
+                    tradeStore.has_stop_loss = true;
+                    tradeStore.stop_loss = '10';
+
+                    // Simulate clicking the same Multipliers chip again
+                    tradeStore.onChange({
+                        target: {
+                            name: 'contract_type',
+                            value: TRADE_TYPES.MULTIPLIER,
+                        },
+                    });
+
+                    // Stop loss should be preserved
+                    expect(tradeStore.has_stop_loss).toBe(true);
+                    expect(tradeStore.stop_loss).toBe('10');
+                });
+
+                it('should reset stop_loss when switching to a different contract type', () => {
+                    // Set up multiplier contract with stop loss
+                    tradeStore.contract_type = TRADE_TYPES.MULTIPLIER;
+                    tradeStore.has_stop_loss = true;
+                    tradeStore.stop_loss = '10';
+
+                    // Switch to accumulator
+                    tradeStore.onChange({
+                        target: {
+                            name: 'contract_type',
+                            value: TRADE_TYPES.ACCUMULATOR,
+                        },
+                    });
+
+                    // Stop loss should be reset
+                    expect(tradeStore.has_stop_loss).toBe(false);
+                    expect(tradeStore.stop_loss).toBe('');
+                });
+
+                it('should reset stop_loss when switching from accumulator to multiplier', () => {
+                    // Set up accumulator contract with stop loss
+                    tradeStore.contract_type = TRADE_TYPES.ACCUMULATOR;
+                    tradeStore.has_stop_loss = true;
+                    tradeStore.stop_loss = '5';
+
+                    // Switch to multiplier
+                    tradeStore.onChange({
+                        target: {
+                            name: 'contract_type',
+                            value: TRADE_TYPES.MULTIPLIER,
+                        },
+                    });
+
+                    // Stop loss should be reset
+                    expect(tradeStore.has_stop_loss).toBe(false);
+                    expect(tradeStore.stop_loss).toBe('');
+                });
+
+                it('should NOT reset stop_loss when has_stop_loss is false', () => {
+                    // Set up multiplier contract without stop loss
+                    tradeStore.contract_type = TRADE_TYPES.MULTIPLIER;
+                    tradeStore.has_stop_loss = false;
+                    tradeStore.stop_loss = '';
+
+                    // Click same contract type
+                    tradeStore.onChange({
+                        target: {
+                            name: 'contract_type',
+                            value: TRADE_TYPES.MULTIPLIER,
+                        },
+                    });
+
+                    // Values should remain unchanged
+                    expect(tradeStore.has_stop_loss).toBe(false);
+                    expect(tradeStore.stop_loss).toBe('');
+                });
+            });
+        });
     });
 });
