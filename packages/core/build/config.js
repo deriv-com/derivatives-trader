@@ -78,7 +78,6 @@ const copyConfig = base => {
             from: path.resolve(__dirname, '../src/public/videos/'),
             to: 'public/videos',
         },
-        // { from: path.resolve(__dirname, '../src/public/images/common/og_image.gif'), to: 'images/common/og_image.gif' }, // Once the design for og_image is ready, bring this back.
         {
             from: path.resolve(__dirname, '../src/public/images/common/callback_loader.gif'),
             to: 'public/images/common/callback_loader.gif',
@@ -87,7 +86,6 @@ const copyConfig = base => {
             from: path.resolve(__dirname, '../src/public/images/common/logos/platform_logos/'),
             to: 'public/images/common/logos/platform_logos/',
         },
-        { from: path.resolve(__dirname, '../src/public/images/app/header/'), to: 'public/images/app/header/' },
         {
             from: path.resolve(__dirname, '../src/templates/app/manifest.json'),
             to: 'manifest.json',
