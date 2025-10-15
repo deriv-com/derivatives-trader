@@ -10,13 +10,11 @@ type TimeOption = {
 
 const HourPicker = ({
     setWheelPickerValue,
-    selected_hour,
-    selected_time,
+    selected_duration,
     duration_min_max,
 }: {
     setWheelPickerValue: (index: number, value: string | number) => void;
-    selected_hour: number[];
-    selected_time: number[];
+    selected_duration: number[];
     duration_min_max: Record<string, { min: number; max: number }>;
 }) => {
     const [hours, setHours] = useState<TimeOption[]>([]);
@@ -36,8 +34,9 @@ const HourPicker = ({
         }));
         setHours(new_hours);
 
-        update_minutes(selected_hour[0] || min_hours, min_seconds, max_seconds);
-    }, [duration_min_max, selected_hour]);
+        update_minutes(selected_duration[0] || min_hours, min_seconds, max_seconds);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [duration_min_max]);
 
     const update_minutes = (selected_hour: number, min_seconds: number, max_seconds: number) => {
         let min_minutes = 0;
@@ -77,9 +76,12 @@ const HourPicker = ({
     return (
         <WheelPickerContainer
             data={[hours, minutes]}
-            defaultValue={[getDefaultValue(hours, selected_hour[0]), getDefaultValue(minutes, selected_time[1])]}
+            defaultValue={[
+                getDefaultValue(hours, selected_duration[0]),
+                getDefaultValue(minutes, selected_duration[1]),
+            ]}
             containerHeight='268px'
-            inputValues={[selected_hour[0] || hours[0]?.value, selected_time[1] || minutes[0]?.value]}
+            inputValues={[selected_duration[0] || hours[0]?.value, selected_duration[1] || minutes[0]?.value]}
             setInputValues={handle_value_change}
         />
     );

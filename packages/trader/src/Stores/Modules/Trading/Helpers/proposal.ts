@@ -192,8 +192,8 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
 
         if (store.expiry_type === 'duration') {
             // Ensure we have valid duration and duration_unit values
-            const duration = parseInt(store.duration.toString()) || 5; // Default to 5 if invalid
-            const duration_unit = store.duration_unit || 'm'; // Default to minutes if not set
+            const duration = parseInt(store.duration.toString());
+            const duration_unit = store.duration_unit;
 
             return {
                 duration,
@@ -201,16 +201,12 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
             };
         }
 
-        // For endtime, ensure we have a valid date_expiry
+        // For endtime, ensure we have a valid expiry_date
         if (store.expiry_type === 'endtime' && obj_expiry.date_expiry) {
             return obj_expiry;
         }
 
-        // For contracts that need duration but don't have valid expiry_type, provide safe defaults
-        return {
-            duration: 5,
-            duration_unit: 'm',
-        };
+        return {};
     };
 
     if (store.contract_type === TRADE_TYPES.MULTIPLIER) {
