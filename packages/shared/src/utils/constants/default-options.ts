@@ -2,7 +2,7 @@ import { isProduction } from '../config/config';
 
 /**
  * Returns List of unsupported languages based on the environment.
- * Supported languages: EN, ES, FR, PT, AR, IT, RU 
+ * Supported languages: EN, ES, FR, PT, AR, IT, RU
  */
 export const UNSUPPORTED_LANGUAGES = [
     'BN',
