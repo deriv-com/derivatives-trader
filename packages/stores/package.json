@@ -13,11 +13,11 @@
         "mobx": "^6.6.1",
         "mobx-persist-store": "1.1.2",
         "mobx-react-lite": "^3.4.0",
-        "react": "^17.0.2"
+        "react": "^18.2.0"
     },
     "devDependencies": {
         "@deriv/api-types": "1.0.172",
-        "@testing-library/react": "^12.1.5",
+        "@testing-library/react": "^13.4.0",
         "typescript": "^5.0.0",
         "react-router": "^5.2.0",
         "moment": "^2.29.2",
