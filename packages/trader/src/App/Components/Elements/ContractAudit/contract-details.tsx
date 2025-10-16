@@ -40,8 +40,8 @@ import {
     isVanillaFxContract,
     TContractInfo,
     toGMTFormat,
+    trackAnalyticsEvent,
 } from '@deriv/shared';
-import { Analytics } from '@deriv-com/analytics';
 import { Localize, useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
@@ -166,10 +166,9 @@ const ContractDetails = ({
     };
 
     React.useEffect(() => {
-        Analytics.trackEvent('ce_reports_form', {
+        trackAnalyticsEvent('ce_reports_form_v2', {
             action: 'open_contract_details',
-            form_name: 'default',
-            form_source: 'deriv_trader',
+            platform: 'DTrader',
         });
     }, []);
 

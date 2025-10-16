@@ -16,9 +16,9 @@ import {
     unique,
     getPlatformName,
     getBrandUrl,
+    trackAnalyticsEvent,
 } from '@deriv/shared';
 import { Localize, localize } from '@deriv-com/translations';
-import { Analytics } from '@deriv-com/analytics';
 
 import { sortNotifications, sortNotificationsMobile } from '../App/Components/Elements/NotificationMessage/constants';
 
@@ -461,11 +461,12 @@ export default class NotificationStore extends BaseStore {
     }
 
     toggleNotificationsModal() {
-        Analytics.trackEvent('ce_notification_form', {
-            action: this.is_notifications_visible ? 'close' : 'open',
-            form_name: 'ce_notification_form',
-            notification_num: this.notifications.length,
-        });
+        if (!this.is_notifications_visible) {
+            trackAnalyticsEvent('ce_notification_form_v2', {
+                action: 'open',
+                platform: 'DTrader',
+            });
+        }
 
         this.is_notifications_visible = !this.is_notifications_visible;
     }

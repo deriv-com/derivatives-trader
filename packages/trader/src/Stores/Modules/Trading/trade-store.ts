@@ -16,7 +16,6 @@ import {
 } from '@deriv/api';
 import {
     BARRIER_COLORS,
-    cacheTrackEvents,
     ChartBarrierStore,
     cloneObject,
     CONTRACT_TYPES,
@@ -28,10 +27,13 @@ import {
     getCardLabelsV2,
     getContractPath,
     getContractSubtype,
+    getContractTypesConfig,
     getCurrencyDisplayCode,
+    getMarketName,
     getMinPayout,
     getPropertyValue,
     getTradeNotificationMessage,
+    getTradeTypeName,
     getTradeURLParams,
     hasBarrier,
     isAccumulatorContract,
@@ -51,6 +53,7 @@ import {
     setLimitOrderBarriers,
     setTradeURLParams,
     showUnavailableLocationError,
+    trackAnalyticsEvent,
     TRADE_TYPES,
     WS,
 } from '@deriv/shared';
@@ -63,7 +66,6 @@ import { getMultiplierValidationRules, getValidationRules } from 'Stores/Modules
 import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
 import { TContractTypesList, TRootStore, TTextValueNumber, TTextValueStrings } from 'Types';
 
-import { sendDtraderPurchaseToAnalytics } from '../../../Analytics';
 import BaseStore from '../../base-store';
 
 import { processPurchase } from './Actions/purchase';
@@ -945,12 +947,6 @@ export default class TradeStore extends BaseStore {
             this.prev_contract_type = this.contract_type;
         }
 
-        // reset stop loss after trade type was changed
-        if (name === 'contract_type' && this.has_stop_loss) {
-            this.has_stop_loss = false;
-            this.stop_loss = '';
-        }
-
         // Reset duration and barrier when switching TO Vanilla contracts
         if (name === 'contract_type' && value) {
             const is_switching_to_vanilla = isVanillaContract(value as string);
@@ -1270,7 +1266,22 @@ export default class TradeStore extends BaseStore {
                             // draw the start time line and show longcode then mount contract
                             // this.root_store.modules.contract_trade.drawContractStartTime(start_time, longcode, contract_id);
                             if (!is_dtrader_v2) {
-                                sendDtraderPurchaseToAnalytics(contract_type, this.symbol, contract_id);
+                                // Convert raw technical values to user-friendly display names
+                                // For trade_type_name, use the title from getContractTypesConfig which has human-friendly names
+                                const contract_types_config = getContractTypesConfig(this.symbol);
+                                const trade_type_name =
+                                    contract_types_config[this.contract_type]?.title || this.contract_type;
+                                const market_type_name = getMarketName(this.symbol) || this.symbol;
+                                // For contract_type, we use the specific contract type (like 'ONETOUCH' -> 'Touch')
+                                const contract_type_display = getTradeTypeName(contract_type) || '';
+
+                                trackAnalyticsEvent('ce_contracts_set_up_form_v2', {
+                                    action: 'run_contract',
+                                    trade_type_name,
+                                    market_type_name,
+                                    contract_id,
+                                    contract_type: contract_type_display,
+                                });
                             }
 
                             if (!isMobile) {
@@ -1506,7 +1517,7 @@ export default class TradeStore extends BaseStore {
         }
 
         // Set stake to default one (from contracts_for) on symbol or contract type switch.
-        // On contract type we also additionally reset take profit
+        // On contract type we also additionally reset take profit and stop loss
         if (this.default_stake && this.is_dtrader_v2) {
             const has_symbol_changed = obj_new_values.symbol && this.symbol && this.symbol !== obj_new_values.symbol;
             const has_contract_type_changed =
@@ -1522,6 +1533,8 @@ export default class TradeStore extends BaseStore {
             if (has_contract_type_changed) {
                 obj_new_values.has_take_profit = false;
                 obj_new_values.take_profit = '';
+                obj_new_values.has_stop_loss = false;
+                obj_new_values.stop_loss = '';
             }
         }
 
@@ -2210,18 +2223,11 @@ export default class TradeStore extends BaseStore {
         }
         const { data, event_type } = getChartAnalyticsData(state as keyof typeof STATE_TYPES, option) as TPayload;
         if (data) {
-            cacheTrackEvents.loadEvent([
-                {
-                    event: {
-                        name: event_type,
-                        properties: {
-                            ...data,
-                            action: data.action as TEvents['ce_indicators_types_form']['action'],
-                            form_name: 'default',
-                        },
-                    },
-                },
-            ]);
+            trackAnalyticsEvent(event_type, {
+                ...data,
+                action: data.action,
+                platform: 'DTrader',
+            });
         }
     }
 

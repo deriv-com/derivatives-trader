@@ -2,9 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Button, ButtonToggle, Dropdown, ThemedScrollbars } from '@deriv/components';
-import { clickAndKeyEventHandler, TRADE_TYPES } from '@deriv/shared';
+import { clickAndKeyEventHandler, TRADE_TYPES, trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import { useTranslations } from '@deriv-com/translations';
 
 import TradeCategories from 'Assets/Trading/Categories/trade-categories';
@@ -78,22 +77,17 @@ const Info = observer(({ handleSelect, item, selected_value, list, info_banner }
 
     const should_show_dropdown = Number(contract_types?.length) > 1;
 
-    React.useEffect(() => {
-        return () => {
-            Analytics.trackEvent('ce_trade_types_form', {
-                action: 'info_close',
-            });
-        };
-    }, []);
+    const isInitialRender = React.useRef(true);
 
     React.useEffect(() => {
-        if (has_toggle_buttons) {
-            Analytics.trackEvent('ce_trade_types_form', {
+        // Only track 'info_switcher' event when user manually switches tabs, not on initial render
+        if (has_toggle_buttons && !isInitialRender.current) {
+            trackAnalyticsEvent('ce_trade_types_form_v2', {
                 action: 'info_switcher',
-                info_switcher_mode: selected_tab,
                 trade_type_name: contract_types?.find(item => item.value === selected_contract_type)?.text,
             });
         }
+        isInitialRender.current = false;
     }, [selected_tab]);
 
     const cards = contract_types?.map((type: TContractType) => {
@@ -157,7 +151,17 @@ const Info = observer(({ handleSelect, item, selected_value, list, info_banner }
                     value={selected_contract_type}
                     should_autohide={false}
                     should_scroll_to_selected
-                    onChange={e => setSelectedContractType(e.target.value)}
+                    onChange={e => {
+                        const selectedValue = e.target.value;
+                        setSelectedContractType(selectedValue);
+
+                        // Track analytics event when user selects trade type from dropdown
+                        const selectedTradeTypeName = contract_types?.find(item => item.value === selectedValue)?.text;
+                        trackAnalyticsEvent('ce_trade_types_form_v2', {
+                            action: 'info_choose_trade_type',
+                            trade_type_name: selectedTradeTypeName,
+                        });
+                    }}
                 />
             )}
             {is_unavailable && <div className='contract-type-info__banner-wrapper'>{info_banner}</div>}

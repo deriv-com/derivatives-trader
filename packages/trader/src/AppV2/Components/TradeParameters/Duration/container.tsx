@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { observer } from '@deriv/stores';
+import { trackAnalyticsEvent } from '@deriv/shared';
 import { Localize } from '@deriv-com/translations';
 import { ActionSheet } from '@deriv-com/quill-ui';
 
@@ -59,11 +60,17 @@ const DurationActionSheetContainer = observer(
                     duration: Number(minutes),
                     expiry_type: 'duration',
                 });
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                    action: 'customizing_trades',
+                });
             } else if (unit === DURATION_UNIT.DAYS) {
                 onChangeMultiple({
                     expiry_date: `${selected_expiry_date}T${selected_expiry_time}Z`,
                     expiry_time: selected_expiry_time,
                     expiry_type: 'endtime',
+                });
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                    action: 'customizing_trades',
                 });
             } else {
                 // For t, s, m: selected_duration is [duration_value]
@@ -72,6 +79,9 @@ const DurationActionSheetContainer = observer(
                     duration_unit: unit,
                     duration: Number(selected_duration[0]),
                     expiry_type: 'duration',
+                });
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                    action: 'customizing_trades',
                 });
             }
         };

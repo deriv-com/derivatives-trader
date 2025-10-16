@@ -24,7 +24,6 @@ type TContractTypeDialogProps = Pick<
     | 'onBackButtonClick'
     | 'onChangeInput'
     | 'onCategoryClick'
-    | 'onSearchBlur'
     | 'show_loading'
     | 'item'
 > &
@@ -43,7 +42,6 @@ const ContractTypeDialog = ({
     onCategoryClick,
     onChangeInput,
     onClose,
-    onSearchBlur,
     show_loading,
     learn_more_banner,
     hide_back_button,
@@ -89,7 +87,6 @@ const ContractTypeDialog = ({
             item={item}
             selected={selected}
             categories={categories}
-            onSearchBlur={onSearchBlur}
             onClose={onClose}
             onBackButtonClick={onBackButtonClick}
             onChangeInput={onChangeInput}

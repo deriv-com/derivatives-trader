@@ -33,7 +33,7 @@ describe('ServiceErrorSheet', () => {
     const history = createMemoryHistory();
     beforeEach(() => {
         default_mock_store = mockStore({
-            client: { is_logged_in: true, is_virtual: false },
+            client: { is_logged_in: true, is_virtual: false, currency: 'USD' },
             common: {
                 services_error: {
                     code: 'InsufficientBalance',
@@ -87,26 +87,28 @@ describe('ServiceErrorSheet', () => {
         expect(container).toBeEmptyDOMElement();
     });
 
-    it('should redirect to brand deposit page when "Deposit now" is clicked for real accounts', async () => {
+    it('should redirect to brand deposit page when "Transfer now" is clicked for real accounts', async () => {
         render(mockTrade());
 
         expect(screen.getByText('Insufficient balance')).toBeInTheDocument();
 
-        const depositButton = screen.getByText('Deposit now');
+        const depositButton = screen.getByText(/transfer now/i);
         await userEvent.click(depositButton);
 
         expect(fileUtils.getBrandUrl).toHaveBeenCalled();
-        expect(window.location.href).toBe('https://home.deriv.com/dashboard/deposit');
+        expect(window.location.href).toBe(
+            'https://home.deriv.com/dashboard/transfer?acc=options&curr=USD&from=home&source=options'
+        );
         expect(default_mock_store.common.resetServicesError).toHaveBeenCalled();
     });
 
-    it('should not redirect for virtual accounts when "Deposit now" is clicked', async () => {
+    it('should not redirect for virtual accounts when "Transfer now" is clicked', async () => {
         default_mock_store.client.is_virtual = true;
         render(mockTrade());
 
         expect(screen.getByText('Insufficient balance')).toBeInTheDocument();
 
-        const depositButton = screen.getByText('Deposit now');
+        const depositButton = screen.getByText(/transfer now/i);
         await userEvent.click(depositButton);
 
         expect(window.location.href).toBe('');

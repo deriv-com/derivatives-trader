@@ -2,12 +2,17 @@ import type { TEvents } from '@deriv-com/analytics';
 
 export type TPayload = {
     data: Omit<
-        Partial<TEvents['ce_chart_types_form'] & TEvents['ce_market_types_form'] & TEvents['ce_indicators_types_form']>,
+        // @ts-expect-error - Analytics library types not updated yet for these event types
+        Partial<
+            TEvents['ce_chart_types_form_v2'] &
+                TEvents['ce_market_types_form_v2'] &
+                TEvents['ce_indicators_types_form_v2']
+        >,
         'action'
     > & {
         action: string;
     };
-    event_type: 'ce_chart_types_form' | 'ce_market_types_form' | 'ce_indicators_types_form';
+    event_type: 'ce_chart_types_form_v2' | 'ce_market_types_form_v2' | 'ce_indicators_types_form_v2';
 };
 
 type TStateChangeOption = {
@@ -69,7 +74,7 @@ export const SUBFORM_NAME = {
 
 const getChartTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, option: TStateChangeOption = {}) => {
     const { chart_type_name = '', time_interval_name } = option;
-    const chart_event_type = 'ce_chart_types_form';
+    const chart_event_type = 'ce_chart_types_form_v2';
     const payload: TPayload = {
         data: {
             action: '',
@@ -94,7 +99,7 @@ const getChartTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, option: 
 
 const getIndicatorTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, option: TStateChangeOption = {}) => {
     const { indicator_type_name = '', indicators_category_name = '', is_info_open, is_open, search_string } = option;
-    const indicators_event_type = 'ce_indicators_types_form';
+    const indicators_event_type = 'ce_indicators_types_form_v2';
     const indicators_subform = is_info_open ? SUBFORM_NAME.INDICATORS_INFO : SUBFORM_NAME.INDICATORS_TYPE;
     const info_open_close_action = is_info_open ? ACTION.INFO_OPEN : ACTION.INFO_CLOSE;
     const open_close_action = is_open ? ACTION.OPEN : ACTION.CLOSE;
@@ -148,9 +153,14 @@ const getIndicatorTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, opti
             };
             break;
         case STATE_TYPES.INDICATORS_MODAL_TOGGLE:
-            payload.data = {
-                action: open_close_action,
-            };
+            // Only send analytics event for "open" action, skip "close" action
+            if (is_open) {
+                payload.data = {
+                    action: ACTION.OPEN,
+                };
+            } else {
+                return {}; // Skip sending event for close action
+            }
             break;
         case STATE_TYPES.INDICATORS_CLEAR_ALL:
             payload.data = {
@@ -165,7 +175,7 @@ const getIndicatorTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, opti
 
 const getMarketTypeFormAnalyticsData = (state: keyof typeof STATE_TYPES, option: TStateChangeOption = {}) => {
     const { is_favorite, symbol_category: tab_market_name = '', search_string, symbol: market_type_name = '' } = option;
-    const market_event_type = 'ce_market_types_form';
+    const market_event_type = 'ce_market_types_form_v2';
     const favorites_action = is_favorite ? ACTION.ADD_TO_FAVORITES : ACTION.DELETE_FROM_FAVORITES;
     const payload = {
         event_type: market_event_type,

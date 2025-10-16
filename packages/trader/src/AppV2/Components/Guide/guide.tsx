@@ -9,7 +9,7 @@ import useGuideContractTypes from 'AppV2/Hooks/useGuideContractTypes';
 import { AVAILABLE_CONTRACTS, CONTRACT_LIST } from 'AppV2/Utils/trade-types-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { sendOpenGuideToAnalytics } from '../../../Analytics';
+import { trackAnalyticsEvent } from '@deriv/shared';
 
 import GuideDefinitionModal from './guide-definition-modal';
 import GuideDescriptionModal from './guide-description-modal';
@@ -82,7 +82,10 @@ const Guide = observer(
                         color={is_dark_mode_on ? 'white' : 'black'}
                         icon={<LabelPairedPresentationScreenSmRegularIcon key='guide-button-icon' />}
                         onClick={() => {
-                            sendOpenGuideToAnalytics(contract_type, 'main_trade_page');
+                            trackAnalyticsEvent('ce_trade_types_form_v2', {
+                                action: 'info_open',
+                                trade_type_name: contract_type_title || contract_type,
+                            });
                             setIsDescriptionOpened(true);
                         }}
                         variant={has_label ? 'secondary' : 'tertiary'}
@@ -101,7 +104,10 @@ const Guide = observer(
                     is_open={is_description_opened}
                     onChipSelect={(id: string) => {
                         const selected_trade_type = ordered_contract_list.find(item => item.id === id);
-                        sendOpenGuideToAnalytics(selected_trade_type?.for?.[0] ?? '', 'trade_type_page');
+                        trackAnalyticsEvent('ce_trade_types_form_v2', {
+                            action: 'info_switcher',
+                            trade_type_name: selected_trade_type?.id ?? '',
+                        });
                         onChipSelect(id);
                     }}
                     onClose={onClose}
