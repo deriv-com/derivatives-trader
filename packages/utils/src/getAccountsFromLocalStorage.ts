@@ -1,5 +1,3 @@
-import type { AuthorizeResponse } from '@deriv/api-types';
-
 type TLocalStorageAccount = {
     token: string;
     accepted_bch: number;
@@ -8,9 +6,9 @@ type TLocalStorageAccount = {
     session_start: number;
 };
 
+// TODO: Refactor to remove this method and type - account_list removed from V2 API
 type TLocalStorageAccountsList = {
-    [k: string]: TLocalStorageAccount &
-        NonNullable<NonNullable<NonNullable<AuthorizeResponse['authorize']>['account_list']>>[number];
+    [k: string]: TLocalStorageAccount & Record<string, any>;
 };
 
 /**

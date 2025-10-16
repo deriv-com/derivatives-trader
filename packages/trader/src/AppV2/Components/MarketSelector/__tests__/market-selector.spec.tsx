@@ -18,6 +18,14 @@ jest.mock('@deriv/shared', () => ({
         getMarketNamesMap: jest.fn().mockReturnValue({}),
     },
     getMarketNamesMap: jest.fn().mockReturnValue({}),
+    getSymbolDisplayName: jest.fn((symbol: string) => {
+        const symbolMap: Record<string, string> = {
+            EURUSD: 'EUR/USD',
+            GBPUSD: 'GBP/USD',
+            CADAUD: 'CAD/AUD',
+        };
+        return symbolMap[symbol] || symbol;
+    }),
 }));
 
 jest.mock('AppV2/Hooks/useActiveSymbols', () => ({
@@ -25,9 +33,9 @@ jest.mock('AppV2/Hooks/useActiveSymbols', () => ({
     __esModule: true,
     default: jest.fn(() => ({
         activeSymbols: [
-            { symbol: 'EURUSD', display_name: 'EUR/USD', exchange_is_open: 1 },
-            { symbol: 'GBPUSD', display_name: 'GBP/USD', exchange_is_open: 0 },
-            { symbol: 'CADAUD', display_name: 'CAD/AUD', exchange_is_open: 0 },
+            { underlying_symbol: 'EURUSD', exchange_is_open: 1, pip_size: 4 },
+            { underlying_symbol: 'GBPUSD', exchange_is_open: 0, pip_size: 4 },
+            { underlying_symbol: 'CADAUD', exchange_is_open: 0, pip_size: 4 },
         ],
     })),
 }));

@@ -24,12 +24,12 @@ export const getAnalyticsAccountType = (client?: ClientStore): 'Demo' | 'Real' |
     if (!client || !client.is_logged_in) {
         return 'unlogged';
     }
-    
+
     // Virtual/demo accounts
     if (client.is_virtual) {
         return 'Demo';
     }
-    
+
     // Real money accounts (logged in but not virtual)
     return 'Real';
 };
@@ -91,12 +91,12 @@ export const trackAnalyticsEvent = (
     }
 
     const commonData = getAnalyticsData(client);
-    
+
     const eventProperties = {
         ...commonData,
         ...properties,
     };
-    
+
     // @ts-expect-error - Analytics library types not updated yet
     Analytics.trackEvent(eventName, eventProperties);
 };

@@ -154,7 +154,7 @@ const Info = observer(({ handleSelect, item, selected_value, list, info_banner }
                     onChange={e => {
                         const selectedValue = e.target.value;
                         setSelectedContractType(selectedValue);
-                        
+
                         // Track analytics event when user selects trade type from dropdown
                         const selectedTradeTypeName = contract_types?.find(item => item.value === selectedValue)?.text;
                         trackAnalyticsEvent('ce_trade_types_form_v2', {

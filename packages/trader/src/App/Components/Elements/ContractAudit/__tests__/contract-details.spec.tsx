@@ -24,25 +24,22 @@ describe('<ContractDetails />', () => {
             barrier: '1460.00',
             cancellation: { ask_price: 122223 },
             contract_type: 'test_contract_type',
-            current_spot: 1458.01,
-            current_spot_display_value: '1458.01',
+            current_spot: '1458.01',
             current_spot_time: 1686895544,
             date_expiry: 1687046399,
             date_start: 1686895542,
-            entry_spot: 1458.17,
-            entry_spot_display_value: '1458.17',
+            entry_spot: '1458.17',
             entry_spot_time: 1686895541,
             expiry_time: 1687046399,
             high_barrier: '2030',
             is_expired: 0,
-            is_forward_starting: 0,
             is_settleable: 0,
             is_sold: 0,
             is_valid_to_cancel: 0,
             is_valid_to_sell: 1,
             low_barrier: '2020',
             display_number_of_contracts: '0.04958',
-            profit: -0.1,
+            profit: '-0.1',
             reset_time: undefined,
             reset_barrier: '2070.88',
             status: 'open',
@@ -113,7 +110,7 @@ describe('<ContractDetails />', () => {
     it('should render payout per point information in ContractAuditItem if is_vanilla === true', () => {
         mock_default_props.is_vanilla = true;
         mock_default_props.contract_info.display_number_of_contracts = undefined;
-        mock_default_props.contract_info.profit = 10;
+        mock_default_props.contract_info.profit = '10';
         render(<ContractDetails {...mock_default_props} />);
 
         expect(screen.getByText('Payout per point')).toBeInTheDocument();
@@ -160,12 +157,12 @@ describe('<ContractDetails />', () => {
     it('should render correct rounding for barrier, entry spot and exit spot', () => {
         mock_default_props.contract_info.contract_type = CONTRACT_TYPES.VANILLA.CALL;
         mock_default_props.contract_info.barrier = '2037.000';
-        mock_default_props.contract_info.entry_spot = 2031.0;
+        mock_default_props.contract_info.entry_spot = '2031.0';
         mock_default_props.exit_spot = '2039.0';
         render(<ContractDetails {...mock_default_props} />);
 
         expect(screen.getByText('2,037.000')).toBeInTheDocument();
-        expect(screen.getByText('2,031')).toBeInTheDocument();
+        expect(screen.getByText('2,031.0')).toBeInTheDocument();
         expect(screen.getByText('2,039.0')).toBeInTheDocument();
     });
 

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import sortSymbols from 'AppV2/Utils/sort-symbols-utils';
@@ -14,11 +14,12 @@ export const useGetFavoriteSymbols = () => {
     const clientFavoriteList = useMemo(() => {
         return favoriteSymbols
             ?.map(client_fav_symbol =>
-                activeSymbols.find(
-                    symbol_info => ((symbol_info as any).underlying_symbol || symbol_info.symbol) === client_fav_symbol
-                )
+                activeSymbols.find(symbol_info => symbol_info.underlying_symbol === client_fav_symbol)
             )
-            .filter((symbol_info): symbol_info is ActiveSymbols[0] => symbol_info !== undefined);
+            .filter(
+                (symbol_info): symbol_info is NonNullable<TActiveSymbolsResponse['active_symbols']>[0] =>
+                    symbol_info !== undefined
+            );
     }, [activeSymbols, favoriteSymbols]);
 
     const sortedFavoriteSymbols = useMemo(() => {

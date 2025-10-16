@@ -40,9 +40,9 @@ import {
     isVanillaFxContract,
     TContractInfo,
     toGMTFormat,
+    trackAnalyticsEvent,
 } from '@deriv/shared';
 import { Localize, useTranslations } from '@deriv-com/translations';
-import { trackAnalyticsEvent } from '@deriv/shared';
 import { useDevice } from '@deriv-com/ui';
 
 import { getBarrierLabel, getBarrierValue, isDigitType } from 'App/Components/Elements/PositionsDrawer/helpers';
@@ -75,7 +75,6 @@ const ContractDetails = ({
         date_start,
         display_number_of_contracts,
         entry_spot,
-        entry_spot_display_value,
         entry_spot_time,
         exit_spot: exit_spot_value,
         exit_spot_time,
@@ -91,13 +90,11 @@ const ContractDetails = ({
         reset_barrier,
         reset_time,
         underlying_symbol,
-        underlying,
     } = contract_info;
     const { isMobile } = useDevice();
     const { localize } = useTranslations();
 
-    // Backward compatibility: fallback to old field names
-    const actual_entry_spot = entry_spot ?? entry_spot_display_value;
+    const actual_entry_spot = entry_spot;
     const actual_exit_spot = exit_spot_value;
     const actual_exit_spot_display_value = exit_spot_value;
 
@@ -156,7 +153,7 @@ const ContractDetails = ({
         contract_type === CONTRACT_TYPES.LB_PUT ? INDICATIVE_HIGH : INDICATIVE_LOW
     );
 
-    const vanilla_payout_text = isVanillaFxContract(contract_type, underlying_symbol ?? underlying)
+    const vanilla_payout_text = isVanillaFxContract(contract_type, underlying_symbol)
         ? getLocalizedBasis().payout_per_pip
         : getLocalizedBasis().payout_per_point;
 
@@ -221,7 +218,7 @@ const ContractDetails = ({
                                     label={getBarrierLabel(contract_info)}
                                     value={
                                         (isResetContract(contract_type)
-                                            ? addComma(entry_spot_display_value)
+                                            ? addComma(actual_entry_spot?.toString() || '')
                                             : getBarrierValue(contract_info)) || ' - '
                                     }
                                 />

@@ -101,8 +101,7 @@ describe('PositionsContent', () => {
                                 is_valid_to_cancel: 0,
                                 is_valid_to_sell: 1,
                                 growth_rate: 0.03,
-                                entry_spot: 364.15,
-                                entry_spot_display_value: '364.15',
+                                entry_spot: '364.15',
                             }),
                         },
                         details:

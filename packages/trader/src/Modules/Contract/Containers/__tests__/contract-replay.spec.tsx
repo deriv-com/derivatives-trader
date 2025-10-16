@@ -62,7 +62,7 @@ describe('<ContractReplay>', () => {
         contract_replay: {
             contract_store: {
                 contract_info: {
-                    underlying: '1HZ100V',
+                    underlying_symbol: '1HZ100V',
                     contract_type: 'VANILLA',
                 },
             },

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import { Loading } from '@deriv/components';
 import { useLocalStorageData } from '@deriv/api';
-import { getSymbolDisplayName } from '@deriv/shared';
+import { getSymbolDisplayName, trackAnalyticsEvent } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 
 import AccumulatorStats from 'AppV2/Components/AccumulatorStats';
@@ -24,7 +24,6 @@ import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { isDigitTradeType } from 'Modules/Trading/Helpers/digits';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { trackAnalyticsEvent } from '@deriv/shared';
 import { TradeChart } from '../Chart';
 
 import TradeTypes from './trade-types';
@@ -76,9 +75,9 @@ const Trade = observer(() => {
 
     const symbols = React.useMemo(
         () =>
-            active_symbols.map(({ symbol: underlying }) => ({
-                text: getSymbolDisplayName(active_symbols, underlying),
-                value: underlying,
+            active_symbols.map(({ underlying_symbol: underlying }) => ({
+                text: getSymbolDisplayName(underlying || ''),
+                value: underlying || '',
             })),
         [active_symbols]
     );
@@ -89,7 +88,9 @@ const Trade = observer(() => {
             subform_name: string,
             trade_type_count: number
         ) => {
-            const selected_trade_type = trade_types.find(({ text }) => text === (e.target as HTMLButtonElement).textContent);
+            const selected_trade_type = trade_types.find(
+                ({ text }) => text === (e.target as HTMLButtonElement).textContent
+            );
             onChange({
                 target: {
                     name: 'contract_type',

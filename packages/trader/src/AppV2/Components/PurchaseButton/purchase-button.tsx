@@ -27,7 +27,6 @@ import { getTradeTypeTabsList } from 'AppV2/Utils/trade-params-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-
 import PurchaseButtonContent from './purchase-button-content';
 
 const BASIS_STAKE = 'stake';
@@ -78,9 +77,7 @@ const PurchaseButton = observer(() => {
     const prev_has_open_accu_contract = usePrevious(
         !!open_accu_contract &&
             !!active_positions.find(({ contract_info, type }) => {
-                // Backward compatibility: fallback to old field name
-                // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
-                const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+                const contract_underlying = contract_info.underlying_symbol;
                 return isAccumulatorContract(type) && contract_underlying === symbol;
             })
     );
@@ -107,9 +104,7 @@ const PurchaseButton = observer(() => {
     const contract_types = getDisplayedContractTypes(trade_types, contract_type, trade_type_tab);
     const active_accu_contract = is_accumulator
         ? all_positions.find(({ contract_info, type }) => {
-              // Backward compatibility: fallback to old field name
-              // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
-              const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+              const contract_underlying = contract_info.underlying_symbol;
               return isAccumulatorContract(type) && contract_underlying === symbol && !contract_info.is_sold;
           })
         : undefined;
@@ -130,7 +125,11 @@ const PurchaseButton = observer(() => {
         return button_index ? 'sell' : 'purchase';
     };
 
-    const addNotificationBannerCallback = (params: Parameters<typeof addBanner>[0], contract_id: number, specific_contract_type: string) => {
+    const addNotificationBannerCallback = (
+        params: Parameters<typeof addBanner>[0],
+        contract_id: number,
+        specific_contract_type: string
+    ) => {
         // Track run_contract analytics event directly
         const selected_trade_type = trade_types_list.find(({ value }) => value === contract_type);
         const trade_type_name = selected_trade_type?.text || contract_type;

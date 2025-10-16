@@ -28,7 +28,7 @@ const Reports = observer(({ history, location, routes }: TReports) => {
 
     // Store the redirect parameter when component mounts to preserve it across tab navigation
     const redirectUrlRef = React.useRef<string | null>(null);
-    
+
     // Ref to prevent duplicate analytics calls
     const analyticsCalledRef = React.useRef<boolean>(false);
 
@@ -46,14 +46,14 @@ const Reports = observer(({ history, location, routes }: TReports) => {
         if (analyticsCalledRef.current) {
             return;
         }
-        
+
         analyticsCalledRef.current = true;
-        
-        trackAnalyticsEvent('ce_reports_form_v2',{
+
+        trackAnalyticsEvent('ce_reports_form_v2', {
             action: 'open',
             platform: 'DTrader',
         });
-        
+
         toggleReports(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

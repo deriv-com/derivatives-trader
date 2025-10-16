@@ -10,7 +10,6 @@ import { useReportsStore } from 'Stores/useReportsStores';
 import Statement, { getRowAction } from '../statement';
 import ReportsProviders from '../../reports-providers';
 
-
 jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(() => ({ isDesktop: true })),
 }));
