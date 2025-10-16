@@ -94,7 +94,7 @@ const ContractDetails = observer(() => {
                     </CardWrapper>
                 )}
                 <OrderDetails contract_info={contract_info} />
-                <PayoutInfo contract_info={contract_info} />
+                {/* <PayoutInfo contract_info={contract_info} /> */}
                 <EntryExitDetails contract_info={contract_info} />
                 {isTpHistoryVisible && update_history.length > 0 && (
                     <TakeProfitHistory history={update_history} currency={currency} is_multiplier={isMultiplier} />

@@ -705,6 +705,10 @@ export default class TradeStore extends BaseStore {
         reaction(
             () => this.root_store.common.current_language,
             () => {
+                // Clear existing validation errors to prevent stale messages
+                this.validation_errors = {};
+
+                // Regenerate all validation rules with new language
                 this.setValidationRules(getValidationRules());
                 this.changeDurationValidationRules();
                 if (!this.amount) {
