@@ -55,7 +55,7 @@ const TopWidgets = ({
 
     return (
         <React.Fragment>
-            {InfoBox}
+            {/* {InfoBox} */}
             {is_mobile ? portal : ChartTitleLocal}
         </React.Fragment>
     );
