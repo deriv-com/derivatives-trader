@@ -74,6 +74,6 @@ jobs:
               - Tests (coverage for new logic)
 
               Output:
-              - Inline comments for specific issues
+              - Quick summary of changes made in the PR
               - A summary comment with high/medium/low priority items
               - Concrete fix suggestions and quick patches where safe
