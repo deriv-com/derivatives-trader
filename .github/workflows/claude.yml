@@ -70,12 +70,6 @@ jobs:
             PR_URL="${{ github.event.pull_request.url }}"
           elif [ "${{ github.event_name }}" = "pull_request_review" ]; then
             PR_URL="${{ github.event.pull_request.url }}"
-          elif [ "${{ github.event_name }}" = "pull_request" ]; then
-            # For pull_request events, data is directly available
-            echo "fork_repo=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_OUTPUT
-            echo "branch_name=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
-            echo "PR is from: ${{ github.event.pull_request.head.repo.full_name }}:${{ github.event.pull_request.head.ref }}"
-            exit 0
           fi
           
           echo "Getting PR data from: $PR_URL"
