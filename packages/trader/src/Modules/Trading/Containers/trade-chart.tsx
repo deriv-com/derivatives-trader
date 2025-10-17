@@ -216,7 +216,6 @@ const TradeChart = observer((props: TTradeChartProps) => {
             drawingToolFloatingMenuPosition={isMobile ? { x: 100, y: 100 } : { x: 200, y: 200 }}
             id='trade'
             ref={ref}
-            barriers={barriers}
             showLastDigitStats={show_digits_stats}
             chartControlsWidgets={null}
             stateChangeListener={chartStateChange}
@@ -254,17 +253,7 @@ const TradeChart = observer((props: TTradeChartProps) => {
             isLive
             leftMargin={!isMobile && is_positions_drawer_on ? 328 : 80}
         >
-            {is_accumulator && (
-                <AccumulatorsChartElements
-                    all_positions={all_positions}
-                    current_spot={current_spot}
-                    current_spot_time={current_spot_time}
-                    has_crossed_accu_barriers={has_crossed_accu_barriers}
-                    should_show_profit_text={!!accumulator_contract_barriers_data.accumulators_high_barrier}
-                    symbol={symbol}
-                    is_mobile={isMobile}
-                />
-            )}
+            <></>
         </SmartChart>
     );
 });

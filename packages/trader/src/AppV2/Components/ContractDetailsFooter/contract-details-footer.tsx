@@ -10,6 +10,7 @@ import { FormatUtils } from '@deriv-com/utils';
 
 type ContractInfoProps = {
     contract_info: TContractInfo;
+    className?: string;
 };
 
 type ButtonProps = {
@@ -18,7 +19,7 @@ type ButtonProps = {
     fullWidth: boolean;
 };
 
-const ContractDetailsFooter = observer(({ contract_info }: ContractInfoProps) => {
+const ContractDetailsFooter = observer(({ contract_info, className }: ContractInfoProps) => {
     const {
         bid_price,
         currency,
@@ -49,7 +50,7 @@ const ContractDetailsFooter = observer(({ contract_info }: ContractInfoProps) =>
     };
 
     return (
-        <div className='contract-details-footer--container'>
+        <div className={`contract-details-footer--container ${className || ''}`}>
             {is_multiplier ? (
                 <>
                     <span className='contract-details-footer-button__wrapper'>

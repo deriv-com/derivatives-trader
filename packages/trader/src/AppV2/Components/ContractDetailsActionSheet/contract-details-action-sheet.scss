@@ -1,0 +1,63 @@
+.contract-details-action-sheet {
+    // Class to make the modal background transparent
+    &__transparent-overlay {
+        background: none !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        opacity: 0 !important;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    &__type-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    &__content {
+        padding-bottom: 0;
+    }
+
+    &__type-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.2rem;
+        height: 3.2rem;
+        background-color: var(--semantic-color-slate-solid-surface-frame-mid);
+        margin-right: var(--core-spacing-800);
+    }
+
+    &__pnl {
+        .dc-remaining-time {
+            font-size: var(--semantic-typography-caption-regular-default-fontSize, 12px);
+        }
+        font-size: var(--semantic-typography-caption-regular-default-fontSize, 12px);
+        .profit {
+            color: var(--core-color-solid-green-700);
+        }
+        .loss {
+            color: var(--core-color-solid-red-700);
+        }
+    }
+
+    &__badges {
+        background-color: var(--component-tag-bg-default);
+        font-size: var(--semantic-typography-caption-regular-default-fontSize, 12px);
+        color: var(--component-tag-label-color-default);
+        padding: 0 var(--component-tag-spacing-padding-sm, 8px);
+        margin: var(--core-spacing-800) var(--core-spacing-800) var(--core-spacing-800) 0;
+    }
+
+    &__footer {
+        padding: 0;
+
+        &--position {
+            position: relative;
+        }
+    }
+}

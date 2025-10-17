@@ -25,6 +25,7 @@ export type TContractInfo = ProposalOpenContract &
         exit_spot_time?: number;
         exit_spot?: number | string;
         underlying_symbol?: string;
+        contract_category?: string;
     };
 
 export type TTickItem = {
