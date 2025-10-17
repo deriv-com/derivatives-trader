@@ -16,11 +16,7 @@ jobs:
       (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
-      (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize') &&
-       !github.event.pull_request.draft &&
-       (github.event.pull_request.head.repo.full_name == github.repository ||
-        github.event.pull_request.author_association == 'MEMBER' ||
-        github.event.pull_request.author_association == 'COLLABORATOR'))
+      (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize'))
     runs-on: ubuntu-latest
     
     permissions:
