@@ -7,14 +7,20 @@ on:
     types: [created]
   pull_request_review:
     types: [submitted]
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   claude-assistant:
-    # Only run on PR-related events that contain @claude
     if: |
       (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude'))
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize') &&
+       !github.event.pull_request.draft &&
+       (github.event.pull_request.head.repo.full_name == github.repository ||
+        github.event.pull_request.author_association == 'MEMBER' ||
+        github.event.pull_request.author_association == 'COLLABORATOR'))
     runs-on: ubuntu-latest
     
     permissions:
@@ -64,6 +70,12 @@ jobs:
             PR_URL="${{ github.event.pull_request.url }}"
           elif [ "${{ github.event_name }}" = "pull_request_review" ]; then
             PR_URL="${{ github.event.pull_request.url }}"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            # For pull_request events, data is directly available
+            echo "fork_repo=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_OUTPUT
+            echo "branch_name=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
+            echo "PR is from: ${{ github.event.pull_request.head.repo.full_name }}:${{ github.event.pull_request.head.ref }}"
+            exit 0
           fi
           
           echo "Getting PR data from: $PR_URL"
@@ -88,7 +100,7 @@ jobs:
 
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@0c127307fa529d701bc1f0f8f9c0bea881c49a9b
-        timeout-minutes: 60
+        timeout-minutes: 30
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: "--model claude-sonnet-4-5-20250929"
