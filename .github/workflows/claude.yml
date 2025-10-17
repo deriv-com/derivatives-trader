@@ -56,30 +56,6 @@ jobs:
           echo "Only organization members and repository collaborators can trigger Claude actions."
           exit 1
 
-      - name: Get PR details
-        id: pr
-        run: |
-          # Get PR URL based on event type
-          if [ "${{ github.event_name }}" = "issue_comment" ]; then
-            PR_URL="${{ github.event.issue.pull_request.url }}"
-          elif [ "${{ github.event_name }}" = "pull_request_review_comment" ]; then
-            PR_URL="${{ github.event.pull_request.url }}"
-          elif [ "${{ github.event_name }}" = "pull_request_review" ]; then
-            PR_URL="${{ github.event.pull_request.url }}"
-          fi
-          
-          echo "Getting PR data from: $PR_URL"
-          PR_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$PR_URL")
-          
-          # Extract fork repository and branch
-          FORK_REPO=$(echo "$PR_DATA" | jq -r '.head.repo.full_name')
-          BRANCH_NAME=$(echo "$PR_DATA" | jq -r '.head.ref')
-          
-          echo "fork_repo=$FORK_REPO" >> $GITHUB_OUTPUT
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          
-          echo "PR is from: $FORK_REPO:$BRANCH_NAME"
-
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
         timeout-minutes: 60
