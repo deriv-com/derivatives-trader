@@ -6,23 +6,27 @@ on:
 
 jobs:
   claude-assistant:
+    # Only run on PR-related events that contain @claude
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude'))
     runs-on: ubuntu-latest
     
     permissions:
       contents: read
       pull-requests: write
+      issues: write
       id-token: write
+      actions: read
 
-    # Cancel older runs when a new commit arrives on the same PR
+    # Cancel older runs when new commits arrive on the same PR
     concurrency:
-      group: pr-${{ github.event.pull_request.number }}
+      group: pr-${{ inputs.pr_number || github.event.pull_request.number || github.event.issue.number }}
       cancel-in-progress: true
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
       - name: Security Check - Validate User Access
         run: |
           ACTOR="${{ github.actor }}"
