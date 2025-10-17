@@ -77,7 +77,7 @@ jobs:
           echo "PR is from: $FORK_REPO:$BRANCH_NAME"
 
       - name: Run Claude Code Action
-        uses: anthropics/claude-code-action@0c127307fa529d701bc1f0f8f9c0bea881c49a9b
+        uses: anthropics/claude-code-action@v1
         timeout-minutes: 60
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
