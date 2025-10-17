@@ -82,18 +82,18 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           track_progress: true
-        prompt: |
-            REPO: ${{ github.repository }}
-            PR NUMBER: ${{ github.event.pull_request.number }}
+          prompt: |
+              REPO: ${{ github.repository }}
+              PR NUMBER: ${{ github.event.pull_request.number }}
 
-            Please review this pull request with a focus on:
-            - Correctness, regressions, and edge cases
-            - Code quality & readability (React + TypeScript best practices)
-            - Performance (render cost, memoization, effects)
-            - Security (XSS, auth flows, secrets)
-            - Tests (coverage for new logic)
+              Please review this pull request with a focus on:
+              - Correctness, regressions, and edge cases
+              - Code quality & readability (React + TypeScript best practices)
+              - Performance (render cost, memoization, effects)
+              - Security (XSS, auth flows, secrets)
+              - Tests (coverage for new logic)
 
-            Output:
-            - Inline comments for specific issues
-            - A summary comment with high/medium/low priority items
-            - Concrete fix suggestions and quick patches where safe
+              Output:
+              - Inline comments for specific issues
+              - A summary comment with high/medium/low priority items
+              - Concrete fix suggestions and quick patches where safe
