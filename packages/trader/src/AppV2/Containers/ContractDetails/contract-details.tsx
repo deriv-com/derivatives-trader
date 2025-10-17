@@ -16,6 +16,7 @@ import { observer, useStore } from '@deriv/stores';
 
 import CardWrapper from 'AppV2/Components/CardWrapper';
 import { ContractCard } from 'AppV2/Components/ContractCard';
+import ContractDetailsActionSheet from 'AppV2/Components/ContractDetailsActionSheet';
 import ContractDetailsFooter from 'AppV2/Components/ContractDetailsFooter';
 import ContractDetailsHeader from 'AppV2/Components/ContractDetailsHeader';
 import DealCancellation from 'AppV2/Components/DealCancellation/deal-cancellation';
@@ -101,6 +102,7 @@ const ContractDetails = observer(() => {
                 )}
             </div>
             {shouldShowSell && <ContractDetailsFooter contract_info={contract_info} />}
+            <ContractDetailsActionSheet contract_info={contract_info} />
         </>
     );
 });
