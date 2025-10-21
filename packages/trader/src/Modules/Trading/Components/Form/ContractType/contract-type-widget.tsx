@@ -110,7 +110,6 @@ const ContractTypeWidget = observer(
             const { key } = findContractCategory(categories, clicked_item);
             if ('id' in e.target && e.target.id !== 'info-icon' && clicked_item) {
                 const is_from_info_dialog = /_btn$/.test(e.target.id as string);
-                const subform_name = is_from_info_dialog ? 'info_new' : 'trade_type';
 
                 setDialogVisibility(false);
                 setInfoDialogVisibility(false);
@@ -120,7 +119,7 @@ const ContractTypeWidget = observer(
                 onChange({ target: { name, value: clicked_item.value } });
 
                 trackAnalyticsEvent('ce_trade_types_form_v2', {
-                    action: 'select_trade_type',
+                    action: is_from_info_dialog ? 'info_choose_trade_type' : 'select_trade_type',
                     trade_type_name: getCategoryName(clicked_item),
                 });
             }
