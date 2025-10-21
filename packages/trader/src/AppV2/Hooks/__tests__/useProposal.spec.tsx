@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { APIProvider } from '@deriv/api';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook } from '@testing-library/react-hooks';
 
@@ -7,18 +8,25 @@ import { getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
 import type { TTradeStore } from 'Types';
 
-import { useFetchProposalData } from '../useFetchProposalData';
+import { useProposal } from '../useProposal';
 
 jest.mock('Stores/useTraderStores', () => ({
     useTraderStore: jest.fn(),
 }));
 jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
     WS: {
         send: jest.fn(),
         authorized: {
             send: jest.fn(),
         },
     },
+    useWS: jest.fn(() => ({
+        send: jest.fn(),
+        authorized: {
+            send: jest.fn(),
+        },
+    })),
 }));
 jest.mock('AppV2/Utils/trade-params-utils', () => ({
     getProposalRequestObject: jest.fn(),
@@ -27,7 +35,7 @@ jest.mock('AppV2/Utils/trade-params-utils', () => ({
 const mockUseTraderStore = useTraderStore as jest.Mock;
 const mockGetProposalRequestObject = getProposalRequestObject as jest.Mock;
 
-describe('useFetchProposalData', () => {
+describe('useProposal', () => {
     let queryClient: QueryClient,
         wrapper: React.FC<{ children: React.ReactNode }>,
         mockTradeStore: Partial<TTradeStore>;
@@ -41,7 +49,11 @@ describe('useFetchProposalData', () => {
                 },
             },
         });
-        wrapper = ({ children }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+        wrapper = ({ children }) => (
+            <APIProvider>
+                <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+            </APIProvider>
+        );
 
         mockTradeStore = {
             amount: 10,
@@ -82,11 +94,10 @@ describe('useFetchProposalData', () => {
 
         renderHook(
             () =>
-                useFetchProposalData({
+                useProposal({
                     trade_store: mockTradeStore as TTradeStore,
                     proposal_request_values,
                     contract_type,
-                    contract_types,
                     is_enabled: true,
                 }),
             { wrapper }
@@ -115,17 +126,16 @@ describe('useFetchProposalData', () => {
 
         const { result } = renderHook(
             () =>
-                useFetchProposalData({
+                useProposal({
                     trade_store: mockTradeStore as TTradeStore,
                     proposal_request_values,
                     contract_type,
-                    contract_types,
                     is_enabled: false,
                 }),
             { wrapper }
         );
 
-        expect(result.current.is_fetching).toBe(false);
+        expect(result.current.isFetching).toBe(false);
     });
 
     it('handles empty proposal_request_values', () => {
@@ -140,18 +150,17 @@ describe('useFetchProposalData', () => {
 
         const { result } = renderHook(
             () =>
-                useFetchProposalData({
+                useProposal({
                     trade_store: mockTradeStore as TTradeStore,
                     proposal_request_values: {},
                     contract_type,
-                    contract_types,
                     is_enabled: true,
                 }),
             { wrapper }
         );
 
         const { data, error } = result.current;
-        expect(data).toBe(null);
+        expect(data).toBeUndefined();
         expect(error).toBe(null);
     });
 });

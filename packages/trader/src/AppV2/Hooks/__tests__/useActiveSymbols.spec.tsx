@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { CONTRACT_TYPES, TRADE_TYPES, WS } from '@deriv/shared';
+import { useQuery } from '@deriv/api';
+import { CONTRACT_TYPES, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import TraderProviders from '../../../trader-providers';
 import useActiveSymbols from '../useActiveSymbols';
-import { invalidateDTraderCache } from '../useDtraderQuery';
 
 const not_logged_in_active_symbols = [
     { symbol: 'EURUSD', display_name: 'EUR/USD', exchange_is_open: 1 },
@@ -20,21 +20,19 @@ const logged_in_active_symbols = [
     { symbol: '1HZ300', display_name: 'Volatility 300', exchange_is_open: 0 },
 ];
 
+jest.mock('@deriv/api', () => ({
+    ...jest.requireActual('@deriv/api'),
+    useQuery: jest.fn(() => ({
+        data: {
+            active_symbols: not_logged_in_active_symbols,
+        },
+        error: null,
+        isLoading: false,
+    })),
+}));
+
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
-    WS: {
-        authorized: {
-            send: jest.fn(() => {
-                return Promise.resolve({
-                    active_symbols: mocked_store.client.is_logged_in
-                        ? logged_in_active_symbols
-                        : not_logged_in_active_symbols,
-                    error: null,
-                });
-            }),
-        },
-        send: jest.fn(() => Promise.resolve({ active_symbols: not_logged_in_active_symbols, error: null })),
-    },
     pickDefaultSymbol: jest.fn(() => Promise.resolve('EURUSD')),
 }));
 
@@ -82,15 +80,16 @@ describe('useActiveSymbols', () => {
     });
 
     afterEach(() => {
-        invalidateDTraderCache([
-            'active_symbols',
-            mocked_store.client.loginid ?? '',
-            mocked_store.modules.trade.contract_type,
-            mocked_store.common.current_language,
-        ]);
+        jest.clearAllMocks();
     });
 
     it('should fetch active symbols when not logged in', async () => {
+        (useQuery as jest.Mock).mockReturnValue({
+            data: { active_symbols: not_logged_in_active_symbols },
+            error: null,
+            isLoading: false,
+        });
+
         const { result } = renderHook(() => useActiveSymbols(), {
             wrapper,
         });
@@ -100,8 +99,16 @@ describe('useActiveSymbols', () => {
     });
     it('should fetch active symbols when logged in', async () => {
         mocked_store.client.is_logged_in = true;
+        mocked_store.client.loginid = 'CR123456';
         mocked_store.modules.trade.active_symbols = logged_in_active_symbols;
         mocked_store.modules.trade.has_symbols_for_v2 = true;
+
+        (useQuery as jest.Mock).mockReturnValue({
+            data: { active_symbols: logged_in_active_symbols },
+            error: null,
+            isLoading: false,
+        });
+
         const { result } = renderHook(() => useActiveSymbols(), {
             wrapper,
         });
@@ -109,76 +116,66 @@ describe('useActiveSymbols', () => {
             expect(result.current.activeSymbols).toEqual(logged_in_active_symbols);
         });
     });
-    it('should set active symbols from store when is_logged_in and contract_type are unchanged', async () => {
-        mocked_store.modules.trade.active_symbols = [{ symbol: 'fromStore' }];
+    it('should return empty array when no response from query', async () => {
+        const storeSymbols = [{ symbol: 'fromStore' }];
+        mocked_store.modules.trade.active_symbols = storeSymbols;
         mocked_store.modules.trade.has_symbols_for_v2 = true;
+
+        (useQuery as jest.Mock).mockReturnValue({
+            data: null, // No response yet
+            error: null,
+            isLoading: true,
+        });
+
         const { result } = renderHook(() => useActiveSymbols(), {
             wrapper,
         });
 
         await waitFor(() => {
-            expect(result.current.activeSymbols).toEqual([{ symbol: 'fromStore' }]);
+            // Hook returns data from React Query, not from store
+            expect(result.current.activeSymbols).toEqual([]);
+            expect(result.current.isLoading).toBe(true);
         });
     });
-    it('should call active_symbols API for Vanillas if previous contract is not Vanillas', async () => {
+    it('should call useQuery with correct payload for Vanillas', async () => {
         mocked_store.modules.trade.is_vanilla = true;
-        const active_symbols_call_spy = jest.spyOn(WS.authorized, 'send');
+
         renderHook(() => useActiveSymbols(), { wrapper });
 
         await waitFor(() => {
-            expect(active_symbols_call_spy).toBeCalledWith({
-                active_symbols: 'brief',
-                contract_type: [CONTRACT_TYPES.VANILLA.CALL, CONTRACT_TYPES.VANILLA.PUT],
+            expect(useQuery).toHaveBeenCalledWith('active_symbols', {
+                payload: {
+                    active_symbols: 'brief',
+                    contract_type: [CONTRACT_TYPES.VANILLA.CALL, CONTRACT_TYPES.VANILLA.PUT],
+                },
+                options: {
+                    enabled: true,
+                    staleTime: 5 * 60 * 1000,
+                    cacheTime: 10 * 60 * 1000,
+                    refetchOnWindowFocus: false,
+                },
             });
         });
     });
-    it('should not call active_symbols API for Vanillas if previous contract is Vanillas', async () => {
-        mocked_store.modules.trade.contract_type = 'vanillascall';
-        mocked_store.modules.trade.is_vanilla = true;
-        const active_symbols_call_spy = jest.spyOn(WS.authorized, 'send');
-        renderHook(() => useActiveSymbols(), { wrapper });
 
-        mocked_store.modules.trade.contract_type = 'vanillasput';
-
-        await waitFor(() => {
-            expect(active_symbols_call_spy).toBeCalledTimes(1);
-        });
-    });
-    it('should call active_symbols API for Turbos if previous contract is not Turbos', async () => {
+    it('should call useQuery with correct payload for Turbos', async () => {
         mocked_store.modules.trade.is_turbos = true;
-        const active_symbols_call_spy = jest.spyOn(WS.authorized, 'send');
+
         renderHook(() => useActiveSymbols(), { wrapper });
 
         await waitFor(() => {
-            expect(active_symbols_call_spy).toBeCalledWith({
-                active_symbols: 'brief',
-                contract_type: [CONTRACT_TYPES.TURBOS.LONG, CONTRACT_TYPES.TURBOS.SHORT],
+            expect(useQuery).toHaveBeenCalledWith('active_symbols', {
+                payload: {
+                    active_symbols: 'brief',
+                    contract_type: [CONTRACT_TYPES.TURBOS.LONG, CONTRACT_TYPES.TURBOS.SHORT],
+                },
+                options: {
+                    enabled: true,
+                    staleTime: 5 * 60 * 1000,
+                    cacheTime: 10 * 60 * 1000,
+                    refetchOnWindowFocus: false,
+                },
             });
-        });
-    });
-    it('should not call active_symbols API for Turbos if previous contract is Turbos', async () => {
-        mocked_store.modules.trade.contract_type = 'turboslong';
-        mocked_store.modules.trade.is_turbos = true;
-        const active_symbols_call_spy = jest.spyOn(WS.authorized, 'send');
-        renderHook(() => useActiveSymbols(), { wrapper });
-
-        mocked_store.modules.trade.contract_type = 'turbosshort';
-
-        await waitFor(() => {
-            expect(active_symbols_call_spy).toBeCalledTimes(1);
-        });
-    });
-
-    it('should call active_symbols API for Turbos if contract is changed', async () => {
-        mocked_store.modules.trade.contract_type = 'contract_type1';
-        mocked_store.modules.trade.is_turbos = true;
-        const active_symbols_call_spy = jest.spyOn(WS.authorized, 'send');
-        renderHook(() => useActiveSymbols(), { wrapper });
-
-        mocked_store.modules.trade.contract_type = 'contract_type2';
-
-        await waitFor(() => {
-            expect(active_symbols_call_spy).toBeCalledTimes(2);
         });
     });
 });
