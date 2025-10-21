@@ -227,3 +227,4 @@ There are two types of releases:
 - [Stylesheet Guidelines](../docs/Stylesheet/README.md) - CSS/SASS code style
 - [JavaScript Guidelines](../docs/JavaScript/README.md) - JS/JSX code style
 - [Git Workflow](../docs/git/README.md) - Git practices and processes
+- test PR
