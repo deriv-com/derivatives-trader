@@ -64,9 +64,16 @@ const ProfitTable = observer(({ component_icon }: TProfitTable) => {
         onUnmount,
         totals,
     } = profit_table;
-    const prev_date_from = usePrevious(date_from);
-    const prev_date_to = usePrevious(date_to);
     const { isDesktop } = useDevice();
+
+    React.useEffect(() => {
+        onMount();
+
+        return () => {
+            onUnmount();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     if (error) return <p>{error}</p>;
 

@@ -80,13 +80,6 @@ const Info = observer(({ handleSelect, item, selected_value, list, info_banner }
     const isInitialRender = React.useRef(true);
 
     React.useEffect(() => {
-        // Only track 'info_switcher' event when user manually switches tabs, not on initial render
-        if (has_toggle_buttons && !isInitialRender.current) {
-            trackAnalyticsEvent('ce_trade_types_form_v2', {
-                action: 'info_switcher',
-                trade_type_name: contract_types?.find(item => item.value === selected_contract_type)?.text,
-            });
-        }
         isInitialRender.current = false;
     }, [selected_tab]);
 
@@ -158,7 +151,7 @@ const Info = observer(({ handleSelect, item, selected_value, list, info_banner }
                         // Track analytics event when user selects trade type from dropdown
                         const selectedTradeTypeName = contract_types?.find(item => item.value === selectedValue)?.text;
                         trackAnalyticsEvent('ce_trade_types_form_v2', {
-                            action: 'info_choose_trade_type',
+                            action: 'info_switcher',
                             trade_type_name: selectedTradeTypeName,
                         });
                     }}
