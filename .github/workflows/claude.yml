@@ -7,11 +7,7 @@ on:
 jobs:
   claude-assistant:
     # Only run on PR-related events that contain @claude
-    if: |
-      github.event_name == 'pull_request' ||
-      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude'))
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     
     permissions:
@@ -23,7 +19,7 @@ jobs:
 
     # Cancel older runs when new commits arrive on the same PR
     concurrency:
-      group: pr-${{ inputs.pr_number || github.event.pull_request.number || github.event.issue.number }}
+      group: pr-${{ github.event.pull_request.number }}
       cancel-in-progress: true
 
     steps:
@@ -55,6 +51,22 @@ jobs:
           echo "❌ Access denied for user: $ACTOR"
           echo "Only organization members and repository collaborators can trigger Claude actions."
           exit 1
+
+      # Ensure we have a real git repo at the PR HEAD (works for forks)
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 20
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Sanity check (helps diagnose if anything goes wrong)
+      - name: Verify git workspace
+        run: |
+          pwd
+          git rev-parse --is-inside-work-tree
+          git log -1 --oneline
 
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
