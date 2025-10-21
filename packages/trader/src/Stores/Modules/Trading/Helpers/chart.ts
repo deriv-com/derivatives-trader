@@ -2,10 +2,12 @@ import type { TEvents } from '@deriv-com/analytics';
 
 export type TPayload = {
     data: Omit<
-        // @ts-expect-error - Analytics library types not updated yet for these event types
         Partial<
+            // @ts-expect-error - Analytics library types not updated yet for these event types
             TEvents['ce_chart_types_form_v2'] &
+                // @ts-expect-error - Analytics library types not updated yet for these event types
                 TEvents['ce_market_types_form_v2'] &
+                // @ts-expect-error - Analytics library types not updated yet for these event types
                 TEvents['ce_indicators_types_form_v2']
         >,
         'action'
