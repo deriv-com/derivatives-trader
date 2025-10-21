@@ -8,7 +8,7 @@ permissions:
 jobs:
   build_and_test:
     name: Build And Test
-    runs-on: ubuntu-latest
+    runs-on: runner_8cores_derivatives_trader
     timeout-minutes: 45
     permissions:
       contents: read
