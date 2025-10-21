@@ -52,13 +52,13 @@ const MarketSymbolIconRow = ({
                         classNameTarget='market-symbol-icon__popover'
                         classNameBubble='market-symbol-icon__popover-bubble'
                         alignment='top'
-                        message={getMarketName(info_from_shortcode.underlying as string)}
+                        message={getMarketName(info_from_shortcode.underlying_symbol)}
                         is_bubble_hover_enabled
                         disable_target_icon
                     >
-                        <SymbolIconsMapper symbol={info_from_shortcode.underlying || ''} iconSize='md' />
+                        <SymbolIconsMapper symbol={info_from_shortcode.underlying_symbol || ''} iconSize='md' />
                     </Popover>
-                    {has_full_contract_title && (payload as TContractInfo).display_name}
+                    {has_full_contract_title && getMarketName(info_from_shortcode.underlying_symbol)}
                 </div>
 
                 <div className='market-symbol-icon-category'>

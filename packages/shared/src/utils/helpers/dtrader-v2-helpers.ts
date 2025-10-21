@@ -28,7 +28,7 @@ export const getPositionsV2TabIndexFromURL = () => {
 
 export const getTradeNotificationMessage = (shortcode: string) => {
     const extracted_info_from_shortcode = extractInfoFromShortcode(shortcode);
-    const symbol = getMarketName(extracted_info_from_shortcode.underlying);
+    const underlying_symbol = getMarketName(extracted_info_from_shortcode.underlying_symbol);
     const trade_type = extracted_info_from_shortcode.category;
     const contract_type = getTradeTypeName(trade_type, {
         isHighLow: isHighLow({ shortcode }),
@@ -38,5 +38,5 @@ export const getTradeNotificationMessage = (shortcode: string) => {
         isHighLow: isHighLow({ shortcode }),
     })}`.trim();
 
-    return `${contract_type_with_subtype} - ${symbol}`;
+    return `${contract_type_with_subtype} - ${underlying_symbol}`;
 };

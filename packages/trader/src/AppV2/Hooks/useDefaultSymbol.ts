@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { pickDefaultSymbol, setTradeURLParams } from '@deriv/shared';
 
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -15,15 +15,12 @@ const useDefaultSymbol = () => {
     const [symbol, setSymbol] = useState('');
 
     const isSymbolAvailable = useCallback(
-        (active_symbols: ActiveSymbols) => {
+        (active_symbols: NonNullable<TActiveSymbolsResponse['active_symbols']>) => {
             const has_initialized = has_initialized_ref.current;
 
             return active_symbols.some(symbol_info => {
                 const exchange_open_check = has_initialized ? true : symbol_info.exchange_is_open === 1;
-                return (
-                    ((symbol_info as { underlying_symbol?: string }).underlying_symbol || symbol_info.symbol) ===
-                        symbol_from_store && exchange_open_check
-                );
+                return symbol_info.underlying_symbol === symbol_from_store && exchange_open_check;
             });
         },
         [symbol_from_store]

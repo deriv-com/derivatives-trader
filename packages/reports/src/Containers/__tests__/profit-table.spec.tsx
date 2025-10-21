@@ -51,7 +51,6 @@ const mockData = [
     },
 ];
 
-
 jest.mock('Stores/useReportsStores', () => ({
     ...jest.requireActual('Stores/useReportsStores'),
     useReportsStore: jest.fn(() => ({

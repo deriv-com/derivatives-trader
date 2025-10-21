@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
-
 import { LabelPairedChevronDownMdRegularIcon } from '@deriv/quill-icons';
 import { getMarketNamesMap, getSymbolDisplayName } from '@deriv/shared';
 import { observer } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
 import { CaptionText, Skeleton, Tag, Text, useSnackbar } from '@deriv-com/quill-ui';
-
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import useContractsFor from 'AppV2/Hooks/useContractsFor';
 import { TContractType } from 'Modules/Trading/Components/Form/ContractType/types';
 import { useTraderStore } from 'Stores/useTraderStores';
-
 import ActiveSymbolsList from '../ActiveSymbolsList';
 import SymbolIconsMapper from '../SymbolIconsMapper/symbol-icons-mapper';
 
@@ -21,9 +18,7 @@ const MarketSelector = observer(() => {
     const { addSnackbar } = useSnackbar();
     const { trade_types } = useContractsFor();
 
-    const currentSymbol = activeSymbols.find(
-        symbol_info => ((symbol_info as any).underlying_symbol || symbol_info.symbol) === storeSymbol
-    );
+    const currentSymbol = activeSymbols.find(symbol_info => symbol_info.underlying_symbol === storeSymbol);
 
     const contract_name = trade_types?.find((item: TContractType) => item.value === contract_type)?.text;
 
@@ -132,7 +127,7 @@ const MarketSelector = observer(() => {
                         <SymbolIconsMapper symbol={storeSymbol} />
                         <div className='market-selector-info'>
                             <div className='market-selector-info__label'>
-                                <Text bold>{getSymbolDisplayName(activeSymbols, storeSymbol)}</Text>
+                                <Text bold>{getSymbolDisplayName(storeSymbol)}</Text>
                                 <Tag
                                     label={<Localize key='loading' i18n_default_text='LOADING' />}
                                     color='warning'
@@ -157,12 +152,7 @@ const MarketSelector = observer(() => {
                     <SymbolIconsMapper symbol={storeSymbol} />
                     <div className='market-selector-info'>
                         <div className='market-selector-info__label'>
-                            <Text bold>
-                                {getSymbolDisplayName(
-                                    activeSymbols,
-                                    (currentSymbol as any)?.underlying_symbol || currentSymbol?.symbol || ''
-                                )}
-                            </Text>
+                            <Text bold>{getSymbolDisplayName(currentSymbol?.underlying_symbol || '')}</Text>
                             {!currentSymbol?.exchange_is_open && (
                                 <Tag
                                     label={<Localize key='closed' i18n_default_text='CLOSED' />}

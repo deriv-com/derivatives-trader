@@ -16,10 +16,8 @@ import {
 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
-
 import { PositionsCardLoader } from 'App/Components/Elements/ContentLoader';
 import ContractAudit from 'App/Components/Elements/ContractAudit';
-
 import ContractDrawerCard from './contract-drawer-card';
 import { SwipeableContractAudit } from './swipeable-components';
 
@@ -78,7 +76,7 @@ const ContractDrawer = observer(
                 contract_update_history={contract_update_history}
                 duration_unit={getDurationUnitText(getDurationPeriod(contract_info)) ?? ''}
                 duration={getDurationTime(contract_info)}
-                exit_spot={typeof exit_spot === 'number' ? exit_spot.toString() : exit_spot}
+                exit_spot={exit_spot}
                 is_accumulator={is_accumulator}
                 is_dark_theme={is_dark_theme}
                 is_history_tab_active={is_history_tab_active}

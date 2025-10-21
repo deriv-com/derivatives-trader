@@ -11,7 +11,6 @@ import { trackAnalyticsEvent } from '@deriv/shared';
 
 import Reports from '../reports';
 
-
 jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(),
 }));

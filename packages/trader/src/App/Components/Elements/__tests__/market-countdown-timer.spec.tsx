@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { ActiveSymbols, TradingTimesResponse } from '@deriv/api-types';
+import { TActiveSymbolsResponse, TTradingTimesResponse } from '@deriv/api';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
 import { act, render, screen, waitFor } from '@testing-library/react';
-
 import TraderProviders from '../../../../trader-providers';
 import MarketCountdownTimer from '../market-countdown-timer';
+
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
+type TradingTimesResponse = TTradingTimesResponse;
 
 const mock_default_props = {
     is_main_page: false,
@@ -20,20 +22,15 @@ const default_mock_store = {
         trade: {
             active_symbols: [
                 {
-                    allow_forward_starting: 0,
-                    display_name: 'AUD Basket',
+                    underlying_symbol: 'WLDAUD',
+                    underlying_symbol_type: 'forex_basket',
                     display_order: 26,
                     exchange_is_open: 1,
                     is_trading_suspended: 0,
                     market: 'synthetic_index',
-                    market_display_name: 'Derived',
-                    pip: 0.001,
+                    pip_size: 0.001,
                     subgroup: 'baskets',
-                    subgroup_display_name: 'Baskets',
                     submarket: 'forex_basket',
-                    submarket_display_name: 'Forex Basket',
-                    symbol: 'WLDAUD',
-                    symbol_type: 'forex_basket',
                 },
             ] as ActiveSymbols,
         },
@@ -51,7 +48,10 @@ jest.mock('@deriv/shared', () => ({
                         submarkets: [
                             {
                                 symbols: [
-                                    { symbol: 'WLDAUD', times: { open: ['08:00:00.153'], close: ['22:00:00.123'] } },
+                                    {
+                                        underlying_symbol: 'WLDAUD',
+                                        times: { open: ['08:00:00.153'], close: ['22:00:00.123'] },
+                                    },
                                 ],
                             },
                         ],

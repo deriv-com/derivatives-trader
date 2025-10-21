@@ -2,20 +2,18 @@ import debounce from 'lodash.debounce';
 import { action, computed, makeObservable, observable, override, reaction, runInAction, toJS, when } from 'mobx';
 
 import {
-    ActiveSymbols,
-    ActiveSymbolsRequest,
-    Buy,
-    BuyContractResponse,
-    History,
-    PriceProposalRequest,
-    PriceProposalResponse,
-    ServerTimeRequest,
-    TicksHistoryRequest,
-    TicksHistoryResponse,
-    TickSpotData,
-    TicksStreamResponse,
-    TradingTimesRequest,
-} from '@deriv/api-types';
+    TActiveSymbolsRequest,
+    TActiveSymbolsResponse,
+    TBuyContractRequest,
+    TBuyContractResponse,
+    TPriceProposalRequest,
+    TPriceProposalResponse,
+    TServerTimeRequest,
+    TTicksHistoryRequest,
+    TTicksHistoryResponse,
+    TTicksStreamResponse,
+    TTradingTimesRequest,
+} from '@deriv/api';
 import {
     BARRIER_COLORS,
     ChartBarrierStore,
@@ -108,15 +106,20 @@ const DURATION_DEFAULTS = {
 type BarrierSupportType = 'relative' | 'absolute';
 type DurationSupportType = 'ticks' | 'endtime';
 
-export type ProposalResponse = PriceProposalResponse & {
-    proposal: PriceProposalResponse['proposal'] & {
+// Local type definitions for compatibility
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
+type TickSpotData = NonNullable<TTicksStreamResponse['tick']>;
+type History = NonNullable<TTicksHistoryResponse['history']>;
+
+export type TProposalResponse = TPriceProposalResponse & {
+    proposal: TPriceProposalResponse['proposal'] & {
         payout_choices: string[];
         barrier_spot_distance: string;
         contract_details: {
             barrier: string;
         };
     };
-    error?: PriceProposalResponse['error'] & {
+    error?: TPriceProposalResponse['error'] & {
         code: string;
         message: string;
         details?: {
@@ -193,7 +196,7 @@ export type TV2ParamsInitialValues = {
     barrier_1?: number;
     payout_per_point?: string;
 };
-type TContractDataForGTM = Omit<Partial<PriceProposalRequest>, 'cancellation' | 'limit_order'> &
+type TContractDataForGTM = Omit<Partial<TPriceProposalRequest>, 'cancellation' | 'limit_order'> &
     ReturnType<typeof getProposalInfo> & {
         buy_price: number;
     };
@@ -225,7 +228,7 @@ type TStakeBoundary = Record<
         max_stake?: number;
     }
 >;
-type TTicksHistoryResponse = TicksHistoryResponse | TicksStreamResponse;
+type TTicksResponse = TTicksHistoryResponse | TTicksStreamResponse;
 type TBarriersData = Record<string, never> | { barrier: string; barrier_choices?: string[] };
 type TValidationParams = ReturnType<typeof getProposalInfo>['validation_params'];
 
@@ -316,7 +319,7 @@ export default class TradeStore extends BaseStore {
 
     // Purchase
     proposal_info: TProposalInfo = {};
-    purchase_info: Partial<BuyContractResponse> = {};
+    purchase_info: Partial<TBuyContractResponse> = {};
 
     // Chart loader observables
     is_chart_loading?: boolean;
@@ -372,7 +375,7 @@ export default class TradeStore extends BaseStore {
         });
     }); // no time is needed here, the only goal is to put the call into macrotasks queue
     debouncedProposal = debounce(this.requestProposal, 500);
-    proposal_requests: Record<string, Partial<PriceProposalRequest>> = {};
+    proposal_requests: Record<string, Partial<TPriceProposalRequest>> = {};
     is_purchasing_contract = false;
 
     initial_barriers?: { barrier_1: string; barrier_2: string };
@@ -624,9 +627,7 @@ export default class TradeStore extends BaseStore {
                 const urlSymbol = searchParams.get('symbol');
                 const tradeStoreString = sessionStorage.getItem('trade_store');
                 const tradeStoreObj = safeParse(tradeStoreString ?? '{}') ?? {};
-                const isValidSymbol = this.active_symbols.some(
-                    symbol => ((symbol as any).underlying_symbol || symbol.symbol) === urlSymbol
-                );
+                const isValidSymbol = this.active_symbols.some(symbol => symbol.underlying_symbol === urlSymbol);
 
                 if (urlSymbol) {
                     if (isValidSymbol) {
@@ -727,9 +728,8 @@ export default class TradeStore extends BaseStore {
 
     get is_symbol_in_active_symbols() {
         return this.active_symbols.some(symbol_info => {
-            const underlying = (symbol_info as any).underlying_symbol;
-            const symbol = (symbol_info as any).symbol;
-            return (underlying === this.symbol || symbol === this.symbol) && symbol_info.exchange_is_open === 1;
+            const underlying = symbol_info.underlying_symbol;
+            return underlying === this.symbol && symbol_info.exchange_is_open === 1;
         });
     }
 
@@ -739,7 +739,6 @@ export default class TradeStore extends BaseStore {
             !!this.root_store.portfolio.open_accu_contract &&
             !!this.root_store.portfolio.active_positions.find(
                 ({ contract_info, type }) =>
-                    //@ts-expect-error TContractInfo has an invalid type. This will be fixed in the future.
                     isAccumulatorContract(type) && contract_info.underlying_symbol === this.symbol
             )
         );
@@ -1075,7 +1074,7 @@ export default class TradeStore extends BaseStore {
         return this.root_store.portfolio.barriers && toJS(this.root_store.portfolio.barriers);
     }
 
-    setMainBarrier = (proposal_info: PriceProposalRequest) => {
+    setMainBarrier = (proposal_info: TPriceProposalRequest) => {
         if (!proposal_info) {
             return;
         }
@@ -1178,7 +1177,7 @@ export default class TradeStore extends BaseStore {
             });
             const is_tick_contract = this.duration_unit === 't';
             processPurchase(proposal_id, price).then(
-                action((response: TResponse<Buy, BuyContractResponse, 'buy'>) => {
+                action((response: TResponse<TBuyContractRequest, TBuyContractResponse, 'buy'>) => {
                     if (!this.is_trade_component_mounted) {
                         this.enablePurchase();
                         this.is_purchasing_contract = false;
@@ -1225,7 +1224,7 @@ export default class TradeStore extends BaseStore {
                         // toggle smartcharts to contract mode
                         if (contract_id) {
                             const shortcode = response.buy.shortcode;
-                            const { category, underlying } = extractInfoFromShortcode(shortcode);
+                            const { category, underlying_symbol } = extractInfoFromShortcode(shortcode);
                             const is_digit_contract = isDigitContractType(category?.toUpperCase() ?? '');
                             const is_multiplier = isMultiplierContract(category);
                             const contract_type = category?.toUpperCase();
@@ -1251,7 +1250,7 @@ export default class TradeStore extends BaseStore {
                                 contract_id,
                                 start_time,
                                 longcode,
-                                underlying,
+                                underlying_symbol,
                                 barrier: is_digit_contract ? last_digit : null,
                                 contract_type,
                                 is_tick_contract,
@@ -1270,7 +1269,8 @@ export default class TradeStore extends BaseStore {
                                 // Convert raw technical values to user-friendly display names
                                 // For trade_type_name, use the title from getContractTypesConfig which has human-friendly names
                                 const contract_types_config = getContractTypesConfig(this.symbol);
-                                const trade_type_name = contract_types_config[this.contract_type]?.title || this.contract_type;
+                                const trade_type_name =
+                                    contract_types_config[this.contract_type]?.title || this.contract_type;
                                 const market_type_name = getMarketName(this.symbol) || this.symbol;
                                 // For contract_type, we use the specific contract type (like 'ONETOUCH' -> 'Touch')
                                 const contract_type_display = getTradeTypeName(contract_type) || '';
@@ -1319,13 +1319,15 @@ export default class TradeStore extends BaseStore {
                                     );
 
                                 this.root_store.notifications.addTradeNotification({
-                                    buy_price: is_multiplier ? this.amount : response.buy.buy_price,
+                                    buy_price: String(is_multiplier ? this.amount : response.buy.buy_price),
                                     contract_id,
                                     contract_type: trade_type,
                                     currency,
+                                    profit: '0', // Initial profit is 0 for new contracts
                                     purchase_time: response.buy.purchase_time,
                                     shortcode,
                                     status: 'open',
+                                    underlying_symbol: this.symbol,
                                 });
                             }
 
@@ -1595,7 +1597,7 @@ export default class TradeStore extends BaseStore {
 
     get is_synthetics_trading_market_available() {
         return !!this.active_symbols?.find(
-            item => item.subgroup === 'synthetics' && !isMarketClosed(this.active_symbols, item.symbol)
+            item => item.subgroup === 'synthetics' && !isMarketClosed(this.active_symbols, item.underlying_symbol)
         );
     }
 
@@ -1628,11 +1630,10 @@ export default class TradeStore extends BaseStore {
                 contract_type: contract_data.contract_type,
                 currency: contract_data.currency,
                 date_expiry: contract_data.date_expiry,
-                date_start: contract_data.date_start,
                 duration: contract_data.duration,
                 duration_unit: contract_data.duration_unit,
                 payout: contract_data.payout,
-                symbol: contract_data.symbol,
+                symbol: contract_data.underlying_symbol,
             },
             settings: {
                 theme: this.root_store.ui.is_dark_mode_on ? 'dark' : 'light',
@@ -1668,7 +1669,7 @@ export default class TradeStore extends BaseStore {
 
         if (!isEmptyObject(requests)) {
             runInAction(() => {
-                this.proposal_requests = requests as Record<string, Partial<PriceProposalRequest>>;
+                this.proposal_requests = requests as Record<string, Partial<TPriceProposalRequest>>;
                 this.purchase_info = {};
             });
             Object.keys(this.proposal_requests).forEach(type => {
@@ -1688,13 +1689,13 @@ export default class TradeStore extends BaseStore {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    getTurbosChartBarrier(response: ProposalResponse) {
+    getTurbosChartBarrier(response: TProposalResponse) {
         return (Number(response.proposal?.contract_details?.barrier) - Number(response.proposal?.spot)).toFixed(
             getBarrierPipSize(response.proposal?.contract_details?.barrier)
         );
     }
 
-    onProposalResponse(response: TResponse<PriceProposalRequest, ProposalResponse, 'proposal'>) {
+    onProposalResponse(response: TResponse<TPriceProposalRequest, TProposalResponse, 'proposal'>) {
         const { contract_type } = response.echo_req;
         const prev_proposal_info = getPropertyValue(this.proposal_info, contract_type) || {};
         const obj_prev_contract_basis = getPropertyValue(prev_proposal_info, 'obj_contract_basis') || {};
@@ -2113,8 +2114,8 @@ export default class TradeStore extends BaseStore {
     }
 
     // ---------- WS ----------
-    wsSubscribe = (req: TicksHistoryRequest, callback: (response: TTicksHistoryResponse) => void) => {
-        const passthrough_callback = (...args: [TTicksHistoryResponse]) => {
+    wsSubscribe = (req: TTicksHistoryRequest, callback: (response: TTicksResponse) => void) => {
+        const passthrough_callback = (...args: [TTicksResponse]) => {
             callback(...args);
             if ('ohlc' in args[0] && this.root_store.contract_trade.granularity !== 0) {
                 const { close, pip_size } = args[0].ohlc as { close: string; pip_size: number };
@@ -2166,7 +2167,7 @@ export default class TradeStore extends BaseStore {
         }
     };
 
-    wsForget = (req: TicksHistoryRequest) => {
+    wsForget = (req: TTicksHistoryRequest) => {
         const key = JSON.stringify(req);
         if (g_subscribers_map[key]) {
             g_subscribers_map[key]?.unsubscribe();
@@ -2179,7 +2180,7 @@ export default class TradeStore extends BaseStore {
         WS.forgetStream(stream_id);
     };
 
-    wsSendRequest = (req: TradingTimesRequest | ActiveSymbolsRequest | ServerTimeRequest) => {
+    wsSendRequest = (req: TTradingTimesRequest | TActiveSymbolsRequest | TServerTimeRequest) => {
         if ('time' in req) {
             return ServerTime.timePromise().then(server_time => {
                 if (server_time) {
@@ -2380,14 +2381,14 @@ export default class TradeStore extends BaseStore {
     public getSymbolBarrierSupport(symbol: string): BarrierSupportType {
         if (!symbol || !this.active_symbols.length) return 'absolute';
 
-        const symbol_info = this.active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);
+        const symbol_info = this.active_symbols.find(s => s.underlying_symbol === symbol);
 
         if (!symbol_info) return 'absolute';
 
         // Forex symbols typically only support absolute barriers
         // Synthetic indices typically support relative barriers
         const market = symbol_info.market;
-        const symbol_type = (symbol_info as any).symbol_type;
+        const symbol_type = symbol_info.underlying_symbol_type;
 
         // Forex markets only support absolute barriers
         if (market === 'forex' || symbol_type === 'forex') {
@@ -2406,14 +2407,14 @@ export default class TradeStore extends BaseStore {
     private getSymbolDurationSupport(symbol: string): DurationSupportType {
         if (!symbol || !this.active_symbols.length) return 'endtime';
 
-        const symbol_info = this.active_symbols.find(s => ((s as any).underlying_symbol || s.symbol) === symbol);
+        const symbol_info = this.active_symbols.find(s => s.underlying_symbol === symbol);
 
         if (!symbol_info) return 'endtime';
 
         // Forex symbols typically only support endtime (no tick-based contracts)
         // Synthetic indices typically support ticks
         const market = symbol_info.market;
-        const symbol_type = (symbol_info as any).symbol_type;
+        const symbol_type = symbol_info.underlying_symbol_type;
 
         // Forex markets only support endtime
         if (market === 'forex' || symbol_type === 'forex') {

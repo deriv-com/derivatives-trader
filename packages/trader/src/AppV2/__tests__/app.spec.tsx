@@ -59,7 +59,6 @@ jest.mock('../Routes/router', () => {
     return MockRouter;
 });
 
-
 const mockRootStore = mockStore({
     common: {
         server_time: moment(new Date()).utc(),

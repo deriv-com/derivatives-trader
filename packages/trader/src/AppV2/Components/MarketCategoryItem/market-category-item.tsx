@@ -1,21 +1,18 @@
 import React, { forwardRef, Ref, useEffect, useState } from 'react';
 import clsx from 'clsx';
-
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { StandaloneStarFillIcon, StandaloneStarRegularIcon } from '@deriv/quill-icons';
 import { clickAndKeyEventHandler, getSymbolDisplayName } from '@deriv/shared';
 import { observer } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
 import { Tag, Text, useSnackbar } from '@deriv-com/quill-ui';
-
-import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import { useModulesStore } from 'Stores/useModulesStores';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 import SymbolIconsMapper from '../SymbolIconsMapper/symbol-icons-mapper';
 
 type TMarketCategoryItem = {
-    item: ActiveSymbols[0];
+    item: NonNullable<TActiveSymbolsResponse['active_symbols']>[0];
     selectedSymbol: string;
     setSelectedSymbol: (input: string) => void;
     setIsOpen: (input: boolean) => void;
@@ -24,15 +21,14 @@ type TMarketCategoryItem = {
 const MarketCategoryItem = forwardRef(
     ({ item, selectedSymbol, setSelectedSymbol, setIsOpen }: TMarketCategoryItem, ref: Ref<HTMLDivElement>) => {
         const [isFavorite, setIsFavorite] = useState(false);
-        const { activeSymbols } = useActiveSymbols();
         const { onChange: onSymbolChange } = useTraderStore();
         const { markets } = useModulesStore();
         const { favoriteSymbols, setFavoriteSymbols, removeFavoriteSymbol } = markets;
         const { addSnackbar } = useSnackbar();
 
         useEffect(() => {
-            setIsFavorite(favoriteSymbols.includes((item as any).underlying_symbol || item.symbol));
-        }, [favoriteSymbols, (item as any).underlying_symbol || item.symbol]);
+            setIsFavorite(favoriteSymbols.includes(item.underlying_symbol!));
+        }, [favoriteSymbols, item.underlying_symbol]);
 
         const handleSelect = async (symbol: string) => {
             setSelectedSymbol(symbol);
@@ -75,36 +71,30 @@ const MarketCategoryItem = forwardRef(
         return (
             <div
                 className={clsx('market-category-item', {
-                    'market-category-item--selected':
-                        selectedSymbol === ((item as any).underlying_symbol || item.symbol),
+                    'market-category-item--selected': selectedSymbol === item.underlying_symbol,
                 })}
                 ref={ref}
             >
                 <span
                     className='market-category-item-left'
-                    data-symbol={(item as any).underlying_symbol || item.symbol}
+                    data-symbol={item.underlying_symbol}
                     onClick={handleSelectDecorator}
                     onKeyDown={handleSelectDecorator}
                 >
-                    <SymbolIconsMapper symbol={(item as any).underlying_symbol || item.symbol} />
+                    <SymbolIconsMapper symbol={item.underlying_symbol!} />
                     <Text
                         size='sm'
                         className={clsx('market-category-item-symbol', {
-                            'market-category-item-symbol--selected':
-                                selectedSymbol === ((item as any).underlying_symbol || item.symbol),
+                            'market-category-item-symbol--selected': selectedSymbol === item.underlying_symbol,
                         })}
                     >
-                        <span>
-                            {getSymbolDisplayName(activeSymbols, (item as any).underlying_symbol || item.symbol)}
-                        </span>
+                        <span>{getSymbolDisplayName(item.underlying_symbol!)}</span>
                     </Text>
                     {!item.exchange_is_open && (
                         <Tag
                             label={<Localize key='exchange-closed' i18n_default_text='CLOSED' />}
                             color='error'
-                            variant={
-                                selectedSymbol === ((item as any).underlying_symbol || item.symbol) ? 'outline' : 'fill'
-                            }
+                            variant={selectedSymbol === item.underlying_symbol ? 'outline' : 'fill'}
                             showIcon={false}
                         />
                     )}
@@ -112,14 +102,14 @@ const MarketCategoryItem = forwardRef(
                 <span
                     onClick={toggleFavoritesDecorator}
                     onKeyDown={toggleFavoritesDecorator}
-                    data-symbol={(item as any).underlying_symbol || item.symbol}
+                    data-symbol={item.underlying_symbol}
                 >
                     {isFavorite ? (
                         <StandaloneStarFillIcon fill='var(--core-color-solid-mustard-700)' iconSize='sm' />
                     ) : (
                         <StandaloneStarRegularIcon
                             fill={
-                                selectedSymbol === ((item as any).underlying_symbol || item.symbol)
+                                selectedSymbol === item.underlying_symbol
                                     ? 'var(--semantic-color-slate-solid-textIcon-inverse-highest)'
                                     : 'var(--semantic-color-monochrome-textIcon-normal-mid)'
                             }

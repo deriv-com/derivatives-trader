@@ -1,12 +1,10 @@
 import React from 'react';
 import moment from 'moment';
-
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { getCardLabels, mockContractInfo, TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
 import { render, screen } from '@testing-library/react';
-
 import TraderProviders from '../../../../../trader-providers';
 import PositionsModalCard from '../positions-modal-card';
 
@@ -18,22 +16,22 @@ const symbol_display_name = 'Symbol Display Name';
 const underlying = 'test_underlying';
 const usd = 'USD';
 
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
+
 const default_mock_props: React.ComponentProps<typeof PositionsModalCard> = {
     className: 'test_className',
     contract_info: mockContractInfo({
         barrier: '2650.0',
-        bid_price: 10,
-        buy_price: 7,
+        bid_price: '10',
+        buy_price: '7',
         contract_id: 123386875,
         contract_type: TRADE_TYPES.VANILLA.CALL,
         currency: usd,
         date_start: 123532989,
         date_expiry: 626512765,
-        entry_spot: 2666.0,
-        entry_spot_display_value: '2666.0',
+        entry_spot: '2666.0',
         is_sold: 0,
-        profit: 3,
-        underlying: '',
+        profit: '3',
     }),
     contract_update: {},
     currency: usd,
@@ -51,7 +49,7 @@ const default_mock_props: React.ComponentProps<typeof PositionsModalCard> = {
 const default_mock_store = {
     modules: {
         trade: {
-            active_symbols: [{ symbol: 'R_10' }] as ActiveSymbols,
+            active_symbols: [{ underlying_symbol: 'R_10', exchange_is_open: 1 }] as ActiveSymbols,
         },
     },
     ui: {
@@ -112,7 +110,14 @@ describe('<PositionsModalCard />', () => {
     };
 
     it('should render loader if underlying in contract_info is falsy and contract is supported', () => {
-        render(mockPositionsModalCard(mockStore(default_mock_store), { ...default_mock_props }));
+        const props_without_underlying = {
+            ...default_mock_props,
+            contract_info: {
+                ...default_mock_props.contract_info,
+                underlying_symbol: undefined, // Set to empty string to trigger loader
+            },
+        };
+        render(mockPositionsModalCard(mockStore(default_mock_store), props_without_underlying));
 
         expect(screen.getByText(positions_card_loader)).toBeInTheDocument();
     });

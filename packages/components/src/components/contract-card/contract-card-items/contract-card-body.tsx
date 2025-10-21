@@ -50,7 +50,7 @@ const ContractCardBody = ({
     should_show_cancellation_warning,
     toggleCancellationWarning,
 }: TContractCardBodyProps) => {
-    const indicative = getIndicativePrice(contract_info);
+    const indicative = Number(getIndicativePrice(contract_info));
     const { buy_price, sell_price, payout, profit, tick_count, date_expiry, purchase_time } = contract_info;
     const current_tick = tick_count ? getCurrentTick(contract_info) : null;
     const { CONTRACT_VALUE, POTENTIAL_PAYOUT, TOTAL_PROFIT_LOSS, STAKE } = getCardLabels();

@@ -1,18 +1,20 @@
 import React from 'react';
-import classNames from 'classnames';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
-import ThemedScrollbars from '../themed-scrollbars/themed-scrollbars';
-import { ResidenceList } from '@deriv/api-types';
+import classNames from 'classnames';
 
-export type TItem =
-    | string
-    | (ResidenceList[0] & {
-          component?: React.ReactNode;
-          group?: string;
-          text?: string;
-          value?: string;
-      });
+import ThemedScrollbars from '../themed-scrollbars/themed-scrollbars';
+
+export type TDropdownItem = {
+    component?: React.ReactNode;
+    group?: string;
+    text?: string;
+    value?: string;
+    disabled?: string;
+    [key: string]: any; // Allow additional properties for flexibility
+};
+
+export type TItem = string | TDropdownItem;
 
 type TListItem = {
     is_active: boolean;

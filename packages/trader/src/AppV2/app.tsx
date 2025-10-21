@@ -45,7 +45,6 @@ const App = ({ passthrough }: Apptypes) => {
         return () => dtrader_links_clone?.forEach(link => head.removeChild(link));
     }, []);
 
-
     return (
         <TraderProviders store={root_store}>
             <ReportsStoreProvider>

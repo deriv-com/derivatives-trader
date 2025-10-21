@@ -131,7 +131,7 @@ const ContractCardHeader = ({
                         })}
                         weight='bold'
                     >
-                        {display_name || contract_info.display_name}
+                        {display_name}
                     </Text>
                 </div>
                 <div
