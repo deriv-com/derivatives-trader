@@ -277,6 +277,48 @@ describe('getSocketURL', () => {
 
         expect(result).toBe('custom.server.com');
     });
+
+    it('should ignore and remove invalid localStorage server URL', () => {
+        // Set invalid server URL in localStorage (contains protocol)
+        window.localStorage.setItem('config.server_url', 'https://malicious.com');
+
+        // Mock staging-dtrader.deriv.com with demo account
+        delete (window as any).location;
+        window.location = {
+            ...originalLocation,
+            hostname: 'staging-dtrader.deriv.com',
+            search: '?account_type=demo',
+            href: 'https://staging-dtrader.deriv.com?account_type=demo',
+        } as Location;
+
+        const result = getSocketURL();
+
+        // Should fall back to staging demo server
+        expect(result).toBe('qa194.deriv.dev');
+        // Should have removed the invalid value
+        expect(window.localStorage.getItem('config.server_url')).toBeNull();
+    });
+
+    it('should ignore and remove invalid localStorage server URL without TLD', () => {
+        // Set invalid server URL in localStorage (no TLD)
+        window.localStorage.setItem('config.server_url', 'localhost');
+
+        // Mock staging-dtrader.deriv.com with real account
+        delete (window as any).location;
+        window.location = {
+            ...originalLocation,
+            hostname: 'staging-dtrader.deriv.com',
+            search: '?account_type=real',
+            href: 'https://staging-dtrader.deriv.com?account_type=real',
+        } as Location;
+
+        const result = getSocketURL();
+
+        // Should fall back to staging real server
+        expect(result).toBe('qa197.deriv.dev');
+        // Should have removed the invalid value
+        expect(window.localStorage.getItem('config.server_url')).toBeNull();
+    });
 });
 
 describe('isProduction', () => {

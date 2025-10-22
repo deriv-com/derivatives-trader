@@ -14,8 +14,8 @@ export const isProduction = () => {
     const stagingHostname = getStagingPlatformHostname();
 
     // Create regex patterns for both production and staging domains (with optional www prefix)
-    const productionPattern = `(www\\.)?${productionHostname.replace('.', '\\.')}`;
-    const stagingPattern = `(www\\.)?${stagingHostname.replace('.', '\\.')}`;
+    const productionPattern = `(www\\.)?${productionHostname.replaceAll('.', '\\.')}`;
+    const stagingPattern = `(www\\.)?${stagingHostname.replaceAll('.', '\\.')}`;
 
     // Check if current hostname matches any of the supported domains
     const supportedDomainsRegex = new RegExp(`^(${productionPattern}|${stagingPattern})$`, 'i');
@@ -60,7 +60,14 @@ export const getAccountType = (): string => {
 
 export const getSocketURL = () => {
     const local_storage_server_url = window.localStorage.getItem('config.server_url');
-    if (local_storage_server_url) return local_storage_server_url;
+    if (local_storage_server_url) {
+        // Validate it's a reasonable hostname (not a full URL, no protocol)
+        if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(local_storage_server_url)) {
+            return local_storage_server_url;
+        }
+        // Log warning and clear invalid value
+        window.localStorage.removeItem('config.server_url');
+    }
 
     // Get account type
     const accountType = getAccountType();
@@ -69,15 +76,13 @@ export const getSocketURL = () => {
     const isStagingEnv = !isProduction();
 
     // Map account type to appropriate endpoints
-    let server_url: string;
-
-    if (isStagingEnv) {
-        // Use staging QA servers for staging environment
-        server_url = accountType === 'real' ? 'qa197.deriv.dev' : 'qa194.deriv.dev';
-    } else {
-        // Use production v2 endpoints for production environment
-        server_url = accountType === 'real' ? 'realv2.derivws.com' : 'demov2.derivws.com';
-    }
+    const server_url = isStagingEnv
+        ? accountType === 'real'
+            ? 'qa197.deriv.dev'
+            : 'qa194.deriv.dev'
+        : accountType === 'real'
+          ? 'realv2.derivws.com'
+          : 'demov2.derivws.com';
 
     return server_url;
 };
