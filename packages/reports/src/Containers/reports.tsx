@@ -11,6 +11,34 @@ import { TRoute } from 'Types';
 
 import 'Sass/app/modules/reports.scss';
 
+// Whitelist of allowed domains for redirect
+const ALLOWED_DOMAINS = ['deriv.com', 'deriv.be', 'deriv.me'];
+
+// Pattern for preview deployment domains (e.g., branch-name.derivatives-bot.pages.dev)
+const PREVIEW_DOMAIN_PATTERN = /^[a-zA-Z0-9-]+\.derivatives-bot\.pages\.dev$/;
+
+/**
+ * Validates if a URL belongs to an allowed domain
+ * @param url - The URL to validate
+ * @returns true if the URL is from an allowed domain, false otherwise
+ */
+const isAllowedDomain = (url: string): boolean => {
+    try {
+        const urlObj = new URL(url.startsWith('http') ? url : `https://${url}`);
+        const hostname = urlObj.hostname;
+
+        // Check against main domain whitelist
+        const isMainDomain = ALLOWED_DOMAINS.some(domain => hostname === domain || hostname.endsWith(`.${domain}`));
+
+        // Check against preview deployment pattern
+        const isPreviewDomain = PREVIEW_DOMAIN_PATTERN.test(hostname);
+
+        return isMainDomain || isPreviewDomain;
+    } catch {
+        return false;
+    }
+};
+
 type TReports = {
     history: RouteComponentProps['history'];
     location: RouteComponentProps['location'];
@@ -68,19 +96,27 @@ const Reports = observer(({ history, location, routes }: TReports) => {
                 // Decode the URL in case it's encoded
                 let decodedUrl = decodeURIComponent(redirectUrlRef.current);
 
+                // Prevent javascript: URLs (XSS protection)
+                if (decodedUrl.toLowerCase().startsWith('javascript:')) {
+                    routeBackInApp(history);
+                    return;
+                }
+
                 // Add protocol if missing to ensure proper external navigation
                 if (!decodedUrl.startsWith('http://') && !decodedUrl.startsWith('https://')) {
                     decodedUrl = `https://${decodedUrl}`;
                 }
 
+                // Validate domain whitelist (Open Redirect protection)
+                if (!isAllowedDomain(decodedUrl)) {
+                    routeBackInApp(history);
+                    return;
+                }
+
                 window.location.href = decodedUrl;
             } catch (error) {
-                // If decoding fails, use the original URL with protocol
-                let fallbackUrl = redirectUrlRef.current;
-                if (!fallbackUrl.startsWith('http://') && !fallbackUrl.startsWith('https://')) {
-                    fallbackUrl = `https://${fallbackUrl}`;
-                }
-                window.location.href = fallbackUrl;
+                // If any error occurs during validation, fall back to safe navigation
+                routeBackInApp(history);
             }
         } else {
             // If no redirect parameter, use existing logic
