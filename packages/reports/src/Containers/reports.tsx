@@ -101,6 +101,8 @@ const Reports = observer(({ history, location, routes }: TReports) => {
             try {
                 // URL length validation (prevent DoS)
                 if (redirectUrlRef.current.length > 2048) {
+                    // eslint-disable-next-line no-console
+                    console.error('Security: Blocked excessively long redirect URL');
                     routeBackInApp(history);
                     return;
                 }
@@ -118,6 +120,8 @@ const Reports = observer(({ history, location, routes }: TReports) => {
                         decodeAttempts++;
                     } catch {
                         // Invalid encoding, reject
+                        // eslint-disable-next-line no-console
+                        console.error('Security: Blocked redirect URL with invalid encoding');
                         routeBackInApp(history);
                         return;
                     }
@@ -128,9 +132,11 @@ const Reports = observer(({ history, location, routes }: TReports) => {
 
                 // Block dangerous protocols (XSS protection)
                 const BLOCKED_PROTOCOLS = ['javascript:', 'data:', 'vbscript:', 'file:', 'blob:'];
-                const safeUrl = decodedUrl.trim().toLowerCase();
+                const safeUrl = decodedUrl.toLowerCase();
 
                 if (BLOCKED_PROTOCOLS.some(protocol => safeUrl.startsWith(protocol))) {
+                    // eslint-disable-next-line no-console
+                    console.error('Security: Blocked dangerous protocol in redirect URL:', safeUrl.split(':')[0]);
                     routeBackInApp(history);
                     return;
                 }
@@ -147,6 +153,8 @@ const Reports = observer(({ history, location, routes }: TReports) => {
 
                 // Validate domain whitelist (Open Redirect protection)
                 if (!isAllowedDomain(decodedUrl)) {
+                    // eslint-disable-next-line no-console
+                    console.error('Security: Blocked redirect to unauthorized domain');
                     routeBackInApp(history);
                     return;
                 }
@@ -154,6 +162,11 @@ const Reports = observer(({ history, location, routes }: TReports) => {
                 window.location.href = decodedUrl;
             } catch (error) {
                 // If any error occurs during validation, fall back to safe navigation
+                // eslint-disable-next-line no-console
+                console.error(
+                    'Security: Redirect validation error:',
+                    error instanceof Error ? error.message : 'Unknown error'
+                );
                 routeBackInApp(history);
             }
         } else {
