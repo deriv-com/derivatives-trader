@@ -9,6 +9,12 @@ import { useTraderStore } from 'Stores/useTraderStores';
 
 type TContractTypesList = NonNullable<TActiveSymbolsRequest['contract_type']>;
 
+// Cache configuration for active symbols query
+const ACTIVE_SYMBOLS_CACHE_CONFIG = {
+    STALE_TIME: 5 * 60 * 1000, // 5 minutes - data stays fresh
+    CACHE_TIME: 10 * 60 * 1000, // 10 minutes - keep in cache even if unused
+} as const;
+
 /**
  * Hook to fetch and manage active symbols for trading
  */
@@ -33,8 +39,8 @@ const useActiveSymbols = () => {
             contract_type: getContractTypesList(),
         },
         options: {
-            staleTime: 5 * 60 * 1000, // 5 minutes - data stays fresh
-            cacheTime: 10 * 60 * 1000, // 10 minutes - keep in cache even if unused
+            staleTime: ACTIVE_SYMBOLS_CACHE_CONFIG.STALE_TIME,
+            cacheTime: ACTIVE_SYMBOLS_CACHE_CONFIG.CACHE_TIME,
             refetchOnWindowFocus: false, // Don't refetch when window regains focus
         },
     });
