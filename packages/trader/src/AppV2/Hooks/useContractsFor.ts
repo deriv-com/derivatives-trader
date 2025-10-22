@@ -59,6 +59,7 @@ const useContractsFor = () => {
         },
         options: {
             enabled: isQueryEnabled(),
+            refetchOnWindowFocus: false, // Don't refetch when window regains focus
         },
     });
 
