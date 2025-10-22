@@ -149,7 +149,6 @@ describe('useActiveSymbols', () => {
                     contract_type: [CONTRACT_TYPES.VANILLA.CALL, CONTRACT_TYPES.VANILLA.PUT],
                 },
                 options: {
-                    enabled: true,
                     staleTime: 5 * 60 * 1000,
                     cacheTime: 10 * 60 * 1000,
                     refetchOnWindowFocus: false,
@@ -170,7 +169,6 @@ describe('useActiveSymbols', () => {
                     contract_type: [CONTRACT_TYPES.TURBOS.LONG, CONTRACT_TYPES.TURBOS.SHORT],
                 },
                 options: {
-                    enabled: true,
                     staleTime: 5 * 60 * 1000,
                     cacheTime: 10 * 60 * 1000,
                     refetchOnWindowFocus: false,
