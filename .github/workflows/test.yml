@@ -6,22 +6,8 @@ on:
 permissions:
   contents: read
 jobs:
-  build:
-    name: Build
-    runs-on: runner_8cores_derivatives_trader
-    timeout-minutes: 15
-    permissions:
-      contents: read
-      actions: write
-    environment: Preview
-    steps:
-    - name: Setup Environment
-      uses: "./.github/actions/setup_env"
-    - name: Build
-      uses: "./.github/actions/build"
-
-  validate:
-    name: TypeScript & Linting
+  setup:
+    name: Setup Dependencies
     runs-on: runner_8cores_derivatives_trader
     timeout-minutes: 10
     permissions:
@@ -29,8 +15,48 @@ jobs:
       actions: write
     environment: Preview
     steps:
-    - name: Setup Environment
-      uses: "./.github/actions/setup_env"
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
+
+  build:
+    name: Build Project
+    runs-on: runner_8cores_derivatives_trader
+    needs: setup
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: write
+    environment: Preview
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
+    - name: Build
+      uses: "./.github/actions/build"
+
+  validate:
+    name: TypeScript & Linting
+    runs-on: runner_8cores_derivatives_trader
+    needs: setup
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: write
+    environment: Preview
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
     
     # TypeScript checking (parallel)
     - name: Check TypeScript
@@ -55,17 +81,16 @@ jobs:
         npm run test:stylelint &
         npm run test:eslint-all &
         wait
-
   test:
     name: Tests - ${{ matrix.description }}
     runs-on: runner_8cores_derivatives_trader
+    needs: setup
     timeout-minutes: 12
     permissions:
       contents: read
       actions: write
     environment: Preview
     strategy:
-      fail-fast: false
       matrix:
         include:
           - group: 1
@@ -78,8 +103,12 @@ jobs:
             packages: "packages/api packages/api-v2 packages/shared packages/stores packages/utils"
             description: "APIs & Utils"
     steps:
-    - name: Setup Environment
-      uses: "./.github/actions/setup_env"
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
     
     # Run tests for specific packages
     - name: Run tests for ${{ matrix.description }}
