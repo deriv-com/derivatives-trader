@@ -28,19 +28,23 @@ export const useProposal = ({
     is_enabled?: boolean;
     should_skip_validation?: 'take_profit' | 'stop_loss';
 }) => {
-    const proposal_request = getProposalRequestObject({
-        new_values: proposal_request_values,
-        trade_store,
-        trade_type: contract_type,
-    });
+    const proposal_request = React.useMemo(() => {
+        const request = getProposalRequestObject({
+            new_values: proposal_request_values,
+            trade_store,
+            trade_type: contract_type,
+        });
 
-    // We need to exclude tp in case if validating sl and vice versa to validate them independently
-    if (should_skip_validation === 'take_profit' && proposal_request.limit_order?.take_profit) {
-        delete proposal_request.limit_order.take_profit;
-    }
-    if (should_skip_validation === 'stop_loss' && proposal_request.limit_order?.stop_loss) {
-        delete proposal_request.limit_order.stop_loss;
-    }
+        // We need to exclude tp in case if validating sl and vice versa to validate them independently
+        if (should_skip_validation === 'take_profit' && request.limit_order?.take_profit) {
+            delete request.limit_order.take_profit;
+        }
+        if (should_skip_validation === 'stop_loss' && request.limit_order?.stop_loss) {
+            delete request.limit_order.stop_loss;
+        }
+
+        return request;
+    }, [proposal_request_values, trade_store, contract_type, should_skip_validation]);
 
     return useQuery('proposal', {
         payload: proposal_request as TPriceProposalRequest,
