@@ -9,7 +9,6 @@ jobs:
   build:
     name: Build
     runs-on: runner_8cores_derivatives_trader
-    needs: setup
     timeout-minutes: 15
     permissions:
       contents: read
@@ -24,7 +23,6 @@ jobs:
   validate:
     name: TypeScript & Linting
     runs-on: runner_8cores_derivatives_trader
-    needs: setup
     timeout-minutes: 10
     permissions:
       contents: read
@@ -61,7 +59,6 @@ jobs:
   test:
     name: Tests - ${{ matrix.description }}
     runs-on: runner_8cores_derivatives_trader
-    needs: setup
     timeout-minutes: 12
     permissions:
       contents: read
