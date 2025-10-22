@@ -1,0 +1,11 @@
+name: Setup Environment
+description: 'Checkout, setup Node.js, and install dependencies'
+runs: 
+  using: composite
+  steps:
+  - name: Checkout
+    uses: actions/checkout@v4
+  - name: Setup Node
+    uses: "./.github/actions/setup_node"
+  - name: Install dependencies
+    uses: "./.github/actions/npm_install_from_cache"

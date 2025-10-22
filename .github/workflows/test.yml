@@ -6,24 +6,6 @@ on:
 permissions:
   contents: read
 jobs:
-  setup:
-    name: Setup Dependencies
-    runs-on: runner_8cores_derivatives_trader
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      actions: write
-    environment: Preview
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Node
-      uses: "./.github/actions/setup_node"
-    - name: Install dependencies
-      uses: "./.github/actions/npm_install_from_cache"
-    - name: Check imports
-      run: npm run check-imports
-
   build:
     name: Build
     runs-on: runner_8cores_derivatives_trader
@@ -34,12 +16,8 @@ jobs:
       actions: write
     environment: Preview
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Node
-      uses: "./.github/actions/setup_node"
-    - name: Install dependencies
-      uses: "./.github/actions/npm_install_from_cache"
+    - name: Setup Environment
+      uses: "./.github/actions/setup_env"
     - name: Build
       uses: "./.github/actions/build"
 
@@ -53,12 +31,8 @@ jobs:
       actions: write
     environment: Preview
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Node
-      uses: "./.github/actions/setup_node"
-    - name: Install dependencies
-      uses: "./.github/actions/npm_install_from_cache"
+    - name: Setup Environment
+      uses: "./.github/actions/setup_env"
     
     # TypeScript checking (parallel)
     - name: Check TypeScript
@@ -68,6 +42,10 @@ jobs:
         npx tsc --project packages/utils/tsconfig.json -noEmit &
         npx tsc --project packages/stores/tsconfig.json -noEmit &
         wait
+
+    # Import checking
+    - name: Check imports
+      run: npm run check-imports
     
     # Test structure checking
     - name: Check tests for @deriv/utils
@@ -90,6 +68,7 @@ jobs:
       actions: write
     environment: Preview
     strategy:
+      fail-fast: false
       matrix:
         include:
           - group: 1
@@ -102,12 +81,8 @@ jobs:
             packages: "packages/api packages/api-v2 packages/shared packages/stores packages/utils"
             description: "APIs & Utils"
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Node
-      uses: "./.github/actions/setup_node"
-    - name: Install dependencies
-      uses: "./.github/actions/npm_install_from_cache"
+    - name: Setup Environment
+      uses: "./.github/actions/setup_env"
     
     # Run tests for specific packages
     - name: Run tests for ${{ matrix.description }}
