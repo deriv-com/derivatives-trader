@@ -13,7 +13,7 @@ import SymbolIconsMapper from '../SymbolIconsMapper/symbol-icons-mapper';
 
 const MarketSelector = observer(() => {
     const [isOpen, setIsOpen] = useState(false);
-    const { activeSymbols } = useActiveSymbols();
+    const { activeSymbols, isLoading } = useActiveSymbols();
     const { symbol: storeSymbol, tick_data, is_market_closed, contract_type } = useTraderStore();
     const { addSnackbar } = useSnackbar();
     const { trade_types } = useContractsFor();
@@ -23,7 +23,7 @@ const MarketSelector = observer(() => {
     const contract_name = trade_types?.find((item: TContractType) => item.value === contract_type)?.text;
 
     useEffect(() => {
-        if (!currentSymbol) {
+        if (!currentSymbol && !isLoading) {
             const symbol_name = getMarketNamesMap()[storeSymbol as keyof typeof getMarketNamesMap] || storeSymbol;
             const message = contract_name ? (
                 <Localize
@@ -115,7 +115,11 @@ const MarketSelector = observer(() => {
 
     // Show skeleton loader for a reasonable time, then fallback to basic UI
     if (typeof currentSymbol?.exchange_is_open === 'undefined' && !showFallback) {
-        return <Skeleton.Square height={42} width={240} rounded />;
+        return (
+            <div className='market-selector__skeleton'>
+                <Skeleton.Square width={200} height={42} rounded />
+            </div>
+        );
     }
 
     // Fallback UI when data is not available after timeout

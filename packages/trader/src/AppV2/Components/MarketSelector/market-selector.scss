@@ -6,6 +6,9 @@
     &__container {
         padding: 0 var(--core-spacing-800);
     }
+    &__skeleton {
+        padding: 0 var(--semantic-spacing-general-sm);
+    }
     &-info {
         display: flex;
         flex-direction: column;
