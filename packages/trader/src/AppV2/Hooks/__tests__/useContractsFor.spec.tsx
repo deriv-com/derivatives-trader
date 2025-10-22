@@ -195,6 +195,7 @@ describe('useContractsFor', () => {
                     },
                     options: {
                         enabled: true,
+                        refetchOnWindowFocus: false,
                     },
                 });
             });

@@ -31,6 +31,7 @@ jest.mock('@deriv/components', () => ({
 }));
 
 jest.mock('@deriv/api', () => ({
+    ...jest.requireActual('@deriv/api'),
     useLocalStorageData: jest.fn(() => [{ trade_page: false }]),
 }));
 
