@@ -65,8 +65,19 @@ export const getSocketURL = () => {
     // Get account type
     const accountType = getAccountType();
 
-    // Map account type to new v2 endpoints
-    const server_url = accountType === 'real' ? 'realv2.derivws.com' : 'demov2.derivws.com';
+    // Check if we're on staging environment
+    const isStagingEnv = !isProduction();
+
+    // Map account type to appropriate endpoints
+    let server_url: string;
+
+    if (isStagingEnv) {
+        // Use staging QA servers for staging environment
+        server_url = accountType === 'real' ? 'qa197.deriv.dev' : 'qa194.deriv.dev';
+    } else {
+        // Use production v2 endpoints for production environment
+        server_url = accountType === 'real' ? 'realv2.derivws.com' : 'demov2.derivws.com';
+    }
 
     return server_url;
 };
