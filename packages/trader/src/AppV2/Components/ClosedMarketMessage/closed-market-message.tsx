@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { TTradingTimesRequest } from '@deriv/api';
-import { isMarketClosed, toMoment, useIsMounted, WS } from '@deriv/shared';
+import { toMoment, useIsMounted, WS } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
 import { CaptionText } from '@deriv-com/quill-ui';
@@ -34,7 +34,6 @@ const ClosedMarketMessage = observer(() => {
     const { common } = useStore();
     const { current_language } = common;
     const { symbol, prepareTradeStore, is_market_closed } = useTraderStore();
-    const { activeSymbols } = useActiveSymbols();
 
     const isMounted = useIsMounted();
     const [when_market_opens, setWhenMarketOpens] = React.useState<TWhenMarketOpens>({} as TWhenMarketOpens);
@@ -84,7 +83,7 @@ const ClosedMarketMessage = observer(() => {
         setTimeLeft({});
         setWhenMarketOpens({} as TWhenMarketOpens);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeSymbols, symbol]);
+    }, [symbol, is_market_closed]);
 
     React.useEffect(() => {
         let timer: ReturnType<typeof setTimeout>;
