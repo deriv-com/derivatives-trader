@@ -43,3 +43,5 @@ jobs:
     # Run all tests
     - name: Run tests
       run: npm run test:ci
+      env:
+        JEST_MAX_WORKERS: 6
