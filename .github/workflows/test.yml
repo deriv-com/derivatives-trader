@@ -1,4 +1,4 @@
-name: Testing Workflow
+name: Test & Validate (Build, Lint, TypeScript, Tests)
 on:
   pull_request:
     branches:
@@ -6,10 +6,10 @@ on:
 permissions:
   contents: read
 jobs:
-  build_and_test:
-    name: Build And Test
+  setup:
+    name: Setup Dependencies
     runs-on: runner_8cores_derivatives_trader
-    timeout-minutes: 45
+    timeout-minutes: 10
     permissions:
       contents: read
       actions: write
@@ -19,29 +19,105 @@ jobs:
       uses: actions/checkout@v4
     - name: Setup Node
       uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
     - name: Check imports
       run: npm run check-imports
+
+  build:
+    name: Build
+    runs-on: runner_8cores_derivatives_trader
+    needs: setup
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: write
+    environment: Preview
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
     - name: Install dependencies
       uses: "./.github/actions/npm_install_from_cache"
     - name: Build
       uses: "./.github/actions/build"
-      
-    # TypeScript checking
-    - name: Check TypeScript for @deriv/api
-      run: npx tsc --project packages/api/tsconfig.json -noEmit
-    - name: Check TypeScript for @deriv/api-v2
-      run: npx tsc --project packages/api-v2/tsconfig.json -noEmit
-    - name: Check TypeScript for @deriv/utils
-      run: npx tsc --project packages/utils/tsconfig.json -noEmit
-    - name: Check TypeScript for @deriv/stores
-      run: npx tsc --project packages/stores/tsconfig.json -noEmit
-      
-    # Test checking
+
+  validate:
+    name: TypeScript & Linting
+    runs-on: runner_8cores_derivatives_trader
+    needs: setup
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: write
+    environment: Preview
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
+    
+    # TypeScript checking (parallel)
+    - name: Check TypeScript
+      run: |
+        npx tsc --project packages/api/tsconfig.json -noEmit &
+        npx tsc --project packages/api-v2/tsconfig.json -noEmit &
+        npx tsc --project packages/utils/tsconfig.json -noEmit &
+        npx tsc --project packages/stores/tsconfig.json -noEmit &
+        wait
+    
+    # Test structure checking
     - name: Check tests for @deriv/utils
       run: bash ./scripts/check-tests.sh packages/utils/src
-      
-    # Run all tests
-    - name: Run tests
-      run: npm run test:ci
-      env:
-        JEST_MAX_WORKERS: 6
+    
+    # Linting (parallel)
+    - name: Run linting
+      run: |
+        npm run test:stylelint &
+        npm run test:eslint-all &
+        wait
+
+  test:
+    name: Tests - ${{ matrix.description }}
+    runs-on: runner_8cores_derivatives_trader
+    needs: setup
+    timeout-minutes: 12
+    permissions:
+      contents: read
+      actions: write
+    environment: Preview
+    strategy:
+      matrix:
+        include:
+          - group: 1
+            packages: "packages/trader packages/core"
+            description: "Trader & Core"
+          - group: 2
+            packages: "packages/components packages/reports"
+            description: "Components & Reports"
+          - group: 3
+            packages: "packages/api packages/api-v2 packages/shared packages/stores packages/utils"
+            description: "APIs & Utils"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
+    
+    # Run tests for specific packages
+    - name: Run tests for ${{ matrix.description }}
+      run: |
+        packages="${{ matrix.packages }}"
+        for package in $packages; do
+          if [ -f "$package/jest.config.js" ]; then
+            package_name=$(basename "$package")
+            echo "Running tests for @deriv/$package_name"
+            npm test --workspace=@deriv/$package_name &
+          fi
+        done
+        wait
