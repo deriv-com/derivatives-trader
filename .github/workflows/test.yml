@@ -113,11 +113,22 @@ jobs:
     - name: Run tests for ${{ matrix.description }}
       run: |
         packages="${{ matrix.packages }}"
+        test_pattern=""
         for package in $packages; do
           if [ -f "$package/jest.config.js" ]; then
-            package_name=$(basename "$package")
-            echo "Running tests for @deriv/$package_name"
-            npm test --workspace=@deriv/$package_name &
+            echo "Running tests for $package"
+            if [ -z "$test_pattern" ]; then
+              test_pattern="$package"
+            else
+              test_pattern="$test_pattern|$package"
+            fi
           fi
         done
-        wait
+        
+        if [ -n "$test_pattern" ]; then
+          echo "Running tests with pattern: ($test_pattern)"
+          npm run test:jest -- --testPathPattern="($test_pattern)"
+        else
+          echo "No jest configs found for: $packages"
+          exit 1
+        fi
