@@ -25,6 +25,12 @@ const PREVIEW_DOMAIN_PATTERN = /^[a-zA-Z0-9-]+\.derivatives-bot\.pages\.dev$/;
 const isAllowedDomain = (url: string): boolean => {
     try {
         const urlObj = new URL(url.startsWith('http') ? url : `https://${url}`);
+
+        // Block URLs with user credentials (phishing protection)
+        if (urlObj.username || urlObj.password) {
+            return false;
+        }
+
         const hostname = urlObj.hostname;
 
         // Check against main domain whitelist
@@ -93,13 +99,45 @@ const Reports = observer(({ history, location, routes }: TReports) => {
         if (redirectUrlRef.current) {
             // If redirect parameter exists, navigate to that URL
             try {
-                // Decode the URL in case it's encoded
-                let decodedUrl = decodeURIComponent(redirectUrlRef.current);
-
-                // Prevent javascript: URLs (XSS protection)
-                if (decodedUrl.toLowerCase().startsWith('javascript:')) {
+                // URL length validation (prevent DoS)
+                if (redirectUrlRef.current.length > 2048) {
                     routeBackInApp(history);
                     return;
+                }
+
+                // Decode URL multiple times to handle double/triple encoding attacks
+                let decodedUrl = redirectUrlRef.current;
+                let previousUrl = '';
+                let decodeAttempts = 0;
+                const MAX_DECODE_ATTEMPTS = 5;
+
+                while (decodedUrl !== previousUrl && decodedUrl.includes('%') && decodeAttempts < MAX_DECODE_ATTEMPTS) {
+                    previousUrl = decodedUrl;
+                    try {
+                        decodedUrl = decodeURIComponent(decodedUrl);
+                        decodeAttempts++;
+                    } catch {
+                        // Invalid encoding, reject
+                        routeBackInApp(history);
+                        return;
+                    }
+                }
+
+                // Normalize and trim the URL
+                decodedUrl = decodedUrl.trim();
+
+                // Block dangerous protocols (XSS protection)
+                const BLOCKED_PROTOCOLS = ['javascript:', 'data:', 'vbscript:', 'file:', 'blob:'];
+                const safeUrl = decodedUrl.trim().toLowerCase();
+
+                if (BLOCKED_PROTOCOLS.some(protocol => safeUrl.startsWith(protocol))) {
+                    routeBackInApp(history);
+                    return;
+                }
+
+                // Handle protocol-relative URLs
+                if (decodedUrl.startsWith('//')) {
+                    decodedUrl = `https:${decodedUrl}`;
                 }
 
                 // Add protocol if missing to ensure proper external navigation
