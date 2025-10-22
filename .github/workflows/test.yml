@@ -1,4 +1,4 @@
-name: Deriv App PR Test Workflow
+name: Testing Workflow
 on:
   pull_request:
     branches:
