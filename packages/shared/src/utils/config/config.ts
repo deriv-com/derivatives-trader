@@ -7,7 +7,7 @@
  *
  */
 
-import { getProductionPlatformHostname, getStagingPlatformHostname } from '../brand';
+import { getProductionPlatformHostname, getStagingPlatformHostname, getWebSocketURL } from '../brand';
 
 export const isProduction = () => {
     const productionHostname = getProductionPlatformHostname();
@@ -27,9 +27,9 @@ export const isProduction = () => {
 
 /**
  * Gets account_type with priority: URL parameter > localStorage > default 'demo'
- * @returns {string} 'real', 'demo', or 'demo' as default
+ * @returns 'real' or 'demo'
  */
-export const getAccountType = (): string => {
+export const getAccountType = (): 'real' | 'demo' => {
     const search = window.location.search;
     const search_params = new URLSearchParams(search);
     const accountTypeFromUrl = search_params.get('account_type');
@@ -72,17 +72,8 @@ export const getSocketURL = () => {
     // Get account type
     const accountType = getAccountType();
 
-    // Check if we're on staging environment
-    const isStagingEnv = !isProduction();
-
-    // Map account type to appropriate endpoints
-    const server_url = isStagingEnv
-        ? accountType === 'real'
-            ? 'qa197.deriv.dev'
-            : 'qa194.deriv.dev'
-        : accountType === 'real'
-          ? 'realv2.derivws.com'
-          : 'demov2.derivws.com';
+    // Get WebSocket URL from brand config based on environment and account type
+    const server_url = getWebSocketURL(isProduction(), accountType);
 
     return server_url;
 };

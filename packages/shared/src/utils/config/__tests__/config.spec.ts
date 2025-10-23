@@ -1,41 +1,56 @@
 import { getAccountType, getSocketURL, isProduction } from '../config';
+import * as brandUtils from '../../brand';
+
+// Mock the brand utils module
+jest.mock('../../brand', () => ({
+    ...jest.requireActual('../../brand'),
+    getWebSocketURL: jest.fn(),
+}));
+
+const mockGetWebSocketURL = brandUtils.getWebSocketURL as jest.Mock;
+
+// Helper function to create localStorage mock
+const createLocalStorageMock = () => {
+    let store: Record<string, string> = {};
+    return {
+        getItem: (key: string) => store[key] || null,
+        setItem: (key: string, value: string) => {
+            store[key] = value;
+        },
+        removeItem: (key: string) => {
+            delete store[key];
+        },
+        clear: () => {
+            store = {};
+        },
+    };
+};
+
+// Helper function to mock window.location
+const mockLocation = (originalLocation: Location, overrides: Partial<Location>) => {
+    delete (window as any).location;
+    window.location = {
+        ...originalLocation,
+        ...overrides,
+    } as Location;
+};
 
 describe('getAccountType', () => {
     let originalLocation: Location, originalLocalStorage: Storage;
 
     beforeEach(() => {
-        // Save original location and localStorage
         originalLocation = window.location;
         originalLocalStorage = window.localStorage;
 
-        // Mock localStorage
-        const localStorageMock = (() => {
-            let store: Record<string, string> = {};
-            return {
-                getItem: (key: string) => store[key] || null,
-                setItem: (key: string, value: string) => {
-                    store[key] = value;
-                },
-                removeItem: (key: string) => {
-                    delete store[key];
-                },
-                clear: () => {
-                    store = {};
-                },
-            };
-        })();
-
         Object.defineProperty(window, 'localStorage', {
-            value: localStorageMock,
+            value: createLocalStorageMock(),
             writable: true,
         });
 
-        // Mock window.history.replaceState
         window.history.replaceState = jest.fn();
     });
 
     afterEach(() => {
-        // Restore original location and localStorage
         Object.defineProperty(window, 'location', {
             value: originalLocation,
             writable: true,
@@ -48,13 +63,10 @@ describe('getAccountType', () => {
     });
 
     it('should return "demo" from URL parameter and store it in localStorage', () => {
-        // Mock URL with account_type=demo
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockLocation(originalLocation, {
             search: '?account_type=demo',
             href: 'https://staging-dtrader.deriv.com?account_type=demo',
-        } as Location;
+        });
 
         const result = getAccountType();
 
@@ -63,13 +75,10 @@ describe('getAccountType', () => {
     });
 
     it('should return "real" from URL parameter and store it in localStorage', () => {
-        // Mock URL with account_type=real
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockLocation(originalLocation, {
             search: '?account_type=real',
             href: 'https://staging-dtrader.deriv.com?account_type=real',
-        } as Location;
+        });
 
         const result = getAccountType();
 
@@ -78,16 +87,11 @@ describe('getAccountType', () => {
     });
 
     it('should return value from localStorage when URL parameter is missing', () => {
-        // Set localStorage value
         window.localStorage.setItem('account_type', 'real');
-
-        // Mock URL without account_type parameter
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockLocation(originalLocation, {
             search: '',
             href: 'https://staging-dtrader.deriv.com',
-        } as Location;
+        });
 
         const result = getAccountType();
 
@@ -95,13 +99,10 @@ describe('getAccountType', () => {
     });
 
     it('should return "demo" as default when no URL parameter or localStorage value exists', () => {
-        // Mock URL without account_type parameter
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockLocation(originalLocation, {
             search: '',
             href: 'https://staging-dtrader.deriv.com',
-        } as Location;
+        });
 
         const result = getAccountType();
 
@@ -109,13 +110,10 @@ describe('getAccountType', () => {
     });
 
     it('should return "demo" as default when URL parameter is invalid', () => {
-        // Mock URL with invalid account_type parameter
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockLocation(originalLocation, {
             search: '?account_type=invalid',
             href: 'https://staging-dtrader.deriv.com?account_type=invalid',
-        } as Location;
+        });
 
         const result = getAccountType();
 
@@ -127,38 +125,18 @@ describe('getSocketURL', () => {
     let originalLocation: Location, originalLocalStorage: Storage;
 
     beforeEach(() => {
-        // Save original location and localStorage
         originalLocation = window.location;
         originalLocalStorage = window.localStorage;
 
-        // Mock localStorage
-        const localStorageMock = (() => {
-            let store: Record<string, string> = {};
-            return {
-                getItem: (key: string) => store[key] || null,
-                setItem: (key: string, value: string) => {
-                    store[key] = value;
-                },
-                removeItem: (key: string) => {
-                    delete store[key];
-                },
-                clear: () => {
-                    store = {};
-                },
-            };
-        })();
-
         Object.defineProperty(window, 'localStorage', {
-            value: localStorageMock,
+            value: createLocalStorageMock(),
             writable: true,
         });
 
-        // Mock window.history.replaceState
         window.history.replaceState = jest.fn();
     });
 
     afterEach(() => {
-        // Restore original location and localStorage
         Object.defineProperty(window, 'location', {
             value: originalLocation,
             writable: true,
@@ -171,107 +149,96 @@ describe('getSocketURL', () => {
     });
 
     it('should return qa194.deriv.dev for staging with demo account', () => {
-        // Mock staging-dtrader.deriv.com with account_type=demo
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockGetWebSocketURL.mockReturnValue('qa194.deriv.dev');
+        mockLocation(originalLocation, {
             hostname: 'staging-dtrader.deriv.com',
             search: '?account_type=demo',
             href: 'https://staging-dtrader.deriv.com?account_type=demo',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
         expect(result).toBe('qa194.deriv.dev');
+        expect(mockGetWebSocketURL).toHaveBeenCalledWith(false, 'demo');
     });
 
     it('should return qa197.deriv.dev for staging with real account', () => {
-        // Mock staging-dtrader.deriv.com with account_type=real
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockGetWebSocketURL.mockReturnValue('qa197.deriv.dev');
+        mockLocation(originalLocation, {
             hostname: 'staging-dtrader.deriv.com',
             search: '?account_type=real',
             href: 'https://staging-dtrader.deriv.com?account_type=real',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
         expect(result).toBe('qa197.deriv.dev');
+        expect(mockGetWebSocketURL).toHaveBeenCalledWith(false, 'real');
     });
 
     it('should return qa194.deriv.dev for staging with missing account_type (default to demo)', () => {
-        // Mock staging-dtrader.deriv.com without account_type parameter
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockGetWebSocketURL.mockReturnValue('qa194.deriv.dev');
+        mockLocation(originalLocation, {
             hostname: 'staging-dtrader.deriv.com',
             search: '',
             href: 'https://staging-dtrader.deriv.com',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
         expect(result).toBe('qa194.deriv.dev');
+        expect(mockGetWebSocketURL).toHaveBeenCalledWith(false, 'demo');
     });
 
     it('should return qa194.deriv.dev for staging with invalid account_type (default to demo)', () => {
-        // Mock staging-dtrader.deriv.com with invalid account_type parameter
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockGetWebSocketURL.mockReturnValue('qa194.deriv.dev');
+        mockLocation(originalLocation, {
             hostname: 'staging-dtrader.deriv.com',
             search: '?account_type=invalid',
             href: 'https://staging-dtrader.deriv.com?account_type=invalid',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
         expect(result).toBe('qa194.deriv.dev');
+        expect(mockGetWebSocketURL).toHaveBeenCalledWith(false, 'demo');
     });
 
     it('should return demov2.derivws.com for production with demo account', () => {
-        // Mock dtrader.deriv.com with account_type=demo
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockGetWebSocketURL.mockReturnValue('demov2.derivws.com');
+        mockLocation(originalLocation, {
             hostname: 'dtrader.deriv.com',
             search: '?account_type=demo',
             href: 'https://dtrader.deriv.com?account_type=demo',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
         expect(result).toBe('demov2.derivws.com');
+        expect(mockGetWebSocketURL).toHaveBeenCalledWith(true, 'demo');
     });
 
     it('should return realv2.derivws.com for production with real account', () => {
-        // Mock dtrader.deriv.com with account_type=real
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockGetWebSocketURL.mockReturnValue('realv2.derivws.com');
+        mockLocation(originalLocation, {
             hostname: 'dtrader.deriv.com',
             search: '?account_type=real',
             href: 'https://dtrader.deriv.com?account_type=real',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
         expect(result).toBe('realv2.derivws.com');
+        expect(mockGetWebSocketURL).toHaveBeenCalledWith(true, 'real');
     });
 
     it('should return localStorage value when config.server_url is set', () => {
-        // Set custom server URL in localStorage
         window.localStorage.setItem('config.server_url', 'custom.server.com');
-
-        // Mock staging-dtrader.deriv.com
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockLocation(originalLocation, {
             hostname: 'staging-dtrader.deriv.com',
             search: '?account_type=real',
             href: 'https://staging-dtrader.deriv.com?account_type=real',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
@@ -279,45 +246,35 @@ describe('getSocketURL', () => {
     });
 
     it('should ignore and remove invalid localStorage server URL', () => {
-        // Set invalid server URL in localStorage (contains protocol)
+        mockGetWebSocketURL.mockReturnValue('qa194.deriv.dev');
         window.localStorage.setItem('config.server_url', 'https://malicious.com');
-
-        // Mock staging-dtrader.deriv.com with demo account
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockLocation(originalLocation, {
             hostname: 'staging-dtrader.deriv.com',
             search: '?account_type=demo',
             href: 'https://staging-dtrader.deriv.com?account_type=demo',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
-        // Should fall back to staging demo server
         expect(result).toBe('qa194.deriv.dev');
-        // Should have removed the invalid value
         expect(window.localStorage.getItem('config.server_url')).toBeNull();
+        expect(mockGetWebSocketURL).toHaveBeenCalledWith(false, 'demo');
     });
 
     it('should ignore and remove invalid localStorage server URL without TLD', () => {
-        // Set invalid server URL in localStorage (no TLD)
+        mockGetWebSocketURL.mockReturnValue('qa197.deriv.dev');
         window.localStorage.setItem('config.server_url', 'localhost');
-
-        // Mock staging-dtrader.deriv.com with real account
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
+        mockLocation(originalLocation, {
             hostname: 'staging-dtrader.deriv.com',
             search: '?account_type=real',
             href: 'https://staging-dtrader.deriv.com?account_type=real',
-        } as Location;
+        });
 
         const result = getSocketURL();
 
-        // Should fall back to staging real server
         expect(result).toBe('qa197.deriv.dev');
-        // Should have removed the invalid value
         expect(window.localStorage.getItem('config.server_url')).toBeNull();
+        expect(mockGetWebSocketURL).toHaveBeenCalledWith(false, 'real');
     });
 });
 
@@ -325,12 +282,10 @@ describe('isProduction', () => {
     let originalLocation: Location;
 
     beforeEach(() => {
-        // Save original location
         originalLocation = window.location;
     });
 
     afterEach(() => {
-        // Restore original location
         Object.defineProperty(window, 'location', {
             value: originalLocation,
             writable: true,
@@ -338,80 +293,38 @@ describe('isProduction', () => {
     });
 
     it('should return true for production hostname dtrader.deriv.com', () => {
-        // Mock production hostname
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
-            hostname: 'dtrader.deriv.com',
-        } as Location;
+        mockLocation(originalLocation, { hostname: 'dtrader.deriv.com' });
 
-        const result = isProduction();
-
-        expect(result).toBe(true);
+        expect(isProduction()).toBe(true);
     });
 
     it('should return true for production hostname with www prefix', () => {
-        // Mock production hostname with www
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
-            hostname: 'www.dtrader.deriv.com',
-        } as Location;
+        mockLocation(originalLocation, { hostname: 'www.dtrader.deriv.com' });
 
-        const result = isProduction();
-
-        expect(result).toBe(true);
+        expect(isProduction()).toBe(true);
     });
 
     it('should return false for staging hostname staging-dtrader.deriv.com', () => {
-        // Mock staging hostname
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
-            hostname: 'staging-dtrader.deriv.com',
-        } as Location;
+        mockLocation(originalLocation, { hostname: 'staging-dtrader.deriv.com' });
 
-        const result = isProduction();
-
-        expect(result).toBe(false);
+        expect(isProduction()).toBe(false);
     });
 
     it('should return false for staging hostname with www prefix', () => {
-        // Mock staging hostname with www
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
-            hostname: 'www.staging-dtrader.deriv.com',
-        } as Location;
+        mockLocation(originalLocation, { hostname: 'www.staging-dtrader.deriv.com' });
 
-        const result = isProduction();
-
-        expect(result).toBe(false);
+        expect(isProduction()).toBe(false);
     });
 
     it('should return false for localhost', () => {
-        // Mock localhost
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
-            hostname: 'localhost',
-        } as Location;
+        mockLocation(originalLocation, { hostname: 'localhost' });
 
-        const result = isProduction();
-
-        expect(result).toBe(false);
+        expect(isProduction()).toBe(false);
     });
 
     it('should return false for unsupported domain', () => {
-        // Mock unsupported domain
-        delete (window as any).location;
-        window.location = {
-            ...originalLocation,
-            hostname: 'example.com',
-        } as Location;
+        mockLocation(originalLocation, { hostname: 'example.com' });
 
-        const result = isProduction();
-
-        expect(result).toBe(false);
+        expect(isProduction()).toBe(false);
     });
 });
