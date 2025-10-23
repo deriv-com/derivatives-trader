@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { TradingTimesRequest, TradingTimesResponse } from '@deriv/api-types';
 import { Text } from '@deriv/components';
-import { convertTimeFormat, isMarketClosed, toMoment, useIsMounted, WS } from '@deriv/shared';
+import { convertTimeFormat, isMarketClosed, toMoment, useIsMounted, WS, mapErrorMessage } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
 
@@ -28,7 +28,7 @@ const days_to_check_before_exit = 7;
 const getTradingTimes = async (target_time: TradingTimesRequest['trading_times']) => {
     const data = await WS.tradingTimes(target_time);
     if (data.error) {
-        return { api_initial_load_error: data.error.message };
+        return { api_initial_load_error: mapErrorMessage(data.error) };
     }
     return data;
 };

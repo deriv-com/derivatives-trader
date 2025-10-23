@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
-import { getTomorrowDate, getUnitMap, toMoment } from '@deriv/shared';
+import { getTomorrowDate, getUnitMap, mapErrorMessage } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { ActionSheet, TextField, useSnackbar } from '@deriv-com/quill-ui';
 import { Localize, useTranslations } from '@deriv-com/translations';
@@ -166,7 +166,7 @@ const Duration = observer(({ is_minimized }: TTradeParametersProps) => {
             const error_obj = proposal_info[contract_type_object[0]] || validation_errors?.duration?.[0];
             if (error_obj?.error_field === 'duration') {
                 addSnackbar({
-                    message: error_obj.message,
+                    message: mapErrorMessage(error_obj),
                     status: 'fail',
                     hasCloseButton: true,
                     hasFixedHeight: false,

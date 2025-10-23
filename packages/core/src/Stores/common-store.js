@@ -1,7 +1,15 @@
 import * as SocketCache from '_common/base/socket_cache';
 import { action, makeObservable, observable } from 'mobx';
 import { getAllowedLanguages, getInitialLanguage } from '@deriv-com/translations';
-import { UNSUPPORTED_LANGUAGES, initMoment, setLocale, isMobile, routes, toMoment } from '@deriv/shared';
+import {
+    UNSUPPORTED_LANGUAGES,
+    initMoment,
+    setLocale,
+    isMobile,
+    routes,
+    toMoment,
+    mapErrorMessage,
+} from '@deriv/shared';
 import BaseStore from './base-store';
 import BinarySocket from '_common/base/socket_base';
 import ServerTime from '_common/base/server_time';
@@ -239,7 +247,7 @@ export default class CommonStore extends BaseStore {
                 this.root_store.ui.toggleServicesErrorModal(true);
             } else if (!hide_toast) {
                 this.root_store.ui.addToast({
-                    content: error.message,
+                    content: mapErrorMessage(error),
                     type: 'error',
                 });
             }

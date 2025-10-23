@@ -47,6 +47,7 @@ import {
     isTurbosContract,
     isVanillaContract,
     isVanillaFxContract,
+    mapErrorMessage,
     pickDefaultSymbol,
     resetEndTimeOnVolatilityIndices,
     routes,
@@ -1775,7 +1776,7 @@ export default class TradeStore extends BaseStore {
         if (response.error) {
             const error_id = getProposalErrorField(response);
             if (error_id) {
-                this.setValidationErrorMessages(error_id, [response.error.message]);
+                this.setValidationErrorMessages(error_id, [mapErrorMessage(response.error)]);
             }
             // Commission for multipliers is normally set from proposal response.
             // But when we change the multiplier and if it is invalid, we don't get the proposal response to set the commission. We only get error message.
