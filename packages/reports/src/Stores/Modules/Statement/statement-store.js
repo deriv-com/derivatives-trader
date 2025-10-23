@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import { action, computed, makeObservable, observable, override } from 'mobx';
 
-import { filterDisabledPositions, toMoment, WS } from '@deriv/shared';
+import { filterDisabledPositions, toMoment, WS, mapErrorMessage } from '@deriv/shared';
 
 import BaseStore from '../../base-store';
 import getDateBoundaries from '../Profit/Helpers/format-request';
@@ -109,7 +109,7 @@ export default class StatementStore extends BaseStore {
 
     statementHandler(response, should_load_partially) {
         if ('error' in response) {
-            this.error = response.error.message;
+            this.error = mapErrorMessage(response.error);
             return;
         }
 
