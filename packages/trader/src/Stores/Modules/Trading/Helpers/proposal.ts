@@ -1,4 +1,4 @@
-import { PriceProposalResponse, Proposal } from '@deriv/api-types';
+import { TPriceProposalResponse } from '@deriv/api';
 import {
     convertToUnix,
     getDecimalPlaces,
@@ -11,8 +11,9 @@ import {
     TRADE_TYPES,
 } from '@deriv/shared';
 
-import { isRiseFallContractType } from './allow-equals';
 import { TError, TTradeStore } from 'Types';
+
+import { isRiseFallContractType } from './allow-equals';
 
 type TObjContractBasis = {
     text: string;
@@ -60,7 +61,7 @@ type TValidationParams =
       }
     | undefined;
 
-export type ExpandedProposal = Proposal & TValidationParams;
+export type ExpandedProposal = NonNullable<TPriceProposalResponse['proposal']> & TValidationParams;
 
 const isVisible = (elem: HTMLElement) => !(!elem || (elem.offsetWidth === 0 && elem.offsetHeight === 0));
 
@@ -70,7 +71,7 @@ const map_error_field: { [key: string]: string } = {
     date_expiry: 'expiry_date',
 };
 
-export const getProposalErrorField = (response: PriceProposalResponse) => {
+export const getProposalErrorField = (response: TPriceProposalResponse) => {
     const error_field: string = getPropertyValue(response, ['error', 'details', 'field']);
     if (!error_field) {
         return null;
@@ -82,7 +83,7 @@ export const getProposalErrorField = (response: PriceProposalResponse) => {
 
 export const getProposalInfo = (
     store: TTradeStore,
-    response: PriceProposalResponse & TError,
+    response: TPriceProposalResponse & TError,
     obj_prev_contract_basis?: TObjContractBasis
 ) => {
     const proposal: ExpandedProposal = response.proposal || ({} as ExpandedProposal);
@@ -192,8 +193,8 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
 
         if (store.expiry_type === 'duration') {
             // Ensure we have valid duration and duration_unit values
-            const duration = parseInt(store.duration.toString()) || 5; // Default to 5 if invalid
-            const duration_unit = store.duration_unit || 'm'; // Default to minutes if not set
+            const duration = parseInt(store.duration.toString());
+            const duration_unit = store.duration_unit;
 
             return {
                 duration,
@@ -201,16 +202,12 @@ export const createProposalRequestForContract = (store: TTradeStore, type_of_con
             };
         }
 
-        // For endtime, ensure we have a valid date_expiry
+        // For endtime, ensure we have a valid expiry_date
         if (store.expiry_type === 'endtime' && obj_expiry.date_expiry) {
             return obj_expiry;
         }
 
-        // For contracts that need duration but don't have valid expiry_type, provide safe defaults
-        return {
-            duration: 5,
-            duration_unit: 'm',
-        };
+        return {};
     };
 
     if (store.contract_type === TRADE_TYPES.MULTIPLIER) {

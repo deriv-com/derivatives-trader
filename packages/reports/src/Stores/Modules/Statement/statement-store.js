@@ -114,13 +114,7 @@ export default class StatementStore extends BaseStore {
         }
 
         const formatted_transactions = response.statement.transactions
-            .map(transaction =>
-                formatStatementTransaction(
-                    transaction,
-                    this.root_store.client.currency,
-                    this.root_store.active_symbols.active_symbols
-                )
-            )
+            .map(transaction => formatStatementTransaction(transaction, this.root_store.client.currency))
             .filter(filterDisabledPositions);
 
         if (should_load_partially) {

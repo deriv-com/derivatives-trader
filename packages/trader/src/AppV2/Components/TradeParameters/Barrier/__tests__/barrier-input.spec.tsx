@@ -35,17 +35,17 @@ describe('BarrierInput', () => {
                 tick_data: { quote: 1234.56 },
                 active_symbols: [
                     {
-                        symbol: '1HZ100V',
+                        underlying_symbol: '1HZ100V',
                         display_name: 'Volatility 100 (1s) Index',
                         market: 'synthetic_index',
-                        symbol_type: 'synthetic_index',
+                        underlying_symbol_type: 'synthetic_index',
                         exchange_is_open: 1,
                     },
                     {
-                        symbol: 'EURUSD',
+                        underlying_symbol: 'EURUSD',
                         display_name: 'EUR/USD',
                         market: 'forex',
-                        symbol_type: 'forex',
+                        underlying_symbol_type: 'forex',
                         exchange_is_open: 1,
                     },
                 ],

@@ -23,7 +23,11 @@ const useAPI = () => {
             // so it needs to be fixed in one of the layers,
             // potentially will make this consistent in upcoming PRs
             try {
-                return wsClient?.request<T>(name, payload as unknown as TSocketRequestPayload<T>['payload']);
+                const response = await wsClient?.request<T>(
+                    name,
+                    payload as unknown as TSocketRequestPayload<T>['payload']
+                );
+                return response as TSocketResponseData<T>;
             } catch (e) {
                 return e as TSocketResponseData<T>;
             }

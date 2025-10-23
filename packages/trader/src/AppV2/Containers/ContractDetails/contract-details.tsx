@@ -10,6 +10,7 @@ import {
     isValidToCancel,
     isValidToSell,
     TContractStore,
+    trackAnalyticsEvent,
     WS,
 } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
@@ -45,7 +46,7 @@ const ContractDetails = observer(() => {
     };
 
     const getSortedUpdateHistory = (history: TContractUpdateHistory) =>
-        history.sort((a, b) => Number(b?.order_date) - Number(a?.order_date));
+        history?.sort((a, b) => Number(b?.order_date) - Number(a?.order_date));
     const requestUpdatedHistory = React.useCallback((id?: number) => {
         if (!id) return;
         WS.contractUpdateHistory(id)
@@ -58,6 +59,13 @@ const ContractDetails = observer(() => {
     React.useEffect(() => {
         requestUpdatedHistory(contract_id);
     }, [contract_id, take_profit?.order_amount, stop_loss?.order_amount, requestUpdatedHistory]);
+
+    React.useEffect(() => {
+        trackAnalyticsEvent('ce_reports_form_v2', {
+            action: 'open_contract_details',
+            platform: 'DTrader',
+        });
+    }, []);
 
     if (is_loading) return <Loading.DTraderV2 is_contract_details />;
 
@@ -96,7 +104,7 @@ const ContractDetails = observer(() => {
                 <OrderDetails contract_info={contract_info} />
                 {/* <PayoutInfo contract_info={contract_info} /> */}
                 <EntryExitDetails contract_info={contract_info} />
-                {isTpHistoryVisible && update_history.length > 0 && (
+                {isTpHistoryVisible && update_history && update_history.length > 0 && (
                     <TakeProfitHistory history={update_history} currency={currency} is_multiplier={isMultiplier} />
                 )}
             </div>

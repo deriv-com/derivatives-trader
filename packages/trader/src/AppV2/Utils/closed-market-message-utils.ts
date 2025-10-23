@@ -1,4 +1,4 @@
-import { TradingTimesResponse } from '@deriv/api-types';
+import { TTradingTimesResponse } from '@deriv/api';
 
 export const calculateTimeLeft = (remaining_time_to_open: number) => {
     const difference = remaining_time_to_open - Date.now();
@@ -14,7 +14,7 @@ export const calculateTimeLeft = (remaining_time_to_open: number) => {
 
 export const getSymbol = (
     target_symbol: string,
-    trading_times: NonNullable<DeepRequired<TradingTimesResponse['trading_times']>>
+    trading_times: NonNullable<DeepRequired<TTradingTimesResponse['trading_times']>>
 ) => {
     let symbol;
     const { markets } = trading_times;
@@ -23,7 +23,7 @@ export const getSymbol = (
         if (submarkets) {
             for (let j = 0; j < submarkets.length; j++) {
                 const { symbols } = submarkets[j];
-                symbol = symbols?.find(item => ((item as any).underlying_symbol || item.symbol) === target_symbol);
+                symbol = symbols?.find(item => item.underlying_symbol === target_symbol);
                 if (symbol !== undefined) return symbol;
             }
         }

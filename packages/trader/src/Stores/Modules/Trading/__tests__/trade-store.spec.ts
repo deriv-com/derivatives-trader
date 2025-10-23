@@ -1,11 +1,12 @@
 import { configure } from 'mobx';
 import moment from 'moment';
 
-import { ActiveSymbols } from '@deriv/api-types';
+import { TActiveSymbolsResponse } from '@deriv/api';
 import { TRADE_TYPES } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 
 import { TRootStore } from 'Types';
+
 import TradeStore from '../trade-store';
 
 configure({ safeDescriptors: false });
@@ -268,14 +269,17 @@ describe('TradeStore', () => {
 
         describe('setActiveSymbolsV2', () => {
             it('should set active symbols for V2', () => {
-                const symbols: ActiveSymbols = [
+                const symbols: NonNullable<TActiveSymbolsResponse['active_symbols']> = [
                     {
-                        symbol: 'R_100',
-                        display_name: 'Volatility 100 Index',
-                        market: 'synthetic_index',
+                        underlying_symbol: 'R_100',
+                        display_order: 1,
                         exchange_is_open: 1,
+                        market: 'synthetic_index',
+                        submarket: 'random_index',
+                        is_trading_suspended: 0,
+                        subgroup: 'volatility',
                     },
-                ] as ActiveSymbols;
+                ];
 
                 tradeStore.setActiveSymbolsV2(symbols);
                 expect(tradeStore.active_symbols).toEqual(symbols);
@@ -672,22 +676,24 @@ describe('TradeStore', () => {
             beforeEach(() => {
                 tradeStore.active_symbols = [
                     {
-                        symbol: 'R_100',
-                        display_name: 'Volatility 100 Index',
+                        underlying_symbol: 'R_100',
                         display_order: 1,
                         exchange_is_open: 1,
                         market: 'synthetic_index',
-                        symbol_type: 'stockindex',
+                        submarket: 'random_index',
+                        is_trading_suspended: 0,
+                        subgroup: 'volatility',
                     },
                     {
-                        symbol: '1HZ100V',
-                        display_name: 'Volatility 100 (1s) Index',
+                        underlying_symbol: '1HZ100V',
                         display_order: 2,
                         exchange_is_open: 1,
                         market: 'synthetic_index',
-                        symbol_type: 'stockindex',
+                        submarket: 'random_index',
+                        is_trading_suspended: 0,
+                        subgroup: 'volatility',
                     },
-                ] as ActiveSymbols;
+                ] as NonNullable<TActiveSymbolsResponse['active_symbols']>;
             });
 
             it('should return true for existing symbol', () => {
@@ -703,14 +709,15 @@ describe('TradeStore', () => {
             it('should return false when exchange is closed', () => {
                 tradeStore.active_symbols = [
                     {
-                        symbol: 'R_100',
-                        display_name: 'Volatility 100 Index',
+                        underlying_symbol: 'R_100',
                         display_order: 1,
                         exchange_is_open: 0, // Closed
                         market: 'synthetic_index',
-                        symbol_type: 'stockindex',
+                        submarket: 'random_index',
+                        is_trading_suspended: 0,
+                        subgroup: 'volatility',
                     },
-                ] as ActiveSymbols;
+                ] as NonNullable<TActiveSymbolsResponse['active_symbols']>;
                 tradeStore.symbol = 'R_100';
                 expect(tradeStore.is_symbol_in_active_symbols).toBe(false);
             });
@@ -748,13 +755,14 @@ describe('TradeStore', () => {
                 tradeStore.active_symbols = [
                     {
                         market: 'synthetic_index',
-                        symbol: 'R_100',
-                        display_name: 'Volatility 100 Index',
+                        underlying_symbol: 'R_100',
                         display_order: 1,
                         exchange_is_open: 1,
-                        symbol_type: 'stockindex',
+                        submarket: 'random_index',
+                        is_trading_suspended: 0,
+                        subgroup: 'volatility',
                     },
-                ] as ActiveSymbols;
+                ] as NonNullable<TActiveSymbolsResponse['active_symbols']>;
                 expect(tradeStore.is_synthetics_available).toBe(true);
             });
 
@@ -762,13 +770,14 @@ describe('TradeStore', () => {
                 tradeStore.active_symbols = [
                     {
                         market: 'forex',
-                        symbol: 'EURUSD',
-                        display_name: 'EUR/USD',
+                        underlying_symbol: 'EURUSD',
                         display_order: 1,
                         exchange_is_open: 1,
-                        symbol_type: 'forex',
+                        submarket: 'major_pairs',
+                        is_trading_suspended: 0,
+                        subgroup: 'none',
                     },
-                ] as ActiveSymbols;
+                ] as NonNullable<TActiveSymbolsResponse['active_symbols']>;
                 expect(tradeStore.is_synthetics_available).toBe(false);
             });
         });

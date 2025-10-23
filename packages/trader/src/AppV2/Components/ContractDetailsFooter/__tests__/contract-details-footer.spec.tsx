@@ -31,10 +31,10 @@ describe('ContractDetailsFooter', () => {
         });
 
         default_mock_prop = mockContractInfo({
-            bid_price: 100,
+            bid_price: '100',
             currency: 'USD',
             contract_id: 1,
-            profit: 10,
+            profit: '10',
             contract_type: 'non-multiplier',
         });
     });
@@ -89,10 +89,10 @@ describe('ContractDetailsFooter', () => {
         (isValidToCancel as jest.Mock).mockImplementation(() => true);
         default_mock_store.contract_replay.contract_store.contract_info.contract_type = 'multiplier';
         default_mock_prop = mockContractInfo({
-            bid_price: 30,
+            bid_price: '30',
             currency: 'BYN',
             contract_id: 1,
-            profit: 20,
+            profit: '20',
             contract_type: 'multiplier',
         });
 
@@ -110,7 +110,7 @@ describe('ContractDetailsFooter', () => {
         (isValidToSell as jest.Mock).mockImplementation(() => true);
         (isValidToCancel as jest.Mock).mockImplementation(() => true);
         default_mock_store.contract_replay.contract_store.contract_info.contract_type = 'multiplier';
-        default_mock_prop.profit = -20;
+        default_mock_prop.profit = '-20';
 
         renderFooter();
 
@@ -122,7 +122,7 @@ describe('ContractDetailsFooter', () => {
         (isValidToSell as jest.Mock).mockImplementation(() => true);
         (isValidToCancel as jest.Mock).mockImplementation(() => true);
         default_mock_store.contract_replay.contract_store.contract_info.contract_type = 'multiplier';
-        default_mock_prop.profit = -20;
+        default_mock_prop.profit = '-20';
 
         renderFooter();
 
@@ -158,7 +158,7 @@ describe('ContractDetailsFooter', () => {
         (isMultiplierContract as jest.Mock).mockImplementation(() => true);
         (isValidToCancel as jest.Mock).mockImplementation(() => true);
         default_mock_store.contract_replay.contract_store.contract_info.contract_type = 'multiplier';
-        default_mock_store.contract_replay.contract_store.contract_info.profit = 0;
+        default_mock_store.contract_replay.contract_store.contract_info.profit = '0';
 
         renderFooter();
 

@@ -16,10 +16,18 @@ import BarrierDescription from './barrier-description';
 import BarrierInput from './barrier-input';
 
 const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
-    const { barrier_1, duration_unit, is_market_closed, validation_errors, proposal_info, trade_type_tab } =
-        useTraderStore();
+    const {
+        barrier_1,
+        duration_unit,
+        expiry_type,
+        is_market_closed,
+        validation_errors,
+        proposal_info,
+        trade_type_tab,
+    } = useTraderStore();
     const [is_open, setIsOpen] = React.useState(false);
-    const isDays = duration_unit === 'd';
+    // Barriers should be absolute when using end time (expiry_type === 'endtime') or days duration
+    const isDays = duration_unit === 'd' || expiry_type === 'endtime';
 
     const has_error =
         validation_errors.barrier_1.length > 0 ||

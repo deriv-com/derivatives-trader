@@ -94,16 +94,6 @@ export const OpenPositionsTable = ({
     totals,
 }: TOpenPositionsTable) => {
     const { isDesktop } = useDevice();
-    React.useEffect(() => {
-        Analytics.trackEvent('ce_reports_form', {
-            action: 'choose_report_type',
-            form_name: 'default',
-            subform_name: 'open_positions_form',
-            trade_type_filter: contract_type_value,
-            growth_type_filter: accumulator_rate,
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <React.Fragment>

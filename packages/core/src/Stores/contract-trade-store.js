@@ -295,8 +295,7 @@ export default class ContractTradeStore extends BaseStore {
         }
         return this.contracts
             .filter(c => {
-                // Backward compatibility: fallback to old field name
-                const contract_underlying = c.contract_info.underlying_symbol || c.contract_info.underlying;
+                const contract_underlying = c.contract_info.underlying_symbol;
                 return contract_underlying === underlying;
             })
             .filter(c => {

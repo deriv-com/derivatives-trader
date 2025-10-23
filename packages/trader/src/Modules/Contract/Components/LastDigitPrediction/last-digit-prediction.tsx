@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { ProposalOpenContract, TicksStreamResponse } from '@deriv/api-types';
+import { TPriceProposalOpenContractsResponse, TTicksStreamResponse } from '@deriv/api';
 import { isMobile, TRADE_TYPES } from '@deriv/shared';
 
 import DigitDisplay from './digit-display';
@@ -20,8 +20,8 @@ type TLastDigitPrediction = Pick<
     is_trade_page?: boolean;
     onDigitChange?: (event: { target: { name: string; value: number } }) => void;
     selected_digit?: number;
-    status?: ProposalOpenContract['status'];
-    tick?: TicksStreamResponse['tick'];
+    status?: NonNullable<TPriceProposalOpenContractsResponse['proposal_open_contract']>['status'];
+    tick?: TTicksStreamResponse['tick'];
     trade_type?: string;
 };
 const display_array = Array.from(Array(10).keys()); // digits array [0 - 9]

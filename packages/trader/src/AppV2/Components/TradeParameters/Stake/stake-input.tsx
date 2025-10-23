@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { formatMoney, getCurrencyDisplayCode, getDecimalPlaces, mapErrorMessage } from '@deriv/shared';
+import { formatMoney, getCurrencyDisplayCode, getDecimalPlaces, trackAnalyticsEvent, mapErrorMessage } from '@deriv/shared';
 import { ActionSheet, TextFieldWithSteppers } from '@deriv-com/quill-ui';
 import { Localize, useTranslations } from '@deriv-com/translations';
 
@@ -383,6 +383,9 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
 
         // Setting new stake value to the store and send it in streaming proposal
         onChange({ target: { name: 'amount', value: proposal_request_values.amount } });
+        trackAnalyticsEvent('ce_trade_types_form_v2', {
+            action: 'customizing_trades',
+        });
         onClose();
     };
 

@@ -505,6 +505,10 @@ describe('getProposalRequestObject', () => {
                     currency: 'USD',
                     contract_type: TRADE_TYPES.TURBOS.LONG,
                     symbol: '1HZ100V',
+                    duration: 5,
+                    duration_unit: 'm',
+                    expiry_type: 'duration',
+                    payout_per_point: 5,
                 },
             },
         });

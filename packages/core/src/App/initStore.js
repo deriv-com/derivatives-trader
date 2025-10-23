@@ -48,6 +48,11 @@ const initStore = (notification_messages, accounts) => {
 
     const root_store = new RootStore();
 
+    // Set up global store reference for analytics and other utilities
+    if (typeof window !== 'undefined') {
+        window.__deriv_store = root_store;
+    }
+
     setStorageEvents(root_store);
 
     NetworkMonitor.init(root_store);

@@ -1,20 +1,26 @@
 import React from 'react';
 import type { RouteComponentProps } from 'react-router';
 import type { Moment } from 'moment';
-
 import type {
-    ActiveSymbols,
-    Authorize,
-    ContractUpdate,
-    ContractUpdateHistory,
-    LogOutResponse,
-    Portfolio1,
-    ProposalOpenContract,
-    Transaction,
-} from '@deriv/api-types';
+    TActiveSymbolsResponse,
+    TUpdateContractResponse,
+    TUpdateContractHistoryResponse,
+    TPortfolioResponse,
+    TPriceProposalOpenContractsResponse,
+    TTransactionsStreamResponse,
+    TLogOutResponse,
+} from '@deriv/api';
 import { TContractInfo } from '@deriv/shared/src/utils/contract/contract-types';
-
 import type { FeatureFlagsStore } from './src/stores';
+
+// Type aliases for compatibility
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
+type ContractUpdate = TUpdateContractResponse['contract_update'];
+type ContractUpdateHistory = TUpdateContractHistoryResponse['contract_update_history'];
+type LogOutResponse = TLogOutResponse;
+type Portfolio1 = NonNullable<NonNullable<TPortfolioResponse['portfolio']>['contracts']>[0];
+type ProposalOpenContract = TPriceProposalOpenContractsResponse['proposal_open_contract'];
+type Transaction = TTransactionsStreamResponse['transaction'];
 
 type TRoutes =
     | '/404'
@@ -35,8 +41,10 @@ type TPopulateSettingsExtensionsMenuItem = {
 export type TPortfolioPosition = {
     barrier?: number;
     contract_info: ProposalOpenContract &
-        Portfolio1 & {
+        Omit<Portfolio1, 'buy_price' | 'payout'> & {
             contract_update?: ContractUpdate;
+            buy_price?: NonNullable<ProposalOpenContract>['buy_price'];
+            payout?: NonNullable<ProposalOpenContract>['payout'];
             validation_params?: {
                 [key: string]: { min: string; max: string };
             };
@@ -53,9 +61,8 @@ export type TPortfolioPosition = {
     purchase?: number;
     reference: number;
     type?: string;
-    is_unsupported: boolean;
-    contract_update: ProposalOpenContract['limit_order'];
-    is_sell_requested: boolean;
+    contract_update?: NonNullable<ProposalOpenContract>['limit_order'];
+    is_sell_requested?: boolean;
     is_valid_to_sell?: boolean;
     profit_loss: number;
     status?: null | string;
@@ -67,23 +74,6 @@ type TAppRoutingHistory = {
     key: string;
     pathname: string;
     search: string;
-};
-
-type TAccount = NonNullable<Authorize['account_list']>[0] & {
-    balance?: number;
-    landing_company_shortcode?: 'svg' | 'costarica' | 'maltainvest';
-    is_virtual: number;
-    account_category?: 'wallet' | 'trading';
-};
-
-// balance is missing in @deriv/api-types
-export type TActiveAccount = TAccount & {
-    balance?: string | number;
-    landing_company_shortcode: 'svg' | 'costarica' | 'maltainvest';
-    is_virtual: number;
-    account_category?: 'wallet' | 'trading';
-    linked_to?: { loginid: string; platform: string }[];
-    token: string;
 };
 
 type TAddToastProps = {
@@ -485,9 +475,9 @@ type TAddContractParams = {
     contract_type: string;
     start_time: number;
     longcode: string;
-    underlying: string;
+    underlying_symbol: string;
     is_tick_contract: boolean;
-    limit_order?: ProposalOpenContract['limit_order'];
+    limit_order?: NonNullable<ProposalOpenContract>['limit_order'];
 };
 type TOnChartBarrierChange = null | ((barrier_1: string, barrier_2?: string) => void);
 type TOnChangeParams = { high: string | number; low?: string | number; title?: string; hidePriceLines?: boolean };
@@ -533,7 +523,7 @@ type TContractTradeStore = {
         contract_type,
         start_time,
         longcode,
-        underlying,
+        underlying_symbol,
         is_tick_contract,
         limit_order,
     }: TAddContractParams) => void;
@@ -659,7 +649,7 @@ type TContractReplay = {
               }
             | null;
         contract_info: TPortfolioPosition['contract_info'];
-        contract_update: ProposalOpenContract['limit_order'];
+        contract_update: NonNullable<ProposalOpenContract>['limit_order'];
         contract_update_history: TContractStore['contract_update_history'];
         digits_info: { [key: number]: { digit: number; spot: string } };
         display_status: string;
