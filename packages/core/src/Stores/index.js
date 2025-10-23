@@ -5,7 +5,6 @@ import GTMStore from './gtm-store';
 import ModulesStore from './Modules';
 import NotificationStore from './notification-store';
 import UIStore from './ui-store';
-import ActiveSymbolsStore from './active-symbols-store';
 import PortfolioStore from './portfolio-store';
 import ContractReplayStore from './contract-replay-store';
 import ContractTradeStore from './contract-trade-store';
@@ -19,7 +18,6 @@ export default class RootStore {
         this.ui = new UIStore(this);
         this.gtm = new GTMStore(this);
         this.notifications = new NotificationStore(this);
-        this.active_symbols = new ActiveSymbolsStore(this);
         this.portfolio = new PortfolioStore(this);
         this.contract_replay = new ContractReplayStore(this);
         this.contract_trade = new ContractTradeStore(this);

@@ -23,14 +23,13 @@ jest.mock('@deriv/shared', () => ({
         },
     },
 }));
-jest.mock('AppV2/Hooks/useDtraderQuery', () => ({
-    ...jest.requireActual('AppV2/Hooks/useDtraderQuery'),
-    useDtraderQuery: jest.fn(() => ({
+jest.mock('AppV2/Hooks/useProposal', () => ({
+    useProposal: jest.fn(() => ({
         data: {
             proposal: {},
-            echo_req: { contract_type: 'TURBOSLONG' },
-            error: {},
         },
+        error: null,
+        isFetching: false,
     })),
 }));
 

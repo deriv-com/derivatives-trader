@@ -1,4 +1,4 @@
-import { TPriceProposalResponse } from '@deriv/api';
+import { TPriceProposalResponse, TSocketError } from '@deriv/api';
 import {
     convertToUnix,
     getDecimalPlaces,
@@ -10,7 +10,7 @@ import {
     TRADE_TYPES,
 } from '@deriv/shared';
 
-import { TError, TTradeStore } from 'Types';
+import { TTradeStore } from 'Types';
 
 import { isRiseFallContractType } from './allow-equals';
 
@@ -82,8 +82,7 @@ export const getProposalErrorField = (response: TPriceProposalResponse) => {
 
 export const getProposalInfo = (
     store: TTradeStore,
-    response: TPriceProposalResponse & TError,
-    obj_prev_contract_basis?: TObjContractBasis
+    response: TPriceProposalResponse & { error?: TSocketError<'proposal'>['error'] }
 ) => {
     const proposal: ExpandedProposal = response.proposal || ({} as ExpandedProposal);
     const profit = (proposal.payout || 0) - (proposal.ask_price || 0);
