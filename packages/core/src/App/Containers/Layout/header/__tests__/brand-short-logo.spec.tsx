@@ -8,6 +8,10 @@ jest.mock('@deriv/shared', () => ({
     getBrandHomeUrl: jest.fn(() => 'https://home.deriv.com/dashboard/home'),
 }));
 
+jest.mock('@deriv-com/ui', () => ({
+    useDevice: jest.fn(() => ({ isDesktop: true })),
+}));
+
 // Mock window.location.href
 const mockLocation = {
     href: '',
@@ -17,10 +21,17 @@ Object.defineProperty(window, 'location', {
     writable: true,
 });
 
+// Mock DerivAppChannel
+const mockDerivAppChannel = {
+    postMessage: jest.fn(),
+};
+
 describe('BrandShortLogo', () => {
     beforeEach(() => {
         jest.clearAllMocks();
         mockLocation.href = '';
+        // Clear DerivAppChannel from window
+        delete (window as any).DerivAppChannel;
     });
 
     it('should render the Deriv logo', () => {
@@ -33,7 +44,7 @@ describe('BrandShortLogo', () => {
         expect(clickableDiv).toHaveStyle('cursor: pointer');
     });
 
-    it('should redirect to brand URL when logo is clicked', async () => {
+    it('should redirect to brand URL when logo is clicked on desktop', async () => {
         render(<BrandShortLogo />);
 
         const clickableDiv = screen.getByTestId('brand-logo-clickable');
@@ -54,5 +65,63 @@ describe('BrandShortLogo', () => {
         await userEvent.click(clickableDiv);
 
         expect(mockLocation.href).toBe('https://staging-home.deriv.com/dashboard/home');
+    });
+
+    it('should use Flutter channel postMessage on mobile when DerivAppChannel is available', async () => {
+        // Mock mobile device
+        const { useDevice } = require('@deriv-com/ui');
+        useDevice.mockReturnValue({ isDesktop: false });
+
+        // Add DerivAppChannel to window
+        (window as any).DerivAppChannel = mockDerivAppChannel;
+
+        render(<BrandShortLogo />);
+
+        const clickableDiv = screen.getByTestId('brand-logo-clickable');
+
+        await userEvent.click(clickableDiv);
+
+        expect(mockDerivAppChannel.postMessage).toHaveBeenCalledWith(
+            JSON.stringify({ event: 'trading:home' })
+        );
+        expect(getBrandHomeUrl).not.toHaveBeenCalled();
+        expect(mockLocation.href).toBe('');
+    });
+
+    it('should fallback to brand URL on mobile when DerivAppChannel is not available', async () => {
+        // Mock mobile device
+        const { useDevice } = require('@deriv-com/ui');
+        useDevice.mockReturnValue({ isDesktop: false });
+
+        // Ensure DerivAppChannel is not available
+        delete (window as any).DerivAppChannel;
+
+        render(<BrandShortLogo />);
+
+        const clickableDiv = screen.getByTestId('brand-logo-clickable');
+
+        await userEvent.click(clickableDiv);
+
+        expect(getBrandHomeUrl).toHaveBeenCalled();
+        expect(mockLocation.href).toBe('https://home.deriv.com/dashboard/home');
+    });
+
+    it('should use brand URL on desktop even when DerivAppChannel is available', async () => {
+        // Mock desktop device
+        const { useDevice } = require('@deriv-com/ui');
+        useDevice.mockReturnValue({ isDesktop: true });
+
+        // Add DerivAppChannel to window
+        (window as any).DerivAppChannel = mockDerivAppChannel;
+
+        render(<BrandShortLogo />);
+
+        const clickableDiv = screen.getByTestId('brand-logo-clickable');
+
+        await userEvent.click(clickableDiv);
+
+        expect(getBrandHomeUrl).toHaveBeenCalled();
+        expect(mockLocation.href).toBe('https://home.deriv.com/dashboard/home');
+        expect(mockDerivAppChannel.postMessage).not.toHaveBeenCalled();
     });
 });
