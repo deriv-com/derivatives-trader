@@ -100,6 +100,9 @@ export default class CommonStore extends BaseStore {
     }
 
     changeSelectedLanguage = async key => {
+        if (UNSUPPORTED_LANGUAGES.includes(key)) {
+            return Promise.reject(new Error(`Language ${key} is not supported`));
+        }
         SocketCache.clear();
         if (key === 'EN') {
             window.localStorage.setItem('i18n_language', key);

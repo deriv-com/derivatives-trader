@@ -102,6 +102,7 @@ const ContractDetails = observer(() => {
                     </CardWrapper>
                 )}
                 <OrderDetails contract_info={contract_info} />
+                {/* Hidden as we disable longcode temporarily */}
                 {/* <PayoutInfo contract_info={contract_info} /> */}
                 <EntryExitDetails contract_info={contract_info} />
                 {isTpHistoryVisible && update_history && update_history.length > 0 && (
