@@ -65,7 +65,7 @@ export const getSocketURL = () => {
         if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(local_storage_server_url)) {
             return local_storage_server_url;
         }
-        // Log warning and clear invalid value
+        // Clear invalid value
         window.localStorage.removeItem('config.server_url');
     }
 
