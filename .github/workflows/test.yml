@@ -6,26 +6,9 @@ on:
 permissions:
   contents: read
 jobs:
-  setup:
-    name: Setup Dependencies
-    runs-on: runner_8cores_derivatives_trader
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      actions: write
-    environment: Preview
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup Node
-      uses: "./.github/actions/setup_node"
-    - name: Install dependencies
-      uses: "./.github/actions/npm_install_from_cache"
-
   build:
     name: Build Project
     runs-on: runner_8cores_derivatives_trader
-    needs: setup
     timeout-minutes: 15
     permissions:
       contents: read
@@ -44,7 +27,6 @@ jobs:
   validate:
     name: TypeScript & Linting
     runs-on: runner_8cores_derivatives_trader
-    needs: setup
     timeout-minutes: 10
     permissions:
       contents: read
@@ -84,7 +66,6 @@ jobs:
   test:
     name: Tests - ${{ matrix.description }}
     runs-on: runner_8cores_derivatives_trader
-    needs: setup
     timeout-minutes: 12
     permissions:
       contents: read
