@@ -17,14 +17,12 @@ import TogglePositions from './toggle-positions';
 
 type TTogglePositionsMobile = Pick<
     ReturnType<typeof useStore>['portfolio'],
-    'active_positions_count' | 'error' | 'onClickSell' | 'onClickCancel'
+    'active_positions_count' | 'error' | 'onClickSell' | 'onClickCancel' | 'removePositionById'
 > & {
     currency: ReturnType<typeof useStore>['client']['currency'];
     filtered_positions: ReturnType<typeof useStore>['portfolio']['all_positions'];
     is_empty: boolean;
 };
-
-type THiddenPositionsId = TTogglePositionsMobile['filtered_positions'][0]['id'];
 
 const TogglePositionsMobile = observer(
     ({
@@ -35,9 +33,9 @@ const TogglePositionsMobile = observer(
         is_empty,
         onClickSell,
         onClickCancel,
+        removePositionById: onClickRemove,
     }: TTogglePositionsMobile) => {
         const { togglePositionsDrawer, is_positions_drawer_on } = useStore().ui;
-        const [hidden_positions_ids, setHiddenPositionsIds] = React.useState<THiddenPositionsId[]>([]);
         const { isMobile, isTablet } = useDevice();
 
         const location = useLocation();
@@ -56,19 +54,26 @@ const TogglePositionsMobile = observer(
             !show_blocker_dtrader_mobile_landscape_view &&
             (is_hidden_landscape_blocker || should_show_dtrader_tablet_view);
 
-        const displayed_positions = filtered_positions
-            .filter(p =>
-                hidden_positions_ids.every(hidden_position_id => hidden_position_id !== p.contract_info.contract_id)
-            )
-            .slice(0, 5);
+        const displayed_positions = filtered_positions.slice(0, 5);
         const closed_positions_ids = displayed_positions
             .filter(position => position.contract_info?.is_sold)
             .map(p => p.contract_info.contract_id);
 
         const closeModal = () => {
-            setHiddenPositionsIds([...new Set([...hidden_positions_ids, ...closed_positions_ids])]);
             togglePositionsDrawer();
         };
+
+        // Automatically remove closed positions after 8 seconds
+        React.useEffect(() => {
+            closed_positions_ids.map(positionId => {
+                const timeout = setTimeout(() => {
+                    onClickRemove(positionId);
+                }, 8000);
+
+                return () => clearTimeout(timeout);
+            });
+        }, [closed_positions_ids, onClickRemove]);
+
         // Show only 5 most recent open contracts
         const body_content = (
             <React.Fragment>

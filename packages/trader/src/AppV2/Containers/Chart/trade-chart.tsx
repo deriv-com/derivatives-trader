@@ -1,10 +1,18 @@
 import React from 'react';
 
 import { ActiveSymbols, TickSpotData } from '@deriv/api-types';
-import { ChartBarrierStore, isAccumulatorContract } from '@deriv/shared';
+import {
+    ChartBarrierStore,
+    isAccumulatorContract,
+    isContractSupportedAndStarted,
+    isTurbosContract,
+    isVanillaContract,
+    TRADE_TYPES,
+} from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
 
+import { filterByContractType } from 'App/Components/Elements/PositionsDrawer/helpers';
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import useDefaultSymbol from 'AppV2/Hooks/useDefaultSymbol';
 import { SmartChart } from 'Modules/SmartChart';
@@ -52,7 +60,7 @@ const TradeChart = observer(() => {
         updateGranularity,
     } = contract_trade;
     const ref = React.useRef<{ hasPredictionIndicators(): void; triggerPopup(arg: () => void): void }>(null);
-    const { all_positions } = portfolio;
+    const { all_positions, removePositionById: onClickRemove } = portfolio;
     const { is_chart_countdown_visible, is_chart_layout_default, is_dark_mode_on, is_positions_drawer_on } = ui;
     const { current_language, is_socket_opened } = common;
     const { activeSymbols: active_symbols } = useActiveSymbols();
@@ -183,7 +191,40 @@ const TradeChart = observer(() => {
     // max ticks to display for mobile view for tick chart
     const max_ticks = granularity === 0 ? 8 : 24;
 
+    // Filter positions based on current symbol and contract type
+    const filtered_positions = all_positions.filter(
+        p =>
+            isContractSupportedAndStarted(symbol, p.contract_info) &&
+            (isTurbosContract(contract_type) || isVanillaContract(contract_type)
+                ? filterByContractType(
+                      p.contract_info,
+                      isTurbosContract(contract_type) ? TRADE_TYPES.TURBOS.SHORT : TRADE_TYPES.VANILLA.CALL
+                  ) ||
+                  filterByContractType(
+                      p.contract_info,
+                      isTurbosContract(contract_type) ? TRADE_TYPES.TURBOS.LONG : TRADE_TYPES.VANILLA.PUT
+                  )
+                : filterByContractType(p.contract_info, contract_type))
+    );
+
+    // Get IDs of closed positions to auto-remove
+    const closed_positions_ids =
+        filtered_positions &&
+        filtered_positions.filter(position => position.contract_info?.is_sold).map(p => p.contract_info.contract_id);
+
+    // Automatically remove closed positions after 8 seconds
+    React.useEffect(() => {
+        closed_positions_ids.map(positionId => {
+            const timeout = setTimeout(() => {
+                onClickRemove(positionId);
+            }, 8000);
+
+            return () => clearTimeout(timeout);
+        });
+    }, [closed_positions_ids, onClickRemove]);
+
     if (!symbol || !active_symbols.length || !chartData || !chartData.tradingTimes) return null;
+
     return (
         <SmartChart
             drawingToolFloatingMenuPosition={isMobile ? { x: 100, y: 100 } : { x: 200, y: 200 }}
