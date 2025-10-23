@@ -6,44 +6,11 @@ import { getSelectedRoute, trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
+import { isAllowedRedirectDomain } from '@deriv/utils';
 
 import { TRoute } from 'Types';
 
 import 'Sass/app/modules/reports.scss';
-
-// Whitelist of allowed domains for redirect
-const ALLOWED_DOMAINS = ['deriv.com', 'deriv.be', 'deriv.me'];
-
-// Pattern for preview deployment domains (e.g., branch-name.derivatives-bot.pages.dev)
-const PREVIEW_DOMAIN_PATTERN = /^[a-zA-Z0-9-]+\.derivatives-bot\.pages\.dev$/;
-
-/**
- * Validates if a URL belongs to an allowed domain
- * @param url - The URL to validate
- * @returns true if the URL is from an allowed domain, false otherwise
- */
-const isAllowedDomain = (url: string): boolean => {
-    try {
-        const urlObj = new URL(url.startsWith('http') ? url : `https://${url}`);
-
-        // Block URLs with user credentials (phishing protection)
-        if (urlObj.username || urlObj.password) {
-            return false;
-        }
-
-        const hostname = urlObj.hostname;
-
-        // Check against main domain whitelist
-        const isMainDomain = ALLOWED_DOMAINS.some(domain => hostname === domain || hostname.endsWith(`.${domain}`));
-
-        // Check against preview deployment pattern
-        const isPreviewDomain = PREVIEW_DOMAIN_PATTERN.test(hostname);
-
-        return isMainDomain || isPreviewDomain;
-    } catch {
-        return false;
-    }
-};
 
 type TReports = {
     history: RouteComponentProps['history'];
@@ -152,7 +119,7 @@ const Reports = observer(({ history, location, routes }: TReports) => {
                 }
 
                 // Validate domain whitelist (Open Redirect protection)
-                if (!isAllowedDomain(decodedUrl)) {
+                if (!isAllowedRedirectDomain(decodedUrl)) {
                     // eslint-disable-next-line no-console
                     console.error('Security: Blocked redirect to unauthorized domain');
                     routeBackInApp(history);
