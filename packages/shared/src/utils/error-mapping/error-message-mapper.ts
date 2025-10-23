@@ -24,31 +24,32 @@ export const mapErrorMessage = (error: ErrorObject): string => {
 
     // Map subcode to localized message with parameter substitution
     switch (error.subcode) {
-        case 'AccountBalanceExceedsLimit':
-            return localize(
-                'Sorry, your account cash balance is too high ({{param_1}}). Your maximum account balance is {{param_2}}.',
-                {
-                    param_1: params[0],
-                    param_2: params[1],
-                }
-            );
+        // Temporarily commented out - messages with dynamic parameters
+        // case 'AccountBalanceExceedsLimit':
+        //     return localize(
+        //         'Sorry, your account cash balance is too high ({{param_1}}). Your maximum account balance is {{param_2}}.',
+        //         {
+        //             param_1: params[0],
+        //             param_2: params[1],
+        //         }
+        //     );
         case 'AlreadyExpired':
             return localize('This contract has already expired.');
         case 'AuthorizationRequired':
             return localize('Please log in.');
         case 'BarrierNotAllowed':
             return localize('Barrier is not allowed for this contract type.');
-        case 'BarrierNotInRange':
-            return localize('Barrier is not an integer in range of {{param_1}} to {{param_2}}.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
+        // case 'BarrierNotInRange':
+        //     return localize('Barrier is not an integer in range of {{param_1}} to {{param_2}}.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
         case 'BarrierOutOfRange':
             return localize('Barrier is out of acceptable range.');
-        case 'BarrierValidationError':
-            return localize('Barrier can only be up to {{param_1}} decimal places.', {
-                param_1: params[0],
-            });
+        // case 'BarrierValidationError':
+        //     return localize('Barrier can only be up to {{param_1}} decimal places.', {
+        //         param_1: params[0],
+        //     });
         case 'BetExpired':
             return localize('The contract has expired.');
         case 'CancelIsBetter':
@@ -79,11 +80,11 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize('This contract has been sold.');
         case 'ContractAlreadyStarted':
             return localize('Start time is in the past.');
-        case 'ContractExpiryNotAllowed':
-            return localize('Contract may not expire between {{param_1}} and {{param_2}}.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
+        // case 'ContractExpiryNotAllowed':
+        //     return localize('Contract may not expire between {{param_1}} and {{param_2}}.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
         case 'ContractNotFound':
             return localize('This contract was not found among your open positions.');
         case 'ContractUpdateDisabled':
@@ -100,19 +101,19 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize('Intraday contracts may not cross market open.');
         case 'DailyProfitLimitExceeded':
             return localize('No further trading is allowed for the current trading session.');
-        case 'DailyTurnoverLimitExceeded':
-            return localize(
-                'Purchasing this contract will cause you to exceed your daily turnover limit of {{param_1}} {{param_2}}.',
-                {
-                    param_1: params[0],
-                    param_2: params[1],
-                }
-            );
-        case 'DealCancellationBlackout':
-            return localize('Deal cancellation is not available from {{param_1}} to {{param_2}}.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
+        // case 'DailyTurnoverLimitExceeded':
+        //     return localize(
+        //         'Purchasing this contract will cause you to exceed your daily turnover limit of {{param_1}} {{param_2}}.',
+        //         {
+        //             param_1: params[0],
+        //             param_2: params[1],
+        //         }
+        //     );
+        // case 'DealCancellationBlackout':
+        //     return localize('Deal cancellation is not available from {{param_1}} to {{param_2}}.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
         case 'DealCancellationExpired':
             return localize(
                 'Deal cancellation period has expired. Your contract can only be cancelled while deal cancellation is active.'
@@ -123,16 +124,16 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize(
                 'This contract does not include deal cancellation. Your contract can only be cancelled when you select deal cancellation in your purchase.'
             );
-        case 'DigitOutOfRange':
-            return localize('Digit must be in the range of {{param_1}} to {{param_2}}.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
-        case 'DuplicateExpiry':
-            return localize('Please enter only {{param_1}} or {{param_2}}.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
+        // case 'DigitOutOfRange':
+        //     return localize('Digit must be in the range of {{param_1}} to {{param_2}}.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
+        // case 'DuplicateExpiry':
+        //     return localize('Please enter only {{param_1}} or {{param_2}}.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
         case 'EitherStopLossOrCancel':
             return localize(
                 'You may use either stop loss or deal cancellation, but not both. Please select either one.'
@@ -147,23 +148,23 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize('Start time is in the future.');
         case 'GeneralError':
             return localize('A general error has occurred.');
-        case 'GrowthRateOutOfRange':
-            return localize('Growth rate is not in acceptable range. Accepts {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'IncorrectBarrierOffsetDecimals':
-            return localize('{{param_1}} barrier offset can not have more than {{param_2}} decimal places.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
-        case 'IncorrectPayoutDecimals':
-            return localize('Payout can not have more than {{param_1}} decimal places.', {
-                param_1: params[0],
-            });
-        case 'IncorrectStakeDecimals':
-            return localize('Stake can not have more than {{param_1}} decimal places.', {
-                param_1: params[0],
-            });
+        // case 'GrowthRateOutOfRange':
+        //     return localize('Growth rate is not in acceptable range. Accepts {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'IncorrectBarrierOffsetDecimals':
+        //     return localize('{{param_1}} barrier offset can not have more than {{param_2}} decimal places.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
+        // case 'IncorrectPayoutDecimals':
+        //     return localize('Payout can not have more than {{param_1}} decimal places.', {
+        //         param_1: params[0],
+        //     });
+        // case 'IncorrectStakeDecimals':
+        //     return localize('Stake can not have more than {{param_1}} decimal places.', {
+        //         param_1: params[0],
+        //     });
         case 'InsufficientBalance':
             return localize(
                 'You have insufficient funds in your account to purchase this contract. Please add funds to your account to continue trading.'
@@ -204,30 +205,30 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize('This market is currently closed.');
         case 'MarketNotOpen':
             return localize('Market is not open yet.');
-        case 'MaxContractDuration':
-            return localize('Maximum contract duration is {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'MaxPayout':
-            return localize('Maximum payout is {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'MaxStake':
-            return localize('Maximum stake is {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'MinContractDuration':
-            return localize('Minimum contract duration is {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'MinPayout':
-            return localize('Minimum payout is {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'MinStake':
-            return localize('Minimum stake is {{param_1}}.', {
-                param_1: params[0],
-            });
+        // case 'MaxContractDuration':
+        //     return localize('Maximum contract duration is {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'MaxPayout':
+        //     return localize('Maximum payout is {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'MaxStake':
+        //     return localize('Maximum stake is {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'MinContractDuration':
+        //     return localize('Minimum contract duration is {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'MinPayout':
+        //     return localize('Minimum payout is {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'MinStake':
+        //     return localize('Minimum stake is {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
         case 'MultiplierNotAllowed':
             return localize('Multiplier is not allowed for this contract type.');
         case 'NoOpenPosition':
@@ -236,11 +237,11 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize('You are not authorized to perform this action.');
         case 'OptionNotAvailable':
             return localize('This option is not available.');
-        case 'PayoutNotInRange':
-            return localize('Payout must be between {{param_1}} and {{param_2}}.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
+        // case 'PayoutNotInRange':
+        //     return localize('Payout must be between {{param_1}} and {{param_2}}.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
         case 'PleaseAuthenticate':
             return localize('Please authenticate your account to continue trading.');
         case 'ProfitTableEmpty':
@@ -261,33 +262,33 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize('Service is temporarily unavailable. Please try again later.');
         case 'SessionExpired':
             return localize('Your session has expired. Please log in again.');
-        case 'StakeNotInRange':
-            return localize('Stake must be between {{param_1}} and {{param_2}}.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
+        // case 'StakeNotInRange':
+        //     return localize('Stake must be between {{param_1}} and {{param_2}}.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
         case 'StopLossNotAllowed':
             return localize('Stop loss is not allowed for this contract type.');
-        case 'StopLossTooHigh':
-            return localize('Stop loss must be less than {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'StopLossTooLow':
-            return localize('Stop loss must be more than {{param_1}}.', {
-                param_1: params[0],
-            });
+        // case 'StopLossTooHigh':
+        //     return localize('Stop loss must be less than {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'StopLossTooLow':
+        //     return localize('Stop loss must be more than {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
         case 'SymbolNotActive':
             return localize('This symbol is not active.');
         case 'TakeProfitNotAllowed':
             return localize('Take profit is not allowed for this contract type.');
-        case 'TakeProfitTooHigh':
-            return localize('Take profit must be less than {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'TakeProfitTooLow':
-            return localize('Take profit must be more than {{param_1}}.', {
-                param_1: params[0],
-            });
+        // case 'TakeProfitTooHigh':
+        //     return localize('Take profit must be less than {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'TakeProfitTooLow':
+        //     return localize('Take profit must be more than {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
         case 'TradingDisabled':
             return localize('Trading is disabled for your account.');
         case 'TradingHalted':
@@ -326,14 +327,14 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize('Currency mismatch. Please check your account currency.');
         case 'DuplicateContract':
             return localize('You already have an identical contract.');
-        case 'DurationTooLong':
-            return localize('Duration is too long. Maximum duration is {{param_1}}.', {
-                param_1: params[0],
-            });
-        case 'DurationTooShort':
-            return localize('Duration is too short. Minimum duration is {{param_1}}.', {
-                param_1: params[0],
-            });
+        // case 'DurationTooLong':
+        //     return localize('Duration is too long. Maximum duration is {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
+        // case 'DurationTooShort':
+        //     return localize('Duration is too short. Minimum duration is {{param_1}}.', {
+        //         param_1: params[0],
+        //     });
         case 'ExpiryInPast':
             return localize('Expiry time is in the past.');
         case 'FeatureNotAvailable':
@@ -374,11 +375,11 @@ export const mapErrorMessage = (error: ErrorObject): string => {
             return localize('Maximum position size exceeded.');
         case 'MinimumNotMet':
             return localize('Minimum requirement not met.');
-        case 'MultiplierOutOfRange':
-            return localize('Multiplier must be between {{param_1}} and {{param_2}}.', {
-                param_1: params[0],
-                param_2: params[1],
-            });
+        // case 'MultiplierOutOfRange':
+        //     return localize('Multiplier must be between {{param_1}} and {{param_2}}.', {
+        //         param_1: params[0],
+        //         param_2: params[1],
+        //     });
         case 'NetworkError':
             return localize('Network error. Please check your connection.');
         case 'NoActiveAccount':
