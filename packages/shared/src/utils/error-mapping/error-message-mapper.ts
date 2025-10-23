@@ -25,6 +25,7 @@ export const mapErrorMessage = (error: ErrorObject): string => {
     // Map subcode to localized message with parameter substitution
     switch (error.subcode) {
         // Temporarily commented out - messages with dynamic parameters
+        // TODO: uncomment and test these cases when needed
         // case 'AccountBalanceExceedsLimit':
         //     return localize(
         //         'Sorry, your account cash balance is too high ({{param_1}}). Your maximum account balance is {{param_2}}.',
