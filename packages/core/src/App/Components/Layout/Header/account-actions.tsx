@@ -25,7 +25,22 @@ const AccountInfo = React.lazy(
 
 const LogoutButton = ({ onClickLogout }: { onClickLogout: () => void }) => {
     const { localize } = useTranslations();
-    return <Button className='acc-info__button' has_effect text={localize('Log out')} onClick={onClickLogout} />;
+    const { isDesktop } = useDevice();
+
+    const handleLogoutClick = () => {
+        // Check if we're in a mobile environment with Flutter channel available
+        if (!isDesktop && window.DerivAppChannel) {
+            // Use Flutter channel postMessage for mobile "Back to app"
+            window.DerivAppChannel.postMessage(JSON.stringify({ event: 'trading:back' }));
+        } else {
+            // Fallback to default logout behavior for desktop or when Flutter channel is not available
+            onClickLogout();
+        }
+    };
+
+    const buttonText = !isDesktop && window.DerivAppChannel ? localize('Back to app') : localize('Log out');
+
+    return <Button className='acc-info__button' has_effect text={buttonText} onClick={handleLogoutClick} />;
 };
 
 const LoggedOutView = () => (

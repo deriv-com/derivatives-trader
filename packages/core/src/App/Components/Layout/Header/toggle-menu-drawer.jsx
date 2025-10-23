@@ -17,6 +17,7 @@ import {
 import { routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
+import { useDevice } from '@deriv-com/ui';
 
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of LiveChat functionality
 import LiveChat from 'App/Components/Elements/LiveChat';
@@ -31,6 +32,7 @@ import MenuLink from './menu-link';
 
 const ToggleMenuDrawer = observer(() => {
     const { localize } = useTranslations();
+    const { isDesktop } = useDevice();
     const { ui, client, traders_hub } = useStore();
     const {
         disableApp,
@@ -83,8 +85,15 @@ const ToggleMenuDrawer = observer(() => {
     // Simple logout handler that closes drawer and calls logout
     const handleLogout = React.useCallback(async () => {
         toggleDrawer();
-        await logoutClient();
-    }, [logoutClient, toggleDrawer]);
+        // Check if we're in a mobile environment with Flutter channel available
+        if (!isDesktop && window.DerivAppChannel) {
+            // Use Flutter channel postMessage for mobile "Back to app"
+            window.DerivAppChannel.postMessage(JSON.stringify({ event: 'trading:back' }));
+        } else {
+            // Fallback to default logout behavior for desktop or when Flutter channel is not available
+            await logoutClient();
+        }
+    }, [logoutClient, toggleDrawer, isDesktop]);
 
     const renderSubMenuFromConfig = routePath => {
         const routes_config = getRoutesConfig();
@@ -238,7 +247,10 @@ const ToggleMenuDrawer = observer(() => {
                                 )}
                                 {is_logged_in && (
                                     <MobileDrawer.Item onClick={handleLogout}>
-                                        <MenuLink icon={<LegacyLogout1pxIcon />} text={localize('Log out')} />
+                                        <MenuLink 
+                                            icon={<LegacyLogout1pxIcon />} 
+                                            text={!isDesktop && window.DerivAppChannel ? localize('Back to app') : localize('Log out')} 
+                                        />
                                     </MobileDrawer.Item>
                                 )}
                             </MobileDrawer.Body>

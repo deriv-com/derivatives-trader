@@ -5,6 +5,9 @@ declare global {
         Analytics: any;
         dataLayer: object[];
         DD_RUM: object | undefined;
+        DerivAppChannel?: {
+            postMessage: (message: string) => void;
+        };
         DerivInterCom: {
             initialize: (config: IntercomConfig) => void;
         };

@@ -2,11 +2,21 @@ import React from 'react';
 
 import { BrandDerivLogoCoralIcon } from '@deriv/quill-icons';
 import { getBrandHomeUrl } from '@deriv/shared';
+import { useDevice } from '@deriv-com/ui';
 
 const BrandShortLogo = () => {
+    const { isDesktop } = useDevice();
+
     const handleLogoClick = () => {
-        const brandUrl = getBrandHomeUrl();
-        window.location.href = brandUrl;
+        // Check if we're in a mobile environment with Flutter channel available
+        if (!isDesktop && window.DerivAppChannel) {
+            // Use Flutter channel postMessage for mobile
+            window.DerivAppChannel.postMessage(JSON.stringify({ event: 'trading:home' }));
+        } else {
+            // Fallback to default behavior for desktop or when Flutter channel is not available
+            const brandUrl = getBrandHomeUrl();
+            window.location.href = brandUrl;
+        }
     };
 
     return (
