@@ -3,9 +3,9 @@ import type { ErrorObject } from './types';
 
 /**
  * Maps error subcodes to user-friendly, localized error messages
- * Parameters from errorcode_arr_js are passed directly to localize() as object literals
+ * Parameters from code_args are passed directly to localize() as object literals
  *
- * @param error - Error object that may contain subcode, message, and errorcode_arr_js
+ * @param error - Error object that may contain subcode, message, and code_args
  * @returns Localized error message with parameters substituted
  */
 export const mapErrorMessage = (error: ErrorObject): string => {
@@ -19,8 +19,8 @@ export const mapErrorMessage = (error: ErrorObject): string => {
         return error.message || localize('An error occurred. Please try again later.');
     }
 
-    // Get parameters from errorcode_arr_js array
-    const params = error.errorcode_arr_js || [];
+    // Get parameters from code_args array
+    const params = error.code_args || [];
 
     // Map subcode to localized message with parameter substitution
     switch (error.subcode) {

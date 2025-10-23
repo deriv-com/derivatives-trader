@@ -54,7 +54,7 @@ describe('mapErrorMessage', () => {
         const error = {
             message: 'Backend error message',
             subcode: 'AccountBalanceExceedsLimit',
-            errorcode_arr_js: ['1000', '5000'],
+            code_args: ['1000', '5000'],
         };
         const result = mapErrorMessage(error);
         expect(result).toBe(
@@ -70,7 +70,7 @@ describe('mapErrorMessage', () => {
         const error = {
             message: 'Backend error message',
             subcode: 'BarrierNotInRange',
-            errorcode_arr_js: ['100', '150'],
+            code_args: ['100', '150'],
         };
         const result = mapErrorMessage(error);
         expect(result).toBe('Barrier is not an integer in range of 100 to 150.');
@@ -80,17 +80,17 @@ describe('mapErrorMessage', () => {
         });
     });
 
-    it('should handle error message with no parameters when errorcode_arr_js is empty', () => {
+    it('should handle error message with no parameters when code_args is empty', () => {
         const error = {
             message: 'Backend error message',
             subcode: 'AlreadyExpired',
-            errorcode_arr_js: [],
+            code_args: [],
         };
         const result = mapErrorMessage(error);
         expect(result).toBe('This contract has already expired.');
     });
 
-    it.skip('should handle error message with parameters when errorcode_arr_js is undefined', () => {
+    it.skip('should handle error message with parameters when code_args is undefined', () => {
         const error = {
             message: 'Backend error message',
             subcode: 'AccountBalanceExceedsLimit',
@@ -106,7 +106,7 @@ describe('mapErrorMessage', () => {
         const error = {
             message: 'Backend error message',
             subcode: 'DailyTurnoverLimitExceeded',
-            errorcode_arr_js: ['500', 'USD'],
+            code_args: ['500', 'USD'],
         };
         const result = mapErrorMessage(error);
         expect(result).toContain('500');
@@ -140,7 +140,7 @@ describe('mapErrorMessage', () => {
         const error = {
             message: 'Backend error message',
             subcode: 'BarrierNotInRange',
-            errorcode_arr_js: ['AAA', 'BBB'],
+            code_args: ['AAA', 'BBB'],
         };
         const result = mapErrorMessage(error);
         expect(result.indexOf('AAA')).toBeLessThan(result.indexOf('BBB'));

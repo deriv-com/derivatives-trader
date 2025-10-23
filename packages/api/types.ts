@@ -450,7 +450,7 @@ export type TSocketError<T extends TSocketEndpointNames> = {
             field?: string;
             [key: string]: unknown;
         };
-        errorcode_arr_js?: string[];
+        code_args?: string[];
     };
     /**
      * Action name of the request made.

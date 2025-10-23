@@ -397,7 +397,7 @@ export type TSocketError<T extends TSocketEndpointNames> = {
         code: string;
         message: string;
         subcode?: string;
-        errorcode_arr_js?: string[];
+        code_args?: string[];
     };
     /**
      * Action name of the request made.

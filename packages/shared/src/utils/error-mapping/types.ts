@@ -9,7 +9,7 @@ export interface ErrorObject {
         field?: string;
         [key: string]: unknown;
     };
-    errorcode_arr_js?: string[];
+    code_args?: string[];
 }
 
 /**
