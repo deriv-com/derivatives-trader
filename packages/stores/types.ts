@@ -263,7 +263,9 @@ type TCommonStoreError = {
 export type TCommonStoreServicesError = {
     code?: string;
     message?: string;
+    subcode?: string;
     type?: string;
+    code_args?: string[];
 };
 
 type TCommonStore = {

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button, Modal } from '@deriv/components';
+import { mapErrorMessage } from '@deriv/shared';
 import { useTranslations } from '@deriv-com/translations';
 
 import AccountVerificationRequiredModal from './account-verification-required-modal';
@@ -12,6 +13,7 @@ import InsufficientBalanceModal from './insufficient-balance-modal';
 type TServicesError = {
     code?: string;
     message?: string;
+    subcode?: string;
     type?: string;
 };
 
@@ -30,10 +32,13 @@ const ServicesErrorModal = ({
     onConfirm,
     services_error,
 }: TPropServicesErrorModel) => {
-    const { code, message, type } = services_error;
+    const { code, type } = services_error;
     const { localize } = useTranslations();
 
-    if (!code || !message) return <React.Fragment />;
+    // Get mapped error message
+    const mappedMessage = mapErrorMessage(services_error);
+
+    if (!code || !mappedMessage) return <React.Fragment />;
     switch (code) {
         case 'AuthorizationRequired':
             return (
@@ -48,7 +53,7 @@ const ServicesErrorModal = ({
                 <InsufficientBalanceModal
                     is_virtual={is_virtual}
                     is_visible={is_visible}
-                    message={message}
+                    message={mappedMessage}
                     toggleModal={onConfirm}
                 />
             );
@@ -59,7 +64,7 @@ const ServicesErrorModal = ({
         default:
             return (
                 <Modal is_open={is_visible} small title={getTitle(type)} toggleModal={onConfirm}>
-                    <Modal.Body>{message}</Modal.Body>
+                    <Modal.Body>{mappedMessage}</Modal.Body>
                     <Modal.Footer>
                         <Button has_effect text={localize('OK')} onClick={onConfirm} primary />
                     </Modal.Footer>

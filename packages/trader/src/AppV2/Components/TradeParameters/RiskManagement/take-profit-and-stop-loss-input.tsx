@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
-import { getCurrencyDisplayCode, getDecimalPlaces } from '@deriv/shared';
+import { getCurrencyDisplayCode, getDecimalPlaces, mapErrorMessage } from '@deriv/shared';
 import { ActionSheet, CaptionText, Text, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
 import { Localize, useTranslations } from '@deriv-com/translations';
 
@@ -164,7 +164,7 @@ const TakeProfitAndStopLossInput = ({
         const onProposalResponse: TOnProposalResponse = response => {
             const { error, proposal } = response;
 
-            const new_error = error?.message ?? '';
+            const new_error = error ? mapErrorMessage(error) : '';
             const is_error_field_match = error?.details?.field === type || !error?.details?.field;
             setErrorText(is_error_field_match ? new_error : '');
             updateParentRef({
