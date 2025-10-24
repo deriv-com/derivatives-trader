@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getBrandHomeUrl } from '@deriv/shared';
 
-import { BrandDerivLogoCoralIcon } from 'Assets/svgs/trading-platform';
+import { BrandDerivLogoCoralIcon } from '@deriv/quill-icons';
 import { useMobileBridge } from 'App/Hooks/useMobileBridge';
 
 const BrandShortLogo = () => {

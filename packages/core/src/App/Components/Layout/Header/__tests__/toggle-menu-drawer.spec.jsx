@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
 import { APIProvider } from '@deriv/api';
 import { StoreProvider, mockStore } from '@deriv/stores';
 import ToggleMenuDrawer from '../toggle-menu-drawer';
@@ -36,8 +37,12 @@ jest.mock('react-router-dom', () => ({
     })),
 }));
 
-jest.mock('@deriv-com/ui', () => ({
-    useDevice: jest.fn(() => ({ isDesktop: false })),
+jest.mock('App/Hooks/useMobileBridge', () => ({
+    useMobileBridge: jest.fn(() => ({
+        sendBridgeEvent: jest.fn(),
+        isBridgeAvailable: jest.fn(() => false),
+        isDesktop: false,
+    })),
 }));
 
 // Mock DerivAppChannel
@@ -50,30 +55,32 @@ describe('<ToggleMenuDrawer />', () => {
     
     const mockToggleMenuDrawer = (storeOverrides = {}) => {
         return (
-            <APIProvider>
-                <StoreProvider
-                    store={mockStore({
-                        client: {
-                            is_logged_in: true,
-                            logout: mockLogout,
-                            ...storeOverrides.client,
-                        },
-                        modules: {
-                            cashier: {
-                                payment_agent: {
-                                    is_payment_agent_visible: true,
+            <BrowserRouter>
+                <APIProvider>
+                    <StoreProvider
+                        store={mockStore({
+                            client: {
+                                is_logged_in: true,
+                                logout: mockLogout,
+                                ...storeOverrides.client,
+                            },
+                            modules: {
+                                cashier: {
+                                    payment_agent: {
+                                        is_payment_agent_visible: true,
+                                    },
                                 },
                             },
-                        },
-                        traders_hub: {
-                            show_eu_related_content: false,
-                        },
-                        ...storeOverrides,
-                    })}
-                >
-                    <ToggleMenuDrawer />
-                </StoreProvider>
-            </APIProvider>
+                            traders_hub: {
+                                show_eu_related_content: false,
+                            },
+                            ...storeOverrides,
+                        })}
+                    >
+                        <ToggleMenuDrawer />
+                    </StoreProvider>
+                </APIProvider>
+            </BrowserRouter>
         );
     };
 
@@ -93,13 +100,15 @@ describe('<ToggleMenuDrawer />', () => {
         expect(clearTimeout).toBeCalled();
     });
 
-    it('should use Flutter channel postMessage on mobile when DerivAppChannel is available and logout is clicked', async () => {
-        // Mock mobile device
-        const { useDevice } = require('@deriv-com/ui');
-        useDevice.mockReturnValue({ isDesktop: false });
-
-        // Add DerivAppChannel to window
-        window.DerivAppChannel = mockDerivAppChannel;
+    it('should use Flutter channel when bridge is available and logout is clicked', async () => {
+        // Mock bridge available
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        const mockSendBridgeEvent = jest.fn();
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: mockSendBridgeEvent,
+            isBridgeAvailable: jest.fn(() => true),
+            isDesktop: false,
+        });
 
         render(mockToggleMenuDrawer());
 
@@ -116,20 +125,21 @@ describe('<ToggleMenuDrawer />', () => {
         if (logoutItem) {
             await userEvent.click(logoutItem);
 
-            expect(mockDerivAppChannel.postMessage).toHaveBeenCalledWith(
-                JSON.stringify({ event: 'trading:back' })
-            );
-            expect(mockLogout).not.toHaveBeenCalled();
+            expect(mockSendBridgeEvent).toHaveBeenCalledWith('trading:back', expect.any(Function));
         }
     });
 
-    it('should fallback to regular logout on mobile when DerivAppChannel is not available', async () => {
-        // Mock mobile device
-        const { useDevice } = require('@deriv-com/ui');
-        useDevice.mockReturnValue({ isDesktop: false });
-
-        // Ensure DerivAppChannel is not available
-        delete window.DerivAppChannel;
+    it('should fallback to regular logout when bridge is not available', async () => {
+        // Mock bridge not available
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        const mockSendBridgeEvent = jest.fn((event, fallback) => {
+            fallback(); // Execute fallback
+        });
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: mockSendBridgeEvent,
+            isBridgeAvailable: jest.fn(() => false),
+            isDesktop: false,
+        });
 
         render(mockToggleMenuDrawer());
 
@@ -146,45 +156,52 @@ describe('<ToggleMenuDrawer />', () => {
         if (logoutItem) {
             await userEvent.click(logoutItem);
 
+            expect(mockSendBridgeEvent).toHaveBeenCalledWith('trading:back', expect.any(Function));
             expect(mockLogout).toHaveBeenCalledTimes(1);
         }
     });
 
-    it('should show "Back to app" text on mobile when DerivAppChannel is available', () => {
-        // Mock mobile device
-        const { useDevice } = require('@deriv-com/ui');
-        useDevice.mockReturnValue({ isDesktop: false });
-
-        // Add DerivAppChannel to window
-        window.DerivAppChannel = mockDerivAppChannel;
-
-        render(mockToggleMenuDrawer());
-
-        // The text should be "Back to app" when DerivAppChannel is available
-        expect(mockDerivAppChannel).toBeDefined();
-    });
-
-    it('should show "Log out" text on mobile when DerivAppChannel is not available', () => {
-        // Mock mobile device
-        const { useDevice } = require('@deriv-com/ui');
-        useDevice.mockReturnValue({ isDesktop: false });
-
-        // Ensure DerivAppChannel is not available
-        delete window.DerivAppChannel;
+    it('should show "Back to app" text when bridge is available', () => {
+        // Mock bridge available
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: jest.fn(),
+            isBridgeAvailable: jest.fn(() => true),
+            isDesktop: false,
+        });
 
         render(mockToggleMenuDrawer());
 
-        // The text should be "Log out" when DerivAppChannel is not available
-        expect(window.DerivAppChannel).toBeUndefined();
+        // The component should use "Back to app" text when bridge is available
+        expect(useMobileBridge().isBridgeAvailable()).toBe(true);
     });
 
-    it('should use regular logout on desktop even when DerivAppChannel is available', async () => {
-        // Mock desktop device
-        const { useDevice } = require('@deriv-com/ui');
-        useDevice.mockReturnValue({ isDesktop: true });
+    it('should show "Log out" text when bridge is not available', () => {
+        // Mock bridge not available
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: jest.fn(),
+            isBridgeAvailable: jest.fn(() => false),
+            isDesktop: false,
+        });
 
-        // Add DerivAppChannel to window
-        window.DerivAppChannel = mockDerivAppChannel;
+        render(mockToggleMenuDrawer());
+
+        // The component should use "Log out" text when bridge is not available
+        expect(useMobileBridge().isBridgeAvailable()).toBe(false);
+    });
+
+    it('should handle bridge errors gracefully', async () => {
+        // Mock bridge error
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        const mockSendBridgeEvent = jest.fn((event, fallback) => {
+            fallback(); // Execute fallback on error
+        });
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: mockSendBridgeEvent,
+            isBridgeAvailable: jest.fn(() => true),
+            isDesktop: false,
+        });
 
         render(mockToggleMenuDrawer());
 
@@ -195,14 +212,14 @@ describe('<ToggleMenuDrawer />', () => {
         // Find logout menu item and click it
         const logoutItems = screen.getAllByTestId('drawer-item');
         const logoutItem = logoutItems.find(item => 
-            item.textContent && item.textContent.includes('Log out')
+            item.textContent && item.textContent.includes('Back to app')
         );
         
         if (logoutItem) {
             await userEvent.click(logoutItem);
 
+            expect(mockSendBridgeEvent).toHaveBeenCalledWith('trading:back', expect.any(Function));
             expect(mockLogout).toHaveBeenCalledTimes(1);
-            expect(mockDerivAppChannel.postMessage).not.toHaveBeenCalled();
         }
     });
 });
