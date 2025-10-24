@@ -44,9 +44,5 @@ cline_instructions.md
 .claude-instructions.md
 
 # AI Tool Configuration Files
-.cursorrules
-.clinerules
 .roo-config.json
-.chatgpt-instructions.md
-.claude-instructions.md
 .ai-rules.md
