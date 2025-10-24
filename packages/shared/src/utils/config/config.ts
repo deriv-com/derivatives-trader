@@ -7,15 +7,15 @@
  *
  */
 
-import { getProductionPlatformHostname, getStagingPlatformHostname, getWebSocketURL } from '../brand';
+import { getProductionPlatformHostname, getStagingPlatformHostname } from '../brand';
 
 export const isProduction = () => {
     const productionHostname = getProductionPlatformHostname();
     const stagingHostname = getStagingPlatformHostname();
 
     // Create regex patterns for both production and staging domains (with optional www prefix)
-    const productionPattern = `(www\\.)?${productionHostname.replaceAll('.', '\\.')}`;
-    const stagingPattern = `(www\\.)?${stagingHostname.replaceAll('.', '\\.')}`;
+    const productionPattern = `(www\\.)?${productionHostname.replace('.', '\\.')}`;
+    const stagingPattern = `(www\\.)?${stagingHostname.replace('.', '\\.')}`;
 
     // Check if current hostname matches any of the supported domains
     const supportedDomainsRegex = new RegExp(`^(${productionPattern}|${stagingPattern})$`, 'i');
@@ -27,9 +27,9 @@ export const isProduction = () => {
 
 /**
  * Gets account_type with priority: URL parameter > localStorage > default 'demo'
- * @returns 'real' or 'demo'
+ * @returns {string} 'real', 'demo', or 'demo' as default
  */
-export const getAccountType = (): 'real' | 'demo' => {
+export const getAccountType = (): string => {
     const search = window.location.search;
     const search_params = new URLSearchParams(search);
     const accountTypeFromUrl = search_params.get('account_type');
@@ -60,20 +60,13 @@ export const getAccountType = (): 'real' | 'demo' => {
 
 export const getSocketURL = () => {
     const local_storage_server_url = window.localStorage.getItem('config.server_url');
-    if (local_storage_server_url) {
-        // Validate it's a reasonable hostname (not a full URL, no protocol)
-        if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(local_storage_server_url)) {
-            return local_storage_server_url;
-        }
-        // Clear invalid value
-        window.localStorage.removeItem('config.server_url');
-    }
+    if (local_storage_server_url) return local_storage_server_url;
 
     // Get account type
     const accountType = getAccountType();
 
-    // Get WebSocket URL from brand config based on environment and account type
-    const server_url = getWebSocketURL(isProduction(), accountType);
+    // Map account type to new v2 endpoints
+    const server_url = accountType === 'real' ? 'realv2.derivws.com' : 'demov2.derivws.com';
 
     return server_url;
 };

@@ -103,15 +103,3 @@ export const getDomainName = () => {
 
     return '';
 };
-
-/**
- * Gets the WebSocket URL based on environment and account type
- * @param isProductionEnv - Whether the current environment is production
- * @param accountType - 'real' or 'demo'
- * @returns WebSocket server URL
- */
-export const getWebSocketURL = (isProductionEnv: boolean, accountType: 'real' | 'demo'): string => {
-    return isProductionEnv
-        ? config_data.platform.websocket.production[accountType]
-        : config_data.platform.websocket.staging[accountType];
-};
