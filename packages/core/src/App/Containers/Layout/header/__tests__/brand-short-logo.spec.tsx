@@ -44,12 +44,24 @@ describe('BrandShortLogo', () => {
     });
 
     it('should redirect to brand URL when logo is clicked on desktop', async () => {
+        // Mock desktop behavior - should execute fallback
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        const mockSendBridgeEvent = jest.fn((event, fallback) => {
+            fallback(); // Execute fallback for desktop
+        });
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: mockSendBridgeEvent,
+            isBridgeAvailable: jest.fn(() => false),
+            isDesktop: true,
+        });
+
         render(<BrandShortLogo />);
 
         const clickableDiv = screen.getByTestId('brand-logo-clickable');
 
         await userEvent.click(clickableDiv);
 
+        expect(mockSendBridgeEvent).toHaveBeenCalledWith('trading:home', expect.any(Function));
         expect(getBrandHomeUrl).toHaveBeenCalled();
         expect(mockLocation.href).toBe('https://home.deriv.com/dashboard/home');
     });
@@ -57,12 +69,24 @@ describe('BrandShortLogo', () => {
     it('should handle different brand URLs correctly', async () => {
         (getBrandHomeUrl as jest.Mock).mockReturnValue('https://staging-home.deriv.com/dashboard/home');
 
+        // Mock desktop behavior - should execute fallback
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        const mockSendBridgeEvent = jest.fn((event, fallback) => {
+            fallback(); // Execute fallback for desktop
+        });
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: mockSendBridgeEvent,
+            isBridgeAvailable: jest.fn(() => false),
+            isDesktop: true,
+        });
+
         render(<BrandShortLogo />);
 
         const clickableDiv = screen.getByTestId('brand-logo-clickable');
 
         await userEvent.click(clickableDiv);
 
+        expect(mockSendBridgeEvent).toHaveBeenCalledWith('trading:home', expect.any(Function));
         expect(mockLocation.href).toBe('https://staging-home.deriv.com/dashboard/home');
     });
 
