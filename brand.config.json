@@ -12,6 +12,16 @@
         "hostname": {
             "staging": "staging-dtrader.deriv.com",
             "production": "dtrader.deriv.com"
+        },
+        "websocket": {
+            "staging": {
+                "real": "qa197.deriv.dev",
+                "demo": "qa194.deriv.dev"
+            },
+            "production": {
+                "real": "realv2.derivws.com",
+                "demo": "demov2.derivws.com"
+            }
         }
     },
     "colors": {
