@@ -51,6 +51,7 @@ const default_mocked_props: React.ComponentProps<typeof TogglePositionsMobile> =
     is_empty: true,
     onClickSell: jest.fn(),
     onClickCancel: jest.fn(),
+    removePositionById: jest.fn(),
 };
 
 const default_mock_store = {
@@ -142,6 +143,7 @@ describe('TogglePositionsMobile component', () => {
             is_empty: false,
             onClickSell: jest.fn(),
             onClickCancel: jest.fn(),
+            removePositionById: jest.fn(),
         };
         const mock_root_store = mockStore({
             ...default_mock_store,
@@ -193,6 +195,7 @@ describe('TogglePositionsMobile component', () => {
             is_empty: false,
             onClickSell: jest.fn(),
             onClickCancel: jest.fn(),
+            removePositionById: jest.fn(),
         };
         const mock_root_store = mockStore({
             ...default_mock_store,
