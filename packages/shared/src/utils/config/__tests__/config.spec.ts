@@ -72,6 +72,11 @@ describe('getAccountType', () => {
 
         expect(result).toBe('demo');
         expect(window.localStorage.getItem('account_type')).toBe('demo');
+        expect(window.history.replaceState).toHaveBeenCalledWith(
+            {},
+            document.title,
+            'https://staging-dtrader.deriv.com/'
+        );
     });
 
     it('should return "real" from URL parameter and store it in localStorage', () => {
@@ -84,6 +89,11 @@ describe('getAccountType', () => {
 
         expect(result).toBe('real');
         expect(window.localStorage.getItem('account_type')).toBe('real');
+        expect(window.history.replaceState).toHaveBeenCalledWith(
+            {},
+            document.title,
+            'https://staging-dtrader.deriv.com/'
+        );
     });
 
     it('should return value from localStorage when URL parameter is missing', () => {
