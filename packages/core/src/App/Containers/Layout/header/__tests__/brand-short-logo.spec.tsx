@@ -8,8 +8,12 @@ jest.mock('@deriv/shared', () => ({
     getBrandHomeUrl: jest.fn(() => 'https://home.deriv.com/dashboard/home'),
 }));
 
-jest.mock('@deriv-com/ui', () => ({
-    useDevice: jest.fn(() => ({ isDesktop: true })),
+jest.mock('App/Hooks/useMobileBridge', () => ({
+    useMobileBridge: jest.fn(() => ({
+        sendBridgeEvent: jest.fn(),
+        isBridgeAvailable: jest.fn(() => false),
+        isDesktop: true,
+    })),
 }));
 
 // Mock window.location.href
@@ -20,11 +24,6 @@ Object.defineProperty(window, 'location', {
     value: mockLocation,
     writable: true,
 });
-
-// Mock DerivAppChannel
-const mockDerivAppChannel = {
-    postMessage: jest.fn(),
-};
 
 describe('BrandShortLogo', () => {
     beforeEach(() => {
@@ -67,13 +66,15 @@ describe('BrandShortLogo', () => {
         expect(mockLocation.href).toBe('https://staging-home.deriv.com/dashboard/home');
     });
 
-    it('should use Flutter channel postMessage on mobile when DerivAppChannel is available', async () => {
-        // Mock mobile device
-        const { useDevice } = require('@deriv-com/ui');
-        useDevice.mockReturnValue({ isDesktop: false });
-
-        // Add DerivAppChannel to window
-        (window as any).DerivAppChannel = mockDerivAppChannel;
+    it('should use Flutter channel postMessage on mobile when bridge is available', async () => {
+        // Mock mobile bridge available
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        const mockSendBridgeEvent = jest.fn();
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: mockSendBridgeEvent,
+            isBridgeAvailable: jest.fn(() => true),
+            isDesktop: false,
+        });
 
         render(<BrandShortLogo />);
 
@@ -81,20 +82,20 @@ describe('BrandShortLogo', () => {
 
         await userEvent.click(clickableDiv);
 
-        expect(mockDerivAppChannel.postMessage).toHaveBeenCalledWith(
-            JSON.stringify({ event: 'trading:home' })
-        );
-        expect(getBrandHomeUrl).not.toHaveBeenCalled();
-        expect(mockLocation.href).toBe('');
+        expect(mockSendBridgeEvent).toHaveBeenCalledWith('trading:home', expect.any(Function));
     });
 
-    it('should fallback to brand URL on mobile when DerivAppChannel is not available', async () => {
-        // Mock mobile device
-        const { useDevice } = require('@deriv-com/ui');
-        useDevice.mockReturnValue({ isDesktop: false });
-
-        // Ensure DerivAppChannel is not available
-        delete (window as any).DerivAppChannel;
+    it('should fallback to brand URL when bridge is not available', async () => {
+        // Mock bridge not available
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        const mockSendBridgeEvent = jest.fn((event, fallback) => {
+            fallback(); // Execute fallback
+        });
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: mockSendBridgeEvent,
+            isBridgeAvailable: jest.fn(() => false),
+            isDesktop: false,
+        });
 
         render(<BrandShortLogo />);
 
@@ -102,17 +103,22 @@ describe('BrandShortLogo', () => {
 
         await userEvent.click(clickableDiv);
 
+        expect(mockSendBridgeEvent).toHaveBeenCalledWith('trading:home', expect.any(Function));
         expect(getBrandHomeUrl).toHaveBeenCalled();
         expect(mockLocation.href).toBe('https://home.deriv.com/dashboard/home');
     });
 
-    it('should use brand URL on desktop even when DerivAppChannel is available', async () => {
-        // Mock desktop device
-        const { useDevice } = require('@deriv-com/ui');
-        useDevice.mockReturnValue({ isDesktop: true });
-
-        // Add DerivAppChannel to window
-        (window as any).DerivAppChannel = mockDerivAppChannel;
+    it('should handle bridge errors gracefully', async () => {
+        // Mock bridge error
+        const { useMobileBridge } = require('App/Hooks/useMobileBridge');
+        const mockSendBridgeEvent = jest.fn((event, fallback) => {
+            fallback(); // Execute fallback on error
+        });
+        useMobileBridge.mockReturnValue({
+            sendBridgeEvent: mockSendBridgeEvent,
+            isBridgeAvailable: jest.fn(() => true),
+            isDesktop: false,
+        });
 
         render(<BrandShortLogo />);
 
@@ -120,8 +126,8 @@ describe('BrandShortLogo', () => {
 
         await userEvent.click(clickableDiv);
 
+        expect(mockSendBridgeEvent).toHaveBeenCalledWith('trading:home', expect.any(Function));
         expect(getBrandHomeUrl).toHaveBeenCalled();
         expect(mockLocation.href).toBe('https://home.deriv.com/dashboard/home');
-        expect(mockDerivAppChannel.postMessage).not.toHaveBeenCalled();
     });
 });

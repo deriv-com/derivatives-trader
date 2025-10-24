@@ -17,7 +17,6 @@ import {
 import { routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
-import { useDevice } from '@deriv-com/ui';
 
 // eslint-disable-next-line no-unused-vars, import/no-unresolved -- Kept for future restoration of LiveChat functionality
 import LiveChat from 'App/Components/Elements/LiveChat';
@@ -26,13 +25,14 @@ import WhatsApp from 'App/Components/Elements/WhatsApp';
 import NetworkStatus from 'App/Components/Layout/Footer';
 import getRoutesConfig from 'App/Constants/routes-config';
 import ServerTime from 'App/Containers/server-time.jsx';
+import { useMobileBridge } from 'App/Hooks/useMobileBridge';
 
 import { MenuTitle, MobileLanguageMenu } from './Components/ToggleMenu';
 import MenuLink from './menu-link';
 
 const ToggleMenuDrawer = observer(() => {
     const { localize } = useTranslations();
-    const { isDesktop } = useDevice();
+    const { sendBridgeEvent, isBridgeAvailable } = useMobileBridge();
     const { ui, client, traders_hub } = useStore();
     const {
         disableApp,
@@ -85,15 +85,10 @@ const ToggleMenuDrawer = observer(() => {
     // Simple logout handler that closes drawer and calls logout
     const handleLogout = React.useCallback(async () => {
         toggleDrawer();
-        // Check if we're in a mobile environment with Flutter channel available
-        if (!isDesktop && window.DerivAppChannel) {
-            // Use Flutter channel postMessage for mobile "Back to app"
-            window.DerivAppChannel.postMessage(JSON.stringify({ event: 'trading:back' }));
-        } else {
-            // Fallback to default logout behavior for desktop or when Flutter channel is not available
+        sendBridgeEvent('trading:back', async () => {
             await logoutClient();
-        }
-    }, [logoutClient, toggleDrawer, isDesktop]);
+        });
+    }, [logoutClient, toggleDrawer, sendBridgeEvent]);
 
     const renderSubMenuFromConfig = routePath => {
         const routes_config = getRoutesConfig();
@@ -249,7 +244,7 @@ const ToggleMenuDrawer = observer(() => {
                                     <MobileDrawer.Item onClick={handleLogout}>
                                         <MenuLink 
                                             icon={<LegacyLogout1pxIcon />} 
-                                            text={!isDesktop && window.DerivAppChannel ? localize('Back to app') : localize('Log out')} 
+                                            text={isBridgeAvailable() ? localize('Back to app') : localize('Log out')} 
                                         />
                                     </MobileDrawer.Item>
                                 )}

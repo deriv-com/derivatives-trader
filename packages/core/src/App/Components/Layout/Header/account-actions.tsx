@@ -3,9 +3,9 @@ import React from 'react';
 import { Button } from '@deriv/components';
 import { formatMoney } from '@deriv/shared';
 import { useTranslations } from '@deriv-com/translations';
-import { useDevice } from '@deriv-com/ui';
 
 import { LoginButtonV2 } from './login-button-v2';
+import { useMobileBridge } from 'App/Hooks/useMobileBridge';
 
 import 'Sass/app/_common/components/account-switcher.scss';
 
@@ -25,20 +25,13 @@ const AccountInfo = React.lazy(
 
 const LogoutButton = ({ onClickLogout }: { onClickLogout: () => void }) => {
     const { localize } = useTranslations();
-    const { isDesktop } = useDevice();
+    const { sendBridgeEvent, isBridgeAvailable } = useMobileBridge();
 
     const handleLogoutClick = () => {
-        // Check if we're in a mobile environment with Flutter channel available
-        if (!isDesktop && window.DerivAppChannel) {
-            // Use Flutter channel postMessage for mobile "Back to app"
-            window.DerivAppChannel.postMessage(JSON.stringify({ event: 'trading:back' }));
-        } else {
-            // Fallback to default logout behavior for desktop or when Flutter channel is not available
-            onClickLogout();
-        }
+        sendBridgeEvent('trading:back', onClickLogout);
     };
 
-    const buttonText = !isDesktop && window.DerivAppChannel ? localize('Back to app') : localize('Log out');
+    const buttonText = isBridgeAvailable() ? localize('Back to app') : localize('Log out');
 
     return <Button className='acc-info__button' has_effect text={buttonText} onClick={handleLogoutClick} />;
 };
@@ -50,7 +43,7 @@ const LoggedOutView = () => (
 );
 
 const AccountActionsComponent = ({ balance, currency, is_logged_in, onClickLogout }: TAccountActionsProps) => {
-    const { isDesktop } = useDevice();
+    const { isDesktop } = useMobileBridge();
     const isLogoutButtonVisible = isDesktop && is_logged_in;
     const formattedBalance = balance != null ? formatMoney(currency, balance, true) : undefined;
 
