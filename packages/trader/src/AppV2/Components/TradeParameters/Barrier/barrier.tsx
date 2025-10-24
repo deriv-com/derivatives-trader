@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
+import { mapErrorMessage } from '@deriv/shared';
 import { Localize } from '@deriv-com/translations';
 import { ActionSheet, TextField, useSnackbar } from '@deriv-com/quill-ui';
 
@@ -15,10 +16,18 @@ import BarrierDescription from './barrier-description';
 import BarrierInput from './barrier-input';
 
 const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
-    const { barrier_1, duration_unit, is_market_closed, validation_errors, proposal_info, trade_type_tab } =
-        useTraderStore();
+    const {
+        barrier_1,
+        duration_unit,
+        expiry_type,
+        is_market_closed,
+        validation_errors,
+        proposal_info,
+        trade_type_tab,
+    } = useTraderStore();
     const [is_open, setIsOpen] = React.useState(false);
-    const isDays = duration_unit === 'd';
+    // Barriers should be absolute when using end time (expiry_type === 'endtime') or days duration
+    const isDays = duration_unit === 'd' || expiry_type === 'endtime';
 
     const has_error =
         validation_errors.barrier_1.length > 0 ||
@@ -33,13 +42,13 @@ const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
 
     // Show error snackbar when there's a barrier error
     React.useEffect(() => {
-        const has_error = proposal_info?.[trade_type_tab]?.has_error;
-        const error_field = proposal_info?.[trade_type_tab]?.error_field;
-        const message = proposal_info?.[trade_type_tab]?.message;
+        const proposal_error = proposal_info?.[trade_type_tab];
+        const has_error = proposal_error?.has_error;
+        const error_field = proposal_error?.error_field;
 
         if (has_error && error_field === 'barrier' && !barrier_error_shown && !is_open && !is_minimized) {
             addSnackbar({
-                message,
+                message: mapErrorMessage(proposal_error),
                 hasCloseButton: true,
                 status: 'fail',
                 style: { marginBottom: '48px' },

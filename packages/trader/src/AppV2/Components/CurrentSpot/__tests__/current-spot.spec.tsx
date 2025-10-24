@@ -31,11 +31,11 @@ describe('CurrentSpot', () => {
         contract_type: CONTRACT_TYPES.EVEN_ODD.EVEN,
         date_expiry: mocked_now + 1000,
         date_start: 1721636565,
-        entry_spot: 389.39,
+        entry_spot: '389.39',
         is_expired: 0,
         is_path_dependent: 0,
         is_sold: 0,
-        profit: -0.39,
+        profit: '-0.39',
         status: 'open',
         tick_count: 10,
         tick_stream: [
@@ -55,7 +55,7 @@ describe('CurrentSpot', () => {
                 tick_display_value: '389.40',
             },
         ],
-        underlying: symbol,
+        underlying_symbol: symbol,
     });
     const closed_contract_info = mockContractInfo({
         barrier: '0',
@@ -63,12 +63,12 @@ describe('CurrentSpot', () => {
         contract_type: CONTRACT_TYPES.EVEN_ODD.ODD,
         date_expiry: 1721636554,
         date_start: 1721636544,
-        entry_spot: 389.32,
+        entry_spot: '389.32',
         exit_spot_time: 1721636554,
         is_expired: 1,
         is_path_dependent: 0,
         is_sold: 1,
-        profit: -10,
+        profit: '-10',
         sell_time: 1721636554,
         status: 'lost',
         tick_count: 10,
@@ -124,7 +124,7 @@ describe('CurrentSpot', () => {
                 tick_display_value: '389.38',
             },
         ],
-        underlying: symbol,
+        underlying_symbol: symbol,
     });
     const ongoing_contract = {
         digits_info: {

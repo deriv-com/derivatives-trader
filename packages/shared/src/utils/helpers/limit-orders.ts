@@ -1,8 +1,10 @@
-import { Proposal } from '@deriv/api-types';
-import { ChartBarrierStore } from './chart-barrier-store';
-import { removeBarrier } from './barriers';
-import { TContractStore, isMultiplierContract } from '../contract';
+import { TPriceProposalResponse } from '@deriv/api';
+
 import { BARRIER_COLORS, BARRIER_LINE_STYLES } from '../constants';
+import { isMultiplierContract, TContractStore } from '../contract';
+
+import { removeBarrier } from './barriers';
+import { ChartBarrierStore } from './chart-barrier-store';
 
 type TProposalInfo = {
     barrier?: string;
@@ -16,7 +18,7 @@ type TProposalInfo = {
     has_error_details: boolean;
     high_barrier?: string;
     last_tick_epoch?: number;
-    limit_order: Proposal['limit_order'] | Record<string, never>;
+    limit_order: NonNullable<TPriceProposalResponse['proposal']>['limit_order'] | Record<string, never>;
     message?: string;
     obj_contract_basis: {
         text: string;

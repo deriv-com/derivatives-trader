@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { getBrandUrl, isEmptyObject, redirectToLogin, redirectToSignUp } from '@deriv/shared';
+import { getBrandUrl, isEmptyObject, mapErrorMessage, redirectToLogin, redirectToSignUp } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { ActionSheet } from '@deriv-com/quill-ui';
 import { Localize } from '@deriv-com/translations';
@@ -13,11 +13,14 @@ import ServiceErrorDescription from './service-error-description';
 const ServiceErrorSheet = observer(() => {
     const [is_open, setIsOpen] = useState(false);
     const { common, client } = useStore();
-    const { is_virtual } = client;
+    const { is_virtual, currency } = client;
     const { services_error, resetServicesError } = common;
     const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();
 
-    const { code, message, type } = services_error || {};
+    const { code, type } = services_error || {};
+
+    // Get mapped error message
+    const mappedMessage = mapErrorMessage(services_error || {});
     const is_insufficient_balance = code === SERVICE_ERROR.INSUFFICIENT_BALANCE;
     const is_authorization_required = code === SERVICE_ERROR.AUTHORIZATION_REQUIRED && type === 'buy';
     const should_show_error_modal = !isEmptyObject(services_error) && checkIsServiceModalError({ services_error });
@@ -37,12 +40,12 @@ const ServiceErrorSheet = observer(() => {
         if (is_insufficient_balance) {
             return {
                 primaryAction: {
-                    content: <Localize i18n_default_text='Deposit now' />,
+                    content: <Localize i18n_default_text='Transfer now' />,
                     onAction: () => {
                         resetServicesError();
                         if (!is_virtual) {
                             const brandUrl = getBrandUrl();
-                            window.location.href = `${brandUrl}/deposit`;
+                            window.location.href = `${brandUrl}/transfer?acc=options&curr=${currency}&from=home&source=options`;
                         } else {
                             onClose();
                         }
@@ -98,7 +101,7 @@ const ServiceErrorSheet = observer(() => {
         >
             <ActionSheet.Portal showHandlebar shouldCloseOnDrag>
                 <div className='service-error-sheet__body'>
-                    <ServiceErrorDescription error_type={getErrorType()} services_error_message={message} />
+                    <ServiceErrorDescription error_type={getErrorType()} services_error_message={mappedMessage} />
                 </div>
                 <ActionSheet.Footer
                     className='service-error-sheet__footer'

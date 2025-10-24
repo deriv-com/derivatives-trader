@@ -36,7 +36,7 @@ const ContractDetailsFooter = observer(({ contract_info }: ContractInfoProps) =>
     const is_multiplier = isMultiplierContract(contract_type);
 
     const card_labels = getCardLabelsV2();
-    const formatted_bid_price = FormatUtils.formatMoney(bid_price || 0, {
+    const formatted_bid_price = FormatUtils.formatMoney(Number(bid_price) || 0, {
         currency: currency as 'USD', // currency types mismatched between utils and shared
     });
     const is_close_button_disabled = Number(profit) < 0 && is_valid_to_cancel;

@@ -10,6 +10,18 @@ import ModulesProvider from 'Stores/Providers/modules-providers';
 import TraderProviders from '../../../../trader-providers';
 import Trade from '../trade';
 
+// Mock trackAnalyticsEvent
+const mockTrackAnalyticsEvent = jest.fn();
+jest.mock('@deriv/shared', () => ({
+    ...jest.requireActual('@deriv/shared'),
+    getSymbolDisplayName: jest.fn((symbols, symbol) => `${symbol} Display Name`),
+    redirectToLogin: jest.fn(),
+    redirectToSignUp: jest.fn(),
+    getBrandUrl: jest.fn(() => 'https://deriv.com'),
+    isEmptyObject: jest.fn(obj => !obj || Object.keys(obj).length === 0),
+    trackAnalyticsEvent: (...args: any[]) => mockTrackAnalyticsEvent(...args),
+}));
+
 // Mock all external dependencies
 jest.mock('@deriv/components', () => ({
     ...jest.requireActual('@deriv/components'),
@@ -20,15 +32,6 @@ jest.mock('@deriv/components', () => ({
 
 jest.mock('@deriv/api', () => ({
     useLocalStorageData: jest.fn(() => [{ trade_page: false }]),
-}));
-
-jest.mock('@deriv/shared', () => ({
-    ...jest.requireActual('@deriv/shared'),
-    getSymbolDisplayName: jest.fn((symbols, symbol) => `${symbol} Display Name`),
-    redirectToLogin: jest.fn(),
-    redirectToSignUp: jest.fn(),
-    getBrandUrl: jest.fn(() => 'https://deriv.com'),
-    isEmptyObject: jest.fn(obj => !obj || Object.keys(obj).length === 0),
 }));
 
 jest.mock('Modules/Trading/Helpers/digits', () => ({
@@ -77,11 +80,6 @@ jest.mock('../../Chart', () => ({
 }));
 jest.mock('../trade-types', () => jest.fn(() => <div data-testid='trade-types'>TradeTypes</div>));
 
-// Mock analytics
-jest.mock('../../../../Analytics', () => ({
-    sendSelectedTradeTypeToAnalytics: jest.fn(),
-}));
-
 // Mock layout utils
 jest.mock('AppV2/Utils/layout-utils', () => ({
     getChartHeight: jest.fn(() => 400),
@@ -95,7 +93,37 @@ jest.mock('AppV2/Utils/layout-utils', () => ({
 
 // Mock trade types utils
 jest.mock('AppV2/Utils/trade-types-utils', () => ({
+    ...jest.requireActual('AppV2/Utils/trade-types-utils'),
     getDisplayedContractTypes: jest.fn(() => ['rise_fall', 'higher_lower']),
+    CONTRACT_LIST: {
+        ACCUMULATORS: 'Accumulators',
+        RISE_FALL: 'Rise/Fall',
+        HIGHER_LOWER: 'Higher/Lower',
+        MULTIPLIERS: 'Multipliers',
+        VANILLAS: 'Vanillas',
+        TURBOS: 'Turbos',
+        TOUCH_NO_TOUCH: 'Touch/No Touch',
+        MATCHES_DIFFERS: 'Matches/Differs',
+        EVEN_ODD: 'Even/Odd',
+        OVER_UNDER: 'Over/Under',
+    },
+}));
+
+// Mock contract description utils
+jest.mock('AppV2/Utils/contract-description-utils', () => ({
+    ...jest.requireActual('AppV2/Utils/contract-description-utils'),
+    DESCRIPTION_VIDEO_IDS: {
+        Accumulators: { dark: 'acc_dark', light: 'acc_light' },
+        'Rise/Fall': { dark: 'rf_dark', light: 'rf_light' },
+        'Higher/Lower': { dark: 'hl_dark', light: 'hl_light' },
+        Multipliers: { dark: 'mult_dark', light: 'mult_light' },
+        Vanillas: { dark: 'van_dark', light: 'van_light' },
+        Turbos: { dark: 'turbo_dark', light: 'turbo_light' },
+        'Touch/No Touch': { dark: 'touch_dark', light: 'touch_light' },
+        'Matches/Differs': { dark: 'md_dark', light: 'md_light' },
+        'Even/Odd': { dark: 'eo_dark', light: 'eo_light' },
+        'Over/Under': { dark: 'ou_dark', light: 'ou_light' },
+    },
 }));
 
 // Default mock data

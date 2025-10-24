@@ -8,19 +8,25 @@ jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
     useWS: () => ({
         send: jest.fn(() =>
-            Promise.resolve<TSocketResponse<'p2p_advert_list'>>({
-                p2p_advert_list: {
-                    list: [
-                        // @ts-expect-error need to come up with a way to mock the return type of useFetch
+            Promise.resolve<TSocketResponse<'statement'>>({
+                statement: {
+                    transactions: [
                         {
-                            account_currency: 'USD',
+                            action_type: 'buy',
                             amount: 50,
-                            amount_display: '50.00',
+                            balance_after: 1000,
+                            contract_id: 123456789,
+                            payout: 100,
+                            purchase_time: 1234567890,
+                            reference_id: 987654321,
+                            shortcode: 'CALL_R_100_90_1234567890_1234567900_S0P_0',
+                            transaction_id: 111222333,
+                            transaction_time: 1234567890,
                         },
                     ],
                 },
                 echo_req: {},
-                msg_type: 'p2p_advert_list',
+                msg_type: 'statement',
                 req_id: 1,
             })
         ),
@@ -28,18 +34,18 @@ jest.mock('@deriv/shared', () => ({
 }));
 
 describe('usePaginatedFetch', () => {
-    it('should call p2p_advert_list and get data in response', async () => {
+    it('should call statement and get data in response', async () => {
         const wrapper = ({ children }: { children: JSX.Element }) => <APIProvider>{children}</APIProvider>;
 
-        const { result, waitFor } = renderHook(() => usePaginatedFetch('p2p_advert_list'), { wrapper });
+        const { result, waitFor } = renderHook(() => usePaginatedFetch('statement'), { wrapper });
 
         await waitFor(() => result.current.isSuccess, { timeout: 10000 });
 
-        const adverts_list = result.current.data?.p2p_advert_list?.list;
+        const transactions = result.current.data?.statement?.transactions;
 
-        expect(adverts_list).toHaveLength(1);
-        expect(adverts_list?.[0].amount).toBe(50);
-        expect(adverts_list?.[0].account_currency).toBe('USD');
-        expect(adverts_list?.[0].amount_display).toBe('50.00');
+        expect(transactions).toHaveLength(1);
+        expect(transactions?.[0].amount).toBe(50);
+        expect(transactions?.[0].action_type).toBe('buy');
+        expect(transactions?.[0].balance_after).toBe(1000);
     });
 });

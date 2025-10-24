@@ -15,9 +15,9 @@ describe('getChartAnalyticsData', () => {
     };
     const market_type_name = mocked_data.symbol;
     const tab_market_name = mocked_data.symbol_category;
-    const chart_event_type = 'ce_chart_types_form';
-    const market_event_type = 'ce_market_types_form';
-    const indicators_event_type = 'ce_indicators_types_form';
+    const chart_event_type = 'ce_chart_types_form_v2';
+    const market_event_type = 'ce_market_types_form_v2';
+    const indicators_event_type = 'ce_indicators_types_form_v2';
     it('should return empty object if args are empty', () => {
         expect(getChartAnalyticsData('' as keyof typeof STATE_TYPES)).toEqual({});
     });
@@ -128,16 +128,8 @@ describe('getChartAnalyticsData', () => {
             getChartAnalyticsData(STATE_TYPES.INDICATORS_MODAL_TOGGLE, {
                 is_open: false,
             })
-        ).toEqual({
-            data: { action: ACTION.CLOSE },
-            event_type: indicators_event_type,
-        });
-        expect(getChartAnalyticsData(STATE_TYPES.INDICATORS_MODAL_TOGGLE)).toEqual({
-            data: {
-                action: ACTION.CLOSE,
-            },
-            event_type: indicators_event_type,
-        });
+        ).toEqual({});
+        expect(getChartAnalyticsData(STATE_TYPES.INDICATORS_MODAL_TOGGLE)).toEqual({});
     });
     it('should return correct object with data and event_type for STATE_TYPES.INDICATOR_ADDED', () => {
         expect(

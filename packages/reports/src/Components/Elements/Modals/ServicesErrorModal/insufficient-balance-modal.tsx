@@ -17,6 +17,7 @@ const InsufficientBalanceModal = observer(
     ({ is_virtual, is_visible, message, toggleModal }: TInsufficientBalanceModal) => {
         const {
             ui: { is_mobile },
+            client: { currency },
         } = useStore();
         const { localize } = useTranslations();
         return (
@@ -32,12 +33,12 @@ const InsufficientBalanceModal = observer(
                 <Modal.Footer>
                     <Button
                         has_effect
-                        text={is_virtual ? localize('OK') : localize('Deposit now')}
+                        text={is_virtual ? localize('OK') : localize('Transfer now')}
                         onClick={() => {
                             if (!is_virtual) {
                                 // Redirect to the brand deposit page
                                 const brandUrl = getBrandUrl();
-                                window.location.href = `${brandUrl}/deposit`;
+                                window.location.href = `${brandUrl}/transfer?acc=options&curr=${currency}&from=home&source=options`;
                             } else {
                                 toggleModal();
                             }

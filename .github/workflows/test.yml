@@ -1,4 +1,4 @@
-name: Deriv App PR Test Workflow
+name: Test & Validate
 on:
   pull_request:
     branches:
@@ -6,10 +6,10 @@ on:
 permissions:
   contents: read
 jobs:
-  build_and_test:
-    name: Build And Test
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
+  build:
+    name: Build Project
+    runs-on: runner_8cores_derivatives_trader
+    timeout-minutes: 15
     permissions:
       contents: read
       actions: write
@@ -19,27 +19,98 @@ jobs:
       uses: actions/checkout@v4
     - name: Setup Node
       uses: "./.github/actions/setup_node"
-    - name: Check imports
-      run: npm run check-imports
     - name: Install dependencies
       uses: "./.github/actions/npm_install_from_cache"
     - name: Build
       uses: "./.github/actions/build"
-      
-    # TypeScript checking
-    - name: Check TypeScript for @deriv/api
-      run: npx tsc --project packages/api/tsconfig.json -noEmit
-    - name: Check TypeScript for @deriv/api-v2
-      run: npx tsc --project packages/api-v2/tsconfig.json -noEmit
-    - name: Check TypeScript for @deriv/utils
-      run: npx tsc --project packages/utils/tsconfig.json -noEmit
-    - name: Check TypeScript for @deriv/stores
-      run: npx tsc --project packages/stores/tsconfig.json -noEmit
-      
-    # Test checking
+
+  validate:
+    name: TypeScript & Linting
+    runs-on: runner_8cores_derivatives_trader
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: write
+    environment: Preview
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
+    
+    # TypeScript checking (parallel)
+    - name: Check TypeScript
+      run: |
+        npx tsc --project packages/api/tsconfig.json -noEmit &
+        npx tsc --project packages/api-v2/tsconfig.json -noEmit &
+        npx tsc --project packages/utils/tsconfig.json -noEmit &
+        npx tsc --project packages/stores/tsconfig.json -noEmit &
+        wait
+
+    # Import checking
+    - name: Check imports
+      run: npm run check-imports
+    
+    # Test structure checking
     - name: Check tests for @deriv/utils
       run: bash ./scripts/check-tests.sh packages/utils/src
-      
-    # Run all tests
-    - name: Run tests
-      run: npm run test:ci
+    
+    # Linting (parallel)
+    - name: Run linting
+      run: |
+        npm run test:stylelint &
+        npm run test:eslint-all &
+        wait
+  test:
+    name: Tests - ${{ matrix.description }}
+    runs-on: runner_8cores_derivatives_trader
+    timeout-minutes: 12
+    permissions:
+      contents: read
+      actions: write
+    environment: Preview
+    strategy:
+      matrix:
+        include:
+          - group: 1
+            packages: "packages/trader packages/core"
+            description: "Trader & Core"
+          - group: 2
+            packages: "packages/components packages/reports"
+            description: "Components & Reports"
+          - group: 3
+            packages: "packages/api packages/api-v2 packages/shared packages/stores packages/utils"
+            description: "APIs & Utils"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
+    
+    # Run tests for specific packages
+    - name: Run tests for ${{ matrix.description }}
+      run: |
+        packages="${{ matrix.packages }}"
+        test_pattern=""
+        for package in $packages; do
+          if [ -f "$package/jest.config.js" ]; then
+            echo "Running tests for $package"
+            if [ -z "$test_pattern" ]; then
+              test_pattern="$package"
+            else
+              test_pattern="$test_pattern|$package"
+            fi
+          fi
+        done
+        
+        if [ -n "$test_pattern" ]; then
+          echo "Running tests with pattern: ($test_pattern)"
+          npm run test:jest -- --testPathPattern="($test_pattern)"
+        else
+          echo "No jest configs found for: $packages"
+          exit 1
+        fi

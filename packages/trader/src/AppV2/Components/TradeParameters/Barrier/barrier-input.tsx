@@ -20,8 +20,7 @@ const chips_options = [
 ];
 
 const BarrierInput = observer(({ isDays, onClose }: { isDays: boolean; onClose: (val: boolean) => void }) => {
-    const { barrier_1, onChange, validation_errors, tick_data, symbol, active_symbols, validateAllProperties } =
-        useTraderStore();
+    const { barrier_1, onChange, tick_data, symbol, active_symbols } = useTraderStore();
 
     const { localize } = useTranslations();
 
@@ -29,13 +28,13 @@ const BarrierInput = observer(({ isDays, onClose }: { isDays: boolean; onClose: 
     const getBarrierSupport = React.useCallback(() => {
         if (!symbol || !active_symbols?.length) return 'relative'; // Default to relative to show tabs
 
-        const symbol_info = active_symbols.find(s => s.symbol === symbol);
+        const symbol_info = active_symbols.find(s => s.underlying_symbol === symbol);
         if (!symbol_info) return 'relative'; // Default to relative to show tabs
 
-        const { market, symbol_type } = symbol_info;
+        const { market, underlying_symbol_type } = symbol_info;
 
         // Forex markets only support absolute barriers
-        if (market === 'forex' || symbol_type === 'forex') {
+        if (market === 'forex' || underlying_symbol_type === 'forex') {
             return 'absolute';
         }
 

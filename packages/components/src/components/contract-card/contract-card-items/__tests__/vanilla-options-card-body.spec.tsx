@@ -6,12 +6,11 @@ import VanillaOptionsCardBody, { TVanillaOptionsCardBodyProps } from '../vanilla
 describe('VanillaOptionsCardBody', () => {
     const mock_props: TVanillaOptionsCardBodyProps = {
         contract_info: mockContractInfo({
-            buy_price: 100,
-            bid_price: 105,
-            entry_spot_display_value: '1100.00',
+            buy_price: '100',
+            bid_price: '105',
             barrier: '1200.00',
-            sell_price: 95,
-            profit: -5,
+            sell_price: '95',
+            profit: '-5',
             status: 'lost',
         }),
         currency: 'USD',
@@ -26,7 +25,8 @@ describe('VanillaOptionsCardBody', () => {
         // Test that the correct elements are present in the component
         expect(screen.getByText(getCardLabels().CONTRACT_VALUE)).toBeInTheDocument();
         expect(screen.getByText(getCardLabels().ENTRY_SPOT)).toBeInTheDocument();
-        expect(screen.getByText('1,100.00')).toBeInTheDocument();
+        expect(screen.getByText('100.00')).toBeInTheDocument();
+        expect(screen.getByText('95.00')).toBeInTheDocument();
         expect(screen.getByText(getCardLabels().STAKE)).toBeInTheDocument();
         expect(screen.getByText(getCardLabels().STRIKE)).toBeInTheDocument();
         expect(screen.getByText('1,200.00')).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('VanillaOptionsCardBody', () => {
     });
 
     it('should render the correct content for an unsold contract', async () => {
-        mock_props.contract_info.profit = 5;
+        mock_props.contract_info.profit = '5';
         mock_props.contract_info.status = 'won';
         mock_props.is_sold = false;
         mock_props.progress_slider = <div />;

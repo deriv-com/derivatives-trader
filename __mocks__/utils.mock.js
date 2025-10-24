@@ -1,7 +1,6 @@
 module.exports = {
     // Auth and account related functions
     getAccountsFromLocalStorage: jest.fn(() => ({})),
-    getAccountListWithAuthToken: jest.fn(() => []),
     getActiveLoginIDFromLocalStorage: jest.fn(() => 'mock_login_id'),
 
     // Local storage functions

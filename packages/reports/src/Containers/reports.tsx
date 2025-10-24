@@ -2,9 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { Div100vhContainer, FadeWrapper, Loading, PageOverlay, SelectNative, VerticalTab } from '@deriv/components';
-import { getSelectedRoute } from '@deriv/shared';
+import { getSelectedRoute, trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
 
@@ -30,6 +29,9 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     // Store the redirect parameter when component mounts to preserve it across tab navigation
     const redirectUrlRef = React.useRef<string | null>(null);
 
+    // Ref to prevent duplicate analytics calls
+    const analyticsCalledRef = React.useRef<boolean>(false);
+
     React.useEffect(() => {
         // Capture redirect parameter on mount
         const urlParams = new URLSearchParams(location.search);
@@ -40,21 +42,19 @@ const Reports = observer(({ history, location, routes }: TReports) => {
     }, []); // Only run on mount
 
     React.useEffect(() => {
-        Analytics.trackEvent('ce_reports_form', {
+        // Prevent duplicate analytics calls if component remounts
+        if (analyticsCalledRef.current) {
+            return;
+        }
+
+        analyticsCalledRef.current = true;
+
+        trackAnalyticsEvent('ce_reports_form_v2', {
             action: 'open',
-            form_name: 'default',
-            subform_name: history.location.pathname.split('/')[2],
-            form_source: 'deriv_trader',
+            platform: 'DTrader',
         });
+
         toggleReports(true);
-        return () => {
-            toggleReports(false);
-            Analytics.trackEvent('ce_reports_form', {
-                action: 'close',
-                form_name: 'default',
-                subform_name: location.pathname.split('/')[2],
-            });
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

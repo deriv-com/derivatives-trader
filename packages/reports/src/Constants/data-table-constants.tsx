@@ -333,8 +333,7 @@ export const getMultiplierOpenPositionsColumnsTemplate = ({
         renderCellContent: ({ row_obj }: TCellContentProps) => {
             if (!row_obj.contract_info) return '-';
 
-            // Backward compatibility: fallback to old field name
-            const contract_underlying = row_obj.contract_info.underlying_symbol || row_obj.contract_info.underlying;
+            const contract_underlying = row_obj.contract_info.underlying_symbol;
             if (!contract_underlying) return '-';
 
             if (row_obj.contract_info.cancellation) {
@@ -442,7 +441,7 @@ export const getMultiplierOpenPositionsColumnsTemplate = ({
                     <ContractCard.MultiplierCloseActions
                         contract_info={contract_info}
                         getCardLabels={getCardLabels}
-                        is_sell_requested={is_sell_requested}
+                        is_sell_requested={!!is_sell_requested}
                         onClickCancel={onClickCancel}
                         onClickSell={onClickSell}
                         server_time={server_time}
@@ -572,7 +571,7 @@ export const getAccumulatorOpenPositionsColumnsTemplate = ({
                 <div className='open-positions__row-action'>
                     <ContractCardSell
                         contract_info={contract_info}
-                        is_sell_requested={is_sell_requested}
+                        is_sell_requested={!!is_sell_requested}
                         getCardLabels={getCardLabels}
                         onClickSell={onClickSell}
                     />
