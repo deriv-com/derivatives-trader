@@ -113,7 +113,7 @@ describe('<ToggleMenuDrawer />', () => {
         render(mockToggleMenuDrawer());
 
         // Find and click the hamburger menu to open drawer
-        const hamburgerButton = screen.getByRole('link');
+        const hamburgerButton = document.getElementById('dt_mobile_drawer_toggle');
         await userEvent.click(hamburgerButton);
 
         // Find logout menu item and click it
@@ -144,7 +144,7 @@ describe('<ToggleMenuDrawer />', () => {
         render(mockToggleMenuDrawer());
 
         // Find and click the hamburger menu to open drawer
-        const hamburgerButton = screen.getByRole('link');
+        const hamburgerButton = document.getElementById('dt_mobile_drawer_toggle');
         await userEvent.click(hamburgerButton);
 
         // Find logout menu item and click it
@@ -206,7 +206,7 @@ describe('<ToggleMenuDrawer />', () => {
         render(mockToggleMenuDrawer());
 
         // Find and click the hamburger menu to open drawer
-        const hamburgerButton = screen.getByRole('link');
+        const hamburgerButton = document.getElementById('dt_mobile_drawer_toggle');
         await userEvent.click(hamburgerButton);
 
         // Find logout menu item and click it
