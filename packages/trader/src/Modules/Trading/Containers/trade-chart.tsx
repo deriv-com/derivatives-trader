@@ -6,6 +6,12 @@ import { observer, useStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
 
 import { SmartChart } from 'Modules/SmartChart';
+import {
+    createSmartChartsChampionAdapter,
+    TGetQuotes,
+    TSubscribeQuotes,
+    TUnsubscribeQuotes,
+} from 'Modules/SmartChart/Adapters';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 import AccumulatorsChartElements from '../../SmartChart/Components/Markers/accumulators-chart-elements';
@@ -56,10 +62,6 @@ const TradeChart = observer((props: TTradeChartProps) => {
         symbol,
         onChange,
         prev_contract_type,
-        wsForget,
-        wsForgetStream,
-        wsSendRequest,
-        wsSubscribe,
     } = useTraderStore();
 
     const settings = {
@@ -73,6 +75,38 @@ const TradeChart = observer((props: TTradeChartProps) => {
     };
 
     const { current_spot, current_spot_time } = accumulator_barriers_data || {};
+    // Initialize SmartCharts Champion Adapter with store data for better performance
+    const smartChartsAdapter = React.useMemo(() => {
+        return createSmartChartsChampionAdapter({
+            debug: false,
+        });
+    }, []);
+
+    // Transform active symbols and fetch trading times for SmartCharts Champion format
+    const [chartData, setChartData] = React.useState<{
+        activeSymbols: any;
+        tradingTimes?: Record<string, { isOpen: boolean; openTime: string; closeTime: string }>;
+    }>({
+        activeSymbols: JSON.parse(JSON.stringify(active_symbols)),
+    });
+
+    // Fetch chart data including trading times
+    React.useEffect(() => {
+        const fetchChartData = async () => {
+            try {
+                const data = await smartChartsAdapter.getChartData();
+                setChartData({
+                    activeSymbols: data.activeSymbols,
+                    tradingTimes: data.tradingTimes,
+                });
+            } catch (error) {
+                // eslint-disable-next-line no-console
+                console.error('Error fetching chart data:', error);
+            }
+        };
+
+        fetchChartData();
+    }, [smartChartsAdapter]);
 
     const bottomWidgets = React.useCallback(
         ({ digits, tick }: TBottomWidgetsParams) => (
@@ -103,54 +137,111 @@ const TradeChart = observer((props: TTradeChartProps) => {
                 has_synthetic_index ? [synthetic_index] : []
             );
     };
+    // Create wrapper functions for SmartCharts Champion API
+    const getQuotes: TGetQuotes = async params => {
+        if (!smartChartsAdapter) {
+            throw new Error('Adapter not initialized');
+        }
+
+        const result = await smartChartsAdapter.getQuotes({
+            symbol: params.symbol,
+            granularity: params.granularity as any,
+            count: params.count,
+            start: params.start,
+            end: params.end,
+        });
+
+        // Transform adapter result to SmartCharts Champion format
+        if (params.granularity === 0) {
+            // For ticks, return history format
+            return {
+                history: {
+                    prices: result.quotes.map(q => q.Close),
+                    times: result.quotes.map(q => parseInt(q.Date)),
+                },
+            };
+        }
+        // For candles, return candles format
+        return {
+            candles: result.quotes.map(q => ({
+                open: q.Open || q.Close,
+                high: q.High || q.Close,
+                low: q.Low || q.Close,
+                close: q.Close,
+                epoch: parseInt(q.Date),
+            })),
+        };
+    };
+
+    const subscribeQuotes: TSubscribeQuotes = (params, callback) => {
+        if (!smartChartsAdapter) {
+            return () => {};
+        }
+
+        return smartChartsAdapter.subscribeQuotes(
+            {
+                symbol: params.symbol,
+                granularity: params.granularity as any,
+            },
+            quote => {
+                callback(quote);
+            }
+        );
+    };
+
+    const unsubscribeQuotes: TUnsubscribeQuotes = request => {
+        if (smartChartsAdapter) {
+            // If we have request details, use the adapter's unsubscribe method
+            if (request?.symbol && typeof request.granularity !== 'undefined') {
+                smartChartsAdapter.unsubscribeQuotes({
+                    symbol: request.symbol,
+                    granularity: request.granularity as any,
+                });
+            } else {
+                // Fallback: unsubscribe all via transport
+                smartChartsAdapter.transport.unsubscribeAll('ticks');
+            }
+        }
+    };
 
     const barriers: ChartBarrierStore[] = main_barrier ? [main_barrier, ...extra_barriers] : extra_barriers;
 
     // max ticks to display for mobile view for tick chart
     const max_ticks = granularity === 0 ? 8 : 24;
 
-    if (!symbol || !active_symbols.length) return null;
+    if (!symbol || !active_symbols.length || !chartData || !chartData.tradingTimes) return null;
+
     return (
         <SmartChart
+            drawingToolFloatingMenuPosition={isMobile ? { x: 100, y: 100 } : { x: 200, y: 200 }}
+            id='trade'
             ref={ref}
             barriers={barriers}
-            contracts_array={markers_array}
-            bottomWidgets={(is_accumulator || show_digits_stats) && !isMobile ? bottomWidgets : props.bottomWidgets}
-            crosshair={isMobile ? 0 : undefined}
-            crosshairTooltipLeftAllow={560}
             showLastDigitStats={show_digits_stats}
             chartControlsWidgets={null}
-            chartStatusListener={(v: boolean) => setChartStatus(!v, true)}
-            chartType={chart_type}
-            initialData={{
-                activeSymbols: JSON.parse(JSON.stringify(active_symbols)),
-            }}
-            chartData={{
-                activeSymbols: JSON.parse(JSON.stringify(active_symbols)),
-            }}
-            feedCall={{
-                activeSymbols: false,
-            }}
-            enabledNavigationWidget={!isMobile}
+            stateChangeListener={chartStateChange}
             enabledChartFooter={false}
-            id='trade'
+            toolbarWidget={() => {
+                return <ToolbarWidgets updateChartType={updateChartType} updateGranularity={updateGranularity} />;
+            }}
+            chartType={chart_type}
+            chartData={chartData}
             isMobile={isMobile}
-            maxTick={isMobile ? max_ticks : undefined}
+            getQuotes={getQuotes}
+            subscribeQuotes={subscribeQuotes}
+            unsubscribeQuotes={unsubscribeQuotes}
             granularity={show_digits_stats || is_accumulator ? 0 : granularity}
-            requestAPI={wsSendRequest}
-            requestForget={wsForget}
-            requestForgetStream={wsForgetStream}
-            requestSubscribe={wsSubscribe}
+            bottomWidgets={(is_accumulator || show_digits_stats) && !isMobile ? bottomWidgets : props.bottomWidgets}
+            contracts_array={markers_array}
+            chartStatusListener={(v: boolean) => setChartStatus(false, true)}
+            enabledNavigationWidget={!isMobile}
+            maxTick={isMobile ? max_ticks : undefined}
             settings={settings}
             allowTickChartTypeOnly={show_digits_stats || is_accumulator}
-            stateChangeListener={chartStateChange}
             symbol={symbol}
             topWidgets={is_trade_enabled ? topWidgets : null}
             isConnectionOpened={is_socket_opened}
             clearChart={false}
-            toolbarWidget={() => {
-                return <ToolbarWidgets updateChartType={updateChartType} updateGranularity={updateGranularity} />;
-            }}
             importedLayout={chart_layout}
             onExportLayout={exportLayout}
             shouldFetchTradingTimes={false}
@@ -175,7 +266,6 @@ const TradeChart = observer((props: TTradeChartProps) => {
                 />
             )}
         </SmartChart>
-        // <>Chart here</>
     );
 });
 export default TradeChart;

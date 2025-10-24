@@ -17,6 +17,7 @@ const PopulateHeader = observer(() => {
         error: positions_error,
         onClickSell: onPositionsSell,
         onClickCancel: onPositionsCancel,
+        removePositionById: onPositionsRemove,
     } = portfolio;
 
     const filtered_positions = positions.filter(
@@ -43,6 +44,7 @@ const PopulateHeader = observer(() => {
             is_empty={!filtered_positions.length}
             onClickSell={onPositionsSell}
             onClickCancel={onPositionsCancel}
+            removePositionById={onPositionsRemove}
         />
     );
 });

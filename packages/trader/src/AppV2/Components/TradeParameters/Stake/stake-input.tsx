@@ -1,7 +1,13 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { formatMoney, getCurrencyDisplayCode, getDecimalPlaces, trackAnalyticsEvent, mapErrorMessage } from '@deriv/shared';
+import {
+    formatMoney,
+    getCurrencyDisplayCode,
+    getDecimalPlaces,
+    trackAnalyticsEvent,
+    mapErrorMessage,
+} from '@deriv/shared';
 import { ActionSheet, TextFieldWithSteppers } from '@deriv-com/quill-ui';
 import { Localize, useTranslations } from '@deriv-com/translations';
 

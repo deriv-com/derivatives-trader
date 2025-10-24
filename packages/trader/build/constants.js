@@ -31,7 +31,8 @@ const {
 } = require('./loaders-config');
 
 const ALIASES = {
-    'react/jsx-runtime': 'react/jsx-runtime.js',
+    'react/jsx-runtime.js': 'react/jsx-runtime',
+    'react/jsx-runtime': 'react/jsx-runtime',
     _common: path.resolve(__dirname, '../src/_common'),
     App: path.resolve(__dirname, '../src/App'),
     AppV2: path.resolve(__dirname, '../src/AppV2'),
