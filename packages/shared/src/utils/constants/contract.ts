@@ -59,112 +59,112 @@ export type TTradeTypesCategories = {
 
 export const getContractTypesConfig: TGetContractTypesConfig = symbol => ({
     [TRADE_TYPES.RISE_FALL]: {
-        title: localize('Rise/Fall'),
+        title: 'Rise/Fall',
         trade_types: [CONTRACT_TYPES.CALL, CONTRACT_TYPES.PUT],
         basis: ['stake', 'payout'],
         components: ['start_date'],
         barrier_count: 0,
     },
     [TRADE_TYPES.RISE_FALL_EQUAL]: {
-        title: localize('Rise/Fall'),
+        title: 'Rise/Fall',
         trade_types: [CONTRACT_TYPES.CALLE, CONTRACT_TYPES.PUTE],
         basis: ['stake', 'payout'],
         components: ['start_date'],
         barrier_count: 0,
     },
     [TRADE_TYPES.HIGH_LOW]: {
-        title: localize('Higher/Lower'),
+        title: 'Higher/Lower',
         trade_types: [CONTRACT_TYPES.HIGHER, CONTRACT_TYPES.LOWER],
         basis: ['stake', 'payout'],
         components: ['barrier'],
         barrier_count: 1,
     },
     [TRADE_TYPES.TOUCH]: {
-        title: localize('Touch/No Touch'),
+        title: 'Touch/No Touch',
         trade_types: [CONTRACT_TYPES.TOUCH.ONE_TOUCH, CONTRACT_TYPES.TOUCH.NO_TOUCH],
         basis: ['stake', 'payout'],
         components: ['barrier'],
     },
     [TRADE_TYPES.END]: {
-        title: localize('Ends In/Ends Out'),
+        title: 'Ends In/Ends Out',
         trade_types: [CONTRACT_TYPES.END.IN, CONTRACT_TYPES.END.OUT],
         basis: ['stake', 'payout'],
         components: ['barrier'],
     },
     [TRADE_TYPES.STAY]: {
-        title: localize('Stays In/Goes Out'),
+        title: 'Stays In/Goes Out',
         trade_types: [CONTRACT_TYPES.STAY.IN, CONTRACT_TYPES.STAY.OUT],
         basis: ['stake', 'payout'],
         components: ['barrier'],
     },
     [TRADE_TYPES.ASIAN]: {
-        title: localize('Asian Up/Asian Down'),
+        title: 'Asian Up/Asian Down',
         trade_types: [CONTRACT_TYPES.ASIAN.UP, CONTRACT_TYPES.ASIAN.DOWN],
         basis: ['stake', 'payout'],
         components: [],
     },
     [TRADE_TYPES.MATCH_DIFF]: {
-        title: localize('Matches/Differs'),
+        title: 'Matches/Differs',
         trade_types: [CONTRACT_TYPES.MATCH_DIFF.MATCH, CONTRACT_TYPES.MATCH_DIFF.DIFF],
         basis: ['stake', 'payout'],
         components: ['last_digit'],
     },
     [TRADE_TYPES.EVEN_ODD]: {
-        title: localize('Even/Odd'),
+        title: 'Even/Odd',
         trade_types: [CONTRACT_TYPES.EVEN_ODD.ODD, CONTRACT_TYPES.EVEN_ODD.EVEN],
         basis: ['stake', 'payout'],
         components: [],
     },
     [TRADE_TYPES.OVER_UNDER]: {
-        title: localize('Over/Under'),
+        title: 'Over/Under',
         trade_types: [CONTRACT_TYPES.OVER_UNDER.OVER, CONTRACT_TYPES.OVER_UNDER.UNDER],
         basis: ['stake', 'payout'],
         components: ['last_digit'],
     },
     [TRADE_TYPES.LB_CALL]: {
-        title: localize('Close-to-Low'),
+        title: 'Close-to-Low',
         trade_types: [CONTRACT_TYPES.LB_CALL],
         basis: ['multiplier'],
         components: [],
     },
     [TRADE_TYPES.LB_PUT]: {
-        title: localize('High-to-Close'),
+        title: 'High-to-Close',
         trade_types: [CONTRACT_TYPES.LB_PUT],
         basis: ['multiplier'],
         components: [],
     },
     [TRADE_TYPES.LB_HIGH_LOW]: {
-        title: localize('High-to-Low'),
+        title: 'High-to-Low',
         trade_types: [CONTRACT_TYPES.LB_HIGH_LOW],
         basis: ['multiplier'],
         components: [],
     },
     [TRADE_TYPES.TICK_HIGH_LOW]: {
-        title: localize('High Tick/Low Tick'),
+        title: 'High Tick/Low Tick',
         trade_types: [CONTRACT_TYPES.TICK_HIGH_LOW.HIGH, CONTRACT_TYPES.TICK_HIGH_LOW.LOW],
         basis: [],
         components: [],
     },
     [TRADE_TYPES.RUN_HIGH_LOW]: {
-        title: localize('Only Ups/Only Downs'),
+        title: 'Only Ups/Only Downs',
         trade_types: [CONTRACT_TYPES.RUN_HIGH_LOW.HIGH, CONTRACT_TYPES.RUN_HIGH_LOW.LOW],
         basis: [],
         components: [],
     },
     [TRADE_TYPES.RESET]: {
-        title: localize('Reset Up/Reset Down'),
+        title: 'Reset Up/Reset Down',
         trade_types: [CONTRACT_TYPES.RESET.CALL, CONTRACT_TYPES.RESET.PUT],
         basis: [],
         components: [],
     },
     [TRADE_TYPES.CALL_PUT_SPREAD]: {
-        title: localize('Spread Up/Spread Down'),
+        title: 'Spread Up/Spread Down',
         trade_types: [CONTRACT_TYPES.CALL_PUT_SPREAD.CALL, CONTRACT_TYPES.CALL_PUT_SPREAD.PUT],
         basis: [],
         components: [],
     },
     [TRADE_TYPES.ACCUMULATOR]: {
-        title: localize('Accumulators'),
+        title: 'Accumulators',
         trade_types: [CONTRACT_TYPES.ACCUMULATOR],
         basis: ['stake'],
         components: ['take_profit', 'accumulator', 'accu_info_display'],
@@ -172,7 +172,7 @@ export const getContractTypesConfig: TGetContractTypesConfig = symbol => ({
         config: { hide_duration: true },
     },
     [TRADE_TYPES.MULTIPLIER]: {
-        title: localize('Multipliers'),
+        title: 'Multipliers',
         trade_types: [CONTRACT_TYPES.MULTIPLIER.UP, CONTRACT_TYPES.MULTIPLIER.DOWN],
         basis: ['stake'],
         components: [
@@ -184,28 +184,28 @@ export const getContractTypesConfig: TGetContractTypesConfig = symbol => ({
         config: { hide_duration: true },
     }, // hide Duration for Multiplier contracts for now
     [TRADE_TYPES.TURBOS.LONG]: {
-        title: localize('Turbos'),
+        title: 'Turbos',
         trade_types: [CONTRACT_TYPES.TURBOS.LONG],
         basis: ['stake'],
         barrier_count: 1,
         components: ['trade_type_tabs', 'payout_selector', 'take_profit'],
     },
     [TRADE_TYPES.TURBOS.SHORT]: {
-        title: localize('Turbos'),
+        title: 'Turbos',
         trade_types: [CONTRACT_TYPES.TURBOS.SHORT],
         basis: ['stake'],
         barrier_count: 1,
         components: ['trade_type_tabs', 'payout_selector', 'take_profit'],
     },
     [TRADE_TYPES.VANILLA.CALL]: {
-        title: localize('Call/Put'),
+        title: 'Call/Put',
         trade_types: [CONTRACT_TYPES.VANILLA.CALL],
         basis: ['stake'],
         components: ['duration', 'strike', 'amount', 'trade_type_tabs'],
         barrier_count: 1,
     },
     [TRADE_TYPES.VANILLA.PUT]: {
-        title: localize('Call/Put'),
+        title: 'Call/Put',
         trade_types: [CONTRACT_TYPES.VANILLA.PUT],
         basis: ['stake'],
         components: ['duration', 'strike', 'amount', 'trade_type_tabs'],
@@ -216,10 +216,10 @@ export const getContractTypesConfig: TGetContractTypesConfig = symbol => ({
 // Config for rendering trade options
 export const getContractCategoriesConfig = () =>
     ({
-        Turbos: { name: localize('Turbos'), categories: [TRADE_TYPES.TURBOS.LONG, TRADE_TYPES.TURBOS.SHORT] },
-        Multipliers: { name: localize('Multipliers'), categories: [TRADE_TYPES.MULTIPLIER] },
+        Turbos: { name: 'Turbos', categories: [TRADE_TYPES.TURBOS.LONG, TRADE_TYPES.TURBOS.SHORT] },
+        Multipliers: { name: 'Multipliers', categories: [TRADE_TYPES.MULTIPLIER] },
         'Ups & Downs': {
-            name: localize('Ups & Downs'),
+            name: 'Ups & Downs',
             categories: [
                 TRADE_TYPES.RISE_FALL,
                 TRADE_TYPES.RISE_FALL_EQUAL,
@@ -231,20 +231,20 @@ export const getContractCategoriesConfig = () =>
             ],
         },
         'Touch & No Touch': {
-            name: localize('Touch & No Touch'),
+            name: 'Touch & No Touch',
             categories: [TRADE_TYPES.TOUCH, TRADE_TYPES.TICK_HIGH_LOW],
         },
-        'Ins & Outs': { name: localize('Ins & Outs'), categories: [TRADE_TYPES.END, TRADE_TYPES.STAY] },
+        'Ins & Outs': { name: 'Ins & Outs', categories: [TRADE_TYPES.END, TRADE_TYPES.STAY] },
         'Look Backs': {
-            name: localize('Look Backs'),
+            name: 'Look Backs',
             categories: [TRADE_TYPES.LB_HIGH_LOW, TRADE_TYPES.LB_PUT, TRADE_TYPES.LB_CALL],
         },
         Digits: {
-            name: localize('Digits'),
+            name: 'Digits',
             categories: [TRADE_TYPES.MATCH_DIFF, TRADE_TYPES.EVEN_ODD, TRADE_TYPES.OVER_UNDER],
         },
-        Vanillas: { name: localize('Vanillas'), categories: [TRADE_TYPES.VANILLA.CALL, TRADE_TYPES.VANILLA.PUT] },
-        Accumulators: { name: localize('Accumulators'), categories: [TRADE_TYPES.ACCUMULATOR] },
+        Vanillas: { name: 'Vanillas', categories: [TRADE_TYPES.VANILLA.CALL, TRADE_TYPES.VANILLA.PUT] },
+        Accumulators: { name: 'Accumulators', categories: [TRADE_TYPES.ACCUMULATOR] },
     }) as const;
 
 export const unsupported_contract_types_list = [
@@ -516,153 +516,153 @@ export const getSupportedContracts = (is_high_low?: boolean) =>
     ({
         [CONTRACT_TYPES.ACCUMULATOR]: {
             button_name: localize('Buy'),
-            name: localize('Accumulators'),
+            name: 'Accumulators',
             position: 'top',
         },
         [CONTRACT_TYPES.CALL]: {
-            name: is_high_low ? localize('Higher') : localize('Rise'),
+            name: is_high_low ? 'Higher' : 'Rise',
             position: 'top',
         },
         [CONTRACT_TYPES.PUT]: {
-            name: is_high_low ? localize('Lower') : localize('Fall'),
+            name: is_high_low ? 'Lower' : 'Fall',
             position: 'bottom',
         },
         [CONTRACT_TYPES.HIGHER]: {
-            name: localize('Higher'),
+            name: 'Higher',
             position: 'top',
         },
         [CONTRACT_TYPES.LOWER]: {
-            name: localize('Lower'),
+            name: 'Lower',
             position: 'bottom',
         },
         [CONTRACT_TYPES.CALLE]: {
-            name: localize('Rise'),
+            name: 'Rise',
             position: 'top',
         },
         [CONTRACT_TYPES.PUTE]: {
-            name: localize('Fall'),
+            name: 'Fall',
             position: 'bottom',
         },
         [CONTRACT_TYPES.MATCH_DIFF.MATCH]: {
-            name: localize('Matches'),
+            name: 'Matches',
             position: 'top',
         },
         [CONTRACT_TYPES.MATCH_DIFF.DIFF]: {
-            name: localize('Differs'),
+            name: 'Differs',
             position: 'bottom',
         },
         [CONTRACT_TYPES.EVEN_ODD.EVEN]: {
-            name: localize('Even'),
+            name: 'Even',
             position: 'top',
         },
         [CONTRACT_TYPES.EVEN_ODD.ODD]: {
-            name: localize('Odd'),
+            name: 'Odd',
             position: 'bottom',
         },
         [CONTRACT_TYPES.OVER_UNDER.OVER]: {
-            name: localize('Over'),
+            name: 'Over',
             position: 'top',
         },
         [CONTRACT_TYPES.OVER_UNDER.UNDER]: {
-            name: localize('Under'),
+            name: 'Under',
             position: 'bottom',
         },
         [CONTRACT_TYPES.TOUCH.ONE_TOUCH]: {
-            name: localize('Touch'),
+            name: 'Touch',
             position: 'top',
         },
         [CONTRACT_TYPES.TOUCH.NO_TOUCH]: {
-            name: localize('No Touch'),
+            name: 'No Touch',
             position: 'bottom',
         },
         [CONTRACT_TYPES.MULTIPLIER.UP]: {
-            name: localize('Up'),
+            name: 'Up',
             position: 'top',
             main_title: localize('Multipliers'),
         },
         [CONTRACT_TYPES.MULTIPLIER.DOWN]: {
-            name: localize('Down'),
+            name: 'Down',
             position: 'bottom',
             main_title: localize('Multipliers'),
         },
         [CONTRACT_TYPES.TURBOS.LONG]: {
-            name: localize('Up'),
+            name: 'Up',
             position: 'top',
             main_title: localize('Turbos'),
         },
         [CONTRACT_TYPES.TURBOS.SHORT]: {
-            name: localize('Down'),
+            name: 'Down',
             position: 'bottom',
             main_title: localize('Turbos'),
         },
         [CONTRACT_TYPES.VANILLA.CALL]: {
-            name: localize('Call'),
+            name: 'Call',
             position: 'top',
             main_title: localize('Vanillas'),
         },
         [CONTRACT_TYPES.VANILLA.PUT]: {
-            name: localize('Put'),
+            name: 'Put',
             position: 'bottom',
             main_title: localize('Vanillas'),
         },
         [CONTRACT_TYPES.RUN_HIGH_LOW.HIGH]: {
-            name: localize('Only Ups'),
+            name: 'Only Ups',
             position: 'top',
         },
         [CONTRACT_TYPES.RUN_HIGH_LOW.LOW]: {
-            name: localize('Only Downs'),
+            name: 'Only Downs',
             position: 'bottom',
         },
         [CONTRACT_TYPES.END.OUT]: {
-            name: localize('Ends Outside'),
+            name: 'Ends Outside',
             position: 'top',
         },
         [CONTRACT_TYPES.END.IN]: {
-            name: localize('Ends Between'),
+            name: 'Ends Between',
             position: 'bottom',
         },
         [CONTRACT_TYPES.STAY.IN]: {
-            name: localize('Stays Between'),
+            name: 'Stays Between',
             position: 'top',
         },
         [CONTRACT_TYPES.STAY.OUT]: {
-            name: localize('Goes Outside'),
+            name: 'Goes Outside',
             position: 'bottom',
         },
         [CONTRACT_TYPES.ASIAN.UP]: {
-            name: localize('Asian Up'),
+            name: 'Asian Up',
             position: 'top',
         },
         [CONTRACT_TYPES.ASIAN.DOWN]: {
-            name: localize('Asian Down'),
+            name: 'Asian Down',
             position: 'bottom',
         },
         [CONTRACT_TYPES.TICK_HIGH_LOW.HIGH]: {
-            name: localize('High Tick'),
+            name: 'High Tick',
             position: 'top',
         },
         [CONTRACT_TYPES.TICK_HIGH_LOW.LOW]: {
-            name: localize('Low Tick'),
+            name: 'Low Tick',
             position: 'bottom',
         },
         [CONTRACT_TYPES.RESET.CALL]: {
-            name: localize('Reset Call'),
+            name: 'Reset Call',
             position: 'top',
         },
         [CONTRACT_TYPES.RESET.PUT]: {
-            name: localize('Reset Put'),
+            name: 'Reset Put',
             position: 'bottom',
         },
         [CONTRACT_TYPES.LB_CALL]: {
-            name: localize('Close-Low'),
+            name: 'Close-Low',
             position: 'top',
         },
         [CONTRACT_TYPES.LB_PUT]: {
-            name: localize('High-Close'),
+            name: 'High-Close',
             position: 'top',
         },
         [CONTRACT_TYPES.LB_HIGH_LOW]: {
-            name: localize('High-Low'),
+            name: 'High-Low',
             position: 'top',
         },
         // To add a feature flag for a new trade_type, please add 'feature_flag' to its config here:
