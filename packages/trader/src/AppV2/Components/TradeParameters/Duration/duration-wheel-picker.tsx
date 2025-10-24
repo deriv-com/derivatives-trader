@@ -13,13 +13,11 @@ const DurationWheelPicker = observer(
     ({
         unit,
         setWheelPickerValue,
-        selected_hour,
-        selected_time,
+        selected_duration,
     }: {
         unit: string;
         setWheelPickerValue: (index: number, value: string | number) => void;
-        selected_hour: number[];
-        selected_time: number[];
+        selected_duration: number[];
     }) => {
         const { duration_min_max, duration_units_list } = useTraderStore();
         const options = React.useMemo(() => getOptionPerUnit(unit, duration_min_max), [unit, duration_min_max]);
@@ -40,16 +38,15 @@ const DurationWheelPicker = observer(
                 {unit !== DURATION_UNIT.HOURS ? (
                     <WheelPickerContainer
                         data={options}
-                        defaultValue={[String(selected_time)]}
+                        defaultValue={[String(selected_duration[0])]}
                         containerHeight={handleContainerHeight()}
-                        inputValues={selected_time}
+                        inputValues={selected_duration}
                         setInputValues={setWheelPickerValue}
                     />
                 ) : (
                     <HourPicker
                         setWheelPickerValue={setWheelPickerValue}
-                        selected_hour={selected_hour}
-                        selected_time={selected_time}
+                        selected_duration={selected_duration}
                         duration_min_max={duration_min_max}
                     />
                 )}

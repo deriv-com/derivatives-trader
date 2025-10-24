@@ -13,6 +13,7 @@ import {
     isMultiplierContract,
     isTurbosContract,
     isVanillaContract,
+    mapErrorMessage,
     LocalStore,
     setTradeURLParams,
     switch_to_tick_chart,
@@ -294,8 +295,7 @@ export default class ContractTradeStore extends BaseStore {
         }
         return this.contracts
             .filter(c => {
-                // Backward compatibility: fallback to old field name
-                const contract_underlying = c.contract_info.underlying_symbol || c.contract_info.underlying;
+                const contract_underlying = c.contract_info.underlying_symbol;
                 return contract_underlying === underlying;
             })
             .filter(c => {
@@ -462,7 +462,7 @@ export default class ContractTradeStore extends BaseStore {
     updateProposal(response) {
         if ('error' in response) {
             this.has_error = true;
-            this.error_message = response.error.message;
+            this.error_message = mapErrorMessage(response.error);
             return;
         }
         // Update the contract-store corresponding to this POC

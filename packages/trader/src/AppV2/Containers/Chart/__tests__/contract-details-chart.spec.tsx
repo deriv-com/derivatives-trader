@@ -24,7 +24,7 @@ jest.mock('AppV2/Hooks/useContractDetails', () => ({
         contract_info: {
             contract_id: 12345,
             contract_type: 'CALL',
-            underlying: 'R_50',
+            underlying_symbol: 'R_50',
         },
         contract: {},
         is_loading: false,
@@ -39,7 +39,7 @@ describe('Contract Replay Chart', () => {
                     contract_info: {
                         contract_id: 12345,
                         contract_type: 'CALL',
-                        underlying: 'R_50',
+                        underlying_symbol: 'R_50',
                     },
                 },
             },

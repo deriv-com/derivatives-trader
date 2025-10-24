@@ -1,21 +1,14 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Analytics } from '@deriv-com/analytics';
 import { MemoryRouter } from 'react-router-dom';
 import { TCoreStores } from '@deriv/stores/types';
-import { formatDate } from '@deriv/shared';
+import { formatDate, trackAnalyticsEvent } from '@deriv/shared';
 import { useDevice } from '@deriv-com/ui';
 import { mockStore } from '@deriv/stores';
 import { useReportsStore } from 'Stores/useReportsStores';
 import Statement, { getRowAction } from '../statement';
 import ReportsProviders from '../../reports-providers';
-
-jest.mock('@deriv-com/analytics', () => ({
-    Analytics: {
-        trackEvent: jest.fn(),
-    },
-}));
 
 jest.mock('@deriv-com/ui', () => ({
     useDevice: jest.fn(() => ({ isDesktop: true })),
@@ -78,6 +71,7 @@ jest.mock('Stores/useReportsStores', () => ({
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
+    trackAnalyticsEvent: jest.fn(),
     isMobile: jest.fn(() => false),
     WS: {
         forgetAll: jest.fn(),
@@ -267,48 +261,6 @@ describe('Statement', () => {
         await userEvent.click(within(screen.getByTestId(filterDropdown)).getByText(allTransactions));
         await userEvent.click(screen.getByText(buyTransactions));
         expect(screen.getByTestId(filterDropdown)).toHaveTextContent(buyTransactions);
-    });
-    it('should send analytics when previous filter value is defined', () => {
-        const { rerender } = render(mockedStatement());
-
-        (useReportsStore as jest.Mock).mockReturnValueOnce({
-            statement: {
-                ...useReportsStore().statement,
-                action_type: 'buy',
-            },
-        });
-        rerender(mockedStatement());
-        expect(Analytics.trackEvent).toHaveBeenCalledWith(
-            'ce_reports_form',
-            expect.objectContaining({
-                action: 'filter_transaction_type',
-                form_name: 'default',
-                subform_name: 'statement_form',
-                transaction_type_filter: 'buy',
-            })
-        );
-    });
-    it('should send analytics when previous date_from and date_to are defined', () => {
-        const { rerender } = render(mockedStatement());
-
-        (useReportsStore as jest.Mock).mockReturnValueOnce({
-            statement: {
-                ...useReportsStore().statement,
-                date_from: 1717184362,
-                date_to: 1717631989,
-            },
-        });
-        rerender(mockedStatement());
-        expect(Analytics.trackEvent).toHaveBeenCalledWith(
-            'ce_reports_form',
-            expect.objectContaining({
-                action: 'filter_dates',
-                form_name: 'default',
-                subform_name: 'statement_form',
-                start_date_filter: formatDate(1717184362, 'DD/MM/YYYY', false),
-                end_date_filter: formatDate(1717631989, 'DD/MM/YYYY', false),
-            })
-        );
     });
 });
 

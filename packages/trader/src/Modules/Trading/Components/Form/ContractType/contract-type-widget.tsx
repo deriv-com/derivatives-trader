@@ -2,20 +2,16 @@ import React from 'react';
 
 import { InlineMessage, Text } from '@deriv/components';
 import { LegacyChevronRight1pxIcon } from '@deriv/quill-icons';
-import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES } from '@deriv/shared';
+import { CONTRACT_STORAGE_VALUES, getSymbolDisplayName, TRADE_TYPES, trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import { Localize, useTranslations } from '@deriv-com/translations';
-
 import { useTraderStore } from 'Stores/useTraderStores';
-
 import {
     findContractCategory,
     getCategoriesSortedByKey,
     getContractTypeCategoryIcons,
     getContractTypes,
 } from '../../../Helpers/contract-type';
-
 import ContractType from './contract-type';
 import { TContractCategory, TContractType, TList } from './types';
 
@@ -36,7 +32,6 @@ type TContractTypeWidget = {
 const ContractTypeWidget = observer(
     ({ name, value, list, onChange, languageChanged, unavailable_trade_types_list = [] }: TContractTypeWidget) => {
         const {
-            active_symbols: { active_symbols },
             ui: { is_mobile },
         } = useStore();
         const { localize } = useTranslations();
@@ -78,14 +73,13 @@ const ContractTypeWidget = observer(
         }, [handleClickOutside]);
 
         React.useEffect(() => {
-            if (typeof is_dialog_open === 'boolean') {
-                Analytics.trackEvent('ce_trade_types_form', {
-                    action: is_dialog_open ? 'open' : 'close',
-                    form_source: 'contract_set_up_form',
-                    form_name: 'default',
+            // Only track 'open' event when dialog is opened manually, not via "Learn more"
+            if (typeof is_dialog_open === 'boolean' && is_dialog_open && !is_info_dialog_open) {
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                    action: 'open',
                 });
             }
-        }, [is_dialog_open]);
+        }, [is_dialog_open, is_info_dialog_open]);
 
         React.useEffect(() => {
             if (contract_type) {
@@ -112,7 +106,6 @@ const ContractTypeWidget = observer(
             const { key } = findContractCategory(categories, clicked_item);
             if ('id' in e.target && e.target.id !== 'info-icon' && clicked_item) {
                 const is_from_info_dialog = /_btn$/.test(e.target.id as string);
-                const subform_name = is_from_info_dialog ? 'info_new' : 'trade_type';
 
                 setDialogVisibility(false);
                 setInfoDialogVisibility(false);
@@ -121,24 +114,10 @@ const ContractTypeWidget = observer(
 
                 onChange({ target: { name, value: clicked_item.value } });
 
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                if ((window as any).hj) (window as any).hj('event', `selected_${clicked_item.value}_contract_type`);
-                if (subform_name === 'trade_type') {
-                    Analytics.trackEvent('ce_trade_types_form', {
-                        action: 'choose_trade_type',
-                        subform_name,
-                        tab_name: selected_category,
-                        trade_type_name: getCategoryName(clicked_item),
-                        form_name: 'default',
-                    });
-                } else {
-                    Analytics.trackEvent('ce_trade_types_form', {
-                        action: 'choose_trade_type',
-                        subform_name,
-                        trade_type_name: getCategoryName(clicked_item),
-                        form_name: 'default',
-                    });
-                }
+                trackAnalyticsEvent('ce_trade_types_form_v2', {
+                    action: is_from_info_dialog ? 'info_choose_trade_type' : 'select_trade_type',
+                    trade_type_name: getCategoryName(clicked_item),
+                });
             }
         };
 
@@ -146,20 +125,10 @@ const ContractTypeWidget = observer(
             setInfoDialogVisibility(!is_info_dialog_open);
             setItem(clicked_item);
 
-            Analytics.trackEvent('ce_trade_types_form', {
+            trackAnalyticsEvent('ce_trade_types_form_v2', {
                 action: 'info_open',
-                tab_name: selected_category,
                 trade_type_name: getCategoryName(clicked_item),
             });
-        };
-
-        const onSearchBlur = () => {
-            if (search_query) {
-                Analytics.trackEvent('ce_trade_types_form', {
-                    action: 'search',
-                    search_string: search_query,
-                });
-            }
         };
 
         const onWidgetClick = () => {
@@ -182,9 +151,8 @@ const ContractTypeWidget = observer(
             setDialogVisibility(true);
             setInfoDialogVisibility(true);
             setItem(item || { value });
-            Analytics.trackEvent('ce_trade_types_form', {
+            trackAnalyticsEvent('ce_trade_types_form_v2', {
                 action: 'info_open',
-                tab_name: selected_category,
                 trade_type_name: getCategoryName(item || { value }),
             });
             setHideBackButton(true);
@@ -303,7 +271,7 @@ const ContractTypeWidget = observer(
                     <Localize
                         i18n_default_text='Some trade types are unavailable for {{symbol}}.'
                         values={{
-                            symbol: getSymbolDisplayName([], symbol),
+                            symbol: getSymbolDisplayName(symbol),
                         }}
                         shouldUnescape
                     />
@@ -337,7 +305,6 @@ const ContractTypeWidget = observer(
                         categories={list_with_category()}
                         selected={selected_category || list_with_category()[0]?.key}
                         onBackButtonClick={onBackButtonClick}
-                        onSearchBlur={onSearchBlur}
                         onClose={onClose}
                         onChangeInput={onChangeInput}
                         onCategoryClick={handleCategoryClick}

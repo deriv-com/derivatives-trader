@@ -25,11 +25,9 @@ const VanillaOptionsCardBody: React.FC<TVanillaOptionsCardBodyProps> = ({
     is_sold,
     progress_slider,
 }) => {
-    const { buy_price, bid_price, entry_spot_display_value, entry_spot, barrier, sell_price, profit }: TContractInfo =
-        contract_info;
+    const { buy_price, bid_price, entry_spot, barrier, sell_price, profit }: TContractInfo = contract_info;
 
-    // Backward compatibility: fallback to old field name
-    const actual_entry_spot = entry_spot ?? entry_spot_display_value;
+    const actual_entry_spot = entry_spot;
 
     const contract_value = is_sold ? sell_price : bid_price;
     const { CONTRACT_VALUE, ENTRY_SPOT, STAKE, STRIKE, TOTAL_PROFIT_LOSS } = getCardLabels();

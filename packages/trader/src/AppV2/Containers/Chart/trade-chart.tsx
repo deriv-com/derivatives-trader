@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActiveSymbols, TickSpotData } from '@deriv/api-types';
+import { TActiveSymbolsResponse, TTicksStreamResponse } from '@deriv/api';
 import {
     ChartBarrierStore,
     isAccumulatorContract,
@@ -20,6 +20,9 @@ import { createSmartChartsChampionAdapter, TGetQuotes } from 'Modules/SmartChart
 import AccumulatorsChartElements from 'Modules/SmartChart/Components/Markers/accumulators-chart-elements';
 import ToolbarWidgets from 'Modules/SmartChart/Components/toolbar-widgets';
 import { useTraderStore } from 'Stores/useTraderStores';
+
+type TickSpotData = NonNullable<TTicksStreamResponse['tick']>;
+type ActiveSymbols = NonNullable<TActiveSymbolsResponse['active_symbols']>;
 
 type TBottomWidgetsParams = {
     digits: number[];
@@ -137,12 +140,10 @@ const TradeChart = observer(() => {
         const has_synthetic_index = active_symbols.some(s => s.market === synthetic_index);
         return active_symbols
             .slice()
-            .sort((a, b) =>
-                ((a as any).underlying_symbol || a.symbol) < ((b as any).underlying_symbol || b.symbol) ? -1 : 1
-            )
+            .sort((a, b) => ((a.underlying_symbol || '') < (b.underlying_symbol || '') ? -1 : 1))
             .map(s => s.market)
             .reduce(
-                (arr, market) => {
+                (arr: string[], market: string) => {
                     if (arr.indexOf(market) === -1) arr.push(market);
                     return arr;
                 },

@@ -1,16 +1,17 @@
 import React from 'react';
-
-import { mockContractInfo } from '@deriv/shared';
+import { mockContractInfo, TContractStore } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
 import ContractAudit from '../contract-audit';
 
 const ContractDetails = 'ContractDetails';
 const ContractHistory = 'ContractHistory';
 const mocked_default_props: React.ComponentProps<typeof ContractAudit> = {
     contract_info: mockContractInfo(),
-    contract_update_history: [{ order_date: 1700482235 }, { order_date: 1700482236 }],
+    contract_update_history: [
+        { order_date: 1700482235 },
+        { order_date: 1700482236 },
+    ] as TContractStore['contract_update_history'],
     is_multiplier: true,
     is_accumulator: false,
     is_history_tab_active: false,

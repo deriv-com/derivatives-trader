@@ -1,5 +1,6 @@
+import { TActiveSymbolsResponse } from '@deriv/api';
+
 import { formatProfitTableTransactions, TTransaction } from '../format-response';
-import { ActiveSymbols } from '@deriv/api-types';
 
 let mockProfitTableTransactionData: TTransaction;
 describe('formatProfitTableTransactions', () => {
@@ -55,29 +56,5 @@ describe('formatProfitTableTransactions', () => {
         const currency = 'USD';
         const returnValue = formatProfitTableTransactions(mockProfitTableTransactionData, currency);
         expect(returnValue.profit_loss).toEqual('0.50');
-    });
-
-    it('should return display name if active symbols are available', () => {
-        const currency = 'USD';
-        const activeSymbols: ActiveSymbols = [
-            {
-                allow_forward_starting: 1,
-                display_name: 'Volatility 100 (1s) Index',
-                display_order: 3,
-                exchange_is_open: 1,
-                is_trading_suspended: 0,
-                market: 'synthetic_index',
-                market_display_name: 'Derived',
-                pip: 0.01,
-                subgroup: 'synthetics',
-                subgroup_display_name: 'Synthetics',
-                submarket: 'random_index',
-                submarket_display_name: 'Continuous Indices',
-                symbol: '1HZ100V',
-                symbol_type: 'stockindex',
-            },
-        ];
-        const returnValue = formatProfitTableTransactions(mockProfitTableTransactionData, currency, activeSymbols);
-        expect(returnValue.display_name).toEqual('Volatility 100 (1s) Index');
     });
 });

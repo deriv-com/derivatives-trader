@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useAuthContext } from '../AuthProvider';
-import { getAccountListWithAuthToken } from '@deriv/utils';
 
 /** A custom hook that authorize the user with the given token. If no token is given,
  * it will use the current token from localStorage.
@@ -22,7 +21,7 @@ const useAuthorize = () => {
     } = ctx;
 
     const modifiedData = useMemo(() => {
-        return { ...data?.authorize, account_list: getAccountListWithAuthToken(data?.authorize?.account_list) };
+        return { ...data?.authorize };
     }, [data]);
 
     const value = useMemo(() => {

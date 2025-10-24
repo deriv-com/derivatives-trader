@@ -159,4 +159,68 @@ describe('Duration', () => {
 
         expect(screen.getByDisplayValue('2 hours 5 minutes')).toBeInTheDocument();
     });
+
+    it('should update saved_expiry_date when expiry_epoch changes to a different date', () => {
+        // Initial state with next year's date (simulating Accumulator contract)
+        const next_year_epoch = 1792108799; // Oct 15, 2026
+        default_trade_store.modules.trade.expiry_epoch = next_year_epoch;
+        default_trade_store.modules.trade.saved_expiry_date_v2 = ''; // Start with empty
+
+        render(
+            <TraderProviders store={default_trade_store}>
+                <Duration />
+            </TraderProviders>
+        );
+
+        // Verify initial date is set from expiry_epoch
+        expect(default_trade_store.modules.trade.setSavedExpiryDateV2).toHaveBeenCalledWith('2026-10-15');
+    });
+
+    it('should not update saved_expiry_date when expiry_epoch changes but date remains the same', () => {
+        const mockSetSavedExpiryDateV2 = jest.fn();
+
+        // Initial state with today's date
+        const initial_epoch = 1760507040; // Oct 15, 2025 00:00:00
+        default_trade_store.modules.trade.expiry_epoch = initial_epoch;
+        default_trade_store.modules.trade.saved_expiry_date_v2 = '2025-10-15';
+        default_trade_store.modules.trade.setSavedExpiryDateV2 = mockSetSavedExpiryDateV2;
+
+        const { rerender } = render(
+            <TraderProviders store={default_trade_store}>
+                <Duration />
+            </TraderProviders>
+        );
+
+        mockSetSavedExpiryDateV2.mockClear();
+
+        // Simulate streaming proposal update with same date but different time
+        const updated_epoch = 1760507041; // Oct 15, 2025 00:00:01 (1 second later)
+        default_trade_store.modules.trade.expiry_epoch = updated_epoch;
+
+        rerender(
+            <TraderProviders store={default_trade_store}>
+                <Duration />
+            </TraderProviders>
+        );
+
+        // Verify that setSavedExpiryDateV2 is NOT called since the date hasn't changed
+        expect(mockSetSavedExpiryDateV2).not.toHaveBeenCalled();
+    });
+
+    it('should handle expiry_epoch updates correctly when switching between contract types', () => {
+        // Start with Accumulator (no duration) - next year's date
+        const accumulator_epoch = 1792108799; // Oct 15, 2026
+        default_trade_store.modules.trade.expiry_epoch = accumulator_epoch;
+        default_trade_store.modules.trade.saved_expiry_date_v2 = ''; // Start with empty
+        default_trade_store.modules.trade.contract_type = 'accumulator';
+
+        render(
+            <TraderProviders store={default_trade_store}>
+                <Duration />
+            </TraderProviders>
+        );
+
+        // Verify Accumulator's date is set
+        expect(default_trade_store.modules.trade.setSavedExpiryDateV2).toHaveBeenCalledWith('2026-10-15');
+    });
 });

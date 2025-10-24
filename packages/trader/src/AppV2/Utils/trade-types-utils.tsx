@@ -6,7 +6,6 @@ import {
     TRADE_TYPES,
     unsupported_contract_types_list,
 } from '@deriv/shared';
-import { Localize } from '@deriv-com/translations';
 
 import { getAvailableContractTypes, getCategoriesSortedByKey } from 'Modules/Trading/Helpers/contract-type';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -42,48 +41,48 @@ export const CONTRACT_LIST = {
 
 export const AVAILABLE_CONTRACTS = [
     {
-        tradeType: <Localize i18n_default_text='Accumulators' />,
+        tradeType: 'Accumulators',
         id: CONTRACT_LIST.ACCUMULATORS,
         for: [TRADE_TYPES.ACCUMULATOR],
     },
     {
-        tradeType: <Localize i18n_default_text='Vanillas' />,
+        tradeType: 'Vanillas',
         id: CONTRACT_LIST.VANILLAS,
         for: [TRADE_TYPES.VANILLA.CALL, TRADE_TYPES.VANILLA.PUT],
     },
     {
-        tradeType: <Localize i18n_default_text='Turbos' />,
+        tradeType: 'Turbos',
         id: CONTRACT_LIST.TURBOS,
         for: [TRADE_TYPES.TURBOS.LONG, TRADE_TYPES.TURBOS.SHORT],
     },
     {
-        tradeType: <Localize i18n_default_text='Multipliers' />,
+        tradeType: 'Multipliers',
         id: CONTRACT_LIST.MULTIPLIERS,
         for: [TRADE_TYPES.MULTIPLIER],
     },
     {
-        tradeType: <Localize i18n_default_text='Rise/Fall' />,
+        tradeType: 'Rise/Fall',
         id: CONTRACT_LIST.RISE_FALL,
         for: [TRADE_TYPES.RISE_FALL, TRADE_TYPES.RISE_FALL_EQUAL],
     },
     {
-        tradeType: <Localize i18n_default_text='Higher/Lower' />,
+        tradeType: 'Higher/Lower',
         id: CONTRACT_LIST.HIGHER_LOWER,
         for: [TRADE_TYPES.HIGH_LOW],
     },
     {
-        tradeType: <Localize i18n_default_text='Touch/No Touch' />,
+        tradeType: 'Touch/No Touch',
         id: CONTRACT_LIST.TOUCH_NO_TOUCH,
         for: [TRADE_TYPES.TOUCH],
     },
     {
-        tradeType: <Localize i18n_default_text='Matches/Differs' />,
+        tradeType: 'Matches/Differs',
         id: CONTRACT_LIST.MATCHES_DIFFERS,
         for: [TRADE_TYPES.MATCH_DIFF],
     },
-    { tradeType: <Localize i18n_default_text='Even/Odd' />, id: CONTRACT_LIST.EVEN_ODD, for: [TRADE_TYPES.EVEN_ODD] },
+    { tradeType: 'Even/Odd', id: CONTRACT_LIST.EVEN_ODD, for: [TRADE_TYPES.EVEN_ODD] },
     {
-        tradeType: <Localize i18n_default_text='Over/Under' />,
+        tradeType: 'Over/Under',
         id: CONTRACT_LIST.OVER_UNDER,
         for: [TRADE_TYPES.OVER_UNDER],
     },

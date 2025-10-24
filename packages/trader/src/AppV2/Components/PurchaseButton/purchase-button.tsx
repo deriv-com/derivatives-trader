@@ -9,21 +9,23 @@ import {
     getCardLabelsV2,
     getContractTypeDisplay,
     getIndicativePrice,
+    getMarketName,
+    getTradeTypeName,
     hasContractEntered,
     isAccumulatorContract,
     isOpen,
     isValidToSell,
+    trackAnalyticsEvent,
 } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { Button, useNotifications, useSnackbar } from '@deriv-com/quill-ui';
 import { useDevice } from '@deriv-com/ui';
 
+import useContractsFor from 'AppV2/Hooks/useContractsFor';
 import { checkIsServiceModalError } from 'AppV2/Utils/layout-utils';
 import { getTradeTypeTabsList } from 'AppV2/Utils/trade-params-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { useTraderStore } from 'Stores/useTraderStores';
-
-import { sendDtraderV2PurchaseToAnalytics } from '../../../Analytics';
 
 import PurchaseButtonContent from './purchase-button-content';
 
@@ -42,9 +44,11 @@ const PurchaseButton = observer(() => {
     const { addSnackbar } = useSnackbar();
     const {
         portfolio: { all_positions, onClickSell, open_accu_contract, active_positions },
-        client: { is_logged_in },
+        client,
         common: { services_error },
     } = useStore();
+    const { is_logged_in } = client;
+    const { trade_types: trade_types_list } = useContractsFor();
     const {
         basis,
         basis_list,
@@ -73,9 +77,7 @@ const PurchaseButton = observer(() => {
     const prev_has_open_accu_contract = usePrevious(
         !!open_accu_contract &&
             !!active_positions.find(({ contract_info, type }) => {
-                // Backward compatibility: fallback to old field name
-                // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
-                const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+                const contract_underlying = contract_info.underlying_symbol;
                 return isAccumulatorContract(type) && contract_underlying === symbol;
             })
     );
@@ -102,9 +104,7 @@ const PurchaseButton = observer(() => {
     const contract_types = getDisplayedContractTypes(trade_types, contract_type, trade_type_tab);
     const active_accu_contract = is_accumulator
         ? all_positions.find(({ contract_info, type }) => {
-              // Backward compatibility: fallback to old field name
-              // @ts-expect-error - underlying_symbol exists in runtime but not in type definition
-              const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+              const contract_underlying = contract_info.underlying_symbol;
               return isAccumulatorContract(type) && contract_underlying === symbol && !contract_info.is_sold;
           })
         : undefined;
@@ -125,8 +125,25 @@ const PurchaseButton = observer(() => {
         return button_index ? 'sell' : 'purchase';
     };
 
-    const addNotificationBannerCallback = (params: Parameters<typeof addBanner>[0], contract_id: number) => {
-        sendDtraderV2PurchaseToAnalytics(contract_type, symbol, contract_id);
+    const addNotificationBannerCallback = (
+        params: Parameters<typeof addBanner>[0],
+        contract_id: number,
+        specific_contract_type: string
+    ) => {
+        // Track run_contract analytics event directly
+        const selected_trade_type = trade_types_list.find(({ value }) => value === contract_type);
+        const trade_type_name = selected_trade_type?.text || contract_type;
+        const market_type_name = getMarketName(symbol) || symbol;
+        const contract_type_display = getTradeTypeName(specific_contract_type) || '';
+
+        trackAnalyticsEvent('ce_contracts_set_up_form_v2', {
+            action: 'run_contract',
+            trade_type_name,
+            market_type_name,
+            contract_id,
+            contract_type: contract_type_display,
+        });
+
         return addBanner({
             icon: (
                 <StandaloneStopwatchRegularIcon
@@ -238,7 +255,9 @@ const PurchaseButton = observer(() => {
                                     disabled={is_disabled && !is_loading}
                                     onClick={() => {
                                         setLoadingButtonIndex(index);
-                                        onPurchaseV2(trade_type, isMobile, addNotificationBannerCallback);
+                                        onPurchaseV2(trade_type, isMobile, (params, contract_id) =>
+                                            addNotificationBannerCallback(params, contract_id, trade_type)
+                                        );
                                     }}
                                 >
                                     {!is_loading && (

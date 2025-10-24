@@ -37,19 +37,9 @@ const TurbosCardBody = ({
     progress_slider_mobile_el,
     ...toggle_card_dialog_props
 }: TTurbosCardBody) => {
-    const {
-        bid_price,
-        buy_price,
-        profit,
-        barrier,
-        entry_spot_display_value,
-        entry_spot,
-        limit_order = {},
-        sell_price,
-    } = contract_info;
+    const { bid_price, buy_price, profit, barrier, entry_spot, limit_order = {}, sell_price } = contract_info;
 
-    // Backward compatibility: fallback to old field name
-    const actual_entry_spot = entry_spot ?? entry_spot_display_value;
+    const actual_entry_spot = entry_spot;
     const { take_profit } = getLimitOrderAmount(contract_update || limit_order);
     const is_valid_to_sell = isValidToSell(contract_info);
     const contract_value = is_sold ? sell_price : bid_price;
@@ -108,7 +98,10 @@ const TurbosCardBody = ({
                 <MobileWrapper>
                     <div className='dc-contract-card__status'>
                         {is_sold ? (
-                            <ResultStatusIcon getCardLabels={getCardLabels} is_contract_won={!!profit && profit > 0} />
+                            <ResultStatusIcon
+                                getCardLabels={getCardLabels}
+                                is_contract_won={!!profit && Number(profit) > 0}
+                            />
                         ) : (
                             progress_slider_mobile_el
                         )}

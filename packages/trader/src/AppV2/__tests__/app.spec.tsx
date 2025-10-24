@@ -59,10 +59,6 @@ jest.mock('../Routes/router', () => {
     return MockRouter;
 });
 
-jest.mock('../../Analytics', () => ({
-    sendDtraderV2OpenToAnalytics: jest.fn(),
-}));
-
 const mockRootStore = mockStore({
     common: {
         server_time: moment(new Date()).utc(),

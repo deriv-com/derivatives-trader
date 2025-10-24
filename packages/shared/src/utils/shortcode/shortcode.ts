@@ -2,7 +2,7 @@ type TIsHighLow = {
     shortcode?: string;
     shortcode_info?: {
         category?: string;
-        underlying?: string;
+        underlying_symbol?: string;
         barrier_1?: string;
         multiplier?: string;
         start_time?: string;
@@ -11,7 +11,7 @@ type TIsHighLow = {
 
 type TInfoFromShortcode = Record<
     | 'category'
-    | 'underlying'
+    | 'underlying_symbol'
     | 'barrier_1'
     | 'multiplier'
     | 'start_time'
@@ -37,7 +37,7 @@ const options_regex = new RegExp(`${base_pattern}_([A-Z\\d]+)_([A-Z\\d]+)_?([A-Z
 export const extractInfoFromShortcode = (shortcode: string): TInfoFromShortcode => {
     const info_from_shortcode = {
         category: '',
-        underlying: '',
+        underlying_symbol: '',
         barrier_1: '',
         multiplier: '',
         start_time: '',
@@ -58,7 +58,7 @@ export const extractInfoFromShortcode = (shortcode: string): TInfoFromShortcode 
 
     if (extracted !== null) {
         info_from_shortcode.category = extracted[1].charAt(0).toUpperCase() + extracted[1].slice(1).toLowerCase();
-        info_from_shortcode.underlying = extracted[2];
+        info_from_shortcode.underlying_symbol = extracted[2];
 
         if (is_multipliers) {
             info_from_shortcode.multiplier = extracted[4];

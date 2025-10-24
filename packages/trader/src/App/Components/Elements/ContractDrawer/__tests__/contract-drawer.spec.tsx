@@ -1,13 +1,11 @@
 import React from 'react';
 import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
-
 import { toMoment } from '@deriv/shared';
 import { mockStore } from '@deriv/stores';
 import { useDevice } from '@deriv-com/ui';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
 import TraderProviders from '../../../../../trader-providers';
 import ContractDrawer from '../contract-drawer';
 

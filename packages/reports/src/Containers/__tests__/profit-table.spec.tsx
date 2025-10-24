@@ -3,10 +3,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ProfitTable, { getRowAction } from '../profit-table';
 import { mockStore } from '@deriv/stores';
-import { Analytics } from '@deriv-com/analytics';
 import ReportsProviders from '../../reports-providers';
 import { useReportsStore } from 'Stores/useReportsStores';
-import { extractInfoFromShortcode, formatDate, getUnsupportedContracts } from '@deriv/shared';
+import { extractInfoFromShortcode, formatDate, getUnsupportedContracts, trackAnalyticsEvent } from '@deriv/shared';
 import { useDevice } from '@deriv-com/ui';
 
 const mockData = [
@@ -51,12 +50,6 @@ const mockData = [
         underlying_symbol: '1HZ100V',
     },
 ];
-
-jest.mock('@deriv-com/analytics', () => ({
-    Analytics: {
-        trackEvent: jest.fn(),
-    },
-}));
 
 jest.mock('Stores/useReportsStores', () => ({
     ...jest.requireActual('Stores/useReportsStores'),
@@ -103,6 +96,7 @@ jest.mock('@deriv/components', () => ({
 
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
+    trackAnalyticsEvent: jest.fn(),
     WS: {
         forgetAll: jest.fn(),
         wait: jest.fn(),
@@ -257,30 +251,6 @@ describe('Profit Table', () => {
         });
         renderProfitTable();
         expect(screen.getByText(errorMessage)).toBeInTheDocument();
-    });
-
-    test('tracks Analytics events on date changes', () => {
-        (useReportsStore as jest.Mock).mockReturnValueOnce({
-            profit_table: {
-                ...useReportsStore().profit_table,
-                data: [{}],
-                date_from: '31/01/2024',
-                date_to: '01/02/2024',
-                is_empty: false,
-                is_loading: true,
-            },
-        });
-        renderProfitTable();
-        expect(Analytics.trackEvent).toHaveBeenCalledWith(
-            'ce_reports_form',
-            expect.objectContaining({
-                action: 'choose_report_type',
-                start_date_filter: formatDate('31/01/2024', 'DD/MM/YYYY', false),
-                end_date_filter: formatDate('01/02/2024', 'DD/MM/YYYY', false),
-                subform_name: 'trade_table_form',
-                form_name: 'default',
-            })
-        );
     });
 
     test('renders data table when data is available', () => {

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import { Loading } from '@deriv/components';
 import { useLocalStorageData } from '@deriv/api';
-import { getSymbolDisplayName } from '@deriv/shared';
+import { getSymbolDisplayName, trackAnalyticsEvent } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 
 import AccumulatorStats from 'AppV2/Components/AccumulatorStats';
@@ -24,7 +24,6 @@ import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { isDigitTradeType } from 'Modules/Trading/Helpers/digits';
 import { useTraderStore } from 'Stores/useTraderStores';
 
-import { sendSelectedTradeTypeToAnalytics } from '../../../Analytics';
 import { TradeChart } from '../Chart';
 
 import TradeTypes from './trade-types';
@@ -33,10 +32,11 @@ const Trade = observer(() => {
     const [is_minimized_params_visible, setIsMinimizedParamsVisible] = React.useState(false);
     const chart_ref = React.useRef<HTMLDivElement>(null);
     const {
-        client: { is_logged_in },
+        client,
         common: { current_language, network_status },
         ui: { is_dark_mode_on },
     } = useStore();
+    const { is_logged_in } = client;
     const {
         active_symbols,
         contract_type,
@@ -75,9 +75,9 @@ const Trade = observer(() => {
 
     const symbols = React.useMemo(
         () =>
-            active_symbols.map(({ symbol: underlying }) => ({
-                text: getSymbolDisplayName(active_symbols, underlying),
-                value: underlying,
+            active_symbols.map(({ underlying_symbol: underlying }) => ({
+                text: getSymbolDisplayName(underlying || ''),
+                value: underlying || '',
             })),
         [active_symbols]
     );
@@ -88,14 +88,19 @@ const Trade = observer(() => {
             subform_name: string,
             trade_type_count: number
         ) => {
-            const value = trade_types.find(({ text }) => text === (e.target as HTMLButtonElement).textContent)?.value;
+            const selected_trade_type = trade_types.find(
+                ({ text }) => text === (e.target as HTMLButtonElement).textContent
+            );
             onChange({
                 target: {
                     name: 'contract_type',
-                    value,
+                    value: selected_trade_type?.value,
                 },
             });
-            sendSelectedTradeTypeToAnalytics(value || '', subform_name, symbol, trade_type_count);
+            trackAnalyticsEvent('ce_trade_types_form_v2', {
+                action: 'select_trade_type',
+                trade_type_name: selected_trade_type?.text || '',
+            });
         },
         [trade_types, onChange, symbol]
     );

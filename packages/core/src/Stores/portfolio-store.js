@@ -10,8 +10,10 @@ import {
     filterDisabledPositions,
     formatMoney,
     formatPortfolioPosition,
+    trackAnalyticsEvent,
     getContractPath,
     getCurrentTick,
+    mapErrorMessage,
     getDisplayStatus,
     getDurationPeriod,
     getDurationTime,
@@ -30,7 +32,6 @@ import {
     TRADE_TYPES,
     WS,
 } from '@deriv/shared';
-import { Analytics } from '@deriv-com/analytics';
 import { localize } from '@deriv-com/translations';
 
 import BaseStore from './base-store';
@@ -141,14 +142,14 @@ export default class PortfolioStore extends BaseStore {
     portfolioHandler(response) {
         this.is_loading = false;
         if ('error' in response) {
-            this.error = response.error.message;
+            this.error = mapErrorMessage(response.error);
             return;
         }
         this.error = '';
         if (response.portfolio.contracts) {
             this.positions = response.portfolio.contracts
                 .filter(filterDisabledPositions)
-                .map(pos => formatPortfolioPosition(pos, this.root_store.active_symbols.active_symbols))
+                .map(pos => formatPortfolioPosition(pos))
                 .sort((pos1, pos2) => pos2.reference - pos1.reference); // new contracts first
 
             this.positions.forEach(p => {
@@ -159,14 +160,14 @@ export default class PortfolioStore extends BaseStore {
     }
 
     onBuyResponse({ contract_id, longcode, contract_type }) {
-        // Extract underlying from shortcode if available
-        let underlying;
+        // Extract underlying_symbol from shortcode if available
+        let underlying_symbol;
         if (longcode) {
             // Shortcode format: "CALL_1HZ100V_19.79_1753695396_1753373396_S0P0"
             // Extract the second part which is the underlying symbol
             const parts = longcode.split('_');
             if (parts.length >= 2) {
-                underlying = parts[1];
+                underlying_symbol = parts[1];
             }
         }
 
@@ -174,14 +175,14 @@ export default class PortfolioStore extends BaseStore {
             contract_id,
             longcode,
             contract_type,
-            underlying, // Add the extracted underlying
+            underlying_symbol, // Add the extracted underlying symbol
         };
         this.pushNewPosition(new_pos);
     }
 
     async transactionHandler(response) {
         if ('error' in response) {
-            this.error = response.error.message;
+            this.error = mapErrorMessage(response.error);
         }
         if (!response.transaction) return;
         const { contract_id, action: act, longcode } = response.transaction;
@@ -264,11 +265,7 @@ export default class PortfolioStore extends BaseStore {
         this.updateContractTradeStore(response);
         this.updateContractReplayStore(response);
 
-        const formatted_position = formatPortfolioPosition(
-            proposal,
-            this.root_store.active_symbols.active_symbols,
-            portfolio_position.indicative
-        );
+        const formatted_position = formatPortfolioPosition(proposal, portfolio_position.indicative);
         Object.assign(portfolio_position, formatted_position);
 
         const prev_indicative = portfolio_position.indicative;
@@ -417,10 +414,9 @@ export default class PortfolioStore extends BaseStore {
                 );
             }
 
-            Analytics.trackEvent('ce_reports_form', {
+            trackAnalyticsEvent('ce_reports_form_v2', {
                 action: 'close_contract',
-                form_name: 'default',
-                subform_name: 'open_positions_form',
+                platform: 'DTrader',
             });
         }
     }
@@ -518,7 +514,7 @@ export default class PortfolioStore extends BaseStore {
     }
 
     pushNewPosition(new_pos) {
-        const position = formatPortfolioPosition(new_pos, this.root_store.active_symbols.active_symbols);
+        const position = formatPortfolioPosition(new_pos);
 
         if (this.positions_map[position.id]) return;
 
@@ -536,11 +532,10 @@ export default class PortfolioStore extends BaseStore {
         this.root_store.contract_trade.removeContract({ contract_id });
     }
 
-    onHoverPosition(is_over, position, underlying) {
-        // Backward compatibility: fallback to old field name
-        const position_underlying = position.contract_info.underlying_symbol || position.contract_info.underlying;
+    onHoverPosition(is_over, position, underlying_symbol) {
+        const position_underlying = position.contract_info.underlying_symbol;
         if (
-            position_underlying !== underlying ||
+            position_underlying !== underlying_symbol ||
             isEnded(position.contract_info) ||
             !isMultiplierContract(position.type)
         ) {

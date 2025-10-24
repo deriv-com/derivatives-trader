@@ -7,7 +7,7 @@ import ToggleCardDialog from './toggle-card-dialog';
 import MobileWrapper from '../../mobile-wrapper';
 import Money from '../../money';
 import { ResultStatusIcon } from '../result-overlay/result-overlay';
-import { ContractUpdate } from '@deriv/api-types';
+import { TUpdateContractResponse } from '@deriv/api';
 import { TToastConfig } from '../../types/contract.types';
 import { TGetCardLables } from '../../types/common.types';
 import ArrowIndicator from '../../arrow-indicator';
@@ -15,7 +15,7 @@ import ArrowIndicator from '../../arrow-indicator';
 type TAccumulatorCardBody = {
     addToast: (toast_config: TToastConfig) => void;
     contract_info: TContractInfo;
-    contract_update?: ContractUpdate;
+    contract_update?: TUpdateContractResponse['contract_update'];
     currency: Required<TContractInfo>['currency'];
     current_focus?: string | null;
     error_message_alignment?: string;

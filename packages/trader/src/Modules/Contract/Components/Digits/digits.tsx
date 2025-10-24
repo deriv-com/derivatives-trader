@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { toJS } from 'mobx';
 
-import { TickSpotData } from '@deriv/api-types';
+import { TTicksStreamResponse } from '@deriv/api';
 import { Popover, Text } from '@deriv/components';
 import { getMarketNamesMap, isContractElapsed, TContractStore, useIsMounted } from '@deriv/shared';
 import { Localize } from '@deriv-com/translations';
@@ -12,6 +12,8 @@ import { Bounce, SlideIn } from 'App/Components/Animations';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 import { DigitSpot, LastDigitPrediction } from '../LastDigitPrediction';
+
+type TickSpotData = NonNullable<TTicksStreamResponse['tick']>;
 
 type TTraderStore = ReturnType<typeof useTraderStore>;
 type TOnChangeStatus = { status: string | null | undefined; current_tick: number | null };
@@ -147,8 +149,7 @@ const Digits = React.memo((props: TDigits) => {
     };
 
     const getPopoverMessage = () => {
-        // Backward compatibility: fallback to old field name
-        const contract_underlying = contract_info.underlying_symbol || contract_info.underlying;
+        const contract_underlying = contract_info.underlying_symbol;
         const underlying_name = is_trade_page ? underlying : contract_underlying;
         return (
             <Localize

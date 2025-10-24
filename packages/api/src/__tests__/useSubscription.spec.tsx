@@ -22,11 +22,11 @@ describe('useSubscription', () => {
                 return {
                     subscribe: async (onData: (response: unknown) => void, onError: (response: unknown) => void) => {
                         const delay = (ms: number) => new Promise<never>(resolve => setTimeout(resolve, ms));
-                        await delay(100);
+                        await delay(1000);
                         onData({ proposal_open_contract: { contract_id: '123', status: 'open' } });
-                        await delay(100);
+                        await delay(1000);
                         onData({ proposal_open_contract: { contract_id: '123', status: 'sold', profit: 10 } });
-                        await delay(100);
+                        await delay(1000);
                         onError({ error: { code: 'ContractNotFound', message: 'Contract not found' } });
                         return { unsubscribe: () => Promise.resolve() };
                     },
