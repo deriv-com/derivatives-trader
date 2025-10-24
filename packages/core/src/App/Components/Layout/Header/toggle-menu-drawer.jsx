@@ -25,12 +25,14 @@ import WhatsApp from 'App/Components/Elements/WhatsApp';
 import NetworkStatus from 'App/Components/Layout/Footer';
 import getRoutesConfig from 'App/Constants/routes-config';
 import ServerTime from 'App/Containers/server-time.jsx';
+import { useMobileBridge } from 'App/Hooks/useMobileBridge';
 
 import { MenuTitle, MobileLanguageMenu } from './Components/ToggleMenu';
 import MenuLink from './menu-link';
 
 const ToggleMenuDrawer = observer(() => {
     const { localize } = useTranslations();
+    const { sendBridgeEvent, isBridgeAvailable } = useMobileBridge();
     const { ui, client, traders_hub } = useStore();
     const {
         disableApp,
@@ -83,8 +85,10 @@ const ToggleMenuDrawer = observer(() => {
     // Simple logout handler that closes drawer and calls logout
     const handleLogout = React.useCallback(async () => {
         toggleDrawer();
-        await logoutClient();
-    }, [logoutClient, toggleDrawer]);
+        sendBridgeEvent('trading:back', async () => {
+            await logoutClient();
+        });
+    }, [logoutClient, toggleDrawer, sendBridgeEvent]);
 
     const renderSubMenuFromConfig = routePath => {
         const routes_config = getRoutesConfig();
@@ -238,7 +242,10 @@ const ToggleMenuDrawer = observer(() => {
                                 )}
                                 {is_logged_in && (
                                     <MobileDrawer.Item onClick={handleLogout}>
-                                        <MenuLink icon={<LegacyLogout1pxIcon />} text={localize('Log out')} />
+                                        <MenuLink 
+                                            icon={<LegacyLogout1pxIcon />} 
+                                            text={isBridgeAvailable() ? localize('Back to app') : localize('Log out')} 
+                                        />
                                     </MobileDrawer.Item>
                                 )}
                             </MobileDrawer.Body>
