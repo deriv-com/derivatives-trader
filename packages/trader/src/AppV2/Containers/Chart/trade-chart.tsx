@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { TActiveSymbolsResponse, TTicksStreamResponse } from '@deriv/api';
-import { ActiveSymbols, TickSpotData } from '@deriv/api-types';
 import {
     ChartBarrierStore,
     isAccumulatorContract,
