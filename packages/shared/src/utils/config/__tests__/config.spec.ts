@@ -96,6 +96,24 @@ describe('getAccountType', () => {
         );
     });
 
+    it('should return "real" from URL parameter and override demo in localStorage', () => {
+        window.localStorage.setItem('account_type', 'demo');
+        mockLocation(originalLocation, {
+            search: '?account_type=real',
+            href: 'https://staging-dtrader.deriv.com?account_type=real',
+        });
+
+        const result = getAccountType();
+
+        expect(result).toBe('real');
+        expect(window.localStorage.getItem('account_type')).toBe('real');
+        expect(window.history.replaceState).toHaveBeenCalledWith(
+            {},
+            document.title,
+            'https://staging-dtrader.deriv.com/'
+        );
+    });
+
     it('should return value from localStorage when URL parameter is missing', () => {
         window.localStorage.setItem('account_type', 'real');
         mockLocation(originalLocation, {
