@@ -6,6 +6,7 @@ import { getSelectedRoute, trackAnalyticsEvent } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
+import { isAllowedRedirectDomain } from '@deriv/utils';
 
 import { TRoute } from 'Types';
 
@@ -65,22 +66,75 @@ const Reports = observer(({ history, location, routes }: TReports) => {
         if (redirectUrlRef.current) {
             // If redirect parameter exists, navigate to that URL
             try {
-                // Decode the URL in case it's encoded
-                let decodedUrl = decodeURIComponent(redirectUrlRef.current);
+                // URL length validation (prevent DoS)
+                if (redirectUrlRef.current.length > 2048) {
+                    // eslint-disable-next-line no-console
+                    console.error('Security: Blocked excessively long redirect URL');
+                    routeBackInApp(history);
+                    return;
+                }
+
+                // Decode URL multiple times to handle double/triple encoding attacks
+                let decodedUrl = redirectUrlRef.current;
+                let previousUrl = '';
+                let decodeAttempts = 0;
+                const MAX_DECODE_ATTEMPTS = 5;
+
+                while (decodedUrl !== previousUrl && decodedUrl.includes('%') && decodeAttempts < MAX_DECODE_ATTEMPTS) {
+                    previousUrl = decodedUrl;
+                    try {
+                        decodedUrl = decodeURIComponent(decodedUrl);
+                        decodeAttempts++;
+                    } catch {
+                        // Invalid encoding, reject
+                        // eslint-disable-next-line no-console
+                        console.error('Security: Blocked redirect URL with invalid encoding');
+                        routeBackInApp(history);
+                        return;
+                    }
+                }
+
+                // Normalize and trim the URL
+                decodedUrl = decodedUrl.trim();
+
+                // Block dangerous protocols (XSS protection)
+                const BLOCKED_PROTOCOLS = ['javascript:', 'data:', 'vbscript:', 'file:', 'blob:'];
+                const safeUrl = decodedUrl.toLowerCase();
+
+                if (BLOCKED_PROTOCOLS.some(protocol => safeUrl.startsWith(protocol))) {
+                    // eslint-disable-next-line no-console
+                    console.error('Security: Blocked dangerous protocol in redirect URL:', safeUrl.split(':')[0]);
+                    routeBackInApp(history);
+                    return;
+                }
+
+                // Handle protocol-relative URLs
+                if (decodedUrl.startsWith('//')) {
+                    decodedUrl = `https:${decodedUrl}`;
+                }
 
                 // Add protocol if missing to ensure proper external navigation
                 if (!decodedUrl.startsWith('http://') && !decodedUrl.startsWith('https://')) {
                     decodedUrl = `https://${decodedUrl}`;
                 }
 
+                // Validate domain whitelist (Open Redirect protection)
+                if (!isAllowedRedirectDomain(decodedUrl)) {
+                    // eslint-disable-next-line no-console
+                    console.error('Security: Blocked redirect to unauthorized domain');
+                    routeBackInApp(history);
+                    return;
+                }
+
                 window.location.href = decodedUrl;
             } catch (error) {
-                // If decoding fails, use the original URL with protocol
-                let fallbackUrl = redirectUrlRef.current;
-                if (!fallbackUrl.startsWith('http://') && !fallbackUrl.startsWith('https://')) {
-                    fallbackUrl = `https://${fallbackUrl}`;
-                }
-                window.location.href = fallbackUrl;
+                // If any error occurs during validation, fall back to safe navigation
+                // eslint-disable-next-line no-console
+                console.error(
+                    'Security: Redirect validation error:',
+                    error instanceof Error ? error.message : 'Unknown error'
+                );
+                routeBackInApp(history);
             }
         } else {
             // If no redirect parameter, use existing logic
