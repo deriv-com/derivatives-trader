@@ -212,10 +212,10 @@ describe('ContractDetails', () => {
         expect(screen.getByText('Order Details Placeholder')).toBeInTheDocument();
     });
 
-    // it('should render the PayoutInfo component', async () => {
-    //     await waitFor(() => renderContractDetails());
-    //     expect(screen.getByText('Payout Info Placeholder')).toBeInTheDocument();
-    // });
+    it('should render the PayoutInfo component', async () => {
+        await waitFor(() => renderContractDetails());
+        expect(screen.getByText('Payout Info Placeholder')).toBeInTheDocument();
+    });
 
     it('should render the EntryExitDetails component', async () => {
         await waitFor(() => renderContractDetails());

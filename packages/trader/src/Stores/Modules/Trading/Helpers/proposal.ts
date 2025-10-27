@@ -6,7 +6,6 @@ import {
     getPropertyValue,
     isAccumulatorContract,
     isTurbosContract,
-    mapErrorMessage,
     toMoment,
     TRADE_TYPES,
 } from '@deriv/shared';
@@ -125,7 +124,7 @@ export const getProposalInfo = (
         error_code: response?.error?.code,
         error_field: response?.error?.details?.field,
         limit_order: proposal.limit_order,
-        message: proposal.longcode || mapErrorMessage(response?.error || {}),
+        message: proposal.longcode || response?.error?.message,
         obj_contract_basis,
         payout: proposal.payout,
         profit: profit.toFixed(getDecimalPlaces(store.currency)),

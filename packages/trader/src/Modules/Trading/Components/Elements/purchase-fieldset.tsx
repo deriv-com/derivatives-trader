@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Popover } from '@deriv/components';
-import { isTabletOs, mapErrorMessage } from '@deriv/shared';
+import { isTabletOs } from '@deriv/shared';
 import { useDevice } from '@deriv-com/ui';
 
 import Fieldset from 'App/Components/Form/fieldset';
@@ -182,7 +182,7 @@ const PurchaseFieldset = ({
             )}
             {isMobile && (
                 <React.Fragment>
-                    {is_proposal_error && <div className='btn-purchase__error'>{mapErrorMessage(info)}</div>}
+                    {is_proposal_error && <div className='btn-purchase__error'>{info.message}</div>}
                     {purchase_button}
                 </React.Fragment>
             )}
