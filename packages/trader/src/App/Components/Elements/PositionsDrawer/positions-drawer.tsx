@@ -6,7 +6,7 @@ import { DataList, Money, PositionsDrawerCard, Text } from '@deriv/components';
 import { LegacyMinimize2pxIcon } from '@deriv/quill-icons';
 import { getEndTime, useNewRowTransition } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
-import { localize, Localize } from '@deriv-com/translations';
+import { Localize, localize } from '@deriv-com/translations';
 
 import { useTraderStore } from 'Stores/useTraderStores';
 
@@ -110,7 +110,7 @@ const PositionsDrawer = observer(({ ...props }) => {
     const { symbol, contract_type: trade_contract_type } = useTraderStore();
     const { client, common, contract_trade, portfolio, ui } = useStore();
     const { currency } = client;
-    const { server_time } = common;
+    const { server_time, current_language } = common;
     const { getContractById } = contract_trade;
     const {
         all_positions,
@@ -135,6 +135,9 @@ const PositionsDrawer = observer(({ ...props }) => {
     const drawer_ref = React.useRef(null);
     const list_ref = React.useRef<HTMLDivElement>(null);
     const scrollbar_ref = React.useRef<HTMLElement>(null);
+    // Watch for actual translation changes to trigger DataList remount
+    // This ensures heights are recalculated only after translations have loaded
+    const translated_stake_label = localize('Stake:');
 
     React.useEffect(() => {
         onMount();
@@ -155,7 +158,10 @@ const PositionsDrawer = observer(({ ...props }) => {
     };
 
     const body_content = (
+        // Force DataList to remount when translations actually change
+        // Using translated text as key ensures remount happens after translations load
         <DataList
+            key={translated_stake_label}
             data_source={all_positions}
             rowRenderer={args => (
                 <PositionsDrawerCardItem
