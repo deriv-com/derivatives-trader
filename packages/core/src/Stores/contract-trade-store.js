@@ -8,20 +8,18 @@ import {
     isAccumulatorContractOpen,
     isCallPut,
     isDesktop,
-    isEnded,
     isHighLow,
-    isMultiplierContract,
     isTurbosContract,
     isVanillaContract,
-    mapErrorMessage,
     LocalStore,
+    mapErrorMessage,
     setTradeURLParams,
     switch_to_tick_chart,
     TRADE_TYPES,
 } from '@deriv/shared';
 
-import BaseStore from './base-store';
 import { getAccumulatorMarkers } from './Helpers/chart-markers';
+import BaseStore from './base-store';
 import ContractStore from './contract-store';
 
 export default class ContractTradeStore extends BaseStore {
@@ -297,13 +295,6 @@ export default class ContractTradeStore extends BaseStore {
             .filter(c => {
                 const contract_underlying = c.contract_info.underlying_symbol;
                 return contract_underlying === underlying;
-            })
-            .filter(c => {
-                const info = c.contract_info;
-                const has_multiplier_contract_ended =
-                    isMultiplierContract(info.contract_type) && isEnded(c.contract_info);
-                // filter multiplier contract which has ended
-                return !has_multiplier_contract_ended;
             })
             .filter(c => {
                 const info = c.contract_info;
