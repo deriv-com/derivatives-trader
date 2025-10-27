@@ -13,7 +13,6 @@ import {
     isMultiplierContract,
     isTurbosContract,
     isVanillaContract,
-    mapErrorMessage,
     LocalStore,
     setTradeURLParams,
     switch_to_tick_chart,
@@ -462,7 +461,7 @@ export default class ContractTradeStore extends BaseStore {
     updateProposal(response) {
         if ('error' in response) {
             this.has_error = true;
-            this.error_message = mapErrorMessage(response.error);
+            this.error_message = response.error.message;
             return;
         }
         // Update the contract-store corresponding to this POC

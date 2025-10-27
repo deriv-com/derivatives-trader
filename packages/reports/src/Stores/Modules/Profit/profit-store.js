@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import { action, computed, makeObservable, observable, override } from 'mobx';
 
-import { filterDisabledPositions, toMoment, WS, mapErrorMessage } from '@deriv/shared';
+import { filterDisabledPositions, toMoment, WS } from '@deriv/shared';
 
 import BaseStore from '../../base-store';
 
@@ -88,7 +88,7 @@ export default class ProfitTableStore extends BaseStore {
 
     profitTableResponseHandler(response) {
         if ('error' in response) {
-            this.error = mapErrorMessage(response.error);
+            this.error = response.error.message;
             return;
         }
 

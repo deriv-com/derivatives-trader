@@ -55,9 +55,7 @@ const TopWidgets = ({
 
     return (
         <React.Fragment>
-            {/* Hidden as we disable longcode temporarily */}
-            {/* TODO: enable or delete when decision is made */}
-            {/* {InfoBox} */}
+            {InfoBox}
             {is_mobile ? portal : ChartTitleLocal}
         </React.Fragment>
     );

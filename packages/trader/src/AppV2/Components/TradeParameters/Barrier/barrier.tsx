@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
-import { mapErrorMessage } from '@deriv/shared';
 import { Localize } from '@deriv-com/translations';
 import { ActionSheet, TextField, useSnackbar } from '@deriv-com/quill-ui';
 
@@ -42,13 +41,13 @@ const Barrier = observer(({ is_minimized }: TTradeParametersProps) => {
 
     // Show error snackbar when there's a barrier error
     React.useEffect(() => {
-        const proposal_error = proposal_info?.[trade_type_tab];
-        const has_error = proposal_error?.has_error;
-        const error_field = proposal_error?.error_field;
+        const has_error = proposal_info?.[trade_type_tab]?.has_error;
+        const error_field = proposal_info?.[trade_type_tab]?.error_field;
+        const message = proposal_info?.[trade_type_tab]?.message;
 
         if (has_error && error_field === 'barrier' && !barrier_error_shown && !is_open && !is_minimized) {
             addSnackbar({
-                message: mapErrorMessage(proposal_error),
+                message,
                 hasCloseButton: true,
                 status: 'fail',
                 style: { marginBottom: '48px' },
