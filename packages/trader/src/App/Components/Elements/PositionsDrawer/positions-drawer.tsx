@@ -236,11 +236,7 @@ const PositionsDrawer = observer(({ ...props }) => {
                                 <Text
                                     size='xs'
                                     weight='bold'
-                                    color={
-                                        getTotalProfit(all_positions) > 0
-                                            ? 'var(--color-status-success)'
-                                            : 'var(--color-status-danger)'
-                                    }
+                                    color={getTotalProfit(all_positions) > 0 ? 'success' : 'danger'}
                                 >
                                     <React.Fragment>
                                         <Money amount={getTotalProfit(all_positions)} currency={currency} has_sign />{' '}

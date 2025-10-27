@@ -13,7 +13,6 @@ import {
     trackAnalyticsEvent,
     getContractPath,
     getCurrentTick,
-    mapErrorMessage,
     getDisplayStatus,
     getDurationPeriod,
     getDurationTime,
@@ -142,7 +141,7 @@ export default class PortfolioStore extends BaseStore {
     portfolioHandler(response) {
         this.is_loading = false;
         if ('error' in response) {
-            this.error = mapErrorMessage(response.error);
+            this.error = response.error.message;
             return;
         }
         this.error = '';
@@ -182,7 +181,7 @@ export default class PortfolioStore extends BaseStore {
 
     async transactionHandler(response) {
         if ('error' in response) {
-            this.error = mapErrorMessage(response.error);
+            this.error = response.error.message;
         }
         if (!response.transaction) return;
         const { contract_id, action: act, longcode } = response.transaction;

@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { TTradingTimesRequest } from '@deriv/api';
-import { isMarketClosed, toMoment, useIsMounted, WS, mapErrorMessage } from '@deriv/shared';
+import { isMarketClosed, toMoment, useIsMounted, WS } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { Localize } from '@deriv-com/translations';
 import { CaptionText } from '@deriv-com/quill-ui';
@@ -25,7 +25,7 @@ const days_to_check_before_exit = 7;
 const getTradingTimes = async (target_time: TTradingTimesRequest['trading_times']) => {
     const data = await WS.tradingTimes(target_time);
     if (data.error) {
-        return { api_initial_load_error: mapErrorMessage(data.error) };
+        return { api_initial_load_error: data.error.message };
     }
     return data;
 };

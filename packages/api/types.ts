@@ -445,12 +445,10 @@ export type TSocketError<T extends TSocketEndpointNames> = {
     error: {
         code: string;
         message: string;
-        subcode?: string;
         details?: {
             field?: string;
             [key: string]: unknown;
         };
-        code_args?: string[];
     };
     /**
      * Action name of the request made.

@@ -36,7 +36,7 @@ class Validator<T extends object, S extends object> {
     addFailure(attribute: string, rule: { name: string; options: TRuleOptions<S> }, error_message?: string) {
         let message =
             error_message ||
-            (typeof rule.options.message === 'function' ? rule.options.message() : rule.options.message) ||
+            rule.options.message ||
             (getPreBuildDVRs() as unknown as { [key: string]: { message: () => string } })[rule.name].message();
         if (rule.name === 'length') {
             message = template(message, [

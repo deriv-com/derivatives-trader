@@ -13,7 +13,6 @@ import {
     routes,
     SessionStore,
     urlForLanguage,
-    mapErrorMessage,
 } from '@deriv/shared';
 import { Analytics } from '@deriv-com/analytics';
 import { getInitialLanguage, localize } from '@deriv-com/translations';
@@ -343,7 +342,7 @@ export default class ClientStore extends BaseStore {
         if (authorize_response?.error) {
             await this.logout();
             this.root_store.common.setError(true, {
-                header: mapErrorMessage(authorize_response.error),
+                header: authorize_response.error.message,
                 code: authorize_response.error.code,
                 message: localize('Please Log in'),
                 should_show_refresh: false,
@@ -611,7 +610,7 @@ export default class ClientStore extends BaseStore {
                     return {
                         error: {
                             code: 'TokenExchangeError',
-                            message: mapErrorMessage(sessionResponse.error),
+                            message: sessionResponse.error.message,
                         },
                     };
                 }
@@ -658,7 +657,7 @@ export default class ClientStore extends BaseStore {
             return {
                 error: {
                     code: 'UnexpectedAuthError',
-                    message: mapErrorMessage(error) || localize('Unexpected authentication error'),
+                    message: error.message || 'Unexpected authentication error',
                 },
             };
         }

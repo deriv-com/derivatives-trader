@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { getBrandUrl, isEmptyObject, mapErrorMessage, redirectToLogin, redirectToSignUp } from '@deriv/shared';
+import { getBrandUrl, isEmptyObject, redirectToLogin, redirectToSignUp } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { ActionSheet } from '@deriv-com/quill-ui';
 import { Localize } from '@deriv-com/translations';
@@ -17,10 +17,7 @@ const ServiceErrorSheet = observer(() => {
     const { services_error, resetServicesError } = common;
     const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();
 
-    const { code, type } = services_error || {};
-
-    // Get mapped error message
-    const mappedMessage = mapErrorMessage(services_error || {});
+    const { code, message, type } = services_error || {};
     const is_insufficient_balance = code === SERVICE_ERROR.INSUFFICIENT_BALANCE;
     const is_authorization_required = code === SERVICE_ERROR.AUTHORIZATION_REQUIRED && type === 'buy';
     const should_show_error_modal = !isEmptyObject(services_error) && checkIsServiceModalError({ services_error });
@@ -101,7 +98,7 @@ const ServiceErrorSheet = observer(() => {
         >
             <ActionSheet.Portal showHandlebar shouldCloseOnDrag>
                 <div className='service-error-sheet__body'>
-                    <ServiceErrorDescription error_type={getErrorType()} services_error_message={mappedMessage} />
+                    <ServiceErrorDescription error_type={getErrorType()} services_error_message={message} />
                 </div>
                 <ActionSheet.Footer
                     className='service-error-sheet__footer'

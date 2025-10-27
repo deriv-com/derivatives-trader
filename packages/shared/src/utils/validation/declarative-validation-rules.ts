@@ -24,7 +24,7 @@ export type TRuleOptions<S extends object = object> = {
         inputs?: Pick<S, keyof S>
     ) => boolean | { is_ok: boolean; message: string };
     condition?: (store: S) => boolean;
-    message?: string | (() => string);
+    message?: string;
 } & TOptions;
 
 const validRequired = (value?: string | number /* , options, field */) => {
