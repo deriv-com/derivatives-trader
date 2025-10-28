@@ -1,4 +1,4 @@
-import { getPropertyValue, getSocketURL, State } from '@deriv/shared';
+import { getPropertyValue, getSocketURL, State, mapErrorMessage } from '@deriv/shared';
 import { localize } from '@deriv-com/translations';
 
 import WS from './ws-methods';
@@ -93,10 +93,10 @@ const BinarySocketGeneral = (() => {
                 });
                 break;
             case 'InvalidAppID':
-                common_store.setError(true, { message: response.error.message });
+                common_store.setError(true, { message: mapErrorMessage(response.error) });
                 break;
             case 'DisabledClient':
-                common_store.setError(true, { message: response.error.message });
+                common_store.setError(true, { message: mapErrorMessage(response.error) });
                 break;
             case 'AuthorizationRequired': {
                 if (msg_type === 'buy') {

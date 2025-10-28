@@ -29,7 +29,7 @@ jest.mock('AppV2/Hooks/useDtraderQuery', () => ({
         data: {
             proposal: {},
             echo_req: { contract_type: 'TURBOSLONG' },
-            error: {},
+            // No error for successful proposal
         },
     })),
 }));
