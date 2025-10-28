@@ -9,7 +9,7 @@ export interface ErrorObject {
         field?: string;
         [key: string]: unknown;
     };
-    code_args?: string[];
+    code_args?: Array<string | number>;
 }
 
 /**

@@ -110,7 +110,7 @@ const PositionsDrawer = observer(({ ...props }) => {
     const { symbol, contract_type: trade_contract_type } = useTraderStore();
     const { client, common, contract_trade, portfolio, ui } = useStore();
     const { currency } = client;
-    const { server_time, current_language } = common;
+    const { server_time } = common;
     const { getContractById } = contract_trade;
     const {
         all_positions,
