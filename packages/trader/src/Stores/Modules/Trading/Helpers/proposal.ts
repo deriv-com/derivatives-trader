@@ -125,7 +125,9 @@ export const getProposalInfo = (
         error_code: response?.error?.code,
         error_field: response?.error?.details?.field,
         limit_order: proposal.limit_order,
-        message: proposal.longcode || mapErrorMessage(response?.error || {}),
+        // TODO: decide on longcode for accumulator and multiplier
+        // message: proposal.longcode || mapErrorMessage(response?.error || {}),
+        message: mapErrorMessage(response?.error || {}),
         obj_contract_basis,
         payout: proposal.payout,
         profit: profit.toFixed(getDecimalPlaces(store.currency)),
