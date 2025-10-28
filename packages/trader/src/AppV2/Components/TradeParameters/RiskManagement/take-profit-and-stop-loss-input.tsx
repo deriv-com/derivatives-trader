@@ -144,9 +144,8 @@ const TakeProfitAndStopLossInput = ({
 
     React.useEffect(() => {
         if (queryError) {
-            const new_error = queryError?.error?.message ?? '';
-            const is_error_field_match =
-                queryError?.error?.details?.field === type || !queryError?.error?.details?.field;
+            const new_error = queryError?.message ?? '';
+            const is_error_field_match = queryError?.details?.field === type || !queryError?.details?.field;
             setErrorText(is_error_field_match ? new_error : '');
             updateParentRef({
                 field_name: is_take_profit_input ? 'tp_error_text' : 'sl_error_text',

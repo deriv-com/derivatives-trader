@@ -50,6 +50,9 @@ export const useProposal = ({
         payload: proposal_request as TPriceProposalRequest,
         options: {
             enabled: is_enabled,
+            refetchOnWindowFocus: false,
+            cacheTime: 0,
+            retry: false,
         },
     });
 };

@@ -10,15 +10,7 @@ export { default as useRemoteConfig } from './hooks/useRemoteConfig';
 export { default as useTrackJS } from './hooks/useTrackJS';
 export * from './hooks';
 
-export {
-    useInfiniteQuery,
-    useMutation,
-    useQuery,
-    /** @deprecated use `useQuery` instead */
-    useQuery as useFetch,
-    /** @deprecated use `useMutation` instead */
-    useMutation as useRequest,
-};
+export { useInfiniteQuery, useMutation, useQuery };
 
 // Export types from types.ts
 export type {

@@ -201,7 +201,7 @@ const AuthProvider = ({ loginIDKey, children, cookieTimeout, selectDefaultAccoun
                         setLoginid(res?.authorize?.loginid ?? '');
                     })
                     .catch(async (e: TAuthorizeError) => {
-                        if (e?.error.code === API_ERROR_CODES.DISABLED_ACCOUNT) {
+                        if (e?.code === API_ERROR_CODES.DISABLED_ACCOUNT) {
                             await logout?.();
                         }
                         setIsLoading(false);
@@ -248,7 +248,7 @@ const AuthProvider = ({ loginIDKey, children, cookieTimeout, selectDefaultAccoun
                 setLoginid(newLoginId);
                 processAuthorizeResponse(authorizeResponse);
             } catch (e: unknown) {
-                if (typeof e === 'object' && (e as TAuthorizeError)?.error.code === API_ERROR_CODES.DISABLED_ACCOUNT) {
+                if (typeof e === 'object' && (e as TAuthorizeError)?.code === API_ERROR_CODES.DISABLED_ACCOUNT) {
                     await logout?.();
                 }
             } finally {

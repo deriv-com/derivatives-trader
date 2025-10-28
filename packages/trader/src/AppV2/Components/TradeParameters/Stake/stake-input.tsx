@@ -222,7 +222,7 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
 
     const handleProposalResponse = (
         data: TPriceProposalResponse | undefined,
-        queryError: TSocketError<'proposal'> | null,
+        queryError: TSocketError<'proposal'>['error'] | undefined,
         contractType: 'first' | 'second'
     ) => {
         const proposal = data?.proposal;
@@ -234,12 +234,8 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
         }
 
         // Handle edge cases for Vanilla contracts
-        if (
-            is_vanilla &&
-            queryError?.error?.details?.barrier_choices &&
-            Array.isArray(queryError.error.details.barrier_choices)
-        ) {
-            const { barrier_choices } = queryError.error.details;
+        if (is_vanilla && queryError?.details?.barrier_choices && Array.isArray(queryError.details.barrier_choices)) {
+            const { barrier_choices } = queryError.details;
             if (!barrier_choices?.includes(barrier_1)) {
                 const index = Math.floor(barrier_choices.length / 2);
                 dispatch({
@@ -253,11 +249,11 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
         // Handle edge cases for Turbo contracts
         if (
             is_turbos &&
-            queryError?.error?.details?.payout_per_point_choices &&
-            Array.isArray(queryError.error.details.payout_per_point_choices) &&
-            queryError?.error?.details?.field === 'payout_per_point'
+            queryError?.details?.payout_per_point_choices &&
+            Array.isArray(queryError.details.payout_per_point_choices) &&
+            queryError?.details?.field === 'payout_per_point'
         ) {
-            const { payout_per_point_choices } = queryError.error.details;
+            const { payout_per_point_choices } = queryError.details;
             const index = Math.floor(payout_per_point_choices.length / 2);
             dispatch({
                 type: 'SET_PROPOSAL_VALUES',
@@ -267,9 +263,9 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
         }
 
         // Set proposal error
-        const new_error = queryError?.error?.message ?? '';
+        const new_error = queryError?.message ?? '';
         const is_error_field_match =
-            ['amount', 'stake'].includes(queryError?.error?.details?.field ?? '') || !queryError?.error?.details?.field;
+            ['amount', 'stake'].includes(queryError?.details?.field ?? '') || !queryError?.details?.field;
         dispatch({ type: 'SET_STAKE_ERROR', payload: is_error_field_match ? new_error : '' });
 
         // Handle old contracts with payout (Rise/Fall, Higher/Lower, Touch/No Touch, Digits)
@@ -277,7 +273,7 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
             // Combine data and error to match getProposalInfo expected format
             const combined_response = {
                 ...data,
-                error: queryError?.error,
+                error: queryError || undefined,
             };
             const new_proposal = getProposalInfo(trade_store, combined_response);
             const { contract_payout, max_payout, error } = getPayoutInfo(new_proposal);
@@ -293,8 +289,8 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
             });
         } else {
             // Recovery for minimum and maximum allowed values in case of errors
-            if ((!details.min_stake || !details.max_stake) && queryError?.error?.details) {
-                const { max_stake, min_stake } = queryError.error.details;
+            if ((!details.min_stake || !details.max_stake) && queryError?.details) {
+                const { max_stake, min_stake } = queryError.details;
                 if (max_stake && min_stake) {
                     dispatch({
                         type: 'UPDATE_DETAILS',
@@ -329,12 +325,12 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
     };
 
     React.useEffect(() => {
-        if (response_1 || error_1) handleProposalResponse(response_1, error_1, 'first');
+        if (response_1 || error_1) handleProposalResponse(response_1, error_1 || undefined, 'first');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response_1, error_1]);
 
     React.useEffect(() => {
-        if (response_2 || error_2) handleProposalResponse(response_2, error_2, 'second');
+        if (response_2 || error_2) handleProposalResponse(response_2, error_2 || undefined, 'second');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response_2, error_2]);
 
@@ -458,6 +454,9 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
                     content: <Localize i18n_default_text='Save' />,
                     onAction: onSave,
                 }}
+                isPrimaryButtonDisabled={
+                    is_loading_proposal || !!fe_stake_error || !!(should_show_stake_error && stake_error)
+                }
             />
         </React.Fragment>
     );

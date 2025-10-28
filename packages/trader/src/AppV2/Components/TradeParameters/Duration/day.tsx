@@ -96,8 +96,8 @@ const DayInput = ({
 
     useEffect(() => {
         if (queryError) {
-            if (queryError?.error?.code === 'ContractBuyValidationError') {
-                const details = queryError.error.details;
+            if (queryError?.code === 'ContractBuyValidationError') {
+                const details = queryError.details;
 
                 if (details?.field === 'payout_per_point' && Array.isArray(details?.payout_per_point_choices)) {
                     const suggested_payout = details.payout_per_point_choices[0];
@@ -114,9 +114,9 @@ const DayInput = ({
                 }
             }
 
-            if (queryError?.error?.message && queryError?.error?.details?.field === 'duration') {
+            if (queryError?.message && queryError?.details?.field === 'duration') {
                 addSnackbar({
-                    message: <Localize i18n_default_text={queryError?.error?.message} />,
+                    message: <Localize i18n_default_text={queryError?.message} />,
                     status: 'fail',
                     hasCloseButton: true,
                     style: { marginBottom: '48px' },
