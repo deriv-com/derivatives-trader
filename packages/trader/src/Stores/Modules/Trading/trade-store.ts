@@ -1947,7 +1947,7 @@ export default class TradeStore extends BaseStore {
         this.resetErrorServices();
         await this.setContractTypes();
         runInAction(async () => {
-            if (!this.is_dtrader_v2 && !this.is_accumulator) {
+            if (!this.is_dtrader_v2) {
                 await this.processNewValuesAsync(
                     { currency: this.root_store.client.currency || this.root_store.client.default_currency },
                     true,
