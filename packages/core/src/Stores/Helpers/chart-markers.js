@@ -428,22 +428,24 @@ export function calculateMarker(
     const exit_spot = contract_info.exit_spot;
 
     if (is_contract_finished) {
-        if (entry_spot) {
-            markers.push({
-                epoch: entry_spot_time,
-                quote: entry_spot,
-                type: 'entrySpot',
-                direction: getMarkerDirection(contract_type),
-            });
-        }
+        if (!is_accumulator_contract) {
+            if (entry_spot) {
+                markers.push({
+                    epoch: entry_spot_time,
+                    quote: entry_spot,
+                    type: 'entrySpot',
+                    direction: getMarkerDirection(contract_type),
+                });
+            }
 
-        if (date_start) {
-            markers.push({
-                epoch: date_start,
-                quote: price,
-                type: 'startTimeCollapsed',
-                direction: getMarkerDirection(contract_type),
-            });
+            if (date_start) {
+                markers.push({
+                    epoch: date_start,
+                    quote: price,
+                    type: 'startTimeCollapsed',
+                    direction: getMarkerDirection(contract_type),
+                });
+            }
         }
         if (end_time) {
             markers.push({
@@ -460,16 +462,16 @@ export function calculateMarker(
                 type: 'exitSpot',
                 direction: getMarkerDirection(contract_type),
             });
-
-            //Add profit and loss label marker when contract is finished (sold or expired)
-            markers.push({
-                epoch: exit_spot_time,
-                quote: price,
-                type: 'profitAndLossLabel',
-                direction: getMarkerDirection(contract_type),
-            });
         }
-    } else {
+
+        //Add profit and loss label marker when contract is finished (sold or expired)
+        markers.push({
+            epoch: exit_spot_time,
+            quote: is_accumulator_contract ? exit_spot : price,
+            type: 'profitAndLossLabel',
+            direction: getMarkerDirection(contract_type),
+        });
+    } else if (!is_accumulator_contract) {
         if (date_start && entry_spot) {
             markers.push({
                 epoch: date_start,

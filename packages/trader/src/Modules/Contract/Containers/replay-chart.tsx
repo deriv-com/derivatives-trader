@@ -14,7 +14,6 @@ import {
 } from 'Modules/SmartChart/Adapters';
 import ChartMarker from 'Modules/SmartChart/Components/Markers/marker';
 import ResetContractChartElements from 'Modules/SmartChart/Components/Markers/reset-contract-chart-elements';
-import { useTraderStore } from 'Stores/useTraderStores';
 
 import { ChartBottomWidgets, ChartTopWidgets } from './contract-replay-widget';
 
@@ -30,7 +29,6 @@ const ReplayChart = observer(
         is_reset_contract?: boolean;
         is_vertical_scroll_disabled?: boolean;
     }) => {
-        const trade = useTraderStore();
         const { contract_replay, common, ui } = useStore();
         const { isMobile } = useDevice();
         const { contract_store, chart_state, chartStateChange, margin } = contract_replay;
@@ -62,7 +60,6 @@ const ReplayChart = observer(
         };
         const scroll_to_epoch = allow_scroll_to_epoch && contract_config ? contract_config.scroll_to_epoch : undefined;
         const all_ticks = audit_details ? audit_details.all_ticks : [];
-        const { wsForget, wsSubscribe, wsSendRequest, wsForgetStream } = trade;
 
         // Initialize SmartCharts Champion Adapter with store data for better performance
         const smartChartsAdapter = React.useMemo(() => {
@@ -225,7 +222,6 @@ const ReplayChart = observer(
                     getDurationUnitText(getDurationPeriod(contract_info)) !== 'seconds' ||
                     contract_info.status === 'open'
                 }
-                shouldDrawTicksFromContractInfo={is_accumulator_contract}
                 contractInfo={contract_info}
                 contracts_array={getContractsArray()}
                 isLive={!has_ended}
