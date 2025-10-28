@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 
-import { getCurrencyDisplayCode, getDecimalPlaces } from '@deriv/shared';
+import { getCurrencyDisplayCode, getDecimalPlaces, mapErrorMessage } from '@deriv/shared';
 import { ActionSheet, CaptionText, Text, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
 import { Localize, useTranslations } from '@deriv-com/translations';
 
@@ -144,7 +144,7 @@ const TakeProfitAndStopLossInput = ({
 
     React.useEffect(() => {
         if (queryError) {
-            const new_error = queryError?.message ?? '';
+            const new_error = queryError ? mapErrorMessage(queryError) : '';
             const is_error_field_match = queryError?.details?.field === type || !queryError?.details?.field;
             setErrorText(is_error_field_match ? new_error : '');
             updateParentRef({

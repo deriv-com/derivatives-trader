@@ -27,8 +27,9 @@ jest.mock('AppV2/Hooks/useProposal', () => ({
     useProposal: jest.fn(() => ({
         data: {
             proposal: {},
+            echo_req: { contract_type: 'TURBOSLONG' },
         },
-        error: null,
+        error: undefined,
         isFetching: false,
     })),
 }));

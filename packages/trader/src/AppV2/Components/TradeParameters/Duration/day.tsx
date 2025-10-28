@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useInvalidateQuery } from '@deriv/api';
 import { LabelPairedCalendarSmRegularIcon, LabelPairedClockThreeSmRegularIcon } from '@deriv/quill-icons';
-import { hasIntradayDurationUnit, setTime, toMoment } from '@deriv/shared';
+import { hasIntradayDurationUnit, setTime, toMoment, mapErrorMessage } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { ActionSheet, Text, TextField, useSnackbar } from '@deriv-com/quill-ui';
 import { Localize } from '@deriv-com/translations';
@@ -115,8 +115,9 @@ const DayInput = ({
             }
 
             if (queryError?.message && queryError?.details?.field === 'duration') {
+                const mappedMessage = mapErrorMessage(queryError);
                 addSnackbar({
-                    message: <Localize i18n_default_text={queryError?.message} />,
+                    message: <Localize i18n_default_text={mappedMessage} />,
                     status: 'fail',
                     hasCloseButton: true,
                     style: { marginBottom: '48px' },
