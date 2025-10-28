@@ -29,8 +29,7 @@ const BinarySocketBase = (() => {
         if (is_mock_server) {
             return 'ws://127.0.0.1:42069';
         }
-        // TODO remove hardcoded app_id in future
-        return `wss://${getSocketURL()}/websockets/v3?app_id=16929&brand=${getBrandName().toLowerCase()}`;
+        return `wss://${getSocketURL()}/websockets/v3?brand=${getBrandName().toLowerCase()}`;
     };
 
     const isReady = () => hasReadyState(1);

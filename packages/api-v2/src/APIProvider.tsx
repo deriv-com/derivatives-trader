@@ -38,8 +38,7 @@ type APIContextData = {
  * @returns {string} The WebSocket URL.
  */
 const getWebSocketURL = (endpoint: string) => {
-    // TODO remove hardcoded app_id in future
-    return `wss://${endpoint}/websockets/v3?app_id=16929&brand=${getBrandName().toLowerCase()}`;
+    return `wss://${endpoint}/websockets/v3?brand=${getBrandName().toLowerCase()}`;
 };
 
 const APIContext = createContext<APIContextData | null>(null);
