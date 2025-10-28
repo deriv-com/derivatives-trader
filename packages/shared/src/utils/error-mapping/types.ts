@@ -7,7 +7,6 @@ export interface ErrorObject {
     subcode?: string;
     details?: {
         field?: string;
-        [key: string]: unknown;
     };
     code_args?: Array<string | number>;
 }
