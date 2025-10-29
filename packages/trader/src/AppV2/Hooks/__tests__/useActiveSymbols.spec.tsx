@@ -150,7 +150,6 @@ describe('useActiveSymbols', () => {
                 },
                 options: {
                     cacheTime: 10 * 60 * 1000,
-                    refetchOnWindowFocus: false,
                 },
             });
         });
@@ -169,7 +168,6 @@ describe('useActiveSymbols', () => {
                 },
                 options: {
                     cacheTime: 10 * 60 * 1000,
-                    refetchOnWindowFocus: false,
                 },
             });
         });

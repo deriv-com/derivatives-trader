@@ -96,6 +96,11 @@ const APIProvider = ({ children }: PropsWithChildren) => {
                     refetchOnReconnect: false,
                 },
             },
+            logger: {
+                log: () => {},
+                warn: () => {},
+                error: () => {},
+            },
         });
     }
 

@@ -39,7 +39,6 @@ const useActiveSymbols = () => {
         },
         options: {
             cacheTime: ACTIVE_SYMBOLS_CACHE_CONFIG.CACHE_TIME,
-            refetchOnWindowFocus: false, // Don't refetch when window regains focus
         },
     });
 
