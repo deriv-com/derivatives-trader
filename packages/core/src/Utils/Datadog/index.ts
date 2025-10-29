@@ -29,8 +29,8 @@ const getConfigValues = (environment: string) => {
         return {
             serviceName: 'staging-dtrader.deriv.com',
             dataDogVersion: `derivatives-app-staging-v${process.env.REF_NAME}`,
-            dataDogSessionReplaySampleRate: 0,
-            dataDogSessionSampleRate: 100,
+            dataDogSessionReplaySampleRate: Number(process.env.DATADOG_SESSION_REPLAY_SAMPLE_RATE ?? 0),
+            dataDogSessionSampleRate: Number(process.env.DATADOG_SESSION_SAMPLE_RATE ?? 100),
             dataDogEnv: 'staging',
         };
     }
