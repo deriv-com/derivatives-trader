@@ -59,7 +59,7 @@ export class ChartBarrierStore {
 
         this.color = color;
         this.hideBarrierLine = hideBarrierLine;
-        this.lineStyle = line_style || BARRIER_LINE_STYLES.DOTTED;
+        this.lineStyle = line_style || BARRIER_LINE_STYLES.DASHED;
         this.onChange = this.onBarrierChange;
 
         // trade_store's action to process new barriers on dragged
