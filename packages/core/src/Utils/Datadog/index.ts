@@ -21,16 +21,16 @@ const getConfigValues = (environment: string) => {
         return {
             serviceName: 'dtrader.deriv.com',
             dataDogVersion: `derivatives-app-${process.env.REF_NAME}`,
-            dataDogSessionReplaySampleRate: Number(process.env.DATADOG_SESSION_REPLAY_SAMPLE_RATE ?? 1),
-            dataDogSessionSampleRate: Number(process.env.DATADOG_SESSION_SAMPLE_RATE ?? 10),
+            dataDogSessionReplaySampleRate: Number(process.env.DATADOG_SESSION_REPLAY_SAMPLE_RATE ?? 1), // Default: 1% replay rate
+            dataDogSessionSampleRate: Number(process.env.DATADOG_SESSION_SAMPLE_RATE ?? 10), // Default: 10% sample rate
             dataDogEnv: 'production',
         };
     } else if (environment === 'staging') {
         return {
             serviceName: 'staging-dtrader.deriv.com',
             dataDogVersion: `derivatives-app-staging-v${process.env.REF_NAME}`,
-            dataDogSessionReplaySampleRate: Number(process.env.DATADOG_SESSION_REPLAY_SAMPLE_RATE ?? 0),
-            dataDogSessionSampleRate: Number(process.env.DATADOG_SESSION_SAMPLE_RATE ?? 100),
+            dataDogSessionReplaySampleRate: Number(process.env.DATADOG_SESSION_REPLAY_SAMPLE_RATE ?? 0), // Default: 0% replay rate
+            dataDogSessionSampleRate: Number(process.env.DATADOG_SESSION_SAMPLE_RATE ?? 100), // Default: 100% sample rate
             dataDogEnv: 'staging',
         };
     }
