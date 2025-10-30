@@ -1869,7 +1869,7 @@ export default class TradeStore extends BaseStore {
                     });
                 }
             } else if (this.is_turbos) {
-                const { max_stake, min_stake, payout_choices } = response.proposal ?? {};
+                const { max_stake, min_stake, payout_choices, barrier_spot_distance } = response.proposal ?? {};
                 if (payout_choices) {
                     if (this.payout_per_point == '') {
                         this.onChange({
@@ -1881,7 +1881,7 @@ export default class TradeStore extends BaseStore {
                     }
                     this.setPayoutChoices(payout_choices as string[]);
                     this.setStakeBoundary(contract_type, min_stake, max_stake);
-                    this.barrier_1 = response.proposal.barrier_spot_distance;
+                    this.barrier_1 = barrier_spot_distance;
                 }
             }
         }

@@ -127,7 +127,9 @@ type PriceProposalRequest = Omit<
 };
 
 type PriceProposalResponse = Omit<BasePriceProposalResponse, 'proposal'> & {
-    proposal?: Omit<NonNullable<BasePriceProposalResponse['proposal']>, 'display_value'>;
+    proposal?: Omit<NonNullable<BasePriceProposalResponse['proposal']>, 'display_value'> & {
+        barrier_spot_distance?: string;
+    };
 };
 
 type BuyContractRequest = Omit<BaseBuyContractRequest, 'loginid' | 'parameters'> & {

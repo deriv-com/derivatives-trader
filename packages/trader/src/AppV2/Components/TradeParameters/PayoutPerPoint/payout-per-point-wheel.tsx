@@ -40,7 +40,11 @@ const PayoutPerPointWheel = observer(
         const new_values = { payout_per_point: String(value) };
 
         // Sending proposal without subscription to get a new barrier value
-        const { data: response } = useProposal({
+        const {
+            data: response,
+            error,
+            isFetching,
+        } = useProposal({
             trade_store,
             proposal_request_values: new_values,
             contract_type: Object.keys(trade_types)[0],
@@ -66,7 +70,7 @@ const PayoutPerPointWheel = observer(
         React.useEffect(() => {
             if (response) {
                 const { proposal } = response;
-                const { barrier_spot_distance } = proposal?.contract_details ?? {};
+                const { barrier_spot_distance } = proposal ?? {};
                 // Currently we are not handling errors
                 if (barrier_spot_distance) setDisplayedBarrierValue(barrier_spot_distance);
 
@@ -85,7 +89,11 @@ const PayoutPerPointWheel = observer(
                             <Localize i18n_default_text='Barrier' />
                         </Text>
                         <Text size='sm' as='div' className='payout-per-point__barrier__content'>
-                            {displayed_barrier_value ?? <Skeleton width={90} height={14} />}
+                            {!displayed_barrier_value || error || isFetching ? (
+                                <Skeleton width={90} height={14} />
+                            ) : (
+                                displayed_barrier_value
+                            )}
                         </Text>
                     </div>
                 </ActionSheet.Content>
@@ -96,6 +104,7 @@ const PayoutPerPointWheel = observer(
                         onAction: onSave,
                     }}
                     shouldCloseOnPrimaryButtonClick={false}
+                    isPrimaryButtonDisabled={!!error || isFetching}
                 />
             </React.Fragment>
         );
