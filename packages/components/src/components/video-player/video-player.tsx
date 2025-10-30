@@ -1,19 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
+import throttle from 'lodash.throttle';
+import { useDebounceCallback } from 'usehooks-ts';
+
 import { Stream, StreamPlayerApi } from '@cloudflare/stream-react';
 import { useIsRtl } from '@deriv/api';
 import { isSafariBrowser, mobileOSDetect } from '@deriv/shared';
-import throttle from 'lodash.throttle';
-import { useDebounceCallback } from 'usehooks-ts';
-import VideoOverlay from './video-overlay';
-import VideoControls from './video-controls';
 
-// Safe hook wrapper to handle context unavailability
+import VideoControls from './video-controls';
+import VideoOverlay from './video-overlay';
+
 const useSafeIsRtl = () => {
     try {
         return useIsRtl();
-    } catch (error) {
-        // Fallback to false when context is not available (e.g., in portals)
+    } catch (_error) {
         return false;
     }
 };
@@ -108,7 +108,6 @@ const VideoPlayer = ({
             ((client_X - shift_X - (progress_bar?.getBoundingClientRect().left ?? 0)) /
                 (progress_bar?.getBoundingClientRect().width ?? 0)) *
             full_width;
-        if (is_rtl) new_width = full_width - new_width;
         if (new_width >= full_width) new_width = full_width;
         if (new_width <= 0) new_width = 0;
         return parseFloat(new_width.toFixed(3));
@@ -406,6 +405,7 @@ const VideoPlayer = ({
                 is_playing={is_playing}
                 is_mobile={is_mobile}
                 is_muted={is_muted}
+                is_rtl={is_rtl}
                 is_v2={is_v2}
                 increased_drag_area={increased_drag_area}
                 onRewind={onRewind}

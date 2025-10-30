@@ -1,8 +1,14 @@
 import React from 'react';
+
+import { useIsRtl } from '@deriv/api';
 import { fireEvent, render, screen } from '@testing-library/react';
-import VideoPlayer from '../video-player';
 import userEvent from '@testing-library/user-event';
 
+import VideoPlayer from '../video-player';
+
+jest.mock('@deriv/api', () => ({
+    useIsRtl: jest.fn(() => false),
+}));
 jest.mock('@deriv/quill-icons', () => ({
     StandalonePlayFillIcon: () => <div>IcPlay</div>,
     StandalonePauseFillIcon: () => <div>IcPause</div>,
@@ -130,5 +136,22 @@ describe('<VideoPlayer />', () => {
         expect(replay_button).toBeInTheDocument();
         await userEvent.click(replay_button);
         expect(screen.getByText(icon_play)).toBeInTheDocument();
+    });
+    it('should render progress bar correctly in RTL mode without reversing direction', () => {
+        (useIsRtl as jest.Mock).mockReturnValue(true);
+
+        render(<VideoPlayer {...mocked_props} />);
+        const video = screen.getByTestId(video_data_testid);
+        fireEvent.loadedData(video);
+
+        expect(screen.getByTestId(player_data_testid)).toBeInTheDocument();
+
+        const progress_bar = screen.getByTestId('dt_progress_bar');
+        expect(progress_bar).toBeInTheDocument();
+
+        const progress_bar_filled = screen.getByTestId('dt_progress_bar_filled');
+        expect(progress_bar_filled).toBeInTheDocument();
+
+        (useIsRtl as jest.Mock).mockReturnValue(false);
     });
 });
