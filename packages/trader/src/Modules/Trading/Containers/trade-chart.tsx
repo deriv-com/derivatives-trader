@@ -213,7 +213,7 @@ const TradeChart = observer((props: TTradeChartProps) => {
 
     return (
         <SmartChart
-            drawingToolFloatingMenuPosition={isMobile ? { x: 100, y: 100 } : { x: 200, y: 200 }}
+            drawingToolFloatingMenuPosition={isMobile ? { x: 100, y: 100 } : { x: 400, y: 200 }}
             id='trade'
             ref={ref}
             barriers={barriers}
