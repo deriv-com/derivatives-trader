@@ -43,6 +43,7 @@ const TradeChart = observer((props: TTradeChartProps) => {
         markers_array,
         updateChartType,
         updateGranularity,
+        updateAccumulatorBarriersData,
     } = contract_trade;
     const ref = React.useRef<{ hasPredictionIndicators(): void; triggerPopup(arg: () => void): void }>(null);
     const { all_positions } = portfolio;
@@ -61,6 +62,7 @@ const TradeChart = observer((props: TTradeChartProps) => {
         show_digits_stats,
         symbol,
         onChange,
+        setTickData,
         prev_contract_type,
     } = useTraderStore();
 
@@ -178,13 +180,53 @@ const TradeChart = observer((props: TTradeChartProps) => {
             return () => {};
         }
 
+        const passthrough_callback = (...args: [any]) => {
+            callback(...args);
+            if ('ohlc' in args[0] && granularity !== 0) {
+                const { close, pip_size } = args[0].ohlc as { close: string; pip_size: number };
+                if (close && pip_size) setTickData({ pip_size, quote: Number(close) });
+            }
+            interface AccumulatorBarriersData {
+                current_spot?: number;
+                current_spot_time?: number;
+                tick_update_timestamp?: number;
+                accumulators_high_barrier?: string;
+                accumulators_low_barrier?: string;
+                barrier_spot_distance?: string;
+                previous_spot_time?: number;
+            }
+
+            if (is_accumulator) {
+                let current_spot_data: AccumulatorBarriersData = {};
+
+                if ('tick' in args[0]) {
+                    const { epoch, quote } = args[0].tick as any;
+                    current_spot_data = {
+                        current_spot: quote,
+                        current_spot_time: epoch,
+                    };
+                } else if ('history' in args[0]) {
+                    const { prices, times } = args[0].history as any;
+                    current_spot_data = {
+                        current_spot: prices?.[prices?.length - 1],
+                        current_spot_time: times?.[times?.length - 1],
+                        previous_spot_time: times?.[times?.length - 2],
+                    };
+                } else {
+                    return;
+                }
+
+                updateAccumulatorBarriersData(current_spot_data);
+            }
+        };
+
         return smartChartsAdapter.subscribeQuotes(
             {
                 symbol: params.symbol,
                 granularity: params.granularity as any,
             },
             quote => {
-                callback(quote);
+                passthrough_callback(quote);
             }
         );
     };
