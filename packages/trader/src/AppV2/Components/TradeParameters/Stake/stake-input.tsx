@@ -461,7 +461,11 @@ const StakeInput = observer(({ onClose, is_open }: TStakeInput) => {
                     onAction: onSave,
                 }}
                 isPrimaryButtonDisabled={
-                    is_loading_proposal || !!fe_stake_error || !!(should_show_stake_error && stake_error)
+                    is_loading_proposal ||
+                    !!fe_stake_error ||
+                    !!(should_show_stake_error && stake_error) ||
+                    !proposal_request_values.amount ||
+                    Number(proposal_request_values.amount) === 0
                 }
             />
         </React.Fragment>
