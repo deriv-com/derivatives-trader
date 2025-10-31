@@ -104,7 +104,6 @@ const PayoutPerPointWheel = observer(
                         onAction: onSave,
                     }}
                     shouldCloseOnPrimaryButtonClick={false}
-                    isPrimaryButtonDisabled={!!error || isFetching}
                 />
             </React.Fragment>
         );
