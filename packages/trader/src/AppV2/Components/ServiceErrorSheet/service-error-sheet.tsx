@@ -14,7 +14,7 @@ const ServiceErrorSheet = observer(() => {
     const [is_open, setIsOpen] = useState(false);
     const { common, client } = useStore();
     const { is_virtual, currency } = client;
-    const { services_error, resetServicesError } = common;
+    const { services_error, resetServicesError, current_language } = common;
     const { clearPurchaseInfo, requestProposal: resetPurchase } = useTraderStore();
 
     const { code, type } = services_error || {};
@@ -45,7 +45,8 @@ const ServiceErrorSheet = observer(() => {
                         resetServicesError();
                         if (!is_virtual) {
                             const brandUrl = getBrandUrl();
-                            window.location.href = `${brandUrl}/transfer?acc=options&curr=${currency}&from=home&source=options`;
+                            const lang_param = current_language ? `&lang=${current_language}` : '';
+                            window.location.href = `${brandUrl}/transfer?acc=options&curr=${currency}&from=home&source=options${lang_param}`;
                         } else {
                             onClose();
                         }

@@ -1,13 +1,16 @@
 import React from 'react';
 import { useLocation } from 'react-router';
 import classNames from 'classnames';
+
 import { Text } from '@deriv/components';
-import { getBrandUrl, routes } from '@deriv/shared';
-import { observer } from '@deriv/stores';
-import { Localize } from '@deriv-com/translations';
 import { LegacyHomeNewIcon } from '@deriv/quill-icons';
+import { getBrandUrl, routes } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv-com/translations';
 
 const TradersHubHomeButton = observer(() => {
+    const { common } = useStore();
+    const { current_language } = common;
     const location = useLocation();
     const { pathname } = location;
 
@@ -16,8 +19,9 @@ const TradersHubHomeButton = observer(() => {
         const url_query_string = window.location.search;
         const url_params = new URLSearchParams(url_query_string);
         const account_currency = url_params.get('account') || window.sessionStorage.getItem('account');
+        const lang_param = current_language ? `&lang=${current_language}` : '';
 
-        window.location.href = `${hubUrl}/redirect?action=redirect_to&redirect_to=home${account_currency ? `&account=${account_currency}` : ''}`;
+        window.location.href = `${hubUrl}/redirect?action=redirect_to&redirect_to=home${account_currency ? `&account=${account_currency}` : ''}${lang_param}`;
     };
 
     return (

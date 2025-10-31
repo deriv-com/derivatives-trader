@@ -1,14 +1,17 @@
 import React from 'react';
 
 import { Text } from '@deriv/components';
-import { getBrandHomeUrl } from '@deriv/shared';
-import { observer } from '@deriv/stores';
-import { Localize } from '@deriv-com/translations';
 import { LegacyHomeNewIcon } from '@deriv/quill-icons';
+import { getBrandHomeUrl } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
+import { Localize } from '@deriv-com/translations';
 
 const HomeButton = observer(() => {
+    const { common } = useStore();
+    const { current_language } = common;
+
     const handleHomeRedirect = () => {
-        window.open(getBrandHomeUrl(), '_blank', 'noopener,noreferrer');
+        window.open(getBrandHomeUrl(current_language), '_blank', 'noopener,noreferrer');
     };
 
     return (

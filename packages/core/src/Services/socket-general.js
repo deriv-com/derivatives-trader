@@ -1,4 +1,4 @@
-import { getPropertyValue, getSocketURL, State, mapErrorMessage } from '@deriv/shared';
+import { getPropertyValue, getSocketURL, mapErrorMessage, State } from '@deriv/shared';
 import { localize } from '@deriv-com/translations';
 
 import WS from './ws-methods';
@@ -107,6 +107,7 @@ const BinarySocketGeneral = (() => {
             }
             case 'InvalidToken': {
                 client_store.logout();
+                window.location.reload();
                 break;
             }
             default:

@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-relative-packages
 import config_data from '../../../../../brand.config.json';
+import { appendLangParam } from '../url/helpers';
 
 export const getBrandDomain = () => {
     return config_data.brand_domain;
@@ -31,16 +32,19 @@ export const getBrandUrl = () => {
         : `https://${config_data.brand_hostname.staging}`;
 };
 
-export const getBrandHomeUrl = () => {
-    return `${getBrandUrl()}/home`;
+export const getBrandHomeUrl = (language?: string) => {
+    const baseUrl = `${getBrandUrl()}/home`;
+    return appendLangParam(baseUrl, language);
 };
 
-export const getBrandLoginUrl = () => {
-    return `${getBrandUrl()}/login`;
+export const getBrandLoginUrl = (language?: string) => {
+    const baseUrl = `${getBrandUrl()}/login`;
+    return appendLangParam(baseUrl, language);
 };
 
-export const getBrandSignupUrl = () => {
-    return `${getBrandUrl()}/signup`;
+export const getBrandSignupUrl = (language?: string) => {
+    const baseUrl = `${getBrandUrl()}/signup`;
+    return appendLangParam(baseUrl, language);
 };
 
 export const getPlatformName = () => {
