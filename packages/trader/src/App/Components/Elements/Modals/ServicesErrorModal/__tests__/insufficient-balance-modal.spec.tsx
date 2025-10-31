@@ -119,7 +119,7 @@ describe('<InsufficientBalanceModal />', () => {
         await userEvent.click(button);
 
         expect(window.location.href).toBe(
-            'https://home.deriv.com/dashboard/transfer?acc=options&curr=USD&from=home&source=options'
+            'https://home.deriv.com/dashboard/transfer?acc=options&curr=USD&from=home&source=options&lang=EN'
         );
     });
 });
