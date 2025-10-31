@@ -97,7 +97,7 @@ describe('ServiceErrorSheet', () => {
 
         expect(fileUtils.getBrandUrl).toHaveBeenCalled();
         expect(window.location.href).toBe(
-            'https://home.deriv.com/dashboard/transfer?acc=options&curr=USD&from=home&source=options'
+            'https://home.deriv.com/dashboard/transfer?acc=options&curr=USD&from=home&source=options&lang=EN'
         );
         expect(default_mock_store.common.resetServicesError).toHaveBeenCalled();
     });

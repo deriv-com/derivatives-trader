@@ -142,7 +142,9 @@ const ContractInfo = ({
                     )
                 )}
             </div>
-            {!is_multiplier && !is_accumulator && !isMobile && (
+            {/* TODO: revise this longcode after decision is made */}
+            {/* {!is_multiplier && !is_accumulator && !isMobile && ( */}
+            {is_vanilla && (
                 <Popover
                     alignment='left'
                     icon='info'

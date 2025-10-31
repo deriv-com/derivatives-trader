@@ -167,7 +167,7 @@ const PurchaseFieldset = ({
                                         alignment='left'
                                         is_bubble_hover_enabled
                                         margin={8}
-                                        message={info.message}
+                                        message={info.has_error ? info.message : undefined}
                                         relative_render
                                     >
                                         {purchase_button}

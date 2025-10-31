@@ -2,10 +2,14 @@ import React from 'react';
 
 import { BrandDerivLogoCoralIcon } from '@deriv/quill-icons';
 import { getBrandHomeUrl } from '@deriv/shared';
+import { observer, useStore } from '@deriv/stores';
 
-const BrandShortLogo = () => {
+const BrandShortLogo = observer(() => {
+    const { common } = useStore();
+    const { current_language } = common;
+
     const handleLogoClick = () => {
-        const brandUrl = getBrandHomeUrl();
+        const brandUrl = getBrandHomeUrl(current_language);
         window.location.href = brandUrl;
     };
 
@@ -16,6 +20,6 @@ const BrandShortLogo = () => {
             </div>
         </div>
     );
-};
+});
 
 export default BrandShortLogo;

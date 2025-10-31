@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-relative-packages
 import config_data from '../../../../../brand.config.json';
+import { appendLangParam } from '../url/helpers';
 
 export const getBrandDomain = () => {
     return config_data.brand_domain;
@@ -31,16 +32,19 @@ export const getBrandUrl = () => {
         : `https://${config_data.brand_hostname.staging}`;
 };
 
-export const getBrandHomeUrl = () => {
-    return `${getBrandUrl()}/home`;
+export const getBrandHomeUrl = (language?: string) => {
+    const baseUrl = `${getBrandUrl()}/home`;
+    return appendLangParam(baseUrl, language);
 };
 
-export const getBrandLoginUrl = () => {
-    return `${getBrandUrl()}/login`;
+export const getBrandLoginUrl = (language?: string) => {
+    const baseUrl = `${getBrandUrl()}/login`;
+    return appendLangParam(baseUrl, language);
 };
 
-export const getBrandSignupUrl = () => {
-    return `${getBrandUrl()}/signup`;
+export const getBrandSignupUrl = (language?: string) => {
+    const baseUrl = `${getBrandUrl()}/signup`;
+    return appendLangParam(baseUrl, language);
 };
 
 export const getPlatformName = () => {
@@ -102,4 +106,16 @@ export const getDomainName = () => {
     }
 
     return '';
+};
+
+/**
+ * Gets the WebSocket URL based on environment and account type
+ * @param isProductionEnv - Whether the current environment is production
+ * @param accountType - 'real' or 'demo'
+ * @returns WebSocket server URL
+ */
+export const getWebSocketURL = (isProductionEnv: boolean, accountType: 'real' | 'demo'): string => {
+    return isProductionEnv
+        ? config_data.platform.websocket.production[accountType]
+        : config_data.platform.websocket.staging[accountType];
 };

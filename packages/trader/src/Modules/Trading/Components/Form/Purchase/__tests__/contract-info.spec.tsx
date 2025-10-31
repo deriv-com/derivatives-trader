@@ -55,11 +55,6 @@ jest.mock('@deriv-com/ui', () => ({
 }));
 
 describe('<ContractInfo />', () => {
-    it('should render component with children', () => {
-        render(<ContractInfo {...default_mock_props} />);
-
-        expect(screen.getByText(test_message)).toBeInTheDocument();
-    });
     it('should render specific components if is_multiplier === true', () => {
         (useDevice as jest.Mock).mockReturnValueOnce({ isMobile: true });
         render(<ContractInfo {...default_mock_props} is_multiplier />);
