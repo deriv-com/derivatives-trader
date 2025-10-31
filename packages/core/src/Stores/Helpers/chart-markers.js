@@ -446,14 +446,14 @@ export function calculateMarker(
                     direction: getMarkerDirection(contract_type),
                 });
             }
-        }
-        if (end_time) {
-            markers.push({
-                epoch: end_time,
-                quote: price,
-                type: 'exitTimeCollapsed',
-                direction: getMarkerDirection(contract_type),
-            });
+            if (end_time) {
+                markers.push({
+                    epoch: end_time,
+                    quote: price,
+                    type: 'exitTimeCollapsed',
+                    direction: getMarkerDirection(contract_type),
+                });
+            }
         }
         if (exit_spot_time && exit_spot) {
             markers.push({

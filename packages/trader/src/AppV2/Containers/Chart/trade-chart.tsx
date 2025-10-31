@@ -16,7 +16,7 @@ import { filterByContractType } from 'App/Components/Elements/PositionsDrawer/he
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import useDefaultSymbol from 'AppV2/Hooks/useDefaultSymbol';
 import { SmartChart } from 'Modules/SmartChart';
-import { createSmartChartsChampionAdapter, TGetQuotes } from 'Modules/SmartChart/Adapters';
+import { createSmartChartsChampionAdapter, TGetQuotes, TSubscribeQuotes } from 'Modules/SmartChart/Adapters';
 import AccumulatorsChartElements from 'Modules/SmartChart/Components/Markers/accumulators-chart-elements';
 import ToolbarWidgets from 'Modules/SmartChart/Components/toolbar-widgets';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -61,6 +61,7 @@ const TradeChart = observer(() => {
         markers_array,
         updateChartType,
         updateGranularity,
+        updateAccumulatorBarriersData,
     } = contract_trade;
     const ref = React.useRef<{ hasPredictionIndicators(): void; triggerPopup(arg: () => void): void }>(null);
     const { all_positions, removePositionById: onClickRemove } = portfolio;
@@ -80,6 +81,7 @@ const TradeChart = observer(() => {
         setChartStatus,
         show_digits_stats,
         onChange,
+        setTickData,
         prev_contract_type,
     } = useTraderStore();
     const is_accumulator = isAccumulatorContract(contract_type);
@@ -187,6 +189,62 @@ const TradeChart = observer(() => {
         };
     };
 
+    const subscribeQuotes: TSubscribeQuotes = (params, callback) => {
+        if (!smartChartsAdapter) {
+            return () => {};
+        }
+
+        const passthrough_callback = (...args: [any]) => {
+            callback(...args);
+            if ('ohlc' in args[0] && granularity !== 0) {
+                const { close, pip_size } = args[0].ohlc as { close: string; pip_size: number };
+                if (close && pip_size) setTickData({ pip_size, quote: Number(close) });
+            }
+            interface AccumulatorBarriersData {
+                current_spot?: number;
+                current_spot_time?: number;
+                tick_update_timestamp?: number;
+                accumulators_high_barrier?: string;
+                accumulators_low_barrier?: string;
+                barrier_spot_distance?: string;
+                previous_spot_time?: number;
+            }
+
+            if (is_accumulator) {
+                let current_spot_data: AccumulatorBarriersData = {};
+
+                if ('tick' in args[0]) {
+                    const { epoch, quote } = args[0].tick as any;
+                    current_spot_data = {
+                        current_spot: quote,
+                        current_spot_time: epoch,
+                    };
+                } else if ('history' in args[0]) {
+                    const { prices, times } = args[0].history as any;
+                    current_spot_data = {
+                        current_spot: prices?.[prices?.length - 1],
+                        current_spot_time: times?.[times?.length - 1],
+                        previous_spot_time: times?.[times?.length - 2],
+                    };
+                } else {
+                    return;
+                }
+
+                updateAccumulatorBarriersData(current_spot_data);
+            }
+        };
+
+        return smartChartsAdapter.subscribeQuotes(
+            {
+                symbol: params.symbol,
+                granularity: params.granularity as any,
+            },
+            quote => {
+                passthrough_callback(quote);
+            }
+        );
+    };
+
     const barriers: ChartBarrierStore[] = main_barrier ? [main_barrier, ...extra_barriers] : extra_barriers;
 
     // max ticks to display for mobile view for tick chart
@@ -239,7 +297,7 @@ const TradeChart = observer(() => {
             chartType={chart_type}
             chartData={chartData}
             getQuotes={getQuotes}
-            subscribeQuotes={smartChartsAdapter.subscribeQuotes}
+            subscribeQuotes={subscribeQuotes}
             unsubscribeQuotes={smartChartsAdapter.unsubscribeQuotes}
             getChartData={smartChartsAdapter.getChartData}
             enabledNavigationWidget={!isMobile}
