@@ -1,11 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import { StandalonePauseFillIcon, StandalonePlayFillIcon } from '@deriv/quill-icons';
-import Text from '../text';
-import { formatDurationTime } from '@deriv/shared';
-import VolumeControl from './volume-control';
-import PlaybackRateControl from './playback-rate-control';
 import clsx from 'clsx';
+
+import { StandalonePauseFillIcon, StandalonePlayFillIcon } from '@deriv/quill-icons';
+import { formatDurationTime } from '@deriv/shared';
+
+import Text from '../text';
+
+import PlaybackRateControl from './playback-rate-control';
+import VolumeControl from './volume-control';
 
 type TVideoControls = {
     block_controls?: boolean;
@@ -18,6 +21,7 @@ type TVideoControls = {
     is_playing?: boolean;
     is_mobile?: boolean;
     is_muted?: boolean;
+    is_rtl?: boolean;
     is_v2?: boolean;
     increased_drag_area?: boolean;
     onRewind: (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
@@ -46,6 +50,7 @@ const VideoControls = ({
     is_playing,
     is_mobile,
     is_muted,
+    is_rtl = false,
     is_v2 = false,
     increased_drag_area,
     onRewind,
@@ -117,6 +122,7 @@ const VideoControls = ({
             )}
             <div
                 className={clsx('player__controls__progress-bar', { 'player__controls__progress-bar--v2': is_v2 })}
+                style={{ transform: is_rtl ? 'scaleX(-1)' : 'scaleX(1)' }}
                 onClick={onRewind}
                 onKeyDown={onRewind}
                 onMouseOver={() => setIsDragDotVisible(true)}
