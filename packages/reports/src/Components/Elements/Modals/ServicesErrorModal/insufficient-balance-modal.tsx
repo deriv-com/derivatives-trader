@@ -18,6 +18,7 @@ const InsufficientBalanceModal = observer(
         const {
             ui: { is_mobile },
             client: { currency },
+            common: { current_language },
         } = useStore();
         const { localize } = useTranslations();
         return (
@@ -36,9 +37,9 @@ const InsufficientBalanceModal = observer(
                         text={is_virtual ? localize('OK') : localize('Transfer now')}
                         onClick={() => {
                             if (!is_virtual) {
-                                // Redirect to the brand deposit page
                                 const brandUrl = getBrandUrl();
-                                window.location.href = `${brandUrl}/transfer?acc=options&curr=${currency}&from=home&source=options`;
+                                const lang_param = current_language ? `&lang=${current_language}` : '';
+                                window.location.href = `${brandUrl}/transfer?acc=options&curr=${currency}&from=home&source=options${lang_param}`;
                             } else {
                                 toggleModal();
                             }
