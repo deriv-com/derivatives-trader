@@ -16,7 +16,12 @@ import { filterByContractType } from 'App/Components/Elements/PositionsDrawer/he
 import useActiveSymbols from 'AppV2/Hooks/useActiveSymbols';
 import useDefaultSymbol from 'AppV2/Hooks/useDefaultSymbol';
 import { SmartChart } from 'Modules/SmartChart';
-import { createSmartChartsChampionAdapter, TGetQuotes, TSubscribeQuotes } from 'Modules/SmartChart/Adapters';
+import {
+    createSmartChartsChampionAdapter,
+    TGetQuotes,
+    TGranularity,
+    TSubscribeQuotes,
+} from 'Modules/SmartChart/Adapters';
 import AccumulatorsChartElements from 'Modules/SmartChart/Components/Markers/accumulators-chart-elements';
 import ToolbarWidgets from 'Modules/SmartChart/Components/toolbar-widgets';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -111,10 +116,14 @@ const TradeChart = observer(() => {
     }>({
         activeSymbols: JSON.parse(JSON.stringify(active_symbols)),
     });
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [error, setError] = React.useState<Error | null>(null);
 
     // Fetch chart data including trading times
     React.useEffect(() => {
         const fetchChartData = async () => {
+            setIsLoading(true);
+            setError(null);
             try {
                 const data = await smartChartsAdapter.getChartData();
                 setChartData({
@@ -124,10 +133,31 @@ const TradeChart = observer(() => {
             } catch (error) {
                 // eslint-disable-next-line no-console
                 console.error('Error fetching chart data:', error);
+                setError(error instanceof Error ? error : new Error('Failed to fetch chart data'));
+            } finally {
+                setIsLoading(false);
             }
         };
 
         fetchChartData();
+    }, [smartChartsAdapter]);
+
+    const retryFetchChartData = React.useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const data = await smartChartsAdapter.getChartData();
+            setChartData({
+                activeSymbols: data.activeSymbols,
+                tradingTimes: data.tradingTimes,
+            });
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('Error fetching chart data:', error);
+            setError(error instanceof Error ? error : new Error('Failed to fetch chart data'));
+        } finally {
+            setIsLoading(false);
+        }
     }, [smartChartsAdapter]);
 
     React.useEffect(() => {
@@ -153,15 +183,23 @@ const TradeChart = observer(() => {
             );
     };
 
+    // Type guard for granularity validation
+    const isValidGranularity = (g: number): g is TGranularity => {
+        return [0, 60, 120, 180, 300, 600, 900, 1800, 3600, 7200, 14400, 28800, 86400].includes(g);
+    };
+
     // Create wrapper functions for SmartCharts Champion API
     const getQuotes: TGetQuotes = async params => {
         if (!smartChartsAdapter) {
             throw new Error('Adapter not initialized');
         }
 
+        // Validate granularity with type guard
+        const validatedGranularity = isValidGranularity(params.granularity) ? params.granularity : 0;
+
         const result = await smartChartsAdapter.getQuotes({
             symbol: params.symbol,
-            granularity: params.granularity as any,
+            granularity: validatedGranularity,
             count: params.count,
             start: params.start,
             end: params.end,
@@ -234,10 +272,13 @@ const TradeChart = observer(() => {
             }
         };
 
+        // Validate granularity with type guard
+        const validatedGranularity = isValidGranularity(params.granularity) ? params.granularity : 0;
+
         return smartChartsAdapter.subscribeQuotes(
             {
                 symbol: params.symbol,
-                granularity: params.granularity as any,
+                granularity: validatedGranularity,
             },
             quote => {
                 passthrough_callback(quote);
@@ -282,7 +323,37 @@ const TradeChart = observer(() => {
         });
     }, [closed_positions_ids, onClickRemove]);
 
-    if (!symbol || !active_symbols.length || !chartData || !chartData.tradingTimes) return null;
+    if (!symbol || !active_symbols.length) return null;
+
+    if (isLoading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px' }}>
+                <div>Loading chart data...</div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '400px',
+                    gap: '16px',
+                }}
+            >
+                <div>Error loading chart data: {error.message}</div>
+                <button onClick={retryFetchChartData} style={{ padding: '8px 16px', cursor: 'pointer' }}>
+                    Retry
+                </button>
+            </div>
+        );
+    }
+
+    if (!chartData || !chartData.tradingTimes) return null;
 
     return (
         <SmartChart

@@ -9,6 +9,7 @@ import { SmartChart } from 'Modules/SmartChart';
 import {
     createSmartChartsChampionAdapter,
     TGetQuotes,
+    TGranularity,
     TSubscribeQuotes,
     TUnsubscribeQuotes,
 } from 'Modules/SmartChart/Adapters';
@@ -91,10 +92,14 @@ const TradeChart = observer((props: TTradeChartProps) => {
     }>({
         activeSymbols: JSON.parse(JSON.stringify(active_symbols)),
     });
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [error, setError] = React.useState<Error | null>(null);
 
     // Fetch chart data including trading times
     React.useEffect(() => {
         const fetchChartData = async () => {
+            setIsLoading(true);
+            setError(null);
             try {
                 const data = await smartChartsAdapter.getChartData();
                 setChartData({
@@ -104,10 +109,31 @@ const TradeChart = observer((props: TTradeChartProps) => {
             } catch (error) {
                 // eslint-disable-next-line no-console
                 console.error('Error fetching chart data:', error);
+                setError(error instanceof Error ? error : new Error('Failed to fetch chart data'));
+            } finally {
+                setIsLoading(false);
             }
         };
 
         fetchChartData();
+    }, [smartChartsAdapter]);
+
+    const retryFetchChartData = React.useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const data = await smartChartsAdapter.getChartData();
+            setChartData({
+                activeSymbols: data.activeSymbols,
+                tradingTimes: data.tradingTimes,
+            });
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('Error fetching chart data:', error);
+            setError(error instanceof Error ? error : new Error('Failed to fetch chart data'));
+        } finally {
+            setIsLoading(false);
+        }
     }, [smartChartsAdapter]);
 
     const bottomWidgets = React.useCallback(
@@ -139,15 +165,24 @@ const TradeChart = observer((props: TTradeChartProps) => {
                 has_synthetic_index ? [synthetic_index] : []
             );
     };
+
+    // Type guard for granularity validation
+    const isValidGranularity = (g: number): g is TGranularity => {
+        return [0, 60, 120, 180, 300, 600, 900, 1800, 3600, 7200, 14400, 28800, 86400].includes(g);
+    };
+
     // Create wrapper functions for SmartCharts Champion API
     const getQuotes: TGetQuotes = async params => {
         if (!smartChartsAdapter) {
             throw new Error('Adapter not initialized');
         }
 
+        // Validate granularity with type guard
+        const validatedGranularity = isValidGranularity(params.granularity) ? params.granularity : 0;
+
         const result = await smartChartsAdapter.getQuotes({
             symbol: params.symbol,
-            granularity: params.granularity as any,
+            granularity: validatedGranularity,
             count: params.count,
             start: params.start,
             end: params.end,
@@ -220,10 +255,13 @@ const TradeChart = observer((props: TTradeChartProps) => {
             }
         };
 
+        // Validate granularity with type guard
+        const validatedGranularity = isValidGranularity(params.granularity) ? params.granularity : 0;
+
         return smartChartsAdapter.subscribeQuotes(
             {
                 symbol: params.symbol,
-                granularity: params.granularity as any,
+                granularity: validatedGranularity,
             },
             quote => {
                 passthrough_callback(quote);
@@ -235,9 +273,11 @@ const TradeChart = observer((props: TTradeChartProps) => {
         if (smartChartsAdapter) {
             // If we have request details, use the adapter's unsubscribe method
             if (request?.symbol && typeof request.granularity !== 'undefined') {
+                // Validate granularity with type guard
+                const validatedGranularity = isValidGranularity(request.granularity) ? request.granularity : 0;
                 smartChartsAdapter.unsubscribeQuotes({
                     symbol: request.symbol,
-                    granularity: request.granularity as any,
+                    granularity: validatedGranularity,
                 });
             } else {
                 // Fallback: unsubscribe all via transport
@@ -251,7 +291,37 @@ const TradeChart = observer((props: TTradeChartProps) => {
     // max ticks to display for mobile view for tick chart
     const max_ticks = granularity === 0 ? 8 : 24;
 
-    if (!symbol || !active_symbols.length || !chartData || !chartData.tradingTimes) return null;
+    if (!symbol || !active_symbols.length) return null;
+
+    if (isLoading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px' }}>
+                <div>Loading chart data...</div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '400px',
+                    gap: '16px',
+                }}
+            >
+                <div>Error loading chart data: {error.message}</div>
+                <button onClick={retryFetchChartData} style={{ padding: '8px 16px', cursor: 'pointer' }}>
+                    Retry
+                </button>
+            </div>
+        );
+    }
+
+    if (!chartData || !chartData.tradingTimes) return null;
 
     return (
         <SmartChart

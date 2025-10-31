@@ -301,9 +301,7 @@ export function buildSmartChartsChampionAdapter(
                     // Process all streaming messages for this subscription
                     // The transport layer already filters by subscription ID
                     try {
-                        // transformations.toTQuoteFromStream(response, request.granularity);
-                        // console.log('Stream message received:', response);
-                        const quote = response;
+                        const quote = transformations.toTQuoteFromStream(response, request.granularity);
                         callback(quote);
                     } catch (error) {
                         logger.error('Error transforming stream message:', error);
