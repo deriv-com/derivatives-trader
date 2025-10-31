@@ -1,14 +1,17 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
-import ReactDOM from 'react-dom';
 import React from 'react';
-import 'promise-polyfill';
+import ReactDOM from 'react-dom';
+
+import App from 'App/app.jsx';
+import initStore from 'App/initStore';
+import { AnalyticsInitializer } from 'Utils/Analytics';
 // eslint-disable-next-line
 import registerServiceWorker from 'Utils/PWA';
-import initStore from 'App/initStore';
-import App from 'App/app.jsx';
+
 import AppNotificationMessages from './App/Containers/app-notification-messages.jsx';
-import { AnalyticsInitializer } from 'Utils/Analytics';
+
+import 'promise-polyfill';
 
 AnalyticsInitializer();
 if (
@@ -25,6 +28,7 @@ const initApp = async () => {
 
     const wrapper = document.getElementById('derivatives_trader');
     if (wrapper) {
+        // eslint-disable-next-line react/no-deprecated
         ReactDOM.render(<App root_store={root_store} />, wrapper);
     }
 };
