@@ -16,7 +16,7 @@ const useQuery = <T extends TSocketEndpointNames>(name: T, ...props: TSocketAcce
     const options = prop && 'options' in prop ? (prop.options as TSocketRequestQueryOptions<T>) : undefined;
     const { send } = useAPI();
 
-    return _useQuery<TSocketResponseData<T>, TSocketError<T>>(
+    return _useQuery<TSocketResponseData<T>, TSocketError<T>['error']>(
         getQueryKeys(name, payload),
         () => send(name, payload),
         options

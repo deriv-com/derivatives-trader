@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
+import { useInvalidateQuery } from '@deriv/api';
 import { LabelPairedCalendarSmRegularIcon, LabelPairedClockThreeSmRegularIcon } from '@deriv/quill-icons';
 import { hasIntradayDurationUnit, setTime, toMoment, mapErrorMessage } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
-import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Text, TextField, useSnackbar } from '@deriv-com/quill-ui';
+import { Localize } from '@deriv-com/translations';
 
-import { invalidateDTraderCache, useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
-import {
-    getClosestTimeToCurrentGMT,
-    getDatePickerStartDate,
-    getProposalRequestObject,
-} from 'AppV2/Utils/trade-params-utils';
+import { useProposal } from 'AppV2/Hooks/useProposal';
+import { getClosestTimeToCurrentGMT, getDatePickerStartDate } from 'AppV2/Utils/trade-params-utils';
 import { getBoundaries } from 'Stores/Modules/Trading/Helpers/end-time';
-import { TProposalResponse } from 'Stores/Modules/Trading/trade-store';
 import { useTraderStore } from 'Stores/useTraderStores';
 
 import DaysDatepicker from './datepicker';
@@ -86,47 +82,40 @@ const DayInput = ({
         symbol,
         ...(payout_per_point && { payout_per_point }),
         ...(barrier_value && { barrier: barrier_value }),
+        ...(barrier_1 && !is_turbos && !barrier_value ? { barrier_1: Math.round(tick_data?.quote as number) } : {}),
     };
 
-    const proposal_req = getProposalRequestObject({
-        new_values,
+    const { data: response, error: queryError } = useProposal({
         trade_store,
-        trade_type: Object.keys(trade_types)[0],
+        proposal_request_values: new_values,
+        contract_type: Object.keys(trade_types)[0],
+        is_enabled: trigger_date,
     });
 
-    const { data: response } = useDtraderQuery<TProposalResponse>(
-        ['proposal', JSON.stringify(day), JSON.stringify(payout_per_point), JSON.stringify(barrier_value)],
-        {
-            ...proposal_req,
-            ...(barrier_1 && !is_turbos && !barrier_value ? { barrier: Math.round(tick_data?.quote as number) } : {}),
-        },
-        {
-            enabled: trigger_date,
-        }
-    );
+    const invalidate = useInvalidateQuery();
 
     useEffect(() => {
-        if (response) {
-            if (response?.error?.code === 'ContractBuyValidationError') {
-                const details = response.error.details;
+        if (queryError) {
+            if (queryError?.code === 'ContractBuyValidationError') {
+                const details = queryError.details;
 
-                if (details?.field === 'payout_per_point' && details?.payout_per_point_choices) {
-                    const suggested_payout = details?.payout_per_point_choices[0];
-                    setPayoutPerPoint(suggested_payout);
+                if (details?.field === 'payout_per_point' && Array.isArray(details?.payout_per_point_choices)) {
+                    const suggested_payout = details.payout_per_point_choices[0];
+                    setPayoutPerPoint(suggested_payout as number);
                     setTriggerDate(true);
                     return;
                 }
 
-                if (details?.field === 'barrier' && details?.barrier_choices) {
-                    const suggested_barrier = details?.barrier_choices[0];
-                    setBarrierValue(suggested_barrier);
+                if (details?.field === 'barrier' && Array.isArray(details?.barrier_choices)) {
+                    const suggested_barrier = details.barrier_choices[0];
+                    setBarrierValue(suggested_barrier as string);
                     setTriggerDate(true);
                     return;
                 }
             }
 
-            if (response?.error?.message && response?.error?.details?.field === 'duration') {
-                const mappedMessage = mapErrorMessage(response.error);
+            if (queryError?.message && queryError?.details?.field === 'duration') {
+                const mappedMessage = mapErrorMessage(queryError);
                 addSnackbar({
                     message: <Localize i18n_default_text={mappedMessage} />,
                     status: 'fail',
@@ -134,19 +123,15 @@ const DayInput = ({
                     style: { marginBottom: '48px' },
                 });
                 setIsDisabled(true);
-            } else {
-                setIsDisabled(false);
             }
+        }
 
-            invalidateDTraderCache([
-                'proposal',
-                JSON.stringify(day),
-                JSON.stringify(payout_per_point),
-                JSON.stringify(barrier_value),
-            ]);
+        if (response) {
+            setIsDisabled(false);
+            invalidate('proposal');
             setTriggerDate(false);
         }
-    }, [response, setSelectedExpiryDate]);
+    }, [response, setSelectedExpiryDate, invalidate]);
 
     // Always calculate adjusted_start_time based on TODAY, not the selected expiry_date
     const today_moment = toMoment(server_time);

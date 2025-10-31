@@ -2,13 +2,11 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { Skeleton } from '@deriv/components';
-import { Localize } from '@deriv-com/translations';
 import { ActionSheet, Text, WheelPicker } from '@deriv-com/quill-ui';
+import { Localize } from '@deriv-com/translations';
 
-import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
-import { getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
+import { useProposal } from 'AppV2/Hooks/useProposal';
 import { useTraderStore } from 'Stores/useTraderStores';
-import { TTradeStore } from 'Types';
 
 type TPayoutPerPointWheelProps = {
     barrier?: string | number;
@@ -20,7 +18,6 @@ type TPayoutPerPointWheelProps = {
         value: string;
     }[];
 };
-type TOnProposalResponse = TTradeStore['onProposalResponse'];
 
 const PayoutPerPointWheel = observer(
     ({
@@ -41,25 +38,18 @@ const PayoutPerPointWheel = observer(
         const is_api_response_received_ref = React.useRef(false);
 
         const new_values = { payout_per_point: String(value) };
-        const proposal_req = getProposalRequestObject({
-            new_values,
-            trade_store,
-            trade_type: Object.keys(trade_types)[0],
-        });
+
         // Sending proposal without subscription to get a new barrier value
-        const { data: response } = useDtraderQuery<Parameters<TOnProposalResponse>[0]>(
-            [
-                'proposal',
-                ...Object.entries(new_values).flat().join('-'),
-                `${barrier}`,
-                Object.keys(trade_types)[0],
-                JSON.stringify(proposal_req),
-            ],
-            proposal_req,
-            {
-                enabled: is_open,
-            }
-        );
+        const {
+            data: response,
+            error,
+            isFetching,
+        } = useProposal({
+            trade_store,
+            proposal_request_values: new_values,
+            contract_type: Object.keys(trade_types)[0],
+            is_enabled: is_open,
+        });
 
         const onChange = (new_value: string | number) => {
             // If a new value is equal to previous one, then we won't send API request
@@ -78,16 +68,14 @@ const PayoutPerPointWheel = observer(
         };
 
         React.useEffect(() => {
-            const onProposalResponse: TOnProposalResponse = response => {
-                const { error, proposal } = response;
+            if (response) {
+                const { proposal } = response;
                 const { barrier_spot_distance } = proposal ?? {};
                 // Currently we are not handling errors
-                if (barrier_spot_distance && !error) setDisplayedBarrierValue(barrier_spot_distance);
+                if (barrier_spot_distance) setDisplayedBarrierValue(barrier_spot_distance);
 
                 is_api_response_received_ref.current = true;
-            };
-
-            if (response) onProposalResponse(response);
+            }
         }, [response]);
 
         return (
@@ -101,7 +89,11 @@ const PayoutPerPointWheel = observer(
                             <Localize i18n_default_text='Barrier' />
                         </Text>
                         <Text size='sm' as='div' className='payout-per-point__barrier__content'>
-                            {displayed_barrier_value ?? <Skeleton width={90} height={14} />}
+                            {!displayed_barrier_value || error || isFetching ? (
+                                <Skeleton width={90} height={14} />
+                            ) : (
+                                displayed_barrier_value
+                            )}
                         </Text>
                     </div>
                 </ActionSheet.Content>

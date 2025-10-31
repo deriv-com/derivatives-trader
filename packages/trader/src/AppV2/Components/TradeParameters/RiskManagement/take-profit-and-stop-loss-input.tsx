@@ -6,10 +6,10 @@ import { getCurrencyDisplayCode, getDecimalPlaces, mapErrorMessage } from '@deri
 import { ActionSheet, CaptionText, Text, TextFieldWithSteppers, ToggleSwitch } from '@deriv-com/quill-ui';
 import { Localize, useTranslations } from '@deriv-com/translations';
 
-import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
 import useIsVirtualKeyboardOpen from 'AppV2/Hooks/useIsVirtualKeyboardOpen';
+import { useProposal } from 'AppV2/Hooks/useProposal';
 import useTradeError from 'AppV2/Hooks/useTradeError';
-import { focusAndOpenKeyboard, getProposalRequestObject } from 'AppV2/Utils/trade-params-utils';
+import { focusAndOpenKeyboard } from 'AppV2/Utils/trade-params-utils';
 import { getDisplayedContractTypes } from 'AppV2/Utils/trade-types-utils';
 import { ExpandedProposal } from 'Stores/Modules/Trading/Helpers/proposal';
 import { useTraderStore } from 'Stores/useTraderStores';
@@ -98,32 +98,14 @@ const TakeProfitAndStopLossInput = ({
             : { stop_loss: is_enabled ? new_input_value : '' }),
     };
 
-    const proposal_req = getProposalRequestObject({
-        new_values,
+    const { data: response, error: queryError } = useProposal({
         trade_store,
-        trade_type: Object.keys(trade_types)[0],
+        proposal_request_values: new_values,
+        contract_type: Object.keys(trade_types)[0],
+        is_enabled,
+        // Exclude the opposite field when validating tp/sl independently
+        should_skip_validation: is_take_profit_input ? 'stop_loss' : 'take_profit',
     });
-
-    // We need to exclude tp in case if type === sl and vise versa in limit order to validate them independently
-    if (is_take_profit_input && proposal_req.limit_order?.stop_loss) {
-        delete proposal_req.limit_order.stop_loss;
-    }
-    if (!is_take_profit_input && proposal_req.limit_order?.take_profit) {
-        delete proposal_req.limit_order.take_profit;
-    }
-
-    const { data: response } = useDtraderQuery<Parameters<TOnProposalResponse>[0]>(
-        [
-            'proposal',
-            ...Object.entries(new_values).flat().join('-'),
-            Object.keys(trade_types)[0],
-            JSON.stringify(proposal_req),
-        ],
-        proposal_req,
-        {
-            enabled: is_enabled,
-        }
-    );
 
     const input_message =
         info.min_value && info.max_value ? (
@@ -161,15 +143,25 @@ const TakeProfitAndStopLossInput = ({
     };
 
     React.useEffect(() => {
-        const onProposalResponse: TOnProposalResponse = response => {
-            const { error, proposal } = response;
-
-            const new_error = error ? mapErrorMessage(error) : '';
-            const is_error_field_match = error?.details?.field === type || !error?.details?.field;
+        if (queryError) {
+            const new_error = queryError ? mapErrorMessage(queryError) : '';
+            const is_error_field_match = queryError?.details?.field === type || !queryError?.details?.field;
             setErrorText(is_error_field_match ? new_error : '');
             updateParentRef({
                 field_name: is_take_profit_input ? 'tp_error_text' : 'sl_error_text',
                 new_value: is_error_field_match ? new_error : '',
+            });
+            is_api_response_received_ref.current = true;
+        }
+
+        if (response) {
+            const { proposal } = response;
+
+            // Clear errors on successful response
+            setErrorText('');
+            updateParentRef({
+                field_name: is_take_profit_input ? 'tp_error_text' : 'sl_error_text',
+                new_value: '',
             });
 
             // Recovery for min and max allowed values in case of error
@@ -182,10 +174,8 @@ const TakeProfitAndStopLossInput = ({
                 );
             }
             is_api_response_received_ref.current = true;
-        };
-
-        if (response) onProposalResponse(response);
-    }, [is_enabled, response]);
+        }
+    }, [is_enabled, response, queryError]);
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = String(e.target.value);

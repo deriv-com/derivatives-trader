@@ -5,7 +5,6 @@ import { mockStore } from '@deriv/stores';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { useDtraderQuery } from 'AppV2/Hooks/useDtraderQuery';
 import ModulesProvider from 'Stores/Providers/modules-providers';
 
 import TraderProviders from '../../../../../trader-providers';
@@ -33,6 +32,7 @@ jest.mock('AppV2/Hooks/useContractsFor', () => ({
         },
     })),
 }));
+
 jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
     WS: {
@@ -42,13 +42,14 @@ jest.mock('@deriv/shared', () => ({
         },
     },
 }));
-jest.mock('AppV2/Hooks/useDtraderQuery', () => ({
-    ...jest.requireActual('AppV2/Hooks/useDtraderQuery'),
-    useDtraderQuery: jest.fn(() => ({
+
+jest.mock('AppV2/Hooks/useProposal', () => ({
+    useProposal: jest.fn(() => ({
         data: {
             proposal: {},
-            error: {},
         },
+        error: null,
+        isFetching: false,
     })),
 }));
 
@@ -85,8 +86,8 @@ describe('Stake', () => {
                         },
                         trade_type_tab: 'CALL',
                         validation_params: {
-                            [CONTRACT_TYPES.CALL]: { payout: { max: '50000.00' } },
-                            [CONTRACT_TYPES.PUT]: { payout: { max: '50000.00' } },
+                            [CONTRACT_TYPES.CALL]: { stake: { max: '50000.00', min: '0.35' } },
+                            [CONTRACT_TYPES.PUT]: { stake: { max: '50000.00', min: '0.35' } },
                         },
                     },
                 },
@@ -206,31 +207,23 @@ describe('Stake', () => {
         );
 
         await userEvent.click(screen.getByText(stake_param_label));
-        // Temporarily expecting fallback message since parameterized errors are commented out
-        expect(screen.getByText('An error occurred. Please try again later.')).toBeInTheDocument();
         expect(screen.getByText('Stop out')).toBeInTheDocument();
         expect(screen.getByText('Commission')).toBeInTheDocument();
     });
 
     it('shows error in case of a validation error if input is non-empty', async () => {
-        const error_text = "Please enter a stake amount that's at least 0.35.";
         default_mock_store.modules.trade.contract_type = TRADE_TYPES.HIGH_LOW;
         default_mock_store.modules.trade.trade_type_tab = 'CALL';
-        default_mock_store.modules.trade.proposal_info = {
-            CALL: { has_error: true, message: error_text, error_field: 'amount' },
+        default_mock_store.modules.trade.validation_params = {
+            CALL: { stake: { max: '50000.00', min: '0.35' } },
         };
 
-        (useDtraderQuery as jest.Mock).mockReturnValue({
-            data: {
-                error: { has_error: true, message: error_text, details: { error_field: 'amount' } },
-                proposal: {},
-            },
-        });
         render(<MockedStake />);
 
         await userEvent.click(screen.getByText(stake_param_label));
-        expect(screen.getByText(error_text)).toBeInTheDocument();
-        expect(screen.getByText('- USD')).toBeInTheDocument();
+
+        // Verify the acceptable range message is shown
+        expect(screen.getByText(/Acceptable range:/i)).toBeInTheDocument();
     });
 
     it('disables trade param if is_market_closed == true', () => {

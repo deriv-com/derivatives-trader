@@ -13,7 +13,21 @@ jest.mock('@deriv/shared', () => ({
     ...jest.requireActual('@deriv/shared'),
     WS: {
         forget: jest.fn(),
+        send: jest.fn(),
+        authorized: {
+            send: jest.fn(),
+        },
     },
+}));
+
+jest.mock('AppV2/Hooks/useProposal', () => ({
+    useProposal: jest.fn(() => ({
+        data: {
+            proposal: {},
+        },
+        error: null,
+        isFetching: false,
+    })),
 }));
 
 describe('TakeProfitAndStopLossContainer', () => {

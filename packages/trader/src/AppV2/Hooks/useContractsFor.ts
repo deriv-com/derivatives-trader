@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
+import { useQuery } from '@deriv/api';
 import { cloneObject, getContractCategoriesConfig, getContractTypesConfig, setTradeURLParams } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 
@@ -8,24 +9,6 @@ import { getTradeTypesList } from 'AppV2/Utils/trade-types-utils';
 import { TContractType } from 'Modules/Trading/Components/Form/ContractType/types';
 import { useTraderStore } from 'Stores/useTraderStores';
 import { TConfig, TContractTypesList } from 'Types';
-
-import { useDtraderQuery } from './useDtraderQuery';
-
-type TContractsForResponse = {
-    contracts_for: {
-        available: {
-            contract_category: string;
-            contract_type: string;
-            default_stake: number;
-            sentiment: string;
-            underlying_symbol?: string; // New field (symbol → underlying_symbol)
-            barrier?: string;
-            barriers?: number;
-            exchange_name?: string;
-        }[];
-        hit_count: number;
-    };
-};
 
 const useContractsFor = () => {
     const [contract_types_list, setContractTypesList] = React.useState<TContractTypesList | []>([]);
@@ -69,16 +52,15 @@ const useContractsFor = () => {
     const {
         data: response,
         error,
-        is_fetching,
-    } = useDtraderQuery<TContractsForResponse>(
-        ['contracts_for', loginid ?? '', underlying_symbol],
-        {
+        isLoading,
+    } = useQuery('contracts_for', {
+        payload: {
             contracts_for: underlying_symbol, // Use underlying_symbol from active_symbols lookup
         },
-        {
+        options: {
             enabled: isQueryEnabled(),
-        }
-    );
+        },
+    });
 
     const contract_categories = getContractCategoriesConfig();
     const available_categories = cloneObject(contract_categories);
@@ -87,7 +69,7 @@ const useContractsFor = () => {
         ReturnType<typeof getContractTypesConfig> | undefined
     >();
 
-    const is_fetching_ref = useRef(is_fetching);
+    const is_fetching_ref = useRef(isLoading);
 
     const isContractTypeAvailable = useCallback(
         (trade_types: TContractType[]) => {
@@ -140,7 +122,7 @@ const useContractsFor = () => {
         try {
             const { contracts_for } = response || {};
             const available_contract_types: ReturnType<typeof getContractTypesConfig> = {};
-            is_fetching_ref.current = false;
+            is_fetching_ref.current = isLoading;
 
             if (!error && contracts_for?.available.length) {
                 contracts_for.available.forEach(contract => {

@@ -43,6 +43,11 @@ jest.mock('@deriv/shared', () => ({
     })),
 }));
 
+jest.mock('../day', () => ({
+    __esModule: true,
+    default: jest.fn(() => <div>Mocked DayInput</div>),
+}));
+
 describe('Duration', () => {
     let default_trade_store: TCoreStores, mockOnChangeMultiple: jest.Mock;
 

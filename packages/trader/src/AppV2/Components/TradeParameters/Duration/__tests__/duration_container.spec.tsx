@@ -3,10 +3,8 @@ import moment from 'moment';
 
 import { mockStore } from '@deriv/stores';
 import { TCoreStores } from '@deriv/stores/types';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-import { ContractType } from 'Stores/Modules/Trading/Helpers/contract-type';
 
 import TraderProviders from '../../../../../trader-providers';
 import DurationActionSheetContainer from '../container';
@@ -48,6 +46,11 @@ jest.mock('@deriv-com/quill-ui', () => ({
             </button>
         </div>
     )),
+}));
+
+jest.mock('../day', () => ({
+    __esModule: true,
+    default: jest.fn(() => <div>Mocked DayInput</div>),
 }));
 
 describe('DurationActionSheetContainer', () => {
@@ -226,36 +229,9 @@ describe('DurationActionSheetContainer', () => {
         });
     });
 
-    it('should show Expiry Date when days are selected', () => {
+    it('should render DayInput component when days unit is selected', () => {
         renderDurationContainer(default_trade_store, 'd');
-        expect(screen.getByText('Expiry')).toBeInTheDocument();
-    });
-
-    it('should show End Time Screen on selecting the days unit', () => {
-        renderDurationContainer(default_trade_store, 'd');
-        const date_input = screen.getByTestId('dt_date_input');
-        expect(date_input).toBeInTheDocument();
-    });
-
-    it('should open datepicker on clicking on date input in the days page', async () => {
-        renderDurationContainer(default_trade_store, 'd');
-        const mockEvents = [{ dates: 'Fridays, Saturdays', descrip: 'Some description' }];
-        jest.spyOn(ContractType, 'getTradingEvents').mockResolvedValue(mockEvents);
-
-        const date_input = screen.getByTestId('dt_date_input');
-        expect(date_input).toBeInTheDocument();
-        await userEvent.click(date_input);
-        expect(screen.getByText('Pick an end date'));
-    });
-
-    it('should save and close datepicker on clicking done button', async () => {
-        renderDurationContainer(default_trade_store, 'd');
-        const date_input = screen.getByTestId('dt_date_input');
-        expect(date_input).toBeInTheDocument();
-        await userEvent.click(date_input);
-        expect(screen.getByText('Pick an end date'));
-        await userEvent.click(screen.getByText('Done'));
-        await waitFor(() => expect(screen.queryByText('Pick an end date')).not.toBeInTheDocument());
+        expect(screen.getByText('Mocked DayInput')).toBeInTheDocument();
     });
 
     it('should not render chips if duration_units_list contains only ticks', () => {

@@ -453,15 +453,15 @@ export type TSocketRequestPayload<
           };
 
 export type TSocketRequestQueryOptions<T extends TSocketEndpointNames> = Parameters<
-    typeof useQuery<TSocketResponseData<T>, TSocketError<T>>
+    typeof useQuery<TSocketResponseData<T>, TSocketError<T>['error']>
 >[2];
 
 export type TSocketRequestInfiniteQueryOptions<T extends TSocketEndpointNames> = Parameters<
-    typeof useInfiniteQuery<TSocketResponseData<T>, TSocketError<T>>
+    typeof useInfiniteQuery<TSocketResponseData<T>, TSocketError<T>['error']>
 >[2];
 
 export type TSocketRequestMutationOptions<T extends TSocketEndpointNames> = Parameters<
-    typeof useMutation<TSocketResponseData<T>, TSocketError<T>, TSocketAcceptableProps<T>>
+    typeof useMutation<TSocketResponseData<T>, TSocketError<T>['error'], TSocketAcceptableProps<T>>
 >[2];
 
 type TSocketRequestWithOptions<
